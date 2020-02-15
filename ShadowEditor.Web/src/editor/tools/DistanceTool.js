@@ -102,8 +102,8 @@ class DistanceTool extends BaseTool {
 
         for (let i = 3; i < this.positions.length; i += 3) {
             dist += Math.sqrt(
-                (this.positions[i] - this.positions[i - 3]) ** 2,
-                (this.positions[i + 1] - this.positions[i - 2]) ** 2,
+                (this.positions[i] - this.positions[i - 3]) ** 2 +
+                (this.positions[i + 1] - this.positions[i - 2]) ** 2 +
                 (this.positions[i + 2] - this.positions[i - 1]) ** 2
             );
         }

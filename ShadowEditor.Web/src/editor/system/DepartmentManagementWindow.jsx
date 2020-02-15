@@ -1,5 +1,5 @@
 import './css/DepartmentManagementWindow.css';
-import { Window, Content, Toolbar, Button, ToolbarFiller, Input, HBoxLayout, Tree, Form, FormControl, Label, IconButton } from '../../third_party';
+import { Window, Content, Toolbar, Button, ToolbarFiller, Input, HBoxLayout, Tree, Form, FormControl, Label } from '../../third_party';
 import EditDeptWindow from './dept/EditDeptWindow.jsx';
 import SelectUserWindow from './user/SelectUserWindow.jsx';
 
@@ -192,7 +192,7 @@ class DepartmentManagementWindow extends React.Component {
                     app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
-                this.handleRefresh(obj.Data);
+                this.handleRefresh();
             });
         });
     }

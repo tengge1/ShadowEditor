@@ -81,7 +81,7 @@ class FreeControls extends BaseControls {
 
     }
 
-    pan() {
+    pan(dx1, dy1) { // eslint-disable-line
         // this.screenPosition.copy(this.pickPosition)
         //     .applyMatrix4(this.camera.matrixWorldInverse)
         //     .applyMatrix4(this.camera.projectionMatrix);

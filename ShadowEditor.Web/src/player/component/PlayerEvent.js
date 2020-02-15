@@ -21,6 +21,7 @@ PlayerEvent.prototype.create = function (scene, camera, renderer, scripts) {
 
     this.events = Object.keys(scripts).map(uuid => {
         var script = scripts[uuid];
+        // TODO: 存在安全风险。
         return new Function(
             'app',
             'scene',
