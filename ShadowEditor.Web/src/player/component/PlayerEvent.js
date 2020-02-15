@@ -21,7 +21,7 @@ PlayerEvent.prototype.create = function (scene, camera, renderer, scripts) {
 
     this.events = Object.keys(scripts).map(uuid => {
         var script = scripts[uuid];
-        return (new Function(
+        return new Function(
             'app',
             'scene',
             'camera',
@@ -42,35 +42,35 @@ PlayerEvent.prototype.create = function (scene, camera, renderer, scripts) {
             var onResize = onResize || null;
             return { init, start, update, stop, onClick, onDblClick, onKeyDown, onKeyUp, onMouseDown, onMouseMove, onMouseUp, onMouseWheel, onResize };
             `
-        )).call(scene, this.app, scene, camera, renderer);
+        ).call(scene, this.app, scene, camera, renderer);
     });
 
     this.events.forEach(n => {
-        if (typeof (n.onClick) === 'function') {
+        if (typeof n.onClick === 'function') {
             dom.addEventListener('click', n.onClick.bind(this.scene));
         }
-        if (typeof (n.onDblClick) === 'function') {
+        if (typeof n.onDblClick === 'function') {
             dom.addEventListener('dblclick', n.onDblClick.bind(this.scene));
         }
-        if (typeof (n.onKeyDown) === 'function') {
+        if (typeof n.onKeyDown === 'function') {
             dom.addEventListener('keydown', n.onKeyDown.bind(this.scene));
         }
-        if (typeof (n.onKeyUp) === 'function') {
+        if (typeof n.onKeyUp === 'function') {
             dom.addEventListener('keyup', n.onKeyUp.bind(this.scene));
         }
-        if (typeof (n.onMouseDown) === 'function') {
+        if (typeof n.onMouseDown === 'function') {
             dom.addEventListener('mousedown', n.onMouseDown.bind(this.scene));
         }
-        if (typeof (n.onMouseMove) === 'function') {
+        if (typeof n.onMouseMove === 'function') {
             dom.addEventListener('mousemove', n.onMouseMove.bind(this.scene));
         }
-        if (typeof (n.onMouseUp) === 'function') {
+        if (typeof n.onMouseUp === 'function') {
             dom.addEventListener('mouseup', n.onMouseUp.bind(this.scene));
         }
-        if (typeof (n.onMouseWheel) === 'function') {
+        if (typeof n.onMouseWheel === 'function') {
             dom.addEventListener('mousewheel', n.onMouseWheel.bind(this.scene));
         }
-        if (typeof (n.onResize) === 'function') {
+        if (typeof n.onResize === 'function') {
             window.addEventListener('resize', n.onResize.bind(this.scene));
         }
     });
@@ -85,7 +85,7 @@ PlayerEvent.prototype.create = function (scene, camera, renderer, scripts) {
  */
 PlayerEvent.prototype.init = function () {
     this.events.forEach(n => {
-        if (typeof (n.init) === 'function') {
+        if (typeof n.init === 'function') {
             n.init();
         }
     });
@@ -96,7 +96,7 @@ PlayerEvent.prototype.init = function () {
  */
 PlayerEvent.prototype.start = function () {
     this.events.forEach(n => {
-        if (typeof (n.start) === 'function') {
+        if (typeof n.start === 'function') {
             n.start();
         }
     });
@@ -104,12 +104,12 @@ PlayerEvent.prototype.start = function () {
 
 /**
  * 运行期间每帧都要执行
- * @param {*} clock 
- * @param {*} deltaTime 
+ * @param {THREE.Clock} clock 时钟
+ * @param {Number} deltaTime 间隔时间
  */
 PlayerEvent.prototype.update = function (clock, deltaTime) {
     this.events.forEach(n => {
-        if (typeof (n.update) === 'function') {
+        if (typeof n.update === 'function') {
             n.update(clock, deltaTime);
         }
     });
@@ -120,7 +120,7 @@ PlayerEvent.prototype.update = function (clock, deltaTime) {
  */
 PlayerEvent.prototype.stop = function () {
     this.events.forEach(n => {
-        if (typeof (n.stop) === 'function') {
+        if (typeof n.stop === 'function') {
             n.stop();
         }
     });
@@ -133,31 +133,31 @@ PlayerEvent.prototype.dispose = function () {
     var dom = this.renderer.domElement;
 
     this.events.forEach(n => {
-        if (typeof (n.onClick) === 'function') {
+        if (typeof n.onClick === 'function') {
             dom.removeEventListener('click', n.onClick.bind(this.scene));
         }
-        if (typeof (n.onDblClick) === 'function') {
+        if (typeof n.onDblClick === 'function') {
             dom.removeEventListener('dblclick', n.onDblClick.bind(this.scene));
         }
-        if (typeof (n.onKeyDown) === 'function') {
+        if (typeof n.onKeyDown === 'function') {
             dom.removeEventListener('keydown', n.onKeyDown.bind(this.scene));
         }
-        if (typeof (n.onKeyUp) === 'function') {
+        if (typeof n.onKeyUp === 'function') {
             dom.removeEventListener('keyup', n.onKeyUp.bind(this.scene));
         }
-        if (typeof (n.onMouseDown) === 'function') {
+        if (typeof n.onMouseDown === 'function') {
             dom.removeEventListener('mousedown', n.onMouseDown.bind(this.scene));
         }
-        if (typeof (n.onMouseMove) === 'function') {
+        if (typeof n.onMouseMove === 'function') {
             dom.removeEventListener('mousemove', n.onMouseMove.bind(this.scene));
         }
-        if (typeof (n.onMouseUp) === 'function') {
+        if (typeof n.onMouseUp === 'function') {
             dom.removeEventListener('mouseup', n.onMouseUp.bind(this.scene));
         }
-        if (typeof (n.onMouseWheel) === 'function') {
+        if (typeof n.onMouseWheel === 'function') {
             dom.removeEventListener('mousewheel', n.onMouseWheel.bind(this.scene));
         }
-        if (typeof (n.onResize) === 'function') {
+        if (typeof n.onResize === 'function') {
             window.removeEventListener('resize', n.onResize.bind(this.scene));
         }
     });

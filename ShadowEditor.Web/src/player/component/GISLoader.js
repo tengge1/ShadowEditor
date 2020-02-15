@@ -1,5 +1,4 @@
 import PlayerComponent from './PlayerComponent';
-import Converter from '../../serialization/Converter';
 
 /**
  * 播放器下载事件
@@ -12,7 +11,7 @@ function GISLoader(app) {
 GISLoader.prototype = Object.create(PlayerComponent.prototype);
 GISLoader.prototype.constructor = GISLoader;
 
-GISLoader.prototype.create = function (jsons) {
+GISLoader.prototype.create = function (jsons) { // eslint-disable-line
     
 };
 

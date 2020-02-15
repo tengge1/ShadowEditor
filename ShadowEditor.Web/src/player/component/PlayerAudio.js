@@ -13,7 +13,7 @@ function PlayerAudio(app) {
 PlayerAudio.prototype = Object.create(PlayerComponent.prototype);
 PlayerAudio.prototype.constructor = PlayerAudio;
 
-PlayerAudio.prototype.create = function (scene, camera, renderer) {
+PlayerAudio.prototype.create = function (scene, camera, renderer) { // eslint-disable-line
     this.audios.length = 0;
 
     scene.traverse(n => {

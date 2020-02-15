@@ -31,13 +31,13 @@ TweenAnimator.prototype.update = function (clock, deltaTime, time) {
 
 TweenAnimator.prototype.tweenObject = function (animation, time) {
     // 条件判断
-    if (animation.type !== 'Tween' || time < animation.beginTime || time > animation.endTime || animation.target == null) {
+    if (animation.type !== 'Tween' || time < animation.beginTime || time > animation.endTime || !animation.target) {
         return;
     }
 
     // 获取对象
     var target = this.scene.getObjectByProperty('uuid', animation.target);
-    if (target == null) {
+    if (!target) {
         console.warn(`Player: There is no object that uuid equals to ${animation.target}.`);
         return;
     }
@@ -46,7 +46,7 @@ TweenAnimator.prototype.tweenObject = function (animation, time) {
     var data = animation.data;
 
     var ease = Ease[data.ease];
-    if (ease == null) {
+    if (!ease) {
         console.warn(`Player: There is no ease function named ${data.ease}.`);
         return;
     }

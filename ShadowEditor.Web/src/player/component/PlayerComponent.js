@@ -2,21 +2,22 @@ var ID = -1;
 
 /**
  * 播放器组件
- * @param {*} app 播放器
+ * @param {Shadow.Player} app 播放器
  */
 function PlayerComponent(app) {
-    this.id = `${this.constructor.name}${ID--}`
+    this.id = `${this.constructor.name}${ID--}`;
     this.app = app;
 }
 
 /**
  * 创建
- * @param {*} scene 
- * @param {*} camera 
- * @param {*} renderer 
- * @param {*} others 
+ * @param {THREE.Scene} scene 场景
+ * @param {THREE.PersPectiveCamera} camera 透视相机
+ * @param {THREE.WebGLRenderer} renderer 渲染器
+ * @param {Object} others 其他参数
+ * @returns {Promise} 任务Promise
  */
-PlayerComponent.prototype.create = function (scene, camera, renderer, others) {
+PlayerComponent.prototype.create = function (scene, camera, renderer, others) { // eslint-disable-line
     return new Promise(resolve => {
         resolve();
     });
@@ -24,21 +25,21 @@ PlayerComponent.prototype.create = function (scene, camera, renderer, others) {
 
 /**
  * 更新
- * @param {*} clock 
- * @param {*} deltaTime 
+ * @param {THREE.Clock} clock 时钟
+ * @param {Number} deltaTime 间隔时间
  */
-PlayerComponent.prototype.update = function (clock, deltaTime) {
+PlayerComponent.prototype.update = function (clock, deltaTime) { // eslint-disable-line
 
 };
 
 /**
  * 析构
- * @param {*} scene 
- * @param {*} camera 
- * @param {*} renderer 
- * @param {*} others 
+ * @param {THREE.Scene} scene 场景
+ * @param {THREE.PersPectiveCamera} camera 透视相机
+ * @param {THREE.WebGLRenderer} renderer 渲染器
+ * @param {Object} others 其他参数
  */
-PlayerComponent.prototype.dispose = function (scene, camera, renderer, others) {
+PlayerComponent.prototype.dispose = function (scene, camera, renderer, others) { // eslint-disable-line
 
 };
 

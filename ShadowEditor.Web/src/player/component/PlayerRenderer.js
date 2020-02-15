@@ -17,7 +17,7 @@ PlayerRenderer.prototype.create = function (scene, camera, renderer) {
     return this.renderer.create(scene, camera, renderer);
 };
 
-PlayerRenderer.prototype.update = function (clock, deltaTime) {
+PlayerRenderer.prototype.update = function (clock, deltaTime) { // eslint-disable-line
     this.renderer.render();
 };
 

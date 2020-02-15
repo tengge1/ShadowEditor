@@ -11,7 +11,7 @@ function ParticleAnimator(app) {
 ParticleAnimator.prototype = Object.create(PlayerComponent.prototype);
 ParticleAnimator.prototype.constructor = ParticleAnimator;
 
-ParticleAnimator.prototype.create = function (scene, camera, renderer) {
+ParticleAnimator.prototype.create = function (scene, camera, renderer) { // eslint-disable-line
     this.scene = scene;
 
     return new Promise(resolve => {
@@ -19,7 +19,7 @@ ParticleAnimator.prototype.create = function (scene, camera, renderer) {
     });
 };
 
-ParticleAnimator.prototype.update = function (clock, deltaTime, time) {
+ParticleAnimator.prototype.update = function (clock, deltaTime, time) { // eslint-disable-line
     var elapsed = clock.getElapsedTime();
 
     this.scene.children.forEach(n => {
