@@ -16,11 +16,11 @@ ViewHelper.prototype.constructor = ViewHelper;
 ViewHelper.prototype.start = function () {
     this.scene = new THREE.Scene();
 
-    let show = app.storage.get('showViewHelper');
+    let show = app.storage.showViewHelper;
 
     if (show === undefined) {
         show = true;
-        app.storage.set('showViewHelper', true);
+        app.storage.showViewHelper = true;
     }
 
     this.show = show;

@@ -35,7 +35,7 @@ DirectionalLightHelpers.prototype.onObjectAdded = function (object) {
 
     var helper = new VolumeDirectionalLightHelper(object, 1);
 
-    helper.visible = app.storage.get('showDirectionalLight');
+    helper.visible = app.storage.showDirectionalLight;
     
     this.helpers.push(helper);
 

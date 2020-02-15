@@ -35,7 +35,7 @@ SpotLightHelpers.prototype.onObjectAdded = function (object) {
 
     var helper = new VolumeSpotLightHelper(object, 0xffffff);
 
-    helper.visible = app.storage.get('showSpotLight');
+    helper.visible = app.storage.showSpotLight;
 
     this.helpers.push(helper);
 

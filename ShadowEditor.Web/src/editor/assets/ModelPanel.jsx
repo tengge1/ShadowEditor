@@ -145,7 +145,7 @@ class ModelPanel extends React.Component {
                 Server: true
             });
 
-            if (app.storage.get('addMode') === 'click') {
+            if (app.storage.addMode === 'click') {
                 this.clickSceneToAdd(obj);
             } else {
                 this.addToCenter(obj);

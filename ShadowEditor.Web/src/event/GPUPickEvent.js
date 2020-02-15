@@ -35,7 +35,7 @@ GPUPickEvent.prototype.start = function () {
     app.on(`resize.${this.id}`, this.onResize);
     app.on(`storageChanged.${this.id}`, this.onStorageChanged);
 
-    this.selectMode = app.storage.get('selectMode');
+    this.selectMode = app.storage.selectMode;
 };
 
 GPUPickEvent.prototype.stop = function () {

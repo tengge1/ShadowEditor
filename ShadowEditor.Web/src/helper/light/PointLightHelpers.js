@@ -35,7 +35,7 @@ PointLightHelpers.prototype.onObjectAdded = function (object) {
 
     var helper = new VolumePointLightHelper(object, 1);
 
-    helper.visible = app.storage.get('showPointLight');
+    helper.visible = app.storage.showPointLight;
 
     this.helpers.push(helper);
 

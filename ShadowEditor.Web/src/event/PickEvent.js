@@ -69,7 +69,7 @@ PickEvent.prototype.handleClick = function () {
     let editor = app.editor;
     let objects = editor.objects;
 
-    const selectMode = app.storage.get('selectMode');
+    const selectMode = app.storage.selectMode;
 
     if (this.onDownPosition.distanceTo(this.onUpPosition) === 0) {
         let intersects = this.getIntersects(this.onUpPosition, objects);

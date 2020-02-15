@@ -7,8 +7,8 @@ import BaseHelper from './BaseHelper';
 function HoverHelper() {
     BaseHelper.call(this);
 
-    this.hoverEnabled = app.storage.get('hoverEnabled');
-    this.hoveredColor = app.storage.get('hoveredColor');
+    this.hoverEnabled = app.storage.hoverEnabled;
+    this.hoveredColor = app.storage.hoveredColor;
 
     this.onGpuPick = this.onGpuPick.bind(this);
     this.onObjectRemoved = this.onObjectRemoved.bind(this);

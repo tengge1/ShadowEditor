@@ -97,8 +97,8 @@ SelectHelper.prototype.onObjectSelected = function (obj) {
         });
     }
 
-    const selectedColor = app.storage.get('selectedColor');
-    const selectedThickness = app.storage.get('selectedThickness');
+    const selectedColor = app.storage.selectedColor;
+    const selectedThickness = app.storage.selectedThickness;
 
     if (this.edgeMaterial === undefined) {
         this.edgeMaterial = new THREE.ShaderMaterial({

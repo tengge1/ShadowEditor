@@ -35,7 +35,7 @@ RectAreaLightHelpers.prototype.onObjectAdded = function (object) {
 
     var helper = new VolumeRectAreaLightHelper(object, 0xffffff);
 
-    helper.visible = app.storage.get('showRectAreaLight');
+    helper.visible = app.storage.showRectAreaLight;
 
     this.helpers.push(helper);
 

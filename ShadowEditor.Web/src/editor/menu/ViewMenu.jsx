@@ -9,9 +9,9 @@ class ViewMenu extends React.Component {
         super(props);
 
         this.state = {
-            showStats: app.storage.get('showStats') === undefined ? true : app.storage.get('showStats'),
-            showGrid: app.storage.get('showGrid') === undefined ? true : app.storage.get('showGrid'),
-            showViewHelper: app.storage.get('showViewHelper') === undefined ? true : app.storage.get('showViewHelper'),
+            showStats: app.storage.showStats,
+            showGrid: app.storage.showGrid,
+            showViewHelper: app.storage.showViewHelper,
             enablePhysics: app.options.enablePhysics,
             isThrowBall: false
         };
@@ -53,8 +53,8 @@ class ViewMenu extends React.Component {
     }
 
     handleShowStats() {
-        const showStats = !app.storage.get('showStats');
-        app.storage.set('showStats', showStats);
+        const showStats = !app.storage.showStats;
+        app.storage.showStats = showStats;
 
         Object.assign(app.stats.dom.style, {
             display: showStats ? 'block' : 'none'
@@ -66,8 +66,8 @@ class ViewMenu extends React.Component {
     }
 
     handleShowGrid() {
-        const showGrid = !app.storage.get('showGrid');
-        app.storage.set('showGrid', showGrid);
+        const showGrid = !app.storage.showGrid;
+        app.storage.showGrid = showGrid;
 
         app.call(`storageChanged`, this, 'showGrid', showGrid);
 
@@ -77,8 +77,8 @@ class ViewMenu extends React.Component {
     }
 
     handleShowViewHelper() {
-        const showViewHelper = !app.storage.get('showViewHelper');
-        app.storage.set('showViewHelper', showViewHelper);
+        const showViewHelper = !app.storage.showViewHelper;
+        app.storage.showViewHelper = showViewHelper;
 
         app.call(`storageChanged`, this, 'showViewHelper', showViewHelper);
 

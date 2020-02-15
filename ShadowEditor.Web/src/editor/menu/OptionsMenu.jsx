@@ -161,12 +161,12 @@ class OptionsMenu extends React.Component {
     // ---------------------------------- 调试模式 -------------------------------
 
     handleEnableDebugMode() {
-        app.storage.set('debug', true);
+        app.storage.debug = true;
         window.location.reload();
     }
 
     handleDisableDebugMode() {
-        app.storage.set('debug', false);
+        app.storage.debug = false;
         window.location.reload();
     }
 }

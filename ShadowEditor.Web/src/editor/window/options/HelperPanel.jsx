@@ -89,14 +89,14 @@ class HelperPanel extends React.Component {
 
     handleUpdate() {
         this.setState({
-            showGrid: app.storage.get('showGrid') === true,
-            showCamera: app.storage.get('showCamera') === true,
-            showPointLight: app.storage.get('showPointLight') === true,
-            showDirectionalLight: app.storage.get('showDirectionalLight') === true,
-            showSpotLight: app.storage.get('showSpotLight') === true,
-            showHemisphereLight: app.storage.get('showHemisphereLight') === true,
-            showRectAreaLight: app.storage.get('showRectAreaLight') === true,
-            showSkeleton: app.storage.get('showSkeleton') === true
+            showGrid: app.storage.showGrid,
+            showCamera: app.storage.showCamera,
+            showPointLight: app.storage.showPointLight,
+            showDirectionalLight: app.storage.showDirectionalLight,
+            showSpotLight: app.storage.showSpotLight,
+            showHemisphereLight: app.storage.showHemisphereLight,
+            showRectAreaLight: app.storage.showRectAreaLight,
+            showSkeleton: app.storage.showSkeleton
         });
     }
 
@@ -113,43 +113,43 @@ class HelperPanel extends React.Component {
                 [name]: value
             });
 
-        if (showGrid !== app.storage.get('showGrid')) {
-            app.storage.set('showGrid', showGrid);
+        if (showGrid !== app.storage.showGrid) {
+            app.storage.showGrid = showGrid;
             app.call(`storageChanged`, this, 'showGrid', showGrid);
         }
 
-        if (showCamera !== app.storage.get('showCamera')) {
-            app.storage.set('showCamera', showCamera);
+        if (showCamera !== app.storage.showCamera) {
+            app.storage.showCamera = showCamera;
             app.call(`storageChanged`, this, 'showCamera', showCamera);
         }
 
-        if (showPointLight !== app.storage.get('showPointLight')) {
-            app.storage.set('showPointLight', showPointLight);
+        if (showPointLight !== app.storage.showPointLight) {
+            app.storage.showPointLight = showPointLight;
             app.call(`storageChanged`, this, 'showPointLight', showPointLight);
         }
 
-        if (showDirectionalLight !== app.storage.get('showDirectionalLight')) {
-            app.storage.set('showDirectionalLight', showDirectionalLight);
+        if (showDirectionalLight !== app.storage.showDirectionalLight) {
+            app.storage.showDirectionalLight = showDirectionalLight;
             app.call(`storageChanged`, this, 'showDirectionalLight', showDirectionalLight);
         }
 
-        if (showSpotLight !== app.storage.get('showSpotLight')) {
-            app.storage.set('showSpotLight', showSpotLight);
+        if (showSpotLight !== app.storage.showSpotLight) {
+            app.storage.showSpotLight = showSpotLight;
             app.call(`storageChanged`, this, 'showSpotLight', showSpotLight);
         }
 
-        if (showHemisphereLight !== app.storage.get('showHemisphereLight')) {
-            app.storage.set('showHemisphereLight', showHemisphereLight);
+        if (showHemisphereLight !== app.storage.showHemisphereLight) {
+            app.storage.showHemisphereLight = showHemisphereLight;
             app.call(`storageChanged`, this, 'showHemisphereLight', showHemisphereLight);
         }
 
-        if (showRectAreaLight !== app.storage.get('showRectAreaLight')) {
-            app.storage.set('showRectAreaLight', showRectAreaLight);
+        if (showRectAreaLight !== app.storage.showRectAreaLight) {
+            app.storage.showRectAreaLight = showRectAreaLight;
             app.call(`storageChanged`, this, 'showRectAreaLight', showRectAreaLight);
         }
 
-        if (showSkeleton !== app.storage.get('showSkeleton')) {
-            app.storage.set('showSkeleton', showSkeleton);
+        if (showSkeleton !== app.storage.showSkeleton) {
+            app.storage.showSkeleton = showSkeleton;
             app.call(`storageChanged`, this, 'showSkeleton', showSkeleton);
         }
 

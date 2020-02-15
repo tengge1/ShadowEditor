@@ -41,7 +41,7 @@ class DrawTools extends React.Component {
     render() {
         const { isAddingPoint, isAddingLine, isAddingPolygon, isSpraying, isDigging } = this.state;
 
-        const addMode = app.storage.get('addMode');
+        const addMode = app.storage.addMode;
 
         return <>
             <IconButton
@@ -394,7 +394,7 @@ class DrawTools extends React.Component {
     }
 
     changeAddMode(value) {
-        app.storage.set('addMode', value);
+        app.storage.addMode = value;
         app.call('storageChanged', this, 'addMode', value);
         this.forceUpdate();
     }

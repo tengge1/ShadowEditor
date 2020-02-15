@@ -36,8 +36,8 @@ class EditorStatusBar extends React.Component {
     render() {
         const { x, y, objects, vertices, triangles } = this.state;
 
-        const selectMode = app.storage.get('selectMode');
-        const controlMode = app.storage.get('controlMode');
+        const selectMode = app.storage.selectMode;
+        const controlMode = app.storage.controlMode;
 
         const isLogin = !app.server.enableAuthority || app.server.isLogin;
 
@@ -138,14 +138,14 @@ class EditorStatusBar extends React.Component {
     }
 
     handleChangeSelectMode(value) {
-        app.storage.set('selectMode', value);
+        app.storage.selectMode = value;
         app.call('storageChanged', this, 'selectMode', value);
         this.forceUpdate();
     }
 
     handleChangeControlMode(value) {
         app.editor.controls.changeMode(value);
-        app.storage.set('controlMode', value);
+        app.storage.controlMode = value;
         app.call('storageChanged', this, 'controlMode', value);
         this.forceUpdate();
     }

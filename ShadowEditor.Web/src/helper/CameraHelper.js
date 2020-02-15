@@ -27,7 +27,7 @@ CameraHelper.prototype.stop = function () {
 };
 
 CameraHelper.prototype.update = function () {
-    var showCamera = app.storage.get('showCamera');
+    var showCamera = app.storage.showCamera;
 
     if (!this.helper) {
         this.helper = new THREE.CameraHelper(app.editor.camera);

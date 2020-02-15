@@ -35,7 +35,7 @@ HemisphereLightHelpers.prototype.onObjectAdded = function (object) {
 
     var helper = new VolumeHemisphereLightHelper(object, 1);
 
-    helper.visible = app.storage.get('showHemisphereLight');
+    helper.visible = app.storage.showHemisphereLight;
 
     this.helpers.push(helper);
 

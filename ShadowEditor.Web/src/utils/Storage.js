@@ -5,7 +5,12 @@ class Storage {
     constructor() {
         // 向本地存储写入默认配置，并提供快捷访问方法
         const defaultConfigs = {
-            showGrid: true,
+            debug: false, // 调试模式
+
+            // 帮助器
+            showStats: true, // 性能监视器
+            showGrid: true, // 网格
+            showViewHelper: true, // 视角帮助器
             showCamera: false,
             showPointLight: true,
             showDirectionalLight: true,

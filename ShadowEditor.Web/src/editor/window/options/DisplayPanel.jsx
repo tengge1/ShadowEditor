@@ -14,10 +14,10 @@ class DisplayPanel extends React.Component {
     }
 
     render() {
-        const selectedColor = app.storage.get('selectedColor');
-        const selectedThickness = app.storage.get('selectedThickness');
-        const hoverEnabled = app.storage.get('hoverEnabled');
-        const hoveredColor = app.storage.get('hoveredColor');
+        const selectedColor = app.storage.selectedColor;
+        const selectedThickness = app.storage.selectedThickness;
+        const hoverEnabled = app.storage.hoverEnabled;
+        const hoveredColor = app.storage.hoveredColor;
 
         return <Form className={'DisplayPanel'}>
             <FormControl>
@@ -72,7 +72,7 @@ class DisplayPanel extends React.Component {
             return;
         }
 
-        app.storage.set(name, value);
+        app.storage[name] = value;
         app.call(`storageChanged`, this, name, value);
 
         this.handleUpdate();

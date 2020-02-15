@@ -27,7 +27,7 @@ GridHelper.prototype.stop = function () {
 };
 
 GridHelper.prototype.update = function () {
-    var showGrid = app.storage.get('showGrid');
+    var showGrid = app.storage.showGrid;
 
     if (!this.helper) {
         this.helper = new THREE.GridHelper(30, 30, 0x444444, 0x888888);

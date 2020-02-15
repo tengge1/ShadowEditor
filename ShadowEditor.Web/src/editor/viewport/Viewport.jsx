@@ -45,11 +45,11 @@ class Viewport extends React.Component {
         // 性能控件
         app.stats = new Stats();
 
-        let showStats = app.storage.get('showStats');
+        let showStats = app.storage.showStats;
 
         if (showStats === undefined) {
             showStats = true;
-            app.storage.set('showStats', true);
+            app.storage.showStats = true;
         }
 
         Object.assign(app.stats.dom.style, {

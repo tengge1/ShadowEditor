@@ -21,7 +21,7 @@ class ControlsManager extends BaseControls {
         this.handleUpdate = this.handleUpdate.bind(this);
         this.handleEnd = this.handleEnd.bind(this);
 
-        const mode = app.storage.get('controlMode');
+        const mode = app.storage.controlMode;
         this.changeMode(mode);
 
         // 记录上次控制器，以便按Esc退出第一视角，返回原来的模式。
