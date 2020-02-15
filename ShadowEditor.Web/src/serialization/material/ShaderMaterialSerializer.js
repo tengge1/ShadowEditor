@@ -17,7 +17,7 @@ ShaderMaterialSerializer.prototype.toJSON = function (obj) {
     var json = MaterialSerializer.prototype.toJSON.call(this, obj);
 
     json.defines = obj.defines;
-    json.uniforms = (new UniformsSerializer()).toJSON(obj.uniforms);
+    json.uniforms = new UniformsSerializer().toJSON(obj.uniforms);
     json.vertexShader = obj.vertexShader;
     json.fragmentShader = obj.fragmentShader;
 
@@ -32,7 +32,7 @@ ShaderMaterialSerializer.prototype.fromJSON = function (json, parent, server) {
     MaterialSerializer.prototype.fromJSON.call(this, json, obj, server);
 
     obj.defines = json.defines;
-    obj.uniforms = (new UniformsSerializer()).fromJSON(json.uniforms, undefined, server);
+    obj.uniforms = new UniformsSerializer().fromJSON(json.uniforms, undefined, server);
     obj.vertexShader = json.vertexShader;
     obj.fragmentShader = json.fragmentShader;
 

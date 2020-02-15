@@ -24,7 +24,7 @@ SceneSerializer.prototype.toJSON = function (obj) {
     }
 
     json.fog = obj.fog;
-    json.overrideMaterial = obj.overrideMaterial == null ? null : (new MaterialsSerializer()).toJSON(obj.overrideMaterial);
+    json.overrideMaterial = !obj.overrideMaterial ? null : new MaterialsSerializer().toJSON(obj.overrideMaterial);
 
     return json;
 };
@@ -51,7 +51,7 @@ SceneSerializer.prototype.fromJSON = function (json, parent, server) {
         console.warn(`SceneSerializer: unknown fog type ${json.fog.type}.`);
     }
 
-    obj.overrideMaterial = json.overrideMaterial == null ? null : (new MaterialsSerializer()).fromJSON(json.overrideMaterial, undefined, server);
+    obj.overrideMaterial = !json.overrideMaterial ? null : new MaterialsSerializer().fromJSON(json.overrideMaterial, undefined, server);
 
     return obj;
 };

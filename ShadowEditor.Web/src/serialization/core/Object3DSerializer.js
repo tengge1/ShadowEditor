@@ -24,7 +24,7 @@ Object3DSerializer.prototype.toJSON = function (obj) {
     json.matrixWorldNeedsUpdate = obj.matrixWorldNeedsUpdate;
     json.modelViewMatrix = obj.modelViewMatrix;
     json.name = obj.name;
-    json.parent = obj.parent == null ? null : obj.parent.uuid;
+    json.parent = !obj.parent ? null : obj.parent.uuid;
     json.position = obj.position;
     json.quaternion = {
         x: obj.quaternion.x,

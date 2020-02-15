@@ -17,7 +17,7 @@ SkySerializer.prototype.toJSON = function (obj) {
     return Object3DSerializer.prototype.toJSON.call(this, obj);
 };
 
-SkySerializer.prototype.fromJSON = function (json, parent, camera) {
+SkySerializer.prototype.fromJSON = function (json, parent, camera) { // eslint-disable-line
     var obj = new Sky(json);
 
     Object3DSerializer.prototype.fromJSON.call(this, json, obj);

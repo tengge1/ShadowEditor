@@ -15,9 +15,10 @@ function BaseSerializer() {
 
 /**
  *对象转json
- * @param {*} obj 对象
+ * @param {Object} obj 对象
+ * @returns {Object} JSON对象
  */
-BaseSerializer.prototype.toJSON = function (obj) {
+BaseSerializer.prototype.toJSON = function (obj) { // eslint-disable-line
     var json = {
         metadata: this.metadata
     };
@@ -26,10 +27,11 @@ BaseSerializer.prototype.toJSON = function (obj) {
 
 /**
  * json转对象
- * @param {*} json json对象
- * @param {*} parent 父对象
+ * @param {Object} json json对象
+ * @param {Object} parent 父对象
+ * @returns {Object} 对象
  */
-BaseSerializer.prototype.fromJSON = function (json, parent) {
+BaseSerializer.prototype.fromJSON = function (json, parent) { // eslint-disable-line
     if (parent) {
         return parent;
     }

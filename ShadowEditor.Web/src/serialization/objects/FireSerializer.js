@@ -21,7 +21,7 @@ FireSerializer.prototype.toJSON = function (obj) {
     return json;
 };
 
-FireSerializer.prototype.fromJSON = function (json, parent, camera) {
+FireSerializer.prototype.fromJSON = function (json, parent, camera) { // eslint-disable-line
     var fire = new Fire(camera, {
         width: json.userData.width,
         height: json.userData.height,

@@ -19,13 +19,13 @@ PerlinTerrainSerializer.prototype.toJSON = function (obj) {
     return json;
 };
 
-PerlinTerrainSerializer.prototype.fromJSON = function (json, parent) {
+PerlinTerrainSerializer.prototype.fromJSON = function (json, parent) { // eslint-disable-line
     var terrain = new PerlinTerrain(
         json.userData.width,
         json.userData.depth,
         json.userData.widthSegments,
         json.userData.depthSegments,
-        json.userData.quality,
+        json.userData.quality
     );
 
     Object3DSerializer.prototype.fromJSON.call(this, json, terrain);

@@ -69,7 +69,7 @@ GeometriesSerializer.prototype.toJSON = function (obj) {
         return null;
     }
 
-    return (new serializer()).toJSON(obj);
+    return new serializer().toJSON(obj);
 };
 
 GeometriesSerializer.prototype.fromJSON = function (json, parent) {
@@ -82,7 +82,7 @@ GeometriesSerializer.prototype.fromJSON = function (json, parent) {
         return null;
     }
 
-    return (new serializer()).fromJSON(json, parent);
+    return new serializer().fromJSON(json, parent);
 };
 
 export default GeometriesSerializer;

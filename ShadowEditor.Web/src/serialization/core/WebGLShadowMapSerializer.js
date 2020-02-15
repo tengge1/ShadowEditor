@@ -1,5 +1,4 @@
 import BaseSerializer from '../BaseSerializer';
-import TexturesSerializer from '../texture/TexturesSerializer';
 
 /**
  * WebGLShadowMapSerializer

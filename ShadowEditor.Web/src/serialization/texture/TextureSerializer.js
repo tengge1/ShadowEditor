@@ -81,7 +81,7 @@ TextureSerializer.prototype.fromJSON = function (json, parent, server) {
     obj.generateMipmaps = json.generateMipmaps;
 
     if (json.image && !Array.isArray(json.image) && json.image.tagName === 'img') { // 图片
-        var img = document.createElement('img');
+        img = document.createElement('img');
 
         if (!json.image.src.startsWith('blob:http://')) { // 这种类型不能被反序列化，例如：blob:http://localhost:2000/d6590b48-8b50-44d0-a3a7-248a8047bc89
             if (json.image.src && json.image.src.startsWith('/')) {
@@ -103,7 +103,7 @@ TextureSerializer.prototype.fromJSON = function (json, parent, server) {
         canvas.height = 256;
         var ctx = canvas.getContext('2d');
 
-        var img = document.createElement('img');
+        img = document.createElement('img');
 
         if (json.image.src && json.image.src.startsWith('/')) {
             img.src = server + json.image.src;

@@ -29,7 +29,7 @@ LightShadowsSerializer.prototype.toJSON = function (obj) {
         return null;
     }
 
-    return (new serializer()).toJSON(obj);
+    return new serializer().toJSON(obj);
 };
 
 LightShadowsSerializer.prototype.fromJSON = function (json) {
@@ -42,7 +42,7 @@ LightShadowsSerializer.prototype.fromJSON = function (json) {
         return null;
     }
 
-    return (new serializer()).fromJSON(json);
+    return new serializer().fromJSON(json);
 };
 
 export default LightShadowsSerializer;

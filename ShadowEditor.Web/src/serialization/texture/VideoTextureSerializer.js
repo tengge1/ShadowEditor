@@ -17,7 +17,7 @@ VideoTextureSerializer.prototype.toJSON = function (obj) {
 
     json.image = {
         tagName: 'video',
-        src: obj.image.src.replace(location.href, '/'),
+        src: obj.image.src.replace(location.href, '/')
     };
 
     return json;

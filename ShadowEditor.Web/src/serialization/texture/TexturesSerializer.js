@@ -37,7 +37,7 @@ TexturesSerializer.prototype.toJSON = function (obj) {
         return null;
     }
 
-    return (new serializer()).toJSON(obj);
+    return new serializer().toJSON(obj);
 };
 
 TexturesSerializer.prototype.fromJSON = function (json, parent, server) {
@@ -50,7 +50,7 @@ TexturesSerializer.prototype.fromJSON = function (json, parent, server) {
         return null;
     }
 
-    return (new serializer()).fromJSON(json, parent, server);
+    return new serializer().fromJSON(json, parent, server);
 };
 
 export default TexturesSerializer;

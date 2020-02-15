@@ -19,7 +19,7 @@ LightSerializer.prototype.toJSON = function (obj) {
     json.color = obj.color;
     json.intensity = obj.intensity;
     json.isLight = obj.isLight;
-    json.shadow = obj.shadow == null ? null : (new LightShadowsSerializer()).toJSON(obj.shadow);
+    json.shadow = !obj.shadow ? null : new LightShadowsSerializer().toJSON(obj.shadow);
 
     return json;
 };
@@ -34,7 +34,7 @@ LightSerializer.prototype.fromJSON = function (json, parent) {
     obj.isLight = json.isLight;
 
     if (json.shadow) {
-        obj.shadow = (new LightShadowsSerializer()).fromJSON(json.shadow);
+        obj.shadow = new LightShadowsSerializer().fromJSON(json.shadow);
     }
 
     return obj;

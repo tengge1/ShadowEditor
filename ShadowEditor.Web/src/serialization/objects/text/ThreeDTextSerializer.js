@@ -17,7 +17,7 @@ ThreeDTextSerializer.prototype.toJSON = function (obj) {
     return Object3DSerializer.prototype.toJSON.call(this, obj);
 };
 
-ThreeDTextSerializer.prototype.fromJSON = function (json, parent) {
+ThreeDTextSerializer.prototype.fromJSON = function (json, parent) { // eslint-disable-line
     var obj = new ThreeDText(json.userData.text, json.userData);
 
     Object3DSerializer.prototype.fromJSON.call(this, json, obj);

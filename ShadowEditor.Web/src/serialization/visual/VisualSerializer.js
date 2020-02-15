@@ -13,7 +13,7 @@ VisualSerializer.prototype.constructor = VisualSerializer;
 
 VisualSerializer.prototype.toJSON = function (obj) {
     var json = BaseSerializer.prototype.toJSON.call(this, obj);
-    json.data = obj.toJSON()
+    json.data = obj.toJSON();
     return json;
 };
 

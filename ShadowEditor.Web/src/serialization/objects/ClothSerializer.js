@@ -19,7 +19,7 @@ ClothSerializer.prototype.toJSON = function (obj) {
     return json;
 };
 
-ClothSerializer.prototype.fromJSON = function (json, parent, camera) {
+ClothSerializer.prototype.fromJSON = function (json, parent, camera) { // eslint-disable-line
     var cloth = new Cloth();
 
     Object3DSerializer.prototype.fromJSON.call(this, json, cloth);

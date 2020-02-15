@@ -17,14 +17,14 @@ ReflectorSerializer.prototype.toJSON = function (obj) {
     var json = MeshSerializer.prototype.toJSON.call(this, obj);
 
     if (json.userData.mesh) {
-        json.userData.mesh = (new MeshSerializer()).toJSON(json.userData.mesh);
+        json.userData.mesh = new MeshSerializer().toJSON(json.userData.mesh);
     }
 
     return json;
 };
 
 ReflectorSerializer.prototype.fromJSON = function (json) {
-    var geometry = (new GeometriesSerializer()).fromJSON(json.geometry);
+    var geometry = new GeometriesSerializer().fromJSON(json.geometry);
     var obj = new THREE.Reflector(geometry, {
         color: json.userData.color,
         textureWidth: parseInt(json.userData.size),
@@ -36,7 +36,7 @@ ReflectorSerializer.prototype.fromJSON = function (json) {
     MeshSerializer.prototype.fromJSON.call(this, json, obj);
 
     if (obj.userData.mesh) {
-        obj.userData.mesh = (new MeshSerializer()).fromJSON(obj.userData.mesh);
+        obj.userData.mesh = new MeshSerializer().fromJSON(obj.userData.mesh);
     }
 
     return obj;

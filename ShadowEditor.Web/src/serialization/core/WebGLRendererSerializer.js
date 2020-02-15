@@ -27,7 +27,7 @@ WebGLRendererSerializer.prototype.toJSON = function (obj) {
     json.gammaOutput = obj.gammaOutput;
     json.localClippingEnabled = obj.localClippingEnabled;
     json.physicallyCorrectLights = obj.physicallyCorrectLights;
-    json.shadowMap = (new WebGLShadowMapSerializer()).toJSON(obj.shadowMap);
+    json.shadowMap = new WebGLShadowMapSerializer().toJSON(obj.shadowMap);
     json.sortObjects = obj.sortObjects;
     json.toneMapping = obj.toneMapping;
     json.toneMappingExposure = obj.toneMappingExposure;
@@ -50,7 +50,7 @@ WebGLRendererSerializer.prototype.fromJSON = function (json, parent) {
     obj.gammaOutput = json.gammaOutput;
     obj.localClippingEnabled = json.localClippingEnabled;
     obj.physicallyCorrectLights = json.physicallyCorrectLights;
-    (new WebGLShadowMapSerializer()).fromJSON(json.shadowMap, obj.shadowMap);
+    new WebGLShadowMapSerializer().fromJSON(json.shadowMap, obj.shadowMap);
     obj.sortObjects = json.sortObjects;
     obj.toneMapping = json.toneMapping;
     obj.toneMappingExposure = json.toneMappingExposure;

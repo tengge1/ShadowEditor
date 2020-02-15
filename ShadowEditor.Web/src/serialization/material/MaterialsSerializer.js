@@ -71,7 +71,7 @@ MaterialsSerializer.prototype.toJSON = function (obj) {
                 return;
             }
 
-            list.push((new serializer()).toJSON(n));
+            list.push(new serializer().toJSON(n));
         });
 
         return list;
@@ -83,7 +83,7 @@ MaterialsSerializer.prototype.toJSON = function (obj) {
             return null;
         }
 
-        return (new serializer()).toJSON(obj);
+        return new serializer().toJSON(obj);
     }
 };
 
@@ -101,7 +101,7 @@ MaterialsSerializer.prototype.fromJSON = function (json, parent, server) {
                 return null;
             }
 
-            list.push((new serializer()).fromJSON(n, parent, server));
+            list.push(new serializer().fromJSON(n, parent, server));
         });
 
         return list;
@@ -115,7 +115,7 @@ MaterialsSerializer.prototype.fromJSON = function (json, parent, server) {
             return null;
         }
 
-        return (new serializer()).fromJSON(json, parent, server);
+        return new serializer().fromJSON(json, parent, server);
     }
 };
 

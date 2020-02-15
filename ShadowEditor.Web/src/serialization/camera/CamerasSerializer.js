@@ -29,7 +29,7 @@ CamerasSerializer.prototype.toJSON = function (obj) {
         return null;
     }
 
-    return (new serializer()).toJSON(obj);
+    return new serializer().toJSON(obj);
 };
 
 CamerasSerializer.prototype.fromJSON = function (json, parent) {
@@ -42,7 +42,7 @@ CamerasSerializer.prototype.fromJSON = function (json, parent) {
         return null;
     }
 
-    return (new serializer()).fromJSON(json, parent);
+    return new serializer().fromJSON(json, parent);
 };
 
 export default CamerasSerializer;
