@@ -13,7 +13,7 @@ class MenuItem extends React.Component {
     }
 
     render() {
-        const { title, className, style, children, show, disabled } = this.props;
+        const { title, className, style, children, show, checked, selected, disabled } = this.props;
 
         const subMenu = React.Children.count(children) ? <><div className={'suffix'}>
             <i className={'iconfont icon-right-triangle'} />
@@ -23,10 +23,11 @@ class MenuItem extends React.Component {
             </div></> : null;
 
         return <li
-            className={classNames('MenuItem', disabled && 'disabled', !show && 'hidden', className)}
+            className={classNames('MenuItem', checked && 'checked', selected && 'selected', disabled && 'disabled', !show && 'hidden', className)}
             style={style}
             onClick={this.handleClick}
                >
+            {(checked || selected) && <div className={'prefix'} />}
             <span>{title}</span>
             {subMenu}
         </li>;
@@ -47,6 +48,8 @@ MenuItem.propTypes = {
     style: PropTypes.object,
     children: PropTypes.node,
     show: PropTypes.bool,
+    checked: PropTypes.bool,
+    selected: PropTypes.bool,
     disabled: PropTypes.bool,
     onClick: PropTypes.func
 };
@@ -57,6 +60,8 @@ MenuItem.defaultProps = {
     style: null,
     children: null,
     show: true,
+    checked: false,
+    selected: false,
     disabled: false,
     onClick: null
 };

@@ -16,9 +16,11 @@ class ViewMenu extends React.Component {
     render() {
         return <MenuItem title={_t('View')}>
             <MenuItem title={_t('Stats')}
+                checked
                 onClick={this.handleShowStats}
             />
             <MenuItem title={_t('Grid')}
+                selected
                 onClick={this.handleShowGrid}
             />
             <MenuItem title={_t('Camera View')}
