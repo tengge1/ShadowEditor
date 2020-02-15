@@ -86,7 +86,7 @@ OrbitViewer.prototype.onMouseMove = function () {
             this.isPan = true;
             lastIntersectPoint.copy(this.intersectPoint);
 
-            startTime = new Date().getTime();
+            // startTime = new Date().getTime();
             return;
         }
 
@@ -134,7 +134,7 @@ OrbitViewer.prototype.onMouseMove = function () {
         this.camera.lookAt(this.sphere.center);
 
         // 8. 计算旋转速度
-        endTime = new Date().getTime();
+        // endTime = new Date().getTime();
 
         // if (endTime > startTime) {
         //     this.rotationSpeed.subVectors(endLonLat, startLonLat)
