@@ -11,7 +11,7 @@ class ThreeDText extends THREE.Mesh {
             bevelThickness: 0.5,
             depth: 4
         }, options, {
-            font: new THREE.Font(JSON.parse(options.font)),
+            font: new THREE.Font(JSON.parse(options.font))
         });
 
         const geometry = new THREE.TextBufferGeometry(text, parameters);

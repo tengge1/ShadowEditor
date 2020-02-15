@@ -1,7 +1,7 @@
 /**
  * 二十面体
- * @param {*} geometry 几何体
- * @param {*} material 材质
+ * @param {THREE.IcosahedronBufferGeometry} geometry 几何体
+ * @param {THREE.MeshStandardMaterial} material 材质
  */
 function Icosahedron(geometry = new THREE.IcosahedronBufferGeometry(1, 2), material = new THREE.MeshStandardMaterial()) {
     THREE.Mesh.call(this, geometry, material);

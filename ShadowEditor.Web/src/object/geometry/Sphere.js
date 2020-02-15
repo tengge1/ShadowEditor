@@ -1,7 +1,7 @@
 /**
  * 球体
- * @param {*} geometry 几何体
- * @param {*} material 材质
+ * @param {THREE.SphereBufferGeometry} geometry 几何体
+ * @param {THREE.MeshStandardMaterial} material 材质
  */
 function Sphere(geometry = new THREE.SphereBufferGeometry(1, 32, 16, 0, Math.PI * 2, 0, Math.PI), material = new THREE.MeshStandardMaterial()) {
     THREE.Mesh.call(this, geometry, material);

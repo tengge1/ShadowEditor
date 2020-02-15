@@ -12,6 +12,7 @@ BaseObject.prototype.constructor = BaseObject;
 
 /**
  * 创建类前调用，用于下载创建物体所需的类
+ * @returns {Promise} 下载Promise
  */
 BaseObject.prototype.load = function () {
     return new Promise(resolve => {

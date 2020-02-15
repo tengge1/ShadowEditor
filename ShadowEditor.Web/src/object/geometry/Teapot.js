@@ -1,7 +1,7 @@
 /**
  * 茶壶
- * @param {*} geometry 几何体
- * @param {*} material 材质
+ * @param {THREE.TeapotBufferGeometry} geometry 几何体
+ * @param {THREE.MeshStandardMaterial} material 材质
  */
 function Teapot(geometry = new THREE.TeapotBufferGeometry(3, 10, true, true, true, true, true), material = new THREE.MeshStandardMaterial()) {
     THREE.Mesh.call(this, geometry, material);

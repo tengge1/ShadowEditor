@@ -1,10 +1,10 @@
 /**
  * 柏林地形
- * @param {*} width 地形宽度
- * @param {*} depth 地形深度
- * @param {*} widthSegments 宽度分段
- * @param {*} depthSegments 深度分段
- * @param {*} quality 地形质量
+ * @param {Number} width 地形宽度
+ * @param {Number} depth 地形深度
+ * @param {Number} widthSegments 宽度分段
+ * @param {Number} depthSegments 深度分段
+ * @param {Number} quality 地形质量
  */
 function PerlinTerrain(width = 1000, depth = 1000, widthSegments = 256, depthSegments = 256, quality = 80) {
     // 创建地形几何体
@@ -39,7 +39,7 @@ function PerlinTerrain(width = 1000, depth = 1000, widthSegments = 256, depthSeg
         depth: depth,
         widthSegments: widthSegments,
         depthSegments: depthSegments,
-        quality: quality,
+        quality: quality
     });
 }
 
@@ -48,9 +48,10 @@ PerlinTerrain.prototype.constructor = PerlinTerrain;
 
 /**
  * 生成高程数据
- * @param {*} width 宽度
- * @param {*} height 高度
- * @param {*} quality 质量
+ * @param {Number} width 宽度
+ * @param {Number} height 高度
+ * @param {Number} quality 质量
+ * @returns {Uint8Array} 高程数据
  */
 PerlinTerrain.prototype.generateHeight = function (width, height, quality) {
     var data = new Uint8Array(width * height);
@@ -67,9 +68,10 @@ PerlinTerrain.prototype.generateHeight = function (width, height, quality) {
 
 /**
  * 将光照烘培到贴图上
- * @param {*} data 高程数据
- * @param {*} width 宽度
- * @param {*} height 高度
+ * @param {Uint8Array} data 高程数据
+ * @param {Number} width 宽度
+ * @param {Number} height 高度
+ * @returns {HTMLCanvasElement} 光照贴图
  */
 PerlinTerrain.prototype.generateTexture = function (data, width, height) {
     // 创建ImageData
@@ -99,7 +101,7 @@ PerlinTerrain.prototype.generateTexture = function (data, width, height) {
         shade = vector3.dot(sun);
         imageData[i] = (96 + shade * 128) * (0.5 + data[j] * 0.007);
         imageData[i + 1] = (32 + shade * 96) * (0.5 + data[j] * 0.007);
-        imageData[i + 2] = (shade * 96) * (0.5 + data[j] * 0.007);
+        imageData[i + 2] = shade * 96 * (0.5 + data[j] * 0.007);
     }
 
     // 将光照强度写入canvas

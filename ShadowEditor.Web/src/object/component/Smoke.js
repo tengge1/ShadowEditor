@@ -9,9 +9,9 @@ import fragmentShader from './shader/smoke_fragment.glsl';
  * https://www.youtube.com/watch?v=jKRHmQmduDI
  * https://graphics.ethz.ch/teaching/former/imagesynthesis_06/miniprojects/p3/
  * https://www.iusb.edu/math-compsci/_prior-thesis/YVanzine_thesis.pdf
- * @param {*} camera 相机
- * @param {*} renderer 渲染器
- * @param {*} options 选项
+ * @param {THREE.Camera} camera 相机
+ * @param {THREE.WebGLRenderer} renderer 渲染器
+ * @param {Object} options 选项
  */
 function Smoke(camera, renderer, options = {}) {
     var particleCount = options.particleCount || 32;
@@ -35,7 +35,7 @@ function Smoke(camera, renderer, options = {}) {
     geometry.addAttribute('shift', new THREE.BufferAttribute(shift, 1));
 
     // 材质
-    var texture = (new THREE.TextureLoader()).load('assets/textures/VolumetricFire/smoke.png');
+    var texture = new THREE.TextureLoader().load('assets/textures/VolumetricFire/smoke.png');
 
     var uniforms = {
         time: { type: 'f', value: 0 },

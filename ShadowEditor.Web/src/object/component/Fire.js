@@ -1,5 +1,7 @@
 /**
  * 火焰
+ * @param {THREE.Camera} camera 相机
+ * @param {Object} options 参数
  */
 function Fire(camera, options = {}) {
     THREE.Object3D.call(this);

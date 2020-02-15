@@ -2,7 +2,7 @@ var ARC_SEGMENTS = 200;
 
 /**
  * CatmullRom曲线
- * @param {*} options 
+ * @param {Object} options 参数
  */
 function CatmullRomCurve(options = {}) {
     var geometry = new THREE.BufferGeometry();
@@ -24,7 +24,7 @@ function CatmullRomCurve(options = {}) {
         points: options.points || [
             new THREE.Vector3(4, 8, 16),
             new THREE.Vector3(0, 12, -4),
-            new THREE.Vector3(-16, 4, -8),
+            new THREE.Vector3(-16, 4, -8)
         ],
         closed: options.closed || false,
         curveType: options.curveType || 'catmullrom', // centripetal, chordal and catmullrom

@@ -1,6 +1,6 @@
 /**
  * 精灵
- * @param {*} material 材质
+ * @param {THREE.SpriteMaterial} material 材质
  */
 function Sprite(material = new THREE.SpriteMaterial()) {
     THREE.Sprite.call(this, material);

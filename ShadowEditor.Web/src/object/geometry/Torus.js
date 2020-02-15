@@ -1,7 +1,7 @@
 /**
  * 轮胎
- * @param {*} geometry 几何体
- * @param {*} material 材质
+ * @param {THREE.TorusBufferGeometry} geometry 几何体
+ * @param {THREE.MeshStandardMaterial} material 材质
  */
 function Torus(geometry = new THREE.TorusBufferGeometry(2, 1, 32, 32, Math.PI * 2), material = new THREE.MeshStandardMaterial()) {
     THREE.Mesh.call(this, geometry, material);

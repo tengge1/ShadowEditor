@@ -13,7 +13,7 @@ function ShaderTerrain(renderer) {
     var rx = 256, ry = 256, // 分辨率
         animDelta = 0, // 动画间隔
         animDeltaDir = -1, // 动画方向
-        lightVal = 0, // 光源强度
+        // lightVal = 0, // 光源强度
         lightDir = 1; // 光源方向
 
     // 场景
@@ -150,7 +150,7 @@ function ShaderTerrain(renderer) {
         // 生成法线贴图
         quadTarget.material = normalMaterial;
         renderer.render(scene, camera, normalMap, true);
-    };
+    }
 
     this.update = update.bind(this);
 }
@@ -160,10 +160,11 @@ ShaderTerrain.prototype.constructor = ShaderTerrain;
 
 /**
  * 创建着色器材质
- * @param {*} vertexShader 顶点着色器
- * @param {*} fragmentShader 片源着色器
- * @param {*} uniforms 变量
- * @param {*} lights 是否使用光源
+ * @param {String} vertexShader 顶点着色器
+ * @param {String} fragmentShader 片源着色器
+ * @param {Object} uniforms 变量
+ * @param {Boolean} lights 是否使用光源
+ * @returns {THREE.ShaderMaterial} 地形材质
  */
 ShaderTerrain.prototype.createShaderMaterial = function (vertexShader, fragmentShader, uniforms, lights) {
     return new THREE.ShaderMaterial({

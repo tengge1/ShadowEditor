@@ -1,7 +1,7 @@
 /**
  * 正方体
- * @param {*} geometry 几何体
- * @param {*} material 材质
+ * @param {THREE.BoxBufferGeometry} geometry 几何体
+ * @param {THREE.MeshStandardMaterial} material 材质
  */
 function Box(geometry = new THREE.BoxBufferGeometry(1, 1, 1), material = new THREE.MeshStandardMaterial()) {
     THREE.Mesh.call(this, geometry, material);

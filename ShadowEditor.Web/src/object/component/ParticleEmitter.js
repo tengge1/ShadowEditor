@@ -1,5 +1,7 @@
 /**
  * 粒子发射器
+ * @param {SPE.Group} group 粒子组
+ * @param {SPE.Emitter} emitter 粒子发射器
  */
 function ParticleEmitter(group, emitter) {
     THREE.Object3D.call(this);

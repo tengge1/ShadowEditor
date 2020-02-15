@@ -2,7 +2,7 @@ var ARC_SEGMENTS = 200;
 
 /**
  * 椭圆曲线
- * @param {*} options 
+ * @param {Object} options 参数
  */
 function EllipseCurve(options = {}) {
     var geometry = new THREE.BufferGeometry();

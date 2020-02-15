@@ -1,6 +1,6 @@
 /**
  * 天空
- * @param {*} options 选项
+ * @param {Obejct} options 选项
  */
 function Sky(options = {}) {
     THREE.Object3D.call(this);

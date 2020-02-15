@@ -2,7 +2,7 @@ var ARC_SEGMENTS = 200;
 
 /**
  * 线段
- * @param {*} options 
+ * @param {Object} options 参数
  */
 function LineCurve(options = {}) {
     var geometry = new THREE.BufferGeometry();
@@ -36,7 +36,7 @@ LineCurve.prototype.constructor = LineCurve;
 LineCurve.prototype.update = function () {
     var curve = new THREE.LineCurve3(
         this.userData.points[0],
-        this.userData.points[1],
+        this.userData.points[1]
     );
 
     var position = this.geometry.attributes.position;

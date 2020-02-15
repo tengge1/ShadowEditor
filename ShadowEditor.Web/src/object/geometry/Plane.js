@@ -1,7 +1,7 @@
 /**
  * 平面
- * @param {*} geometry 几何体
- * @param {*} material 材质
+ * @param {THREE.PlaneBufferGeometry} geometry 几何体
+ * @param {THREE.MeshStandardMaterial} material 材质
  */
 function Plane(geometry = new THREE.PlaneBufferGeometry(50, 50), material = new THREE.MeshStandardMaterial()) {
     THREE.Mesh.call(this, geometry, material);

@@ -72,10 +72,11 @@ PhysicsTerrain.prototype.constructor = PhysicsTerrain;
 
 /**
  * 生成高程数据（正弦曲线）
- * @param {*} width 
- * @param {*} depth 
- * @param {*} minHeight 
- * @param {*} maxHeight 
+ * @param {Number} width 宽度
+ * @param {Number} depth 深度
+ * @param {Number} minHeight 最小高度
+ * @param {Number} maxHeight 最大高度
+ * @returns {Float32Array} 高程数据
  */
 PhysicsTerrain.prototype.generateHeight = function (width, depth, minHeight, maxHeight) {
     var size = width * depth;
@@ -98,13 +99,14 @@ PhysicsTerrain.prototype.generateHeight = function (width, depth, minHeight, max
 
 /**
  * 创建物理地形形状
- * @param {*} terrainWidth 
- * @param {*} terrainDepth 
- * @param {*} terrainWidthExtents 
- * @param {*} terrainDepthExtents 
- * @param {*} heightData 
- * @param {*} terrainMinHeight 
- * @param {*} terrainMaxHeight 
+ * @param {Number} terrainWidth 地形宽度
+ * @param {Number} terrainDepth 地形深度
+ * @param {Number} terrainWidthExtents 地形宽度扩展
+ * @param {Number} terrainDepthExtents 地形高度扩展
+ * @param {Float32Array} heightData 高程数据
+ * @param {Number} terrainMinHeight 地形最小高度
+ * @param {Number} terrainMaxHeight 地形最大高度
+ * @returns {Ammo.btHeightfieldTerrainShape} 高程地形形状
  */
 PhysicsTerrain.prototype.createTerrainShape = function (terrainWidth, terrainDepth, terrainWidthExtents, terrainDepthExtents, heightData, terrainMinHeight, terrainMaxHeight) {
     // 此参数并未真正使用，因为我们使用的是PHY_FLOAT高度数据类型，因此会被忽略。

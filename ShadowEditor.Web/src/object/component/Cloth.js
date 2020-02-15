@@ -38,7 +38,7 @@ var TIMESTEP = 18 / 1000;
 var TIMESTEP_SQ = TIMESTEP * TIMESTEP;
 
 var wind = true;
-var windStrength = 2;
+// var windStrength = 2;
 var windForce = new THREE.Vector3(0, 0, 0);
 
 var tmpForce = new THREE.Vector3();
@@ -186,13 +186,13 @@ function Cloth() {
 Cloth.prototype = Object.create(THREE.Mesh.prototype);
 Cloth.prototype.constructor = Cloth;
 
-Cloth.prototype.update = function (clock, deltaTime) {
+Cloth.prototype.update = function () {
     var time = Date.now();
 
     var windStrength = Math.cos(time / 7000) * 20 + 40;
 
-    windForce.set(Math.sin(time / 2000), Math.cos(time / 3000), Math.sin(time / 1000))
-    windForce.normalize()
+    windForce.set(Math.sin(time / 2000), Math.cos(time / 3000), Math.sin(time / 1000));
+    windForce.normalize();
     windForce.multiplyScalar(windStrength);
 
     this.simulate(time, this.clothGeometry, this.pins);
@@ -216,7 +216,7 @@ Cloth.prototype.simulate = function (time) {
         return;
     }
 
-    var i, il, particles, particle, pt, constraints, constraint;
+    var i, il, particles, particle, constraints, constraint;
 
     // Aerodynamics forces
     if (wind) {

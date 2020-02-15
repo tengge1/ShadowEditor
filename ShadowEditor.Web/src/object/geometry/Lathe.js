@@ -14,8 +14,8 @@ var points = [
 
 /**
  * 酒杯
- * @param {*} geometry 几何体
- * @param {*} material 材质
+ * @param {THREE.LatheBufferGeometry} geometry 几何体
+ * @param {THREE.MeshStandardMaterial} material 材质
  */
 function Lathe(geometry = new THREE.LatheBufferGeometry(points, 20, 0, 2 * Math.PI), material = new THREE.MeshStandardMaterial({ side: THREE.DoubleSide })) {
     THREE.Mesh.call(this, geometry, material);

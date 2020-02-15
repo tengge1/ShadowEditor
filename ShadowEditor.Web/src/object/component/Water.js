@@ -4,6 +4,7 @@ import WaterVertexShader from './shader/water_vertex.glsl';
 
 /**
  * 水
+ * @param {THREE.WebGLRenderer} renderer 渲染器
  */
 function Water(renderer) {
     var BOUNDS = 512;

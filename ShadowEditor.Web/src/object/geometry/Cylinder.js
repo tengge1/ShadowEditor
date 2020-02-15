@@ -1,7 +1,7 @@
 /**
  * 圆柱体
- * @param {*} geometry 几何体
- * @param {*} material 材质
+ * @param {THREE.CylinderBufferGeometry} geometry 几何体
+ * @param {THREE.MeshStandardMaterial} material 材质
  */
 function Cylinder(geometry = new THREE.CylinderBufferGeometry(1, 1, 2, 32, 1, false), material = new THREE.MeshStandardMaterial()) {
     THREE.Mesh.call(this, geometry, material);

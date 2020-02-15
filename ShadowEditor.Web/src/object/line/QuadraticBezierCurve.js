@@ -2,7 +2,7 @@ var ARC_SEGMENTS = 200;
 
 /**
  * 二次贝塞尔曲线
- * @param {*} options 
+ * @param {Object} options 参数
  */
 function QuadraticBezierCurve(options = {}) {
     var geometry = new THREE.BufferGeometry();
