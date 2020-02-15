@@ -20,8 +20,8 @@ class EditorStatusBar extends React.Component {
         };
 
         this.state = {
-            x: '',
-            y: '',
+            x: 0,
+            y: 0,
             objects: 0,
             vertices: 0,
             triangles: 0
@@ -85,8 +85,8 @@ class EditorStatusBar extends React.Component {
     handleUpdateMousePosition(event) {
         if (event.target !== app.editor.renderer.domElement) {
             this.setState({
-                x: '',
-                y: ''
+                x: 0,
+                y: 0
             });
             return;
         }
