@@ -4,7 +4,7 @@
  */
 function CssLoader() {
 
-};
+}
 
 CssLoader.prototype.load = function (url) {
     var head = document.getElementsByTagName('head')[0];
@@ -17,12 +17,12 @@ CssLoader.prototype.load = function (url) {
     return new Promise(resolve => {
         link.onload = event => {
             link.onload = link.onerror = null;
-            resolve(link);
+            resolve(link, event);
         };
         link.onerror = event => {
             link.onload = link.onerror = null;
             console.warn(`CssLoader: ${url} loaded failed.`);
-            resolve(null);
+            resolve(null, event);
         };
     });
 };

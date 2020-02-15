@@ -1,7 +1,8 @@
 /**
  * 判断是否是three.js内置类
  * @author tengge / https://github.com/tengge1
- * @param {*} geometry 几何体
+ * @param {THREE.Geometry} geometry 几何体
+ * @returns {Boolean} 是否是
  */
 function isBuildInGeometry(geometry) {
     if (geometry instanceof THREE.BoxBufferGeometry ||

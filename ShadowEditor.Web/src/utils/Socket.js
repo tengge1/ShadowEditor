@@ -14,21 +14,21 @@ function Socket(url) {
     this.dispatch = dispatch('open', 'message', 'error', 'close');
 
     var _this = this;
-    this.socket.onopen = function (evt) {
-        _this.dispatch.call.apply(_this.dispatch, arguments);
+    this.socket.onopen = function (event) {
+        _this.dispatch.call.apply(_this.dispatch, event);
     };
 
-    this.socket.onmessage = function (evt) {
-        _this.dispatch.call.apply(_this.dispatch, arguments);
+    this.socket.onmessage = function (event) {
+        _this.dispatch.call.apply(_this.dispatch, event);
     };
 
-    this.socket.onerror = function (evt) {
-        _this.dispatch.call.apply(_this.dispatch, arguments);
+    this.socket.onerror = function (event) {
+        _this.dispatch.call.apply(_this.dispatch, event);
     };
 
-    this.socket.onclose = function (evt) {
-        _this.dispatch.call.apply(_this.dispatch, arguments);
-        if (this.reconnectTime != null) {
+    this.socket.onclose = function (event) {
+        _this.dispatch.call.apply(_this.dispatch, event);
+        if (this.reconnectTime !== null) {
             setTimeout(function () {
                 _this.socket = new WebSocket(this.url);
             }, this.reconnectTime);

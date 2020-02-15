@@ -4,7 +4,8 @@
 var CssUtils = {
     /**
      * 序列化滤镜
-     * @param {*} filters 滤镜对象
+     * @param {Object} filters 滤镜对象
+     * @returns {String} CSS数据
      */
     serializeFilter: function (filters) {
         var _filters = Object.assign({}, {
@@ -15,7 +16,7 @@ var CssUtils = {
             contrast: filters.contrast === undefined ? 1 : filters.contrast,
             grayscale: filters.grayscale || 0,
             invert: filters.invert || 0,
-            sepia: filters.sepia || 0,
+            sepia: filters.sepia || 0
         });
 
         return `hue-rotate(${_filters.hueRotate}deg) saturate(${_filters.saturate}) brightness(${_filters.brightness}) ` +
@@ -24,7 +25,8 @@ var CssUtils = {
 
     /**
      * 反序列化滤镜
-     * @param {*} str css滤镜字符串
+     * @param {String} str css滤镜字符串
+     * @returns {Object} 滤镜对象
      */
     parseFilter: function (str) {
         var list = str.split(' ');
@@ -37,7 +39,7 @@ var CssUtils = {
             contrast: 1,
             grayscale: 0,
             invert: 0,
-            sepia: 0,
+            sepia: 0
         };
 
         list.forEach(n => {

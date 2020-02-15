@@ -1,8 +1,9 @@
 /**
  * 创建材质球图片
- * @param {*} material 材质
- * @param {*} width 宽度
- * @param {*} height 高度
+ * @param {THREE.Material} material 材质
+ * @param {Number} width 宽度
+ * @param {Number} height 高度
+ * @returns {THREE.WebGLRenderTarget} 贴图
  */
 function createMaterialImage(material, width = 160, height = 160) {
     var scene = new THREE.Scene();
@@ -41,7 +42,7 @@ function createMaterialImage(material, width = 160, height = 160) {
  * 材质工具类
  */
 const MaterialUtils = {
-    createMaterialImage: createMaterialImage,
+    createMaterialImage: createMaterialImage
 };
 
 export default MaterialUtils;

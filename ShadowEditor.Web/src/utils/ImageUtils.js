@@ -1,6 +1,7 @@
 /**
  * 产生一个单像素画布
- * @param {*} color 默认颜色
+ * @param {String} color 默认颜色
+ * @returns {HTMLCanvasElement} 画布
  */
 function onePixelCanvas(color = '#000000') {
     var canvas = document.createElement('canvas');

@@ -20,7 +20,7 @@ THREE.AudioListener.prototype.updateMatrixWorld = (function () {
     var quaternion = new THREE.Quaternion();
     var scale = new THREE.Vector3();
 
-    var orientation = new THREE.Vector3();
+    // var orientation = new THREE.Vector3();
     var clock = new THREE.Clock();
 
     return function updateMatrixWorld(force) {

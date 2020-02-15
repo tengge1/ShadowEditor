@@ -4,7 +4,7 @@
  */
 function JsLoader() {
     this.assets = [];
-};
+}
 
 JsLoader.prototype.load = function (url) {
     var data = {

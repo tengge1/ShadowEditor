@@ -1,9 +1,10 @@
 /**
  * canvas转DataURL
  * @author cuixiping / https://blog.csdn.net/cuixiping/article/details/45932793
- * @param {*} canvas 画布
- * @param {*} type 图片类型 image/png或image/jpeg
- * @param {*} quality jpeg图片质量
+ * @param {HTMLCanvasElement} canvas 画布
+ * @param {String} type 图片类型 image/png或image/jpeg
+ * @param {Number} quality jpeg图片质量
+ * @returns {String} DataURL数据
  */
 function canvasToDataURL(canvas, type = 'image/png', quality = 0.8) {
     if (type.toLowerCase() === 'image/png') {
@@ -16,7 +17,8 @@ function canvasToDataURL(canvas, type = 'image/png', quality = 0.8) {
 /**
  * Blob转DataURL
  * @author cuixiping / https://blog.csdn.net/cuixiping/article/details/45932793
- * @param {*} blob Blob对象
+ * @param {Blob} blob Blob对象
+ * @returns {Promise} DataURL数据
  */
 function blobToDataURL(blob) {
     var reader = new FileReader();
@@ -32,7 +34,8 @@ function blobToDataURL(blob) {
 /**
  * 文件转DataURL
  * @author cuixiping / https://blog.csdn.net/cuixiping/article/details/45932793
- * @param {*} file 文件
+ * @param {File} file 文件
+ * @returns {Promise} DataURL数据
  */
 function fileToDataURL(file) {
     return blobToDataURL(file);
@@ -41,7 +44,8 @@ function fileToDataURL(file) {
 /**
  * DataURL转Blob
  * @author cuixiping / https://blog.csdn.net/cuixiping/article/details/45932793
- * @param {*} dataURL 
+ * @param {String} dataURL DataURL数据
+ * @returns {Blob} Blob对象
  */
 function dataURLToBlob(dataURL) {
     var array = dataURL.split(',');
@@ -58,8 +62,9 @@ function dataURLToBlob(dataURL) {
 /**
  * DataURL转File
  * @author cuixiping / https://blog.csdn.net/cuixiping/article/details/45932793
- * @param {*} dataURL 
- * @param {*} filename 文件名
+ * @param {String} dataURL DataURL数据
+ * @param {String} filename 文件名
+ * @returns {File} 文件
  */
 function dataURLtoFile(dataURL, filename) {
     var array = dataURL.split(',');
@@ -85,7 +90,8 @@ function dataURLtoFile(dataURL, filename) {
 /**
  * DataURL转图片
  * @author cuixiping / https://blog.csdn.net/cuixiping/article/details/45932793
- * @param {*} dataURL 
+ * @param {String} dataURL DataURL数据
+ * @returns {Image} 图片
  */
 function dataURLToImage(dataURL) {
     var image = new Image();
@@ -108,7 +114,8 @@ function dataURLToImage(dataURL) {
 /**
  * Blob转图片
  * @author cuixiping / https://blog.csdn.net/cuixiping/article/details/45932793
- * @param {*} blob 
+ * @param {Blob} blob Blob对象
+ * @returns {Promise} 图片
  */
 function BlobToImage(blob) {
     return new Promise(resolve => {
@@ -123,7 +130,8 @@ function BlobToImage(blob) {
 /**
  * 文件转图片
  * @author cuixiping / https://blog.csdn.net/cuixiping/article/details/45932793
- * @param {*} file 文件
+ * @param {File} file 文件
+ * @returns {Image} 图片
  */
 function FileToImage(file) {
     return BlobToImage(file);
@@ -132,7 +140,8 @@ function FileToImage(file) {
 /**
  * 图片转画布
  * @author cuixiping / https://blog.csdn.net/cuixiping/article/details/45932793
- * @param {*} image 图片
+ * @param {Image} image 图片
+ * @returns {HTMLCanvasElement} 画布
  */
 function ImageToCanvas(image) {
     var canvas = document.createElement('canvas');
@@ -147,9 +156,10 @@ function ImageToCanvas(image) {
 
 /**
  * 画布转图片
- * @param {*} canvas 画布
- * @param {*} type 类型
- * @param {*} quality jpeg图片质量
+ * @param {HTMLCanvasElement} canvas 画布
+ * @param {String} type 类型
+ * @param {Number} quality jpeg图片质量
+ * @returns {Image} 图片
  */
 function CanvasToImage(canvas, type = 'image/png', quality = 0.8) {
     var image = new Image();
@@ -175,7 +185,7 @@ const Converter = {
     BlobToImage: BlobToImage,
     FileToImage: FileToImage,
     imageToCanvas: ImageToCanvas,
-    canvasToImage: CanvasToImage,
+    canvasToImage: CanvasToImage
 };
 
 export default Converter;

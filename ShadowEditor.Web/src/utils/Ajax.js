@@ -3,7 +3,7 @@ import MIMETypeUtils from './MIMETypeUtils';
 /**
  * ajax
  * @author tengge / https://github.com/tengge1
- * @param {*} params 参数
+ * @param {Object} params 参数
  */
 function ajax(params) {
     const url = params.url || '';
@@ -16,9 +16,9 @@ function ajax(params) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
             var data = xhr.responseText;
-            typeof (callback) === 'function' && callback(data);
+            typeof callback === 'function' && callback(data);
         }
-    }
+    };
 
     if (data === null) { // 不需要POST数据
         xhr.send(null);
@@ -28,9 +28,9 @@ function ajax(params) {
     // 判断是发送表单还是上传文件
     // 由于API Controller只能序列化Content-Type为`application/x-www-form-urlencoded`的数据，所以发送表单和上传文件只能二选一。
     // 否则报错："No MediaTypeFormatter is available to read an object of type 'EditTextureModel' from content with media type 'multipart/form-data'.
-    var hasFile = false;
+    var hasFile = false, name;
 
-    for (var name in data) {
+    for (name in data) {
         if (data[name] instanceof Blob) {
             hasFile = true;
             break;
@@ -40,7 +40,7 @@ function ajax(params) {
     if (hasFile) { // 上传文件
         var formData = new FormData();
 
-        for (var name in data) {
+        for (name in data) {
             if (data[name] instanceof File) {
                 formData.append(name, data[name]);
             } else if (data[name] instanceof Blob) {
@@ -51,7 +51,7 @@ function ajax(params) {
         xhr.send(formData);
     } else { // 发送表单
         var bodies = [];
-        for (var name in data) {
+        for (name in data) {
             bodies.push(name + '=' + encodeURIComponent(data[name]));
         }
 
@@ -66,8 +66,8 @@ function ajax(params) {
 
 /**
  * get请求
- * @param {*} url 地址
- * @param {*} callback 回调函数
+ * @param {String} url 地址
+ * @param {Function} callback 回调函数
  */
 function get(url, callback) {
     ajax({
@@ -78,27 +78,27 @@ function get(url, callback) {
 
 /**
  * get请求并解析json数据
- * @param {*} url 
- * @param {*} callback 
+ * @param {String} url URL地址
+ * @param {Function} callback 回调函数
  */
 function getJson(url, callback) {
     ajax({
         url: url,
         callback: function (data) {
-            typeof (callback) === 'function' && callback(JSON.parse(data));
+            typeof callback === 'function' && callback(JSON.parse(data));
         }
-    })
+    });
 }
 
 /**
  * post请求
- * @param {*} url 地址
- * @param {*} data 数据
- * @param {*} callback 回调函数
+ * @param {String} url 地址
+ * @param {Object} data 数据
+ * @param {Function} callback 回调函数
  */
 function post(url, data, callback) {
-    const _data = typeof (data) === 'function' ? null : data;
-    const _callback = typeof (data) === 'function' ? data : callback;
+    const _data = typeof data === 'function' ? null : data;
+    const _callback = typeof data === 'function' ? data : callback;
 
     ajax({
         url: url,

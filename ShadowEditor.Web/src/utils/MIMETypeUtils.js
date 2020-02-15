@@ -1,6 +1,7 @@
 /**
  * 获取MIME-Type后缀名
- * @param {*} mimeType MIME-Type
+ * @param {String} mimeType MIME-Type
+ * @returns {String} 文件名后缀
  */
 function getExtension(mimeType) {
     switch (mimeType) {
@@ -20,7 +21,8 @@ function getExtension(mimeType) {
 
 /**
  * 获取MIME-Type类型
- * @param {*} extension 文件名后缀
+ * @param {String} extension 文件名后缀
+ * @returns {String} MIME-Type
  */
 function getMIMEType(extension) {
     extension = extension.trimLeft('.');
@@ -45,7 +47,7 @@ function getMIMEType(extension) {
  */
 const MIMETypeUtils = {
     getExtension: getExtension,
-    getMIMEType: getMIMEType,
+    getMIMEType: getMIMEType
 };
 
 export default MIMETypeUtils;

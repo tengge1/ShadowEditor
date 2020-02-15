@@ -24,7 +24,7 @@ const TimeUtils = {
             .replace('HH', hour)
             .replace('mm', minute)
             .replace('ss', second);
-    },
+    }
 };
 
 export default TimeUtils;
