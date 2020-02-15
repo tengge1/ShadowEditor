@@ -284,7 +284,7 @@ Model.prototype.loadMesh = function (buffer) {
             return;
         }
     } catch (err) {
-        alert("Model currently isn't loading! We're sorry and hope to have this fixed soon.");
+        console.warn("Model currently isn't loading! We're sorry and hope to have this fixed soon.");
         console.log(err);
         return;
     }
