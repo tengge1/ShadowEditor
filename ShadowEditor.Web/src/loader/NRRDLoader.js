@@ -11,11 +11,11 @@ function NRRDLoader() {
 NRRDLoader.prototype = Object.create(BaseLoader.prototype);
 NRRDLoader.prototype.constructor = NRRDLoader;
 
-NRRDLoader.prototype.load = function (url, options) {
+NRRDLoader.prototype.load = function (url, options) { // eslint-disable-line
     return new Promise(resolve => {
         this.require('NRRDLoader').then(() => {
             var loader = new THREE.NRRDLoader();
-            loader.load(url, result => {
+            loader.load(url, result => { // eslint-disable-line
                 var loader = new THREE.NRRDLoader();
                 loader.load(url, volume => {
                     var obj = new THREE.Object3D();

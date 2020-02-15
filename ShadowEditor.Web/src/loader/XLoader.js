@@ -11,7 +11,7 @@ function XLoader() {
 XLoader.prototype = Object.create(BaseLoader.prototype);
 XLoader.prototype.constructor = XLoader;
 
-XLoader.prototype.load = function (url, options) {
+XLoader.prototype.load = function (url, options) { // eslint-disable-line
     return new Promise(resolve => {
         this.require('XLoader').then(() => {
             var loader = new THREE.XLoader();

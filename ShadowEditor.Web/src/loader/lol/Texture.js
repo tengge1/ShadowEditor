@@ -1,14 +1,16 @@
 /**
  * @author lolking / http://www.lolking.net/models
  * @author tengge / https://github.com/tengge1
+ * @param {Model} model 模型
+ * @param {String} url 地址
  */
 function Texture(model, url) {
     var self = this;
     self.model = model;
     self.url = url;
     self.texture = null;
-    self.load()
-};
+    self.load();
+}
 
 Texture.prototype.load = function () {
     var self = this;

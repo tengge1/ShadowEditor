@@ -11,7 +11,7 @@ function PCDLoader() {
 PCDLoader.prototype = Object.create(BaseLoader.prototype);
 PCDLoader.prototype.constructor = PCDLoader;
 
-PCDLoader.prototype.load = function (url, options) {
+PCDLoader.prototype.load = function (url, options) { // eslint-disable-line
     return new Promise(resolve => {
         this.require('PCDLoader').then(() => {
             var loader = new THREE.PCDLoader();

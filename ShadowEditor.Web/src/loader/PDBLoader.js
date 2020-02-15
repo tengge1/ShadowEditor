@@ -11,7 +11,7 @@ function PDBLoader() {
 PDBLoader.prototype = Object.create(BaseLoader.prototype);
 PDBLoader.prototype.constructor = PDBLoader;
 
-PDBLoader.prototype.load = function (url, options) {
+PDBLoader.prototype.load = function (url, options) { // eslint-disable-line
     return new Promise(resolve => {
         this.require('PDBLoader').then(() => {
             var loader = new THREE.PDBLoader();
@@ -21,7 +21,7 @@ PDBLoader.prototype.load = function (url, options) {
             loader.load(url, pdb => {
                 var geometryAtoms = pdb.geometryAtoms;
                 var geometryBonds = pdb.geometryBonds;
-                var json = pdb.json;
+                // var json = pdb.json;
 
                 var root = new THREE.Group();
 
@@ -40,7 +40,9 @@ PDBLoader.prototype.load = function (url, options) {
                 var position = new THREE.Vector3();
                 var color = new THREE.Color();
 
-                for (var i = 0; i < positions.count; i++) {
+                var i, object;
+
+                for (i = 0; i < positions.count; i++) {
                     position.x = positions.getX(i);
                     position.y = positions.getY(i);
                     position.z = positions.getZ(i);
@@ -51,7 +53,7 @@ PDBLoader.prototype.load = function (url, options) {
 
                     var material = new THREE.MeshPhongMaterial({ color: color });
 
-                    var object = new THREE.Mesh(sphereGeometry, material);
+                    object = new THREE.Mesh(sphereGeometry, material);
                     object.position.copy(position);
                     object.position.multiplyScalar(75);
                     object.scale.multiplyScalar(25);
@@ -63,7 +65,7 @@ PDBLoader.prototype.load = function (url, options) {
                 var start = new THREE.Vector3();
                 var end = new THREE.Vector3();
 
-                for (var i = 0; i < positions.count; i += 2) {
+                for (i = 0; i < positions.count; i += 2) {
 
                     start.x = positions.getX(i);
                     start.y = positions.getY(i);
@@ -76,7 +78,7 @@ PDBLoader.prototype.load = function (url, options) {
                     start.multiplyScalar(75);
                     end.multiplyScalar(75);
 
-                    var object = new THREE.Mesh(boxGeometry, new THREE.MeshPhongMaterial(0xffffff));
+                    object = new THREE.Mesh(boxGeometry, new THREE.MeshPhongMaterial(0xffffff));
                     object.position.copy(start);
                     object.position.lerp(end, 0.5);
                     object.scale.set(5, 5, start.distanceTo(end));

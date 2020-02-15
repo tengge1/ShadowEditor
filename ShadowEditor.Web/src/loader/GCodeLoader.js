@@ -11,7 +11,7 @@ function GCodeLoader() {
 GCodeLoader.prototype = Object.create(BaseLoader.prototype);
 GCodeLoader.prototype.constructor = GCodeLoader;
 
-GCodeLoader.prototype.load = function (url, options) {
+GCodeLoader.prototype.load = function (url, options) { // eslint-disable-line
     return new Promise(resolve => {
         this.require('GCodeLoader').then(() => {
             var loader = new THREE.GCodeLoader();

@@ -1,6 +1,9 @@
 /**
  * @author lolking / http://www.lolking.net/models
  * @author tengge / https://github.com/tengge1
+ * @param {Model} model 模型
+ * @param {Number} index 索引
+ * @param {DataView2} r 数据视图
  */
 function Bone(model, index, r) {
     var self = this,
@@ -19,10 +22,10 @@ function Bone(model, index, r) {
     self.incrMatrix = mat4.create();
     if (model.version >= 2) {
         for (i = 0; i < 16; ++i) self.incrMatrix[i] = r.getFloat();
-        mat4.transpose(self.incrMatrix, self.incrMatrix)
+        mat4.transpose(self.incrMatrix, self.incrMatrix);
     } else {
-        mat4.identity(self.incrMatrix)
+        mat4.identity(self.incrMatrix);
     }
-};
+}
 
 export default Bone;

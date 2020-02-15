@@ -11,7 +11,7 @@ function VRMLLoader() {
 VRMLLoader.prototype = Object.create(BaseLoader.prototype);
 VRMLLoader.prototype.constructor = VRMLLoader;
 
-VRMLLoader.prototype.load = function (url, options) {
+VRMLLoader.prototype.load = function (url, options) { // eslint-disable-line
     return new Promise(resolve => {
         this.require(['chevrotain', 'VRMLLoader']).then(() => {
             var loader = new THREE.VRMLLoader();

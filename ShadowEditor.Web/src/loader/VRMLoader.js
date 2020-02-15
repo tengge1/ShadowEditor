@@ -11,7 +11,7 @@ function VRMLoader() {
 VRMLoader.prototype = Object.create(BaseLoader.prototype);
 VRMLoader.prototype.constructor = VRMLoader;
 
-VRMLoader.prototype.load = function (url, options) {
+VRMLoader.prototype.load = function (url, options) { // eslint-disable-line
     return new Promise(resolve => {
         this.require([
             'GLTFLoader',
@@ -19,13 +19,14 @@ VRMLoader.prototype.load = function (url, options) {
         ]).then(() => {
             var loader = new THREE.VRMLoader();
             loader.load(url, vrm => {
+                var material;
                 // VRMLoader doesn't support VRM Unlit extension yet so
                 // converting all materials to MeshBasicMaterial here as workaround so far.
                 vrm.scene.traverse(function (object) {
                     if (object.material) {
                         if (Array.isArray(object.material)) {
                             for (var i = 0, il = object.material.length; i < il; i++) {
-                                var material = new THREE.MeshBasicMaterial();
+                                material = new THREE.MeshBasicMaterial();
                                 THREE.Material.prototype.copy.call(material, object.material[i]);
                                 material.color.copy(object.material[i].color);
                                 material.map = object.material[i].map;
@@ -36,7 +37,7 @@ VRMLoader.prototype.load = function (url, options) {
                                 object.material[i] = material;
                             }
                         } else {
-                            var material = new THREE.MeshBasicMaterial();
+                            material = new THREE.MeshBasicMaterial();
                             THREE.Material.prototype.copy.call(material, object.material);
                             material.color.copy(object.material.color);
                             material.map = object.material.map;

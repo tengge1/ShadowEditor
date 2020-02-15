@@ -42,7 +42,7 @@ SEA3DLoader.prototype.load = function (url, options) {
     });
 };
 
-SEA3DLoader.prototype.createScripts = function (name) {
+SEA3DLoader.prototype.createScripts = function (name) { // eslint-disable-line
     return `function update(clock, deltaTime) { \n    THREE.SEA3D.AnimationHandler.update(deltaTime); \n}`;
 };
 

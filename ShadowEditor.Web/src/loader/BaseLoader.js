@@ -13,7 +13,7 @@ function BaseLoader() {
     this.require = this.packageManager.require.bind(this.packageManager);
 }
 
-BaseLoader.prototype.load = function (url, options) {
+BaseLoader.prototype.load = function (url, options) { // eslint-disable-line
     return new Promise(resolve => {
         resolve(null);
     });

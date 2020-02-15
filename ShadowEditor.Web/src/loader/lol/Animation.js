@@ -3,6 +3,9 @@ import AnimationBone from './AnimationBone';
 /**
  * @author lolking / http://www.lolking.net/models
  * @author tengge / https://github.com/tengge1
+ * @param {Model} model 模型
+ * @param {DataView2} r 数据视图
+ * @param {Number} version 版本
  */
 function Animation(model, r, version) {
     var self = this,
@@ -16,13 +19,13 @@ function Animation(model, r, version) {
     self.lookup = {};
     for (i = 0; i < numBones; ++i) {
         self.bones[i] = new AnimationBone(model, self, r, version);
-        self.lookup[self.bones[i].bone] = i
+        self.lookup[self.bones[i].bone] = i;
     }
-    if (numBones == 0 || self.fps <= 1) {
-        self.duration = 1e3
+    if (numBones === 0 || self.fps <= 1) {
+        self.duration = 1e3;
     } else {
-        self.duration = Math.floor(1e3 * (self.bones[0].frames.length / self.fps))
+        self.duration = Math.floor(1e3 * (self.bones[0].frames.length / self.fps));
     }
-};
+}
 
 export default Animation;

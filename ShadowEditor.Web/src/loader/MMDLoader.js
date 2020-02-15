@@ -85,7 +85,7 @@ MMDLoader.prototype.loadCameraAnimation = function (url, options, environment, l
     });
 };
 
-MMDLoader.prototype.loadAudio = function (url, options, environment, loader) {
+MMDLoader.prototype.loadAudio = function (url, options, environment, loader) { // eslint-disable-line
     if (!options.Audio || !options.Audio.Url) {
         return new Promise(resolve => {
             resolve(null);

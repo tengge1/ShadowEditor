@@ -1,6 +1,7 @@
 /**
  * @author lolking / http://www.lolking.net/models
  * @author tengge / https://github.com/tengge1
+ * @param {DataView2} r 数据视图
  */
 function Vertex(r) {
     var self = this,
@@ -17,6 +18,6 @@ function Vertex(r) {
     for (i = 0; i < 4; ++i) {
         self.weights[i] = r.getFloat();
     }
-};
+}
 
 export default Vertex;

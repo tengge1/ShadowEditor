@@ -1,6 +1,10 @@
 /**
  * @author lolking / http://www.lolking.net/models
  * @author tengge / https://github.com/tengge1
+ * @param {Model} model 模型
+ * @param {Animation} anim 动画
+ * @param {DataView2} r 数据视图
+ * @param {Number} version 版本
  */
 function AnimationBone(model, anim, r, version) {
     var self = this;
@@ -19,15 +23,15 @@ function AnimationBone(model, anim, r, version) {
             pos: pos,
             rot: rot,
             scale: scale
-        }
+        };
     }
     self.matrix = mat4.create();
     self.tmpMat = mat4.create();
     self.tmpMat2 = mat4.create();
     self.tmpPos = vec3.create();
     self.tmpRot = quat.create();
-    self.tmpScale = vec3.create()
-};
+    self.tmpScale = vec3.create();
+}
 
 AnimationBone.prototype.update = function (boneId, frame, r) {
     var self = this;
@@ -41,10 +45,10 @@ AnimationBone.prototype.update = function (boneId, frame, r) {
     self.translation(self.tmpMat2, self.tmpPos);
     self.rotationQuat(self.tmpMat, self.tmpRot);
     self.mulSlimDX(self.matrix, self.tmpMat, self.tmpMat2);
-    if (parent != -1) {
-        self.mulSlimDX(self.matrix, self.matrix, self.model.transforms[parent])
+    if (parent !== -1) {
+        self.mulSlimDX(self.matrix, self.matrix, self.model.transforms[parent]);
     }
-    mat4.copy(self.model.transforms[boneId], self.matrix)
+    mat4.copy(self.model.transforms[boneId], self.matrix);
 };
 
 AnimationBone.prototype.translation = function (out, vec) {
@@ -52,7 +56,7 @@ AnimationBone.prototype.translation = function (out, vec) {
     out[12] = vec[0];
     out[13] = vec[1];
     out[14] = vec[2];
-    return out
+    return out;
 };
 
 AnimationBone.prototype.rotationQuat = function (out, q) {
@@ -75,7 +79,7 @@ AnimationBone.prototype.rotationQuat = function (out, q) {
     out[8] = 2 * (zx + yw);
     out[9] = 2 * (yz - xw);
     out[10] = 1 - 2 * (yy + xx);
-    return out
+    return out;
 };
 
 AnimationBone.prototype.mulSlimDX = function (out, l, r) {
@@ -131,7 +135,7 @@ AnimationBone.prototype.mulSlimDX = function (out, l, r) {
     out[13] = left.M41 * right.M12 + left.M42 * right.M22 + left.M43 * right.M32 + left.M44 * right.M42;
     out[14] = left.M41 * right.M13 + left.M42 * right.M23 + left.M43 * right.M33 + left.M44 * right.M43;
     out[15] = left.M41 * right.M14 + left.M42 * right.M24 + left.M43 * right.M34 + left.M44 * right.M44;
-    return out
+    return out;
 };
 
 export default AnimationBone;
