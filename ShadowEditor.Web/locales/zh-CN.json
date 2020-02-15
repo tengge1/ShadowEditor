@@ -1006,5 +1006,8 @@
     "Please click the sky ball in the MapPanel.": "请点击贴图面板中的天空球。",
     "Sky Ball": "天空球",
     "The map you clicked is not sky ball.": "你点击的贴图不是天空球。",
-    "Clear Tools": "清空工具"
+    "Clear Tools": "清空工具",
+    "View": "视图",
+    "Stats": "性能监视器",
+    "Camera View": "视角帮助器"
 }
