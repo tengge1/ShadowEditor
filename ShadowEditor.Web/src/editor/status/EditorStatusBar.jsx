@@ -1,5 +1,5 @@
 import './css/EditorStatusBar.css';
-import { Toolbar, ToolbarSeparator, Label, CheckBox, Select } from '../../third_party';
+import { Toolbar, ToolbarSeparator, Label, Select } from '../../third_party';
 
 /**
  * 状态栏
@@ -22,25 +22,15 @@ class EditorStatusBar extends React.Component {
         this.state = {
             objects: 0,
             vertices: 0,
-            triangles: 0,
-            showStats: app.storage.get('showStats') === undefined ? true : app.storage.get('showStats'),
-            showGrid: app.storage.get('showGrid') === undefined ? true : app.storage.get('showGrid'),
-            showViewHelper: app.storage.get('showViewHelper') === undefined ? true : app.storage.get('showViewHelper'),
-            isThrowBall: false
+            triangles: 0
         };
 
-        this.handleShowStats = this.handleShowStats.bind(this);
-        this.handleShowGrid = this.handleShowGrid.bind(this);
-        this.handleShowViewHelper = this.handleShowViewHelper.bind(this);
-        this.handleEnablePhysics = this.handleEnablePhysics.bind(this);
-        this.handleEnableThrowBall = this.handleEnableThrowBall.bind(this);
         this.handleChangeSelectMode = this.handleChangeSelectMode.bind(this);
         this.handleChangeControlMode = this.handleChangeControlMode.bind(this);
     }
 
     render() {
-        const { objects, vertices, triangles, showStats, showGrid, showViewHelper } = this.state;
-        const { enablePhysics } = app.options;
+        const { objects, vertices, triangles } = this.state;
 
         const selectMode = app.storage.get('selectMode');
         const controlMode = app.storage.get('controlMode');
@@ -55,31 +45,6 @@ class EditorStatusBar extends React.Component {
             <Label>{_t('Triangle')}</Label>
             <Label>{triangles}</Label>
             <ToolbarSeparator />
-            <Label>{_t('Show Stats')}</Label>
-            <CheckBox checked={showStats}
-                onChange={this.handleShowStats}
-            />
-            <Label>{_t('Grid')}</Label>
-            <CheckBox checked={showGrid}
-                onChange={this.handleShowGrid}
-            />
-            <Label>{_t('View Helper')}</Label>
-            <CheckBox checked={showViewHelper}
-                onChange={this.handleShowViewHelper}
-            />
-            <ToolbarSeparator />
-            {isLogin && <>
-                <Label>{_t('Physics Engine')}</Label>
-                <CheckBox name={'enablePhysics'}
-                    checked={enablePhysics}
-                    onChange={this.handleEnablePhysics}
-                />
-                {/* <Label>{_t('ThrowBall')}</Label>
-                <CheckBox checked={isThrowBall}
-                    onChange={this.handleEnableThrowBall}
-                /> */}
-                <ToolbarSeparator />
-            </>}
             {isLogin && <>
                 <Label>{_t('Selected Mode')}</Label>
                 <Select name={'selectMode'}
@@ -146,51 +111,6 @@ class EditorStatusBar extends React.Component {
             vertices: vertices.format(),
             triangles: triangles.format()
         });
-    }
-
-    handleShowStats() {
-        const showStats = !app.storage.get('showStats');
-        app.storage.set('showStats', showStats);
-
-        Object.assign(app.stats.dom.style, {
-            display: showStats ? 'block' : 'none'
-        });
-
-        this.setState({
-            showStats
-        });
-    }
-
-    handleShowGrid(showGrid) {
-        if (showGrid !== app.storage.get('showGrid')) {
-            app.storage.set('showGrid', showGrid);
-            app.call(`storageChanged`, this, 'showGrid', showGrid);
-
-            this.setState({
-                showGrid
-            });
-        }
-    }
-
-    handleShowViewHelper() {
-        const showViewHelper = !app.storage.get('showViewHelper');
-        app.storage.set('showViewHelper', showViewHelper);
-
-        app.call(`storageChanged`, this, 'showViewHelper', showViewHelper);
-
-        this.setState({
-            showViewHelper
-        });
-    }
-
-    handleEnablePhysics(value) {
-        app.options.enablePhysics = value;
-        app.call('optionChange', this, 'enablePhysics', value);
-        this.forceUpdate();
-    }
-
-    handleEnableThrowBall(checked) {
-        app.call('enableThrowBall', this, checked);
     }
 
     handleChangeSelectMode(value) {

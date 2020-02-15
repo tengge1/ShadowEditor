@@ -256,7 +256,7 @@
     "Set Script": "设置脚本",
     "Distance": "距离",
     "Set Position": "设置位置",
-    "ThrowBall": "扔小球",
+    "Throw Ball": "扔小球",
     "Skin": "皮肤",
     "Rect Area Light": "矩形光",
     "Hemisphere Light": "半球光",
@@ -1008,6 +1008,5 @@
     "The map you clicked is not sky ball.": "你点击的贴图不是天空球。",
     "Clear Tools": "清空工具",
     "View": "视图",
-    "Stats": "性能监视器",
-    "Camera View": "视角帮助器"
+    "Stats": "性能监视器"
 }
