@@ -9,8 +9,8 @@ class ViewMenu extends React.Component {
         super(props);
 
         this.state = {
-            westPanelShow: app.storage.westPanelShow,
-            eastPanelShow: app.storage.eastPanelShow,
+            assetsPanelShow: app.storage.assetsPanelShow,
+            sidebarShow: app.storage.sidebarShow,
             toolbarShow: app.storage.toolbarShow,
             timelinePanelShow: app.storage.timelinePanelShow,
             statusBarShow: app.storage.statusBarShow,
@@ -22,8 +22,8 @@ class ViewMenu extends React.Component {
             isThrowBall: false
         };
 
-        this.handleShowWestPanel = this.handleShowWestPanel.bind(this);
-        this.handleShowEastPanel = this.handleShowEastPanel.bind(this);
+        this.handleShowAssetsPanel = this.handleShowAssetsPanel.bind(this);
+        this.handleShowSidebar = this.handleShowSidebar.bind(this);
         this.handleShowToolbar = this.handleShowToolbar.bind(this);
         this.handleShowTimelinePanel = this.handleShowTimelinePanel.bind(this);
         this.handleShowStatusBar = this.handleShowStatusBar.bind(this);
@@ -37,16 +37,16 @@ class ViewMenu extends React.Component {
     }
 
     render() {
-        const { westPanelShow, eastPanelShow, toolbarShow, timelinePanelShow, statusBarShow, showStats, showGrid, showViewHelper, enablePhysics, isThrowBall } = this.state;
+        const { assetsPanelShow, sidebarShow, toolbarShow, timelinePanelShow, statusBarShow, showStats, showGrid, showViewHelper, enablePhysics, isThrowBall } = this.state;
 
         return <MenuItem title={_t('View')}>
-            <MenuItem title={_t('West Panel')}
-                checked={westPanelShow}
-                onClick={this.handleShowWestPanel}
+            <MenuItem title={_t('Assets Panel')}
+                checked={assetsPanelShow}
+                onClick={this.handleShowAssetsPanel}
             />
-            <MenuItem title={_t('East Panel')}
-                checked={eastPanelShow}
-                onClick={this.handleShowEastPanel}
+            <MenuItem title={_t('Sidebar')}
+                checked={sidebarShow}
+                onClick={this.handleShowSidebar}
             />
             <MenuItem title={_t('Toolbar')}
                 checked={toolbarShow}
@@ -85,21 +85,21 @@ class ViewMenu extends React.Component {
         </MenuItem>;
     }
 
-    handleShowWestPanel() {
-        const westPanelShow = !app.storage.westPanelShow;
-        app.storage.westPanelShow = westPanelShow;
+    handleShowAssetsPanel() {
+        const assetsPanelShow = !app.storage.assetsPanelShow;
+        app.storage.assetsPanelShow = assetsPanelShow;
 
         this.setState({
-            westPanelShow
+            assetsPanelShow
         });
     }
 
-    handleShowEastPanel() {
-        const eastPanelShow = !app.storage.eastPanelShow;
-        app.storage.eastPanelShow = eastPanelShow;
+    handleShowSidebar() {
+        const sidebarShow = !app.storage.sidebarShow;
+        app.storage.sidebarShow = sidebarShow;
 
         this.setState({
-            eastPanelShow
+            sidebarShow
         });
     }
 

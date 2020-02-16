@@ -199,7 +199,8 @@ class BorderLayout extends React.Component {
         // north region
         const northRegion = north.length > 0 && <div className={classNames('north',
             this.state.northSplit && 'split',
-            this.state.northCollapsed && 'collapsed')}
+            this.state.northCollapsed && 'collapsed',
+            north.every(n => n.props.show === false) && 'hidden')}
             region={'north'}
             onTransitionEnd={this.handleTransitionEnd}
             ref={this.northRef}
@@ -217,7 +218,8 @@ class BorderLayout extends React.Component {
         // south region
         const southRegion = south.length > 0 && <div className={classNames('south',
             this.state.northSplit && 'split',
-            this.state.southCollapsed && 'collapsed')}
+            this.state.southCollapsed && 'collapsed',
+            south.every(n => n.props.show === false) && 'hidden')}
             region={'south'}
             onTransitionEnd={this.handleTransitionEnd}
             ref={this.southRef}
@@ -235,7 +237,8 @@ class BorderLayout extends React.Component {
         // west region
         const westRegion = west.length > 0 && <div className={classNames('west',
             this.state.westSplit && 'split',
-            this.state.westCollapsed && 'collapsed')}
+            this.state.westCollapsed && 'collapsed',
+            west.every(n => n.props.show === false) && 'hidden')}
             region={'west'}
             onTransitionEnd={this.handleTransitionEnd}
             ref={this.westRef}
@@ -253,7 +256,8 @@ class BorderLayout extends React.Component {
         // east region
         const eastRegion = east.length > 0 && <div className={classNames('east',
             this.state.eastSplit && 'split',
-            this.state.eastCollapsed && 'collapsed')}
+            this.state.eastCollapsed && 'collapsed',
+            east.every(n => n.props.show === false) && 'hidden')}
             region={'east'}
             onTransitionEnd={this.handleTransitionEnd}
             ref={this.eastRef}

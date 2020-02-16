@@ -8,8 +8,8 @@ class Storage {
             debug: false, // 调试模式
 
             // 视图相关
-            westPanelShow: true,
-            eastPanelShow: true,
+            assetsPanelShow: true,
+            sidebarShow: true,
             toolbarShow: true,
             timelinePanelShow: true,
             statusBarShow: true,
