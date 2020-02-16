@@ -20,6 +20,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 7. 性能监视器、网格、视角帮助器、物理引擎、扔小球设置由`状态栏`移动到`视图`菜单中。
 8. 状态栏新增鼠标坐标显示。
 9. `视图`菜单新增`动态显示隐藏资源面板、侧边栏、工具栏、时间轴面板、状态栏`功能，并保存在本地存储中。
+10. 控制台不再显示`DevTools failed to load SourceMap: Could not load content for gunzip.min.js.map`的警告信息。
 
 ## v0.4.2更新【[更新日志](docs-dev/update/UpdateLog.md)】
 
