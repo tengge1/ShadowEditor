@@ -26,7 +26,12 @@ class Editor extends React.Component {
         this.state = {
             showMask: false,
             maskText: _t('Waiting...'),
-            elements: []
+            elements: [],
+            westPanelShow: app.storage.westPanelShow,
+            eastPanelShow: app.storage.eastPanelShow,
+            toolbarShow: app.storage.toolbarShow,
+            timelinePanelShow: app.storage.timelinePanelShow,
+            statusBarShow: app.storage.statusBarShow
         };
 
         this.type = 'scene'; // 编辑器类型：scene, mesh, texture, material, terrain, ai
@@ -35,29 +40,28 @@ class Editor extends React.Component {
     }
 
     render() {
-        const { showMask, maskText, elements } = this.state;
-
+        const { showMask, maskText, elements, westPanelShow, eastPanelShow, toolbarShow, timelinePanelShow, statusBarShow } = this.state;
         const isLogin = !app.server.enableAuthority || app.server.isLogin;
 
         return <>
             <BorderLayout className={'Editor'}>
                 <EditorMenuBar region={'north'} />
-                <EditorStatusBar region={'south'} />
-                <AssetsPanel region={'west'}
+                {statusBarShow && <EditorStatusBar region={'south'} />}
+                {westPanelShow && <AssetsPanel region={'west'}
                     split
                     onToggle={this.onToggle}
-                />
-                {isLogin && <EditorSideBar region={'east'}
+                                  />}
+                {isLogin && eastPanelShow && <EditorSideBar region={'east'}
                     split
                     onToggle={this.onToggle}
-                            />}
+                                             />}
                 <BorderLayout region={'center'}>
-                    {isLogin && <EditorToolbar region={'north'} />}
+                    {isLogin && toolbarShow && <EditorToolbar region={'north'} />}
                     <Viewport region={'center'} />
-                    {isLogin && <TimelinePanel region={'south'}
+                    {isLogin && timelinePanelShow && <TimelinePanel region={'south'}
                         split
                         onToggle={this.onToggle}
-                                />}
+                                                     />}
                 </BorderLayout>
             </BorderLayout>
             {elements.map((n, i) => {
@@ -157,6 +161,7 @@ class Editor extends React.Component {
         // 事件
         app.on(`appStarted.Editor`, this.onAppStarted.bind(this));
         app.on(`showMask.Editor`, this.onShowMask.bind(this));
+        app.on(`storageChanged.Editor`, this.onStorageChanged.bind(this));
 
         // 帮助器
         this.helpers = new Helpers(app);
@@ -188,6 +193,17 @@ class Editor extends React.Component {
 
     onToggle() {
         app.call('resize', this);
+    }
+
+    onStorageChanged(key, value) {
+        const keys = ['westPanelShow', 'eastPanelShow', 'toolbarShow', 'timelinePanelShow', 'statusBarShow'];
+        if (keys.indexOf(key) === -1) {
+            return;
+        }
+        this.setState({
+            [key]: value
+        });
+        app.call(`resize`, this);
     }
 
     // -------------------- 场景 --------------------------

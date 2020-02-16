@@ -7,6 +7,13 @@ class Storage {
         const defaultConfigs = {
             debug: false, // 调试模式
 
+            // 视图相关
+            westPanelShow: true,
+            eastPanelShow: true,
+            toolbarShow: true,
+            timelinePanelShow: true,
+            statusBarShow: true,
+
             // 帮助器
             showStats: true, // 性能监视器
             showGrid: true, // 网格
@@ -28,13 +35,16 @@ class Storage {
             hoverEnabled: false, // 高亮效果
             hoveredColor: '#ffff00',
 
+            // 编辑模式
             addMode: 'click', // 添加模式：center: 添加到场景中心；click: 点击场景添加。
             controlMode: 'EditorControls' // 控制器模式：EditorControls: 编辑器控制器；FreeControls: 自由控制器。
         };
 
+        let configs = this._getConfigs();
+
         Object.entries(defaultConfigs).forEach(n => {
-            if (this.get(n[0]) === undefined) {
-                this.set(n[0], n[1]);
+            if (configs[n[0]] === undefined) {
+                configs[n[0]] = n[1];
             }
 
             Object.defineProperty(this, n[0], {
@@ -46,6 +56,8 @@ class Storage {
                 }
             });
         });
+
+        this._setConfigs(configs);
     }
 
     /**
@@ -58,10 +70,20 @@ class Storage {
         return configs[key];
     }
 
+    /**
+     * 设置本地存储
+     * @param {String} key 键
+     * @param {String} value 值
+     */
     set(key, value) {
         let configs = this._getConfigs();
         configs[key] = value;
         this._setConfigs(configs);
+        if (app.call) {
+            app.call(`storageChanged`, this, key, value);
+        } else {
+            console.warn(`Storage: EventDispatcher has not been created.`);
+        }
     }
 
     setConfigs(configs) {

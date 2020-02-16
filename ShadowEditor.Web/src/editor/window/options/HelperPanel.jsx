@@ -115,42 +115,34 @@ class HelperPanel extends React.Component {
 
         if (showGrid !== app.storage.showGrid) {
             app.storage.showGrid = showGrid;
-            app.call(`storageChanged`, this, 'showGrid', showGrid);
         }
 
         if (showCamera !== app.storage.showCamera) {
             app.storage.showCamera = showCamera;
-            app.call(`storageChanged`, this, 'showCamera', showCamera);
         }
 
         if (showPointLight !== app.storage.showPointLight) {
             app.storage.showPointLight = showPointLight;
-            app.call(`storageChanged`, this, 'showPointLight', showPointLight);
         }
 
         if (showDirectionalLight !== app.storage.showDirectionalLight) {
             app.storage.showDirectionalLight = showDirectionalLight;
-            app.call(`storageChanged`, this, 'showDirectionalLight', showDirectionalLight);
         }
 
         if (showSpotLight !== app.storage.showSpotLight) {
             app.storage.showSpotLight = showSpotLight;
-            app.call(`storageChanged`, this, 'showSpotLight', showSpotLight);
         }
 
         if (showHemisphereLight !== app.storage.showHemisphereLight) {
             app.storage.showHemisphereLight = showHemisphereLight;
-            app.call(`storageChanged`, this, 'showHemisphereLight', showHemisphereLight);
         }
 
         if (showRectAreaLight !== app.storage.showRectAreaLight) {
             app.storage.showRectAreaLight = showRectAreaLight;
-            app.call(`storageChanged`, this, 'showRectAreaLight', showRectAreaLight);
         }
 
         if (showSkeleton !== app.storage.showSkeleton) {
             app.storage.showSkeleton = showSkeleton;
-            app.call(`storageChanged`, this, 'showSkeleton', showSkeleton);
         }
 
         this.handleUpdate();

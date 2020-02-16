@@ -73,7 +73,6 @@ class DisplayPanel extends React.Component {
         }
 
         app.storage[name] = value;
-        app.call(`storageChanged`, this, name, value);
 
         this.handleUpdate();
     }

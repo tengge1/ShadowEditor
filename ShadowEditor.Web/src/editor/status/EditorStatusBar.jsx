@@ -139,14 +139,12 @@ class EditorStatusBar extends React.Component {
 
     handleChangeSelectMode(value) {
         app.storage.selectMode = value;
-        app.call('storageChanged', this, 'selectMode', value);
         this.forceUpdate();
     }
 
     handleChangeControlMode(value) {
         app.editor.controls.changeMode(value);
         app.storage.controlMode = value;
-        app.call('storageChanged', this, 'controlMode', value);
         this.forceUpdate();
     }
 }

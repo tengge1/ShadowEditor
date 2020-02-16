@@ -395,7 +395,6 @@ class DrawTools extends React.Component {
 
     changeAddMode(value) {
         app.storage.addMode = value;
-        app.call('storageChanged', this, 'addMode', value);
         this.forceUpdate();
     }
 }
