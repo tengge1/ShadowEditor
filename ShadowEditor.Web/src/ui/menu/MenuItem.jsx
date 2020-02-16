@@ -23,11 +23,11 @@ class MenuItem extends React.Component {
             </div></> : null;
 
         return <li
-            className={classNames('MenuItem', checked && 'checked', selected && 'selected', disabled && 'disabled', !show && 'hidden', className)}
+            className={classNames('MenuItem', checked !== undefined && 'checked', selected !== undefined && 'selected', disabled && 'disabled', !show && 'hidden', className)}
             style={style}
             onClick={this.handleClick}
                >
-            {(checked || selected) && <div className={'prefix'} />}
+            {(checked !== undefined || selected !== undefined) && <div className={classNames('prefix', (checked || selected) && 'on')} />}
             <span>{title}</span>
             {subMenu}
         </li>;
@@ -60,8 +60,8 @@ MenuItem.defaultProps = {
     style: null,
     children: null,
     show: true,
-    checked: false,
-    selected: false,
+    checked: undefined,
+    selected: undefined,
     disabled: false,
     onClick: null
 };
