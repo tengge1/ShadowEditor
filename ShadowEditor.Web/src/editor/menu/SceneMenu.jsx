@@ -72,9 +72,9 @@ class SceneMenu extends React.Component {
                     onClick={this.handleExportSceneToSTL}
                 />
             </MenuItem> : null}
-            {!enableAuthority || isAdmin ? <MenuItem title={_t('Publish Scene')}
+            {!enableAuthority || authorities.includes('PUBLISH_SCENE') ? <MenuItem title={_t('Publish Scene')}
                 onClick={this.handlePublishScene}
-                                           /> : null}
+                                                                         /> : null}
         </MenuItem>;
     }
 

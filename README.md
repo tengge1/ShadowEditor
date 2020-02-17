@@ -23,6 +23,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 10. 控制台不再显示`DevTools failed to load SourceMap: Could not load content for gunzip.min.js.map`的警告信息。
 11. 修复错误的`cookie`导致服务端报错bug。
 12. 修复新版谷歌浏览器无法正常注销bug。
+13. 新增`发布场景权限`。
 
 ## v0.4.2更新【[更新日志](docs-dev/update/UpdateLog.md)】
 
