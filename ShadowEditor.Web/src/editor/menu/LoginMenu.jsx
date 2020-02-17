@@ -3,6 +3,7 @@ import { classNames, MenuItemSeparator, LinkButton } from '../../third_party';
 import LoginWindow from '../system/LoginWindow.jsx';
 import RegisterWindow from '../system/RegisterWindow.jsx';
 import ChangePasswordWindow from '../system/ChangePasswordWindow.jsx';
+import CookieUtils from '../../utils/CookieUtils';
 
 /**
  * 登录菜单
@@ -132,13 +133,14 @@ class LoginMenu extends React.Component {
     }
 
     commitLogout() {
-        app.server.logout().then(success => {
-            if (!success) {
-                return;
-            }
-            window.location.reload();
-            app.toast(_t(obj.Msg));
-        });
+        // app.server.logout().then(success => {
+        //     if (!success) {
+        //         return;
+        //     }
+        CookieUtils.clearAll();
+        window.location.reload();
+        // app.toast(_t(obj.Msg));
+        // });
     }
 }
 

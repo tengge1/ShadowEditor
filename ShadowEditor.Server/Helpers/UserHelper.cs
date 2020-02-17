@@ -34,13 +34,11 @@ namespace ShadowEditor.Server.Helpers
                 return null;
             }
 
-            // 解析ticket数据
-            var ticket = FormsAuthentication.Decrypt(cookie.Value);
-
             LoginTicketDataModel userData = null;
 
             try
             {
+                var ticket = FormsAuthentication.Decrypt(cookie.Value);
                 userData = JsonConvert.DeserializeObject<LoginTicketDataModel>(ticket.UserData);
             }
             catch (Exception ex)

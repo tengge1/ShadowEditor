@@ -211,6 +211,11 @@ namespace ShadowEditor.Server
         public const string SAVE_SCENE = "Save Scene";
 
         /// <summary>
+        /// 发布场景
+        /// </summary>
+        public const string PUBLISH_SCENE = "Publish Scene";
+
+        /// <summary>
         /// 删除场景
         /// </summary>
         public const string DELETE_SCENE = "Delete Scene";
