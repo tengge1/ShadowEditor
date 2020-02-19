@@ -4,6 +4,7 @@
     "private": true,
     "description": "3D Editor with three.js.",
     "dependencies": {
+        "@tweenjs/tween.js": "^18.5.0",
         "classnames": "^2.2.6",
         "d3-dispatch": "^1.0.6",
         "i18next": "^17.0.11",

@@ -1,5 +1,5 @@
 import BaseControls from './BaseControls';
-import Ease from '../utils/Ease';
+import { TWEEN } from '../third_party';
 import CoordinateUtils from '../utils/CoordinateUtils';
 
 const STATE = {
