@@ -18,7 +18,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 5. 组件菜单添加`天空球`组件。
 6. 修复`未保存材质的模型`和`多材质模型`发布场景报错的bug。
 7. 性能监视器、网格、视角帮助器、物理引擎、扔小球设置由`状态栏`移动到`视图`菜单中。
-8. 状态栏新增鼠标坐标显示。
+8. 状态栏新增鼠标坐标显示，发现对性能有严重影响，暂时注释该功能。
 9. `视图`菜单新增`动态显示隐藏资源面板、侧边栏、工具栏、时间轴面板、状态栏`功能，并保存在本地存储中。
 10. 控制台不再显示`DevTools failed to load SourceMap: Could not load content for gunzip.min.js.map`的警告信息。
 11. 修复错误的`cookie`导致服务端报错bug。

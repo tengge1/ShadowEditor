@@ -38,7 +38,11 @@ export default {
     plugins: [
         glsl(),
         resolve(),
-        commonjs(),
+        commonjs({
+            exclude: [
+                'ShadowEditor.Web/assets/**'
+            ]
+        }),
         replace({
             'process.env.NODE_ENV': '"development"' // production
         }),

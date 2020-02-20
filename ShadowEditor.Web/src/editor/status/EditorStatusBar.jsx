@@ -76,7 +76,7 @@ class EditorStatusBar extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`mousemove.EditorStatusBar`, this.handleUpdateMousePosition);
+        // app.on(`mousemove.EditorStatusBar`, this.handleUpdateMousePosition);
         app.on(`objectAdded.EditorStatusBar`, this.handleUpdateSceneInfo);
         app.on(`objectRemoved.EditorStatusBar`, this.handleUpdateSceneInfo);
         app.on(`geometryChanged.EditorStatusBar`, this.handleUpdateSceneInfo);
