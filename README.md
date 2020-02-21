@@ -31,6 +31,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 
 15. 给`ShadowEditor.Web\temp`目录设置只读权限。
 16. 发布场景提示`正在导出...`改为`发布中...`。
+17. 添加常见问题`发布场景后没反应。`。
 
 ## v0.4.2更新【[更新日志](docs-dev/update/UpdateLog.md)】
 
