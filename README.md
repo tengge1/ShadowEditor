@@ -179,7 +179,7 @@ npm run docs
 
 1、看一下谷歌浏览器地址栏右侧，弹出窗口是不是被拦截了。  
 2、打开开发者工具，看一下`Console`或`Network`选项卡，是不是报错了。  
-3、发布的场景在`ShadowEditor.Web`目录下，看一下有没有。
+3、发布的场景在`ShadowEditor.Web\temp`目录下，看一下有没有。
 
 ## 相关链接
 
