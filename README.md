@@ -25,6 +25,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 12. 修复新版谷歌浏览器无法正常注销bug。
 13. 新增`发布场景权限`。
 14. 发布场景后的地址不再需要加`sceneFile`参数。
+15. 自由控制器优化，平移和旋转增加惯性，限制仰角为0~90度。
 
 旧：`http://localhost:2000/temp/20200221194655/view.html?sceneFile=5e4fc1334859d12808dd9264`
 新：`http://localhost:2000/temp/20200221194655/view.html`
