@@ -55,8 +55,13 @@
                 enableThrowBall: false,
             });
 
-            const sceneID = getQueryString('sceneID');
-            const sceneFile = getQueryString('sceneFile');
+            let sceneID = getQueryString('sceneID');
+            let sceneFile = getQueryString('sceneFile');
+
+            // 发布场景自动把`<%SceneID%>`替换成真实场景ID，不再需要加`SceneID`或`SceneFile`参数
+            if (!sceneFile) {
+                sceneFile = '<%SceneID%>';
+            }
 
             if (sceneID) { // 通过/api/Scene/Load?ID=sceneID获取场景数据
                 fetch(`${app.options.server}/api/Scene/Load?ID=${sceneID}`).then(response => {

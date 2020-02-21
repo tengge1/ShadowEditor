@@ -24,6 +24,12 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 11. 修复错误的`cookie`导致服务端报错bug。
 12. 修复新版谷歌浏览器无法正常注销bug。
 13. 新增`发布场景权限`。
+14. 发布场景后的地址不再需要加`sceneFile`参数。
+
+旧：`http://localhost:2000/temp/20200221194655/view.html?sceneFile=5e4fc1334859d12808dd9264`
+新：`http://localhost:2000/temp/20200221194655/view.html`
+
+15. 给`ShadowEditor.Web\temp`目录设置只读权限。
 
 ## v0.4.2更新【[更新日志](docs-dev/update/UpdateLog.md)】
 

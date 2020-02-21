@@ -76,6 +76,7 @@ namespace ShadowEditor.Server.Controllers.Export
 
             var viewFileData = File.ReadAllText(viewPath, Encoding.UTF8);
             viewFileData = viewFileData.Replace("location.origin", "'.'"); // 替换server地址，以便部署到Git Pages上
+            viewFileData = viewFileData.Replace("<%SceneID%>", ID); // 发布场景自动把`<%SceneID%>`替换成真实场景ID，不再需要加`SceneID`或`SceneFile`参数
             File.WriteAllText($"{path}/view.html", viewFileData, Encoding.UTF8);
 
             var faviconPath = HttpContext.Current.Server.MapPath("~/favicon.ico");
