@@ -31,7 +31,7 @@ class SceneMenu extends React.Component {
     }
 
     render() {
-        const { enableAuthority, isLogin, authorities, isAdmin } = app.server;
+        const { enableAuthority, isLogin, authorities } = app.server;
 
         return <MenuItem title={_t('Scene')}>
             {!enableAuthority || isLogin ? <MenuItem title={_t('New')}>
@@ -356,7 +356,7 @@ class SceneMenu extends React.Component {
             title: _t('Query'),
             content: _t('Are you sure to publish the current scene?'),
             onOK: () => {
-                app.mask(_t('Exporting...'));
+                app.mask(_t('Publishing...'));
 
                 fetch(`${app.options.server}/api/ExportScene/Run?ID=${sceneID}`, {
                     method: 'POST'

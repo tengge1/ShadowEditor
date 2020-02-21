@@ -30,6 +30,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 新：`http://localhost:2000/temp/20200221194655/view.html`
 
 15. 给`ShadowEditor.Web\temp`目录设置只读权限。
+16. 发布场景提示`正在导出...`改为`发布中...`。
 
 ## v0.4.2更新【[更新日志](docs-dev/update/UpdateLog.md)】
 
