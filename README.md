@@ -3,13 +3,16 @@
 Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en.md) / 日本語 / 한국어 / русский / Le français
 
 * 名称：Shadow Editor
-* 版本：v0.4.3(开发中)
+* 版本：v0.4.3
 * 简介：基于`three.js`的场景编辑器。
 * 源码：[GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | 文档：[GitHub](https://tengge1.github.io/ShadowEditor/) [Gitee](https://tengge1.gitee.io/shadoweditor/) | 示例：[GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) | 视频：[微博](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) | 资源：[百度云](https://pan.baidu.com/s/1IxJVM6fFLoIAJG-GKHjVTA)
 * 技术栈：`html`、`css`、`javascript`、`rollup`、`react.js`、`webgl`、`three.js`、`asp.net`。
 * 如果对您有帮助，请[【捐赠】](https://gitee.com/tengge1/ShadowEditor)支持项目发展，谢谢。
 
-## v0.4.3即将更新
+## v0.4.3更新【[更新日志](docs-dev/update/UpdateLog.md)】
+
+* 发布日期：2020年2月22日
+* 更新日志：
 
 1. 新增`新建小区和室内`功能，默认自动添加一个地面。
 2. 常见问题新增`404 Not Found`和`访问被拒绝`的解决方法。
@@ -25,7 +28,6 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 12. 修复新版谷歌浏览器无法正常注销bug。
 13. 新增`发布场景权限`。
 14. 发布场景后的地址不再需要加`sceneFile`参数。
-15. 自由控制器优化，平移和旋转增加惯性，限制仰角为0~90度。
 
 旧：`http://localhost:2000/temp/20200221194655/view.html?sceneFile=5e4fc1334859d12808dd9264`
 新：`http://localhost:2000/temp/20200221194655/view.html`
@@ -33,20 +35,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 15. 给`ShadowEditor.Web\temp`目录设置只读权限。
 16. 发布场景提示`正在导出...`改为`发布中...`。
 17. 添加常见问题`发布场景后没反应。`。
-
-## v0.4.2更新【[更新日志](docs-dev/update/UpdateLog.md)】
-
-* 发布日期：2020年2月8日
-* 更新日志：
-
-1. 保存场景，如果设置`不保存子组件`，则不保存模型内部组件。这可以加快场景保存和载入速度，减小场景大小。
-2. 保存场景，如果设置`不保存材质`，则不保存模型内部材质。这用于修改了模型内部组件名称和结构，没修改材质的情况。
-3. 修复场景中存在`点标注`或`不缩放文字`时，发布场景报错bug。
-4. 通用工具栏新增`第一视角`功能。使用`WSAD`或方向键控制前后左右移动，鼠标控制视线方向。
-5. 将状态栏`添加模式`选择，移动到绘制工具栏中。
-6. 物体菜单新增`添加正交相机和透视相机`功能。
-7. 物体菜单新增`添加箭头帮助器和坐标轴帮助器`功能。
-8. 新增自由控制器。
+18. 自由控制器优化，平移和旋转增加惯性，限制仰角为`0~85°`。
 
 ## 项目截图
 
