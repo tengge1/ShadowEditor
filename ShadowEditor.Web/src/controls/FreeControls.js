@@ -1,5 +1,5 @@
 import BaseControls from './BaseControls';
-import { TWEEN } from '../third_party';
+// import { TWEEN } from '../third_party';
 
 /**
  * 自由控制器
@@ -11,21 +11,13 @@ class FreeControls extends BaseControls {
 
         this.controls = new THREE.OrbitControls(camera, domElement);
 
-        // this.controls.enableZoom = false;
+        this.controls.enableZoom = true;
         this.controls.maxPolarAngle = 85 * Math.PI / 180; // 85°
 
         this.controls.enableDamping = true;
         this.controls.dampingFactor = 0.08;
 
         this.controls.panSpeed = 1.6;
-
-        // this.handleStart = this.handleStart.bind(this);
-        // this.handleChange = this.handleChange.bind(this);
-        // this.handleEnd = this.handleEnd.bind(this);
-
-        // this.controls.addEventListener('start', this.handleStart);
-        // this.controls.addEventListener('change', this.handleChange);
-        // this.controls.addEventListener('end', this.handleEnd);
     }
 
     enable() {
@@ -46,26 +38,7 @@ class FreeControls extends BaseControls {
         this.controls.update();
     }
 
-    setPickPosition(position) { // eslint-disable-line
-
-    }
-
-    // handleStart() {
-    //     console.log('start');
-    // }
-
-    // handleChange() {
-    //     console.log('change');
-    // }
-
-    // handleEnd() {
-    //     console.log('end');
-    // }
-
     dispose() {
-        // this.controls.removeEventListener('start', this.handleStart);
-        // this.controls.removeEventListener('change', this.handleChange);
-        // this.controls.removeEventListener('end', this.handleEnd);
         this.controls.dispose();
         this.camera = null;
         this.domElement = null;
