@@ -11,12 +11,13 @@ class FreeControls extends BaseControls {
 
         this.controls = new THREE.OrbitControls(camera, domElement);
 
-        this.controls.maxPolarAngle = Math.PI / 2;
+        // this.controls.enableZoom = false;
+        this.controls.maxPolarAngle = 85 * Math.PI / 180; // 85°
 
         this.controls.enableDamping = true;
-        this.controls.dampingFactor = 0.05;
+        this.controls.dampingFactor = 0.08;
 
-        this.controls.panSpeed = 2.0;
+        this.controls.panSpeed = 1.6;
 
         // this.handleStart = this.handleStart.bind(this);
         // this.handleChange = this.handleChange.bind(this);
