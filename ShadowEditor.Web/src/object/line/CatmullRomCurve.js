@@ -6,7 +6,7 @@ var ARC_SEGMENTS = 200;
  */
 function CatmullRomCurve(options = {}) {
     var geometry = new THREE.BufferGeometry();
-    geometry.addAttribute('position', new THREE.BufferAttribute(new Float32Array(ARC_SEGMENTS * 3), 3));
+    geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(ARC_SEGMENTS * 3), 3));
 
     var material = new THREE.LineBasicMaterial({
         color: 0xff0000,

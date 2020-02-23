@@ -1,3 +1,5 @@
+import RectAreaLightHelper from './RectAreaLightHelper';
+
 /**
  * 具有一定体积的矩形光帮助器
  * @author tengge / https://github.com/tengge1
@@ -5,7 +7,7 @@
  * @param {Object} color 颜色
  */
 function VolumeRectAreaLightHelper(light, color) {
-    THREE.RectAreaLightHelper.call(this, light, color);
+    RectAreaLightHelper.call(this, light, color);
 
     // TODO: three.js bugs： 未设置矩形光帮助器矩阵
     this.matrix = light.matrixWorld;
@@ -22,7 +24,7 @@ function VolumeRectAreaLightHelper(light, color) {
     this.add(this.picker);
 }
 
-VolumeRectAreaLightHelper.prototype = Object.create(THREE.RectAreaLightHelper.prototype);
+VolumeRectAreaLightHelper.prototype = Object.create(RectAreaLightHelper.prototype);
 VolumeRectAreaLightHelper.prototype.constructor = VolumeRectAreaLightHelper;
 
 VolumeRectAreaLightHelper.prototype.raycast = function (raycaster, intersects) {

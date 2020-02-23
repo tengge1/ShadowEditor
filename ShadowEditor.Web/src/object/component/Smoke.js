@@ -31,8 +31,8 @@ function Smoke(camera, renderer, options = {}) {
         shift[i] = Math.random() * 1;
     }
 
-    geometry.addAttribute('position', new THREE.BufferAttribute(position, 3));
-    geometry.addAttribute('shift', new THREE.BufferAttribute(shift, 1));
+    geometry.setAttribute('position', new THREE.BufferAttribute(position, 3));
+    geometry.setAttribute('shift', new THREE.BufferAttribute(shift, 1));
 
     // 材质
     var texture = new THREE.TextureLoader().load('assets/textures/VolumetricFire/smoke.png');

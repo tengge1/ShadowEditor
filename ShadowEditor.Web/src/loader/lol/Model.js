@@ -343,11 +343,11 @@ Model.prototype.loadMesh = function (buffer) {
             normal.push(v.normal[0], v.normal[1], v.normal[2]);
             uv.push(v.u, v.v);
         }
-        self.geometry.addAttribute('position',
+        self.geometry.setAttribute('position',
             new THREE.BufferAttribute(new Float32Array(position), 3));
-        self.geometry.addAttribute('normal',
+        self.geometry.setAttribute('normal',
             new THREE.BufferAttribute(new Float32Array(normal), 3));
-        self.geometry.addAttribute('uv',
+        self.geometry.setAttribute('uv',
             new THREE.BufferAttribute(new Float32Array(uv), 2));
     }
     var numIndices = r.getUint32();

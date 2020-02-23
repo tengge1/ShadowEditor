@@ -75,16 +75,16 @@ MMDAnimator.prototype.update = function (clock, deltaTime) {
         return;
     }
 
-    if (this.helper.audio) { // 如果有音频，使用音频时间比较准确
-        var currentTime = this.helper.audio.context.currentTime - this.helper.audio.startTime;
-        if (currentTime < this.delayTime) {
-            this.time += deltaTime;
-        } else {
-            var time = this.delayTime + currentTime;
-            deltaTime = time - this.time;
-            this.time = time;
-        }
-    }
+    // if (this.helper.audio) { // 如果有音频，使用音频时间比较准确
+    //     var currentTime = this.helper.audio.context.currentTime - this.helper.audio.startTime;
+    //     if (currentTime < this.delayTime) {
+    //         this.time += deltaTime;
+    //     } else {
+    //         var time = this.delayTime + currentTime;
+    //         deltaTime = time - this.time;
+    //         this.time = time;
+    //     }
+    // }
 
     this.helper.update(deltaTime);
 };

@@ -25,8 +25,8 @@ function Options(options = {}) {
     this.shadowMapType = THREE.PCFSoftShadowMap;
 
     // gamma校正
-    this.gammaInput = false;
-    this.gammaOutput = false;
+    // this.gammaInput = false;
+    // this.gammaOutput = false;
     this.gammaFactor = 2.0;
 
     // 滤镜

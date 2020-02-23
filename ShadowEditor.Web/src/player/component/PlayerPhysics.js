@@ -384,7 +384,7 @@ PlayerPhysics.prototype.createIndexedBufferGeometryFromGeometry = function (geom
     }
 
     bufferGeom.setIndex(new THREE.BufferAttribute(indices, 1));
-    bufferGeom.addAttribute('position', new THREE.BufferAttribute(vertices, 3));
+    bufferGeom.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
 
     return bufferGeom;
 };

@@ -56,7 +56,7 @@ DigTool.prototype.onDblClick = function () {
         vertices.push(n.x, n.y, n.z);
     });
 
-    geometry.addAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
 
     var material = new THREE.MeshBasicMaterial();
     material.polygonOffset = true;

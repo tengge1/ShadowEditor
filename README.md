@@ -11,6 +11,8 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 
 ## v0.4.4即将更新
 
+1. `three.js`从`r107`升级到`r113`。
+
 ## v0.4.3更新【[更新日志](docs-dev/update/UpdateLog.md)】
 
 * 发布日期：2020年2月22日

@@ -228,9 +228,9 @@ class DrawTools extends React.Component {
 
             var geometry = new THREE.BufferGeometry();
 
-            geometry.addAttribute('position', new THREE.BufferAttribute(new Float32Array(300), 3));
-            geometry.addAttribute('normal', new THREE.BufferAttribute(new Float32Array(300), 3));
-            geometry.addAttribute('uv', new THREE.BufferAttribute(new Float32Array(200), 2));
+            geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(300), 3));
+            geometry.setAttribute('normal', new THREE.BufferAttribute(new Float32Array(300), 3));
+            geometry.setAttribute('uv', new THREE.BufferAttribute(new Float32Array(200), 2));
 
             geometry.attributes.position.count = 0;
             geometry.attributes.normal.count = 0;

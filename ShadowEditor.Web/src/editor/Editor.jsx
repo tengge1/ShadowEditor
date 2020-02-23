@@ -122,8 +122,8 @@ class Editor extends React.Component {
         this.renderer = new THREE.WebGLRenderer({
             antialias: true
         });
-        this.renderer.gammaInput = false;
-        this.renderer.gammaOutput = false;
+        // this.renderer.gammaInput = false;
+        // this.renderer.gammaOutput = false;
         this.renderer.shadowMap.enabled = true;
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         this.renderer.autoClear = false;

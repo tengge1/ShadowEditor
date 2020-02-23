@@ -84,7 +84,7 @@ class AreaTool extends BaseTool {
 
     update() {
         let vertices = Earcut.triangulate(this.positions, null, 3);
-        this.polygon.geometry.addAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+        this.polygon.geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
 
         let dist = 0;
 

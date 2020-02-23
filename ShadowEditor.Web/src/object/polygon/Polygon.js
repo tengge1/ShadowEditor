@@ -6,7 +6,7 @@ import Earcut from '../../utils/Earcut';
 class Polygon extends THREE.Mesh {
     constructor() {
         let geometry = new THREE.BufferGeometry();
-        geometry.addAttributes('position', new THREE.Float32BufferAttribute([], 3));
+        geometry.setAttributes('position', new THREE.Float32BufferAttribute([], 3));
 
         let material = new THREE.MeshBasicMaterial();
         super(geometry, material);
@@ -21,7 +21,7 @@ class Polygon extends THREE.Mesh {
 
     update() {
         let vertices = Earcut.triangulate(this.data, null, 3);
-        geometry.addAttributes('position', new THREE.Float32BufferAttribute(vertices, 3));
+        geometry.setAttributes('position', new THREE.Float32BufferAttribute(vertices, 3));
     }
 }
 
