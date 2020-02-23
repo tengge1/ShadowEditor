@@ -21,6 +21,7 @@ class AreaTool extends BaseTool {
             this.polygons = [];
             this.world = new THREE.Vector3();
         }
+        app.editor.gpuPickNum++;
         this.positions.length = 0;
         app.on(`mousedown.${this.id}`, this.onMouseDown);
         app.on(`gpuPick.${this.id}`, this.onGpuPick);
@@ -32,6 +33,7 @@ class AreaTool extends BaseTool {
         app.on(`gpuPick.${this.id}`, null);
         app.on(`dblclick.${this.id}`, null);
 
+        app.editor.gpuPickNum--;
         this.positions.length = 0;
         delete this.polygon;
     }

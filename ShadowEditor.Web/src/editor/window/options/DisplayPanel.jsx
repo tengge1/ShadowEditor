@@ -72,6 +72,14 @@ class DisplayPanel extends React.Component {
             return;
         }
 
+        if (name === 'hoverEnabled') {
+            if (value) {
+                app.editor.gpuPickNum++;
+            } else {
+                app.editor.gpuPickNum--;
+            }
+        }
+
         app.storage[name] = value;
 
         this.handleUpdate();

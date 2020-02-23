@@ -165,6 +165,9 @@ class Editor extends React.Component {
 
         this.showViewHelper = true;
 
+        // GPUPick使用数量。为0时，为了提升性能，不启用GPUPick。
+        this.gpuPickNum = app.storage.hoverEnabled? 1 : 0;
+
         // 事件
         app.on(`appStarted.Editor`, this.onAppStarted.bind(this));
         app.on(`showMask.Editor`, this.onShowMask.bind(this));

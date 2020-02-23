@@ -31,9 +31,11 @@ class DistanceTool extends BaseTool {
             app.on(`gpuPick.${this.id}`, this.onGpuPick);
             app.on(`dblclick.${this.id}`, this.onDblClick);
         }
+        app.editor.gpuPickNum++;
     }
 
     stop() {
+        app.editor.gpuPickNum--;
         app.on(`mousedown.${this.id}`, null);
         app.on(`gpuPick.${this.id}`, null);
         app.on(`dblclick.${this.id}`, null);

@@ -17,6 +17,8 @@ function GPUPickEvent() {
     this.isIn = false;
     this.offsetX = 0;
     this.offsetY = 0;
+    this.waitTime = 10; // 10毫秒检测一次，提升性能
+    this.oldTime = 0;
 
     this.selectMode = 'whole';
 
@@ -66,9 +68,17 @@ GPUPickEvent.prototype.onMouseMove = function (event) {
  * 由于需要较高性能，所以尽量不要拆分函数。
  */
 GPUPickEvent.prototype.onAfterRender = function () {
-    if (!this.isIn) {
+    if (!this.isIn || app.editor.gpuPickNum === 0) {
         return;
     }
+
+    // 间隔一段时间执行一次，提高性能
+    let now = new Date().getTime();
+    if (now - this.oldTime < this.waitTime) {
+        return;
+    }
+    this.oldTime = now;
+
     let { scene, renderer } = app.editor;
     const camera = app.editor.view === 'perspective' ? app.editor.camera : app.editor.orthCamera;
 

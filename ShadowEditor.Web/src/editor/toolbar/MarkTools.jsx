@@ -50,12 +50,14 @@ class MarkTools extends React.Component {
         if (this.pointMarkTool === undefined) {
             this.pointMarkTool = new PointMarkTool();
             this.pointMarkTool.on(`end`, () => {
+                app.editor.gpuPickNum--;
                 this.setState({
                     isAddPointMark: false
                 });
             });
         }
         this.pointMarkTool.start();
+        app.editor.gpuPickNum++;
         this.setState({
             isAddPointMark: true
         });

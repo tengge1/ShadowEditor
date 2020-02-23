@@ -100,6 +100,7 @@ class DrawTools extends React.Component {
         this.setState({ isAddingPoint });
 
         if (isAddingPoint) {
+            app.editor.gpuPickNum++;
             app.on(`intersect.EditorToolbarAddPoint`, this.onAddPointIntersect);
         } else {
             app.on(`intersect.EditorToolbarAddPoint`, null);
@@ -133,6 +134,8 @@ class DrawTools extends React.Component {
         mesh.name = _t('Point');
 
         app.editor.execute(new AddObjectCommand(mesh));
+
+        app.editor.gpuPickNum--;
     }
 
     // ---------------------------------- 画线 -----------------------------------------
@@ -154,6 +157,7 @@ class DrawTools extends React.Component {
         this.setState({ isAddingLine });
 
         if (isAddingLine) {
+            app.editor.gpuPickNum++;
             app.on(`intersect.EditorToolbarAddLine`, this.onAddLineIntersect);
             app.on(`dblclick.EditorToolbarAddLine`, this.onAddLineDblClick);
 
