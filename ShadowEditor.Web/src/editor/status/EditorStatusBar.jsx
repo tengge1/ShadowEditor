@@ -42,6 +42,8 @@ class EditorStatusBar extends React.Component {
         const isLogin = !app.server.enableAuthority || app.server.isLogin;
 
         return <Toolbar className={'EditorStatusBar'}>
+            <Label>{`r${THREE.REVISION}`}</Label>
+            <ToolbarSeparator />
             <Label>{_t('X')}</Label>
             <Label className={'mouse-position'}>{x}</Label>
             <Label>{_t('Y')}</Label>
