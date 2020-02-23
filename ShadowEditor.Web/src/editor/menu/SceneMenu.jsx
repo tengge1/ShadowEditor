@@ -85,7 +85,7 @@ class SceneMenu extends React.Component {
     queryBeforeCreateScene() {
         const editor = app.editor;
 
-        return new Promise((resolve, reject) => {
+        return new Promise(resolve => {
             if (editor.sceneID === null) {
                 resolve();
             } else {
@@ -94,9 +94,6 @@ class SceneMenu extends React.Component {
                     content: _t('All unsaved data will be lost. Are you sure?'),
                     onOK: () => {
                         resolve();
-                    },
-                    onCancel: () => {
-                        reject();
                     }
                 });
             }
