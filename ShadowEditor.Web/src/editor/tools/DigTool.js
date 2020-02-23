@@ -37,12 +37,12 @@ DigTool.prototype.onDblClick = function () {
         this.scene = new THREE.Scene();
     }
 
-    var xys = this.points.map(n => {
-        return {
-            x: n.x,
-            y: n.z
-        };
-    });
+    // var xys = this.points.map(n => {
+    //     return {
+    //         x: n.x,
+    //         y: n.z
+    //     };
+    // });
 
     // if (!THREE.ShapeUtils.isClockWise(xys)) {
     //     this.points.reverse();
@@ -52,7 +52,7 @@ DigTool.prototype.onDblClick = function () {
 
     var vertices = [];
 
-    this.points.forEach((n, i) => {
+    this.points.forEach(n => {
         vertices.push(n.x, n.y, n.z);
     });
 
@@ -100,7 +100,7 @@ DigTool.prototype.onAfterRender = function () {
     }
 
     var renderer = app.editor.renderer;
-    var context = renderer.getContext();
+    // var context = renderer.getContext();
     var state = renderer.state;
 
     state.buffers.stencil.setMask(0xff);
