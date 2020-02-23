@@ -1,5 +1,5 @@
 import './css/HelperPanel.css';
-import { classNames, PropTypes, Window, Content, TabLayout, Buttons, Button, Form, FormControl, Label, Input, Select, CheckBox } from '../../../third_party';
+import { Form, FormControl, Label, CheckBox } from '../../../../third_party';
 
 /**
  * 帮助选项窗口

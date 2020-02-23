@@ -8,7 +8,7 @@ import ShaderMaterialFragment from './shader/shader_material_fragment.glsl';
 import RawShaderMaterialVertex from './shader/raw_shader_material_vertex.glsl';
 import RawShaderMaterialFragment from './shader/raw_shader_material_fragment.glsl';
 
-import TextureSettingWindow from '../window/TextureSettingWindow.jsx';
+import TextureSettingWindow from './window/TextureSettingWindow.jsx';
 
 import MaterialsSerializer from '../../serialization/material/MaterialsSerializer';
 import MaterialUtils from '../../utils/MaterialUtils';

@@ -1,5 +1,5 @@
 import { MenuItem, MenuItemSeparator } from '../../third_party';
-import OptionsWindow from '../window/OptionsWindow.jsx';
+import OptionsWindow from './window/OptionsWindow.jsx';
 
 /**
  * 选项菜单

@@ -1,6 +1,6 @@
 import './css/FilterPanel.css';
-import { classNames, PropTypes, Window, Content, TabLayout, Buttons, Button, Form, FormControl, Label, Input, Select, CheckBox } from '../../../third_party';
-import CssUtils from '../../../utils/CssUtils';
+import { Form, FormControl, Label, Input } from '../../../../third_party';
+import CssUtils from '../../../../utils/CssUtils';
 
 /**
  * 滤镜选项窗口
@@ -18,7 +18,7 @@ class FilterPanel extends React.Component {
             contrast: 0,
             grayscale: 0,
             invert: 0,
-            sepia: 0,
+            sepia: 0
         };
 
         this.handleUpdate = this.handleUpdate.bind(this);
@@ -31,35 +31,67 @@ class FilterPanel extends React.Component {
         return <Form className={'FilterPanel'}>
             <FormControl>
                 <Label>{_t('HueRotate')}</Label>
-                <Input type={'number'} name={'hueRotate'} value={hueRotate} onChange={this.handleChange}></Input>
+                <Input type={'number'}
+                    name={'hueRotate'}
+                    value={hueRotate}
+                    onChange={this.handleChange}
+                />
             </FormControl>
             <FormControl>
                 <Label>{_t('Saturate')}</Label>
-                <Input type={'number'} name={'saturate'} value={saturate} onChange={this.handleChange}></Input>
+                <Input type={'number'}
+                    name={'saturate'}
+                    value={saturate}
+                    onChange={this.handleChange}
+                />
             </FormControl>
             <FormControl>
                 <Label>{_t('Brightness')}</Label>
-                <Input type={'number'} name={'brightness'} value={brightness} onChange={this.handleChange}></Input>
+                <Input type={'number'}
+                    name={'brightness'}
+                    value={brightness}
+                    onChange={this.handleChange}
+                />
             </FormControl>
             <FormControl>
                 <Label>{_t('Blur')}</Label>
-                <Input type={'number'} name={'blur'} value={blur} onChange={this.handleChange}></Input>
+                <Input type={'number'}
+                    name={'blur'}
+                    value={blur}
+                    onChange={this.handleChange}
+                />
             </FormControl>
             <FormControl>
                 <Label>{_t('Contrast')}</Label>
-                <Input type={'number'} name={'contrast'} value={contrast} onChange={this.handleChange}></Input>
+                <Input type={'number'}
+                    name={'contrast'}
+                    value={contrast}
+                    onChange={this.handleChange}
+                />
             </FormControl>
             <FormControl>
                 <Label>{_t('Grayscale')}</Label>
-                <Input type={'number'} name={'grayscale'} value={grayscale} onChange={this.handleChange}></Input>
+                <Input type={'number'}
+                    name={'grayscale'}
+                    value={grayscale}
+                    onChange={this.handleChange}
+                />
             </FormControl>
             <FormControl>
                 <Label>{_t('Invert')}</Label>
-                <Input type={'number'} name={'invert'} value={invert} onChange={this.handleChange}></Input>
+                <Input type={'number'}
+                    name={'invert'}
+                    value={invert}
+                    onChange={this.handleChange}
+                />
             </FormControl>
             <FormControl>
                 <Label>{_t('Sepia')}</Label>
-                <Input type={'number'} name={'sepia'} value={sepia} onChange={this.handleChange}></Input>
+                <Input type={'number'}
+                    name={'sepia'}
+                    value={sepia}
+                    onChange={this.handleChange}
+                />
             </FormControl>
         </Form>;
     }
@@ -77,20 +109,20 @@ class FilterPanel extends React.Component {
             contrast,
             grayscale,
             invert,
-            sepia,
+            sepia
         });
     }
 
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { hueRotate, saturate, brightness, blur, contrast, grayscale, invert, sepia } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         const filters = {
@@ -101,7 +133,7 @@ class FilterPanel extends React.Component {
             contrast,
             grayscale,
             invert,
-            sepia,
+            sepia
         };
 
         Object.assign(app.options, filters);

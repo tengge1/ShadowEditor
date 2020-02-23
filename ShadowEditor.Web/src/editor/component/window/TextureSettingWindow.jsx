@@ -1,5 +1,5 @@
 import './css/TextureSettingWindow.css';
-import { classNames, PropTypes, Window, Content, TabLayout, Buttons, Button, NumberProperty, SelectProperty, CheckBoxProperty, IntegerProperty, PropertyGrid, PropertyGroup, Input, Select, CheckBox, Form, FormControl, Label } from '../../third_party';
+import { Window, Content, Buttons, Button, Input, Select, CheckBox, Form, FormControl, Label } from '../../../third_party';
 
 /**
  * 纹理设置窗口
@@ -23,7 +23,7 @@ class TextureSettingWindow extends React.Component {
 
         this.magFilter = {
             [THREE.LinearFilter]: 'LinearFilter',
-            [THREE.NearestFilter]: 'NearestFilter',
+            [THREE.NearestFilter]: 'NearestFilter'
         };
 
         this.minFilter = {
@@ -32,7 +32,7 @@ class TextureSettingWindow extends React.Component {
             [THREE.NearestMipMapNearestFilter]: 'NearestMipMapNearestFilter',
             [THREE.NearestMipMapLinearFilter]: 'NearestMipMapLinearFilter',
             [THREE.LinearFilter]: 'LinearFilter',
-            [THREE.LinearMipMapNearestFilter]: 'LinearMipMapNearestFilter',
+            [THREE.LinearMipMapNearestFilter]: 'LinearMipMapNearestFilter'
         };
 
         this.type = {
@@ -60,7 +60,7 @@ class TextureSettingWindow extends React.Component {
             [THREE.RGBM16Encoding]: 'RGBM16Encoding',
             [THREE.RGBDEncoding]: 'RGBDEncoding',
             [THREE.BasicDepthPacking]: 'BasicDepthPacking',
-            [THREE.RGBADepthPacking]: 'RGBADepthPacking',
+            [THREE.RGBADepthPacking]: 'RGBADepthPacking'
         };
 
         this.format = {
@@ -71,7 +71,7 @@ class TextureSettingWindow extends React.Component {
             [THREE.LuminanceAlphaFormat]: 'LuminanceAlphaFormat',
             [THREE.RGBEFormat]: 'RGBEFormat',
             [THREE.DepthFormat]: 'DepthFormat',
-            [THREE.DepthStencilFormat]: 'DepthStencilFormat',
+            [THREE.DepthStencilFormat]: 'DepthStencilFormat'
         };
 
         this.mapping = {
@@ -82,14 +82,14 @@ class TextureSettingWindow extends React.Component {
             [THREE.EquirectangularRefractionMapping]: 'EquirectangularRefractionMapping',
             [THREE.SphericalReflectionMapping]: 'SphericalReflectionMapping',
             [THREE.CubeUVReflectionMapping]: 'CubeUVReflectionMapping',
-            [THREE.CubeUVRefractionMapping]: 'CubeUVRefractionMapping',
+            [THREE.CubeUVRefractionMapping]: 'CubeUVRefractionMapping'
         };
 
         this.unpackAlignment = {
             [4]: '4',
             [1]: '1',
             [2]: '2',
-            [8]: '8',
+            [8]: '8'
         };
 
         const { anisotropy, center, offset, repeat, rotation, type, encoding, flipY, format, generateMipmaps, magFilter, minFilter, mapping, premultiplyAlpha, unpackAlignment, wrapS, wrapT } = this.props.map;
@@ -112,90 +112,169 @@ class TextureSettingWindow extends React.Component {
         return <Window
             className={'TextureSettingWindow'}
             title={_t('Texture Settings')}
-            style={{ width: '360px', height: '400px', }}
+            style={{ width: '360px', height: '400px' }}
             mask={false}
-            onClose={this.handleClose}>
+            onClose={this.handleClose}
+               >
             <Content>
                 <Form>
                     <FormControl>
                         <Label>{_t('Center X')}</Label>
-                        <Input name={'centerX'} value={centerX} type={'number'} onChange={this.handleChange}></Input>
+                        <Input name={'centerX'}
+                            value={centerX}
+                            type={'number'}
+                            onChange={this.handleChange}
+                        />
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Center Y')}</Label>
-                        <Input name={'centerY'} value={centerY} type={'number'} onChange={this.handleChange}></Input>
+                        <Input name={'centerY'}
+                            value={centerY}
+                            type={'number'}
+                            onChange={this.handleChange}
+                        />
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Offset X')}</Label>
-                        <Input name={'offsetX'} value={offsetX} type={'number'} onChange={this.handleChange}></Input>
+                        <Input name={'offsetX'}
+                            value={offsetX}
+                            type={'number'}
+                            onChange={this.handleChange}
+                        />
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Offset Y')}</Label>
-                        <Input name={'offsetY'} value={offsetY} type={'number'} onChange={this.handleChange}></Input>
+                        <Input name={'offsetY'}
+                            value={offsetY}
+                            type={'number'}
+                            onChange={this.handleChange}
+                        />
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Repeat X')}</Label>
-                        <Input name={'repeatX'} value={repeatX} type={'number'} onChange={this.handleChange}></Input>
+                        <Input name={'repeatX'}
+                            value={repeatX}
+                            type={'number'}
+                            onChange={this.handleChange}
+                        />
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Repeat Y')}</Label>
-                        <Input name={'repeatY'} value={repeatY} type={'number'} onChange={this.handleChange}></Input>
+                        <Input name={'repeatY'}
+                            value={repeatY}
+                            type={'number'}
+                            onChange={this.handleChange}
+                        />
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Rotation')}</Label>
-                        <Input name={'rotation'} value={rotation} type={'number'} onChange={this.handleChange}></Input>
+                        <Input name={'rotation'}
+                            value={rotation}
+                            type={'number'}
+                            onChange={this.handleChange}
+                        />
                     </FormControl>
                     <FormControl>
                         <Label>{_t('WrapS')}</Label>
-                        <Select options={this.wrapS} name={'wrapS'} value={wrapS} onChange={this.handleChange}></Select>
+                        <Select options={this.wrapS}
+                            name={'wrapS'}
+                            value={wrapS}
+                            onChange={this.handleChange}
+                        />
                     </FormControl>
                     <FormControl>
                         <Label>{_t('WrapT')}</Label>
-                        <Select options={this.wrapT} name={'wrapT'} value={wrapT} onChange={this.handleChange}></Select>
+                        <Select options={this.wrapT}
+                            name={'wrapT'}
+                            value={wrapT}
+                            onChange={this.handleChange}
+                        />
                     </FormControl>
                     <FormControl>
                         <Label>{_t('FlipY')}</Label>
-                        <CheckBox name={'flipY'} checked={flipY} onChange={this.handleChange}></CheckBox>
+                        <CheckBox name={'flipY'}
+                            checked={flipY}
+                            onChange={this.handleChange}
+                        />
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Mag Filter')}</Label>
-                        <Select options={this.magFilter} name={'magFilter'} value={magFilter} onChange={this.handleChange}></Select>
+                        <Select options={this.magFilter}
+                            name={'magFilter'}
+                            value={magFilter}
+                            onChange={this.handleChange}
+                        />
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Min Filter')}</Label>
-                        <Select options={this.minFilter} name={'minFilter'} value={minFilter} onChange={this.handleChange}></Select>
+                        <Select options={this.minFilter}
+                            name={'minFilter'}
+                            value={minFilter}
+                            onChange={this.handleChange}
+                        />
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Type')}</Label>
-                        <Select options={this.type} name={'type'} value={type} onChange={this.handleChange}></Select>
+                        <Select options={this.type}
+                            name={'type'}
+                            value={type}
+                            onChange={this.handleChange}
+                        />
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Encoding')}</Label>
-                        <Select options={this.encoding} name={'encoding'} value={encoding} onChange={this.handleChange}></Select>
+                        <Select options={this.encoding}
+                            name={'encoding'}
+                            value={encoding}
+                            onChange={this.handleChange}
+                        />
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Format')}</Label>
-                        <Select options={this.format} name={'format'} value={format} onChange={this.handleChange}></Select>
+                        <Select options={this.format}
+                            name={'format'}
+                            value={format}
+                            onChange={this.handleChange}
+                        />
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Generate Mipmaps')}</Label>
-                        <CheckBox name={'generateMipmaps'} checked={generateMipmaps} onChange={this.handleChange}></CheckBox>
+                        <CheckBox name={'generateMipmaps'}
+                            checked={generateMipmaps}
+                            onChange={this.handleChange}
+                        />
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Mapping')}</Label>
-                        <Select options={this.mapping} name={'mapping'} value={mapping} onChange={this.handleChange}></Select>
+                        <Select options={this.mapping}
+                            name={'mapping'}
+                            value={mapping}
+                            onChange={this.handleChange}
+                        />
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Premultiply Alpha')}</Label>
-                        <CheckBox name={'premultiplyAlpha'} checked={premultiplyAlpha} onChange={this.handleChange}></CheckBox>
+                        <CheckBox name={'premultiplyAlpha'}
+                            checked={premultiplyAlpha}
+                            onChange={this.handleChange}
+                        />
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Unpack Alignment')}</Label>
-                        <Select options={this.unpackAlignment} name={'unpackAlignment'} value={unpackAlignment} onChange={this.handleChange}></Select>
+                        <Select options={this.unpackAlignment}
+                            name={'unpackAlignment'}
+                            value={unpackAlignment}
+                            onChange={this.handleChange}
+                        />
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Anisotropy')}</Label>
-                        <Input name={'anisotropy'} value={anisotropy} type={'number'} precision={0} onChange={this.handleChange}></Input>
+                        <Input name={'anisotropy'}
+                            value={anisotropy}
+                            type={'number'}
+                            precision={0}
+                            onChange={this.handleChange}
+                        />
                     </FormControl>
                 </Form>
             </Content>
@@ -207,7 +286,7 @@ class TextureSettingWindow extends React.Component {
 
     handleChange(value, name) {
         this.setState({
-            [name]: value,
+            [name]: value
         });
 
         if (value === null) {
@@ -215,7 +294,7 @@ class TextureSettingWindow extends React.Component {
         }
 
         const { anisotropy, center, offset, repeat, rotation, type, encoding, flipY, format, generateMipmaps, magFilter, minFilter, mapping, premultiplyAlpha, unpackAlignment, wrapS, wrapT, centerX, centerY, offsetX, offsetY, repeatX, repeatY } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         let map = this.props.map;
@@ -234,7 +313,7 @@ class TextureSettingWindow extends React.Component {
             premultiplyAlpha,
             unpackAlignment: parseInt(unpackAlignment),
             wrapS: parseInt(wrapS),
-            wrapT: parseInt(wrapT),
+            wrapT: parseInt(wrapT)
         });
 
         map.center.set(centerX, centerY);
@@ -255,11 +334,11 @@ TextureSettingWindow.propTypes = {
         if (!(map instanceof THREE.Texture)) {
             return new TypeError(`Invalid prop \`${propName}\` of type supplied to \`${componentName}\`, expected \`THREE.Texture\`.`);
         }
-    },
+    }
 };
 
 TextureSettingWindow.defaultProps = {
-    map: null,
+    map: null
 };
 
 export default TextureSettingWindow;

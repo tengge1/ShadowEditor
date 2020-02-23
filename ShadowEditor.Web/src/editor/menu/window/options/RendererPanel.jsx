@@ -1,5 +1,5 @@
 import './css/RendererPanel.css';
-import { Form, FormControl, Label, Input, Select, CheckBox } from '../../../third_party';
+import { Form, FormControl, Label, Input, Select } from '../../../../third_party';
 
 /**
  * 渲染器窗口

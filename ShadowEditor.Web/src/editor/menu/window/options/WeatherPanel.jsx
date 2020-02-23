@@ -1,5 +1,5 @@
 import './css/WeatherPanel.css';
-import { Form, FormControl, Label, Select } from '../../../third_party';
+import { Form, FormControl, Label, Select } from '../../../../third_party';
 
 /**
  * 天气选项窗口
