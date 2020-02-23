@@ -1,2 +1,0 @@
-global app
-app = None

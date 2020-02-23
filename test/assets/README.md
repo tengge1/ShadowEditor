@@ -1,1 +1,0 @@
-遍历`/ShadowEditor.Web/assets/js`文件夹中的文件放到`/ShadowEditor.Web/assets/js_assets.json`文件中。
