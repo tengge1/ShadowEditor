@@ -13,6 +13,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 
 1. `three.js`从`r107`升级到`r113`。
 2. 状态栏添加`three.js`版本信息。
+3. 由于性能问题，删除状态栏鼠标位置显示。
 
 ## v0.4.3更新【[更新日志](docs-dev/update/UpdateLog.md)】
 

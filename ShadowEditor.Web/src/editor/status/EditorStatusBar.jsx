@@ -20,21 +20,18 @@ class EditorStatusBar extends React.Component {
         };
 
         this.state = {
-            x: 0,
-            y: 0,
             objects: 0,
             vertices: 0,
             triangles: 0
         };
 
-        this.handleUpdateMousePosition = this.handleUpdateMousePosition.bind(this);
         this.handleUpdateSceneInfo = this.handleUpdateSceneInfo.bind(this);
         this.handleChangeSelectMode = this.handleChangeSelectMode.bind(this);
         this.handleChangeControlMode = this.handleChangeControlMode.bind(this);
     }
 
     render() {
-        const { x, y, objects, vertices, triangles } = this.state;
+        const { objects, vertices, triangles } = this.state;
 
         const selectMode = app.storage.selectMode;
         const controlMode = app.storage.controlMode;
@@ -43,11 +40,6 @@ class EditorStatusBar extends React.Component {
 
         return <Toolbar className={'EditorStatusBar'}>
             <Label>{`r${THREE.REVISION}`}</Label>
-            <ToolbarSeparator />
-            <Label>{_t('X')}</Label>
-            <Label className={'mouse-position'}>{x}</Label>
-            <Label>{_t('Y')}</Label>
-            <Label className={'mouse-position'}>{y}</Label>
             <ToolbarSeparator />
             <Label>{_t('Object')}</Label>
             <Label className={'value'}>{objects}</Label>
@@ -78,24 +70,9 @@ class EditorStatusBar extends React.Component {
     }
 
     componentDidMount() {
-        // app.on(`mousemove.EditorStatusBar`, this.handleUpdateMousePosition);
         app.on(`objectAdded.EditorStatusBar`, this.handleUpdateSceneInfo);
         app.on(`objectRemoved.EditorStatusBar`, this.handleUpdateSceneInfo);
         app.on(`geometryChanged.EditorStatusBar`, this.handleUpdateSceneInfo);
-    }
-
-    handleUpdateMousePosition(event) {
-        if (event.target !== app.editor.renderer.domElement) {
-            this.setState({
-                x: 0,
-                y: 0
-            });
-            return;
-        }
-        this.setState({
-            x: event.offsetX,
-            y: event.offsetY
-        });
     }
 
     handleUpdateSceneInfo() {
