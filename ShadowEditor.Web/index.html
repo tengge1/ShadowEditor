@@ -5,7 +5,9 @@
 <head>
     <meta charset="utf-8">
     <title>Shadow Editor</title>
+    <link rel="apple-touch-icon" href="assets/image/icon.png">
     <link rel="shortcut icon" href="favicon.ico">
+    <link rel="manifest" href="manifest.json">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <link href="build/ShadowEditor.css" rel="stylesheet" />
 </head>
@@ -34,6 +36,15 @@
                 enableTileCache: false,
             });
         };
+
+        // ServiceWorker
+        if ('serviceWorker' in navigator) {
+            try {
+                navigator.serviceWorker.register('sw.js');
+            } catch (error) {
+
+            }
+        }
     </script>
 </body>
 

@@ -1,0 +1,14 @@
+{
+    "name": "ShadowEditor",
+    "short_name": "SE",
+    "start_url": ".",
+    "scope": ".",
+    "display": "standalone",
+    "icons": [
+        {
+            "src": "./assets/image/icon.png",
+            "type": "image/png",
+            "sizes": "144x144"
+        }
+    ]
+}
