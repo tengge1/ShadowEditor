@@ -5,6 +5,9 @@ import GISScene from '../../gis/Scene';
 import TimeUtils from '../../utils/TimeUtils';
 import StringUtils from '../../utils/StringUtils';
 import SaveSceneWindow from './window/SaveSceneWindow.jsx';
+import EmptySceneTemplate from './scene/EmptySceneTemplate';
+import DistrictSceneTemplate from './scene/DistrictSceneTemplate';
+import GISSceneTemplate from './scene/GISSceneTemplate';
 
 /**
  * 场景菜单
@@ -104,15 +107,13 @@ class SceneMenu extends React.Component {
      * 新建空场景
      */
     handleCreateEmptyScene() {
-        let editor = app.editor;
-
         this.queryBeforeCreateScene().then(() => {
-            editor.clear();
-            editor.sceneID = null;
-            editor.sceneName = null;
-            app.options.sceneType = 'Empty';
-            document.title = _t('No Name');
-            app.editor.camera.userData.control = 'OrbitControls';
+            const scene = new EmptySceneTemplate();
+            scene.clear();
+            scene.create();
+            app.call('editorCleared', this);
+            app.call('scriptChanged', this);
+            app.call('animationChanged', this);
             app.toast(_t('Create empty scene successfully.'), 'success');
         });
     }

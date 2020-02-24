@@ -14,6 +14,7 @@ import History from '../command/History';
 import Helpers from '../helper/Helpers';
 
 import ControlsManager from '../controls/ControlsManager';
+import EmptySceneTemplate from './menu/scene/EmptySceneTemplate';
 
 /**
  * 编辑器
@@ -239,74 +240,12 @@ class Editor extends React.Component {
     }
 
     clear(addObject = true) { // 清空场景
-        this.history.clear();
-
-        this.camera.copy(this.DEFAULT_CAMERA);
-
-        if (this.audioListener && this.camera.children.findIndex(o => o instanceof THREE.AudioListener) === -1) {
-            this.camera.add(this.audioListener);
-        }
-
-        if (this.scene.background instanceof THREE.Texture) {
-            this.scene.background = new THREE.Color(0xaaaaaa);
-        } else if (this.scene.background instanceof THREE.Color) {
-            this.scene.background.setHex(0xaaaaaa);
-        }
-
-        this.scene.fog = null;
-
-        this.deselect();
-
-        // 移除场景物体
-        let objects = this.scene.children;
-
-        while (objects.length > 0) {
-            this.removeObject(objects[0]);
-        }
-
-        this.scripts = {};
-
-        this.animations = [{
-            id: null,
-            uuid: THREE.Math.generateUUID(),
-            layer: 0,
-            layerName: _t('AnimLayer1'),
-            animations: []
-        }, {
-            id: null,
-            uuid: THREE.Math.generateUUID(),
-            layer: 1,
-            layerName: _t('AnimLayer2'),
-            animations: []
-        }, {
-            id: null,
-            uuid: THREE.Math.generateUUID(),
-            layer: 2,
-            layerName: _t('AnimLayer3'),
-            animations: []
-        }];
+        const template = new EmptySceneTemplate();
+        template.clear();
 
         // 添加默认元素
         if (addObject) {
-            let light1 = new THREE.AmbientLight(0xffffff, 0.24);
-            light1.name = _t('Ambient');
-            this.addObject(light1);
-
-            let light2 = new THREE.DirectionalLight(0xffffff, 0.56);
-            light2.name = _t('Directional');
-            light2.castShadow = true;
-            light2.position.set(5, 10, 7.5);
-            light2.shadow.radius = 0;
-            light2.shadow.mapSize.x = 2048;
-            light2.shadow.mapSize.y = 2048;
-            light2.shadow.camera.left = -20;
-            light2.shadow.camera.right = 20;
-            light2.shadow.camera.top = 20;
-            light2.shadow.camera.bottom = -20;
-            light2.shadow.camera.near = 0.1;
-            light2.shadow.camera.far = 500;
-
-            this.addObject(light2);
+            template.create();
         }
 
         app.call('editorCleared', this);

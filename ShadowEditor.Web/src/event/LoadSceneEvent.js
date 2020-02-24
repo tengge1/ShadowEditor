@@ -31,6 +31,8 @@ LoadSceneEvent.prototype.onLoad = function (url, name, id) {
     }
 
     var editor = app.editor;
+
+    editor.clear(false);
     document.title = name;
 
     app.mask(_t('Loading...'));
@@ -41,8 +43,6 @@ LoadSceneEvent.prototype.onLoad = function (url, name, id) {
                 app.toast(_t(obj.Msg), 'warn');
                 return;
             }
-
-            editor.clear(false);
 
             new Converter().fromJson(obj.Data, {
                 server: app.options.server,
