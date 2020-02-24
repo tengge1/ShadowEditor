@@ -38,10 +38,10 @@ class SceneMenu extends React.Component {
                 <MenuItem title={_t('Empty Scene')}
                     onClick={this.handleCreateEmptyScene}
                 />
-                <MenuItem title={_t('District and Indoor')}
+                <MenuItem title={_t('District (Test)')}
                     onClick={this.handleCreateDistrictAndIndoor}
                 />
-                <MenuItem title={_t('GIS Scene')}
+                <MenuItem title={_t('GIS Scene (Test)')}
                     onClick={this.handleCreateGISScene}
                 />
             </MenuItem> : null}
@@ -148,7 +148,7 @@ class SceneMenu extends React.Component {
 
             app.editor.addObject(mesh);
 
-            app.toast(_t('Create district and indoor successfully.'), 'success');
+            app.toast(_t('Create district successfully.'), 'success');
         });
     }
 
