@@ -3,7 +3,7 @@ import BaseSceneTemplate from './BaseSceneTemplate';
 /**
  * 空场景模板
  */
-class EmptySceneTemplate {
+class EmptySceneTemplate extends BaseSceneTemplate {
     create() {
 
     }
