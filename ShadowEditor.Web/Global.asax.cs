@@ -43,6 +43,7 @@ namespace ShadowEditor.Client
             // 启动Websocket服务器
             try
             {
+                // see: https://github.com/jjrdk/websocket-sharp
                 webSocketServer = new WebSocketServer(null, int.Parse(webSocketPort));
                 webSocketServer.AddWebSocketService<SocketServer>("/Socket");
                 webSocketServer.Start();

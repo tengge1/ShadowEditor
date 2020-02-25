@@ -8,6 +8,10 @@ using WebSocketSharp.Server;
 
 namespace ShadowEditor.Server.Helpers
 {
+    /// <summary>
+    /// WebSocket服务端
+    /// </summary>
+    /// <see cref="https://github.com/jjrdk/websocket-sharp"/>
     public class SocketServer : WebSocketBehavior
     {
         protected override Task OnMessage(MessageEventArgs e)
