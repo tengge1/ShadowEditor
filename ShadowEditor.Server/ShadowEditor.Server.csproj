@@ -99,6 +99,7 @@
   <ItemGroup>
     <Compile Include="Base\ApiAuthAttribute.cs" />
     <Compile Include="Base\ApiBase.cs" />
+    <Compile Include="Base\FTP.cs" />
     <Compile Include="Base\JsonResult.cs" />
     <Compile Include="Base\WebApiConfig.cs" />
     <Compile Include="Base\XmlResult.cs" />
