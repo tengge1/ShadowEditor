@@ -158,7 +158,7 @@
     <Compile Include="Helpers\ConfigHelper.cs" />
     <Compile Include="Helpers\DownloadHelper.cs" />
     <Compile Include="Helpers\DirectoryHelper.cs" />
-    <Compile Include="Helpers\FTPServer.cs" />
+    <Compile Include="Remote\FTPServer.cs" />
     <Compile Include="Helpers\HtmlHelper.cs" />
     <Compile Include="Helpers\HttpHelper.cs" />
     <Compile Include="Helpers\JsonHelper.cs" />
@@ -167,11 +167,12 @@
     <Compile Include="Helpers\MongoHelper.cs" />
     <Compile Include="Helpers\OperatingAuthorityHelper.cs" />
     <Compile Include="Helpers\PinYinHelper.cs" />
-    <Compile Include="Helpers\SocketServer.cs" />
+    <Compile Include="Remote\SocketServer.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Helpers\UserHelper.cs" />
     <Compile Include="Helpers\ZipHelper.cs" />
     <Compile Include="OperatingAuthority.cs" />
+    <Compile Include="Remote\RemoteServer.cs" />
     <Compile Include="Result.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

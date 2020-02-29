@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
 
-namespace ShadowEditor.Server.Helpers
+namespace ShadowEditor.Server.Remote
 {
     /// <summary>
-    /// FTP服务端
+    /// FTP服务器
     /// </summary>
     public class FTPServer
     {

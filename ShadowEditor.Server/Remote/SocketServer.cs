@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using WebSocketSharp;
 using WebSocketSharp.Server;
 
-namespace ShadowEditor.Server.Helpers
+namespace ShadowEditor.Server.Remote
 {
     /// <summary>
-    /// WebSocket服务端
+    /// Socket服务端
     /// </summary>
     /// <see cref="https://github.com/jjrdk/websocket-sharp"/>
     public class SocketServer : WebSocketBehavior
