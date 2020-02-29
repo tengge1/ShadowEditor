@@ -15,6 +15,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 2. 状态栏添加`three.js`版本信息。
 3. 由于性能问题，删除状态栏鼠标位置显示。
 4. 只有用到`GPU Pick`的时候才启用，提高性能。
+5. 由于需要支持`SameSite`属性，支持的`.net framework`最低版本由`4.5`（2012-08-15）改为`4.7.2`（2018-04-30）。
 
 ## v0.4.3更新【[更新日志](docs-dev/update/UpdateLog.md)】
 
@@ -81,7 +82,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 
 ## 使用指南
 
-**该项目仅支持Windows系统，电脑上需要安装.Net Framework 4.5。**
+**该项目仅支持Windows系统，电脑上需要安装.Net Framework 4.7.2及更新版本。**
 
 **兼容火狐和谷歌浏览器，推荐使用最新版谷歌浏览器。**
 
