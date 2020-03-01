@@ -4,8 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
+using System.IO;
 using WebSocketSharp.Server;
 using ShadowEditor.Server.Helpers;
+using FubarDev.FtpServer;
+using FubarDev.FtpServer.AccountManagement;
+using FubarDev.FtpServer.FileSystem.DotNet;
 
 namespace ShadowEditor.Server.Remote
 {
@@ -16,7 +20,7 @@ namespace ShadowEditor.Server.Remote
     {
         // ftp
         private string ftpPort = ConfigurationManager.AppSettings["FTPServerPort"];
-        private FTPServer ftpServer = new FTPServer();
+        private FtpServer ftpServer = null;
 
         // websocket
         private string webSocketPort = ConfigurationManager.AppSettings["WebSocketServerPort"];
@@ -24,8 +28,20 @@ namespace ShadowEditor.Server.Remote
 
         public void Start()
         {
+            var log = LogHelper.GetLogger(this.GetType());
+
             // 启动FTP服务器
-            ftpServer.Start();
+            try
+            {
+                var membershipProvider = new AnonymousMembershipProvider();
+                var fsProvider = new DotNetFileSystemProvider(Path.Combine(Path.GetTempPath(), "TestFtpServer"), false);
+                ftpServer = new FtpServer(fsProvider, membershipProvider, "127.0.0.1");
+                ftpServer.Start();
+            }
+            catch (Exception ex)
+            {
+                log.Error("Create FtpServer failed.", ex);
+            }
 
             // 启动Websocket服务器
             try
@@ -37,14 +53,16 @@ namespace ShadowEditor.Server.Remote
             }
             catch (Exception ex)
             {
-                var log = LogHelper.GetLogger(this.GetType());
                 log.Error("Create websocket server failed.", ex);
             }
         }
 
         public void Stop()
         {
-            ftpServer.Stop();
+            if (ftpServer != null)
+            {
+                ftpServer.Stop();
+            }
 
             try
             {
