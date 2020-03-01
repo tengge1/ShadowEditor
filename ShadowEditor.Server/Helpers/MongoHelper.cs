@@ -124,7 +124,7 @@ namespace ShadowEditor.Server.Helpers
         /// <returns>数量</returns>
         public long Count(string collectionName)
         {
-            return GetCollection(collectionName).Count(new BsonDocument());
+            return GetCollection(collectionName).CountDocuments(new BsonDocument());
         }
 
         /// <summary>
@@ -135,7 +135,7 @@ namespace ShadowEditor.Server.Helpers
         /// <returns>数量</returns>
         public long Count(string collectionName, FilterDefinition<BsonDocument> filter)
         {
-            return GetCollection(collectionName).Count(filter);
+            return GetCollection(collectionName).CountDocuments(filter);
         }
 
         /// <summary>

@@ -11,7 +11,6 @@
     <AssemblyName>ShadowEditor.Model</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,20 +43,19 @@
     <Compile Include="Animation\AnimationEditModel.cs" />
     <Compile Include="Animation\AnimationModel.cs" />
     <Compile Include="Animation\AnimationType.cs" />
-    <Compile Include="Audio\AudioModel.cs" />
-    <Compile Include="Audio\AudioType.cs" />
     <Compile Include="Audio\AudioEditModel.cs" />
+    <Compile Include="Audio\AudioModel.cs" />
     <Compile Include="Audio\AudioSaveModel.cs" />
+    <Compile Include="Audio\AudioType.cs" />
+    <Compile Include="Category\CategorySaveModel.cs" />
     <Compile Include="Category\CategoryType.cs" />
     <Compile Include="Character\CharacterEditModel.cs" />
     <Compile Include="Character\CharacterModel.cs" />
     <Compile Include="Character\CharacterSaveModel.cs" />
     <Compile Include="Character\CharacterType.cs" />
-    <Compile Include="Scene\ExportSceneListModel.cs" />
-    <Compile Include="Typeface\TypefaceModel.cs" />
     <Compile Include="Map\MapEditModel.cs" />
-    <Compile Include="Map\MapSaveModel.cs" />
     <Compile Include="Map\MapModel.cs" />
+    <Compile Include="Map\MapSaveModel.cs" />
     <Compile Include="Map\MapType.cs" />
     <Compile Include="Material\MaterialEditModel.cs" />
     <Compile Include="Material\MaterialModel.cs" />
@@ -75,11 +73,11 @@
     <Compile Include="Prefab\PrefabSaveModel.cs" />
     <Compile Include="Prefab\PrefabType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Category\CategorySaveModel.cs" />
+    <Compile Include="Scene\ExportSceneListModel.cs" />
     <Compile Include="Scene\SceneEditModel.cs" />
     <Compile Include="Scene\SceneHistoryModel.cs" />
-    <Compile Include="Scene\SceneSaveModel.cs" />
     <Compile Include="Scene\SceneModel.cs" />
+    <Compile Include="Scene\SceneSaveModel.cs" />
     <Compile Include="Screenshot\ScreenshotEditModel.cs" />
     <Compile Include="Screenshot\ScreenshotModel.cs" />
     <Compile Include="Screenshot\ScreenshotSaveModel.cs" />
@@ -100,10 +98,10 @@
     <Compile Include="System\UserModel.cs" />
     <Compile Include="Tools\PluginEditModel.cs" />
     <Compile Include="Tools\PluginModel.cs" />
+    <Compile Include="Typeface\TypefaceModel.cs" />
     <Compile Include="Video\VideoEditModel.cs" />
     <Compile Include="Video\VideoModel.cs" />
     <Compile Include="Video\VideoSaveModel.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

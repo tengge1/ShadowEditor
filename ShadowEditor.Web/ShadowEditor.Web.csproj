@@ -1,6 +1,7 @@
-﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
-  <Import Project="..\packages\Microsoft.Net.Compilers.2.6.1\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.6.1\build\Microsoft.Net.Compilers.props')" />
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -15,6 +16,7 @@
     <RootNamespace>ShadowEditor.Web</RootNamespace>
     <AssemblyName>ShadowEditor.Web</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort />
@@ -24,7 +26,6 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -54,9 +55,6 @@
     <Reference Include="Common.Logging.Core, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
       <HintPath>..\packages\Common.Logging.Core.3.4.1\lib\net40\Common.Logging.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DnsClient, Version=1.0.7.0, Culture=neutral, PublicKeyToken=4574bb5573c51424, processorArchitecture=MSIL">
-      <HintPath>..\packages\DnsClient.1.0.7\lib\net45\DnsClient.dll</HintPath>
-    </Reference>
     <Reference Include="FubarDev.FtpServer, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\FubarDev.FtpServer.1.2.0\lib\portable-net45+dnxcore50+win+wpa81+wp80+MonoAndroid10+xamarinios10+MonoTouch10\FubarDev.FtpServer.dll</HintPath>
     </Reference>
@@ -66,70 +64,105 @@
     <Reference Include="FubarDev.FtpServer.FileSystem, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\FubarDev.FtpServer.FileSystem.1.2.0\lib\portable-net45+dnxcore50+win+wpa81+wp80+MonoAndroid10+xamarinios10+MonoTouch10\FubarDev.FtpServer.FileSystem.dll</HintPath>
     </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=1.2.0.246, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.1.2.0\lib\net45\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Minimatch, Version=1.1.0.0, Culture=neutral, PublicKeyToken=0cadeb0b849c27c0, processorArchitecture=MSIL">
       <HintPath>..\packages\FubarDev.Minimatch.1.2.0\lib\portable-net45+dnxcore50+win+wpa81+wp80+MonoAndroid10+xamarinios10+MonoTouch10\Minimatch.dll</HintPath>
     </Reference>
-    <Reference Include="MongoDB.Bson, Version=2.6.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MongoDB.Bson.2.6.1\lib\net45\MongoDB.Bson.dll</HintPath>
+    <Reference Include="MongoDB.Bson, Version=2.10.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Bson.2.10.2\lib\net452\MongoDB.Bson.dll</HintPath>
     </Reference>
-    <Reference Include="MongoDB.Driver, Version=2.6.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MongoDB.Driver.2.6.1\lib\net45\MongoDB.Driver.dll</HintPath>
+    <Reference Include="MongoDB.Driver, Version=2.10.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.2.10.2\lib\net452\MongoDB.Driver.dll</HintPath>
     </Reference>
-    <Reference Include="MongoDB.Driver.Core, Version=2.6.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MongoDB.Driver.Core.2.6.1\lib\net45\MongoDB.Driver.Core.dll</HintPath>
+    <Reference Include="MongoDB.Driver.Core, Version=2.10.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.Core.2.10.2\lib\net452\MongoDB.Driver.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="MongoDB.Libmongocrypt, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Libmongocrypt.1.0.0\lib\net452\MongoDB.Libmongocrypt.dll</HintPath>
     </Reference>
-    <Reference Include="Sockets.Plugin, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\rda.SocketsForPCL.1.2.2\lib\net45\Sockets.Plugin.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Sockets.Plugin.Abstractions, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\rda.SocketsForPCL.1.2.2\lib\net45\Sockets.Plugin.Abstractions.dll</HintPath>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
     </Reference>
-    <Reference Include="System.Buffers, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Buffers.4.3.0\lib\netstandard1.1\System.Buffers.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Net.Http.Formatting, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.6\lib\net45\System.Net.Http.Formatting.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Web.Http, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.6\lib\net45\System.Web.Http.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Http.WebHost, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.6\lib\net45\System.Web.Http.WebHost.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Drawing" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Web.Services" />
-    <Reference Include="System.EnterpriseServices" />
-    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
     <Reference Include="websocket-sharp.clone, Version=1.0.2.39869, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\websocket-sharp.clone.3.0.0\lib\net45\websocket-sharp.clone.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
-      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
-    </Reference>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\css\addon\dialog.css" />
@@ -144,6 +177,7 @@
     <Content Include="assets\css\theme\monokai.css" />
     <Content Include="assets\fonts\droid\README.txt" />
     <Content Include="assets\image\front-view.png" />
+    <Content Include="assets\image\icon.png" />
     <Content Include="assets\image\loading.gif" />
     <Content Include="assets\image\perspective-view.png" />
     <Content Include="assets\image\side-view.png" />
@@ -166,21 +200,14 @@
     <Content Include="assets\js\controls\EditorControls.js" />
     <Content Include="assets\js\controls\FirstPersonControls.js" />
     <Content Include="assets\js\controls\FlyControls.js" />
-    <Content Include="assets\js\controls\MapControls.js" />
     <Content Include="assets\js\controls\OrbitControls.js" />
-    <Content Include="assets\js\controls\OrthographicTrackballControls.js" />
     <Content Include="assets\js\controls\PointerLockControls.js" />
     <Content Include="assets\js\controls\TrackballControls.js" />
     <Content Include="assets\js\controls\TransformControls.js" />
-    <Content Include="assets\js\crossfade\gui.js" />
-    <Content Include="assets\js\crossfade\scenes.js" />
-    <Content Include="assets\js\crossfade\transition.js" />
     <Content Include="assets\js\curves\CurveExtras.js" />
     <Content Include="assets\js\curves\NURBSCurve.js" />
     <Content Include="assets\js\curves\NURBSSurface.js" />
     <Content Include="assets\js\curves\NURBSUtils.js" />
-    <Content Include="assets\js\d3\d3.js" />
-    <Content Include="assets\js\d3\d3.min.js" />
     <Content Include="assets\js\effects\AnaglyphEffect.js" />
     <Content Include="assets\js\effects\AsciiEffect.js" />
     <Content Include="assets\js\effects\OutlineEffect.js" />
@@ -200,14 +227,10 @@
     <Content Include="assets\js\geometries\BoxLineGeometry.js" />
     <Content Include="assets\js\geometries\ConvexGeometry.js" />
     <Content Include="assets\js\geometries\DecalGeometry.js" />
-    <Content Include="assets\js\geometries\hilbert2D.js" />
-    <Content Include="assets\js\geometries\hilbert3D.js" />
     <Content Include="assets\js\geometries\LightningStrike.js" />
     <Content Include="assets\js\geometries\ParametricGeometries.js" />
     <Content Include="assets\js\geometries\TeapotBufferGeometry.js" />
-    <Content Include="assets\js\gl-matrix-min.js" />
     <Content Include="assets\js\glslprep.min.js" />
-    <Content Include="assets\js\GPUParticleSystem.js" />
     <Content Include="assets\js\interactive\SelectionBox.js" />
     <Content Include="assets\js\interactive\SelectionHelper.js" />
     <Content Include="assets\js\jsonlint.js" />
@@ -228,7 +251,6 @@
     <Content Include="assets\js\libs\jszip.min.js" />
     <Content Include="assets\js\libs\lzma.js" />
     <Content Include="assets\js\libs\mmdparser.min.js" />
-    <Content Include="assets\js\libs\o3dgc.js" />
     <Content Include="assets\js\libs\opentype.js" />
     <Content Include="assets\js\libs\opentype.min.js" />
     <Content Include="assets\js\libs\pako.js" />
@@ -238,11 +260,12 @@
     <Content Include="assets\js\libs\react-dom.min.js" />
     <Content Include="assets\js\libs\react.js" />
     <Content Include="assets\js\libs\react.min.js" />
+    <Content Include="assets\js\libs\SPE.js" />
+    <Content Include="assets\js\libs\SPE.min.js" />
     <Content Include="assets\js\libs\stats.min.js" />
-    <Content Include="assets\js\libs\system.min.js" />
     <Content Include="assets\js\libs\TexGen.js" />
     <Content Include="assets\js\libs\timeliner_gui.min.js" />
-    <Content Include="assets\js\libs\tween.min.js" />
+    <Content Include="assets\js\libs\VolumetricFire.js" />
     <Content Include="assets\js\lights\LightProbeGenerator.js" />
     <Content Include="assets\js\lights\RectAreaLightUniformsLib.js" />
     <Content Include="assets\js\lines\Line2.js" />
@@ -254,7 +277,6 @@
     <Content Include="assets\js\lines\WireframeGeometry2.js" />
     <Content Include="assets\js\loaders\3MFLoader.js" />
     <Content Include="assets\js\loaders\AMFLoader.js" />
-    <Content Include="assets\js\loaders\AssimpJSONLoader.js" />
     <Content Include="assets\js\loaders\AssimpLoader.js" />
     <Content Include="assets\js\loaders\AWDLoader.js" />
     <Content Include="assets\js\loaders\BabylonLoader.js" />
@@ -273,7 +295,6 @@
     <Content Include="assets\js\loaders\deprecated\LegacyGLTFLoader.js" />
     <Content Include="assets\js\loaders\deprecated\LegacyJSONLoader.js" />
     <Content Include="assets\js\loaders\DRACOLoader.js" />
-    <Content Include="assets\js\loaders\EquirectangularToCubeGenerator.js" />
     <Content Include="assets\js\loaders\EXRLoader.js" />
     <Content Include="assets\js\loaders\FBXLoader.js" />
     <Content Include="assets\js\loaders\GCodeLoader.js" />
@@ -287,13 +308,11 @@
     <Content Include="assets\js\loaders\MD2Loader.js" />
     <Content Include="assets\js\loaders\MMDLoader.js" />
     <Content Include="assets\js\loaders\MTLLoader.js" />
-    <Content Include="assets\js\loaders\NodeMaterialLoader.js" />
     <Content Include="assets\js\loaders\NRRDLoader.js" />
     <Content Include="assets\js\loaders\OBJLoader.js" />
     <Content Include="assets\js\loaders\OBJLoader2.js" />
     <Content Include="assets\js\loaders\PCDLoader.js" />
     <Content Include="assets\js\loaders\PDBLoader.js" />
-    <Content Include="assets\js\loaders\PlayCanvasLoader.js" />
     <Content Include="assets\js\loaders\PLYLoader.js" />
     <Content Include="assets\js\loaders\PRWMLoader.js" />
     <Content Include="assets\js\loaders\PVRLoader.js" />
@@ -321,10 +340,7 @@
     <Content Include="assets\js\math\ConvexHull.js" />
     <Content Include="assets\js\math\ImprovedNoise.js" />
     <Content Include="assets\js\math\Lut.js" />
-    <Content Include="assets\js\math\Octree.js" />
-    <Content Include="assets\js\math\QuickHull.js" />
     <Content Include="assets\js\math\SimplexNoise.js" />
-    <Content Include="assets\js\misc\CarControls.js" />
     <Content Include="assets\js\misc\ConvexObjectBreaker.js" />
     <Content Include="assets\js\misc\GPUComputationRenderer.js" />
     <Content Include="assets\js\misc\Gyroscope.js" />
@@ -342,86 +358,6 @@
     <Content Include="assets\js\modifiers\SimplifyModifier.js" />
     <Content Include="assets\js\modifiers\SubdivisionModifier.js" />
     <Content Include="assets\js\modifiers\TessellateModifier.js" />
-    <Content Include="assets\js\nodes\accessors\CameraNode.js" />
-    <Content Include="assets\js\nodes\accessors\ColorsNode.js" />
-    <Content Include="assets\js\nodes\accessors\LightNode.js" />
-    <Content Include="assets\js\nodes\accessors\NormalNode.js" />
-    <Content Include="assets\js\nodes\accessors\PositionNode.js" />
-    <Content Include="assets\js\nodes\accessors\ReflectNode.js" />
-    <Content Include="assets\js\nodes\accessors\ResolutionNode.js" />
-    <Content Include="assets\js\nodes\accessors\ScreenUVNode.js" />
-    <Content Include="assets\js\nodes\accessors\UVNode.js" />
-    <Content Include="assets\js\nodes\bsdfs\BlinnExponentToRoughnessNode.js" />
-    <Content Include="assets\js\nodes\bsdfs\BlinnShininessExponentNode.js" />
-    <Content Include="assets\js\nodes\bsdfs\RoughnessToBlinnExponentNode.js" />
-    <Content Include="assets\js\nodes\core\AttributeNode.js" />
-    <Content Include="assets\js\nodes\core\ConstNode.js" />
-    <Content Include="assets\js\nodes\core\ExpressionNode.js" />
-    <Content Include="assets\js\nodes\core\FunctionCallNode.js" />
-    <Content Include="assets\js\nodes\core\FunctionNode.js" />
-    <Content Include="assets\js\nodes\core\InputNode.js" />
-    <Content Include="assets\js\nodes\core\Node.js" />
-    <Content Include="assets\js\nodes\core\NodeBuilder.js" />
-    <Content Include="assets\js\nodes\core\NodeFrame.js" />
-    <Content Include="assets\js\nodes\core\NodeLib.js" />
-    <Content Include="assets\js\nodes\core\NodeUniform.js" />
-    <Content Include="assets\js\nodes\core\NodeUtils.js" />
-    <Content Include="assets\js\nodes\core\StructNode.js" />
-    <Content Include="assets\js\nodes\core\TempNode.js" />
-    <Content Include="assets\js\nodes\core\VarNode.js" />
-    <Content Include="assets\js\nodes\effects\BlurNode.js" />
-    <Content Include="assets\js\nodes\effects\ColorAdjustmentNode.js" />
-    <Content Include="assets\js\nodes\effects\LuminanceNode.js" />
-    <Content Include="assets\js\nodes\inputs\BoolNode.js" />
-    <Content Include="assets\js\nodes\inputs\ColorNode.js" />
-    <Content Include="assets\js\nodes\inputs\CubeTextureNode.js" />
-    <Content Include="assets\js\nodes\inputs\FloatNode.js" />
-    <Content Include="assets\js\nodes\inputs\IntNode.js" />
-    <Content Include="assets\js\nodes\inputs\Matrix3Node.js" />
-    <Content Include="assets\js\nodes\inputs\Matrix4Node.js" />
-    <Content Include="assets\js\nodes\inputs\PropertyNode.js" />
-    <Content Include="assets\js\nodes\inputs\ReflectorNode.js" />
-    <Content Include="assets\js\nodes\inputs\RTTNode.js" />
-    <Content Include="assets\js\nodes\inputs\ScreenNode.js" />
-    <Content Include="assets\js\nodes\inputs\TextureNode.js" />
-    <Content Include="assets\js\nodes\inputs\Vector2Node.js" />
-    <Content Include="assets\js\nodes\inputs\Vector3Node.js" />
-    <Content Include="assets\js\nodes\inputs\Vector4Node.js" />
-    <Content Include="assets\js\nodes\materials\MeshStandardNodeMaterial.js" />
-    <Content Include="assets\js\nodes\materials\NodeMaterial.js" />
-    <Content Include="assets\js\nodes\materials\nodes\MeshStandardNode.js" />
-    <Content Include="assets\js\nodes\materials\nodes\PhongNode.js" />
-    <Content Include="assets\js\nodes\materials\nodes\RawNode.js" />
-    <Content Include="assets\js\nodes\materials\nodes\SpriteNode.js" />
-    <Content Include="assets\js\nodes\materials\nodes\StandardNode.js" />
-    <Content Include="assets\js\nodes\materials\PhongNodeMaterial.js" />
-    <Content Include="assets\js\nodes\materials\SpriteNodeMaterial.js" />
-    <Content Include="assets\js\nodes\materials\StandardNodeMaterial.js" />
-    <Content Include="assets\js\nodes\math\CondNode.js" />
-    <Content Include="assets\js\nodes\math\Math1Node.js" />
-    <Content Include="assets\js\nodes\math\Math2Node.js" />
-    <Content Include="assets\js\nodes\math\Math3Node.js" />
-    <Content Include="assets\js\nodes\math\OperatorNode.js" />
-    <Content Include="assets\js\nodes\misc\BumpMapNode.js" />
-    <Content Include="assets\js\nodes\misc\NormalMapNode.js" />
-    <Content Include="assets\js\nodes\misc\TextureCubeNode.js" />
-    <Content Include="assets\js\nodes\misc\TextureCubeUVNode.js" />
-    <Content Include="assets\js\nodes\Nodes.js" />
-    <Content Include="assets\js\nodes\postprocessing\NodePass.js" />
-    <Content Include="assets\js\nodes\postprocessing\NodePostProcessing.js" />
-    <Content Include="assets\js\nodes\procedural\CheckerNode.js" />
-    <Content Include="assets\js\nodes\procedural\NoiseNode.js" />
-    <Content Include="assets\js\nodes\THREE.Nodes.js" />
-    <Content Include="assets\js\nodes\utils\BypassNode.js" />
-    <Content Include="assets\js\nodes\utils\ColorSpaceNode.js" />
-    <Content Include="assets\js\nodes\utils\JoinNode.js" />
-    <Content Include="assets\js\nodes\utils\MaxMIPLevelNode.js" />
-    <Content Include="assets\js\nodes\utils\SwitchNode.js" />
-    <Content Include="assets\js\nodes\utils\TimerNode.js" />
-    <Content Include="assets\js\nodes\utils\UVTransformNode.js" />
-    <Content Include="assets\js\nodes\utils\VelocityNode.js" />
-    <Content Include="assets\js\objects\Car.js" />
-    <Content Include="assets\js\objects\Cloth.js" />
     <Content Include="assets\js\objects\Fire.js" />
     <Content Include="assets\js\objects\Lensflare.js" />
     <Content Include="assets\js\objects\LightningStorm.js" />
@@ -437,8 +373,6 @@
     <Content Include="assets\js\offscreen\offscreen.js" />
     <Content Include="assets\js\offscreen\scene.js" />
     <Content Include="assets\js\pako.min.js" />
-    <Content Include="assets\js\pmrem\PMREMCubeUVPacker.js" />
-    <Content Include="assets\js\pmrem\PMREMGenerator.js" />
     <Content Include="assets\js\postprocessing\AdaptiveToneMappingPass.js" />
     <Content Include="assets\js\postprocessing\AfterimagePass.js" />
     <Content Include="assets\js\postprocessing\BloomPass.js" />
@@ -465,11 +399,7 @@
     <Content Include="assets\js\renderers\CSS2DRenderer.js" />
     <Content Include="assets\js\renderers\CSS3DRenderer.js" />
     <Content Include="assets\js\renderers\Projector.js" />
-    <Content Include="assets\js\renderers\RaytracingRenderer.js" />
-    <Content Include="assets\js\renderers\RaytracingWorker.js" />
-    <Content Include="assets\js\renderers\SoftwareRenderer.js" />
     <Content Include="assets\js\renderers\SVGRenderer.js" />
-    <Content Include="assets\js\renderers\WebGLDeferredRenderer.js" />
     <Content Include="assets\js\shaders\AfterimageShader.js" />
     <Content Include="assets\js\shaders\BasicShader.js" />
     <Content Include="assets\js\shaders\BleachBypassShader.js" />
@@ -507,7 +437,6 @@
     <Content Include="assets\js\shaders\RGBShiftShader.js" />
     <Content Include="assets\js\shaders\SAOShader.js" />
     <Content Include="assets\js\shaders\SepiaShader.js" />
-    <Content Include="assets\js\shaders\SkinShader.js" />
     <Content Include="assets\js\shaders\SMAAShader.js" />
     <Content Include="assets\js\shaders\SobelOperatorShader.js" />
     <Content Include="assets\js\shaders\SSAOShader.js" />
@@ -523,8 +452,6 @@
     <Content Include="assets\js\shaders\VignetteShader.js" />
     <Content Include="assets\js\shaders\VolumeShader.js" />
     <Content Include="assets\js\shaders\WaterRefractionShader.js" />
-    <Content Include="assets\js\SPE.js" />
-    <Content Include="assets\js\SPE.min.js" />
     <Content Include="assets\js\tern-threejs\threejs.js" />
     <Content Include="assets\js\ternjs\comment.js" />
     <Content Include="assets\js\ternjs\def.js" />
@@ -533,26 +460,16 @@
     <Content Include="assets\js\ternjs\polyfill.js" />
     <Content Include="assets\js\ternjs\signal.js" />
     <Content Include="assets\js\ternjs\tern.js" />
-    <Content Include="assets\js\three.bas.js" />
-    <Content Include="assets\js\three.bas.min.js" />
     <Content Include="assets\js\three.js" />
     <Content Include="assets\js\three.min.js" />
     <Content Include="assets\js\utils\BufferGeometryUtils.js" />
     <Content Include="assets\js\utils\GeometryUtils.js" />
-    <Content Include="assets\js\utils\ldraw\packLDrawModel.js" />
-    <Content Include="assets\js\utils\MathUtils.js" />
     <Content Include="assets\js\utils\SceneUtils.js" />
     <Content Include="assets\js\utils\ShadowMapViewer.js" />
     <Content Include="assets\js\utils\SkeletonUtils.js" />
     <Content Include="assets\js\utils\TypedArrayUtils.js" />
     <Content Include="assets\js\utils\UVsDebug.js" />
-    <Content Include="assets\js\VolumetricFire.js" />
-    <Content Include="assets\js\vr\deprecated\DaydreamController.js" />
-    <Content Include="assets\js\vr\deprecated\GearVRController.js" />
     <Content Include="assets\js\vr\HelioWebXRPolyfill.js" />
-    <Content Include="assets\js\vr\PaintViveController.js" />
-    <Content Include="assets\js\vr\ViveController.js" />
-    <Content Include="assets\js\vr\WebVR.js" />
     <Content Include="assets\js\WebGL.js" />
     <Content Include="assets\svg\guard.svg" />
     <Content Include="assets\svg\home.svg" />
@@ -613,21 +530,49 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="index.html" />
+    <Content Include="rollup.config.js" />
+    <Content Include="sw.js" />
     <Content Include="view.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Folder Include="assets\fonts\custom\" />
+    <Folder Include="assets\js\crossfade\" />
+    <Folder Include="assets\js\d3\" />
+    <Folder Include="assets\js\nodes\accessors\" />
+    <Folder Include="assets\js\nodes\bsdfs\" />
+    <Folder Include="assets\js\nodes\core\" />
+    <Folder Include="assets\js\nodes\effects\" />
+    <Folder Include="assets\js\nodes\inputs\" />
+    <Folder Include="assets\js\nodes\materials\nodes\" />
+    <Folder Include="assets\js\nodes\math\" />
+    <Folder Include="assets\js\nodes\misc\" />
+    <Folder Include="assets\js\nodes\postprocessing\" />
+    <Folder Include="assets\js\nodes\procedural\" />
+    <Folder Include="assets\js\nodes\utils\" />
+    <Folder Include="assets\js\pmrem\" />
+    <Folder Include="assets\js\utils\ldraw\" />
+    <Folder Include="assets\js\vr\deprecated\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\css\icon\iconfont.eot" />
+    <Content Include="assets\css\icon\iconfont.json" />
     <Content Include="assets\css\icon\iconfont.ttf" />
     <Content Include="assets\css\icon\iconfont.woff" />
+    <Content Include="assets\css\icon\iconfont.woff2" />
+    <Content Include="assets\examples\arkanoid.json" />
+    <Content Include="assets\examples\camera.json" />
+    <Content Include="assets\examples\particle.json" />
+    <Content Include="assets\examples\pong.json" />
+    <Content Include="assets\examples\shader.json" />
     <Content Include="assets\fonts\droid\droid_sans_bold.typeface.json" />
     <Content Include="assets\fonts\droid\droid_sans_mono_regular.typeface.json" />
     <Content Include="assets\fonts\droid\droid_sans_regular.typeface.json" />
@@ -643,17 +588,12 @@
     <Content Include="assets\fonts\optimer_regular.typeface.json" />
     <Content Include="assets\fonts\README" />
     <Content Include="assets\fonts\ttf\kenpixel.ttf" />
+    <Content Include="assets\js\libs\basis\basis_transcoder.wasm" />
+    <Content Include="assets\js\libs\basis\README.md" />
     <Content Include="assets\js\libs\draco\draco_decoder.wasm" />
     <Content Include="assets\js\libs\draco\gltf\draco_decoder.wasm" />
     <Content Include="assets\js\libs\draco\README.md" />
-    <Content Include="assets\css\icon\iconfont.woff2" />
-    <Content Include="assets\js\d3\API.md" />
-    <Content Include="assets\js\d3\CHANGES.md" />
-    <Content Include="assets\js\d3\LICENSE" />
-    <Content Include="assets\js\d3\README.md" />
-    <Content Include="assets\js\libs\basis\basis_transcoder.wasm" />
-    <Content Include="assets\js\libs\basis\README.md" />
-    <Content Include="assets\js_assets.json" />
+    <Content Include="assets\web.config" />
     <Content Include="locales\en-US.json" />
     <Content Include="locales\fr-FR.json" />
     <Content Include="locales\ja-JP.json" />
@@ -661,36 +601,14 @@
     <Content Include="locales\ru-RU.json" />
     <Content Include="locales\zh-CN.json" />
     <Content Include="locales\zh-TW.json" />
-    <Content Include="assets\web.config" />
-    <Content Include="assets\css\icon\iconfont.json" />
-    <Content Include="assets\examples\arkanoid.json" />
-    <Content Include="assets\examples\camera.json" />
-    <Content Include="assets\examples\particle.json" />
-    <Content Include="assets\examples\pong.json" />
-    <Content Include="assets\examples\shader.json" />
+    <Content Include="manifest.json" />
     <None Include="packages.config" />
-    <Content Include="Upload\web.config" />
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ShadowEditor.Server\ShadowEditor.Server.csproj">
-      <Project>{c36ba9ac-b45a-49f4-b84f-e588c0baf86c}</Project>
+      <Project>{788e3445-3d8b-4e2b-8dae-b13889fdc02a}</Project>
       <Name>ShadowEditor.Server</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Upload\Animation\" />
-    <Folder Include="Upload\Audio\" />
-    <Folder Include="Upload\File\" />
-    <Folder Include="Upload\Model\" />
-    <Folder Include="Upload\Screenshot\" />
-    <Folder Include="Upload\Texture\" />
-    <Folder Include="Upload\Video\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -699,15 +617,18 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
   <ProjectExtensions>
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>40540</DevelopmentServerPort>
+          <DevelopmentServerPort>57634</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:40540/</IISUrl>
+          <IISUrl>http://localhost:57634/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
@@ -721,14 +642,15 @@
     <PropertyGroup>
       <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.6.1\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.6.1\build\Microsoft.Net.Compilers.props'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\MongoDB.Libmongocrypt.1.0.0\build\MongoDB.Libmongocrypt.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MongoDB.Libmongocrypt.1.0.0\build\MongoDB.Libmongocrypt.targets'))" />
   </Target>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <Import Project="..\packages\MongoDB.Libmongocrypt.1.0.0\build\MongoDB.Libmongocrypt.targets" Condition="Exists('..\packages\MongoDB.Libmongocrypt.1.0.0\build\MongoDB.Libmongocrypt.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
   <Target Name="AfterBuild">
-  </Target>
-  -->
+  </Target> -->
 </Project>
