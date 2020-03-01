@@ -48,7 +48,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 
 ## 项目截图
 
-![image](images/scene20190825.png)
+![image](images/scene20200301.jpg)
 
 ## 主要功能
 
