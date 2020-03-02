@@ -6,7 +6,7 @@ const vscode = require('vscode');
 // your extension is activated the very first time the command is executed
 
 /**
- * @param {vscode.ExtensionContext} context
+ * @param {vscode.ExtensionContext} context ExtensionContext
  */
 function activate(context) {
 
@@ -34,4 +34,4 @@ function deactivate() {}
 module.exports = {
 	activate,
 	deactivate
-}
+};
