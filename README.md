@@ -180,6 +180,10 @@ npm run docs
 2、打开开发者工具，看一下`Console`或`Network`选项卡，是不是报错了。  
 3、发布的场景在`ShadowEditor.Web\temp`目录下，看一下有没有。
 
+8. 将.net framework升级到4.7.2报错：未能找到文件`E:\github\ShadowEditor\ShadowEditor.Web\bin\roslyn\csc.exe`。
+
+解决方法：清理解决方案，重新生成解决方案即可。
+
 ## 相关链接
 
 * Three.js官网：https://threejs.org/
