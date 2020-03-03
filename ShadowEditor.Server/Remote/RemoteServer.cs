@@ -5,10 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
 using System.IO;
+using System.Web;
 using WebSocketSharp.Server;
 using ShadowEditor.Server.Helpers;
 using FubarDev.FtpServer;
 using FubarDev.FtpServer.AccountManagement;
+using FubarDev.FtpServer.AccountManagement.Anonymous;
 using FubarDev.FtpServer.FileSystem.DotNet;
 
 namespace ShadowEditor.Server.Remote
@@ -33,8 +35,11 @@ namespace ShadowEditor.Server.Remote
             // 启动FTP服务器
             try
             {
-                var membershipProvider = new AnonymousMembershipProvider();
-                var fsProvider = new DotNetFileSystemProvider(Path.Combine(Path.GetTempPath(), "TestFtpServer"), false);
+                var membershipProvider = new AnonymousMembershipProvider(new NoValidation());
+
+                var ftpPath = HttpContext.Current.Server.MapPath("~/Upload/TestFtpServer");
+                var fsProvider = new DotNetFileSystemProvider(ftpPath, false);
+
                 ftpServer = new FtpServer(fsProvider, membershipProvider, "127.0.0.1");
                 ftpServer.Start();
             }
