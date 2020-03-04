@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Configuration;
 using System.IO;
 using System.Web;
+using System.Reflection;
 using WebSocketSharp.Server;
 using ShadowEditor.Server.Helpers;
 using FubarDev.FtpServer;
@@ -46,7 +47,13 @@ namespace ShadowEditor.Server.Remote
                 var membershipProvider = new AnonymousMembershipProvider(new NoValidation());
 
                 // , int.Parse(ftpPort), new FtpCommandHandlerFactory()
-                var ftpServer = new FtpServer(fsProvider, membershipProvider, "127.0.0.1");
+                var ftpServer = new FtpServer(
+                    fsProvider, 
+                    membershipProvider, 
+                    "127.0.0.1", 
+                    int.Parse(ftpPort), 
+                    new AssemblyFtpCommandHandlerFactory(typeof(FtpServer).GetTypeInfo().Assembly)
+                );
                 ftpServer.Start();
             }
             catch (Exception ex)
