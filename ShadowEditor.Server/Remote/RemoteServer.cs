@@ -35,12 +35,18 @@ namespace ShadowEditor.Server.Remote
             // 启动FTP服务器
             try
             {
+                var path = HttpContext.Current.Server.MapPath("~/Upload/TestFtpServer");
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+
+                var fsProvider = new DotNetFileSystemProvider(path, false);
+
                 var membershipProvider = new AnonymousMembershipProvider(new NoValidation());
 
-                var ftpPath = HttpContext.Current.Server.MapPath("~/Upload/TestFtpServer");
-                var fsProvider = new DotNetFileSystemProvider(ftpPath, false);
-
-                ftpServer = new FtpServer(fsProvider, membershipProvider, "127.0.0.1");
+                // , int.Parse(ftpPort), new FtpCommandHandlerFactory()
+                var ftpServer = new FtpServer(fsProvider, membershipProvider, "127.0.0.1");
                 ftpServer.Start();
             }
             catch (Exception ex)

@@ -104,3 +104,4 @@ __pycache__
 /ShadowEditor.Web/assets/fonts/custom
 /ShadowEditor.Web/Upload/Font
 /ShadowEditor.Web/test/think
+/ShadowEditor.Web/Upload/TestFtpServer
