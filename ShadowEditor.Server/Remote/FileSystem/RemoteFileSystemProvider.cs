@@ -16,7 +16,7 @@ namespace ShadowEditor.Server.Remote.FileSystem
         private readonly bool _useUserIdAsSubFolder;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DotNetFileSystemProvider"/> class.
+        /// Initializes a new instance of the <see cref="RemoteFileSystemProvider"/> class.
         /// </summary>
         /// <param name="rootPath">The root path for all users</param>
         public RemoteFileSystemProvider(string rootPath)
@@ -25,7 +25,7 @@ namespace ShadowEditor.Server.Remote.FileSystem
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DotNetFileSystemProvider"/> class.
+        /// Initializes a new instance of the <see cref="RemoteFileSystemProvider"/> class.
         /// </summary>
         /// <param name="rootPath">The root path for all users</param>
         /// <param name="useUserIdAsSubFolder">Use the user id as subfolder?</param>

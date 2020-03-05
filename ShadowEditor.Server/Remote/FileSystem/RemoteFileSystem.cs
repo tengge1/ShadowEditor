@@ -17,7 +17,7 @@ namespace ShadowEditor.Server.Remote.FileSystem
         private bool _disposedValue;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DotNetFileSystem"/> class.
+        /// Initializes a new instance of the <see cref="RemoteFileSystem"/> class.
         /// </summary>
         /// <param name="rootPath">The path to use as root</param>
         /// <param name="allowNonEmptyDirectoryDelete">Allow deletion of non-empty directories?</param>

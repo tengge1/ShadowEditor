@@ -13,7 +13,7 @@ namespace ShadowEditor.Server.Remote.FileSystem
     public class RemoteFileEntry : IUnixFileEntry
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DotNetFileEntry"/> class.
+        /// Initializes a new instance of the <see cref="RemoteFileEntry"/> class.
         /// </summary>
         /// <param name="fileSystem">The file system this entry belongs to</param>
         /// <param name="info">The <see cref="FileInfo"/> to extract the information from</param>
