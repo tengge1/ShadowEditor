@@ -12,7 +12,8 @@ using ShadowEditor.Server.Helpers;
 using FubarDev.FtpServer;
 using FubarDev.FtpServer.AccountManagement;
 using FubarDev.FtpServer.AccountManagement.Anonymous;
-using FubarDev.FtpServer.FileSystem.DotNet;
+
+using ShadowEditor.Server.Remote.FileSystem;
 
 namespace ShadowEditor.Server.Remote
 {
@@ -42,16 +43,15 @@ namespace ShadowEditor.Server.Remote
                     Directory.CreateDirectory(path);
                 }
 
-                var fsProvider = new DotNetFileSystemProvider(path, false);
+                var fsProvider = new RemoteFileSystemProvider(path, false);
 
                 var membershipProvider = new AnonymousMembershipProvider(new NoValidation());
 
-                // , int.Parse(ftpPort), new FtpCommandHandlerFactory()
                 var ftpServer = new FtpServer(
-                    fsProvider, 
-                    membershipProvider, 
-                    "127.0.0.1", 
-                    int.Parse(ftpPort), 
+                    fsProvider,
+                    membershipProvider,
+                    "127.0.0.1",
+                    int.Parse(ftpPort),
                     new AssemblyFtpCommandHandlerFactory(typeof(FtpServer).GetTypeInfo().Assembly)
                 );
                 ftpServer.Start();

@@ -231,6 +231,10 @@
     <Compile Include="Helpers\ZipHelper.cs" />
     <Compile Include="OperatingAuthority.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Remote\FileSystem\RemoteDirectoryEntry.cs" />
+    <Compile Include="Remote\FileSystem\RemoteFileEntry.cs" />
+    <Compile Include="Remote\FileSystem\RemoteFileSystem.cs" />
+    <Compile Include="Remote\FileSystem\RemoteFileSystemProvider.cs" />
     <Compile Include="Remote\FtpCommandHandlerFactory.cs" />
     <Compile Include="Remote\RemoteServer.cs" />
     <Compile Include="Remote\SocketServer.cs" />
