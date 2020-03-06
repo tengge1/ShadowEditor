@@ -1,4 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty, SelectProperty } from '../../../third_party';
+import { PropertyGroup, CheckBoxProperty } from '../../../third_party';
 
 /**
  * 指针锁定控制器组件
@@ -13,7 +13,7 @@ class PointerLockControlComponent extends React.Component {
         this.state = {
             show: false,
             expanded: false,
-            isLocked: true,
+            isLocked: true
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -28,8 +28,16 @@ class PointerLockControlComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('Pointer Lock Controls')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <CheckBoxProperty label={_t('IsLocked')} name={'isLocked'} value={isLocked} onChange={this.handleChange}></CheckBoxProperty>
+        return <PropertyGroup title={_t('Pointer Lock Controls')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <CheckBoxProperty label={_t('IsLocked')}
+                name={'isLocked'}
+                value={isLocked}
+                onChange={this.handleChange}
+            />
         </PropertyGroup>;
     }
 
@@ -40,7 +48,7 @@ class PointerLockControlComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -49,7 +57,7 @@ class PointerLockControlComponent extends React.Component {
 
         if (!editor.selected || editor.selected !== editor.camera || editor.selected.userData.control !== 'PointerLockControls') {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -58,30 +66,30 @@ class PointerLockControlComponent extends React.Component {
 
         if (this.selected.userData.pointerLockOptions === undefined) {
             this.selected.userData.pointerLockOptions = {
-                isLocked: true,
+                isLocked: true
             };
         }
 
         this.setState({
             show: true,
-            ...this.selected.userData.pointerLockOptions,
+            ...this.selected.userData.pointerLockOptions
         });
     }
 
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { isLocked } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         Object.assign(this.selected.userData.pointerLockOptions, {
-            isLocked,
+            isLocked
         });
 
         app.call('objectChanged', this, this.selected);

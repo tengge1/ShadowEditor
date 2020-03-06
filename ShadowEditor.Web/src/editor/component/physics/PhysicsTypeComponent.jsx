@@ -1,4 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty, SelectProperty, ButtonsProperty, Button } from '../../../third_party';
+import { PropertyGroup, CheckBoxProperty, SelectProperty } from '../../../third_party';
 
 /**
  * 物理类型组件
@@ -12,14 +12,14 @@ class PhysicsTypeComponent extends React.Component {
 
         this.type = {
             rigidBody: _t('RigidBody'),
-            softVolume: _t('SoftVolume'),
+            softVolume: _t('SoftVolume')
         };
 
         this.state = {
             show: false,
             expanded: false,
             physicsEnabled: false,
-            type: 'rigidBody',
+            type: 'rigidBody'
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -34,9 +34,22 @@ class PhysicsTypeComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('PhysicsType')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <CheckBoxProperty label={_t('Enabled')} name={'physicsEnabled'} value={physicsEnabled} onChange={this.handleChange}></CheckBoxProperty>
-            <SelectProperty label={_t('Type')} options={this.type} name={'type'} value={type} onChange={this.handleChange}></SelectProperty>
+        return <PropertyGroup title={_t('PhysicsType')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <CheckBoxProperty label={_t('Enabled')}
+                name={'physicsEnabled'}
+                value={physicsEnabled}
+                onChange={this.handleChange}
+            />
+            <SelectProperty label={_t('Type')}
+                options={this.type}
+                name={'type'}
+                value={type}
+                onChange={this.handleChange}
+            />
         </PropertyGroup>;
     }
 
@@ -47,7 +60,7 @@ class PhysicsTypeComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -56,7 +69,7 @@ class PhysicsTypeComponent extends React.Component {
 
         if (!editor.selected || !editor.selected.userData.physics || editor.selected === editor.scene) {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -68,20 +81,20 @@ class PhysicsTypeComponent extends React.Component {
         this.setState({
             show: true,
             physicsEnabled: physics.enabled || false,
-            type: physics.type || 'rigidBody',
+            type: physics.type || 'rigidBody'
         });
     }
 
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { physicsEnabled, type } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         if (!this.selected.userData.physics) {

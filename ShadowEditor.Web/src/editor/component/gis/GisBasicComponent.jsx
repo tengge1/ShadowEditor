@@ -1,4 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty, SelectProperty } from '../../../third_party';
+import { PropertyGroup, SelectProperty } from '../../../third_party';
 
 /**
  * GIS基本组件
@@ -13,13 +13,13 @@ class GisBasicComponent extends React.Component {
         this.bakcground = {
             google: _t('Google Map'),
             bing: _t('Bing Map'),
-            tianditu: _t('Tianditu Map'),
+            tianditu: _t('Tianditu Map')
         };
 
         this.state = {
             show: false,
             expanded: true,
-            bakcground: 'google',
+            bakcground: 'google'
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -34,8 +34,17 @@ class GisBasicComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('GIS Component')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <SelectProperty label={_t('Map')} options={this.bakcground} name={'bakcground'} value={bakcground} onChange={this.handleChange}></SelectProperty>
+        return <PropertyGroup title={_t('GIS Component')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <SelectProperty label={_t('Map')}
+                options={this.bakcground}
+                name={'bakcground'}
+                value={bakcground}
+                onChange={this.handleChange}
+            />
         </PropertyGroup>;
     }
 
@@ -46,7 +55,7 @@ class GisBasicComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -55,7 +64,7 @@ class GisBasicComponent extends React.Component {
 
         if (!editor.selected || editor.selected.userData.type !== 'Globe') {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -64,20 +73,20 @@ class GisBasicComponent extends React.Component {
 
         this.setState({
             show: true,
-            bakcground: this.selected.getBackground(),
+            bakcground: this.selected.getBackground()
         });
     }
 
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { bakcground } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         this.selected.setBackground(bakcground);

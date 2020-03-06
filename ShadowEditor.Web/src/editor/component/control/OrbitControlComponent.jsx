@@ -1,4 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty, SelectProperty } from '../../../third_party';
+import { PropertyGroup, CheckBoxProperty, NumberProperty } from '../../../third_party';
 
 /**
  * 轨道控制器组件
@@ -31,7 +31,7 @@ class OrbitControlComponent extends React.Component {
             keyPanSpeed: 7.0,
             autoRotate: false,
             autoRotateSpeed: 2.0,
-            enableKeys: true,
+            enableKeys: true
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -48,26 +48,106 @@ class OrbitControlComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('Orbit Controls')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <NumberProperty label={_t('MinDistance')} name={'minDistance'} value={minDistance} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={_t('MaxDistance')} name={'maxDistance'} value={maxDistance} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={_t('MinPolarAngle')} name={'minPolarAngle'} value={minPolarAngle} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={_t('MaxPolarAngle')} name={'maxPolarAngle'} value={maxPolarAngle} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={_t('MinAzimuthAngle')} name={'minAzimuthAngle'} value={minAzimuthAngle} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={_t('MaxAzimuthAngle')} name={'maxAzimuthAngle'} value={maxAzimuthAngle} onChange={this.handleChange}></NumberProperty>
-            <CheckBoxProperty label={_t('EnableDamping')} name={'enableDamping'} value={enableDamping} onChange={this.handleChange}></CheckBoxProperty>
-            <NumberProperty label={_t('DampingFactor')} name={'dampingFactor'} value={dampingFactor} onChange={this.handleChange}></NumberProperty>
-            <CheckBoxProperty label={_t('EnableZoom')} name={'enableZoom'} value={enableZoom} onChange={this.handleChange}></CheckBoxProperty>
-            <NumberProperty label={_t('ZoomSpeed')} name={'zoomSpeed'} value={zoomSpeed} onChange={this.handleChange}></NumberProperty>
-            <CheckBoxProperty label={_t('EnableRotate')} name={'enableRotate'} value={enableRotate} onChange={this.handleChange}></CheckBoxProperty>
-            <NumberProperty label={_t('RotateSpeed')} name={'rotateSpeed'} value={rotateSpeed} onChange={this.handleChange}></NumberProperty>
-            <CheckBoxProperty label={_t('PanSpeed')} name={'enablePan'} value={enablePan} onChange={this.handleChange}></CheckBoxProperty>
-            <NumberProperty label={_t('PanSpeed')} name={'panSpeed'} value={panSpeed} onChange={this.handleChange}></NumberProperty>
-            <CheckBoxProperty label={_t('ScreenSpacePanning')} name={'screenSpacePanning'} value={screenSpacePanning} onChange={this.handleChange}></CheckBoxProperty>
-            <NumberProperty label={_t('KeyPanSpeed')} name={'keyPanSpeed'} value={keyPanSpeed} onChange={this.handleChange}></NumberProperty>
-            <CheckBoxProperty label={_t('AutoRotate')} name={'autoRotate'} value={autoRotate} onChange={this.handleChange}></CheckBoxProperty>
-            <NumberProperty label={_t('AutoRotateSpeed')} name={'autoRotateSpeed'} value={autoRotateSpeed} onChange={this.handleChange}></NumberProperty>
-            <CheckBoxProperty label={_t('EnableKeys')} name={'enableKeys'} value={enableKeys} onChange={this.handleChange}></CheckBoxProperty>
+        return <PropertyGroup title={_t('Orbit Controls')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <NumberProperty label={_t('MinDistance')}
+                name={'minDistance'}
+                value={minDistance}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('MaxDistance')}
+                name={'maxDistance'}
+                value={maxDistance}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('MinPolarAngle')}
+                name={'minPolarAngle'}
+                value={minPolarAngle}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('MaxPolarAngle')}
+                name={'maxPolarAngle'}
+                value={maxPolarAngle}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('MinAzimuthAngle')}
+                name={'minAzimuthAngle'}
+                value={minAzimuthAngle}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('MaxAzimuthAngle')}
+                name={'maxAzimuthAngle'}
+                value={maxAzimuthAngle}
+                onChange={this.handleChange}
+            />
+            <CheckBoxProperty label={_t('EnableDamping')}
+                name={'enableDamping'}
+                value={enableDamping}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('DampingFactor')}
+                name={'dampingFactor'}
+                value={dampingFactor}
+                onChange={this.handleChange}
+            />
+            <CheckBoxProperty label={_t('EnableZoom')}
+                name={'enableZoom'}
+                value={enableZoom}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('ZoomSpeed')}
+                name={'zoomSpeed'}
+                value={zoomSpeed}
+                onChange={this.handleChange}
+            />
+            <CheckBoxProperty label={_t('EnableRotate')}
+                name={'enableRotate'}
+                value={enableRotate}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('RotateSpeed')}
+                name={'rotateSpeed'}
+                value={rotateSpeed}
+                onChange={this.handleChange}
+            />
+            <CheckBoxProperty label={_t('PanSpeed')}
+                name={'enablePan'}
+                value={enablePan}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('PanSpeed')}
+                name={'panSpeed'}
+                value={panSpeed}
+                onChange={this.handleChange}
+            />
+            <CheckBoxProperty label={_t('ScreenSpacePanning')}
+                name={'screenSpacePanning'}
+                value={screenSpacePanning}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('KeyPanSpeed')}
+                name={'keyPanSpeed'}
+                value={keyPanSpeed}
+                onChange={this.handleChange}
+            />
+            <CheckBoxProperty label={_t('AutoRotate')}
+                name={'autoRotate'}
+                value={autoRotate}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('AutoRotateSpeed')}
+                name={'autoRotateSpeed'}
+                value={autoRotateSpeed}
+                onChange={this.handleChange}
+            />
+            <CheckBoxProperty label={_t('EnableKeys')}
+                name={'enableKeys'}
+                value={enableKeys}
+                onChange={this.handleChange}
+            />
         </PropertyGroup>;
     }
 
@@ -78,7 +158,7 @@ class OrbitControlComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -87,7 +167,7 @@ class OrbitControlComponent extends React.Component {
 
         if (!editor.selected || editor.selected !== editor.camera || editor.selected.userData.control !== 'OrbitControls') {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -114,20 +194,20 @@ class OrbitControlComponent extends React.Component {
                 keyPanSpeed: 7.0,
                 autoRotate: false,
                 autoRotateSpeed: 2.0,
-                enableKeys: true,
+                enableKeys: true
             };
         }
 
         this.setState({
             show: true,
-            ...this.selected.userData.orbitOptions,
+            ...this.selected.userData.orbitOptions
         });
     }
 
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
@@ -135,7 +215,7 @@ class OrbitControlComponent extends React.Component {
         const { minDistance, maxDistance, minPolarAngle, maxPolarAngle, minAzimuthAngle, maxAzimuthAngle, enableDamping, dampingFactor,
             enableZoom, zoomSpeed, enableRotate, rotateSpeed, enablePan, panSpeed, screenSpacePanning, keyPanSpeed, autoRotate, autoRotateSpeed,
             enableKeys } = Object.assign({}, this.state, {
-                [name]: value,
+                [name]: value
             });
 
         Object.assign(this.selected.userData.orbitOptions, {

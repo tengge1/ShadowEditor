@@ -1,4 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty, SelectProperty, ButtonsProperty, Button } from '../../../third_party';
+import { PropertyGroup, NumberProperty } from '../../../third_party';
 import Sky from '../../../object/component/Sky';
 
 /**
@@ -18,7 +18,7 @@ class SkyComponent extends React.Component {
             rayleigh: 2,
             luminance: 1,
             mieCoefficient: 0.005,
-            mieDirectionalG: 0.005,
+            mieDirectionalG: 0.005
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -33,12 +33,36 @@ class SkyComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('Sky')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <NumberProperty label={_t('Turbidity')} name={'turbidity'} value={turbidity} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={_t('Rayleigh')} name={'rayleigh'} value={rayleigh} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={_t('Luminance')} name={'luminance'} value={luminance} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={_t('MieCofficient')} name={'mieCoefficient'} value={mieCoefficient} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={_t('MieDirectionalG')} name={'mieDirectionalG'} value={mieDirectionalG} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('Sky')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <NumberProperty label={_t('Turbidity')}
+                name={'turbidity'}
+                value={turbidity}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('Rayleigh')}
+                name={'rayleigh'}
+                value={rayleigh}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('Luminance')}
+                name={'luminance'}
+                value={luminance}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('MieCofficient')}
+                name={'mieCoefficient'}
+                value={mieCoefficient}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('MieDirectionalG')}
+                name={'mieDirectionalG'}
+                value={mieDirectionalG}
+                onChange={this.handleChange}
+            />
         </PropertyGroup>;
     }
 
@@ -49,7 +73,7 @@ class SkyComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -58,7 +82,7 @@ class SkyComponent extends React.Component {
 
         if (!editor.selected || !(editor.selected instanceof Sky)) {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -71,20 +95,20 @@ class SkyComponent extends React.Component {
             rayleigh: this.selected.userData.rayleigh,
             luminance: this.selected.userData.luminance,
             mieCoefficient: this.selected.userData.mieCoefficient * 100,
-            mieDirectionalG: this.selected.userData.mieDirectionalG,
+            mieDirectionalG: this.selected.userData.mieDirectionalG
         });
     }
 
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { turbidity, rayleigh, luminance, mieCoefficient, mieDirectionalG } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         Object.assign(this.selected.userData, {
@@ -92,7 +116,7 @@ class SkyComponent extends React.Component {
             rayleigh,
             luminance,
             mieCoefficient: mieCoefficient / 100,
-            mieDirectionalG,
+            mieDirectionalG
         });
 
         const sky = this.selected.children.filter(n => n instanceof THREE.Sky)[0];

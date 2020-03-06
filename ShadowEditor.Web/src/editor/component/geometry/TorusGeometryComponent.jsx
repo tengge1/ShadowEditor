@@ -1,4 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty } from '../../../third_party';
+import { PropertyGroup, NumberProperty, IntegerProperty } from '../../../third_party';
 import SetGeometryCommand from '../../../command/SetGeometryCommand';
 
 /**
@@ -18,7 +18,7 @@ class TorusGeometryComponent extends React.Component {
             tube: 1,
             radialSegments: 16,
             tubularSegments: 16,
-            arc: Math.PI * 2,
+            arc: Math.PI * 2
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -33,12 +33,36 @@ class TorusGeometryComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('Geometry Component')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <NumberProperty name={'radius'} label={_t('Radius')} value={radius} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty name={'tube'} label={_t('Tube')} value={tube} onChange={this.handleChange}></NumberProperty>
-            <IntegerProperty name={'radialSegments'} label={_t('RadialSegments')} value={radialSegments} onChange={this.handleChange}></IntegerProperty>
-            <IntegerProperty name={'tubularSegments'} label={_t('TubelarSegments')} value={tubularSegments} onChange={this.handleChange}></IntegerProperty>
-            <NumberProperty name={'arc'} label={_t('Arc')} value={arc} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('Geometry Component')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <NumberProperty name={'radius'}
+                label={_t('Radius')}
+                value={radius}
+                onChange={this.handleChange}
+            />
+            <NumberProperty name={'tube'}
+                label={_t('Tube')}
+                value={tube}
+                onChange={this.handleChange}
+            />
+            <IntegerProperty name={'radialSegments'}
+                label={_t('RadialSegments')}
+                value={radialSegments}
+                onChange={this.handleChange}
+            />
+            <IntegerProperty name={'tubularSegments'}
+                label={_t('TubelarSegments')}
+                value={tubularSegments}
+                onChange={this.handleChange}
+            />
+            <NumberProperty name={'arc'}
+                label={_t('Arc')}
+                value={arc}
+                onChange={this.handleChange}
+            />
         </PropertyGroup>;
     }
 
@@ -49,7 +73,7 @@ class TorusGeometryComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -58,7 +82,7 @@ class TorusGeometryComponent extends React.Component {
 
         if (!editor.selected || !(editor.selected instanceof THREE.Mesh) || !(editor.selected.geometry instanceof THREE.TorusBufferGeometry)) {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -74,20 +98,20 @@ class TorusGeometryComponent extends React.Component {
             tube: tube === undefined ? 0.4 : tube,
             radialSegments: radialSegments === undefined ? 8 : radialSegments,
             tubularSegments: tubularSegments === undefined ? 16 : tubularSegments,
-            arc: arc === undefined ? Math.PI * 2 : arc,
+            arc: arc === undefined ? Math.PI * 2 : arc
         });
     }
 
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { radius, tube, radialSegments, tubularSegments, arc } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         this.setState(state);
@@ -97,7 +121,7 @@ class TorusGeometryComponent extends React.Component {
             tube,
             radialSegments,
             tubularSegments,
-            arc,
+            arc
         )));
 
         app.call(`objectChanged`, this, this.selected);

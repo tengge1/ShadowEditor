@@ -1,5 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, ButtonProperty, NumberProperty } from '../../../third_party';
-import SetValueCommand from '../../../command/SetValueCommand';
+import { PropertyGroup, ButtonProperty } from '../../../third_party';
 
 /**
  * 水组件
@@ -15,7 +14,7 @@ class WaterComponent extends React.Component {
         this.state = {
             show: false,
             expanded: true,
-            previewText: _t('Preview'),
+            previewText: _t('Preview')
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -31,8 +30,14 @@ class WaterComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('Water Component')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <ButtonProperty text={previewText} onChange={this.handlePreview}></ButtonProperty>
+        return <PropertyGroup title={_t('Water Component')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <ButtonProperty text={previewText}
+                onChange={this.handlePreview}
+            />
         </PropertyGroup>;
     }
 
@@ -43,7 +48,7 @@ class WaterComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -52,7 +57,7 @@ class WaterComponent extends React.Component {
 
         if (!editor.selected || !(editor.selected.userData.type === 'Water')) {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -61,7 +66,7 @@ class WaterComponent extends React.Component {
 
         this.setState({
             show: true,
-            previewText: this.isPlaying ? _t('Cancel') : _t('Preview'),
+            previewText: this.isPlaying ? _t('Cancel') : _t('Preview')
         });
     }
 
@@ -77,7 +82,7 @@ class WaterComponent extends React.Component {
         this.isPlaying = true;
 
         this.setState({
-            previewText: _t('Cancel'),
+            previewText: _t('Cancel')
         });
 
         app.on(`animate.WaterComponent`, this.onAnimate);
@@ -87,13 +92,13 @@ class WaterComponent extends React.Component {
         this.isPlaying = false;
 
         this.setState({
-            previewText: _t('Preview'),
+            previewText: _t('Preview')
         });
 
         app.on(`animate.WaterComponent`, null);
     }
 
-    onAnimate(clock, deltaTime) {
+    onAnimate() {
         this.selected.update();
     }
 }

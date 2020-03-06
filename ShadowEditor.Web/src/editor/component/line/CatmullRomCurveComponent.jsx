@@ -1,4 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty, SelectProperty, ButtonsProperty, Button } from '../../../third_party';
+import { PropertyGroup, CheckBoxProperty, NumberProperty, SelectProperty, ButtonsProperty, Button } from '../../../third_party';
 
 /**
  * CatmullRom曲线组件
@@ -99,11 +99,11 @@ class CatmullRomCurveComponent extends React.Component {
 
     handleAddPoint() {
         let points = this.selected.userData.points;
-        let closed = this.selected.userData.closed;
-        let curveType = this.selected.userData.curveType;
-        let tension = this.selected.userData.tension;
+        // let closed = this.selected.userData.closed;
+        // let curveType = this.selected.userData.curveType;
+        // let tension = this.selected.userData.tension;
 
-        let curve = new THREE.CatmullRomCurve3(points, closed, curveType, tension);
+        // let curve = new THREE.CatmullRomCurve3(points, closed, curveType, tension);
 
         let point = new THREE.Vector3(
             parseInt((Math.random() - 0.5) * 40),

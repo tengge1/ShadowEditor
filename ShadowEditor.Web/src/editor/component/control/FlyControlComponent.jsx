@@ -1,4 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty, SelectProperty } from '../../../third_party';
+import { PropertyGroup, CheckBoxProperty, NumberProperty } from '../../../third_party';
 
 /**
  * 音频监听器组件
@@ -16,7 +16,7 @@ class FlyControlComponent extends React.Component {
             movementSpeed: 10.0,
             rollSpeed: 0.05,
             dragToLook: false,
-            autoForward: false,
+            autoForward: false
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -31,11 +31,31 @@ class FlyControlComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('Fly Controls')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <NumberProperty label={_t('MovementSpeed')} name={'movementSpeed'} value={movementSpeed} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={_t('RotateSpeed')} name={'rollSpeed'} value={rollSpeed} onChange={this.handleChange}></NumberProperty>
-            <CheckBoxProperty label={_t('DragToLook')} name={'dragToLook'} value={dragToLook} onChange={this.handleChange}></CheckBoxProperty>
-            <CheckBoxProperty label={_t('AutoForward')} name={'autoForward'} value={autoForward} onChange={this.handleChange}></CheckBoxProperty>
+        return <PropertyGroup title={_t('Fly Controls')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <NumberProperty label={_t('MovementSpeed')}
+                name={'movementSpeed'}
+                value={movementSpeed}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('RotateSpeed')}
+                name={'rollSpeed'}
+                value={rollSpeed}
+                onChange={this.handleChange}
+            />
+            <CheckBoxProperty label={_t('DragToLook')}
+                name={'dragToLook'}
+                value={dragToLook}
+                onChange={this.handleChange}
+            />
+            <CheckBoxProperty label={_t('AutoForward')}
+                name={'autoForward'}
+                value={autoForward}
+                onChange={this.handleChange}
+            />
         </PropertyGroup>;
     }
 
@@ -46,7 +66,7 @@ class FlyControlComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -55,7 +75,7 @@ class FlyControlComponent extends React.Component {
 
         if (!editor.selected || editor.selected !== editor.camera || editor.selected.userData.control !== 'FlyControls') {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -67,26 +87,26 @@ class FlyControlComponent extends React.Component {
                 movementSpeed: 20.0,
                 rollSpeed: 0.2,
                 dragToLook: false,
-                autoForward: false,
+                autoForward: false
             };
         }
 
         this.setState({
             show: true,
-            ...this.selected.userData.flyOptions,
+            ...this.selected.userData.flyOptions
         });
     }
 
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { movementSpeed, rollSpeed, dragToLook, autoForward } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         Object.assign(this.selected.userData.flyOptions, {

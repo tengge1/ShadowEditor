@@ -201,7 +201,7 @@ class TransformComponent extends React.Component {
         app.call(`objectChanged`, this, this.selected);
     }
 
-    handleChangeScaleLock(value, name) {
+    handleChangeScaleLock(value) {
         this.setState({
             scaleLocked: value
         });

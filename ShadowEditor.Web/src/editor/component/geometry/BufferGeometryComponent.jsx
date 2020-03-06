@@ -1,5 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty, ButtonProperty } from '../../../third_party';
-import SetGeometryCommand from '../../../command/SetGeometryCommand';
+import { PropertyGroup, DisplayProperty, ButtonProperty } from '../../../third_party';
 
 /**
  * BufferGeometry组件
@@ -17,7 +16,7 @@ class BufferGeometryComponent extends React.Component {
             positionCount: 0,
             normalCount: 0,
             uvCount: 0,
-            indexCound: 0,
+            indexCound: 0
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -34,12 +33,26 @@ class BufferGeometryComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('BufferGeometry Component')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <DisplayProperty label={_t('Position Count')} value={positionCount.toString()}></DisplayProperty>
-            <DisplayProperty label={_t('Normal Count')} value={normalCount.toString()}></DisplayProperty>
-            <DisplayProperty label={_t('UV Count')} value={uvCount.toString()}></DisplayProperty>
-            <DisplayProperty label={_t('Index Count')} value={indexCound.toString()}></DisplayProperty>
-            <ButtonProperty text={_t('Compute Vertex Normals')} onChange={this.handleComputeVertexNormals}></ButtonProperty>
+        return <PropertyGroup title={_t('BufferGeometry Component')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <DisplayProperty label={_t('Position Count')}
+                value={positionCount.toString()}
+            />
+            <DisplayProperty label={_t('Normal Count')}
+                value={normalCount.toString()}
+            />
+            <DisplayProperty label={_t('UV Count')}
+                value={uvCount.toString()}
+            />
+            <DisplayProperty label={_t('Index Count')}
+                value={indexCound.toString()}
+            />
+            <ButtonProperty text={_t('Compute Vertex Normals')}
+                onChange={this.handleComputeVertexNormals}
+            />
             {/* <ButtonProperty text={'Compute Face Normals'} onChange={this.handleComputeFaceNormals}></ButtonProperty> */}
         </PropertyGroup>;
     }
@@ -51,7 +64,7 @@ class BufferGeometryComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -60,7 +73,7 @@ class BufferGeometryComponent extends React.Component {
 
         if (!editor.selected || !(editor.selected instanceof THREE.Mesh) || !(editor.selected.geometry instanceof THREE.BufferGeometry)) {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }

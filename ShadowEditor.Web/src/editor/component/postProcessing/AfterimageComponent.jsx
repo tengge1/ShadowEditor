@@ -1,5 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty } from '../../../third_party';
-import SetGeometryCommand from '../../../command/SetGeometryCommand';
+import { PropertyGroup, CheckBoxProperty, NumberProperty } from '../../../third_party';
 
 /**
  * 残影特效组件
@@ -15,7 +14,7 @@ class AfterimageComponent extends React.Component {
             show: false,
             expanded: false,
             enabled: false,
-            damp: 0.92,
+            damp: 0.92
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -31,9 +30,21 @@ class AfterimageComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('AfterimageEffect')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <CheckBoxProperty label={_t('EnableState')} name={'enabled'} value={enabled} onChange={this.handleChange}></CheckBoxProperty>
-            <NumberProperty label={_t('Damp')} name={'damp'} value={damp} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('AfterimageEffect')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <CheckBoxProperty label={_t('EnableState')}
+                name={'enabled'}
+                value={enabled}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('Damp')}
+                name={'damp'}
+                value={damp}
+                onChange={this.handleChange}
+            />
         </PropertyGroup>;
     }
 
@@ -44,7 +55,7 @@ class AfterimageComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -53,7 +64,7 @@ class AfterimageComponent extends React.Component {
 
         if (!editor.selected || editor.selected !== editor.scene) {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -66,7 +77,7 @@ class AfterimageComponent extends React.Component {
         let state = {
             show: true,
             enabled: postProcessing.afterimage ? postProcessing.afterimage.enabled : false,
-            damp: postProcessing.afterimage ? postProcessing.afterimage.damp : this.state.damp,
+            damp: postProcessing.afterimage ? postProcessing.afterimage.damp : this.state.damp
         };
 
         this.setState(state);
@@ -75,13 +86,13 @@ class AfterimageComponent extends React.Component {
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { enabled, damp } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         let scene = this.selected;
@@ -91,8 +102,8 @@ class AfterimageComponent extends React.Component {
         Object.assign(scene.userData.postProcessing, {
             afterimage: {
                 enabled,
-                damp,
-            },
+                damp
+            }
         });
 
         app.call(`objectChanged`, this, this.selected);

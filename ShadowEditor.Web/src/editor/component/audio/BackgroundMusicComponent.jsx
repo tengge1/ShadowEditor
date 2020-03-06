@@ -1,5 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty, ButtonProperty } from '../../../third_party';
-import SetGeometryCommand from '../../../command/SetGeometryCommand';
+import { PropertyGroup, DisplayProperty, CheckBoxProperty, NumberProperty, ButtonProperty } from '../../../third_party';
 
 /**
  * 音频监听器组件

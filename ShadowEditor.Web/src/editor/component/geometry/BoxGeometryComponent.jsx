@@ -1,4 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty } from '../../../third_party';
+import { PropertyGroup, DisplayProperty, NumberProperty, IntegerProperty } from '../../../third_party';
 import SetGeometryCommand from '../../../command/SetGeometryCommand';
 
 /**
@@ -20,7 +20,7 @@ class BoxGeometryComponent extends React.Component {
             depth: 1,
             widthSegments: 1,
             heightSegments: 1,
-            depthSegments: 1,
+            depthSegments: 1
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -35,14 +35,44 @@ class BoxGeometryComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('Geometry Component')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <DisplayProperty label={_t('Type')} value={type}></DisplayProperty>
-            <NumberProperty name={'width'} label={_t('Width')} value={width} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty name={'height'} label={_t('Height')} value={height} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty name={'depth'} label={_t('Depth')} value={depth} onChange={this.handleChange}></NumberProperty>
-            <IntegerProperty name={'widthSegments'} label={_t('WidthSegments')} value={widthSegments} onChange={this.handleChange}></IntegerProperty>
-            <IntegerProperty name={'heightSegments'} label={_t('HeightSegments')} value={heightSegments} onChange={this.handleChange}></IntegerProperty>
-            <IntegerProperty name={'depthSegments'} label={_t('DepthSegments')} value={depthSegments} onChange={this.handleChange}></IntegerProperty>
+        return <PropertyGroup title={_t('Geometry Component')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <DisplayProperty label={_t('Type')}
+                value={type}
+            />
+            <NumberProperty name={'width'}
+                label={_t('Width')}
+                value={width}
+                onChange={this.handleChange}
+            />
+            <NumberProperty name={'height'}
+                label={_t('Height')}
+                value={height}
+                onChange={this.handleChange}
+            />
+            <NumberProperty name={'depth'}
+                label={_t('Depth')}
+                value={depth}
+                onChange={this.handleChange}
+            />
+            <IntegerProperty name={'widthSegments'}
+                label={_t('WidthSegments')}
+                value={widthSegments}
+                onChange={this.handleChange}
+            />
+            <IntegerProperty name={'heightSegments'}
+                label={_t('HeightSegments')}
+                value={heightSegments}
+                onChange={this.handleChange}
+            />
+            <IntegerProperty name={'depthSegments'}
+                label={_t('DepthSegments')}
+                value={depthSegments}
+                onChange={this.handleChange}
+            />
         </PropertyGroup>;
     }
 
@@ -53,7 +83,7 @@ class BoxGeometryComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -62,7 +92,7 @@ class BoxGeometryComponent extends React.Component {
 
         if (!editor.selected || !(editor.selected instanceof THREE.Mesh) || !(editor.selected.geometry instanceof THREE.BoxBufferGeometry)) {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -80,20 +110,20 @@ class BoxGeometryComponent extends React.Component {
             depth: depth === undefined ? 1 : depth,
             widthSegments: widthSegments === undefined ? 1 : widthSegments,
             heightSegments: heightSegments === undefined ? 1 : heightSegments,
-            depthSegments: depthSegments === undefined ? 1 : depthSegments,
+            depthSegments: depthSegments === undefined ? 1 : depthSegments
         });
     }
 
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { width, height, depth, widthSegments, heightSegments, depthSegments } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         app.editor.execute(new SetGeometryCommand(this.selected, new THREE.BoxBufferGeometry(
@@ -102,7 +132,7 @@ class BoxGeometryComponent extends React.Component {
             depth,
             widthSegments,
             heightSegments,
-            depthSegments,
+            depthSegments
         )));
 
         app.call(`objectChanged`, this, this.selected);

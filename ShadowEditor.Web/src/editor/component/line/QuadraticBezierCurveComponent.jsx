@@ -1,4 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty, SelectProperty, ButtonsProperty, Button } from '../../../third_party';
+import { PropertyGroup, NumberProperty } from '../../../third_party';
 
 /**
  * 二次贝塞尔曲线组件
@@ -21,7 +21,7 @@ class QuadraticBezierCurveComponent extends React.Component {
             v1z: 0,
             v2x: 0,
             v2y: 0,
-            v2z: 0,
+            v2z: 0
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -36,16 +36,56 @@ class QuadraticBezierCurveComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('QuadraticBezier Curve')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <NumberProperty label={'Point1 X'} name={'v0x'} value={v0x} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={'Point1 Y'} name={'v0y'} value={v0y} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={'Point1 Z'} name={'v0z'} value={v0z} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={'Point2 X'} name={'v1x'} value={v1x} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={'Point2 Y'} name={'v1y'} value={v1y} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={'Point2 Z'} name={'v1z'} value={v1z} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={'Point3 X'} name={'v2x'} value={v2x} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={'Point3 Y'} name={'v2y'} value={v2y} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={'Point3 Z'} name={'v2z'} value={v2z} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('QuadraticBezier Curve')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <NumberProperty label={'Point1 X'}
+                name={'v0x'}
+                value={v0x}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={'Point1 Y'}
+                name={'v0y'}
+                value={v0y}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={'Point1 Z'}
+                name={'v0z'}
+                value={v0z}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={'Point2 X'}
+                name={'v1x'}
+                value={v1x}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={'Point2 Y'}
+                name={'v1y'}
+                value={v1y}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={'Point2 Z'}
+                name={'v1z'}
+                value={v1z}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={'Point3 X'}
+                name={'v2x'}
+                value={v2x}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={'Point3 Y'}
+                name={'v2y'}
+                value={v2y}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={'Point3 Z'}
+                name={'v2z'}
+                value={v2z}
+                onChange={this.handleChange}
+            />
         </PropertyGroup>;
     }
 
@@ -56,7 +96,7 @@ class QuadraticBezierCurveComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -65,7 +105,7 @@ class QuadraticBezierCurveComponent extends React.Component {
 
         if (!editor.selected || editor.selected.userData.type !== 'QuadraticBezierCurve') {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -84,26 +124,26 @@ class QuadraticBezierCurveComponent extends React.Component {
             v1z: points[1].z,
             v2x: points[2].x,
             v2y: points[2].y,
-            v2z: points[2].z,
+            v2z: points[2].z
         });
     }
 
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { v0x, v0y, v0z, v1x, v1y, v1z, v2x, v2y, v2z } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         this.selected.userData.points = [
             new THREE.Vector3(v0x, v0y, v0z),
             new THREE.Vector3(v1x, v1y, v1z),
-            new THREE.Vector3(v2x, v2y, v2z),
+            new THREE.Vector3(v2x, v2y, v2z)
         ];
 
         this.selected.update();

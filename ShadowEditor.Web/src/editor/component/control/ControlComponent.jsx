@@ -1,4 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty, SelectProperty } from '../../../third_party';
+import { PropertyGroup, SelectProperty } from '../../../third_party';
 
 /**
  * 场景控制器组件
@@ -16,13 +16,13 @@ class ControlComponent extends React.Component {
             'FlyControls': _t('Fly Controls'),
             'OrbitControls': _t('Orbit Controls'),
             'PointerLockControls': _t('Pointer Lock Controls'),
-            'TrackballControls': _t('Traceball Controls'),
+            'TrackballControls': _t('Traceball Controls')
         };
 
         this.state = {
             show: false,
             expanded: true,
-            type: '',
+            type: ''
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -37,8 +37,17 @@ class ControlComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('Scene Controller')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <SelectProperty label={_t('Type')} options={this.type} name={'type'} value={type} onChange={this.handleChange}></SelectProperty>
+        return <PropertyGroup title={_t('Scene Controller')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <SelectProperty label={_t('Type')}
+                options={this.type}
+                name={'type'}
+                value={type}
+                onChange={this.handleChange}
+            />
         </PropertyGroup>;
     }
 
@@ -49,7 +58,7 @@ class ControlComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -58,7 +67,7 @@ class ControlComponent extends React.Component {
 
         if (!editor.selected || editor.selected !== editor.camera) {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -67,13 +76,13 @@ class ControlComponent extends React.Component {
 
         this.setState({
             show: true,
-            type: this.selected.userData.control || '',
+            type: this.selected.userData.control || ''
         });
     }
 
     handleChange(value, name) {
         const { type } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         this.selected.userData.control = type;

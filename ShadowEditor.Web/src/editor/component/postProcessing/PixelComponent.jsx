@@ -1,5 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty } from '../../../third_party';
-import SetGeometryCommand from '../../../command/SetGeometryCommand';
+import { PropertyGroup, CheckBoxProperty, NumberProperty } from '../../../third_party';
 
 /**
  * 像素特效组件
@@ -15,7 +14,7 @@ class PixelComponent extends React.Component {
             show: false,
             expanded: false,
             enabled: false,
-            pixelSize: 8,
+            pixelSize: 8
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -31,9 +30,21 @@ class PixelComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('PixelEffect')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <CheckBoxProperty label={_t('EnableState')} name={'enabled'} value={enabled} onChange={this.handleChange}></CheckBoxProperty>
-            <NumberProperty label={_t('PixelSize')} name={'pixelSize'} value={pixelSize} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('PixelEffect')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <CheckBoxProperty label={_t('EnableState')}
+                name={'enabled'}
+                value={enabled}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('PixelSize')}
+                name={'pixelSize'}
+                value={pixelSize}
+                onChange={this.handleChange}
+            />
         </PropertyGroup>;
     }
 
@@ -44,7 +55,7 @@ class PixelComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -53,7 +64,7 @@ class PixelComponent extends React.Component {
 
         if (!editor.selected || editor.selected !== editor.scene) {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -66,7 +77,7 @@ class PixelComponent extends React.Component {
         let state = {
             show: true,
             enabled: postProcessing.pixel ? postProcessing.pixel.enabled : false,
-            pixelSize: postProcessing.pixel ? postProcessing.pixel.pixelSize : this.state.pixelSize,
+            pixelSize: postProcessing.pixel ? postProcessing.pixel.pixelSize : this.state.pixelSize
         };
 
         this.setState(state);
@@ -75,13 +86,13 @@ class PixelComponent extends React.Component {
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { enabled, pixelSize } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         let scene = this.selected;
@@ -91,8 +102,8 @@ class PixelComponent extends React.Component {
         Object.assign(scene.userData.postProcessing, {
             pixel: {
                 enabled,
-                pixelSize,
-            },
+                pixelSize
+            }
         });
 
         app.call(`objectChanged`, this, this.selected);

@@ -1,4 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty } from '../../../third_party';
+import { PropertyGroup, NumberProperty, IntegerProperty } from '../../../third_party';
 import SetGeometryCommand from '../../../command/SetGeometryCommand';
 
 /**
@@ -19,7 +19,7 @@ class TorusKnotGeometryComponent extends React.Component {
             tubularSegments: 16,
             radialSegments: 16,
             p: 20,
-            q: 20,
+            q: 20
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -34,13 +34,41 @@ class TorusKnotGeometryComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('Geometry Component')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <NumberProperty name={'radius'} label={_t('Radius')} value={radius} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty name={'tube'} label={_t('Tube')} value={tube} onChange={this.handleChange}></NumberProperty>
-            <IntegerProperty name={'tubularSegments'} label={_t('TubelarSegments')} value={tubularSegments} onChange={this.handleChange}></IntegerProperty>
-            <IntegerProperty name={'radialSegments'} label={_t('RadialSegments')} value={radialSegments} onChange={this.handleChange}></IntegerProperty>
-            <NumberProperty name={'p'} label={_t('TubeArc')} value={p} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty name={'q'} label={_t('DistortedArc')} value={q} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('Geometry Component')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <NumberProperty name={'radius'}
+                label={_t('Radius')}
+                value={radius}
+                onChange={this.handleChange}
+            />
+            <NumberProperty name={'tube'}
+                label={_t('Tube')}
+                value={tube}
+                onChange={this.handleChange}
+            />
+            <IntegerProperty name={'tubularSegments'}
+                label={_t('TubelarSegments')}
+                value={tubularSegments}
+                onChange={this.handleChange}
+            />
+            <IntegerProperty name={'radialSegments'}
+                label={_t('RadialSegments')}
+                value={radialSegments}
+                onChange={this.handleChange}
+            />
+            <NumberProperty name={'p'}
+                label={_t('TubeArc')}
+                value={p}
+                onChange={this.handleChange}
+            />
+            <NumberProperty name={'q'}
+                label={_t('DistortedArc')}
+                value={q}
+                onChange={this.handleChange}
+            />
         </PropertyGroup>;
     }
 
@@ -51,7 +79,7 @@ class TorusKnotGeometryComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -60,7 +88,7 @@ class TorusKnotGeometryComponent extends React.Component {
 
         if (!editor.selected || !(editor.selected instanceof THREE.Mesh) || !(editor.selected.geometry instanceof THREE.TorusKnotBufferGeometry)) {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -77,20 +105,20 @@ class TorusKnotGeometryComponent extends React.Component {
             tubularSegments: tubularSegments === undefined ? 64 : tubularSegments,
             radialSegments: radialSegments === undefined ? 8 : radialSegments,
             p: p === undefined ? 2 : p,
-            q: q === undefined ? 3 : q,
+            q: q === undefined ? 3 : q
         });
     }
 
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { radius, tube, tubularSegments, radialSegments, p, q } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         this.setState(state);
@@ -101,7 +129,7 @@ class TorusKnotGeometryComponent extends React.Component {
             tubularSegments,
             radialSegments,
             p,
-            q,
+            q
         )));
 
         app.call(`objectChanged`, this, this.selected);

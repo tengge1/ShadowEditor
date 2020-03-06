@@ -1,5 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty, SelectProperty } from '../../../third_party';
-import SetGeometryCommand from '../../../command/SetGeometryCommand';
+import { PropertyGroup, TextProperty, DisplayProperty, NumberProperty, SelectProperty } from '../../../third_party';
 
 /**
  * 动画基本信息组件
@@ -16,7 +15,7 @@ class BasicAnimationComponent extends React.Component {
             Skeletal: _t('Skeletal Animation'),
             Audio: _t('Play Audio'),
             Filter: _t('Filter Animation'),
-            Particle: _t('Particle Animation'),
+            Particle: _t('Particle Animation')
         };
 
         this.state = {
@@ -26,7 +25,7 @@ class BasicAnimationComponent extends React.Component {
             target: null,
             type: null,
             beginTime: 0,
-            endTime: 10,
+            endTime: 10
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -42,19 +41,41 @@ class BasicAnimationComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('Basic Information')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <TextProperty label={_t('Name')} name={'name'} value={name} onChange={this.handleChange}></TextProperty>
+        return <PropertyGroup title={_t('Basic Information')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <TextProperty label={_t('Name')}
+                name={'name'}
+                value={name}
+                onChange={this.handleChange}
+            />
             <DisplayProperty
                 label={_t('Target')}
                 name={'target'}
                 value={target ? target : `(${_t('None')})`}
                 btnText={_t('Set Target')}
-                btnShow={app.editor.selected != null}
+                btnShow={app.editor.selected !== null}
                 onClick={this.handleSetTarget}
-                onChange={this.handleChange}></DisplayProperty>
-            <SelectProperty label={_t('Type')} options={this.animationType} name={'type'} value={type} onChange={this.handleChange}></SelectProperty>
-            <NumberProperty label={_t('BeginTime')} name={'beginTime'} value={beginTime} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={_t('EndTime')} name={'endTime'} value={endTime} onChange={this.handleChange}></NumberProperty>
+                onChange={this.handleChange}
+            />
+            <SelectProperty label={_t('Type')}
+                options={this.animationType}
+                name={'type'}
+                value={type}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('BeginTime')}
+                name={'beginTime'}
+                value={beginTime}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('EndTime')}
+                name={'endTime'}
+                value={endTime}
+                onChange={this.handleChange}
+            />
         </PropertyGroup>;
     }
 
@@ -65,14 +86,14 @@ class BasicAnimationComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
     handleUpdate(animation) {
         if (!animation) {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -84,7 +105,7 @@ class BasicAnimationComponent extends React.Component {
             name: this.animation.name,
             type: this.animation.type,
             beginTime: this.animation.beginTime,
-            endTime: this.animation.endTime,
+            endTime: this.animation.endTime
         };
 
         if (!this.animation.target) {
@@ -105,7 +126,7 @@ class BasicAnimationComponent extends React.Component {
     handleSetTarget() {
         let selected = app.editor.selected;
 
-        if (selected == null) {
+        if (selected === null) {
             this.animation.target = null;
         } else {
             this.animation.target = selected.uuid;
@@ -117,13 +138,13 @@ class BasicAnimationComponent extends React.Component {
     handleChange(value, animName) {
         if (value === null) {
             this.setState({
-                [animName]: value,
+                [animName]: value
             });
             return;
         }
 
         const { name, type, beginTime, endTime } = Object.assign({}, this.state, {
-            [animName]: value,
+            [animName]: value
         });
 
         this.animation.name = name;

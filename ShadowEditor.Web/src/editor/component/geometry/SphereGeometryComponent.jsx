@@ -1,4 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty } from '../../../third_party';
+import { PropertyGroup, NumberProperty, IntegerProperty } from '../../../third_party';
 import SetGeometryCommand from '../../../command/SetGeometryCommand';
 
 /**
@@ -20,7 +20,7 @@ class SphereGeometryComponent extends React.Component {
             phiStart: 0,
             phiLength: Math.PI * 2,
             thetaStart: 0,
-            thetaLength: Math.PI / 2,
+            thetaLength: Math.PI / 2
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -35,14 +35,46 @@ class SphereGeometryComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('Geometry Component')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <NumberProperty name={'radius'} label={_t('Radius')} value={radius} onChange={this.handleChange}></NumberProperty>
-            <IntegerProperty name={'widthSegments'} label={_t('WidthSegments')} value={widthSegments} onChange={this.handleChange}></IntegerProperty>
-            <IntegerProperty name={'heightSegments'} label={_t('HeightSegments')} value={heightSegments} onChange={this.handleChange}></IntegerProperty>
-            <NumberProperty name={'phiStart'} label={_t('PhiStart')} value={phiStart} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty name={'phiLength'} label={_t('PhiLength')} value={phiLength} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty name={'thetaStart'} label={_t('ThetaStart')} value={thetaStart} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty name={'thetaLength'} label={_t('ThetaLength')} value={thetaLength} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('Geometry Component')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <NumberProperty name={'radius'}
+                label={_t('Radius')}
+                value={radius}
+                onChange={this.handleChange}
+            />
+            <IntegerProperty name={'widthSegments'}
+                label={_t('WidthSegments')}
+                value={widthSegments}
+                onChange={this.handleChange}
+            />
+            <IntegerProperty name={'heightSegments'}
+                label={_t('HeightSegments')}
+                value={heightSegments}
+                onChange={this.handleChange}
+            />
+            <NumberProperty name={'phiStart'}
+                label={_t('PhiStart')}
+                value={phiStart}
+                onChange={this.handleChange}
+            />
+            <NumberProperty name={'phiLength'}
+                label={_t('PhiLength')}
+                value={phiLength}
+                onChange={this.handleChange}
+            />
+            <NumberProperty name={'thetaStart'}
+                label={_t('ThetaStart')}
+                value={thetaStart}
+                onChange={this.handleChange}
+            />
+            <NumberProperty name={'thetaLength'}
+                label={_t('ThetaLength')}
+                value={thetaLength}
+                onChange={this.handleChange}
+            />
         </PropertyGroup>;
     }
 
@@ -53,7 +85,7 @@ class SphereGeometryComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -62,7 +94,7 @@ class SphereGeometryComponent extends React.Component {
 
         if (!editor.selected || !(editor.selected instanceof THREE.Mesh) || !(editor.selected.geometry instanceof THREE.SphereBufferGeometry)) {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -81,20 +113,20 @@ class SphereGeometryComponent extends React.Component {
             phiStart: phiStart === undefined ? 0 : phiStart,
             phiLength: phiLength === undefined ? Math.PI * 2 : phiLength,
             thetaStart: thetaStart === undefined ? 0 : thetaStart,
-            thetaLength: thetaLength === undefined ? Math.PI : thetaLength,
+            thetaLength: thetaLength === undefined ? Math.PI : thetaLength
         });
     }
 
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { radius, widthSegments, heightSegments, phiStart, phiLength, thetaStart, thetaLength } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         app.editor.execute(new SetGeometryCommand(this.selected, new THREE.SphereBufferGeometry(
@@ -104,7 +136,7 @@ class SphereGeometryComponent extends React.Component {
             phiStart,
             phiLength,
             thetaStart,
-            thetaLength,
+            thetaLength
         )));
 
         app.call(`objectChanged`, this, this.selected);

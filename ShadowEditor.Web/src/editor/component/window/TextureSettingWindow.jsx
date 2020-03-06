@@ -107,7 +107,7 @@ class TextureSettingWindow extends React.Component {
     }
 
     render() {
-        const { anisotropy, center, offset, repeat, rotation, type, encoding, flipY, format, generateMipmaps, magFilter, minFilter, mapping, premultiplyAlpha, unpackAlignment, wrapS, wrapT, centerX, centerY, offsetX, offsetY, repeatX, repeatY } = this.state;
+        const { anisotropy, rotation, type, encoding, flipY, format, generateMipmaps, magFilter, minFilter, mapping, premultiplyAlpha, unpackAlignment, wrapS, wrapT, centerX, centerY, offsetX, offsetY, repeatX, repeatY } = this.state;
 
         return <Window
             className={'TextureSettingWindow'}
@@ -293,7 +293,7 @@ class TextureSettingWindow extends React.Component {
             return;
         }
 
-        const { anisotropy, center, offset, repeat, rotation, type, encoding, flipY, format, generateMipmaps, magFilter, minFilter, mapping, premultiplyAlpha, unpackAlignment, wrapS, wrapT, centerX, centerY, offsetX, offsetY, repeatX, repeatY } = Object.assign({}, this.state, {
+        const { anisotropy, rotation, type, encoding, flipY, format, generateMipmaps, magFilter, minFilter, mapping, premultiplyAlpha, unpackAlignment, wrapS, wrapT, centerX, centerY, offsetX, offsetY, repeatX, repeatY } = Object.assign({}, this.state, {
             [name]: value
         });
 

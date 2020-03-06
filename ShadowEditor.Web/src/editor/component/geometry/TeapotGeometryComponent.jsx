@@ -1,4 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty } from '../../../third_party';
+import { PropertyGroup, CheckBoxProperty, NumberProperty, IntegerProperty } from '../../../third_party';
 import SetGeometryCommand from '../../../command/SetGeometryCommand';
 
 /**
@@ -20,7 +20,7 @@ class TeapotGeometryComponent extends React.Component {
             lid: true,
             body: true,
             fitLid: true,
-            blinn: true,
+            blinn: true
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -35,14 +35,46 @@ class TeapotGeometryComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('Geometry Component')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <NumberProperty name={'size'} label={_t('Size')} value={size} onChange={this.handleChange}></NumberProperty>
-            <IntegerProperty name={'segments'} label={_t('Segments')} value={segments} onChange={this.handleChange}></IntegerProperty>
-            <CheckBoxProperty name={'bottom'} label={_t('Bottom')} value={bottom} onChange={this.handleChange}></CheckBoxProperty>
-            <CheckBoxProperty name={'lid'} label={_t('Lid')} value={lid} onChange={this.handleChange}></CheckBoxProperty>
-            <CheckBoxProperty name={'body'} label={_t('Body')} value={body} onChange={this.handleChange}></CheckBoxProperty>
-            <CheckBoxProperty name={'fitLid'} label={_t('FitLid')} value={fitLid} onChange={this.handleChange}></CheckBoxProperty>
-            <CheckBoxProperty name={'blinn'} label={_t('Blinn')} value={blinn} onChange={this.handleChange}></CheckBoxProperty>
+        return <PropertyGroup title={_t('Geometry Component')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <NumberProperty name={'size'}
+                label={_t('Size')}
+                value={size}
+                onChange={this.handleChange}
+            />
+            <IntegerProperty name={'segments'}
+                label={_t('Segments')}
+                value={segments}
+                onChange={this.handleChange}
+            />
+            <CheckBoxProperty name={'bottom'}
+                label={_t('Bottom')}
+                value={bottom}
+                onChange={this.handleChange}
+            />
+            <CheckBoxProperty name={'lid'}
+                label={_t('Lid')}
+                value={lid}
+                onChange={this.handleChange}
+            />
+            <CheckBoxProperty name={'body'}
+                label={_t('Body')}
+                value={body}
+                onChange={this.handleChange}
+            />
+            <CheckBoxProperty name={'fitLid'}
+                label={_t('FitLid')}
+                value={fitLid}
+                onChange={this.handleChange}
+            />
+            <CheckBoxProperty name={'blinn'}
+                label={_t('Blinn')}
+                value={blinn}
+                onChange={this.handleChange}
+            />
         </PropertyGroup>;
     }
 
@@ -53,7 +85,7 @@ class TeapotGeometryComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -62,7 +94,7 @@ class TeapotGeometryComponent extends React.Component {
 
         if (!editor.selected || !(editor.selected instanceof THREE.Mesh) || !(editor.selected.geometry instanceof THREE.TeapotBufferGeometry)) {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -80,20 +112,20 @@ class TeapotGeometryComponent extends React.Component {
             lid: lid === undefined ? true : lid,
             body: body === undefined ? true : body,
             fitLid: fitLid === undefined ? true : fitLid,
-            blinn: blinn === undefined ? true : blinn,
+            blinn: blinn === undefined ? true : blinn
         });
     }
 
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { size, segments, bottom, lid, body, fitLid, blinn } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         let geometry = new THREE.TeapotBufferGeometry(size, segments, bottom, lid, body, fitLid, blinn);

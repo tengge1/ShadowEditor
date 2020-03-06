@@ -1,4 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty, SelectProperty, ButtonsProperty, Button } from '../../../third_party';
+import { PropertyGroup, NumberProperty } from '../../../third_party';
 
 /**
  * 柔软体组件
@@ -14,7 +14,7 @@ class SoftVolumeComponent extends React.Component {
             show: false,
             expanded: true,
             mass: 1,
-            pressure: 1,
+            pressure: 1
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -29,9 +29,21 @@ class SoftVolumeComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('SoftVolume')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <NumberProperty label={'Mass'} name={'mass'} value={mass} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={_t('Pressure')} name={'pressure'} value={pressure} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('SoftVolume')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <NumberProperty label={'Mass'}
+                name={'mass'}
+                value={mass}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('Pressure')}
+                name={'pressure'}
+                value={pressure}
+                onChange={this.handleChange}
+            />
         </PropertyGroup>;
     }
 
@@ -42,7 +54,7 @@ class SoftVolumeComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -54,7 +66,7 @@ class SoftVolumeComponent extends React.Component {
             !editor.selected.userData.physics.enabled ||
             editor.selected.userData.physics.type !== 'softVolume') {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -66,20 +78,20 @@ class SoftVolumeComponent extends React.Component {
         this.setState({
             show: true,
             mass: mass || 0,
-            pressure: pressure || 0,
+            pressure: pressure || 0
         });
     }
 
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { mass, pressure } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         let physics = this.selected.userData.physics;

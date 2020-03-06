@@ -1,4 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty, SelectProperty, ButtonsProperty, Button } from '../../../third_party';
+import { PropertyGroup, CheckBoxProperty, NumberProperty } from '../../../third_party';
 
 /**
  * 椭圆曲线组件
@@ -20,7 +20,7 @@ class EllipseCurveComponent extends React.Component {
             aStartAngle: 0,
             aEndAngle: 0,
             aClockwise: false,
-            aRotation: 0,
+            aRotation: 0
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -35,15 +35,51 @@ class EllipseCurveComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('Ellipse Curve')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <NumberProperty label={'Center X'} name={'aX'} value={aX} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={'Center Y'} name={'aY'} value={aY} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={'Radius X'} name={'xRadius'} value={xRadius} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={'Radius Y'} name={'yRadius'} value={yRadius} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={'Start Angle'} name={'aStartAngle'} value={aStartAngle} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={'End Angle'} name={'aEndAngle'} value={aEndAngle} onChange={this.handleChange}></NumberProperty>
-            <CheckBoxProperty label={'Clockwise'} name={'aClockwise'} value={aClockwise} onChange={this.handleChange}></CheckBoxProperty>
-            <NumberProperty label={'Rotation'} name={'aRotation'} value={aRotation} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('Ellipse Curve')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <NumberProperty label={'Center X'}
+                name={'aX'}
+                value={aX}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={'Center Y'}
+                name={'aY'}
+                value={aY}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={'Radius X'}
+                name={'xRadius'}
+                value={xRadius}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={'Radius Y'}
+                name={'yRadius'}
+                value={yRadius}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={'Start Angle'}
+                name={'aStartAngle'}
+                value={aStartAngle}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={'End Angle'}
+                name={'aEndAngle'}
+                value={aEndAngle}
+                onChange={this.handleChange}
+            />
+            <CheckBoxProperty label={'Clockwise'}
+                name={'aClockwise'}
+                value={aClockwise}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={'Rotation'}
+                name={'aRotation'}
+                value={aRotation}
+                onChange={this.handleChange}
+            />
         </PropertyGroup>;
     }
 
@@ -54,7 +90,7 @@ class EllipseCurveComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -63,7 +99,7 @@ class EllipseCurveComponent extends React.Component {
 
         if (!editor.selected || editor.selected.userData.type !== 'EllipseCurve') {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -79,20 +115,20 @@ class EllipseCurveComponent extends React.Component {
             aStartAngle: this.selected.userData.aStartAngle,
             aEndAngle: this.selected.userData.aEndAngle,
             aClockwise: this.selected.userData.aClockwise,
-            aRotation: this.selected.userData.aRotation,
+            aRotation: this.selected.userData.aRotation
         });
     }
 
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { aX, aY, xRadius, yRadius, aStartAngle, aEndAngle, aClockwise, aRotation } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         Object.assign(this.selected.userData, {

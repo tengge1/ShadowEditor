@@ -1,5 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty } from '../../../third_party';
-import SetGeometryCommand from '../../../command/SetGeometryCommand';
+import { PropertyGroup, CheckBoxProperty, NumberProperty } from '../../../third_party';
 
 /**
  * 颜色偏移组件
@@ -15,7 +14,7 @@ class RgbShiftComponent extends React.Component {
             show: false,
             expanded: false,
             enabled: false,
-            amount: 0.1,
+            amount: 0.1
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -31,9 +30,21 @@ class RgbShiftComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('RGB Shift Effect')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <CheckBoxProperty label={_t('EnableState')} name={'enabled'} value={enabled} onChange={this.handleChange}></CheckBoxProperty>
-            <NumberProperty label={_t('Amount')} name={'amount'} value={amount} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('RGB Shift Effect')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <CheckBoxProperty label={_t('EnableState')}
+                name={'enabled'}
+                value={enabled}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('Amount')}
+                name={'amount'}
+                value={amount}
+                onChange={this.handleChange}
+            />
         </PropertyGroup>;
     }
 
@@ -44,7 +55,7 @@ class RgbShiftComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -53,7 +64,7 @@ class RgbShiftComponent extends React.Component {
 
         if (!editor.selected || editor.selected !== editor.scene) {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -66,7 +77,7 @@ class RgbShiftComponent extends React.Component {
         let state = {
             show: true,
             enabled: postProcessing.rgbShift ? postProcessing.rgbShift.enabled : false,
-            amount: postProcessing.rgbShift ? postProcessing.rgbShift.amount : this.state.amount,
+            amount: postProcessing.rgbShift ? postProcessing.rgbShift.amount : this.state.amount
         };
 
         this.setState(state);
@@ -75,13 +86,13 @@ class RgbShiftComponent extends React.Component {
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { enabled, amount } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         let scene = this.selected;
@@ -91,8 +102,8 @@ class RgbShiftComponent extends React.Component {
         Object.assign(scene.userData.postProcessing, {
             rgbShift: {
                 enabled,
-                amount,
-            },
+                amount
+            }
         });
 
         app.call(`objectChanged`, this, this.selected);

@@ -1,5 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty } from '../../../third_party';
-import SetGeometryCommand from '../../../command/SetGeometryCommand';
+import { PropertyGroup, CheckBoxProperty } from '../../../third_party';
 
 /**
  * 快速近似抗锯齿(FXAA)组件
@@ -14,7 +13,7 @@ class FxaaComponent extends React.Component {
         this.state = {
             show: false,
             expanded: false,
-            enabled: false,
+            enabled: false
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -30,8 +29,16 @@ class FxaaComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('FXAA Component')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <CheckBoxProperty label={_t('EnableState')} name={'enabled'} value={enabled} onChange={this.handleChange}></CheckBoxProperty>
+        return <PropertyGroup title={_t('FXAA Component')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <CheckBoxProperty label={_t('EnableState')}
+                name={'enabled'}
+                value={enabled}
+                onChange={this.handleChange}
+            />
         </PropertyGroup>;
     }
 
@@ -42,7 +49,7 @@ class FxaaComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -51,7 +58,7 @@ class FxaaComponent extends React.Component {
 
         if (!editor.selected || editor.selected !== editor.scene) {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -63,7 +70,7 @@ class FxaaComponent extends React.Component {
 
         let state = {
             show: true,
-            enabled: postProcessing.fxaa ? postProcessing.fxaa.enabled : false,
+            enabled: postProcessing.fxaa ? postProcessing.fxaa.enabled : false
         };
 
         this.setState(state);
@@ -72,13 +79,13 @@ class FxaaComponent extends React.Component {
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { enabled } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         let scene = this.selected;
@@ -87,8 +94,8 @@ class FxaaComponent extends React.Component {
 
         Object.assign(scene.userData.postProcessing, {
             fxaa: {
-                enabled,
-            },
+                enabled
+            }
         });
 
         app.call(`objectChanged`, this, this.selected);

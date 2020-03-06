@@ -1,4 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty, SelectProperty, ButtonsProperty, Button } from '../../../third_party';
+import { PropertyGroup, NumberProperty, IntegerProperty } from '../../../third_party';
 import PerlinTerrain from '../../../object/terrain/PerlinTerrain';
 
 /**
@@ -18,7 +18,7 @@ class PerlinTerrainComponent extends React.Component {
             depth: 1000,
             widthSegments: 256,
             depthSegments: 256,
-            quality: 80,
+            quality: 80
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -33,12 +33,36 @@ class PerlinTerrainComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('Perlin Terrain')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <NumberProperty label={_t('Width')} name={'width'} value={width} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={_t('Depth')} name={'depth'} value={depth} onChange={this.handleChange}></NumberProperty>
-            <IntegerProperty label={_t('WidthSegments')} name={'widthSegments'} value={widthSegments} onChange={this.handleChange}></IntegerProperty>
-            <IntegerProperty label={_t('DepthSegments')} name={'depthSegments'} value={depthSegments} onChange={this.handleChange}></IntegerProperty>
-            <NumberProperty label={_t('Quality')} name={'quality'} value={quality} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('Perlin Terrain')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <NumberProperty label={_t('Width')}
+                name={'width'}
+                value={width}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('Depth')}
+                name={'depth'}
+                value={depth}
+                onChange={this.handleChange}
+            />
+            <IntegerProperty label={_t('WidthSegments')}
+                name={'widthSegments'}
+                value={widthSegments}
+                onChange={this.handleChange}
+            />
+            <IntegerProperty label={_t('DepthSegments')}
+                name={'depthSegments'}
+                value={depthSegments}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('Quality')}
+                name={'quality'}
+                value={quality}
+                onChange={this.handleChange}
+            />
         </PropertyGroup>;
     }
 
@@ -49,7 +73,7 @@ class PerlinTerrainComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -58,7 +82,7 @@ class PerlinTerrainComponent extends React.Component {
 
         if (!editor.selected || !(editor.selected instanceof PerlinTerrain)) {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -71,20 +95,20 @@ class PerlinTerrainComponent extends React.Component {
             depth: this.selected.userData.depth,
             widthSegments: this.selected.userData.widthSegments,
             depthSegments: this.selected.userData.depthSegments,
-            quality: this.selected.userData.quality,
+            quality: this.selected.userData.quality
         });
     }
 
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { width, depth, widthSegments, depthSegments, quality } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         let terrain = new PerlinTerrain(

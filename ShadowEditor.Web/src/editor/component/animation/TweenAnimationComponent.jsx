@@ -1,5 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty, SelectProperty } from '../../../third_party';
-import SetGeometryCommand from '../../../command/SetGeometryCommand';
+import { PropertyGroup, CheckBoxProperty, NumberProperty, SelectProperty } from '../../../third_party';
 
 /**
  * 补间动画组件
@@ -13,7 +12,7 @@ class TweenAnimationComponent extends React.Component {
 
         this.beginStatus = {
             Current: _t('Current Status'),
-            Custom: _t('Custom Status'),
+            Custom: _t('Custom Status')
         };
 
         this.ease = {
@@ -44,7 +43,7 @@ class TweenAnimationComponent extends React.Component {
             bounceInOut: 'Bounce In Out',
             elasticIn: 'Elastic In',
             elasticOut: 'Elastic Out',
-            elasticInOut: 'Elastic In Out',
+            elasticInOut: 'Elastic In Out'
         };
 
         this.state = {
@@ -77,7 +76,7 @@ class TweenAnimationComponent extends React.Component {
             endScaleLock: true,
             endScaleX: 1,
             endScaleY: 1,
-            endScaleZ: 1,
+            endScaleZ: 1
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -94,32 +93,151 @@ class TweenAnimationComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('Tween Animation')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <SelectProperty label={_t('Begin Status')} options={this.beginStatus} name={'beginStatus'} value={beginStatus} onChange={this.handleChange}></SelectProperty>
-            <NumberProperty label={`${_t('Begin Position')} X`} name={'beginPositionX'} value={beginPositionX} show={showBeginState} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={`${_t('Begin Position')} Y`} name={'beginPositionY'} value={beginPositionY} show={showBeginState} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={`${_t('Begin Position')} Z`} name={'beginPositionZ'} value={beginPositionZ} show={showBeginState} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={`${_t('Begin Rotation')} X`} name={'beginRotationX'} value={beginRotationX} show={showBeginState} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={`${_t('Begin Rotation')} Y`} name={'beginRotationY'} value={beginRotationY} show={showBeginState} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={`${_t('Begin Rotation')} Z`} name={'beginRotationZ'} value={beginRotationZ} show={showBeginState} onChange={this.handleChange}></NumberProperty>
-            <CheckBoxProperty label={_t('Begin Scale Lock')} name={'beginScaleLock'} value={beginScaleLock} show={showBeginState} onChange={this.handleChange}></CheckBoxProperty>
-            <NumberProperty label={`${_t('Begin Scale')} X`} name={'beginScaleX'} value={beginScaleX} show={showBeginState} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={`${_t('Begin Scale')} Y`} name={'beginScaleY'} value={beginScaleY} show={showBeginState} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={`${_t('Begin Scale')} Z`} name={'beginScaleZ'} value={beginScaleZ} show={showBeginState} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('Tween Animation')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <SelectProperty label={_t('Begin Status')}
+                options={this.beginStatus}
+                name={'beginStatus'}
+                value={beginStatus}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={`${_t('Begin Position')} X`}
+                name={'beginPositionX'}
+                value={beginPositionX}
+                show={showBeginState}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={`${_t('Begin Position')} Y`}
+                name={'beginPositionY'}
+                value={beginPositionY}
+                show={showBeginState}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={`${_t('Begin Position')} Z`}
+                name={'beginPositionZ'}
+                value={beginPositionZ}
+                show={showBeginState}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={`${_t('Begin Rotation')} X`}
+                name={'beginRotationX'}
+                value={beginRotationX}
+                show={showBeginState}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={`${_t('Begin Rotation')} Y`}
+                name={'beginRotationY'}
+                value={beginRotationY}
+                show={showBeginState}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={`${_t('Begin Rotation')} Z`}
+                name={'beginRotationZ'}
+                value={beginRotationZ}
+                show={showBeginState}
+                onChange={this.handleChange}
+            />
+            <CheckBoxProperty label={_t('Begin Scale Lock')}
+                name={'beginScaleLock'}
+                value={beginScaleLock}
+                show={showBeginState}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={`${_t('Begin Scale')} X`}
+                name={'beginScaleX'}
+                value={beginScaleX}
+                show={showBeginState}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={`${_t('Begin Scale')} Y`}
+                name={'beginScaleY'}
+                value={beginScaleY}
+                show={showBeginState}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={`${_t('Begin Scale')} Z`}
+                name={'beginScaleZ'}
+                value={beginScaleZ}
+                show={showBeginState}
+                onChange={this.handleChange}
+            />
 
-            <SelectProperty label={_t('Ease Func')} options={this.ease} name={'ease'} value={ease} onChange={this.handleChange}></SelectProperty>
+            <SelectProperty label={_t('Ease Func')}
+                options={this.ease}
+                name={'ease'}
+                value={ease}
+                onChange={this.handleChange}
+            />
 
-            <SelectProperty label={_t('End Status')} options={this.beginStatus} name={'endStatus'} value={endStatus} onChange={this.handleChange}></SelectProperty>
-            <NumberProperty label={`${_t('End Position')} X`} name={'endPositionX'} value={endPositionX} show={showEndState} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={`${_t('End Position')} Y`} name={'endPositionY'} value={endPositionY} show={showEndState} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={`${_t('End Position')} Z`} name={'endPositionZ'} value={endPositionZ} show={showEndState} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={`${_t('End Rotation')} X`} name={'endRotationX'} value={endRotationX} show={showEndState} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={`${_t('End Rotation')} Y`} name={'endRotationY'} value={endRotationY} show={showEndState} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={`${_t('End Rotation')} Z`} name={'endRotationZ'} value={endRotationZ} show={showEndState} onChange={this.handleChange}></NumberProperty>
-            <CheckBoxProperty label={_t('End Scale Lock')} name={'endScaleLock'} value={endScaleLock} show={showEndState} onChange={this.handleChange}></CheckBoxProperty>
-            <NumberProperty label={`${_t('End Scale')} X`} name={'endScaleX'} value={endScaleX} show={showEndState} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={`${_t('End Scale')} Y`} name={'endScaleY'} value={endScaleY} show={showEndState} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={`${_t('End Scale')} Z`} name={'endScaleZ'} value={endScaleZ} show={showEndState} onChange={this.handleChange}></NumberProperty>
+            <SelectProperty label={_t('End Status')}
+                options={this.beginStatus}
+                name={'endStatus'}
+                value={endStatus}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={`${_t('End Position')} X`}
+                name={'endPositionX'}
+                value={endPositionX}
+                show={showEndState}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={`${_t('End Position')} Y`}
+                name={'endPositionY'}
+                value={endPositionY}
+                show={showEndState}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={`${_t('End Position')} Z`}
+                name={'endPositionZ'}
+                value={endPositionZ}
+                show={showEndState}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={`${_t('End Rotation')} X`}
+                name={'endRotationX'}
+                value={endRotationX}
+                show={showEndState}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={`${_t('End Rotation')} Y`}
+                name={'endRotationY'}
+                value={endRotationY}
+                show={showEndState}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={`${_t('End Rotation')} Z`}
+                name={'endRotationZ'}
+                value={endRotationZ}
+                show={showEndState}
+                onChange={this.handleChange}
+            />
+            <CheckBoxProperty label={_t('End Scale Lock')}
+                name={'endScaleLock'}
+                value={endScaleLock}
+                show={showEndState}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={`${_t('End Scale')} X`}
+                name={'endScaleX'}
+                value={endScaleX}
+                show={showEndState}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={`${_t('End Scale')} Y`}
+                name={'endScaleY'}
+                value={endScaleY}
+                show={showEndState}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={`${_t('End Scale')} Z`}
+                name={'endScaleZ'}
+                value={endScaleZ}
+                show={showEndState}
+                onChange={this.handleChange}
+            />
         </PropertyGroup>;
     }
 
@@ -130,14 +248,14 @@ class TweenAnimationComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
     handleUpdate(animation) {
         if (!animation || animation.type !== 'Tween') {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -172,7 +290,7 @@ class TweenAnimationComponent extends React.Component {
             endScaleLock: data.endScaleLock,
             endScaleX: data.endScaleX,
             endScaleY: data.endScaleY,
-            endScaleZ: data.endScaleZ,
+            endScaleZ: data.endScaleZ
         };
 
         this.setState(state);
@@ -181,15 +299,15 @@ class TweenAnimationComponent extends React.Component {
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
-        const { beginStatus, showBeginState, beginPositionX, beginPositionY, beginPositionZ, beginRotationX, beginRotationY, beginRotationZ,
-            beginScaleLock, beginScaleX, beginScaleY, beginScaleZ, ease, endStatus, showEndState, endPositionX, endPositionY, endPositionZ, endRotationX,
+        const { beginStatus, beginPositionX, beginPositionY, beginPositionZ, beginRotationX, beginRotationY, beginRotationZ,
+            beginScaleLock, beginScaleX, beginScaleY, beginScaleZ, ease, endStatus, endPositionX, endPositionY, endPositionZ, endRotationX,
             endRotationY, endRotationZ, endScaleLock, endScaleX, endScaleY, endScaleZ } = Object.assign({}, this.state, {
-                [name]: value,
+                [name]: value
             });
 
         this.animation.data = this.animation.data || {};

@@ -1,4 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty } from '../../../third_party';
+import { PropertyGroup, NumberProperty, IntegerProperty } from '../../../third_party';
 import SetGeometryCommand from '../../../command/SetGeometryCommand';
 
 /**
@@ -16,7 +16,7 @@ class LatheGeometryComponent extends React.Component {
             expanded: false,
             segments: 16,
             phiStart: 0.0,
-            phiLength: Math.PI * 2,
+            phiLength: Math.PI * 2
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -31,10 +31,26 @@ class LatheGeometryComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('Geometry Component')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <IntegerProperty name={'segments'} label={_t('RadialSegments')} value={segments} onChange={this.handleChange}></IntegerProperty>
-            <NumberProperty name={'phiStart'} label={_t('PhiStart')} value={phiStart} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty name={'phiLength'} label={_t('PhiLength')} value={phiLength} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('Geometry Component')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <IntegerProperty name={'segments'}
+                label={_t('RadialSegments')}
+                value={segments}
+                onChange={this.handleChange}
+            />
+            <NumberProperty name={'phiStart'}
+                label={_t('PhiStart')}
+                value={phiStart}
+                onChange={this.handleChange}
+            />
+            <NumberProperty name={'phiLength'}
+                label={_t('PhiLength')}
+                value={phiLength}
+                onChange={this.handleChange}
+            />
         </PropertyGroup>;
     }
 
@@ -45,7 +61,7 @@ class LatheGeometryComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -54,7 +70,7 @@ class LatheGeometryComponent extends React.Component {
 
         if (!editor.selected || !(editor.selected instanceof THREE.Mesh) || !(editor.selected.geometry instanceof THREE.LatheBufferGeometry)) {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -68,20 +84,20 @@ class LatheGeometryComponent extends React.Component {
             type: this.selected.geometry.constructor.name,
             segments: segments === undefined ? 12 : segments,
             phiStart: phiStart === undefined ? 0 : phiStart,
-            phiLength: phiLength === undefined ? Math.PI * 2 : phiLength,
+            phiLength: phiLength === undefined ? Math.PI * 2 : phiLength
         });
     }
 
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { segments, phiStart, phiLength } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         const points = this.selected.geometry.parameters.points;
@@ -90,7 +106,7 @@ class LatheGeometryComponent extends React.Component {
             points,
             segments,
             phiStart,
-            phiLength,
+            phiLength
         )));
 
         app.call(`objectChanged`, this, this.selected);

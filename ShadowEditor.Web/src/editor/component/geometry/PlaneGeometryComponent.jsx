@@ -1,4 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty } from '../../../third_party';
+import { PropertyGroup, NumberProperty, IntegerProperty } from '../../../third_party';
 import SetGeometryCommand from '../../../command/SetGeometryCommand';
 
 /**
@@ -17,7 +17,7 @@ class PlaneGeometryComponent extends React.Component {
             width: 1,
             height: 1,
             widthSegments: 1,
-            heightSegments: 1,
+            heightSegments: 1
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -32,11 +32,31 @@ class PlaneGeometryComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('Geometry Component')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <NumberProperty name={'width'} label={_t('Width')} value={width} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty name={'height'} label={_t('Height')} value={height} onChange={this.handleChange}></NumberProperty>
-            <IntegerProperty name={'widthSegments'} label={_t('WidthSegments')} value={widthSegments} onChange={this.handleChange}></IntegerProperty>
-            <IntegerProperty name={'heightSegments'} label={_t('HeightSegments')} value={heightSegments} onChange={this.handleChange}></IntegerProperty>
+        return <PropertyGroup title={_t('Geometry Component')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <NumberProperty name={'width'}
+                label={_t('Width')}
+                value={width}
+                onChange={this.handleChange}
+            />
+            <NumberProperty name={'height'}
+                label={_t('Height')}
+                value={height}
+                onChange={this.handleChange}
+            />
+            <IntegerProperty name={'widthSegments'}
+                label={_t('WidthSegments')}
+                value={widthSegments}
+                onChange={this.handleChange}
+            />
+            <IntegerProperty name={'heightSegments'}
+                label={_t('HeightSegments')}
+                value={heightSegments}
+                onChange={this.handleChange}
+            />
         </PropertyGroup>;
     }
 
@@ -47,7 +67,7 @@ class PlaneGeometryComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -56,7 +76,7 @@ class PlaneGeometryComponent extends React.Component {
 
         if (!editor.selected || !(editor.selected instanceof THREE.Mesh) || !(editor.selected.geometry instanceof THREE.PlaneBufferGeometry)) {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -71,27 +91,27 @@ class PlaneGeometryComponent extends React.Component {
             width: width === undefined ? 1 : width,
             height: height === undefined ? 1 : height,
             widthSegments: widthSegments === undefined ? 1 : widthSegments,
-            heightSegments: heightSegments === undefined ? 1 : heightSegments,
+            heightSegments: heightSegments === undefined ? 1 : heightSegments
         });
     }
 
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
-        const { width, height, widthSegments, heightSegments, } = Object.assign({}, this.state, {
-            [name]: value,
+        const { width, height, widthSegments, heightSegments } = Object.assign({}, this.state, {
+            [name]: value
         });
 
         app.editor.execute(new SetGeometryCommand(this.selected, new THREE.PlaneBufferGeometry(
             width,
             height,
             widthSegments,
-            heightSegments,
+            heightSegments
         )));
 
         app.call(`objectChanged`, this, this.selected);

@@ -1,4 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty, SelectProperty } from '../../../third_party';
+import { PropertyGroup, CheckBoxProperty, NumberProperty } from '../../../third_party';
 
 /**
  * 轨迹球控制器组件
@@ -22,7 +22,7 @@ class TrackballControlComponent extends React.Component {
             staticMoving: false,
             dynamicDampingFactor: 0.2,
             minDistance: 0,
-            maxDistance: 99999,
+            maxDistance: 99999
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -37,17 +37,61 @@ class TrackballControlComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('Traceball Controls')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <NumberProperty label={_t('RotateSpeed')} name={'rotateSpeed'} value={rotateSpeed} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={_t('ZoomSpeed')} name={'zoomSpeed'} value={zoomSpeed} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={_t('PanSpeed')} name={'panSpeed'} value={panSpeed} onChange={this.handleChange}></NumberProperty>
-            <CheckBoxProperty label={_t('NoRotate')} name={'noRotate'} value={noRotate} onChange={this.handleChange}></CheckBoxProperty>
-            <CheckBoxProperty label={_t('NoZoom')} name={'noZoom'} value={noZoom} onChange={this.handleChange}></CheckBoxProperty>
-            <CheckBoxProperty label={_t('NoPan')} name={'noPan'} value={noPan} onChange={this.handleChange}></CheckBoxProperty>
-            <CheckBoxProperty label={_t('StaticMoving')} name={'staticMoving'} value={staticMoving} onChange={this.handleChange}></CheckBoxProperty>
-            <NumberProperty label={_t('DampingFactor')} name={'dynamicDampingFactor'} value={dynamicDampingFactor} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={_t('MinDistance')} name={'minDistance'} value={minDistance} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={_t('MaxDistance')} name={'maxDistance'} value={maxDistance} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('Traceball Controls')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <NumberProperty label={_t('RotateSpeed')}
+                name={'rotateSpeed'}
+                value={rotateSpeed}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('ZoomSpeed')}
+                name={'zoomSpeed'}
+                value={zoomSpeed}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('PanSpeed')}
+                name={'panSpeed'}
+                value={panSpeed}
+                onChange={this.handleChange}
+            />
+            <CheckBoxProperty label={_t('NoRotate')}
+                name={'noRotate'}
+                value={noRotate}
+                onChange={this.handleChange}
+            />
+            <CheckBoxProperty label={_t('NoZoom')}
+                name={'noZoom'}
+                value={noZoom}
+                onChange={this.handleChange}
+            />
+            <CheckBoxProperty label={_t('NoPan')}
+                name={'noPan'}
+                value={noPan}
+                onChange={this.handleChange}
+            />
+            <CheckBoxProperty label={_t('StaticMoving')}
+                name={'staticMoving'}
+                value={staticMoving}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('DampingFactor')}
+                name={'dynamicDampingFactor'}
+                value={dynamicDampingFactor}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('MinDistance')}
+                name={'minDistance'}
+                value={minDistance}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('MaxDistance')}
+                name={'maxDistance'}
+                value={maxDistance}
+                onChange={this.handleChange}
+            />
         </PropertyGroup>;
     }
 
@@ -58,7 +102,7 @@ class TrackballControlComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -67,7 +111,7 @@ class TrackballControlComponent extends React.Component {
 
         if (!editor.selected || editor.selected !== editor.camera || editor.selected.userData.control !== 'TrackballControls') {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -85,30 +129,30 @@ class TrackballControlComponent extends React.Component {
                 staticMoving: false,
                 dynamicDampingFactor: 0.2,
                 minDistance: 0,
-                maxDistance: 99999,
+                maxDistance: 99999
             };
         }
 
         this.setState({
             show: true,
-            ...this.selected.userData.trackballOptions,
+            ...this.selected.userData.trackballOptions
         });
     }
 
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { rotateSpeed, zoomSpeed, panSpeed, noRotate, noZoom, noPan, staticMoving, dynamicDampingFactor, minDistance, maxDistance } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         Object.assign(this.selected.userData.trackballOptions, {
-            rotateSpeed, zoomSpeed, panSpeed, noRotate, noZoom, noPan, staticMoving, dynamicDampingFactor, minDistance, maxDistance,
+            rotateSpeed, zoomSpeed, panSpeed, noRotate, noZoom, noPan, staticMoving, dynamicDampingFactor, minDistance, maxDistance
         });
 
         app.call('objectChanged', this, this.selected);

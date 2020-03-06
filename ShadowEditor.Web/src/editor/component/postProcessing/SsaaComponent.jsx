@@ -1,5 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty, SelectProperty } from '../../../third_party';
-import SetGeometryCommand from '../../../command/SetGeometryCommand';
+import { PropertyGroup, CheckBoxProperty, SelectProperty } from '../../../third_party';
 
 /**
  * 全屏抗锯齿(SSAA)组件
@@ -17,7 +16,7 @@ class SsaaComponent extends React.Component {
             2: _t('4 Samples'),
             3: _t('8 Samples'),
             4: _t('16 Samples'),
-            5: _t('32 Samples'),
+            5: _t('32 Samples')
         };
 
         this.state = {
@@ -25,7 +24,7 @@ class SsaaComponent extends React.Component {
             expanded: false,
             enabled: false,
             sampleLevel: 3,
-            unbiased: true,
+            unbiased: true
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -41,10 +40,27 @@ class SsaaComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('SSAA')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <CheckBoxProperty label={_t('EnableState')} name={'enabled'} value={enabled} onChange={this.handleChange}></CheckBoxProperty>
-            <SelectProperty label={_t('Level')} options={this.sampleLevel} name={'sampleLevel'} value={sampleLevel} onChange={this.handleChange}></SelectProperty>
-            <CheckBoxProperty label={_t('Unbiased')} name={'unbiased'} value={unbiased} onChange={this.handleChange}></CheckBoxProperty>
+        return <PropertyGroup title={_t('SSAA')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <CheckBoxProperty label={_t('EnableState')}
+                name={'enabled'}
+                value={enabled}
+                onChange={this.handleChange}
+            />
+            <SelectProperty label={_t('Level')}
+                options={this.sampleLevel}
+                name={'sampleLevel'}
+                value={sampleLevel}
+                onChange={this.handleChange}
+            />
+            <CheckBoxProperty label={_t('Unbiased')}
+                name={'unbiased'}
+                value={unbiased}
+                onChange={this.handleChange}
+            />
         </PropertyGroup>;
     }
 
@@ -55,7 +71,7 @@ class SsaaComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -64,7 +80,7 @@ class SsaaComponent extends React.Component {
 
         if (!editor.selected || editor.selected !== editor.scene) {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -78,7 +94,7 @@ class SsaaComponent extends React.Component {
             show: true,
             enabled: postProcessing.ssaa ? postProcessing.ssaa.enabled : false,
             sampleLevel: postProcessing.ssaa ? postProcessing.ssaa.sampleLevel : this.state.sampleLevel,
-            unbiased: postProcessing.ssaa ? postProcessing.ssaa.unbiased : this.state.unbiased,
+            unbiased: postProcessing.ssaa ? postProcessing.ssaa.unbiased : this.state.unbiased
         };
 
         this.setState(state);
@@ -87,13 +103,13 @@ class SsaaComponent extends React.Component {
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { enabled, sampleLevel, unbiased } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         let scene = this.selected;
@@ -104,8 +120,8 @@ class SsaaComponent extends React.Component {
             ssaa: {
                 enabled,
                 sampleLevel,
-                unbiased,
-            },
+                unbiased
+            }
         });
 
         app.call(`objectChanged`, this, this.selected);

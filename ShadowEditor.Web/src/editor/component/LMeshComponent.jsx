@@ -92,7 +92,7 @@ class LMeshComponent extends React.Component {
         });
     }
 
-    handleChange(value, name) {
+    handleChange(value) {
         const model = this.selected.userData.model;
 
         model.setAnimation(value);
@@ -138,7 +138,7 @@ class LMeshComponent extends React.Component {
         app.on(`animate.LMeshComponent`, null);
     }
 
-    onAnimate(clock, deltaTime) {
+    onAnimate(clock) {
         var model = this.selected.userData.model;
         model.update(clock.getElapsedTime() * 1000);
     }

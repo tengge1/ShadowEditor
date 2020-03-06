@@ -1,5 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty, SelectProperty } from '../../../third_party';
-import SetGeometryCommand from '../../../command/SetGeometryCommand';
+import { PropertyGroup, CheckBoxProperty, NumberProperty, IntegerProperty, SelectProperty } from '../../../third_party';
 
 /**
  * 半色调特效组件
@@ -15,7 +14,7 @@ class HalftoneComponent extends React.Component {
             1: _t('Point'),
             2: _t('Ellipse'),
             3: _t('Line'),
-            4: _t('Square'),
+            4: _t('Square')
         };
 
         this.blendingMode = {
@@ -23,7 +22,7 @@ class HalftoneComponent extends React.Component {
             2: _t('Multiply'),
             3: _t('Add together'),
             4: _t('Lighter'),
-            5: _t('Darker'),
+            5: _t('Darker')
         };
 
         this.state = {
@@ -38,7 +37,7 @@ class HalftoneComponent extends React.Component {
             scatter: 0,
             blending: 1,
             blendingMode: 1,
-            greyscale: false,
+            greyscale: false
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -54,17 +53,63 @@ class HalftoneComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('Halftone Effect')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <CheckBoxProperty label={_t('EnableState')} name={'enabled'} value={enabled} onChange={this.handleChange}></CheckBoxProperty>
-            <SelectProperty label={_t('Shape')} options={this.shape} name={'shape'} value={shape} onChange={this.handleChange}></SelectProperty>
-            <IntegerProperty label={_t('Radius')} name={'radius'} value={radius} onChange={this.handleChange}></IntegerProperty>
-            <NumberProperty label={_t('RotateRed')} name={'rotateR'} value={rotateR} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={_t('RotateGreen')} name={'rotateG'} value={rotateG} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={_t('RotateBlue')} name={'rotateB'} value={rotateB} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={_t('Scatter')} name={'scatter'} value={scatter} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={_t('Blending')} name={'blending'} value={blending} onChange={this.handleChange}></NumberProperty>
-            <SelectProperty label={_t('BlendingMode')} options={this.blendingMode} name={'blendingMode'} value={blendingMode} onChange={this.handleChange}></SelectProperty>
-            <CheckBoxProperty label={_t('GreyScale')} name={'greyscale'} value={greyscale} onChange={this.handleChange}></CheckBoxProperty>
+        return <PropertyGroup title={_t('Halftone Effect')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <CheckBoxProperty label={_t('EnableState')}
+                name={'enabled'}
+                value={enabled}
+                onChange={this.handleChange}
+            />
+            <SelectProperty label={_t('Shape')}
+                options={this.shape}
+                name={'shape'}
+                value={shape}
+                onChange={this.handleChange}
+            />
+            <IntegerProperty label={_t('Radius')}
+                name={'radius'}
+                value={radius}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('RotateRed')}
+                name={'rotateR'}
+                value={rotateR}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('RotateGreen')}
+                name={'rotateG'}
+                value={rotateG}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('RotateBlue')}
+                name={'rotateB'}
+                value={rotateB}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('Scatter')}
+                name={'scatter'}
+                value={scatter}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('Blending')}
+                name={'blending'}
+                value={blending}
+                onChange={this.handleChange}
+            />
+            <SelectProperty label={_t('BlendingMode')}
+                options={this.blendingMode}
+                name={'blendingMode'}
+                value={blendingMode}
+                onChange={this.handleChange}
+            />
+            <CheckBoxProperty label={_t('GreyScale')}
+                name={'greyscale'}
+                value={greyscale}
+                onChange={this.handleChange}
+            />
         </PropertyGroup>;
     }
 
@@ -75,7 +120,7 @@ class HalftoneComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -84,7 +129,7 @@ class HalftoneComponent extends React.Component {
 
         if (!editor.selected || editor.selected !== editor.scene) {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -105,7 +150,7 @@ class HalftoneComponent extends React.Component {
             scatter: postProcessing.halftone ? postProcessing.halftone.scatter : this.state.scatter,
             blending: postProcessing.halftone ? postProcessing.halftone.blending : this.state.blending,
             blendingMode: postProcessing.halftone ? postProcessing.halftone.blendingMode : this.state.blendingMode,
-            greyscale: postProcessing.halftone ? postProcessing.halftone.greyscale : this.state.greyscale,
+            greyscale: postProcessing.halftone ? postProcessing.halftone.greyscale : this.state.greyscale
         };
 
         this.setState(state);
@@ -114,13 +159,13 @@ class HalftoneComponent extends React.Component {
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { enabled, shape, radius, rotateR, rotateG, rotateB, scatter, blending, blendingMode, greyscale } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         let scene = this.selected;
@@ -138,8 +183,8 @@ class HalftoneComponent extends React.Component {
                 scatter,
                 blending,
                 blendingMode,
-                greyscale,
-            },
+                greyscale
+            }
         });
 
         app.call(`objectChanged`, this, this.selected);

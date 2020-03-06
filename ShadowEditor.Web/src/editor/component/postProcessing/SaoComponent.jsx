@@ -1,5 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty, SelectProperty } from '../../../third_party';
-import SetGeometryCommand from '../../../command/SetGeometryCommand';
+import { PropertyGroup, CheckBoxProperty, NumberProperty, SelectProperty } from '../../../third_party';
 
 /**
  * 可扩展环境光遮挡(SAO)组件
@@ -32,7 +31,7 @@ class SaoComponent extends React.Component {
             saoBlur: true,
             saoBlurRadius: 16,
             saoBlurStdDev: 32.6,
-            saoBlurDepthCutoff: 0.046,
+            saoBlurDepthCutoff: 0.046
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -49,18 +48,67 @@ class SaoComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('SAO')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <CheckBoxProperty label={_t('EnableState')} name={'enabled'} value={enabled} onChange={this.handleChange}></CheckBoxProperty>
-            <SelectProperty label={_t('Output')} options={this.output} name={'output'} value={output} onChange={this.handleChange}></SelectProperty>
-            <NumberProperty label={_t('Bias')} name={'saoBias'} value={saoBias} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={_t('Intensity')} name={'saoIntensity'} value={saoIntensity} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={_t('Scale')} name={'saoScale'} value={saoScale} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={_t('KernalRadius')} name={'saoKernelRadius'} value={saoKernelRadius} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={_t('MinResolution')} name={'saoMinResolution'} value={saoMinResolution} onChange={this.handleChange}></NumberProperty>
-            <CheckBoxProperty label={_t('Blur')} name={'saoBlur'} value={saoBlur} onChange={this.handleChange}></CheckBoxProperty>
-            <NumberProperty label={_t('BlurRadius')} name={'saoBlurRadius'} value={saoBlurRadius} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={_t('BlurStdDev')} name={'saoBlurStdDev'} value={saoBlurStdDev} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={_t('BlurDepthCutoff')} name={'saoBlurDepthCutoff'} value={saoBlurDepthCutoff} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('SAO')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <CheckBoxProperty label={_t('EnableState')}
+                name={'enabled'}
+                value={enabled}
+                onChange={this.handleChange}
+            />
+            <SelectProperty label={_t('Output')}
+                options={this.output}
+                name={'output'}
+                value={output}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('Bias')}
+                name={'saoBias'}
+                value={saoBias}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('Intensity')}
+                name={'saoIntensity'}
+                value={saoIntensity}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('Scale')}
+                name={'saoScale'}
+                value={saoScale}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('KernalRadius')}
+                name={'saoKernelRadius'}
+                value={saoKernelRadius}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('MinResolution')}
+                name={'saoMinResolution'}
+                value={saoMinResolution}
+                onChange={this.handleChange}
+            />
+            <CheckBoxProperty label={_t('Blur')}
+                name={'saoBlur'}
+                value={saoBlur}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('BlurRadius')}
+                name={'saoBlurRadius'}
+                value={saoBlurRadius}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('BlurStdDev')}
+                name={'saoBlurStdDev'}
+                value={saoBlurStdDev}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('BlurDepthCutoff')}
+                name={'saoBlurDepthCutoff'}
+                value={saoBlurDepthCutoff}
+                onChange={this.handleChange}
+            />
         </PropertyGroup>;
     }
 
@@ -71,7 +119,7 @@ class SaoComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -80,7 +128,7 @@ class SaoComponent extends React.Component {
 
         if (!editor.selected || editor.selected !== editor.scene) {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -102,7 +150,7 @@ class SaoComponent extends React.Component {
             saoBlur: postProcessing.sao ? postProcessing.sao.saoBlur : this.state.saoBlur,
             saoBlurRadius: postProcessing.sao ? postProcessing.sao.saoBlurRadius : this.state.saoBlurRadius,
             saoBlurStdDev: postProcessing.sao ? postProcessing.sao.saoBlurStdDev : this.setState.saoBlurStdDev,
-            saoBlurDepthCutoff: postProcessing.sao ? postProcessing.sao.saoBlurDepthCutoff : this.state.saoBlurDepthCutoff,
+            saoBlurDepthCutoff: postProcessing.sao ? postProcessing.sao.saoBlurDepthCutoff : this.state.saoBlurDepthCutoff
         };
 
         this.setState(state);
@@ -111,14 +159,14 @@ class SaoComponent extends React.Component {
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { enabled, output, saoBias, saoIntensity, saoScale, saoKernelRadius, saoMinResolution, saoBlur, saoBlurRadius,
             saoBlurStdDev, saoBlurDepthCutoff } = Object.assign({}, this.state, {
-                [name]: value,
+                [name]: value
             });
 
         let scene = this.selected;
@@ -137,8 +185,8 @@ class SaoComponent extends React.Component {
                 saoBlur,
                 saoBlurRadius,
                 saoBlurStdDev,
-                saoBlurDepthCutoff,
-            },
+                saoBlurDepthCutoff
+            }
         });
 
         app.call(`objectChanged`, this, this.selected);

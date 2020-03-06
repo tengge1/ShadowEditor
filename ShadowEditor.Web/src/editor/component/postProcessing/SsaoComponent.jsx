@@ -1,5 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty, SelectProperty } from '../../../third_party';
-import SetGeometryCommand from '../../../command/SetGeometryCommand';
+import { PropertyGroup, CheckBoxProperty, NumberProperty, SelectProperty } from '../../../third_party';
 
 /**
  * 屏幕空间环境光遮蔽(SSAO)组件
@@ -17,7 +16,7 @@ class SsaoComponent extends React.Component {
             2: _t('Occlusion&Blur'), // THREE.SSAOPass.OUTPUT.Blur
             3: _t('Beauty'), // THREE.SSAOPass.OUTPUT.Beauty
             4: _t('Depth'), // THREE.SSAOPass.OUTPUT.Depth
-            5: _t('Normal'), // THREE.SSAOPass.OUTPUT.Normal
+            5: _t('Normal') // THREE.SSAOPass.OUTPUT.Normal
         };
 
         this.state = {
@@ -27,7 +26,7 @@ class SsaoComponent extends React.Component {
             output: 0,
             kernelRadius: 10,
             minDistance: 0.001,
-            maxDistance: 0.1,
+            maxDistance: 0.1
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -43,12 +42,37 @@ class SsaoComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('SSAO')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <CheckBoxProperty label={_t('EnableState')} name={'enabled'} value={enabled} onChange={this.handleChange}></CheckBoxProperty>
-            <SelectProperty label={_t('Output')} options={this.output} name={'output'} value={output} onChange={this.handleChange}></SelectProperty>
-            <NumberProperty label={_t('KernalRadius')} name={'kernelRadius'} value={kernelRadius} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={_t('MinDistance')} name={'minDistance'} value={minDistance} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={_t('MaxDistance')} name={'maxDistance'} value={maxDistance} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('SSAO')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <CheckBoxProperty label={_t('EnableState')}
+                name={'enabled'}
+                value={enabled}
+                onChange={this.handleChange}
+            />
+            <SelectProperty label={_t('Output')}
+                options={this.output}
+                name={'output'}
+                value={output}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('KernalRadius')}
+                name={'kernelRadius'}
+                value={kernelRadius}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('MinDistance')}
+                name={'minDistance'}
+                value={minDistance}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('MaxDistance')}
+                name={'maxDistance'}
+                value={maxDistance}
+                onChange={this.handleChange}
+            />
         </PropertyGroup>;
     }
 
@@ -59,7 +83,7 @@ class SsaoComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -68,7 +92,7 @@ class SsaoComponent extends React.Component {
 
         if (!editor.selected || editor.selected !== editor.scene) {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -84,7 +108,7 @@ class SsaoComponent extends React.Component {
             output: postProcessing.ssao ? postProcessing.ssao.output : this.state.output,
             kernelRadius: postProcessing.ssao ? postProcessing.ssao.kernelRadius : this.state.kernelRadius,
             minDistance: postProcessing.ssao ? postProcessing.ssao.minDistance : this.state.minDistance,
-            maxDistance: postProcessing.ssao ? postProcessing.ssao.maxDistance : this.state.maxDistance,
+            maxDistance: postProcessing.ssao ? postProcessing.ssao.maxDistance : this.state.maxDistance
         };
 
         this.setState(state);
@@ -93,13 +117,13 @@ class SsaoComponent extends React.Component {
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { enabled, output, kernelRadius, minDistance, maxDistance } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         let scene = this.selected;
@@ -112,8 +136,8 @@ class SsaoComponent extends React.Component {
                 output,
                 kernelRadius,
                 minDistance,
-                maxDistance,
-            },
+                maxDistance
+            }
         });
 
         app.call(`objectChanged`, this, this.selected);

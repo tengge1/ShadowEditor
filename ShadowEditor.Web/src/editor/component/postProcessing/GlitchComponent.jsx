@@ -1,5 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty } from '../../../third_party';
-import SetGeometryCommand from '../../../command/SetGeometryCommand';
+import { PropertyGroup, CheckBoxProperty } from '../../../third_party';
 
 /**
  * 毛刺组件
@@ -15,7 +14,7 @@ class GlitchComponent extends React.Component {
             show: false,
             expanded: false,
             enabled: false,
-            wild: false,
+            wild: false
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -31,9 +30,21 @@ class GlitchComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('Glitch Effect')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <CheckBoxProperty label={_t('EnableState')} name={'enabled'} value={enabled} onChange={this.handleChange}></CheckBoxProperty>
-            <CheckBoxProperty label={_t('WildMode')} name={'wild'} value={wild} onChange={this.handleChange}></CheckBoxProperty>
+        return <PropertyGroup title={_t('Glitch Effect')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <CheckBoxProperty label={_t('EnableState')}
+                name={'enabled'}
+                value={enabled}
+                onChange={this.handleChange}
+            />
+            <CheckBoxProperty label={_t('WildMode')}
+                name={'wild'}
+                value={wild}
+                onChange={this.handleChange}
+            />
         </PropertyGroup>;
     }
 
@@ -44,7 +55,7 @@ class GlitchComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -53,7 +64,7 @@ class GlitchComponent extends React.Component {
 
         if (!editor.selected || editor.selected !== editor.scene) {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -66,7 +77,7 @@ class GlitchComponent extends React.Component {
         let state = {
             show: true,
             enabled: postProcessing.glitch ? postProcessing.glitch.enabled : false,
-            wild: postProcessing.glitch ? postProcessing.glitch.wild : false,
+            wild: postProcessing.glitch ? postProcessing.glitch.wild : false
         };
 
         this.setState(state);
@@ -75,13 +86,13 @@ class GlitchComponent extends React.Component {
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { enabled, wild } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         let scene = this.selected;
@@ -91,8 +102,8 @@ class GlitchComponent extends React.Component {
         Object.assign(scene.userData.postProcessing, {
             glitch: {
                 enabled,
-                wild,
-            },
+                wild
+            }
         });
 
         app.call(`objectChanged`, this, this.selected);

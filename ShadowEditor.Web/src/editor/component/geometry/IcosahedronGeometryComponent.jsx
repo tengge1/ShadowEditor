@@ -1,4 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty } from '../../../third_party';
+import { PropertyGroup, NumberProperty } from '../../../third_party';
 import SetGeometryCommand from '../../../command/SetGeometryCommand';
 
 /**
@@ -15,7 +15,7 @@ class IcosahedronGeometryComponent extends React.Component {
             show: false,
             expanded: false,
             radius: 1.0,
-            detail: 1.0,
+            detail: 1.0
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -30,9 +30,21 @@ class IcosahedronGeometryComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('Geometry Component')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <NumberProperty name={'radius'} label={_t('Radius')} value={radius} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty name={'detail'} label={_t('Detail')} value={detail} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('Geometry Component')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <NumberProperty name={'radius'}
+                label={_t('Radius')}
+                value={radius}
+                onChange={this.handleChange}
+            />
+            <NumberProperty name={'detail'}
+                label={_t('Detail')}
+                value={detail}
+                onChange={this.handleChange}
+            />
         </PropertyGroup>;
     }
 
@@ -43,7 +55,7 @@ class IcosahedronGeometryComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -52,7 +64,7 @@ class IcosahedronGeometryComponent extends React.Component {
 
         if (!editor.selected || !(editor.selected instanceof THREE.Mesh) || !(editor.selected.geometry instanceof THREE.IcosahedronBufferGeometry)) {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -65,27 +77,27 @@ class IcosahedronGeometryComponent extends React.Component {
             show: true,
             type: this.selected.geometry.constructor.name,
             radius: radius === undefined ? 1 : radius,
-            detail: detail === undefined ? 0 : detail,
+            detail: detail === undefined ? 0 : detail
         });
     }
 
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { radius, detail } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         this.setState(state);
 
         app.editor.execute(new SetGeometryCommand(this.selected, new THREE.IcosahedronBufferGeometry(
             radius,
-            detail,
+            detail
         )));
 
         app.call(`objectChanged`, this, this.selected);

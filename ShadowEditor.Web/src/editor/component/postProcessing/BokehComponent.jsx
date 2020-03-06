@@ -1,5 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty } from '../../../third_party';
-import SetGeometryCommand from '../../../command/SetGeometryCommand';
+import { PropertyGroup, CheckBoxProperty, NumberProperty } from '../../../third_party';
 
 /**
  * 背景虚化特效组件
@@ -17,7 +16,7 @@ class BokehComponent extends React.Component {
             enabled: false,
             focus: 50, // 距离相机距离，哪里最清晰
             aperture: 2.8, // *1e-4，光圈越小越清楚
-            maxBlur: 1, // 最大模糊程度，越大越模糊
+            maxBlur: 1 // 最大模糊程度，越大越模糊
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -33,11 +32,31 @@ class BokehComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('Bokeh Effect')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <CheckBoxProperty label={_t('EnableState')} name={'enabled'} value={enabled} onChange={this.handleChange}></CheckBoxProperty>
-            <NumberProperty label={_t('Focus')} name={'focus'} value={focus} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={_t('Aperture')} name={'aperture'} value={aperture} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={_t('MaxBlur')} name={'maxBlur'} value={maxBlur} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('Bokeh Effect')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <CheckBoxProperty label={_t('EnableState')}
+                name={'enabled'}
+                value={enabled}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('Focus')}
+                name={'focus'}
+                value={focus}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('Aperture')}
+                name={'aperture'}
+                value={aperture}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('MaxBlur')}
+                name={'maxBlur'}
+                value={maxBlur}
+                onChange={this.handleChange}
+            />
         </PropertyGroup>;
     }
 
@@ -48,7 +67,7 @@ class BokehComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -57,7 +76,7 @@ class BokehComponent extends React.Component {
 
         if (!editor.selected || editor.selected !== editor.scene) {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -72,7 +91,7 @@ class BokehComponent extends React.Component {
             enabled: postProcessing.bokeh ? postProcessing.bokeh.enabled : false,
             focus: postProcessing.bokeh ? postProcessing.bokeh.focus : this.state.focus,
             aperture: postProcessing.bokeh ? postProcessing.bokeh.aperture : this.state.aperture,
-            maxBlur: postProcessing.bokeh ? postProcessing.bokeh.maxBlur : this.state.maxBlur,
+            maxBlur: postProcessing.bokeh ? postProcessing.bokeh.maxBlur : this.state.maxBlur
         };
 
         this.setState(state);
@@ -81,13 +100,13 @@ class BokehComponent extends React.Component {
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { enabled, focus, aperture, maxBlur } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         let scene = this.selected;
@@ -99,8 +118,8 @@ class BokehComponent extends React.Component {
                 enabled,
                 focus,
                 aperture,
-                maxBlur,
-            },
+                maxBlur
+            }
         });
 
         app.call(`objectChanged`, this, this.selected);

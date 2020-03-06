@@ -1,4 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty, SelectProperty, ButtonsProperty, Button } from '../../../third_party';
+import { PropertyGroup, NumberProperty } from '../../../third_party';
 
 /**
  * 三次贝塞尔曲线组件
@@ -24,7 +24,7 @@ class CubicBezierCurveComponent extends React.Component {
             v2z: 0,
             v3x: 0,
             v3y: 0,
-            v3z: 0,
+            v3z: 0
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -39,19 +39,71 @@ class CubicBezierCurveComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('CubicBezier Curve')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <NumberProperty label={'Point1 X'} name={'v0x'} value={v0x} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={'Point1 Y'} name={'v0y'} value={v0y} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={'Point1 Z'} name={'v0z'} value={v0z} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={'Point2 X'} name={'v1x'} value={v1x} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={'Point2 Y'} name={'v1y'} value={v1y} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={'Point2 Z'} name={'v1z'} value={v1z} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={'Point3 X'} name={'v2x'} value={v2x} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={'Point3 Y'} name={'v2y'} value={v2y} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={'Point3 Z'} name={'v2z'} value={v2z} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={'Point4 X'} name={'v3x'} value={v3x} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={'Point4 Y'} name={'v3y'} value={v3y} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={'Point4 Z'} name={'v3z'} value={v3z} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('CubicBezier Curve')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <NumberProperty label={'Point1 X'}
+                name={'v0x'}
+                value={v0x}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={'Point1 Y'}
+                name={'v0y'}
+                value={v0y}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={'Point1 Z'}
+                name={'v0z'}
+                value={v0z}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={'Point2 X'}
+                name={'v1x'}
+                value={v1x}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={'Point2 Y'}
+                name={'v1y'}
+                value={v1y}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={'Point2 Z'}
+                name={'v1z'}
+                value={v1z}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={'Point3 X'}
+                name={'v2x'}
+                value={v2x}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={'Point3 Y'}
+                name={'v2y'}
+                value={v2y}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={'Point3 Z'}
+                name={'v2z'}
+                value={v2z}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={'Point4 X'}
+                name={'v3x'}
+                value={v3x}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={'Point4 Y'}
+                name={'v3y'}
+                value={v3y}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={'Point4 Z'}
+                name={'v3z'}
+                value={v3z}
+                onChange={this.handleChange}
+            />
         </PropertyGroup>;
     }
 
@@ -62,7 +114,7 @@ class CubicBezierCurveComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -71,7 +123,7 @@ class CubicBezierCurveComponent extends React.Component {
 
         if (!editor.selected || editor.selected.userData.type !== 'CubicBezierCurve') {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -93,20 +145,20 @@ class CubicBezierCurveComponent extends React.Component {
             v2z: points[2].z,
             v3x: points[3].x,
             v3y: points[3].y,
-            v3z: points[3].z,
+            v3z: points[3].z
         });
     }
 
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { v0x, v0y, v0z, v1x, v1y, v1z, v2x, v2y, v2z, v3x, v3y, v3z } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         this.selected.userData.points = [

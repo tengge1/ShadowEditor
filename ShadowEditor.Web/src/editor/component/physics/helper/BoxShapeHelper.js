@@ -1,6 +1,6 @@
 /**
  * 立方体帮助器
- * @param {*} object 
+ * @param {*} object 物体
  */
 function BoxShapeHelper(object) {
     this.object = object;
@@ -17,7 +17,7 @@ function BoxShapeHelper(object) {
     var center = new THREE.Vector3();
     box.getCenter(center);
 
-    var geometry = new THREE.BoxBufferGeometry(x, y, z);
+    geometry = new THREE.BoxBufferGeometry(x, y, z);
     geometry.translate(center.x, center.y, center.z);
 
     var material = new THREE.MeshBasicMaterial({
@@ -30,7 +30,7 @@ function BoxShapeHelper(object) {
     THREE.Mesh.call(this, geometry, material);
 
     this.update();
-};
+}
 
 BoxShapeHelper.prototype = Object.create(THREE.Mesh.prototype);
 BoxShapeHelper.prototype.constructor = BoxShapeHelper;

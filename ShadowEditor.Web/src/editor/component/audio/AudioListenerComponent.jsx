@@ -1,5 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty } from '../../../third_party';
-import SetGeometryCommand from '../../../command/SetGeometryCommand';
+import { PropertyGroup,  NumberProperty } from '../../../third_party';
 
 /**
  * 音频监听器组件
@@ -14,7 +13,7 @@ class AudioListenerComponent extends React.Component {
         this.state = {
             show: false,
             expanded: false,
-            masterVolume: 1,
+            masterVolume: 1
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -29,8 +28,19 @@ class AudioListenerComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('AudioListener')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <NumberProperty label={_t('Max Volume')} name={'masterVolume'} value={masterVolume} min={0} max={1} step={0.1} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('AudioListener')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <NumberProperty label={_t('Max Volume')}
+                name={'masterVolume'}
+                value={masterVolume}
+                min={0}
+                max={1}
+                step={0.1}
+                onChange={this.handleChange}
+            />
         </PropertyGroup>;
     }
 
@@ -41,7 +51,7 @@ class AudioListenerComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -50,7 +60,7 @@ class AudioListenerComponent extends React.Component {
 
         if (!editor.selected || editor.selected !== editor.camera || editor.selected.children.indexOf(editor.audioListener) === -1) {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -61,20 +71,20 @@ class AudioListenerComponent extends React.Component {
 
         this.setState({
             show: true,
-            masterVolume: audioListener.getMasterVolume(),
+            masterVolume: audioListener.getMasterVolume()
         });
     }
 
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { masterVolume } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         let audioListener = app.editor.audioListener;

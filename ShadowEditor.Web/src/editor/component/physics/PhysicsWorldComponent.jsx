@@ -1,4 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, IntegerProperty, SelectProperty, ButtonsProperty, Button } from '../../../third_party';
+import { PropertyGroup, NumberProperty, SelectProperty } from '../../../third_party';
 
 /**
  * 物理环境组件
@@ -12,7 +12,7 @@ class PhysicsWorldComponent extends React.Component {
 
         this.type = {
             'btDefaultCollisionConfiguration': _t('DefaultCollisionConfig'), // 无法使用布料
-            'btSoftBodyRigidBodyCollisionConfiguration': _t('SoftBodyRigidBodyCollisionConfig'),
+            'btSoftBodyRigidBodyCollisionConfiguration': _t('SoftBodyRigidBodyCollisionConfig')
         };
 
         this.state = {
@@ -21,7 +21,7 @@ class PhysicsWorldComponent extends React.Component {
             type: 'btSoftBodyRigidBodyCollisionConfiguration',
             gravityX: 0,
             gravityY: -9.8,
-            gravityZ: 0,
+            gravityZ: 0
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -36,11 +36,32 @@ class PhysicsWorldComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('PhysicsEnvironment')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <SelectProperty label={_t('Type')} options={this.type} name={'type'} value={type} onChange={this.handleChange}></SelectProperty>
-            <NumberProperty label={'GravityX'} name={'gravityX'} value={gravityX} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={'GravityY'} name={'gravityY'} value={gravityY} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={'GravityZ'} name={'gravityZ'} value={gravityZ} onChange={this.handleChange}></NumberProperty>
+        return <PropertyGroup title={_t('PhysicsEnvironment')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <SelectProperty label={_t('Type')}
+                options={this.type}
+                name={'type'}
+                value={type}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={'GravityX'}
+                name={'gravityX'}
+                value={gravityX}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={'GravityY'}
+                name={'gravityY'}
+                value={gravityY}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={'GravityZ'}
+                name={'gravityZ'}
+                value={gravityZ}
+                onChange={this.handleChange}
+            />
         </PropertyGroup>;
     }
 
@@ -51,7 +72,7 @@ class PhysicsWorldComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -60,7 +81,7 @@ class PhysicsWorldComponent extends React.Component {
 
         if (!editor.selected || editor.selected !== editor.scene) {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -72,7 +93,7 @@ class PhysicsWorldComponent extends React.Component {
                 type: 'btSoftBodyRigidBodyCollisionConfiguration',
                 gravityX: 0.0,
                 gravityY: -9.8,
-                gravityZ: 0.0,
+                gravityZ: 0.0
             };
         }
 
@@ -83,27 +104,27 @@ class PhysicsWorldComponent extends React.Component {
             type,
             gravityX,
             gravityY,
-            gravityZ,
+            gravityZ
         });
     }
 
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { type, gravityX, gravityY, gravityZ } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         this.selected.userData.physics = {
             type,
             gravityX,
             gravityY,
-            gravityZ,
+            gravityZ
         };
 
         app.call('objectChanged', this, this.selected);
