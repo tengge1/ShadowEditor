@@ -40,25 +40,25 @@ BarChart.prototype.render = function () {
 
     var data = [{
         text: '桌椅松动',
-        value: 100 / 105,
+        value: 100 / 105
     }, {
         text: '启动活门',
-        value: 100 / 105,
+        value: 100 / 105
     }, {
         text: '雷达系统',
-        value: 73 / 105,
+        value: 73 / 105
     }, {
         text: '引气系统',
-        value: 72 / 105,
+        value: 72 / 105
     }, {
         text: '防冰活门',
-        value: 69 / 105,
+        value: 69 / 105
     }, {
         text: '引擎',
-        value: 46 / 105,
+        value: 46 / 105
     }, {
         text: '起落架',
-        value: 42 / 105,
+        value: 42 / 105
     }];
 
     var group = chart.selectAll('.bar')

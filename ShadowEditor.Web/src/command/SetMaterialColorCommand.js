@@ -20,7 +20,7 @@ function SetMaterialColorCommand(object, attributeName, newValue) {
 
 	this.object = object;
 	this.attributeName = attributeName;
-	this.oldValue = (object !== undefined) ? this.object.material[this.attributeName].getHex() : undefined;
+	this.oldValue = object !== undefined ? this.object.material[this.attributeName].getHex() : undefined;
 
 	if (Number.isInteger(newValue)) {
 		this.newValue = newValue;
@@ -28,7 +28,7 @@ function SetMaterialColorCommand(object, attributeName, newValue) {
 		color.set(newValue);
 		this.newValue = color.getHex();
 	}
-};
+}
 
 SetMaterialColorCommand.prototype = Object.create(Command.prototype);
 

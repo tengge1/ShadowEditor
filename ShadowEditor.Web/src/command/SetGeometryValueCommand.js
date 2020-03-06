@@ -17,9 +17,9 @@ function SetGeometryValueCommand(object, attributeName, newValue) {
 
 	this.object = object;
 	this.attributeName = attributeName;
-	this.oldValue = (object !== undefined) ? object.geometry[attributeName] : undefined;
+	this.oldValue = object !== undefined ? object.geometry[attributeName] : undefined;
 	this.newValue = newValue;
-};
+}
 
 SetGeometryValueCommand.prototype = Object.create(Command.prototype);
 

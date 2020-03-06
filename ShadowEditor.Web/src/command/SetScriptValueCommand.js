@@ -23,11 +23,11 @@ function SetScriptValueCommand(object, script, attributeName, newValue, cursorPo
 	this.script = script;
 
 	this.attributeName = attributeName;
-	this.oldValue = (script !== undefined) ? script[this.attributeName] : undefined;
+	this.oldValue = script !== undefined ? script[this.attributeName] : undefined;
 	this.newValue = newValue;
 	this.cursorPosition = cursorPosition;
 	this.scrollInfo = scrollInfo;
-};
+}
 
 SetScriptValueCommand.prototype = Object.create(Command.prototype);
 

@@ -16,14 +16,14 @@ function MoveObjectCommand(object, newParent, newBefore) {
 	this.name = _t('Move Object');
 
 	this.object = object;
-	this.oldParent = (object !== undefined) ? object.parent : undefined;
-	this.oldIndex = (this.oldParent !== undefined) ? this.oldParent.children.indexOf(this.object) : undefined;
+	this.oldParent = object !== undefined ? object.parent : undefined;
+	this.oldIndex = this.oldParent !== undefined ? this.oldParent.children.indexOf(this.object) : undefined;
 	this.newParent = newParent;
 
 	if (newBefore !== undefined) {
-		this.newIndex = (newParent !== undefined) ? newParent.children.indexOf(newBefore) : undefined;
+		this.newIndex = newParent !== undefined ? newParent.children.indexOf(newBefore) : undefined;
 	} else {
-		this.newIndex = (newParent !== undefined) ? newParent.children.length : undefined;
+		this.newIndex = newParent !== undefined ? newParent.children.length : undefined;
 	}
 
 	if (this.oldParent === this.newParent && this.newIndex > this.oldIndex) {
@@ -31,7 +31,7 @@ function MoveObjectCommand(object, newParent, newBefore) {
 	}
 
 	this.newBefore = newBefore;
-};
+}
 
 MoveObjectCommand.prototype = Object.create(Command.prototype);
 

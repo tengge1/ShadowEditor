@@ -26,7 +26,7 @@ function SetScaleCommand(object, newScale, optionalOldScale) {
 	if (optionalOldScale !== undefined) {
 		this.oldScale = optionalOldScale.clone();
 	}
-};
+}
 
 SetScaleCommand.prototype = Object.create(Command.prototype);
 

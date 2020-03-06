@@ -16,9 +16,9 @@ function SetUuidCommand(object, newUuid) {
 
 	this.object = object;
 
-	this.oldUuid = (object !== undefined) ? object.uuid : undefined;
+	this.oldUuid = object !== undefined ? object.uuid : undefined;
 	this.newUuid = newUuid;
-};
+}
 
 SetUuidCommand.prototype = Object.create(Command.prototype);
 

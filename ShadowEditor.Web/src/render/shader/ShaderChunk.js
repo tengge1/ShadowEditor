@@ -28,5 +28,5 @@ Object.assign(THREE.ShaderChunk, {
 
     // geo
     mercator: mercator,
-    mercatorInvert: mercatorInvert,
+    mercatorInvert: mercatorInvert
 });

@@ -21,7 +21,7 @@ const DownloadUtils = {
         link.download = fileName;
 
         fakeClick(link);
-    },
+    }
 };
 
 export default DownloadUtils;

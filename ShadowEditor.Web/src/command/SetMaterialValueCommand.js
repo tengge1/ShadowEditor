@@ -17,10 +17,10 @@ function SetMaterialValueCommand(object, attributeName, newValue) {
 	this.updatable = true;
 
 	this.object = object;
-	this.oldValue = (object !== undefined) ? object.material[attributeName] : undefined;
+	this.oldValue = object !== undefined ? object.material[attributeName] : undefined;
 	this.newValue = newValue;
 	this.attributeName = attributeName;
-};
+}
 
 SetMaterialValueCommand.prototype = Object.create(Command.prototype);
 

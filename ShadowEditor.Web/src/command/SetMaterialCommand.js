@@ -15,9 +15,9 @@ function SetMaterialCommand(object, newMaterial) {
 	this.name = _t('New Material');
 
 	this.object = object;
-	this.oldMaterial = (object !== undefined) ? object.material : undefined;
+	this.oldMaterial = object !== undefined ? object.material : undefined;
 	this.newMaterial = newMaterial;
-};
+}
 
 SetMaterialCommand.prototype = Object.create(Command.prototype);
 

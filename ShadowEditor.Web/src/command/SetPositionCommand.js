@@ -26,7 +26,7 @@ function SetPositionCommand(object, newPosition, optionalOldPosition) {
 	if (optionalOldPosition !== undefined) {
 		this.oldPosition = optionalOldPosition.clone();
 	}
-};
+}
 
 SetPositionCommand.prototype = Object.create(Command.prototype);
 

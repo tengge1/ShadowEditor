@@ -17,9 +17,9 @@ function SetMaterialMapCommand(object, mapName, newMap) {
 
 	this.object = object;
 	this.mapName = mapName;
-	this.oldMap = (object !== undefined) ? object.material[mapName] : undefined;
+	this.oldMap = object !== undefined ? object.material[mapName] : undefined;
 	this.newMap = newMap;
-};
+}
 
 SetMaterialMapCommand.prototype = Object.create(Command.prototype);
 

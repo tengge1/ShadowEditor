@@ -28,7 +28,7 @@ function SetSceneCommand(scene) {
 			this.cmdArray.push(new AddObjectCommand(child));
 		}
 	}
-};
+}
 
 SetSceneCommand.prototype = Object.create(Command.prototype);
 

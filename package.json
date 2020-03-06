@@ -30,7 +30,7 @@
     "scripts": {
         "build": "rollup -c ShadowEditor.Web/rollup.config.js",
         "dev": "rollup -c ShadowEditor.Web/rollup.config.js --watch",
-        "eslint": "eslint ShadowEditor.Web/src",
+        "eslint": "eslint ShadowEditor.Web/src --fix",
         "docs": "gitbook build docs-dev",
         "test": "rollup -c ShadowEditor.Web/test/unit/rollup.config.js",
         "clear": "npm prune"

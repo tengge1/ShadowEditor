@@ -18,9 +18,9 @@ function SetValueCommand(object, attributeName, newValue) {
 
 	this.object = object;
 	this.attributeName = attributeName;
-	this.oldValue = (object !== undefined) ? object[attributeName] : undefined;
+	this.oldValue = object !== undefined ? object[attributeName] : undefined;
 	this.newValue = newValue;
-};
+}
 
 SetValueCommand.prototype = Object.create(Command.prototype);
 

@@ -48,7 +48,7 @@ ThrowBallEvent.prototype.throwBall = function (event) {
     var width = this.renderer.domElement.width;
     var height = this.renderer.domElement.height;
 
-    mouse.set((event.offsetX / width) * 2 - 1, -(event.offsetY / height) * 2 + 1);
+    mouse.set(event.offsetX / width * 2 - 1, -(event.offsetY / height) * 2 + 1);
     raycaster.setFromCamera(mouse, camera);
 
     // Creates a ball and throws it

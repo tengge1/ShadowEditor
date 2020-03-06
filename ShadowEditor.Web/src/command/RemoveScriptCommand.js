@@ -19,7 +19,7 @@ function RemoveScriptCommand(object, script) {
 	if (this.object && this.script) {
 		this.index = this.editor.scripts[this.object.uuid].indexOf(this.script);
 	}
-};
+}
 
 RemoveScriptCommand.prototype = Object.create(Command.prototype);
 

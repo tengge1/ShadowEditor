@@ -26,7 +26,7 @@ function SetRotationCommand(object, newRotation, optionalOldRotation) {
 	if (optionalOldRotation !== undefined) {
 		this.oldRotation = optionalOldRotation.clone();
 	}
-};
+}
 
 SetRotationCommand.prototype = Object.create(Command.prototype);
 

@@ -16,9 +16,9 @@ function SetGeometryCommand(object, newGeometry) {
 	this.updatable = true;
 
 	this.object = object;
-	this.oldGeometry = (object !== undefined) ? object.geometry : undefined;
+	this.oldGeometry = object !== undefined ? object.geometry : undefined;
 	this.newGeometry = newGeometry;
-};
+}
 
 SetGeometryCommand.prototype = Object.create(Command.prototype);
 

@@ -18,9 +18,9 @@ function SetColorCommand(object, attributeName, newValue) {
 
 	this.object = object;
 	this.attributeName = attributeName;
-	this.oldValue = (object !== undefined) ? this.object[this.attributeName].getHex() : undefined;
+	this.oldValue = object !== undefined ? this.object[this.attributeName].getHex() : undefined;
 	this.newValue = newValue;
-};
+}
 
 SetColorCommand.prototype = Object.create(Command.prototype);
 

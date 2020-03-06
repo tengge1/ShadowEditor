@@ -13,8 +13,8 @@ function MultiCmdsCommand(cmdArray) {
 	this.type = 'MultiCmdsCommand';
 	this.name = _t('Multi Modify');
 
-	this.cmdArray = (cmdArray !== undefined) ? cmdArray : [];
-};
+	this.cmdArray = cmdArray !== undefined ? cmdArray : [];
+}
 
 MultiCmdsCommand.prototype = Object.create(Command.prototype);
 

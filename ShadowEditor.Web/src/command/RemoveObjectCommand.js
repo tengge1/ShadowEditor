@@ -15,12 +15,12 @@ function RemoveObjectCommand(object) {
 
 	this.object = object;
 
-	this.parent = (object !== undefined) ? object.parent : undefined;
+	this.parent = object !== undefined ? object.parent : undefined;
 
 	if (this.parent !== undefined) {
 		this.index = this.parent.children.indexOf(this.object);
 	}
-};
+}
 
 RemoveObjectCommand.prototype = Object.create(Command.prototype);
 
