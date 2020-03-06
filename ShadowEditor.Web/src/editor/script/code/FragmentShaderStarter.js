@@ -1,5 +1,6 @@
 /**
  * 片源着色器起始代码
+ * @returns {String} 代码
  */
 function FragmentShaderStarter() {
 	return `

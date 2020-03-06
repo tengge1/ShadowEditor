@@ -1,5 +1,5 @@
 import './css/ScriptEditorPanel.css';
-import { classNames, PropTypes, Icon } from '../../third_party';
+import { classNames, Icon } from '../../third_party';
 import ScriptEditor from '../script/ScriptEditor';
 
 /**
@@ -15,7 +15,7 @@ class ScriptEditorPanel extends React.Component {
             uuid: null,
             name: '',
             type: 'javascript',
-            source: '',
+            source: ''
         };
 
         this.callback = null;
@@ -47,10 +47,13 @@ class ScriptEditorPanel extends React.Component {
         return <div className={classNames('ScriptEditorPanel', !show && 'hidden')}>
             <div className={'header'}>
                 <div className={'title'}>{title}</div>
-                <Icon icon={'close'} onClick={this.handleSave}></Icon>
+                <Icon icon={'close'}
+                    onClick={this.handleSave}
+                />
             </div>
-            <div className={'content'} ref={this.ref}>
-            </div>
+            <div className={'content'}
+                ref={this.ref}
+            />
         </div>;
     }
 
@@ -69,7 +72,7 @@ class ScriptEditorPanel extends React.Component {
             uuid,
             name,
             type,
-            source,
+            source
         }, () => {
             app.scriptEditor.setValue(source, type);
         });
@@ -89,7 +92,7 @@ class ScriptEditorPanel extends React.Component {
             uuid: null,
             name: '',
             type: 'javascript',
-            source: '',
+            source: ''
         });
     }
 }

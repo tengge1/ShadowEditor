@@ -1,5 +1,5 @@
 import './css/ResetPasswordWindow.css';
-import { PropTypes, Window, Content, Buttons, Form, FormControl, Label, Input, Button, Select } from '../../../third_party';
+import { PropTypes, Window, Content, Buttons, Form, FormControl, Label, Input, Button } from '../../../third_party';
 
 /**
  * 重置密码窗口

@@ -1,6 +1,5 @@
 import './css/RegisterWindow.css';
-import { PropTypes, Window, Content, Buttons, Form, FormControl, Label, Input, Button } from '../../third_party';
-import Ajax from '../../utils/Ajax';
+import { Window, Content, Buttons, Form, FormControl, Label, Input, Button } from '../../third_party';
 
 /**
  * 注册窗口

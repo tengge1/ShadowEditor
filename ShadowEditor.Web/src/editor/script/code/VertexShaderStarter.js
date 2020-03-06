@@ -1,5 +1,6 @@
 /**
  * 顶点着色器起始代码
+ * @returns {String} 代码
  */
 function VertexShaderStarter() {
 	return `

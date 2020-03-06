@@ -1,4 +1,4 @@
-import { ToolbarSeparator, IconButton, ImageButton } from '../../third_party';
+import { ToolbarSeparator, IconButton } from '../../third_party';
 
 /**
  * 编辑工具

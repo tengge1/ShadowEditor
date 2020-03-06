@@ -1,5 +1,6 @@
 /**
  * JavaScript起始代码
+ * @returns {String} 代码
  */
 function JavaScriptStarter() {
     return `

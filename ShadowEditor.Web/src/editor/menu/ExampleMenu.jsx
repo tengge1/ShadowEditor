@@ -1,4 +1,4 @@
-import { MenuItem, MenuItemSeparator } from '../../third_party';
+import { MenuItem } from '../../third_party';
 
 /**
  * 示例菜单

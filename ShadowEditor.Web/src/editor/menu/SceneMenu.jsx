@@ -6,8 +6,8 @@ import TimeUtils from '../../utils/TimeUtils';
 import StringUtils from '../../utils/StringUtils';
 import SaveSceneWindow from './window/SaveSceneWindow.jsx';
 import EmptySceneTemplate from './scene/EmptySceneTemplate';
-import DistrictSceneTemplate from './scene/DistrictSceneTemplate';
-import GISSceneTemplate from './scene/GISSceneTemplate';
+// import DistrictSceneTemplate from './scene/DistrictSceneTemplate';
+// import GISSceneTemplate from './scene/GISSceneTemplate';
 
 /**
  * 场景菜单

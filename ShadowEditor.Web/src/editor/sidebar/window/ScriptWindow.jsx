@@ -1,5 +1,5 @@
 import './css/ScriptWindow.css';
-import { classNames, PropTypes, Window, Content, Form, FormControl, Label, Input, Select, Buttons, Button } from '../../../third_party';
+import { Window, Content, Form, FormControl, Label, Input, Select, Buttons, Button } from '../../../third_party';
 import FragmentShaderStarter from '../../script/code/FragmentShaderStarter';
 import JavaScriptStarter from '../../script/code/JavaScriptStarter';
 import JsonStarter from '../../script/code/JsonStarter';
@@ -22,7 +22,7 @@ class ScriptWindow extends React.Component {
 
         this.state = {
             name: _t('No Name'),
-            type: 'javascript',
+            type: 'javascript'
         };
 
         this.handleNameChange = this.handleNameChange.bind(this);
@@ -38,20 +38,24 @@ class ScriptWindow extends React.Component {
         return <Window
             className={'ScriptWindow'}
             title={_t('Create Script')}
-            onClose={this.handleClose}>
+            onClose={this.handleClose}
+               >
             <Content>
                 <Form>
                     <FormControl>
                         <Label>{_t('Name')}</Label>
-                        <Input value={name} onChange={this.handleNameChange}></Input>
+                        <Input value={name}
+                            onChange={this.handleNameChange}
+                        />
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Type')}</Label>
                         <Select
                             options={this.scriptTypes}
                             value={type}
-                            disabled={true}
-                            onChange={this.handleTypeChange}></Select>
+                            disabled
+                            onChange={this.handleTypeChange}
+                        />
                     </FormControl>
                 </Form>
             </Content>
@@ -64,13 +68,13 @@ class ScriptWindow extends React.Component {
 
     handleNameChange(value) {
         this.setState({
-            name: value,
+            name: value
         });
     }
 
     handleTypeChange(value) {
         this.setState({
-            type: value,
+            type: value
         });
     }
 
@@ -103,7 +107,7 @@ class ScriptWindow extends React.Component {
             name,
             type,
             source,
-            uuid,
+            uuid
         };
 
         app.call(`scriptChanged`, this);
@@ -115,7 +119,7 @@ class ScriptWindow extends React.Component {
             uuid: null,
             name: '',
             type: 'javascript',
-            source: '',
+            source: ''
         });
 
         app.call(`editScript`, this, uuid, name, type, source, this.handleSaveScript);
@@ -127,7 +131,7 @@ class ScriptWindow extends React.Component {
             uuid,
             name,
             type,
-            source,
+            source
         };
 
         app.call(`scriptChanged`, this);

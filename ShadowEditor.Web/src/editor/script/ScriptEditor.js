@@ -65,13 +65,13 @@ function ScriptEditor(container = document.body) {
             return;
         }
         var typed = String.fromCharCode(kb.which || kb.keyCode);
-        if (/[\w\.]/.exec(typed)) {
+        if (/[\w\.]/.exec(typed)) { // eslint-disable-line
             server.complete(cm);
         }
     });
 
     this.codemirror = codemirror;
-};
+}
 
 /**
  * 设置编辑器脚本代码
@@ -116,6 +116,7 @@ ScriptEditor.prototype.setValue = function (
 
 /**
  * 获取编辑器脚本代码
+ * @returns {String} 脚本
  */
 ScriptEditor.prototype.getValue = function () {
     return this.codemirror.getValue();
@@ -152,7 +153,8 @@ ScriptEditor.prototype.onCodeMirrorChange = function () {
 
 /**
  * 校验编辑器中代码正确性
- * @param {*} string 
+ * @param {*} string 脚本
+ * @returns {Boolean} 是否正确
  */
 ScriptEditor.prototype.validate = function (string) {
     var codemirror = this.codemirror;
@@ -172,6 +174,8 @@ ScriptEditor.prototype.validate = function (string) {
             codemirror.removeLineWidget(widgets.shift());
         }
 
+        var i, error;
+
         switch (mode) {
             case 'javascript':
                 try {
@@ -184,8 +188,8 @@ ScriptEditor.prototype.validate = function (string) {
                     });
                 }
 
-                for (var i = 0; i < errors.length; i++) {
-                    var error = errors[i];
+                for (i = 0; i < errors.length; i++) {
+                    error = errors[i];
                     error.message = error.message.replace(/Line [0-9]+: /, '');
                 }
                 break;
@@ -221,8 +225,8 @@ ScriptEditor.prototype.validate = function (string) {
                 }
         }
 
-        for (var i = 0; i < errors.length; i++) {
-            var error = errors[i];
+        for (i = 0; i < errors.length; i++) {
+            error = errors[i];
 
             var message = document.createElement('div');
             message.className = 'esprima-error';

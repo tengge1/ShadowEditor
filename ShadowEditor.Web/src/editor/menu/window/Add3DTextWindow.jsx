@@ -41,7 +41,7 @@ class Add3DTextWindow extends React.Component {
             style={{ width: '400px', height: '320px' }}
             mask={false}
             onClose={this.handleClose}
-        >
+               >
             <Content>
                 <Form>
                     <FormControl>

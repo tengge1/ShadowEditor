@@ -1,4 +1,4 @@
-import { classNames, PropTypes, MenuBar, MenuItem, MenuItemSeparator } from '../../third_party';
+import { MenuItem } from '../../third_party';
 import Button from '../../visual/component/Button';
 import Label from '../../visual/component/Label';
 import Panel from '../../visual/component/Panel';

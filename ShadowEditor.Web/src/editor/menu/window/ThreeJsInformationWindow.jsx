@@ -1,4 +1,4 @@
-import { classNames, PropTypes, Window, Content, Buttons, Form, FormControl, Label, Input, Select, ImageUploader, Button } from '../../../third_party';
+import { Window, Content, Buttons, Form, FormControl, Label, Input, Button } from '../../../third_party';
 
 /**
  * Three.js信息窗口
@@ -12,19 +12,20 @@ class ThreeJsInformationWindow extends React.Component {
     }
 
     render() {
-        const state = this.state;
-
         return <Window
             className={'ThreeJsInformationWindow'}
             title={_t('Three.js Information')}
-            style={{ width: '320px', height: '160px', }}
+            style={{ width: '320px', height: '160px' }}
             mask={false}
-            onClose={this.handleClose}>
+            onClose={this.handleClose}
+               >
             <Content>
                 <Form>
                     <FormControl>
                         <Label>{_t('Version')}</Label>
-                        <Input value={THREE.REVISION} disabled={true}></Input>
+                        <Input value={THREE.REVISION}
+                            disabled
+                        />
                     </FormControl>
                 </Form>
             </Content>

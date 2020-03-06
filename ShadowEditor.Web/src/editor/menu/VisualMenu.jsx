@@ -1,4 +1,4 @@
-import { MenuItem, MenuItemSeparator } from '../../third_party';
+import { MenuItem } from '../../third_party';
 
 // basic/shape
 import SvgCircle from '../../visual/basic/shape/SvgCircle.jsx';

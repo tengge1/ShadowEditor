@@ -1,6 +1,5 @@
 import './css/TextureGeneratorWindow.css';
-import { classNames, PropTypes, Window, Content, Buttons, Form, FormControl, Label, Input, Select, ImageUploader, Button } from '../../../third_party';
-import Ajax from '../../../utils/Ajax';
+import { Window, Content, Buttons, Button } from '../../../third_party';
 
 /**
  * 纹理生成器窗口
@@ -19,11 +18,12 @@ class TextureGeneratorWindow extends React.Component {
         return <Window
             className={'TextureGeneratorWindow'}
             title={_t('Texture Generator')}
-            style={{ width: '800px', height: '400px', }}
+            style={{ width: '800px', height: '400px' }}
             mask={false}
-            onClose={this.handleClose}>
+            onClose={this.handleClose}
+               >
             <Content>
-                <div ref={this.containerRef}></div>
+                <div ref={this.containerRef} />
             </Content>
             <Buttons>
                 <Button onClick={this.handleClose}>{_t('Close')}</Button>
@@ -430,8 +430,8 @@ class TextureGeneratorWindow extends React.Component {
 
             container.appendChild(examples[a](256));
 
-            setTimeout(function () { generateTexture(a + 1); })
-        };
+            setTimeout(function () { generateTexture(a + 1); });
+        }
 
         setTimeout(function () {
             generateTexture(0);

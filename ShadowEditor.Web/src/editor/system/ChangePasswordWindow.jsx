@@ -1,6 +1,5 @@
 import './css/ChangePasswordWindow.css';
-import { PropTypes, Window, Content, Buttons, Form, FormControl, Label, Input, Button } from '../../third_party';
-import Ajax from '../../utils/Ajax';
+import { Window, Content, Buttons, Form, FormControl, Label, Input, Button } from '../../third_party';
 
 /**
  * 修改密码窗口
