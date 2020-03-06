@@ -137,8 +137,9 @@ class Editor extends React.Component {
         // 物体
         this.objects = [];
 
-        // 脚本 格式：{ uuid: { id: 'MongoDB _id', name: 'Script Name', type: 'Script Type', source: 'Source Code', uuid: 'uuid' }}
+        // 脚本 格式：{ uuid: { id: 'MongoDB _id', pid: null, name: 'Script Name', type: 'Script Type', source: 'Source Code', uuid: 'uuid' }}
         // 其中，uuid是创建脚本时自动生成，不可改变，关联时使用，id是mongo数据库ID字段；name：随便填写；type：javascript，vertexShader, fragmentShader, json；source：源码。
+        // pid是null或undefined是根节点，否则是子节点。
         this.scripts = {};
 
         // 动画格式：[{ id: 'MongoDB _id', uuid: 'uuid', layer: '动画层序号', layerName: '动画层名称', animations: '动画' }, ...]
