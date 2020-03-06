@@ -1,5 +1,5 @@
 import './css/ScriptPanel.css';
-import { classNames, PropTypes, Button, IconButton, Icon } from '../../third_party';
+import { Button, Icon } from '../../third_party';
 import ScriptWindow from './window/ScriptWindow.jsx';
 
 /**
@@ -11,7 +11,7 @@ class ScriptPanel extends React.Component {
         super(props);
 
         this.state = {
-            scripts: {},
+            scripts: {}
         };
 
         this.handleAddScript = this.handleAddScript.bind(this);
@@ -32,8 +32,16 @@ class ScriptPanel extends React.Component {
                 {Object.values(scripts).map(n => {
                     return <li key={n.uuid}>
                         <span>{`${n.name}.${this.getExtension(n.type)}`}</span>
-                        <Icon name={n.uuid} icon={'edit'} title={_t('Edit Script')} onClick={this.handleEditScript}></Icon>
-                        <Icon name={n.uuid} icon={'delete'} title={_t('Delete Script')} onClick={this.handleRemoveScript}></Icon>
+                        <Icon name={n.uuid}
+                            icon={'edit'}
+                            title={_t('Edit Script')}
+                            onClick={this.handleEditScript}
+                        />
+                        <Icon name={n.uuid}
+                            icon={'delete'}
+                            title={_t('Delete Script')}
+                            onClick={this.handleRemoveScript}
+                        />
                     </li>;
                 })}
             </ul>
@@ -67,7 +75,7 @@ class ScriptPanel extends React.Component {
 
     update() {
         this.setState({
-            scripts: app.editor.scripts,
+            scripts: app.editor.scripts
         });
     }
 
@@ -89,7 +97,7 @@ class ScriptPanel extends React.Component {
             uuid,
             name,
             type,
-            source,
+            source
         };
 
         app.call(`scriptChanged`, this);

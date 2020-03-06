@@ -1,7 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, ButtonProperty, NumberProperty, SelectProperty, ColorProperty, TextureProperty, ButtonsProperty, Button, IntegerProperty } from '../../third_party';
-import SetValueCommand from '../../command/SetValueCommand';
-import Converter from '../../utils/Converter';
-import Ajax from '../../utils/Ajax';
+import { PropertyGroup, ButtonProperty, NumberProperty, ColorProperty, TextureProperty, IntegerProperty } from '../../third_party';
 
 /**
  * 粒子发射器组件
@@ -53,7 +50,7 @@ class ParticleEmitterComponent extends React.Component {
             particleCount: 1000,
             maxAge: 5,
             maxAgeSpread: 2,
-            previewText: _t('Preview'),
+            previewText: _t('Preview')
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -86,43 +83,161 @@ class ParticleEmitterComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('ParticleEmitter')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <NumberProperty label={`${_t('Position')}X`} name={'positionX'} value={positionX} onChange={this.handleChangePosition}></NumberProperty>
-            <NumberProperty label={`${_t('Position')}Y`} name={'positionY'} value={positionY} onChange={this.handleChangePosition}></NumberProperty>
-            <NumberProperty label={`${_t('Position')}Z`} name={'positionZ'} value={positionZ} onChange={this.handleChangePosition}></NumberProperty>
-            <NumberProperty label={`${_t('PositionSpread')}X`} name={'positionSpreadX'} value={positionSpreadX} onChange={this.handleChangePosition}></NumberProperty>
-            <NumberProperty label={`${_t('PositionSpread')}Y`} name={'positionSpreadY'} value={positionSpreadY} onChange={this.handleChangePosition}></NumberProperty>
-            <NumberProperty label={`${_t('PositionSpread')}Z`} name={'positionSpreadZ'} value={positionSpreadZ} onChange={this.handleChangePosition}></NumberProperty>
+        return <PropertyGroup title={_t('ParticleEmitter')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <NumberProperty label={`${_t('Position')}X`}
+                name={'positionX'}
+                value={positionX}
+                onChange={this.handleChangePosition}
+            />
+            <NumberProperty label={`${_t('Position')}Y`}
+                name={'positionY'}
+                value={positionY}
+                onChange={this.handleChangePosition}
+            />
+            <NumberProperty label={`${_t('Position')}Z`}
+                name={'positionZ'}
+                value={positionZ}
+                onChange={this.handleChangePosition}
+            />
+            <NumberProperty label={`${_t('PositionSpread')}X`}
+                name={'positionSpreadX'}
+                value={positionSpreadX}
+                onChange={this.handleChangePosition}
+            />
+            <NumberProperty label={`${_t('PositionSpread')}Y`}
+                name={'positionSpreadY'}
+                value={positionSpreadY}
+                onChange={this.handleChangePosition}
+            />
+            <NumberProperty label={`${_t('PositionSpread')}Z`}
+                name={'positionSpreadZ'}
+                value={positionSpreadZ}
+                onChange={this.handleChangePosition}
+            />
 
-            <NumberProperty label={`${_t('Velocity')}X`} name={'velocityX'} value={velocityX} onChange={this.handleChangeVelocity}></NumberProperty>
-            <NumberProperty label={`${_t('Velocity')}Y`} name={'velocityY'} value={velocityY} onChange={this.handleChangeVelocity}></NumberProperty>
-            <NumberProperty label={`${_t('Velocity')}Z`} name={'velocityZ'} value={velocityZ} onChange={this.handleChangeVelocity}></NumberProperty>
-            <NumberProperty label={`${_t('VelocitySpread')}X`} name={'velocitySpreadX'} value={velocitySpreadX} onChange={this.handleChangeVelocity}></NumberProperty>
-            <NumberProperty label={`${_t('VelocitySpread')}Y`} name={'velocitySpreadY'} value={velocitySpreadY} onChange={this.handleChangeVelocity}></NumberProperty>
-            <NumberProperty label={`${_t('VelocitySpread')}Z`} name={'velocitySpreadZ'} value={velocitySpreadZ} onChange={this.handleChangeVelocity}></NumberProperty>
+            <NumberProperty label={`${_t('Velocity')}X`}
+                name={'velocityX'}
+                value={velocityX}
+                onChange={this.handleChangeVelocity}
+            />
+            <NumberProperty label={`${_t('Velocity')}Y`}
+                name={'velocityY'}
+                value={velocityY}
+                onChange={this.handleChangeVelocity}
+            />
+            <NumberProperty label={`${_t('Velocity')}Z`}
+                name={'velocityZ'}
+                value={velocityZ}
+                onChange={this.handleChangeVelocity}
+            />
+            <NumberProperty label={`${_t('VelocitySpread')}X`}
+                name={'velocitySpreadX'}
+                value={velocitySpreadX}
+                onChange={this.handleChangeVelocity}
+            />
+            <NumberProperty label={`${_t('VelocitySpread')}Y`}
+                name={'velocitySpreadY'}
+                value={velocitySpreadY}
+                onChange={this.handleChangeVelocity}
+            />
+            <NumberProperty label={`${_t('VelocitySpread')}Z`}
+                name={'velocitySpreadZ'}
+                value={velocitySpreadZ}
+                onChange={this.handleChangeVelocity}
+            />
 
-            <NumberProperty label={`${_t('Acceleration')}X`} name={'accelerationX'} value={accelerationX} onChange={this.handleChangeAcceleration}></NumberProperty>
-            <NumberProperty label={`${_t('Acceleration')}Y`} name={'accelerationY'} value={accelerationY} onChange={this.handleChangeAcceleration}></NumberProperty>
-            <NumberProperty label={`${_t('Acceleration')}Z`} name={'accelerationZ'} value={accelerationZ} onChange={this.handleChangeAcceleration}></NumberProperty>
-            <NumberProperty label={`${_t('AccelerationSpread')}X`} name={'accelerationSpreadX'} value={accelerationSpreadX} onChange={this.handleChangeAcceleration}></NumberProperty>
-            <NumberProperty label={`${_t('AccelerationSpread')}Y`} name={'accelerationSpreadY'} value={accelerationSpreadY} onChange={this.handleChangeAcceleration}></NumberProperty>
-            <NumberProperty label={`${_t('AccelerationSpread')}Z`} name={'accelerationSpreadZ'} value={accelerationSpreadZ} onChange={this.handleChangeAcceleration}></NumberProperty>
+            <NumberProperty label={`${_t('Acceleration')}X`}
+                name={'accelerationX'}
+                value={accelerationX}
+                onChange={this.handleChangeAcceleration}
+            />
+            <NumberProperty label={`${_t('Acceleration')}Y`}
+                name={'accelerationY'}
+                value={accelerationY}
+                onChange={this.handleChangeAcceleration}
+            />
+            <NumberProperty label={`${_t('Acceleration')}Z`}
+                name={'accelerationZ'}
+                value={accelerationZ}
+                onChange={this.handleChangeAcceleration}
+            />
+            <NumberProperty label={`${_t('AccelerationSpread')}X`}
+                name={'accelerationSpreadX'}
+                value={accelerationSpreadX}
+                onChange={this.handleChangeAcceleration}
+            />
+            <NumberProperty label={`${_t('AccelerationSpread')}Y`}
+                name={'accelerationSpreadY'}
+                value={accelerationSpreadY}
+                onChange={this.handleChangeAcceleration}
+            />
+            <NumberProperty label={`${_t('AccelerationSpread')}Z`}
+                name={'accelerationSpreadZ'}
+                value={accelerationSpreadZ}
+                onChange={this.handleChangeAcceleration}
+            />
 
-            <ColorProperty label={`${_t('Color')}1`} name={'color1'} value={color1} onChange={this.handleChangeColor}></ColorProperty>
-            <ColorProperty label={`${_t('Color')}2`} name={'color2'} value={color2} onChange={this.handleChangeColor}></ColorProperty>
-            <ColorProperty label={`${_t('Color')}3`} name={'color3'} value={color3} onChange={this.handleChangeColor}></ColorProperty>
-            <ColorProperty label={`${_t('Color')}4`} name={'color4'} value={color4} onChange={this.handleChangeColor}></ColorProperty>
+            <ColorProperty label={`${_t('Color')}1`}
+                name={'color1'}
+                value={color1}
+                onChange={this.handleChangeColor}
+            />
+            <ColorProperty label={`${_t('Color')}2`}
+                name={'color2'}
+                value={color2}
+                onChange={this.handleChangeColor}
+            />
+            <ColorProperty label={`${_t('Color')}3`}
+                name={'color3'}
+                value={color3}
+                onChange={this.handleChangeColor}
+            />
+            <ColorProperty label={`${_t('Color')}4`}
+                name={'color4'}
+                value={color4}
+                onChange={this.handleChangeColor}
+            />
 
-            <NumberProperty label={`${_t('Size')}`} name={'size'} value={size} onChange={this.handleChangeSize}></NumberProperty>
-            <NumberProperty label={`${_t('SizeSpread')}`} name={'sizeSpread'} value={sizeSpread} onChange={this.handleChangeSize}></NumberProperty>
+            <NumberProperty label={`${_t('Size')}`}
+                name={'size'}
+                value={size}
+                onChange={this.handleChangeSize}
+            />
+            <NumberProperty label={`${_t('SizeSpread')}`}
+                name={'sizeSpread'}
+                value={sizeSpread}
+                onChange={this.handleChangeSize}
+            />
 
-            <TextureProperty label={`${_t('Texture')}`} name={'texture'} value={texture} onChange={this.handleChangeTexture}></TextureProperty>
+            <TextureProperty label={`${_t('Texture')}`}
+                name={'texture'}
+                value={texture}
+                onChange={this.handleChangeTexture}
+            />
 
-            <IntegerProperty label={`${_t('ParticleCount')}`} name={'particleCount'} value={particleCount} onChange={this.handleChangeParticleCount}></IntegerProperty>
-            <NumberProperty label={`${_t('MaxAge')}`} name={'maxAge'} value={maxAge} onChange={this.handleChangeMaxAge}></NumberProperty>
-            <NumberProperty label={`${_t('maxAgeSpread')}`} name={'maxAgeSpread'} value={maxAgeSpread} onChange={this.maxAgeSpread}></NumberProperty>
+            <IntegerProperty label={`${_t('ParticleCount')}`}
+                name={'particleCount'}
+                value={particleCount}
+                onChange={this.handleChangeParticleCount}
+            />
+            <NumberProperty label={`${_t('MaxAge')}`}
+                name={'maxAge'}
+                value={maxAge}
+                onChange={this.handleChangeMaxAge}
+            />
+            <NumberProperty label={`${_t('maxAgeSpread')}`}
+                name={'maxAgeSpread'}
+                value={maxAgeSpread}
+                onChange={this.maxAgeSpread}
+            />
 
-            <ButtonProperty text={previewText} onChange={this.handlePreview}></ButtonProperty>
+            <ButtonProperty text={previewText}
+                onChange={this.handlePreview}
+            />
         </PropertyGroup>;
     }
 
@@ -133,7 +248,7 @@ class ParticleEmitterComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -142,7 +257,7 @@ class ParticleEmitterComponent extends React.Component {
 
         if (!editor.selected || !(editor.selected.userData.type === 'ParticleEmitter')) {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -199,7 +314,7 @@ class ParticleEmitterComponent extends React.Component {
 
     handleChangePosition(value, name) {
         this.setState({
-            [name]: value,
+            [name]: value
         });
 
         if (value === null) {
@@ -207,7 +322,7 @@ class ParticleEmitterComponent extends React.Component {
         }
 
         const { positionX, positionY, positionZ, positionSpreadX, positionSpreadY, positionSpreadZ } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         let group = this.selected.userData.group;
@@ -228,7 +343,7 @@ class ParticleEmitterComponent extends React.Component {
 
     handleChangeVelocity(value, name) {
         this.setState({
-            [name]: value,
+            [name]: value
         });
 
         if (value === null) {
@@ -236,7 +351,7 @@ class ParticleEmitterComponent extends React.Component {
         }
 
         const { velocityX, velocityY, velocityZ, velocitySpreadX, velocitySpreadY, velocitySpreadZ } = Object.assign({}, this.selected, {
-            [name]: value,
+            [name]: value
         });
 
         let group = this.selected.userData.group;
@@ -258,13 +373,13 @@ class ParticleEmitterComponent extends React.Component {
     handleChangeAcceleration(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { accelerationX, accelerationY, accelerationZ, accelerationSpreadX, accelerationSpreadY, accelerationSpreadZ } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         let group = this.selected.userData.group;
@@ -286,13 +401,13 @@ class ParticleEmitterComponent extends React.Component {
     handleChangeColor(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { color1, color2, color3, color4 } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         let group = this.selected.userData.group;
@@ -311,13 +426,13 @@ class ParticleEmitterComponent extends React.Component {
     handleChangeSize(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { size, sizeSpread } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         let group = this.selected.userData.group;
@@ -336,17 +451,16 @@ class ParticleEmitterComponent extends React.Component {
     handleChangeTexture(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { texture } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         let group = this.selected.userData.group;
-        let emitter = group.emitters[0];
 
         texture.needsUpdate = true;
 
@@ -359,13 +473,13 @@ class ParticleEmitterComponent extends React.Component {
     handleChangeParticleCount(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { particleCount } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         let group = this.selected.userData.group;
@@ -381,13 +495,13 @@ class ParticleEmitterComponent extends React.Component {
     handleChangeMaxAge(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { maxAge } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         let group = this.selected.userData.group;
@@ -403,13 +517,13 @@ class ParticleEmitterComponent extends React.Component {
     handleChangeMaxAgeSpread(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { maxAgeSpread } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         let group = this.selected.userData.group;
@@ -434,7 +548,7 @@ class ParticleEmitterComponent extends React.Component {
         this.isPlaying = true;
 
         this.setState({
-            previewText: _t('Cancel'),
+            previewText: _t('Cancel')
         });
 
         app.on(`animate.ParticleEmitterComponent`, this.onAnimate);
@@ -444,7 +558,7 @@ class ParticleEmitterComponent extends React.Component {
         this.isPlaying = false;
 
         this.setState({
-            previewText: _t('Preview'),
+            previewText: _t('Preview')
         });
 
         let group = this.selected.userData.group;

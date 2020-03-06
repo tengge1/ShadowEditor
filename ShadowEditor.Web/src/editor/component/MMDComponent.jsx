@@ -1,7 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, ButtonProperty, NumberProperty, SelectProperty, ColorProperty, TextureProperty, ButtonsProperty, Button } from '../../third_party';
-import SetValueCommand from '../../command/SetValueCommand';
-import Converter from '../../utils/Converter';
-import Ajax from '../../utils/Ajax';
+import { PropertyGroup, DisplayProperty } from '../../third_party';
 
 /**
  * MMD模型组件

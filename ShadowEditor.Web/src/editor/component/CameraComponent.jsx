@@ -1,4 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty } from '../../third_party';
+import { PropertyGroup, NumberProperty } from '../../third_party';
 import SetValueCommand from '../../command/SetValueCommand';
 
 /**
@@ -14,7 +14,7 @@ class CameraComponent extends React.Component {
             expanded: true,
             fov: 70,
             near: 0.1,
-            far: 1000,
+            far: 1000
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -31,10 +31,26 @@ class CameraComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('Camera Component')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <NumberProperty label={_t('Fov')} name={'fov'} value={fov} onChange={this.handleChangeFov}></NumberProperty>
-            <NumberProperty label={_t('Near')} name={'near'} value={near} onChange={this.handleChangeNear}></NumberProperty>
-            <NumberProperty label={_t('Far')} name={'far'} value={far} onChange={this.handleChangeFar}></NumberProperty>
+        return <PropertyGroup title={_t('Camera Component')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <NumberProperty label={_t('Fov')}
+                name={'fov'}
+                value={fov}
+                onChange={this.handleChangeFov}
+            />
+            <NumberProperty label={_t('Near')}
+                name={'near'}
+                value={near}
+                onChange={this.handleChangeNear}
+            />
+            <NumberProperty label={_t('Far')}
+                name={'far'}
+                value={far}
+                onChange={this.handleChangeFar}
+            />
         </PropertyGroup>;
     }
 
@@ -45,7 +61,7 @@ class CameraComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -55,7 +71,7 @@ class CameraComponent extends React.Component {
         // TODO: 应判断是否等于默认相机
         if (!editor.selected || !(editor.selected instanceof THREE.PerspectiveCamera)) {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -66,14 +82,14 @@ class CameraComponent extends React.Component {
             show: true,
             fov: this.selected.fov,
             near: this.selected.near,
-            far: this.selected.far,
+            far: this.selected.far
         });
     }
 
     handleChangeFov(value) {
         if (value === null) {
             this.setState({
-                fov: value,
+                fov: value
             });
             return;
         }
@@ -84,7 +100,7 @@ class CameraComponent extends React.Component {
     handleChangeNear(value) {
         if (value === null) {
             this.setState({
-                near: value,
+                near: value
             });
             return;
         }
@@ -95,7 +111,7 @@ class CameraComponent extends React.Component {
     handleChangeFar(value) {
         if (value === null) {
             this.setState({
-                far: value,
+                far: value
             });
             return;
         }

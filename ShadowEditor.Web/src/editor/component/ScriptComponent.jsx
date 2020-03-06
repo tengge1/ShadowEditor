@@ -1,7 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, ButtonProperty, NumberProperty, SelectProperty, ColorProperty, TextureProperty, ButtonsProperty, Button } from '../../third_party';
-import SetValueCommand from '../../command/SetValueCommand';
-import Converter from '../../utils/Converter';
-import Ajax from '../../utils/Ajax';
+import { PropertyGroup } from '../../third_party';
 
 /**
  * 脚本组件
@@ -15,7 +12,7 @@ class ScriptComponent extends React.Component {
 
         this.state = {
             show: false,
-            expanded: true,
+            expanded: true
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -29,8 +26,11 @@ class ScriptComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('ScriptComponent')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-        </PropertyGroup>;
+        return <PropertyGroup title={_t('ScriptComponent')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               />;
     }
 
     componentDidMount() {
@@ -40,7 +40,7 @@ class ScriptComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -49,7 +49,7 @@ class ScriptComponent extends React.Component {
 
         if (!editor.selected || !editor.selected.userData) {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -57,7 +57,7 @@ class ScriptComponent extends React.Component {
         this.selected = editor.selected;
 
         let state = {
-            show: true,
+            show: true
         };
 
         this.setState(state);

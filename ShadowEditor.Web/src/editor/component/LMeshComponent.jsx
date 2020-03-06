@@ -1,5 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, ButtonProperty, SelectProperty } from '../../third_party';
-import SetValueCommand from '../../command/SetValueCommand';
+import { PropertyGroup, ButtonProperty, SelectProperty } from '../../third_party';
 
 /**
  * LMesh组件

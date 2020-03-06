@@ -1,5 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, NumberProperty, SelectProperty } from '../../third_party';
-import SetValueCommand from '../../command/SetValueCommand';
+import { PropertyGroup, CheckBoxProperty, NumberProperty } from '../../third_party';
 import SetPositionCommand from '../../command/SetPositionCommand';
 import SetRotationCommand from '../../command/SetRotationCommand';
 import SetScaleCommand from '../../command/SetScaleCommand';
@@ -26,7 +25,7 @@ class TransformComponent extends React.Component {
             scaleX: 1.0,
             scaleY: 1.0,
             scaleZ: 1.0,
-            scaleLocked: true,
+            scaleLocked: true
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -44,17 +43,61 @@ class TransformComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('Transform Component')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <NumberProperty name={'positionX'} label={`${_t('Translate')}X`} value={positionX} onChange={this.handleChangePosition}></NumberProperty>
-            <NumberProperty name={'positionY'} label={`${_t('Translate')}Y`} value={positionY} onChange={this.handleChangePosition}></NumberProperty>
-            <NumberProperty name={'positionZ'} label={`${_t('Translate')}Z`} value={positionZ} onChange={this.handleChangePosition}></NumberProperty>
-            <NumberProperty name={'rotationX'} label={`${_t('Rotate')}X`} value={rotationX} onChange={this.handleChangeRotation}></NumberProperty>
-            <NumberProperty name={'rotationY'} label={`${_t('Rotate')}Y`} value={rotationY} onChange={this.handleChangeRotation}></NumberProperty>
-            <NumberProperty name={'rotationZ'} label={`${_t('Rotate')}Z`} value={rotationZ} onChange={this.handleChangeRotation}></NumberProperty>
-            <NumberProperty name={'scaleX'} label={`${_t('Scale')}X`} value={scaleX} onChange={this.handleChangeScale}></NumberProperty>
-            <NumberProperty name={'scaleY'} label={`${_t('Scale')}Y`} value={scaleY} onChange={this.handleChangeScale}></NumberProperty>
-            <NumberProperty name={'scaleZ'} label={`${_t('Scale')}Z`} value={scaleZ} onChange={this.handleChangeScale}></NumberProperty>
-            <CheckBoxProperty name={'scaleLocked'} label={_t('Scale Locked')} value={scaleLocked} onChange={this.handleChangeScaleLock}></CheckBoxProperty>
+        return <PropertyGroup title={_t('Transform Component')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <NumberProperty name={'positionX'}
+                label={`${_t('Translate')}X`}
+                value={positionX}
+                onChange={this.handleChangePosition}
+            />
+            <NumberProperty name={'positionY'}
+                label={`${_t('Translate')}Y`}
+                value={positionY}
+                onChange={this.handleChangePosition}
+            />
+            <NumberProperty name={'positionZ'}
+                label={`${_t('Translate')}Z`}
+                value={positionZ}
+                onChange={this.handleChangePosition}
+            />
+            <NumberProperty name={'rotationX'}
+                label={`${_t('Rotate')}X`}
+                value={rotationX}
+                onChange={this.handleChangeRotation}
+            />
+            <NumberProperty name={'rotationY'}
+                label={`${_t('Rotate')}Y`}
+                value={rotationY}
+                onChange={this.handleChangeRotation}
+            />
+            <NumberProperty name={'rotationZ'}
+                label={`${_t('Rotate')}Z`}
+                value={rotationZ}
+                onChange={this.handleChangeRotation}
+            />
+            <NumberProperty name={'scaleX'}
+                label={`${_t('Scale')}X`}
+                value={scaleX}
+                onChange={this.handleChangeScale}
+            />
+            <NumberProperty name={'scaleY'}
+                label={`${_t('Scale')}Y`}
+                value={scaleY}
+                onChange={this.handleChangeScale}
+            />
+            <NumberProperty name={'scaleZ'}
+                label={`${_t('Scale')}Z`}
+                value={scaleZ}
+                onChange={this.handleChangeScale}
+            />
+            <CheckBoxProperty name={'scaleLocked'}
+                label={_t('Scale Locked')}
+                value={scaleLocked}
+                onChange={this.handleChangeScaleLock}
+            />
         </PropertyGroup>;
     }
 
@@ -65,7 +108,7 @@ class TransformComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -74,7 +117,7 @@ class TransformComponent extends React.Component {
 
         if (!editor.selected || editor.selected === app.editor.scene || editor.selected.isGlobe) {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -91,20 +134,20 @@ class TransformComponent extends React.Component {
             rotationZ: this.selected.rotation.z * 180 / Math.PI,
             scaleX: this.selected.scale.x,
             scaleY: this.selected.scale.y,
-            scaleZ: this.selected.scale.z,
+            scaleZ: this.selected.scale.z
         });
     }
 
     handleChangePosition(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { positionX, positionY, positionZ } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         app.editor.execute(new SetPositionCommand(this.selected, new THREE.Vector3(
@@ -119,13 +162,13 @@ class TransformComponent extends React.Component {
     handleChangeRotation(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { rotationX, rotationY, rotationZ } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         app.editor.execute(new SetRotationCommand(this.selected, new THREE.Euler(
@@ -140,13 +183,13 @@ class TransformComponent extends React.Component {
     handleChangeScale(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { scaleX, scaleY, scaleZ, scaleLocked } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         if (scaleLocked) {
@@ -160,7 +203,7 @@ class TransformComponent extends React.Component {
 
     handleChangeScaleLock(value, name) {
         this.setState({
-            scaleLocked: value,
+            scaleLocked: value
         });
     }
 }

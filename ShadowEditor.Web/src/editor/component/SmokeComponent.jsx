@@ -1,5 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, ButtonProperty, NumberProperty } from '../../third_party';
-import SetValueCommand from '../../command/SetValueCommand';
+import { PropertyGroup, ButtonProperty, NumberProperty } from '../../third_party';
 
 /**
  * 烟组件
@@ -17,7 +16,7 @@ class SmokeComponent extends React.Component {
             expanded: true,
             size: 2,
             lifetime: 10,
-            previewText: _t('Preview'),
+            previewText: _t('Preview')
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -34,10 +33,24 @@ class SmokeComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('SmokeComponent')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <NumberProperty label={_t('Size')} name={'size'} value={size} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={_t('TimeSpan')} name={'lifetime'} value={lifetime} onChange={this.handleChange}></NumberProperty>
-            <ButtonProperty text={previewText} onChange={this.handlePreview}></ButtonProperty>
+        return <PropertyGroup title={_t('SmokeComponent')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <NumberProperty label={_t('Size')}
+                name={'size'}
+                value={size}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('TimeSpan')}
+                name={'lifetime'}
+                value={lifetime}
+                onChange={this.handleChange}
+            />
+            <ButtonProperty text={previewText}
+                onChange={this.handlePreview}
+            />
         </PropertyGroup>;
     }
 
@@ -48,7 +61,7 @@ class SmokeComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -57,7 +70,7 @@ class SmokeComponent extends React.Component {
 
         if (!editor.selected || !(editor.selected.userData.type === 'Smoke')) {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -68,23 +81,23 @@ class SmokeComponent extends React.Component {
             show: true,
             size: this.selected.userData.size,
             lifetime: this.selected.userData.lifetime,
-            previewText: this.isPlaying ? _t('Cancel') : _t('Preview'),
+            previewText: this.isPlaying ? _t('Cancel') : _t('Preview')
         });
     }
 
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { size, lifetime } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
-        this.selected.userData.size = size
+        this.selected.userData.size = size;
         this.selected.userData.lifetime = lifetime;
 
         this.selected.material.uniforms.size.value = size;
@@ -105,7 +118,7 @@ class SmokeComponent extends React.Component {
         this.isPlaying = true;
 
         this.setState({
-            previewText: _t('Cancel'),
+            previewText: _t('Cancel')
         });
 
         app.on(`animate.SmokeComponent`, this.onAnimate);
@@ -115,13 +128,13 @@ class SmokeComponent extends React.Component {
         this.isPlaying = false;
 
         this.setState({
-            previewText: _t('Preview'),
+            previewText: _t('Preview')
         });
 
         app.on(`animate.SmokeComponent`, null);
     }
 
-    onAnimate(clock, deltaTime) {
+    onAnimate(clock) {
         const elapsed = clock.getElapsedTime();
         this.selected.update(elapsed);
     }

@@ -1,10 +1,5 @@
 import './css/LogPanel.css';
-import { classNames, PropTypes, SearchField, ImageList, Button } from '../../third_party';
-import EditWindow from './window/EditWindow.jsx';
-import ModelLoader from '../../loader/ModelLoader';
-import AddObjectCommand from '../../command/AddObjectCommand';
-import Ajax from '../../utils/Ajax';
-import UploadUtils from '../../utils/UploadUtils';
+import { classNames, PropTypes, Button } from '../../third_party';
 
 /**
  * 日志面板
@@ -15,7 +10,7 @@ class LogPanel extends React.Component {
         super(props);
 
         this.state = {
-            logs: [],
+            logs: []
         };
 
         this.handleLog = this.handleLog.bind(this);
@@ -26,11 +21,15 @@ class LogPanel extends React.Component {
         const { className, style } = this.props;
         const { logs } = this.state;
 
-        return <div className={classNames('LogPanel', className)} style={style}>
+        return <div className={classNames('LogPanel', className)}
+            style={style}
+               >
             <Button onClick={this.handleClear}>{_t('Clear')}</Button>
             <div className={'logs'}>
                 {logs.map((n, i) => {
-                    return <div className={n.type} key={i}>{n.time} {n.content}</div>
+                    return <div className={n.type}
+                        key={i}
+                           >{n.time} {n.content}</div>;
                 })}
             </div>
         </div>;
@@ -56,18 +55,18 @@ class LogPanel extends React.Component {
             logs.push({
                 time: `${hour}:${minute}:${second}`,
                 type,
-                content,
+                content
             });
 
             return {
-                logs,
+                logs
             };
         });
     }
 
     handleClear() {
         this.setState({
-            logs: [],
+            logs: []
         });
     }
 }
@@ -75,13 +74,13 @@ class LogPanel extends React.Component {
 LogPanel.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
-    show: PropTypes.bool,
+    show: PropTypes.bool
 };
 
 LogPanel.defaultProps = {
     className: null,
     style: null,
-    show: false,
+    show: false
 };
 
 export default LogPanel;

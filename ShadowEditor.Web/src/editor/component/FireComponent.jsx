@@ -1,5 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, ButtonProperty, NumberProperty } from '../../third_party';
-import SetValueCommand from '../../command/SetValueCommand';
+import { PropertyGroup, ButtonProperty, NumberProperty } from '../../third_party';
 
 /**
  * 火焰组件
@@ -19,7 +18,7 @@ class FireComponent extends React.Component {
             height: 4,
             depth: 2,
             sliceSpacing: 2,
-            previewText: _t('Preview'),
+            previewText: _t('Preview')
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -36,12 +35,34 @@ class FireComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('Fire Component')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <NumberProperty label={_t('Width')} name={'width'} value={width} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={_t('Height')} name={'height'} value={height} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={_t('Depth')} name={'depth'} value={depth} onChange={this.handleChange}></NumberProperty>
-            <NumberProperty label={_t('SliceSpacing')} name={'sliceSpacing'} value={sliceSpacing} onChange={this.handleChange}></NumberProperty>
-            <ButtonProperty text={previewText} onChange={this.handlePreview}></ButtonProperty>
+        return <PropertyGroup title={_t('Fire Component')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <NumberProperty label={_t('Width')}
+                name={'width'}
+                value={width}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('Height')}
+                name={'height'}
+                value={height}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('Depth')}
+                name={'depth'}
+                value={depth}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('SliceSpacing')}
+                name={'sliceSpacing'}
+                value={sliceSpacing}
+                onChange={this.handleChange}
+            />
+            <ButtonProperty text={previewText}
+                onChange={this.handlePreview}
+            />
         </PropertyGroup>;
     }
 
@@ -52,7 +73,7 @@ class FireComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -61,7 +82,7 @@ class FireComponent extends React.Component {
 
         if (!editor.selected || !(editor.selected.userData.type === 'Fire')) {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -74,20 +95,20 @@ class FireComponent extends React.Component {
             height: this.selected.userData.height,
             depth: this.selected.userData.depth,
             sliceSpacing: this.selected.userData.sliceSpacing,
-            previewText: this.isPlaying ? _t('Cancel') : _t('Preview'),
+            previewText: this.isPlaying ? _t('Cancel') : _t('Preview')
         });
     }
 
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         let { width, height, depth, sliceSpacing } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         VolumetricFire.texturePath = 'assets/textures/VolumetricFire/';
@@ -107,7 +128,7 @@ class FireComponent extends React.Component {
             width,
             height,
             depth,
-            sliceSpacing,
+            sliceSpacing
         });
 
         const index = editor.scene.children.indexOf(this.selected);
@@ -138,7 +159,7 @@ class FireComponent extends React.Component {
         this.isPlaying = true;
 
         this.setState({
-            previewText: _t('Cancel'),
+            previewText: _t('Cancel')
         });
 
         app.on(`animate.FireComponent`, this.onAnimate);
@@ -148,13 +169,13 @@ class FireComponent extends React.Component {
         this.isPlaying = false;
 
         this.setState({
-            previewText: _t('Preview'),
+            previewText: _t('Preview')
         });
 
         app.on(`animate.FireComponent`, null);
     }
 
-    onAnimate(clock, deltaTime) {
+    onAnimate(clock) {
         const elapsed = clock.getElapsedTime();
 
         const fire = this.selected.userData.fire;

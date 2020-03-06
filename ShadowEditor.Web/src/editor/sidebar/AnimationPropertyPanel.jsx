@@ -1,5 +1,5 @@
 import './css/AnimationPropertyPanel.css';
-import { classNames, PropTypes, PropertyGrid } from '../../third_party';
+import { PropertyGrid } from '../../third_party';
 
 import BasicAnimationComponent from '../component/animation/BasicAnimationComponent.jsx';
 import TweenAnimationComponent from '../component/animation/TweenAnimationComponent.jsx';
@@ -15,8 +15,8 @@ class AnimationPropertyPanel extends React.Component {
 
     render() {
         return <PropertyGrid>
-            <BasicAnimationComponent></BasicAnimationComponent>
-            <TweenAnimationComponent></TweenAnimationComponent>
+            <BasicAnimationComponent />
+            <TweenAnimationComponent />
         </PropertyGrid>;
     }
 }

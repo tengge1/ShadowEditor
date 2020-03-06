@@ -1,5 +1,5 @@
 import './css/HistoryPanel.css';
-import { classNames, PropTypes, Button } from '../../third_party';
+import { Button } from '../../third_party';
 
 /**
  * 历史面板
@@ -11,7 +11,7 @@ class HistoryPanel extends React.Component {
 
         this.state = {
             undos: [],
-            redos: [],
+            redos: []
         };
 
         this.ref = React.createRef();
@@ -28,12 +28,23 @@ class HistoryPanel extends React.Component {
             <div className={'toolbar'}>
                 <Button onClick={this.handleClear}>{_t('Clear')}</Button>
             </div>
-            <div className={'content'} ref={this.ref} onClick={this.handleClick}>
+            <div className={'content'}
+                ref={this.ref}
+                onClick={this.handleClick}
+            >
                 {undos.map(n => {
-                    return <div className={'undo'} value={n.id} key={n.id} onClick={this.handleClick}>{n.name}</div>;
+                    return <div className={'undo'}
+                        value={n.id}
+                        key={n.id}
+                        onClick={this.handleClick}
+                           >{n.name}</div>;
                 })}
                 {redos.map(n => {
-                    return <div className={'redo'} value={n.id} key={n.id} onClick={this.handleClick}>{n.name}</div>;
+                    return <div className={'redo'}
+                        value={n.id}
+                        key={n.id}
+                        onClick={this.handleClick}
+                           >{n.name}</div>;
                 })}
             </div>
         </div>;
@@ -57,14 +68,14 @@ class HistoryPanel extends React.Component {
         history.undos.forEach(n => {
             undos.push({
                 id: n.id,
-                name: n.name,
+                name: n.name
             });
         });
 
         history.redos.forEach(n => {
             redos.push({
                 id: n.id,
-                name: n.name,
+                name: n.name
             });
         });
 

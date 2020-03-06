@@ -1,7 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, ButtonProperty, NumberProperty, SelectProperty, ColorProperty, TextureProperty, ButtonsProperty, Button } from '../../third_party';
-import SetValueCommand from '../../command/SetValueCommand';
-import Converter from '../../utils/Converter';
-import Ajax from '../../utils/Ajax';
+import { PropertyGroup, CheckBoxProperty, NumberProperty, SelectProperty, ColorProperty } from '../../third_party';
 
 /**
  * 反光组件
@@ -16,7 +13,7 @@ class ReflectorComponent extends React.Component {
         this.sizes = {
             '512': '512*512',
             '1024': '1024*1024',
-            '2048': '2048*2048',
+            '2048': '2048*2048'
         };
 
         this.state = {
@@ -31,7 +28,7 @@ class ReflectorComponent extends React.Component {
             showClipBias: false,
             clipBias: 0,
             showRecursion: false,
-            recursion: false,
+            recursion: false
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -47,12 +44,41 @@ class ReflectorComponent extends React.Component {
             return null;
         }
 
-        return <PropertyGroup title={_t('Reflector Component')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <CheckBoxProperty label={_t('Reflect')} name={'reflect'} value={reflect} onChange={this.handleChange}></CheckBoxProperty>
-            <ColorProperty label={_t('Color')} name={'color'} value={color} show={showColor} onChange={this.handleChange}></ColorProperty>
-            <SelectProperty label={_t('TextureSize')} name={'size'} options={this.sizes} value={size} show={showSize} onChange={this.handleChange}></SelectProperty>
-            <NumberProperty label={_t('ClipBias')} name={'clipBias'} value={clipBias} show={showClipBias} onChange={this.handleChange}></NumberProperty>
-            <CheckBoxProperty label={_t('Recursion')} name={'recursion'} value={recursion} show={showRecursion} onChange={this.handleChange}></CheckBoxProperty>
+        return <PropertyGroup title={_t('Reflector Component')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <CheckBoxProperty label={_t('Reflect')}
+                name={'reflect'}
+                value={reflect}
+                onChange={this.handleChange}
+            />
+            <ColorProperty label={_t('Color')}
+                name={'color'}
+                value={color}
+                show={showColor}
+                onChange={this.handleChange}
+            />
+            <SelectProperty label={_t('TextureSize')}
+                name={'size'}
+                options={this.sizes}
+                value={size}
+                show={showSize}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('ClipBias')}
+                name={'clipBias'}
+                value={clipBias}
+                show={showClipBias}
+                onChange={this.handleChange}
+            />
+            <CheckBoxProperty label={_t('Recursion')}
+                name={'recursion'}
+                value={recursion}
+                show={showRecursion}
+                onChange={this.handleChange}
+            />
         </PropertyGroup>;
     }
 
@@ -63,7 +89,7 @@ class ReflectorComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -72,7 +98,7 @@ class ReflectorComponent extends React.Component {
 
         if (!editor.selected || !(editor.selected instanceof THREE.Mesh)) {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -80,7 +106,7 @@ class ReflectorComponent extends React.Component {
         this.selected = editor.selected;
 
         let state = {
-            show: true,
+            show: true
         };
 
         if (this.selected instanceof THREE.Reflector) {
@@ -93,7 +119,7 @@ class ReflectorComponent extends React.Component {
                 showClipBias: true,
                 clipBias: this.selected.userData.clipBias,
                 showRecursion: true,
-                recursion: this.selected.userData.recursion,
+                recursion: this.selected.userData.recursion
             });
         } else {
             Object.assign(state, {
@@ -101,7 +127,7 @@ class ReflectorComponent extends React.Component {
                 showColor: false,
                 showSize: false,
                 showClipBias: false,
-                showRecursion: false,
+                showRecursion: false
             });
         }
 
@@ -111,13 +137,13 @@ class ReflectorComponent extends React.Component {
     handleChange(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
 
         const { reflect, color, size, clipBias, recursion } = Object.assign({}, this.state, {
-            [name]: value,
+            [name]: value
         });
 
         let editor = app.editor;

@@ -1,5 +1,4 @@
-import { PropertyGrid, PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty, ButtonProperty, NumberProperty, ColorProperty } from '../../third_party';
-import SetValueCommand from '../../command/SetValueCommand';
+import { PropertyGroup, NumberProperty, ColorProperty } from '../../third_party';
 
 /**
  * 光源组件
@@ -43,7 +42,7 @@ class LightComponent extends React.Component {
             width: 20,
 
             showHeight: false,
-            height: 10,
+            height: 10
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -72,24 +71,78 @@ class LightComponent extends React.Component {
             showSkyColor, skyColor,
             showGroundColor, groundColor,
             showWidth, width,
-            showHeight, height,
+            showHeight, height
         } = this.state;
 
         if (!show) {
             return null;
         }
 
-        return <PropertyGroup title={_t('Light Component')} show={show} expanded={expanded} onExpand={this.handleExpand}>
-            <ColorProperty label={_t('Color')} name={'color'} value={color} show={showColor} onChange={this.handleChangeColor}></ColorProperty>
-            <NumberProperty label={_t('Intensity')} name={'intensity'} value={intensity} show={showIntensity} onChange={this.handleChangeIntensity}></NumberProperty>
-            <NumberProperty label={_t('Distance')} name={'distance'} value={distance} show={showDistance} onChange={this.handleChangeDistance}></NumberProperty>
-            <NumberProperty label={_t('Angle')} name={'angle'} value={angle} show={showAngle} onChange={this.handleChangeAngle}></NumberProperty>
-            <NumberProperty label={_t('Penumbra')} name={'penumbra'} value={penumbra} show={showPenumbra} onChange={this.handleChangePenumbra}></NumberProperty>
-            <NumberProperty label={_t('Decay')} name={'decay'} value={decay} show={showDecay} onChange={this.handleChangeDecay}></NumberProperty>
-            <ColorProperty label={_t('SkyColor')} name={'skyColor'} value={skyColor} show={showSkyColor} onChange={this.handleChangeSkyColor}></ColorProperty>
-            <ColorProperty label={_t('GroundColor')} name={'groundColor'} value={groundColor} show={showGroundColor} onChange={this.handleChangeGroundColor}></ColorProperty>
-            <NumberProperty label={_t('Width')} name={'width'} value={width} show={showWidth} onChange={this.handleChangeWidth}></NumberProperty>
-            <NumberProperty label={_t('Height')} name={'height'} value={height} show={showHeight} onChange={this.handleChangeHeight}></NumberProperty>
+        return <PropertyGroup title={_t('Light Component')}
+            show={show}
+            expanded={expanded}
+            onExpand={this.handleExpand}
+               >
+            <ColorProperty label={_t('Color')}
+                name={'color'}
+                value={color}
+                show={showColor}
+                onChange={this.handleChangeColor}
+            />
+            <NumberProperty label={_t('Intensity')}
+                name={'intensity'}
+                value={intensity}
+                show={showIntensity}
+                onChange={this.handleChangeIntensity}
+            />
+            <NumberProperty label={_t('Distance')}
+                name={'distance'}
+                value={distance}
+                show={showDistance}
+                onChange={this.handleChangeDistance}
+            />
+            <NumberProperty label={_t('Angle')}
+                name={'angle'}
+                value={angle}
+                show={showAngle}
+                onChange={this.handleChangeAngle}
+            />
+            <NumberProperty label={_t('Penumbra')}
+                name={'penumbra'}
+                value={penumbra}
+                show={showPenumbra}
+                onChange={this.handleChangePenumbra}
+            />
+            <NumberProperty label={_t('Decay')}
+                name={'decay'}
+                value={decay}
+                show={showDecay}
+                onChange={this.handleChangeDecay}
+            />
+            <ColorProperty label={_t('SkyColor')}
+                name={'skyColor'}
+                value={skyColor}
+                show={showSkyColor}
+                onChange={this.handleChangeSkyColor}
+            />
+            <ColorProperty label={_t('GroundColor')}
+                name={'groundColor'}
+                value={groundColor}
+                show={showGroundColor}
+                onChange={this.handleChangeGroundColor}
+            />
+            <NumberProperty label={_t('Width')}
+                name={'width'}
+                value={width}
+                show={showWidth}
+                onChange={this.handleChangeWidth}
+            />
+            <NumberProperty label={_t('Height')}
+                name={'height'}
+                value={height}
+                show={showHeight}
+                onChange={this.handleChangeHeight}
+            />
         </PropertyGroup>;
     }
 
@@ -100,7 +153,7 @@ class LightComponent extends React.Component {
 
     handleExpand(expanded) {
         this.setState({
-            expanded,
+            expanded
         });
     }
 
@@ -109,7 +162,7 @@ class LightComponent extends React.Component {
 
         if (!editor.selected || !(editor.selected instanceof THREE.Light)) {
             this.setState({
-                show: false,
+                show: false
             });
             return;
         }
@@ -117,7 +170,7 @@ class LightComponent extends React.Component {
         this.selected = editor.selected;
 
         let state = {
-            show: true,
+            show: true
         };
 
         if (this.selected instanceof THREE.HemisphereLight) {
@@ -176,7 +229,7 @@ class LightComponent extends React.Component {
     handleChangeColor(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
@@ -195,7 +248,7 @@ class LightComponent extends React.Component {
     handleChangeIntensity(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
@@ -208,7 +261,7 @@ class LightComponent extends React.Component {
     handleChangeDistance(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
@@ -221,7 +274,7 @@ class LightComponent extends React.Component {
     handleChangeAngle(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
@@ -234,7 +287,7 @@ class LightComponent extends React.Component {
     handleChangePenumbra(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
@@ -247,7 +300,7 @@ class LightComponent extends React.Component {
     handleChangeDecay(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
@@ -260,7 +313,7 @@ class LightComponent extends React.Component {
     handleChangeSkyColor(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
@@ -279,7 +332,7 @@ class LightComponent extends React.Component {
     handleChangeGroundColor(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
@@ -298,7 +351,7 @@ class LightComponent extends React.Component {
     handleChangeWidth(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
@@ -311,7 +364,7 @@ class LightComponent extends React.Component {
     handleChangeHeight(value, name) {
         if (value === null) {
             this.setState({
-                [name]: value,
+                [name]: value
             });
             return;
         }
