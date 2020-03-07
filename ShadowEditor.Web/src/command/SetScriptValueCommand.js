@@ -4,12 +4,12 @@ import Command from './Command';
  * 设置脚本值命令
  * @author dforrer / https://github.com/dforrer
  * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
- * @param object THREE.Object3D
- * @param script javascript object
- * @param attributeName string
- * @param newValue string, object
- * @param cursorPosition javascript object with format {line: 2, ch: 3}
- * @param scrollInfo javascript object with values {left, top, width, height, clientWidth, clientHeight}
+ * @param {THREE.Object3D} object THREE.Object3D
+ * @param {String} script javascript object
+ * @param {String} attributeName string
+ * @param {Object} newValue string, object
+ * @param {Object} cursorPosition javascript object with format {line: 2, ch: 3}
+ * @param {Object} scrollInfo javascript object with values {left, top, width, height, clientWidth, clientHeight}
  * @constructor
  */
 function SetScriptValueCommand(object, script, attributeName, newValue, cursorPosition, scrollInfo) {

@@ -68,7 +68,7 @@ Histogram.prototype.render = function (parent) {
         .attr('y', function (d) {
             return 133.6 - d;
         })
-        .attr('width', function (d) {
+        .attr('width', function () {
             return 10;
         })
         .attr('height', function (d) {

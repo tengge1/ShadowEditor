@@ -2,7 +2,7 @@ import Renderer from './Renderer';
 import BackgroundRenderer from './BackgroundRenderer';
 import SunRenderer from './SunRenderer';
 import TiledLayerRenderer from './TiledLayerRenderer';
-import AtmosphereRenderer from './AtmosphereRenderer';
+// import AtmosphereRenderer from './AtmosphereRenderer';
 
 /**
  * 所有渲染器

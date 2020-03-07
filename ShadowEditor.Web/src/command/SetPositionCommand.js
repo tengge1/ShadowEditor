@@ -4,9 +4,9 @@ import Command from './Command';
  * 设置位置命令
  * @author dforrer / https://github.com/dforrer
  * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
- * @param object THREE.Object3D
- * @param newPosition THREE.Vector3
- * @param optionalOldPosition THREE.Vector3
+ * @param {THREE.Object3D} object 物体
+ * @param {THREE.Vector3} newPosition 新位置
+ * @param {THREE.Vector3} optionalOldPosition 可选旧位置
  * @constructor
  */
 function SetPositionCommand(object, newPosition, optionalOldPosition) {

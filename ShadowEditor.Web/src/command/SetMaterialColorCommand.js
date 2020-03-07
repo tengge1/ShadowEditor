@@ -6,9 +6,9 @@ let color = new THREE.Color();
  * 设置材质颜色命令
  * @author dforrer / https://github.com/dforrer
  * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
- * @param object THREE.Object3D
- * @param attributeName string
- * @param newValue integer representing a hex color value or a hex string startsWith `#`
+ * @param {THREE.Object3D} object 物体
+ * @param {String} attributeName 属性名称
+ * @param {String} newValue integer representing a hex color value or a hex string startsWith `#`
  * @constructor
  */
 function SetMaterialColorCommand(object, attributeName, newValue) {

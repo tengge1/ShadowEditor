@@ -1,7 +1,8 @@
 /**
  * The OES_texture_float extension is part of the WebGL API and 
  * exposes floating-point pixel types for textures.
- * @param {*} gl 
+ * @param {*} gl WebGL
+ * @returns {*} Extension
  * @see https://developer.mozilla.org/en-US/docs/Web/API/OES_texture_float
  */
 function OES_texture_float(gl) {

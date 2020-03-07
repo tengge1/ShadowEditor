@@ -159,7 +159,7 @@ PhysicsEngine.prototype.updatePhysicsWorld = function () {
 PhysicsEngine.prototype.createRigidBody = function (obj) {
     let position = obj.position;
     let quaternion = obj.quaternion;
-    let scale = obj.scale;
+    // let scale = obj.scale;
 
     let physics = obj.userData.physics;
     let shape = physics.shape;

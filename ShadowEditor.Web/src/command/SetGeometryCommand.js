@@ -4,8 +4,8 @@ import Command from './Command';
  * 设置几何体命令
  * @author dforrer / https://github.com/dforrer
  * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
- * @param object THREE.Object3D
- * @param newGeometry THREE.Geometry
+ * @param {THREE.Object3D} object 物体
+ * @param {THREE.Geometry} newGeometry 几何体
  * @constructor
  */
 function SetGeometryCommand(object, newGeometry) {

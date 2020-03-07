@@ -86,10 +86,10 @@ ScatterPlot.prototype.render = function (parent) {
         left: 40
     };
 
-    var width = xAxisWidth + padding.left + padding.right;
+    // var width = xAxisWidth + padding.left + padding.right;
     var height = yAxisWidth + padding.top + padding.bottom;
 
-    var circle = g.selectAll('circle')
+    g.selectAll('circle')
         .data(center)
         .enter()
         .append('circle')

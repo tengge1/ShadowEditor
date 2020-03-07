@@ -89,8 +89,8 @@ PartitionDiagram.prototype.render = function (parent) {
         }]
     };
 
-    var width = 800;
-    var height = 500;
+    // var width = 800;
+    // var height = 500;
 
     var hierarchy = d3.hierarchy(city);
 

@@ -4,7 +4,7 @@ import Command from './Command';
  * 同时执行多种命令
  * @author dforrer / https://github.com/dforrer
  * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
- * @param cmdArray array containing command objects
+ * @param {Array} cmdArray array containing command objects
  * @constructor
  */
 function MultiCmdsCommand(cmdArray) {

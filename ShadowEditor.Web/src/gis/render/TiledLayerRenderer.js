@@ -2,7 +2,7 @@ import Renderer from './Renderer';
 import SphereTileCreator from '../tile/SphereTileCreator';
 import TiledVertex from './shader/tiled_vertex.glsl';
 import TiledFragment from './shader/tiled_fragment.glsl';
-import WGS84 from '../core/WGS84';
+// import WGS84 from '../core/WGS84';
 
 /**
  * 瓦片图层渲染器

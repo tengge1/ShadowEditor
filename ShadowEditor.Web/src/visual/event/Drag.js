@@ -1,5 +1,6 @@
 /**
  * 通用拖动事件
+ * @returns {Object} 拖动事件
  */
 function Drag() {
     var drag = d3.drag()

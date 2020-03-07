@@ -4,9 +4,9 @@ import Command from './Command';
  * 设置值命令
  * @author dforrer / https://github.com/dforrer
  * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
- * @param object THREE.Object3D
- * @param attributeName string
- * @param newValue number, string, boolean or object
+ * @param {THREE.Object3D} object 物体
+ * @param {String} attributeName 属性名称
+ * @param {String} newValue number, string, boolean or object
  * @constructor
  */
 function SetValueCommand(object, attributeName, newValue) {

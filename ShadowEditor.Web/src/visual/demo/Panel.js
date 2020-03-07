@@ -2,7 +2,7 @@ import Component from './Component';
 
 /**
  * 面板
- * @param {*} options 
+ * @param {*} options 配置
  */
 function Panel(options) {
     Component.call(this, options);

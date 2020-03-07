@@ -1,7 +1,8 @@
 /**
  * The WEBGL_compressed_texture_s3tc extension is part of the WebGL API and 
  * exposes four S3TC compressed texture formats.
- * @param {*} gl 
+ * @param {*} gl WebGL
+ * @returns {*} Extension
  * @see https://developer.mozilla.org/en-US/docs/Web/API/WEBGL_compressed_texture_s3tc
  */
 function WEBGL_compressed_texture_s3tc(gl) {

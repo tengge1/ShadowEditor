@@ -4,9 +4,9 @@ import Command from './Command';
  * 设置旋转命令
  * @author dforrer / https://github.com/dforrer
  * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
- * @param object THREE.Object3D
- * @param newRotation THREE.Euler
- * @param optionalOldRotation THREE.Euler
+ * @param {THREE.Object3D} object 物体
+ * @param {THREE.Euler} newRotation 新欧拉角
+ * @param {THREE.Euler} optionalOldRotation 可选旧欧拉角
  * @constructor
  */
 function SetRotationCommand(object, newRotation, optionalOldRotation) {

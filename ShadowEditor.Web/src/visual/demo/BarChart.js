@@ -2,7 +2,7 @@ import Component from './Component';
 
 /**
  * 条形图
- * @param {*} options 
+ * @param {*} options 配置
  */
 function BarChart(options) {
     Component.call(this, options);

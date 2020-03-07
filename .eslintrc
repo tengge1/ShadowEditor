@@ -5,8 +5,10 @@
 		"plugin:react/recommended"
 	],
 	"parser": "babel-eslint",
-	"ecmaFeatures": {
-		"jsx": true
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true
+		}
 	},
 	"plugins": [
 		"react"
@@ -18,6 +20,11 @@
 		"node": true,
 		"es6": true,
 		"worker": true
+	},
+	"settings": {
+		"react": {
+			"version": "16.8.6"
+		}
 	},
 	"rules": {
 		"eqeqeq": 2,

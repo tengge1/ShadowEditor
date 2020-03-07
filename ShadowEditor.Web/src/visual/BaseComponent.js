@@ -19,7 +19,7 @@ BaseComponent.prototype.setTranslate = null;
  * 渲染组件
  * @param {SVGElement} parent 父组件
  */
-BaseComponent.prototype.render = function (parent) {
+BaseComponent.prototype.render = function (parent) { // eslint-disable-line
 
 };
 
@@ -34,7 +34,7 @@ BaseComponent.prototype.toJSON = function () {
  * json转组件
  * @param {Object} json JSON字符串反序列化后的对象
  */
-BaseComponent.prototype.fromJSON = function (json) {
+BaseComponent.prototype.fromJSON = function (json) { // eslint-disable-line
 
 };
 

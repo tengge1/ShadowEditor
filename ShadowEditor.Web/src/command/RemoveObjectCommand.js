@@ -4,7 +4,7 @@ import Command from './Command';
  * 移除物体命令
  * @author dforrer / https://github.com/dforrer
  * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
- * @param object THREE.Object3D
+ * @param {THREE.Object3D} object 物体
  * @constructor
  */
 function RemoveObjectCommand(object) {
@@ -28,7 +28,7 @@ Object.assign(RemoveObjectCommand.prototype, {
 	constructor: RemoveObjectCommand,
 
 	execute: function () {
-		var scope = this.editor;
+		// var scope = this.editor;
 
 		this.parent.remove(this.object);
 
@@ -40,7 +40,7 @@ Object.assign(RemoveObjectCommand.prototype, {
 	},
 
 	undo: function () {
-		var scope = this.editor;
+		// var scope = this.editor;
 
 		this.parent.children.splice(this.index, 0, this.object);
 		this.object.parent = this.parent;

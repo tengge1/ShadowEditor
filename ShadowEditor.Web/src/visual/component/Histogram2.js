@@ -61,7 +61,7 @@ Histogram2.prototype.render = function (parent) {
         .domain([0, d3.max(dataset)])
         .range([0, yAxisWidth]);
 
-    var rect = g.selectAll('rect')
+    g.selectAll('rect')
         .data(dataset)
         .enter()
         .append('rect')
@@ -78,7 +78,7 @@ Histogram2.prototype.render = function (parent) {
             return yScale(d);
         });
 
-    var text = g.selectAll('text')
+    g.selectAll('text')
         .data(dataset)
         .enter()
         .append('text')

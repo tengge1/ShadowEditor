@@ -55,7 +55,7 @@ OrthographicCameraControls.prototype.onMouseMove = function (event) {
         return;
     }
 
-    let camera = this.camera;
+    // let camera = this.camera;
 
     let width = this.domElement.clientWidth;
     let height = this.domElement.clientHeight;
@@ -73,7 +73,7 @@ OrthographicCameraControls.prototype.onMouseMove = function (event) {
     this.offsetXY.set(event.offsetX, event.offsetY);
 };
 
-OrthographicCameraControls.prototype.onMouseUp = function (event) {
+OrthographicCameraControls.prototype.onMouseUp = function () {
     this.isDown = false;
 };
 

@@ -4,9 +4,9 @@ import Command from './Command';
  * 设置缩放命令
  * @author dforrer / https://github.com/dforrer
  * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
- * @param object THREE.Object3D
- * @param newScale THREE.Vector3
- * @param optionalOldScale THREE.Vector3
+ * @param {THREE.Object3D} object 物体
+ * @param {THREE.Vector3} newScale 新缩放
+ * @param {THREE.Vector3} optionalOldScale 可选旧缩放
  * @constructor
  */
 function SetScaleCommand(object, newScale, optionalOldScale) {

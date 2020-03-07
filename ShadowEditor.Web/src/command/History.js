@@ -113,16 +113,18 @@ Object.assign(History.prototype, {
         history.undos = [];
         history.redos = [];
 
+        var i;
+
         // Append Undos to History
-        for (var i = 0; i < this.undos.length; i++) {
-            if (this.undos[i].hasOwnProperty("json")) {
+        for (i = 0; i < this.undos.length; i++) {
+            if (Object.prototype.hasOwnProperty.call(this.undos[i], "json")) {
                 history.undos.push(this.undos[i].json);
             }
         }
 
         // Append Redos to History
-        for (var i = 0; i < this.redos.length; i++) {
-            if (this.redos[i].hasOwnProperty("json")) {
+        for (i = 0; i < this.redos.length; i++) {
+            if (Object.prototype.hasOwnProperty.call(this.redos[i], "json")) {
                 history.redos.push(this.redos[i].json);
             }
         }
@@ -133,9 +135,11 @@ Object.assign(History.prototype, {
     fromJSON: function (json) {
         if (json === undefined) return;
 
-        for (var i = 0; i < json.undos.length; i++) {
-            var cmdJSON = json.undos[i];
-            var cmd = new window[cmdJSON.type](); // creates a new object of type "json.type"
+        var i = 0, cmdJSON, cmd;
+
+        for (i = 0; i < json.undos.length; i++) {
+            cmdJSON = json.undos[i];
+            cmd = new window[cmdJSON.type](); // creates a new object of type "json.type"
             cmd.json = cmdJSON;
             cmd.id = cmdJSON.id;
             cmd.name = cmdJSON.name;
@@ -143,9 +147,9 @@ Object.assign(History.prototype, {
             this.idCounter = cmdJSON.id > this.idCounter ? cmdJSON.id : this.idCounter; // set last used idCounter
         }
 
-        for (var i = 0; i < json.redos.length; i++) {
-            var cmdJSON = json.redos[i];
-            var cmd = new window[cmdJSON.type](); // creates a new object of type "json.type"
+        for (i = 0; i < json.redos.length; i++) {
+            cmdJSON = json.redos[i];
+            cmd = new window[cmdJSON.type](); // creates a new object of type "json.type"
             cmd.json = cmdJSON;
             cmd.id = cmdJSON.id;
             cmd.name = cmdJSON.name;
@@ -174,13 +178,15 @@ Object.assign(History.prototype, {
                 cmd = this.redo();
             }
         } else {
-            while (true) {
+            while (true) { // eslint-disable-line
                 cmd = this.undos[this.undos.length - 1]; // next cmd to pop
-                if (cmd === undefined || id === cmd.id) break;
+                if (cmd === undefined || id === cmd.id) {
+                    break;
+                }
                 cmd = this.undo();
             }
         }
-        
+
         app.call('historyChanged', this, cmd);
     },
 
@@ -197,7 +203,7 @@ Object.assign(History.prototype, {
 
         var cmd = this.redo();
         while (cmd !== undefined) {
-            if (!cmd.hasOwnProperty("json")) {
+            if (!Object.prototype.hasOwnProperty.call(cmd, "json")) {
                 cmd.json = cmd.toJSON();
             }
             cmd = this.redo();

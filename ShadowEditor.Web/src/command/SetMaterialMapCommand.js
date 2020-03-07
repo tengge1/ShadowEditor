@@ -4,9 +4,9 @@ import Command from './Command';
  * 设置材质纹理命令
  * @author dforrer / https://github.com/dforrer
  * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
- * @param object THREE.Object3D
- * @param mapName string
- * @param newMap THREE.Texture
+ * @param {THREE.Object3D} object 物体
+ * @param {String} mapName 属性名称
+ * @param {THREE.Texture} newMap 新纹理
  * @constructor
  */
 function SetMaterialMapCommand(object, mapName, newMap) {

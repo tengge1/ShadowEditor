@@ -3,10 +3,9 @@ import BaseEvent from '../BaseEvent';
 /**
  * 拖动事件
  * @author tengge / https://github.com/tengge1
- * @param {*} app 
  */
-function DraggableEvent(app) {
-    BaseEvent.call(this, app);
+function DraggableEvent() {
+    BaseEvent.call(this);
 }
 
 DraggableEvent.prototype = Object.create(BaseEvent.prototype);

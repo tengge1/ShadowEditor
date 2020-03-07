@@ -155,8 +155,8 @@ ChordGraph.prototype.render = function (parent) {
         return function (g, i) {
             gInner.selectAll('.innerPath')
                 .filter(function (d) {
-                    return d.source.index != i &&
-                        d.target.index != i;
+                    return d.source.index !== i &&
+                        d.target.index !== i;
                 })
                 .transition()
                 .style('opacity', opacity);

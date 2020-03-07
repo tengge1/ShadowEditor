@@ -79,7 +79,7 @@ PackDiagram.prototype.render = function (parent) {
 
     var pack = d3.pack()
         .size([width, height])
-        .radius(function (d) {
+        .radius(function () {
             return 30;
         })
         .padding(5);

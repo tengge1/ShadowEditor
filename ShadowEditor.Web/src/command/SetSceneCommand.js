@@ -7,7 +7,7 @@ import AddObjectCommand from './AddObjectCommand';
  * 设置场景命令
  * @author dforrer / https://github.com/dforrer
  * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
- * @param scene containing children to import
+ * @param {THREE.Scene} scene containing children to import
  * @constructor
  */
 function SetSceneCommand(scene) {

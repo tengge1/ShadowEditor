@@ -4,9 +4,9 @@ import Command from './Command';
  * 设置颜色命令
  * @author dforrer / https://github.com/dforrer
  * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
- * @param object THREE.Object3D
- * @param attributeName string
- * @param newValue integer representing a hex color value
+ * @param {THREE.Object3D} object 物体
+ * @param {String} attributeName 属性名称
+ * @param {Object} newValue HEX颜色值
  * @constructor
  */
 function SetColorCommand(object, attributeName, newValue) {

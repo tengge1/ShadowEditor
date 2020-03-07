@@ -3,8 +3,8 @@ import PlayerComponent from '../PlayerComponent';
 /**
  * 按z键扔球事件
  * @param {*} app 播放器
- * @param {*} world 
- * @param {*} rigidBodies 
+ * @param {*} world 物理世界
+ * @param {*} rigidBodies 刚体
  */
 function ThrowBallEvent(app, world, rigidBodies) {
     PlayerComponent.call(this, app);

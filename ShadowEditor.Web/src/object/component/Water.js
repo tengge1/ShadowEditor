@@ -1,5 +1,5 @@
 import HeightmapFragmentShader from './shader/heightmap_fragment.glsl';
-import SmoothFragmentShader from './shader/smooth_fragment.glsl';
+// import SmoothFragmentShader from './shader/smooth_fragment.glsl';
 import WaterVertexShader from './shader/water_vertex.glsl';
 
 /**
@@ -76,11 +76,11 @@ function Water(renderer) {
         console.error(error);
     }
 
-    var smoothShader = gpuCompute.createShaderMaterial(SmoothFragmentShader, {
-        texture: {
-            value: null
-        }
-    });
+    // var smoothShader = gpuCompute.createShaderMaterial(SmoothFragmentShader, {
+    //     texture: {
+    //         value: null
+    //     }
+    // });
 
     this.heightmapVariable = heightmapVariable;
     this.gpuCompute = gpuCompute;
@@ -99,7 +99,7 @@ Water.prototype.fillTexture = function (texture, WIDTH) {
 
     var waterMaxHeight = 30;
 
-    function noise(x, y, z) {
+    function noise(x, y) {
         var multR = waterMaxHeight;
         var mult = 0.025;
         var r = 0;

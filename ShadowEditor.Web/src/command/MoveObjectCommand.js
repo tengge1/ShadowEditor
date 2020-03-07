@@ -4,9 +4,9 @@ import Command from './Command';
  * 移动物体命令
  * @author dforrer / https://github.com/dforrer
  * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
- * @param object THREE.Object3D
- * @param newParent THREE.Object3D
- * @param newBefore THREE.Object3D
+ * @param {THREE.Object3D} object 当前物体
+ * @param {THREE.Object3D} newParent 新的父要素
+ * @param {THREE.Object3D} newBefore 旧的父要素
  * @constructor
  */
 function MoveObjectCommand(object, newParent, newBefore) {

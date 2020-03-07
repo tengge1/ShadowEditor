@@ -4,8 +4,8 @@ import Command from './Command';
  * 设置uuid命令
  * @author dforrer / https://github.com/dforrer
  * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
- * @param object THREE.Object3D
- * @param newUuid string
+ * @param {THREE.Object3D} object 物体
+ * @param {String} newUuid 新的UUID
  * @constructor
  */
 function SetUuidCommand(object, newUuid) {

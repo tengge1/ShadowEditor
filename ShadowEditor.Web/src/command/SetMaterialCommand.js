@@ -4,8 +4,8 @@ import Command from './Command';
  * 设置材质命令
  * @author dforrer / https://github.com/dforrer
  * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
- * @param object THREE.Object3D
- * @param newMaterial THREE.Material
+ * @param {THREE.Object3D} object 物体
+ * @param {THREE.Material} newMaterial 新材质
  * @constructor
  */
 function SetMaterialCommand(object, newMaterial) {

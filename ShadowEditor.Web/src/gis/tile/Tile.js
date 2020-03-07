@@ -1,4 +1,4 @@
-import WGS84 from '../core/WGS84';
+// import WGS84 from '../core/WGS84';
 import GeoUtils from '../utils/GeoUtils';
 
 /**

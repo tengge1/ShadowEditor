@@ -1,7 +1,7 @@
 import Renderer from './Renderer';
 import SunVertex from './shader/sun_vertex.glsl';
 import SunFragment from './shader/sun_fragment.glsl';
-import WGS84 from '../core/WGS84';
+// import WGS84 from '../core/WGS84';
 
 /**
  * 太阳渲染器

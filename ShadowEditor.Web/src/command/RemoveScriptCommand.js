@@ -4,8 +4,8 @@ import Command from './Command';
  * 移除脚本命令
  * @author dforrer / https://github.com/dforrer
  * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
- * @param object THREE.Object3D
- * @param script javascript object
+ * @param {THREE.Object3D} object 物体
+ * @param {String} script 脚本
  * @constructor
  */
 function RemoveScriptCommand(object, script) {

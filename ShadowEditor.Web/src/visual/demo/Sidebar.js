@@ -2,7 +2,7 @@ import Component from './Component';
 
 /**
  * 侧边栏
- * @param {*} options 
+ * @param {*} options 配置
  */
 function Sidebar(options) {
     Component.call(this, options);
@@ -70,12 +70,12 @@ Sidebar.prototype.render = function () {
         .attr('fill', 'none');
 
     // 选项卡
-    var tabDef = defs.append('path')
+    defs.append('path')
         .attr('id', 'tabDef')
         .attr('d', 'M0,0 L32,22 L32,60 L0,38 Z')
         .attr('fill', '#6c6f6e');
 
-    var tabSelectDef = defs.append('path')
+    defs.append('path')
         .attr('id', 'tabSelectDef')
         .attr('d', 'M0,0 L32,22 L32,60 L0,38 Z')
         .attr('fill', '#356899');
@@ -299,7 +299,7 @@ Sidebar.prototype.render = function () {
         .attr('font-size', 14);
 
     // 中等面板
-    var mediumPanelDef = defs.append('path')
+    defs.append('path')
         .attr('id', 'mediumPanelDef')
         .attr('d', 'M5,0 L160,0 L166,6 L166,33 L158,38 L158,91 L166,96 L166,125 L158,130 L5,130 L0,125 L0,96 L5,91 L5,36 L0,33 L0,6 Z')
         .attr('fill', 'rgba(0,0,0,0.5)');
@@ -510,7 +510,7 @@ Sidebar.prototype.render = function () {
         .attr('fill', 'rgba(0,0,0,0.5)');
 
     // 标签
-    var labelDef = defs.append('path')
+    defs.append('path')
         .attr('id', 'labelDef')
         .attr('d', 'M11,0 L72,0 L85,12 L72,24 L11,24 L0,12 Z')
         .attr('fill', 'rgba(23,29,48,0.5)');
@@ -535,7 +535,7 @@ Sidebar.prototype.render = function () {
         .attr('y', function (d) {
             return 133.6 - d;
         })
-        .attr('width', function (d) {
+        .attr('width', function () {
             return 10;
         })
         .attr('height', function (d) {
@@ -601,7 +601,7 @@ Sidebar.prototype.render = function () {
         .attr('stroke-width', 2)
         .attr('fill', 'none');
 
-    var label = linechart.append('g')
+    label = linechart.append('g')
         .attr('transform', 'translate(117,140)');
 
     label.append('use')
