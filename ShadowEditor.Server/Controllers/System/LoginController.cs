@@ -97,7 +97,6 @@ namespace ShadowEditor.Server.Controllers.System
             var newTicket = new FormsAuthenticationTicket(ticket.Version, ticket.Name, ticket.IssueDate, ticket.Expiration, ticket.IsPersistent, JsonConvert.SerializeObject(ticketData)); // 将用户ID写入ticket
             cookie.Value = FormsAuthentication.Encrypt(newTicket);
             cookie.Expires = DateTime.Now.AddMinutes(ConfigHelper.Expires);
-            cookie.HttpOnly = false;
             HttpContext.Current.Response.Cookies.Add(cookie);
 
             return Json(new
@@ -124,6 +123,7 @@ namespace ShadowEditor.Server.Controllers.System
 
             if (cookie != null)
             {
+                cookie.SameSite = SameSiteMode.Lax;
                 cookie.Expires = DateTime.Now.AddDays(-1);
                 HttpContext.Current.Response.Cookies.Add(cookie);
             }

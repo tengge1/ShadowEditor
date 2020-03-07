@@ -17,7 +17,8 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 4. 只有用到`GPU Pick`的时候才启用，提高性能。
 5. 由于需要支持`SameSite`属性，支持的`.net framework`最低版本由`4.5`（2012-08-15）改为`4.7.2`（2018-04-30）。
 6. 对服务端依赖的第三方模块进行升级。
-6. 修复eslint找到的所有错误和警告。
+7. 修复`eslint`找到的所有错误和警告。
+8. 设置`HttpOnly=true, SameSite=Lax`，js不再能访问`.ASPXAUTH`，提高安全性。
 
 ## v0.4.3更新【[更新日志](docs-dev/update/UpdateLog.md)】
 
