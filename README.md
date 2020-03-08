@@ -19,6 +19,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 6. 对服务端依赖的第三方模块进行升级。
 7. 修复`eslint`找到的所有错误和警告。
 8. 设置`HttpOnly=true, SameSite=Lax`，js不再能访问`.ASPXAUTH`，提高安全性。
+9. 状态栏实时显示鼠标位置，不再对性能造成影响。
 
 ## v0.4.3更新【[更新日志](docs-dev/update/UpdateLog.md)】
 
