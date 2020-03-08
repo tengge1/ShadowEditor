@@ -3,51 +3,25 @@
 Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en.md) / 日本語 / 한국어 / русский / Le français
 
 * 名称：Shadow Editor
-* 版本：v0.4.4(开发中)
+* 版本：v0.4.4
 * 简介：基于`three.js`的场景编辑器。
 * 源码：[GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | 文档：[GitHub](https://tengge1.github.io/ShadowEditor/) [Gitee](https://tengge1.gitee.io/shadoweditor/) | 示例：[GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) | 视频：[微博](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) | 资源：[百度云](https://pan.baidu.com/s/1IxJVM6fFLoIAJG-GKHjVTA)
 * 技术栈：`html`、`css`、`javascript`、`rollup`、`react.js`、`webgl`、`three.js`、`asp.net`。
 * 如果对您有帮助，请[【捐赠】](https://gitee.com/tengge1/ShadowEditor)支持项目发展，谢谢。
 
-## v0.4.4即将更新
+## v0.4.4更新【[更新日志](docs-dev/update/UpdateLog.md)】
+
+* 发布日期：2020年3月8日
+* 更新日志：
 
 1. `three.js`从`r107`升级到`r113`。
 2. 状态栏添加`three.js`版本信息。
-3. 由于性能问题，删除状态栏鼠标位置显示。
-4. 只有用到`GPU Pick`的时候才启用，提高性能。
+3. 状态栏实时显示鼠标位置，不再对性能造成影响。
+4. 只有用到`GPU Pick`的时候才启用`GPU Pick`，提高性能。
 5. 由于需要支持`SameSite`属性，支持的`.net framework`最低版本由`4.5`（2012-08-15）改为`4.7.2`（2018-04-30）。
 6. 对服务端依赖的第三方模块进行升级。
 7. 修复`eslint`找到的所有错误和警告。
 8. 设置`HttpOnly=true, SameSite=Lax`，js不再能访问`.ASPXAUTH`，提高安全性。
-9. 状态栏实时显示鼠标位置，不再对性能造成影响。
-
-## v0.4.3更新【[更新日志](docs-dev/update/UpdateLog.md)】
-
-* 发布日期：2020年2月22日
-* 更新日志：
-
-1. 新增`新建小区和室内`功能，默认自动添加一个地面。
-2. 常见问题新增`404 Not Found`和`访问被拒绝`的解决方法。
-3. 帮助菜单新增`下载模型`功能，可以快速访问`sketchfab`和`3dpunk`下载模型。
-4. 贴图面板新增`上传天空球`功能。
-5. 组件菜单添加`天空球`组件。
-6. 修复`未保存材质的模型`和`多材质模型`发布场景报错的bug。
-7. 性能监视器、网格、视角帮助器、物理引擎、扔小球设置由`状态栏`移动到`视图`菜单中。
-8. 状态栏新增鼠标坐标显示，发现对性能有严重影响，暂时注释该功能。
-9. `视图`菜单新增`动态显示隐藏资源面板、侧边栏、工具栏、时间轴面板、状态栏`功能，并保存在本地存储中。
-10. 控制台不再显示`DevTools failed to load SourceMap: Could not load content for gunzip.min.js.map`的警告信息。
-11. 修复错误的`cookie`导致服务端报错bug。
-12. 修复新版谷歌浏览器无法正常注销bug。
-13. 新增`发布场景权限`。
-14. 发布场景后的地址不再需要加`sceneFile`参数。
-
-旧：`http://localhost:2000/temp/20200221194655/view.html?sceneFile=5e4fc1334859d12808dd9264`
-新：`http://localhost:2000/temp/20200221194655/view.html`
-
-15. 给`ShadowEditor.Web\temp`目录设置只读权限。
-16. 发布场景提示`正在导出...`改为`发布中...`。
-17. 添加常见问题`发布场景后没反应。`。
-18. 自由控制器优化，平移和旋转增加惯性，限制仰角为`0~85°`。
 
 ## 项目截图
 
