@@ -1,4 +1,4 @@
-import { PropertyGroup, ButtonProperty, SelectProperty } from '../../third_party';
+import { PropertyGroup, ButtonProperty, SelectProperty } from '../../ui/index';
 
 /**
  * LMesh组件

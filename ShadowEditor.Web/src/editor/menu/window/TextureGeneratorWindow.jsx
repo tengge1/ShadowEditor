@@ -1,5 +1,5 @@
 import './css/TextureGeneratorWindow.css';
-import { Window, Content, Buttons, Button } from '../../../third_party';
+import { Window, Content, Buttons, Button } from '../../../ui/index';
 
 /**
  * 纹理生成器窗口

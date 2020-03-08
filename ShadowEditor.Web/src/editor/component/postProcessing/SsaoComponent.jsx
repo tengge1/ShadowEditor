@@ -1,4 +1,4 @@
-import { PropertyGroup, CheckBoxProperty, NumberProperty, SelectProperty } from '../../../third_party';
+import { PropertyGroup, CheckBoxProperty, NumberProperty, SelectProperty } from '../../../ui/index';
 
 /**
  * 屏幕空间环境光遮蔽(SSAO)组件

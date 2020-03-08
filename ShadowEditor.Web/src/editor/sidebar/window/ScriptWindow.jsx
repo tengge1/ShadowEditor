@@ -1,5 +1,5 @@
 import './css/ScriptWindow.css';
-import { Window, Content, Form, FormControl, Label, Input, Select, Buttons, Button } from '../../../third_party';
+import { Window, Content, Form, FormControl, Label, Input, Select, Buttons, Button } from '../../../ui/index';
 import FragmentShaderStarter from '../../script/code/FragmentShaderStarter';
 import JavaScriptStarter from '../../script/code/JavaScriptStarter';
 import JsonStarter from '../../script/code/JsonStarter';

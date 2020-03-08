@@ -1,4 +1,4 @@
-import { PropertyGroup, CheckBoxProperty, NumberProperty, IntegerProperty, SelectProperty } from '../../../third_party';
+import { PropertyGroup, CheckBoxProperty, NumberProperty, IntegerProperty, SelectProperty } from '../../../ui/index';
 
 /**
  * 半色调特效组件

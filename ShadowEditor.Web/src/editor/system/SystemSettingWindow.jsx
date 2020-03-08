@@ -1,5 +1,5 @@
 import './css/SystemSettingWindow.css';
-import { Window, Content, Buttons, Form, FormControl, Label, Button, Select } from '../../third_party';
+import { Window, Content, Buttons, Form, FormControl, Label, Button, Select } from '../../ui/index';
 
 /**
  * 系统设置窗口

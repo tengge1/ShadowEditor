@@ -1,4 +1,4 @@
-import { PropertyGroup, DisplayProperty, CheckBoxProperty, NumberProperty, ButtonProperty } from '../../../third_party';
+import { PropertyGroup, DisplayProperty, CheckBoxProperty, NumberProperty, ButtonProperty } from '../../../ui/index';
 
 /**
  * 音频监听器组件

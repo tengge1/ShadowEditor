@@ -1,4 +1,4 @@
-import { PropertyGroup, ButtonProperty } from '../../../third_party';
+import { PropertyGroup, ButtonProperty } from '../../../ui/index';
 
 /**
  * 水组件

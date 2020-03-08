@@ -1,5 +1,5 @@
 import './css/SaveSceneWindow.css';
-import { Window, Content, Buttons, Form, FormControl, Label, Input, Button, CheckBox } from '../../../third_party';
+import { Window, Content, Buttons, Form, FormControl, Label, Input, Button, CheckBox } from '../../../ui/index';
 import Converter from '../../../serialization/Converter';
 import Ajax from '../../../utils/Ajax';
 

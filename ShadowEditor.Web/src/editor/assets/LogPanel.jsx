@@ -1,5 +1,6 @@
 import './css/LogPanel.css';
-import { classNames, PropTypes, Button } from '../../third_party';
+import { classNames, PropTypes } from '../../third_party';
+import { Button } from '../../ui/index';
 
 /**
  * 日志面板

@@ -1,4 +1,4 @@
-import { PropertyGroup, SelectProperty, DisplayProperty } from '../../third_party';
+import { PropertyGroup, SelectProperty, DisplayProperty } from '../../ui/index';
 
 /**
  * 多材质组件

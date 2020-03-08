@@ -1,6 +1,6 @@
 import './css/AssetsPanel.css';
 
-import { AccordionLayout, Accordion } from '../../third_party';
+import { AccordionLayout, Accordion } from '../../ui/index';
 
 import ScenePanel from './ScenePanel.jsx';
 import ModelPanel from './ModelPanel.jsx';

@@ -1,4 +1,4 @@
-import { PropertyGroup, CheckBoxProperty, ButtonProperty, SelectProperty, ButtonsProperty, Button, ColorProperty, NumberProperty, TextureProperty } from '../../third_party';
+import { PropertyGroup, CheckBoxProperty, ButtonProperty, SelectProperty, ButtonsProperty, Button, ColorProperty, NumberProperty, TextureProperty } from '../../ui/index';
 import SetMaterialCommand from '../../command/SetMaterialCommand';
 import SetMaterialColorCommand from '../../command/SetMaterialColorCommand';
 import SetMaterialValueCommand from '../../command/SetMaterialValueCommand';

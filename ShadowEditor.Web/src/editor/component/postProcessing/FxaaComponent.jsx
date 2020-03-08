@@ -1,4 +1,4 @@
-import { PropertyGroup, CheckBoxProperty } from '../../../third_party';
+import { PropertyGroup, CheckBoxProperty } from '../../../ui/index';
 
 /**
  * 快速近似抗锯齿(FXAA)组件

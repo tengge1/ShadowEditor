@@ -1,5 +1,5 @@
 import './css/CleanUpScenesWindow.css';
-import { Window, Content, Buttons, Button } from '../../../third_party';
+import { Window, Content, Buttons, Button } from '../../../ui/index';
 
 /**
  * 清理场景窗口

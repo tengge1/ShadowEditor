@@ -1,4 +1,4 @@
-import { PropertyGroup, TextProperty, DisplayProperty, NumberProperty, SelectProperty } from '../../../third_party';
+import { PropertyGroup, TextProperty, DisplayProperty, NumberProperty, SelectProperty } from '../../../ui/index';
 
 /**
  * 动画基本信息组件

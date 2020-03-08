@@ -1,4 +1,4 @@
-import { PropertyGroup, NumberProperty, ColorProperty } from '../../third_party';
+import { PropertyGroup, NumberProperty, ColorProperty } from '../../ui/index';
 
 /**
  * 光源组件

@@ -1,4 +1,4 @@
-import { PropertyGroup, CheckBoxProperty, NumberProperty } from '../../third_party';
+import { PropertyGroup, CheckBoxProperty, NumberProperty } from '../../ui/index';
 import SetPositionCommand from '../../command/SetPositionCommand';
 import SetRotationCommand from '../../command/SetRotationCommand';
 import SetScaleCommand from '../../command/SetScaleCommand';

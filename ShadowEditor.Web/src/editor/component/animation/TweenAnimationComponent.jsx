@@ -1,4 +1,4 @@
-import { PropertyGroup, CheckBoxProperty, NumberProperty, SelectProperty } from '../../../third_party';
+import { PropertyGroup, CheckBoxProperty, NumberProperty, SelectProperty } from '../../../ui/index';
 
 /**
  * 补间动画组件

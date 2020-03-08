@@ -1,4 +1,4 @@
-import { PropertyGroup, NumberProperty, SelectProperty } from '../../../third_party';
+import { PropertyGroup, NumberProperty, SelectProperty } from '../../../ui/index';
 
 /**
  * 物理环境组件

@@ -1,4 +1,4 @@
-import { MenuItem, MenuItemSeparator } from '../../third_party';
+import { MenuItem, MenuItemSeparator } from '../../ui/index';
 
 /**
  * 视图菜单

@@ -1,5 +1,6 @@
 import './css/SelectDeptWindow.css';
-import { PropTypes, Window, Content, Toolbar, Button, Tree, Buttons } from '../../../third_party';
+import { PropTypes } from '../../../third_party';
+import { Window, Content, Toolbar, Button, Tree, Buttons } from '../../../ui/index';
 
 /**
  * 选择组织机构窗口

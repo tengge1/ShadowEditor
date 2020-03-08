@@ -1,5 +1,6 @@
 import './css/MapPanel.css';
-import { classNames, PropTypes, SearchField, ImageList, ContextMenu, MenuItem, IconMenuButton } from '../../third_party';
+import { classNames, PropTypes } from '../../third_party';
+import { SearchField, ImageList, ContextMenu, MenuItem, IconMenuButton } from '../../ui/index';
 import EditWindow from './window/EditWindow.jsx';
 import AddSkyBoxWindow from './window/AddSkyBoxWindow.jsx';
 

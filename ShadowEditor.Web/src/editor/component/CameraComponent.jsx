@@ -1,4 +1,4 @@
-import { PropertyGroup, NumberProperty } from '../../third_party';
+import { PropertyGroup, NumberProperty } from '../../ui/index';
 import SetValueCommand from '../../command/SetValueCommand';
 
 /**

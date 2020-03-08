@@ -1,5 +1,5 @@
 import './css/EditorStatusBar.css';
-import { Toolbar, ToolbarSeparator, Label, Select } from '../../third_party';
+import { Toolbar, ToolbarSeparator, Label, Select } from '../../ui/index';
 
 /**
  * 状态栏

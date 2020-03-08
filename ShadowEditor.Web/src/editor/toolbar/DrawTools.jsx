@@ -1,4 +1,4 @@
-import { ToolbarSeparator, IconButton } from '../../third_party';
+import { ToolbarSeparator, IconButton } from '../../ui/index';
 import AddObjectCommand from '../../command/AddObjectCommand';
 import DigTool from '../tools/DigTool';
 

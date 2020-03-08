@@ -1,4 +1,4 @@
-import { PropertyGroup, SelectProperty } from '../../../third_party';
+import { PropertyGroup, SelectProperty } from '../../../ui/index';
 
 /**
  * 场景控制器组件

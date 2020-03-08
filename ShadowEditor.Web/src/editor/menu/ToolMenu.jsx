@@ -1,4 +1,4 @@
-import { MenuItem, MenuItemSeparator } from '../../third_party';
+import { MenuItem, MenuItemSeparator } from '../../ui/index';
 import TextureGeneratorWindow from './window/TextureGeneratorWindow.jsx';
 import TypefaceManagementWindow from './window/TypefaceManagementWindow.jsx';
 import TypefaceConverterWindow from './window/TypefaceConverterWindow.jsx';

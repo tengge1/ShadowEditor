@@ -1,4 +1,4 @@
-import { PropertyGroup, CheckBoxProperty, SelectProperty } from '../../../third_party';
+import { PropertyGroup, CheckBoxProperty, SelectProperty } from '../../../ui/index';
 
 /**
  * 全屏抗锯齿(SSAA)组件

@@ -1,5 +1,5 @@
 import './css/HierarchyPanel.css';
-import { Tree } from '../../third_party';
+import { Tree } from '../../ui/index';
 import MoveObjectCommand from '../../command/MoveObjectCommand';
 
 /**

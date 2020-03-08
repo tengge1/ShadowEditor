@@ -1,4 +1,4 @@
-import { PropertyGroup, CheckBoxProperty } from '../../../third_party';
+import { PropertyGroup, CheckBoxProperty } from '../../../ui/index';
 
 /**
  * 多重采样抗锯齿(SMAA)组件

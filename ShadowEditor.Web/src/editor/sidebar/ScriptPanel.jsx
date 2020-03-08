@@ -1,5 +1,5 @@
 import './css/ScriptPanel.css';
-import { Button, Icon } from '../../third_party';
+import { Button, Icon } from '../../ui/index';
 import ScriptWindow from './window/ScriptWindow.jsx';
 
 /**

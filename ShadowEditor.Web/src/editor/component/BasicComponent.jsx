@@ -1,4 +1,4 @@
-import { PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty } from '../../third_party';
+import { PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty } from '../../ui/index';
 import SetValueCommand from '../../command/SetValueCommand';
 import UnscaledText from '../../object/text/UnscaledText';
 import PointMarker from '../../object/mark/PointMarker';

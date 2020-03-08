@@ -1,4 +1,4 @@
-import { MenuItem } from '../../third_party';
+import { MenuItem } from '../../ui/index';
 import Converter from '../../serialization/Converter';
 
 /**

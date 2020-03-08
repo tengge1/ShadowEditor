@@ -1,6 +1,6 @@
 import './css/Editor.css';
 
-import { BorderLayout, LoadMask } from '../third_party';
+import { BorderLayout, LoadMask } from '../ui/index';
 
 import EditorMenuBar from './menu/EditorMenuBar.jsx';
 import EditorStatusBar from './status/EditorStatusBar.jsx';

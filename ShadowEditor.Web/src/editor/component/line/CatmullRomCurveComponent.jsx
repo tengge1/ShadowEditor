@@ -1,4 +1,4 @@
-import { PropertyGroup, CheckBoxProperty, NumberProperty, SelectProperty, ButtonsProperty, Button } from '../../../third_party';
+import { PropertyGroup, CheckBoxProperty, NumberProperty, SelectProperty, ButtonsProperty, Button } from '../../../ui/index';
 
 /**
  * CatmullRom曲线组件

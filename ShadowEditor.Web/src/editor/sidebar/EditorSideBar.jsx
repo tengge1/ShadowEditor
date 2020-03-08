@@ -1,5 +1,5 @@
 import './css/EditorSideBar.css';
-import { TabLayout, VBoxLayout } from '../../third_party';
+import { TabLayout, VBoxLayout } from '../../ui/index';
 
 import HierarchyPanel from './HierarchyPanel.jsx';
 import HistoryPanel from './HistoryPanel.jsx';

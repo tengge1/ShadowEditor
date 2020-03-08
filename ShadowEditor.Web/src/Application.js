@@ -5,7 +5,7 @@ import {
     Prompt,
     Photo,
     Video
-} from './third_party';
+} from './ui/index';
 import Options from './Options';
 import Storage from './utils/Storage';
 import Server from './utils/Server';

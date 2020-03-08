@@ -1,5 +1,5 @@
 import './css/FilterPanel.css';
-import { Form, FormControl, Label, Input } from '../../../../third_party';
+import { Form, FormControl, Label, Input } from '../../../../ui/index';
 import CssUtils from '../../../../utils/CssUtils';
 
 /**

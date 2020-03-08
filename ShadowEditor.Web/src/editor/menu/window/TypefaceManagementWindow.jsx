@@ -1,5 +1,5 @@
 import './css/TypefaceManagementWindow.css';
-import { Window, Content, Buttons, Button, DataGrid, Column, Toolbar, VBoxLayout } from '../../../third_party';
+import { Window, Content, Buttons, Button, DataGrid, Column, Toolbar, VBoxLayout } from '../../../ui/index';
 
 /**
  * 字体管理器窗口

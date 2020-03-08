@@ -1,4 +1,4 @@
-import { PropertyGroup, NumberProperty, SelectProperty, ColorProperty, TextureProperty, ButtonsProperty, Button } from '../../third_party';
+import { PropertyGroup, NumberProperty, SelectProperty, ColorProperty, TextureProperty, ButtonsProperty, Button } from '../../ui/index';
 import Converter from '../../utils/Converter';
 import Ajax from '../../utils/Ajax';
 

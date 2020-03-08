@@ -1,5 +1,5 @@
 import './css/UserManageWindow.css';
-import { Window, Content, Toolbar, Button, DataGrid, Column, ToolbarFiller, SearchField, ToolbarSeparator } from '../../third_party';
+import { Window, Content, Toolbar, Button, DataGrid, Column, ToolbarFiller, SearchField, ToolbarSeparator } from '../../ui/index';
 import EditUserWindow from './user/EditUserWindow.jsx';
 import ResetPasswordWindow from './user/ResetPasswordWindow.jsx';
 

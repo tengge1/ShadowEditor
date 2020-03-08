@@ -1,4 +1,4 @@
-import { MenuItem, MenuItemSeparator } from '../../third_party';
+import { MenuItem, MenuItemSeparator } from '../../ui/index';
 import Converter from '../../serialization/Converter';
 import Ajax from '../../utils/Ajax';
 import GISScene from '../../gis/Scene';

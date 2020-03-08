@@ -1,4 +1,4 @@
-import { PropertyGroup, CheckBoxProperty } from '../../../third_party';
+import { PropertyGroup, CheckBoxProperty } from '../../../ui/index';
 
 /**
  * 指针锁定控制器组件

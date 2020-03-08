@@ -1,5 +1,5 @@
 import './css/AuthorityManagementWindow.css';
-import { Window, Content, Toolbar, Button, DataGrid, Column, ToolbarFiller, HBoxLayout } from '../../third_party';
+import { Window, Content, Toolbar, Button, DataGrid, Column, ToolbarFiller, HBoxLayout } from '../../ui/index';
 
 /**
  * 权限管理窗口

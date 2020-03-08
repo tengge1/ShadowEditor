@@ -1,5 +1,5 @@
 import './css/HelpMenu.css';
-import { MenuItem, MenuItemSeparator } from '../../third_party';
+import { MenuItem, MenuItemSeparator } from '../../ui/index';
 import RendererAttributesWindow from './window/RendererAttributesWindow.jsx';
 import ThreeJsInformationWindow from './window/ThreeJsInformationWindow.jsx';
 

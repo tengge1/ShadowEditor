@@ -1,4 +1,4 @@
-import { MenuTab } from '../../third_party';
+import { MenuTab } from '../../ui/index';
 
 /**
  * 编辑器选项卡菜单

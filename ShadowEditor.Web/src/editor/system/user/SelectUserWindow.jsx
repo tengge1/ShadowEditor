@@ -1,5 +1,6 @@
 import './css/SelectUserWindow.css';
-import { PropTypes, Window, Content, Buttons, Button, Column, Toolbar, DataGrid, SearchField } from '../../../third_party';
+import { PropTypes } from '../../../third_party';
+import { Window, Content, Buttons, Button, Column, Toolbar, DataGrid, SearchField } from '../../../ui/index';
 
 /**
  * 选择用户窗口

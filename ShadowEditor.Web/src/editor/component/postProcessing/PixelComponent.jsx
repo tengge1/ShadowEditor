@@ -1,4 +1,4 @@
-import { PropertyGroup, CheckBoxProperty, NumberProperty } from '../../../third_party';
+import { PropertyGroup, CheckBoxProperty, NumberProperty } from '../../../ui/index';
 
 /**
  * 像素特效组件

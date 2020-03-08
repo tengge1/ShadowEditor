@@ -1,4 +1,5 @@
-import { classNames, PropTypes, SearchField, ImageList } from '../../third_party';
+import { classNames, PropTypes } from '../../third_party';
+import { SearchField, ImageList } from '../../ui/index';
 import EditWindow from './window/EditWindow.jsx';
 
 /**

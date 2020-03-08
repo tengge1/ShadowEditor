@@ -1,4 +1,4 @@
-import { PropertyGroup, CheckBoxProperty, SelectProperty } from '../../../third_party';
+import { PropertyGroup, CheckBoxProperty, SelectProperty } from '../../../ui/index';
 
 /**
  * 时间抗锯齿(TAA)组件

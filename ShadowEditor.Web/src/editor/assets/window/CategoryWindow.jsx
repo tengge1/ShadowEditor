@@ -1,5 +1,6 @@
 import './css/CategoryWindow.css';
-import { PropTypes, Window, Content, Buttons, Button, DataGrid, Column, VBoxLayout, Toolbar } from '../../../third_party';
+import { PropTypes } from '../../../third_party';
+import { Window, Content, Buttons, Button, DataGrid, Column, VBoxLayout, Toolbar } from '../../../ui/index';
 import Ajax from '../../../utils/Ajax';
 import CategoryEditWindow from './CategoryEditWindow.jsx';
 

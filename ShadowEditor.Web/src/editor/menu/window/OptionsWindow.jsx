@@ -1,5 +1,6 @@
 import './css/OptionsWindow.css';
-import { PropTypes, Window, Content, TabLayout, Buttons, Button } from '../../../third_party';
+import { PropTypes } from '../../../third_party';
+import { Window, Content, TabLayout, Buttons, Button } from '../../../ui/index';
 import DisplayPanel from './options/DisplayPanel.jsx';
 import RendererPanel from './options/RendererPanel.jsx';
 import HelperPanel from './options/HelperPanel.jsx';

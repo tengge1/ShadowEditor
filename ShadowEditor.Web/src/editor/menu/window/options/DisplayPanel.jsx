@@ -1,5 +1,5 @@
 import './css/DisplayPanel.css';
-import { Form, FormControl, Label, Input, CheckBox } from '../../../../third_party';
+import { Form, FormControl, Label, Input, CheckBox } from '../../../../ui/index';
 
 /**
  * 显示选项窗口

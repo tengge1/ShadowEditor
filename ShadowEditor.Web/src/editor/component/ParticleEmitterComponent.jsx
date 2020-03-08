@@ -1,4 +1,4 @@
-import { PropertyGroup, ButtonProperty, NumberProperty, ColorProperty, TextureProperty, IntegerProperty } from '../../third_party';
+import { PropertyGroup, ButtonProperty, NumberProperty, ColorProperty, TextureProperty, IntegerProperty } from '../../ui/index';
 
 /**
  * 粒子发射器组件

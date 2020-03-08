@@ -1,5 +1,5 @@
 import './css/RendererPanel.css';
-import { Form, FormControl, Label, Input, Select } from '../../../../third_party';
+import { Form, FormControl, Label, Input, Select } from '../../../../ui/index';
 
 /**
  * 渲染器窗口

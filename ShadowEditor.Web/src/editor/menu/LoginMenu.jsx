@@ -1,5 +1,6 @@
 import './css/LoginMenu.css';
-import { classNames, MenuItemSeparator, LinkButton } from '../../third_party';
+import { classNames } from '../../third_party';
+import { MenuItemSeparator, LinkButton } from '../../ui/index';
 import LoginWindow from '../system/LoginWindow.jsx';
 import RegisterWindow from '../system/RegisterWindow.jsx';
 import ChangePasswordWindow from '../system/ChangePasswordWindow.jsx';

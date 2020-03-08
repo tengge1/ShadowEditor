@@ -1,5 +1,6 @@
 import './css/ScriptEditorPanel.css';
-import { classNames, Icon } from '../../third_party';
+import { classNames } from '../../third_party';
+import { Icon } from '../../ui/index';
 import ScriptEditor from '../script/ScriptEditor';
 
 /**

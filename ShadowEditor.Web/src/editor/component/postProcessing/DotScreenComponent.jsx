@@ -1,4 +1,4 @@
-import { PropertyGroup, CheckBoxProperty, NumberProperty } from '../../../third_party';
+import { PropertyGroup, CheckBoxProperty, NumberProperty } from '../../../ui/index';
 
 /**
  * 点阵化组件

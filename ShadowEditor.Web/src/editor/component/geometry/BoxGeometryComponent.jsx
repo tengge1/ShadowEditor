@@ -1,4 +1,4 @@
-import { PropertyGroup, DisplayProperty, NumberProperty, IntegerProperty } from '../../../third_party';
+import { PropertyGroup, DisplayProperty, NumberProperty, IntegerProperty } from '../../../ui/index';
 import SetGeometryCommand from '../../../command/SetGeometryCommand';
 
 /**

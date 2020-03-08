@@ -1,4 +1,4 @@
-import { PropertyGroup, CheckBoxProperty, NumberProperty } from '../../../third_party';
+import { PropertyGroup, CheckBoxProperty, NumberProperty } from '../../../ui/index';
 
 /**
  * 轨迹球控制器组件

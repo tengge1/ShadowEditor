@@ -1,5 +1,5 @@
 import './css/DepartmentManagementWindow.css';
-import { Window, Content, Toolbar, Button, ToolbarFiller, Input, HBoxLayout, Tree, Form, FormControl, Label } from '../../third_party';
+import { Window, Content, Toolbar, Button, ToolbarFiller, Input, HBoxLayout, Tree, Form, FormControl, Label } from '../../ui/index';
 import EditDeptWindow from './dept/EditDeptWindow.jsx';
 import SelectUserWindow from './user/SelectUserWindow.jsx';
 

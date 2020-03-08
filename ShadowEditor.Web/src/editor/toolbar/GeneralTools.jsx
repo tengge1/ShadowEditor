@@ -1,4 +1,4 @@
-import { ToolbarSeparator, IconButton, ImageButton } from '../../third_party';
+import { ToolbarSeparator, IconButton, ImageButton } from '../../ui/index';
 import Converter from '../../utils/Converter';
 import TimeUtils from '../../utils/TimeUtils';
 import VideoRecorder from '../../utils/VideoRecorder';

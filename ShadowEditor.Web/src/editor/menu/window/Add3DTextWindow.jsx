@@ -1,5 +1,5 @@
 import './css/Add3DTextWindow.css';
-import { Window, Content, Buttons, Form, FormControl, Label, Input, Button, CheckBox, Select } from '../../../third_party';
+import { Window, Content, Buttons, Form, FormControl, Label, Input, Button, CheckBox, Select } from '../../../ui/index';
 import ThreeDText from '../../../object/text/ThreeDText';
 import AddObjectCommand from '../../../command/AddObjectCommand';
 import TypefaceUtils from '../../../utils/TypefaceUtils';

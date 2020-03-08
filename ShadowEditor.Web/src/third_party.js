@@ -36,4 +36,3 @@ export { default as classNames } from 'classnames/bind';
 export { default as PropTypes } from 'prop-types';
 export { default as TWEEN } from '@tweenjs/tween.js';
 export { dispatch } from 'd3-dispatch';
-export * from './ui/index';

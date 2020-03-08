@@ -1,5 +1,5 @@
 import './css/TypefaceConverterWindow.css';
-import { Window, Content, Buttons, Button, Label, Input, CheckBox, Form, FormControl, LinkButton } from '../../../third_party';
+import { Window, Content, Buttons, Button, Label, Input, CheckBox, Form, FormControl, LinkButton } from '../../../ui/index';
 import TypefaceUtils from '../../../utils/TypefaceUtils';
 import DownloadUtils from '../../../utils/DownloadUtils';
 

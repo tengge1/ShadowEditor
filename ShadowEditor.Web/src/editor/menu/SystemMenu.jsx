@@ -1,4 +1,4 @@
-import { MenuItem, MenuItemSeparator } from '../../third_party';
+import { MenuItem, MenuItemSeparator } from '../../ui/index';
 import DepartmentManagementWindow from '../system/DepartmentManagementWindow.jsx';
 import UserManageWindow from '../system/UserManageWindow.jsx';
 import RoleManageWindow from '../system/RoleManageWindow.jsx';

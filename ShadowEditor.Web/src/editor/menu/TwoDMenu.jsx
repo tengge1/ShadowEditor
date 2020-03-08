@@ -1,4 +1,4 @@
-import { MenuItem } from '../../third_party';
+import { MenuItem } from '../../ui/index';
 import Button from '../../visual/component/Button';
 import Label from '../../visual/component/Label';
 import Panel from '../../visual/component/Panel';

@@ -1,4 +1,4 @@
-import { ToolbarSeparator, IconButton } from '../../third_party';
+import { ToolbarSeparator, IconButton } from '../../ui/index';
 import PointMarkTool from '../tools/PointMarkTool';
 
 /**

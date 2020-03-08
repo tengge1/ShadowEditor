@@ -1,4 +1,4 @@
-import { MenuItem, MenuItemSeparator } from '../../third_party';
+import { MenuItem, MenuItemSeparator } from '../../ui/index';
 import AddObjectCommand from '../../command/AddObjectCommand';
 import Sky from '../../object/component/Sky';
 import Fire from '../../object/component/Fire';

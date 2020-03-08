@@ -1,6 +1,6 @@
 import './css/TimelinePanel.css';
 
-import { Timeline } from '../../third_party';
+import { Timeline } from '../../ui/index';
 
 /**
  * 时间轴面板

@@ -1,4 +1,5 @@
-import { PropTypes, Window, Content, Buttons, Form, FormControl, Label, Input, Button } from '../../../third_party';
+import { PropTypes } from '../../../third_party';
+import { Window, Content, Buttons, Form, FormControl, Label, Input, Button } from '../../../ui/index';
 
 /**
  * 角色编辑窗口

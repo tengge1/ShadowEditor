@@ -1,5 +1,6 @@
 import './css/EditUserWindow.css';
-import { PropTypes, Window, Content, Buttons, Form, FormControl, Label, Input, Button, Select } from '../../../third_party';
+import { PropTypes } from '../../../third_party';
+import { Window, Content, Buttons, Form, FormControl, Label, Input, Button, Select } from '../../../ui/index';
 import SelectDeptWindow from '../dept/SelectDeptWindow.jsx';
 
 /**

@@ -1,5 +1,5 @@
 import './css/EditorToolbar.css';
-import { Toolbar, ToolbarSeparator, Select } from '../../third_party';
+import { Toolbar, ToolbarSeparator, Select } from '../../ui/index';
 import GeneralTools from './GeneralTools.jsx';
 import EditTools from './EditTools.jsx';
 import DrawTools from './DrawTools.jsx';

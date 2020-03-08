@@ -1,5 +1,5 @@
 import './css/AnimationPropertyPanel.css';
-import { PropertyGrid } from '../../third_party';
+import { PropertyGrid } from '../../ui/index';
 
 import BasicAnimationComponent from '../component/animation/BasicAnimationComponent.jsx';
 import TweenAnimationComponent from '../component/animation/TweenAnimationComponent.jsx';

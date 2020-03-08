@@ -1,5 +1,5 @@
 import './css/TextureSettingWindow.css';
-import { Window, Content, Buttons, Button, Input, Select, CheckBox, Form, FormControl, Label } from '../../../third_party';
+import { Window, Content, Buttons, Button, Input, Select, CheckBox, Form, FormControl, Label } from '../../../ui/index';
 
 /**
  * 纹理设置窗口

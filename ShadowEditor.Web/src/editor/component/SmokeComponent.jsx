@@ -1,4 +1,4 @@
-import { PropertyGroup, ButtonProperty, NumberProperty } from '../../third_party';
+import { PropertyGroup, ButtonProperty, NumberProperty } from '../../ui/index';
 
 /**
  * 烟组件

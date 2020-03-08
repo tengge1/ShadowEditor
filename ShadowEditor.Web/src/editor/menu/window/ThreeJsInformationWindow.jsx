@@ -1,4 +1,4 @@
-import { Window, Content, Buttons, Form, FormControl, Label, Input, Button } from '../../../third_party';
+import { Window, Content, Buttons, Form, FormControl, Label, Input, Button } from '../../../ui/index';
 
 /**
  * Three.js信息窗口

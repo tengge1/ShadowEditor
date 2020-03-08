@@ -1,4 +1,4 @@
-import { PropertyGroup } from '../../third_party';
+import { PropertyGroup } from '../../ui/index';
 
 /**
  * 脚本组件

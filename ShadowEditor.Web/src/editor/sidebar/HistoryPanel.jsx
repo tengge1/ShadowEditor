@@ -1,5 +1,5 @@
 import './css/HistoryPanel.css';
-import { Button } from '../../third_party';
+import { Button } from '../../ui/index';
 
 /**
  * 历史面板

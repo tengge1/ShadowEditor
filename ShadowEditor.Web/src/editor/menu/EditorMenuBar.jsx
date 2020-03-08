@@ -1,4 +1,5 @@
-import { classNames, MenuBar, MenuBarFiller, MenuItemSeparator } from '../../third_party';
+import { classNames } from '../../third_party';
+import { MenuBar, MenuBarFiller, MenuItemSeparator } from '../../ui/index';
 import SceneMenu from './SceneMenu.jsx';
 import EditMenu from './EditMenu.jsx';
 // import TwoDMenu from './TwoDMenu.jsx';

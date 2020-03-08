@@ -1,4 +1,4 @@
-import { ToolbarSeparator, IconButton, ImageButton } from '../../third_party';
+import { ToolbarSeparator, IconButton, ImageButton } from '../../ui/index';
 
 /**
  * 地形工具

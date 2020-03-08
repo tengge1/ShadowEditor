@@ -1,5 +1,5 @@
 import './css/PropertyPanel.css';
-import { PropertyGrid } from '../../third_party';
+import { PropertyGrid } from '../../ui/index';
 
 // component
 import BasicComponent from '../component/BasicComponent.jsx';

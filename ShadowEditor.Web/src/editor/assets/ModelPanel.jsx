@@ -1,4 +1,5 @@
-import { classNames, PropTypes, SearchField, ImageList } from '../../third_party';
+import { classNames, PropTypes } from '../../third_party';
+import { SearchField, ImageList } from '../../ui/index';
 import EditModelWindow from './window/EditModelWindow.jsx';
 import ModelLoader from '../../loader/ModelLoader';
 import AddObjectCommand from '../../command/AddObjectCommand';

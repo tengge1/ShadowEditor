@@ -1,4 +1,4 @@
-import { PropertyGroup, NumberProperty, SelectProperty } from '../../../third_party';
+import { PropertyGroup, NumberProperty, SelectProperty } from '../../../ui/index';
 import BoxShapeHelper from './helper/BoxShapeHelper';
 import SphereShapeHelper from './helper/SphereShapeHelper';
 

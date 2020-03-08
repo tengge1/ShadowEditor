@@ -1,4 +1,4 @@
-import { PropertyGroup, DisplayProperty, ButtonProperty } from '../../../third_party';
+import { PropertyGroup, DisplayProperty, ButtonProperty } from '../../../ui/index';
 
 /**
  * BufferGeometry组件

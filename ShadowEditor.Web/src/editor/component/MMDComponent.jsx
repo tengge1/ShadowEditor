@@ -1,4 +1,4 @@
-import { PropertyGroup, DisplayProperty } from '../../third_party';
+import { PropertyGroup, DisplayProperty } from '../../ui/index';
 
 /**
  * MMD模型组件

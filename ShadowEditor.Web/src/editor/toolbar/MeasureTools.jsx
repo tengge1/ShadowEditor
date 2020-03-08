@@ -1,4 +1,4 @@
-import { ToolbarSeparator, IconButton } from '../../third_party';
+import { ToolbarSeparator, IconButton } from '../../ui/index';
 import DistanceTool from '../tools/DistanceTool';
 import AreaTool from '../tools/AreaTool';
 

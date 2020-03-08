@@ -1,5 +1,6 @@
 import './css/AddSkyBoxWindow.css';
-import { PropTypes, Window, Content, Buttons, ImageSelector, Button } from '../../../third_party';
+import { PropTypes } from '../../../third_party';
+import { Window, Content, Buttons, ImageSelector, Button } from '../../../ui/index';
 import Ajax from '../../../utils/Ajax';
 
 /**
