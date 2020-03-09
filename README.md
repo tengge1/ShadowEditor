@@ -11,6 +11,10 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 
 ## v0.4.5即将更新
 
+1. 播放场景，默认的轨道控制器`启用惯性`设置。
+2. `EnableDamping`的翻译由`启用减震`改为`启用惯性`。
+3. `DampingFactor`的翻译由`减震系数`改为`惯性系数`。
+
 ## v0.4.4更新【[更新日志](docs-dev/update/UpdateLog.md)】
 
 * 发布日期：2020年3月8日

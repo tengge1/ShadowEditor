@@ -47,19 +47,19 @@ class Editor extends React.Component {
         return <>
             <BorderLayout className={'Editor'}>
                 <EditorMenuBar region={'north'} />
-                { <EditorStatusBar region={'south'}
+                {<EditorStatusBar region={'south'}
                     show={statusBarShow}
-                  />}
-                { <AssetsPanel region={'west'}
+                 />}
+                {<AssetsPanel region={'west'}
                     split
                     show={assetsPanelShow}
                     onToggle={this.onToggle}
-                  />}
-                { isLogin && <EditorSideBar region={'east'}
+                 />}
+                {isLogin && <EditorSideBar region={'east'}
                     split
                     show={sidebarShow}
                     onToggle={this.onToggle}
-                             />}
+                            />}
                 <BorderLayout region={'center'}>
                     {isLogin && <EditorToolbar region={'north'}
                         show={toolbarShow}
@@ -105,6 +105,11 @@ class Editor extends React.Component {
         this.DEFAULT_CAMERA.name = _t('DefaultCamera');
         this.DEFAULT_CAMERA.userData.isDefault = true;
         this.DEFAULT_CAMERA.userData.control = 'OrbitControls'; // 场景控制类型
+        this.DEFAULT_CAMERA.userData.orbitOptions = {
+            enableDamping: true,
+            dampingFactor: 0.08,
+            panSpeed: 1.6
+        };
         this.DEFAULT_CAMERA.position.set(20, 10, 20);
         this.DEFAULT_CAMERA.lookAt(new THREE.Vector3());
 
@@ -168,7 +173,7 @@ class Editor extends React.Component {
         this.showViewHelper = true;
 
         // GPUPick使用数量。为0时，为了提升性能，不启用GPUPick。
-        this.gpuPickNum = app.storage.hoverEnabled? 1 : 0;
+        this.gpuPickNum = app.storage.hoverEnabled ? 1 : 0;
 
         // 事件
         app.on(`appStarted.Editor`, this.onAppStarted.bind(this));
