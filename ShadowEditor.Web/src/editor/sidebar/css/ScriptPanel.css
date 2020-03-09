@@ -10,34 +10,12 @@
 
 .ScriptPanel>.content {
     position: relative;
-    list-style: none;
+    width: 100%;
+    height: calc(100% - 32px);
     margin: 4px;
     padding: 0;
-    flex: 1;
     border: 1px solid #ddd;
     border-radius: 2px;
     box-sizing: border-box;
     overflow-y: auto;
-}
-
-.ScriptPanel>.content>li {
-    padding: 4px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.ScriptPanel>.content>li:hover {
-    background: #eee;
-}
-
-.ScriptPanel>.content>li>span {
-    font-size: 12px;
-    flex: 1;
-    white-space: nowrap;
-}
-
-.ScriptPanel>.content>li>.Icon {
-    font-size: 14px;
-    cursor: pointer;
 }

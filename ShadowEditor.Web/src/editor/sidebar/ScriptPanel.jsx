@@ -1,5 +1,5 @@
 import './css/ScriptPanel.css';
-import { Button, Icon } from '../../ui/index';
+import { Button, Icon, Tree } from '../../ui/index';
 import ScriptWindow from './window/ScriptWindow.jsx';
 
 /**
@@ -10,11 +10,19 @@ class ScriptPanel extends React.Component {
     constructor(props) {
         super(props);
 
+        this.expanded = {};
+
         this.state = {
-            scripts: {}
+            scripts: {},
+            selected: null
         };
 
         this.handleAddScript = this.handleAddScript.bind(this);
+        this.handleSelect = this.handleSelect.bind(this);
+        this.handleClickIcon = this.handleClickIcon.bind(this);
+        this.handleExpand = this.handleExpand.bind(this);
+
+
         this.handleEditScript = this.handleEditScript.bind(this);
         this.handleSaveScript = this.handleSaveScript.bind(this);
         this.handleRemoveScript = this.handleRemoveScript.bind(this);
@@ -22,14 +30,41 @@ class ScriptPanel extends React.Component {
     }
 
     render() {
-        const scripts = this.state.scripts;
+        const { scripts, selected } = this.state;
+
+        const data = Object.entries(scripts || []).map(n => {
+            return { // n[1]: id, name, source, type, uuid
+                value: n[0],
+                text: `${n[1].name}.${this.getExtension(n[1].type)}`,
+                icons: [{
+                    name: 'edit',
+                    value: n[0],
+                    icon: 'edit',
+                    title: _t('Edit Script')
+                }, {
+                    name: 'delete',
+                    value: n[0],
+                    icon: 'delete',
+                    title: _t('Delete Script')
+                }]
+            };
+        });
 
         return <div className={'ScriptPanel'}>
             <div className={'toolbar'}>
                 <Button onClick={this.handleAddScript}>{_t('New Script')}</Button>
             </div>
-            <ul className={'content'}>
-                {Object.values(scripts).map(n => {
+            <div className={'content'}>
+                <Tree
+                    data={data}
+                    selected={selected}
+                    onSelect={this.handleSelect}
+                    onClickIcon={this.handleClickIcon}
+                    onExpand={this.handleExpand}
+                />
+            </div>
+            {/* <ul className={'content'}>
+                </ul>{Object.values(scripts).map(n => {
                     return <li key={n.uuid}>
                         <span>{`${n.name}.${this.getExtension(n.type)}`}</span>
                         <Icon name={n.uuid}
@@ -44,7 +79,7 @@ class ScriptPanel extends React.Component {
                         />
                     </li>;
                 })}
-            </ul>
+            </ul> */}
         </div>;
     }
 
@@ -82,6 +117,22 @@ class ScriptPanel extends React.Component {
     handleAddScript() {
         const window = app.createElement(ScriptWindow);
         app.addElement(window);
+    }
+
+    handleSelect(value, event) {
+
+    }
+
+    handleClickIcon(value, name) {
+        if (name === 'edit') {
+            this.handleEditScript(value);
+        } else if (name === 'delete') {
+            this.handleRemoveScript(value);
+        }
+    }
+
+    handleExpand(value, event) {
+
     }
 
     handleEditScript(uuid) {
