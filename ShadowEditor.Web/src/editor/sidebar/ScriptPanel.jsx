@@ -33,7 +33,7 @@ class ScriptPanel extends React.Component {
         const { scripts, selected } = this.state;
 
         const data = Object.entries(scripts || []).map(n => {
-            return { // n[1]: id, name, source, type, uuid
+            return {
                 value: n[0],
                 text: `${n[1].name}.${this.getExtension(n[1].type)}`,
                 icons: [{
@@ -63,23 +63,6 @@ class ScriptPanel extends React.Component {
                     onExpand={this.handleExpand}
                 />
             </div>
-            {/* <ul className={'content'}>
-                </ul>{Object.values(scripts).map(n => {
-                    return <li key={n.uuid}>
-                        <span>{`${n.name}.${this.getExtension(n.type)}`}</span>
-                        <Icon name={n.uuid}
-                            icon={'edit'}
-                            title={_t('Edit Script')}
-                            onClick={this.handleEditScript}
-                        />
-                        <Icon name={n.uuid}
-                            icon={'delete'}
-                            title={_t('Delete Script')}
-                            onClick={this.handleRemoveScript}
-                        />
-                    </li>;
-                })}
-            </ul> */}
         </div>;
     }
 

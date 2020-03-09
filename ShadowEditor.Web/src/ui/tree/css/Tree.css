@@ -102,6 +102,7 @@
     font-size: 16px;
     color: #555;
     margin-left: 4px;
+    cursor: pointer;
 }
 
 .Tree .node.selected>i.control {
