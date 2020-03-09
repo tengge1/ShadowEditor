@@ -88,6 +88,7 @@ class Tree extends React.Component {
                     name={n.name}
                     value={data.value}
                     icon={n.icon}
+                    title={n.title}
                     key={n.name}
                     onClick={this.handleClickIcon}
                        />;
