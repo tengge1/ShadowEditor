@@ -1012,5 +1012,7 @@
     "Assets Panel": "资源面板",
     "Toolbar": "工具栏",
     "Timeline Panel": "时间轴面板",
-    "Status Bar": "状态栏"
+    "Status Bar": "状态栏",
+    "Hide": "隐藏",
+    "Show": "显示"
 }

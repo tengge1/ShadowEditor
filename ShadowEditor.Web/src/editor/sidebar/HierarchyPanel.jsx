@@ -204,7 +204,8 @@ class HierarchyPanel extends React.Component {
             children: [],
             icons: [{
                 name: 'visible',
-                icon: obj.visible ? 'visible' : 'invisible'
+                icon: obj.visible ? 'visible' : 'invisible',
+                title: obj.visible ? _t('Hide') : _t('Show')
             }]
         };
 
