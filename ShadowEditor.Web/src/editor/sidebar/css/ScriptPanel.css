@@ -8,11 +8,21 @@
     padding: 2px 4px;
 }
 
+.ScriptPanel>.toolbar>.IconButton {
+    width: 24px;
+    height: 24px;
+    margin: 1px 2px;
+}
+
+.ScriptPanel>.toolbar>.IconButton>.iconfont {
+    font-size: 14px;
+}
+
 .ScriptPanel>.content {
     position: relative;
-    width: 100%;
+    width: calc(100% - 8px);
     height: calc(100% - 32px);
-    margin: 4px;
+    margin: 0 4px;
     padding: 0;
     border: 1px solid #ddd;
     border-radius: 2px;

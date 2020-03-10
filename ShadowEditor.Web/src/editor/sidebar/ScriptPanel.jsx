@@ -1,5 +1,5 @@
 import './css/ScriptPanel.css';
-import { Button, Icon, Tree } from '../../ui/index';
+import { Button, Icon, Tree, IconButton } from '../../ui/index';
 import ScriptWindow from './window/ScriptWindow.jsx';
 
 /**
@@ -17,11 +17,11 @@ class ScriptPanel extends React.Component {
             selected: null
         };
 
+        this.handleAddFolder = this.handleAddFolder.bind(this);
         this.handleAddScript = this.handleAddScript.bind(this);
         this.handleSelect = this.handleSelect.bind(this);
         this.handleClickIcon = this.handleClickIcon.bind(this);
         this.handleExpand = this.handleExpand.bind(this);
-
 
         this.handleEditScript = this.handleEditScript.bind(this);
         this.handleSaveScript = this.handleSaveScript.bind(this);
@@ -52,7 +52,14 @@ class ScriptPanel extends React.Component {
 
         return <div className={'ScriptPanel'}>
             <div className={'toolbar'}>
-                <Button onClick={this.handleAddScript}>{_t('New Script')}</Button>
+                <IconButton icon={'add-folder'}
+                    title={_t('Add Folder')}
+                    onClick={this.handleAddFolder}
+                />
+                <IconButton icon={'add script'}
+                    title={_t('Add Script')}
+                    onClick={this.handleAddScript}
+                />
             </div>
             <div className={'content'}>
                 <Tree
@@ -95,6 +102,10 @@ class ScriptPanel extends React.Component {
         this.setState({
             scripts: app.editor.scripts
         });
+    }
+
+    handleAddFolder() {
+
     }
 
     handleAddScript() {

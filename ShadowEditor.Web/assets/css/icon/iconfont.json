@@ -6,88 +6,74 @@
   "description": "",
   "glyphs": [
     {
-      "icon_id": "15367",
-      "name": "下三角形",
-      "font_class": "down-triangle2",
-      "unicode": "e642",
-      "unicode_decimal": 58946
+      "icon_id": "1417462",
+      "name": "标识类_添加文件夹",
+      "font_class": "add-folder",
+      "unicode": "e634",
+      "unicode_decimal": 58932
     },
     {
-      "icon_id": "15368",
-      "name": "上三角形",
-      "font_class": "up-triangle2",
-      "unicode": "e644",
-      "unicode_decimal": 58948
+      "icon_id": "3092320",
+      "name": "添加文件",
+      "font_class": "add-file",
+      "unicode": "e790",
+      "unicode_decimal": 59280
     },
     {
-      "icon_id": "15369",
-      "name": "右三角形",
-      "font_class": "right-triangle2",
-      "unicode": "e645",
-      "unicode_decimal": 58949
+      "icon_id": "5330405",
+      "name": "鼠标指针",
+      "font_class": "click-add",
+      "unicode": "e781",
+      "unicode_decimal": 59265
     },
     {
-      "icon_id": "15370",
-      "name": "左三角形",
-      "font_class": "left-triangle2",
-      "unicode": "e646",
-      "unicode_decimal": 58950
+      "icon_id": "7550210",
+      "name": "添加",
+      "font_class": "add-center",
+      "unicode": "e68a",
+      "unicode_decimal": 59018
     },
     {
-      "icon_id": "97115",
-      "name": "材质",
-      "font_class": "material",
-      "unicode": "e601",
-      "unicode_decimal": 58881
+      "icon_id": "4525168",
+      "name": "第一视角",
+      "font_class": "first-perspective",
+      "unicode": "e633",
+      "unicode_decimal": 58931
     },
     {
-      "icon_id": "152196",
-      "name": "帮助",
-      "font_class": "help",
-      "unicode": "e603",
-      "unicode_decimal": 58883
+      "icon_id": "3032484",
+      "name": "停止录制",
+      "font_class": "stop-record",
+      "unicode": "e632",
+      "unicode_decimal": 58930
     },
     {
-      "icon_id": "180781",
-      "name": "复选框",
-      "font_class": "checkbox-check",
-      "unicode": "e643",
-      "unicode_decimal": 58947
+      "icon_id": "3309047",
+      "name": "警告",
+      "font_class": "warn",
+      "unicode": "e63a",
+      "unicode_decimal": 58938
     },
     {
-      "icon_id": "210293",
-      "name": "编辑",
-      "font_class": "edit",
-      "unicode": "e69b",
-      "unicode_decimal": 59035
+      "icon_id": "3770226",
+      "name": "信息",
+      "font_class": "info",
+      "unicode": "e655",
+      "unicode_decimal": 58965
     },
     {
-      "icon_id": "289178",
-      "name": "撤销",
-      "font_class": "undo",
-      "unicode": "e60a",
-      "unicode_decimal": 58890
+      "icon_id": "8732512",
+      "name": "错误",
+      "font_class": "error",
+      "unicode": "e630",
+      "unicode_decimal": 58928
     },
     {
-      "icon_id": "415438",
-      "name": "照相",
-      "font_class": "camera",
-      "unicode": "e61e",
-      "unicode_decimal": 58910
-    },
-    {
-      "icon_id": "423632",
-      "name": "选择",
-      "font_class": "select-one",
-      "unicode": "e75d",
-      "unicode_decimal": 59229
-    },
-    {
-      "icon_id": "467522",
-      "name": "发布",
-      "font_class": "publish",
-      "unicode": "e70e",
-      "unicode_decimal": 59150
+      "icon_id": "11445958",
+      "name": "确认 正确",
+      "font_class": "success",
+      "unicode": "e631",
+      "unicode_decimal": 58929
     },
     {
       "icon_id": "503348",
@@ -97,116 +83,32 @@
       "unicode_decimal": 58926
     },
     {
-      "icon_id": "553250",
-      "name": "缩放",
-      "font_class": "scale",
-      "unicode": "e61f",
-      "unicode_decimal": 58911
+      "icon_id": "4507551",
+      "name": "距离",
+      "font_class": "angle",
+      "unicode": "e674",
+      "unicode_decimal": 58996
     },
     {
-      "icon_id": "573575",
-      "name": "暂停",
-      "font_class": "pause",
-      "unicode": "e638",
-      "unicode_decimal": 58936
+      "icon_id": "5773634",
+      "name": "B090-面积",
+      "font_class": "area",
+      "unicode": "e80c",
+      "unicode_decimal": 59404
     },
     {
-      "icon_id": "689263",
-      "name": "立方体 立体 多面体 方块",
-      "font_class": "cube-separate",
-      "unicode": "e7fa",
-      "unicode_decimal": 59386
+      "icon_id": "7807752",
+      "name": "图半径分析",
+      "font_class": "radius",
+      "unicode": "e62f",
+      "unicode_decimal": 58927
     },
     {
-      "icon_id": "702615",
-      "name": "grid",
-      "font_class": "grid",
-      "unicode": "e8b4",
-      "unicode_decimal": 59572
-    },
-    {
-      "icon_id": "705693",
-      "name": "下载",
-      "font_class": "download",
-      "unicode": "e629",
-      "unicode_decimal": 58921
-    },
-    {
-      "icon_id": "792438",
-      "name": "cube-立方体",
-      "font_class": "cube",
-      "unicode": "e6fc",
-      "unicode_decimal": 59132
-    },
-    {
-      "icon_id": "850468",
-      "name": "audio-mid",
-      "font_class": "audio",
-      "unicode": "e618",
-      "unicode_decimal": 58904
-    },
-    {
-      "icon_id": "873245",
-      "name": "shadow",
-      "font_class": "shadow",
-      "unicode": "e702",
-      "unicode_decimal": 59138
-    },
-    {
-      "icon_id": "949967",
-      "name": "导入",
-      "font_class": "import",
-      "unicode": "e606",
-      "unicode_decimal": 58886
-    },
-    {
-      "icon_id": "964926",
-      "name": "解决方案",
-      "font_class": "solution",
-      "unicode": "e623",
-      "unicode_decimal": 58915
-    },
-    {
-      "icon_id": "970088",
-      "name": "好房拓 4.0.0 iconfont_筛选折叠",
-      "font_class": "down-arrow",
-      "unicode": "e692",
-      "unicode_decimal": 59026
-    },
-    {
-      "icon_id": "1110403",
-      "name": "箭头 三角形",
-      "font_class": "right-triangle",
-      "unicode": "e611",
-      "unicode_decimal": 58897
-    },
-    {
-      "icon_id": "1110421",
-      "name": "搜索",
-      "font_class": "search",
-      "unicode": "e614",
-      "unicode_decimal": 58900
-    },
-    {
-      "icon_id": "1111786",
-      "name": "好房拓 4.0.0 iconfont_筛选折叠关闭",
-      "font_class": "up-arrow",
-      "unicode": "e6dc",
-      "unicode_decimal": 59100
-    },
-    {
-      "icon_id": "1119387",
-      "name": "复制",
-      "font_class": "duplicate",
-      "unicode": "e617",
-      "unicode_decimal": 58903
-    },
-    {
-      "icon_id": "1166266",
-      "name": "平移",
-      "font_class": "hand",
-      "unicode": "e622",
-      "unicode_decimal": 58914
+      "icon_id": "423632",
+      "name": "选择",
+      "font_class": "select-one",
+      "unicode": "e75d",
+      "unicode_decimal": 59229
     },
     {
       "icon_id": "1166327",
@@ -216,18 +118,88 @@
       "unicode_decimal": 59231
     },
     {
-      "icon_id": "1272631",
-      "name": "添加",
-      "font_class": "add",
-      "unicode": "e637",
-      "unicode_decimal": 58935
+      "icon_id": "2205448",
+      "name": "直线",
+      "font_class": "line-tool",
+      "unicode": "e761",
+      "unicode_decimal": 59233
     },
     {
-      "icon_id": "1308602",
-      "name": "740编辑器_锚点",
-      "font_class": "anchor-point",
-      "unicode": "e664",
-      "unicode_decimal": 58980
+      "icon_id": "2409162",
+      "name": "框选",
+      "font_class": "select-tool",
+      "unicode": "e792",
+      "unicode_decimal": 59282
+    },
+    {
+      "icon_id": "3646625",
+      "name": "矩形",
+      "font_class": "rect-tool",
+      "unicode": "e762",
+      "unicode_decimal": 59234
+    },
+    {
+      "icon_id": "2938666",
+      "name": "地点标注",
+      "font_class": "point-mark",
+      "unicode": "e62b",
+      "unicode_decimal": 58923
+    },
+    {
+      "icon_id": "7538772",
+      "name": "面标注",
+      "font_class": "polygon-mark",
+      "unicode": "e62c",
+      "unicode_decimal": 58924
+    },
+    {
+      "icon_id": "11172218",
+      "name": "线标注",
+      "font_class": "line-mark",
+      "unicode": "e739",
+      "unicode_decimal": 59193
+    },
+    {
+      "icon_id": "415438",
+      "name": "照相",
+      "font_class": "camera",
+      "unicode": "e61e",
+      "unicode_decimal": 58910
+    },
+    {
+      "icon_id": "11227343",
+      "name": "摄像",
+      "font_class": "recorder",
+      "unicode": "e628",
+      "unicode_decimal": 58920
+    },
+    {
+      "icon_id": "6626203",
+      "name": "刷新",
+      "font_class": "refresh",
+      "unicode": "e627",
+      "unicode_decimal": 58919
+    },
+    {
+      "icon_id": "702615",
+      "name": "grid",
+      "font_class": "grid",
+      "unicode": "e8b4",
+      "unicode_decimal": 59572
+    },
+    {
+      "icon_id": "689263",
+      "name": "立方体 立体 多面体 方块",
+      "font_class": "cube-separate",
+      "unicode": "e7fa",
+      "unicode_decimal": 59386
+    },
+    {
+      "icon_id": "792438",
+      "name": "cube-立方体",
+      "font_class": "cube",
+      "unicode": "e6fc",
+      "unicode_decimal": 59132
     },
     {
       "icon_id": "1335516",
@@ -258,18 +230,46 @@
       "unicode_decimal": 58918
     },
     {
-      "icon_id": "1469179",
-      "name": "close",
-      "font_class": "close-thin",
-      "unicode": "e849",
-      "unicode_decimal": 59465
+      "icon_id": "7155865",
+      "name": "不可见",
+      "font_class": "invisible",
+      "unicode": "e659",
+      "unicode_decimal": 58969
     },
     {
-      "icon_id": "1517637",
-      "name": "关闭",
-      "font_class": "close",
-      "unicode": "e654",
-      "unicode_decimal": 58964
+      "icon_id": "7155866",
+      "name": "可见",
+      "font_class": "visible",
+      "unicode": "e65a",
+      "unicode_decimal": 58970
+    },
+    {
+      "icon_id": "15367",
+      "name": "下三角形",
+      "font_class": "down-triangle2",
+      "unicode": "e642",
+      "unicode_decimal": 58946
+    },
+    {
+      "icon_id": "15368",
+      "name": "上三角形",
+      "font_class": "up-triangle2",
+      "unicode": "e644",
+      "unicode_decimal": 58948
+    },
+    {
+      "icon_id": "15369",
+      "name": "右三角形",
+      "font_class": "right-triangle2",
+      "unicode": "e645",
+      "unicode_decimal": 58949
+    },
+    {
+      "icon_id": "15370",
+      "name": "左三角形",
+      "font_class": "left-triangle2",
+      "unicode": "e646",
+      "unicode_decimal": 58950
     },
     {
       "icon_id": "1555847",
@@ -279,60 +279,53 @@
       "unicode_decimal": 59075
     },
     {
-      "icon_id": "1582499",
-      "name": "场景设置",
-      "font_class": "scene-setting",
-      "unicode": "e72b",
-      "unicode_decimal": 59179
+      "icon_id": "1469179",
+      "name": "close",
+      "font_class": "close-thin",
+      "unicode": "e849",
+      "unicode_decimal": 59465
     },
     {
-      "icon_id": "1621427",
-      "name": "播放",
-      "font_class": "play",
-      "unicode": "e61c",
-      "unicode_decimal": 58908
+      "icon_id": "7639355",
+      "name": "实心正方形",
+      "font_class": "rect",
+      "unicode": "e619",
+      "unicode_decimal": 58905
     },
     {
-      "icon_id": "1649218",
-      "name": "选择",
-      "font_class": "select",
-      "unicode": "e67b",
-      "unicode_decimal": 59003
+      "icon_id": "1110403",
+      "name": "箭头 三角形",
+      "font_class": "right-triangle",
+      "unicode": "e611",
+      "unicode_decimal": 58897
     },
     {
-      "icon_id": "1802264",
-      "name": "纹理_CoGraphics_2",
-      "font_class": "texture",
-      "unicode": "e607",
-      "unicode_decimal": 58887
+      "icon_id": "6251508",
+      "name": "icon_三角形",
+      "font_class": "down-triangle",
+      "unicode": "e6bb",
+      "unicode_decimal": 59067
     },
     {
-      "icon_id": "1875892",
-      "name": "历史",
-      "font_class": "history",
-      "unicode": "e673",
-      "unicode_decimal": 58995
+      "icon_id": "6010944",
+      "name": "1-最大化",
+      "font_class": "maximize",
+      "unicode": "e621",
+      "unicode_decimal": 58913
     },
     {
-      "icon_id": "1920286",
-      "name": "点",
-      "font_class": "point",
-      "unicode": "e608",
-      "unicode_decimal": 58888
+      "icon_id": "6010945",
+      "name": "2-最小化",
+      "font_class": "minimize",
+      "unicode": "e625",
+      "unicode_decimal": 58917
     },
     {
-      "icon_id": "2013269",
-      "name": "重做",
-      "font_class": "redo",
-      "unicode": "e600",
-      "unicode_decimal": 58880
-    },
-    {
-      "icon_id": "2024176",
-      "name": "js",
-      "font_class": "js",
-      "unicode": "e648",
-      "unicode_decimal": 58952
+      "icon_id": "5831392",
+      "name": "排序",
+      "font_class": "sort",
+      "unicode": "e66c",
+      "unicode_decimal": 58988
     },
     {
       "icon_id": "2074621",
@@ -349,25 +342,11 @@
       "unicode_decimal": 59121
     },
     {
-      "icon_id": "2131627",
-      "name": "导出",
-      "font_class": "export",
-      "unicode": "e657",
-      "unicode_decimal": 58967
-    },
-    {
-      "icon_id": "2205448",
-      "name": "直线",
-      "font_class": "line-tool",
-      "unicode": "e761",
-      "unicode_decimal": 59233
-    },
-    {
-      "icon_id": "2297303",
-      "name": "源码应用",
-      "font_class": "source",
-      "unicode": "e62a",
-      "unicode_decimal": 58922
+      "icon_id": "705693",
+      "name": "下载",
+      "font_class": "download",
+      "unicode": "e629",
+      "unicode_decimal": 58921
     },
     {
       "icon_id": "2344227",
@@ -377,200 +356,25 @@
       "unicode_decimal": 59112
     },
     {
-      "icon_id": "2409162",
-      "name": "框选",
-      "font_class": "select-tool",
-      "unicode": "e792",
-      "unicode_decimal": 59282
+      "icon_id": "970088",
+      "name": "好房拓 4.0.0 iconfont_筛选折叠",
+      "font_class": "down-arrow",
+      "unicode": "e692",
+      "unicode_decimal": 59026
     },
     {
-      "icon_id": "2698783",
-      "name": "保存",
-      "font_class": "save",
-      "unicode": "e613",
-      "unicode_decimal": 58899
+      "icon_id": "1111786",
+      "name": "好房拓 4.0.0 iconfont_筛选折叠关闭",
+      "font_class": "up-arrow",
+      "unicode": "e6dc",
+      "unicode_decimal": 59100
     },
     {
-      "icon_id": "2938666",
-      "name": "地点标注",
-      "font_class": "point-mark",
-      "unicode": "e62b",
-      "unicode_decimal": 58923
-    },
-    {
-      "icon_id": "3020000",
-      "name": "二级-路径管理",
-      "font_class": "path",
-      "unicode": "ea9e",
-      "unicode_decimal": 60062
-    },
-    {
-      "icon_id": "3032484",
-      "name": "停止录制",
-      "font_class": "stop-record",
-      "unicode": "e632",
-      "unicode_decimal": 58930
-    },
-    {
-      "icon_id": "3068699",
-      "name": "组",
-      "font_class": "group",
-      "unicode": "e6b3",
-      "unicode_decimal": 59059
-    },
-    {
-      "icon_id": "3129108",
-      "name": "VR",
-      "font_class": "vr",
-      "unicode": "e604",
-      "unicode_decimal": 58884
-    },
-    {
-      "icon_id": "3292689",
-      "name": "复选框",
-      "font_class": "checkbox-uncheck",
-      "unicode": "e6a2",
-      "unicode_decimal": 59042
-    },
-    {
-      "icon_id": "3309047",
-      "name": "警告",
-      "font_class": "warn",
-      "unicode": "e63a",
-      "unicode_decimal": 58938
-    },
-    {
-      "icon_id": "3387960",
-      "name": "立体",
-      "font_class": "geometry",
-      "unicode": "e624",
-      "unicode_decimal": 58916
-    },
-    {
-      "icon_id": "3435568",
-      "name": "启动",
-      "font_class": "start",
-      "unicode": "e6fd",
-      "unicode_decimal": 59133
-    },
-    {
-      "icon_id": "3552396",
-      "name": "设置",
-      "font_class": "setting-black",
-      "unicode": "e602",
-      "unicode_decimal": 58882
-    },
-    {
-      "icon_id": "3595198",
-      "name": "json",
-      "font_class": "json",
-      "unicode": "e605",
-      "unicode_decimal": 58885
-    },
-    {
-      "icon_id": "3646625",
-      "name": "矩形",
-      "font_class": "rect-tool",
-      "unicode": "e762",
-      "unicode_decimal": 59234
-    },
-    {
-      "icon_id": "3770226",
-      "name": "信息",
-      "font_class": "info",
-      "unicode": "e655",
-      "unicode_decimal": 58965
-    },
-    {
-      "icon_id": "3988062",
-      "name": "喷水",
-      "font_class": "spray",
-      "unicode": "e62d",
-      "unicode_decimal": 58925
-    },
-    {
-      "icon_id": "4173973",
-      "name": "压缩",
-      "font_class": "compress",
-      "unicode": "e620",
-      "unicode_decimal": 58912
-    },
-    {
-      "icon_id": "4236649",
-      "name": "旋转",
-      "font_class": "rotate",
-      "unicode": "e615",
-      "unicode_decimal": 58901
-    },
-    {
-      "icon_id": "4507551",
-      "name": "距离",
-      "font_class": "angle",
-      "unicode": "e674",
-      "unicode_decimal": 58996
-    },
-    {
-      "icon_id": "4525164",
-      "name": "平移",
-      "font_class": "translate",
-      "unicode": "e60c",
-      "unicode_decimal": 58892
-    },
-    {
-      "icon_id": "4525168",
-      "name": "第一视角",
-      "font_class": "first-perspective",
-      "unicode": "e633",
-      "unicode_decimal": 58931
-    },
-    {
-      "icon_id": "4525169",
-      "name": "模型浏览",
-      "font_class": "model-view",
-      "unicode": "e60e",
-      "unicode_decimal": 58894
-    },
-    {
-      "icon_id": "4525170",
-      "name": "设置",
-      "font_class": "setting",
-      "unicode": "e60f",
-      "unicode_decimal": 58895
-    },
-    {
-      "icon_id": "4525172",
-      "name": "删除",
-      "font_class": "delete",
-      "unicode": "e610",
-      "unicode_decimal": 58896
-    },
-    {
-      "icon_id": "4769892",
-      "name": "图片场景管理",
-      "font_class": "scenes",
-      "unicode": "e612",
-      "unicode_decimal": 58898
-    },
-    {
-      "icon_id": "4802554",
-      "name": "Glan",
-      "font_class": "glsl",
-      "unicode": "e60d",
-      "unicode_decimal": 58893
-    },
-    {
-      "icon_id": "4854336",
-      "name": "确定",
-      "font_class": "ok",
-      "unicode": "e609",
-      "unicode_decimal": 58889
-    },
-    {
-      "icon_id": "4854823",
-      "name": "关闭",
-      "font_class": "cancel",
-      "unicode": "e60b",
-      "unicode_decimal": 58891
+      "icon_id": "1920286",
+      "name": "点",
+      "font_class": "point",
+      "unicode": "e608",
+      "unicode_decimal": 58888
     },
     {
       "icon_id": "4933870",
@@ -587,25 +391,32 @@
       "unicode_decimal": 60447
     },
     {
-      "icon_id": "5213907",
-      "name": "新建场景",
-      "font_class": "new-scene",
-      "unicode": "e616",
-      "unicode_decimal": 58902
+      "icon_id": "3988062",
+      "name": "喷水",
+      "font_class": "spray",
+      "unicode": "e62d",
+      "unicode_decimal": 58925
     },
     {
-      "icon_id": "5275455",
-      "name": "模型中心",
-      "font_class": "model",
-      "unicode": "e791",
-      "unicode_decimal": 59281
+      "icon_id": "1272631",
+      "name": "添加",
+      "font_class": "add",
+      "unicode": "e637",
+      "unicode_decimal": 58935
     },
     {
-      "icon_id": "5330405",
-      "name": "鼠标指针",
-      "font_class": "click-add",
-      "unicode": "e781",
-      "unicode_decimal": 59265
+      "icon_id": "573575",
+      "name": "暂停",
+      "font_class": "pause",
+      "unicode": "e638",
+      "unicode_decimal": 58936
+    },
+    {
+      "icon_id": "1621427",
+      "name": "播放",
+      "font_class": "play",
+      "unicode": "e61c",
+      "unicode_decimal": 58908
     },
     {
       "icon_id": "5771600",
@@ -629,116 +440,319 @@
       "unicode_decimal": 59381
     },
     {
-      "icon_id": "5773634",
-      "name": "B090-面积",
-      "font_class": "area",
-      "unicode": "e80c",
-      "unicode_decimal": 59404
+      "icon_id": "2024176",
+      "name": "js",
+      "font_class": "js",
+      "unicode": "e648",
+      "unicode_decimal": 58952
     },
     {
-      "icon_id": "5831392",
-      "name": "排序",
-      "font_class": "sort",
-      "unicode": "e66c",
-      "unicode_decimal": 58988
+      "icon_id": "3595198",
+      "name": "json",
+      "font_class": "json",
+      "unicode": "e605",
+      "unicode_decimal": 58885
     },
     {
-      "icon_id": "6010944",
-      "name": "1-最大化",
-      "font_class": "maximize",
-      "unicode": "e621",
-      "unicode_decimal": 58913
+      "icon_id": "4802554",
+      "name": "Glan",
+      "font_class": "glsl",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
     },
     {
-      "icon_id": "6010945",
-      "name": "2-最小化",
-      "font_class": "minimize",
-      "unicode": "e625",
-      "unicode_decimal": 58917
+      "icon_id": "850468",
+      "name": "audio-mid",
+      "font_class": "audio",
+      "unicode": "e618",
+      "unicode_decimal": 58904
     },
     {
-      "icon_id": "6251508",
-      "name": "icon_三角形",
-      "font_class": "down-triangle",
-      "unicode": "e6bb",
-      "unicode_decimal": 59067
+      "icon_id": "1110421",
+      "name": "搜索",
+      "font_class": "search",
+      "unicode": "e614",
+      "unicode_decimal": 58900
     },
     {
-      "icon_id": "6626203",
-      "name": "刷新",
-      "font_class": "refresh",
-      "unicode": "e627",
-      "unicode_decimal": 58919
+      "icon_id": "210293",
+      "name": "编辑",
+      "font_class": "edit",
+      "unicode": "e69b",
+      "unicode_decimal": 59035
     },
     {
-      "icon_id": "7155865",
-      "name": "不可见",
-      "font_class": "invisible",
-      "unicode": "e659",
-      "unicode_decimal": 58969
+      "icon_id": "180781",
+      "name": "复选框",
+      "font_class": "checkbox-check",
+      "unicode": "e643",
+      "unicode_decimal": 58947
     },
     {
-      "icon_id": "7155866",
-      "name": "可见",
-      "font_class": "visible",
-      "unicode": "e65a",
-      "unicode_decimal": 58970
+      "icon_id": "3292689",
+      "name": "复选框",
+      "font_class": "checkbox-uncheck",
+      "unicode": "e6a2",
+      "unicode_decimal": 59042
     },
     {
-      "icon_id": "7538772",
-      "name": "面标注",
-      "font_class": "polygon-mark",
-      "unicode": "e62c",
-      "unicode_decimal": 58924
+      "icon_id": "5275455",
+      "name": "模型中心",
+      "font_class": "model",
+      "unicode": "e791",
+      "unicode_decimal": 59281
     },
     {
-      "icon_id": "7550210",
-      "name": "添加",
-      "font_class": "add-center",
-      "unicode": "e68a",
-      "unicode_decimal": 59018
+      "icon_id": "1517637",
+      "name": "关闭",
+      "font_class": "close",
+      "unicode": "e654",
+      "unicode_decimal": 58964
     },
     {
-      "icon_id": "7639355",
-      "name": "实心正方形",
-      "font_class": "rect",
-      "unicode": "e619",
-      "unicode_decimal": 58905
+      "icon_id": "4854336",
+      "name": "确定",
+      "font_class": "ok",
+      "unicode": "e609",
+      "unicode_decimal": 58889
     },
     {
-      "icon_id": "7807752",
-      "name": "图半径分析",
-      "font_class": "radius",
-      "unicode": "e62f",
-      "unicode_decimal": 58927
+      "icon_id": "4854823",
+      "name": "关闭",
+      "font_class": "cancel",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
     },
     {
-      "icon_id": "8732512",
-      "name": "错误",
-      "font_class": "error",
-      "unicode": "e630",
-      "unicode_decimal": 58928
+      "icon_id": "97115",
+      "name": "材质",
+      "font_class": "material",
+      "unicode": "e601",
+      "unicode_decimal": 58881
     },
     {
-      "icon_id": "11172218",
-      "name": "线标注",
-      "font_class": "line-mark",
-      "unicode": "e739",
-      "unicode_decimal": 59193
+      "icon_id": "152196",
+      "name": "帮助",
+      "font_class": "help",
+      "unicode": "e603",
+      "unicode_decimal": 58883
     },
     {
-      "icon_id": "11227343",
-      "name": "摄像",
-      "font_class": "recorder",
-      "unicode": "e628",
-      "unicode_decimal": 58920
+      "icon_id": "289178",
+      "name": "撤销",
+      "font_class": "undo",
+      "unicode": "e60a",
+      "unicode_decimal": 58890
     },
     {
-      "icon_id": "11445958",
-      "name": "确认 正确",
-      "font_class": "success",
-      "unicode": "e631",
-      "unicode_decimal": 58929
+      "icon_id": "467522",
+      "name": "发布",
+      "font_class": "publish",
+      "unicode": "e70e",
+      "unicode_decimal": 59150
+    },
+    {
+      "icon_id": "949967",
+      "name": "导入",
+      "font_class": "import",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
+      "icon_id": "964926",
+      "name": "解决方案",
+      "font_class": "solution",
+      "unicode": "e623",
+      "unicode_decimal": 58915
+    },
+    {
+      "icon_id": "1119387",
+      "name": "复制",
+      "font_class": "duplicate",
+      "unicode": "e617",
+      "unicode_decimal": 58903
+    },
+    {
+      "icon_id": "1582499",
+      "name": "场景设置",
+      "font_class": "scene-setting",
+      "unicode": "e72b",
+      "unicode_decimal": 59179
+    },
+    {
+      "icon_id": "1802264",
+      "name": "纹理_CoGraphics_2",
+      "font_class": "texture",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
+      "icon_id": "1875892",
+      "name": "历史",
+      "font_class": "history",
+      "unicode": "e673",
+      "unicode_decimal": 58995
+    },
+    {
+      "icon_id": "2013269",
+      "name": "重做",
+      "font_class": "redo",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "2131627",
+      "name": "导出",
+      "font_class": "export",
+      "unicode": "e657",
+      "unicode_decimal": 58967
+    },
+    {
+      "icon_id": "2297303",
+      "name": "源码应用",
+      "font_class": "source",
+      "unicode": "e62a",
+      "unicode_decimal": 58922
+    },
+    {
+      "icon_id": "2698783",
+      "name": "保存",
+      "font_class": "save",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
+      "icon_id": "3068699",
+      "name": "组",
+      "font_class": "group",
+      "unicode": "e6b3",
+      "unicode_decimal": 59059
+    },
+    {
+      "icon_id": "3129108",
+      "name": "VR",
+      "font_class": "vr",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
+      "icon_id": "3387960",
+      "name": "立体",
+      "font_class": "geometry",
+      "unicode": "e624",
+      "unicode_decimal": 58916
+    },
+    {
+      "icon_id": "3435568",
+      "name": "启动",
+      "font_class": "start",
+      "unicode": "e6fd",
+      "unicode_decimal": 59133
+    },
+    {
+      "icon_id": "3552396",
+      "name": "设置",
+      "font_class": "setting-black",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "4173973",
+      "name": "压缩",
+      "font_class": "compress",
+      "unicode": "e620",
+      "unicode_decimal": 58912
+    },
+    {
+      "icon_id": "4769892",
+      "name": "图片场景管理",
+      "font_class": "scenes",
+      "unicode": "e612",
+      "unicode_decimal": 58898
+    },
+    {
+      "icon_id": "5213907",
+      "name": "新建场景",
+      "font_class": "new-scene",
+      "unicode": "e616",
+      "unicode_decimal": 58902
+    },
+    {
+      "icon_id": "873245",
+      "name": "shadow",
+      "font_class": "shadow",
+      "unicode": "e702",
+      "unicode_decimal": 59138
+    },
+    {
+      "icon_id": "553250",
+      "name": "缩放",
+      "font_class": "scale",
+      "unicode": "e61f",
+      "unicode_decimal": 58911
+    },
+    {
+      "icon_id": "1166266",
+      "name": "平移",
+      "font_class": "hand",
+      "unicode": "e622",
+      "unicode_decimal": 58914
+    },
+    {
+      "icon_id": "1308602",
+      "name": "740编辑器_锚点",
+      "font_class": "anchor-point",
+      "unicode": "e664",
+      "unicode_decimal": 58980
+    },
+    {
+      "icon_id": "1649218",
+      "name": "选择",
+      "font_class": "select",
+      "unicode": "e67b",
+      "unicode_decimal": 59003
+    },
+    {
+      "icon_id": "3020000",
+      "name": "二级-路径管理",
+      "font_class": "path",
+      "unicode": "ea9e",
+      "unicode_decimal": 60062
+    },
+    {
+      "icon_id": "4236649",
+      "name": "旋转",
+      "font_class": "rotate",
+      "unicode": "e615",
+      "unicode_decimal": 58901
+    },
+    {
+      "icon_id": "4525164",
+      "name": "平移",
+      "font_class": "translate",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
+      "icon_id": "4525169",
+      "name": "模型浏览",
+      "font_class": "model-view",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
+      "icon_id": "4525170",
+      "name": "设置",
+      "font_class": "setting",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    },
+    {
+      "icon_id": "4525172",
+      "name": "删除",
+      "font_class": "delete",
+      "unicode": "e610",
+      "unicode_decimal": 58896
     }
   ]
 }
