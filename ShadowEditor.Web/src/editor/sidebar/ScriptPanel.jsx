@@ -18,6 +18,7 @@ class ScriptPanel extends React.Component {
         };
 
         this.handleAddFolder = this.handleAddFolder.bind(this);
+        this.handleCommitAddFolder = this.handleCommitAddFolder.bind(this);
         this.handleAddScript = this.handleAddScript.bind(this);
         this.handleSelect = this.handleSelect.bind(this);
         this.handleClickIcon = this.handleClickIcon.bind(this);
@@ -105,7 +106,27 @@ class ScriptPanel extends React.Component {
     }
 
     handleAddFolder() {
+        app.prompt({
+            title: _t('Input Folder Name'),
+            content: _t('Folder Name'),
+            value: _t('New folder'),
+            onOK: this.handleCommitAddFolder
+        });
+    }
 
+    handleCommitAddFolder(value) {
+        const uuid = THREE.Math.generateUUID();
+
+        app.editor.scripts[uuid] = {
+            id: null,
+            pid: null,
+            name: value,
+            type: 'folder',
+            uuid,
+            sort: 0
+        };
+
+        app.call(`scriptChanged`, this);
     }
 
     handleAddScript() {

@@ -142,9 +142,11 @@ class Editor extends React.Component {
         // 物体
         this.objects = [];
 
-        // 脚本 格式：{ uuid: { id: 'MongoDB _id', pid: null, name: 'Script Name', type: 'Script Type', source: 'Source Code', uuid: 'uuid' }}
-        // 其中，uuid是创建脚本时自动生成，不可改变，关联时使用，id是mongo数据库ID字段；name：随便填写；type：javascript，vertexShader, fragmentShader, json；source：源码。
+        // 脚本 格式：{ uuid: { id: 'MongoDB _id', pid: null, name: 'Script Name', type: 'Script Type', source: 'Source Code', uuid: 'uuid', sort: 'sort' }}
+        // 其中，uuid是创建脚本时自动生成，不可改变，关联时使用，id是mongo数据库ID字段；name：随便填写；
+        // type：javascript，vertexShader, fragmentShader, json, folder；source：源码；sort: 排序，小的在前面。
         // pid是null或undefined是根节点，否则是子节点。
+        // type为group时表示一个文件夹，此时，不需要source属性。
         this.scripts = {};
 
         // 动画格式：[{ id: 'MongoDB _id', uuid: 'uuid', layer: '动画层序号', layerName: '动画层名称', animations: '动画' }, ...]
@@ -341,30 +343,31 @@ class Editor extends React.Component {
     }
 
     // ------------------------ 脚本 ----------------------------
+    // TODO: 应该没用了，删掉。
 
-    addScript(object, script) { // 添加脚本
-        if (this.scripts[object.uuid] === undefined) {
-            this.scripts[object.uuid] = [];
-        }
+    // addScript(object, script) { // 添加脚本
+    //     if (this.scripts[object.uuid] === undefined) {
+    //         this.scripts[object.uuid] = [];
+    //     }
 
-        this.scripts[object.uuid].push(script);
+    //     this.scripts[object.uuid].push(script);
 
-        app.call('scriptAdded', this, script);
-    }
+    //     app.call('scriptAdded', this, script);
+    // }
 
-    removeScript(object, script) { // 移除脚本
-        if (this.scripts[object.uuid] === undefined) {
-            return;
-        }
+    // removeScript(object, script) { // 移除脚本
+    //     if (this.scripts[object.uuid] === undefined) {
+    //         return;
+    //     }
 
-        let index = this.scripts[object.uuid].indexOf(script);
+    //     let index = this.scripts[object.uuid].indexOf(script);
 
-        if (index !== -1) {
-            this.scripts[object.uuid].splice(index, 1);
-        }
+    //     if (index !== -1) {
+    //         this.scripts[object.uuid].splice(index, 1);
+    //     }
 
-        app.call('scriptRemoved', this);
-    }
+    //     app.call('scriptRemoved', this);
+    // }
 
     // ------------------------ 选中事件 --------------------------------
 

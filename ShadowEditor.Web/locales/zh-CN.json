@@ -1015,5 +1015,8 @@
     "Status Bar": "状态栏",
     "Hide": "隐藏",
     "Show": "显示",
-    "Add Folder": "添加文件夹"
+    "Add Folder": "添加文件夹",
+    "Input Folder Name": "输入文件夹名称",
+    "Folder Name": "文件夹名称",
+    "New folder": "新文件夹"
 }

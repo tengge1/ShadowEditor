@@ -21,7 +21,7 @@ class ScriptWindow extends React.Component {
         };
 
         this.state = {
-            name: _t('No Name'),
+            name: _t('New Script'),
             type: 'javascript'
         };
 
