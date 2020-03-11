@@ -144,8 +144,10 @@ class ScriptPanel extends React.Component {
         app.addElement(window);
     }
 
-    handleSelect(value, event) {
-
+    handleSelect(value) {
+        this.setState({
+            selected: value
+        });
     }
 
     handleClickIcon(value, name) {
