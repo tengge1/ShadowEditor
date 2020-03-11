@@ -18,6 +18,10 @@
     font-size: 14px;
 }
 
+.ScriptPanel>.toolbar>.ToolbarSeparator {
+    margin: 0 4px;
+}
+
 .ScriptPanel>.content {
     position: relative;
     width: calc(100% - 8px);

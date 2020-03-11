@@ -1,5 +1,5 @@
 import './css/ScriptPanel.css';
-import { Tree, IconButton } from '../../ui/index';
+import { Tree, IconButton, ToolbarSeparator } from '../../ui/index';
 import ScriptWindow from './window/ScriptWindow.jsx';
 
 /**
@@ -76,6 +76,13 @@ class ScriptPanel extends React.Component {
                 <IconButton icon={'refresh'}
                     title={_t('Refresh')}
                     onClick={this.handleRefresh}
+                />
+                <ToolbarSeparator />
+                <IconButton icon={'edit'}
+                    title={_t('Edit')}
+                />
+                <IconButton icon={'delete'}
+                    title={_t('Delete')}
                 />
             </div>
             <div className={'content'}>
