@@ -39,7 +39,7 @@ class ScriptPanel extends React.Component {
             if (n[1].type === 'folder') { // 文件夹
                 return {
                     value: n[0],
-                    text: `${n[1].name}.${this.getExtension(n[1].type)}`,
+                    text: `${n[1].name}`,
                     leaf: false,
                     expanded: expanded[n[0]] !== false
                 };
