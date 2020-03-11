@@ -1,5 +1,5 @@
 import './css/ScriptPanel.css';
-import { Button, Icon, Tree, IconButton } from '../../ui/index';
+import { Tree, IconButton } from '../../ui/index';
 import ScriptWindow from './window/ScriptWindow.jsx';
 
 /**
@@ -10,11 +10,10 @@ class ScriptPanel extends React.Component {
     constructor(props) {
         super(props);
 
-        this.expanded = {};
-
         this.state = {
             scripts: {},
-            selected: null
+            selected: null,
+            expanded: {}
         };
 
         this.handleAddFolder = this.handleAddFolder.bind(this);
@@ -31,7 +30,7 @@ class ScriptPanel extends React.Component {
     }
 
     render() {
-        const { scripts, selected } = this.state;
+        const { scripts, selected, expanded } = this.state;
 
         const data = Object.entries(scripts || []).map(n => {
             if (n[1].type === 'folder') { // 文件夹
@@ -39,7 +38,7 @@ class ScriptPanel extends React.Component {
                     value: n[0],
                     text: `${n[1].name}.${this.getExtension(n[1].type)}`,
                     leaf: false,
-                    expanded: true
+                    expanded: expanded[n[0]] !== false
                 };
             } else { // 脚本
                 return {
@@ -158,8 +157,16 @@ class ScriptPanel extends React.Component {
         }
     }
 
-    handleExpand(value, event) {
-
+    handleExpand(value) {
+        let { expanded } = this.state;
+        if (expanded[value] === undefined || expanded[value] === true) {
+            expanded[value] = false;
+        } else {
+            expanded[value] = true;
+        }
+        this.setState({
+            expanded
+        });
     }
 
     handleEditScript(uuid) {
