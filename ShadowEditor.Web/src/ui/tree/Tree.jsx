@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import CheckBox from '../form/CheckBox.jsx';
 import Icon from '../icon/Icon.jsx';
+import LoadMask from '../progress/LoadMask.jsx';
 
 /**
  * 树
@@ -40,10 +41,12 @@ class Tree extends React.Component {
             list.push(this.createNode(n));
         });
 
-        return <ul className={classNames('Tree', className)}
-            style={style}
-            ref={this.treeRef}
-               >{list}</ul>;
+        return <div className={'TreeWrap'}>
+            <ul className={classNames('Tree', className)}
+                style={style}
+                ref={this.treeRef}
+            >{list}</ul>
+        </div>;
     }
 
     createNode(data) {
@@ -82,7 +85,7 @@ class Tree extends React.Component {
                 onClick={this.handleExpandNode}
             />
             {checkbox}
-            <i className={classNames('type', leaf ? 'node' : data.expanded ? 'open' : 'close')} />
+            <i className={classNames('type', leaf ? 'leaf' : data.expanded ? 'open' : 'close')} />
             <a href={'javascript:;'}>{data.text}</a>
             {data.icons && data.icons.map(n => {
                 return <Icon className={'control'}
