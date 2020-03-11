@@ -32,7 +32,7 @@ class Tree extends React.Component {
     }
 
     render() {
-        const { className, style, data } = this.props;
+        const { className, style, data, mask } = this.props;
 
         // 创建节点
         let list = [];
@@ -46,6 +46,9 @@ class Tree extends React.Component {
                 style={style}
                 ref={this.treeRef}
             >{list}</ul>
+            <LoadMask text={_t('Loading...')}
+                show={mask}
+            />
         </div>;
     }
 
@@ -306,6 +309,7 @@ Tree.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     data: PropTypes.array,
+    mask: PropTypes.bool,
     selected: PropTypes.string,
     onExpand: PropTypes.func,
     onSelect: PropTypes.func,
@@ -319,6 +323,7 @@ Tree.defaultProps = {
     className: null,
     style: null,
     data: [],
+    mask: false,
     selected: null,
     onExpand: null,
     onSelect: null,

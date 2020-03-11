@@ -13,7 +13,8 @@ class ScriptPanel extends React.Component {
         this.state = {
             scripts: {},
             selected: null,
-            expanded: {}
+            expanded: {},
+            mask: false
         };
 
         this.handleAddScript = this.handleAddScript.bind(this);
@@ -32,7 +33,7 @@ class ScriptPanel extends React.Component {
     }
 
     render() {
-        const { scripts, selected, expanded } = this.state;
+        const { scripts, selected, expanded, mask } = this.state;
 
         const data = Object.entries(scripts || []).map(n => {
             if (n[1].type === 'folder') { // 文件夹
@@ -81,6 +82,7 @@ class ScriptPanel extends React.Component {
                 <Tree
                     data={data}
                     selected={selected}
+                    mask={mask}
                     onSelect={this.handleSelect}
                     onClickIcon={this.handleClickIcon}
                     onExpand={this.handleExpand}
@@ -150,7 +152,16 @@ class ScriptPanel extends React.Component {
     }
 
     handleRefresh() {
-        this.forceUpdate();
+        // TODO: 为了显示LoadMask，刷新一次其实刷新了两次。
+        this.setState({
+            mask: true
+        }, () => {
+            setTimeout(() => {
+                this.setState({
+                    mask: false
+                });
+            }, 100);
+        });
     }
 
     handleSelect(value) {
