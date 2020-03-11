@@ -47,11 +47,12 @@ class Tree extends React.Component {
     }
 
     createNode(data) {
-        const leaf = !data.children || data.children.length === 0;
+        // TODO: leaf应该根据数据上的left属性判断，而不是children。
+        const leaf = (!data.children || data.children.length === 0) && data.leaf !== false;
 
-        const children = leaf ? null : <ul className={classNames('sub', data.expanded ? null : 'collpase')}>{data.children.map(n => {
+        const children = data.children && data.children.length > 0 ? <ul className={classNames('sub', data.expanded ? null : 'collpase')}>{data.children.map(n => {
             return this.createNode(n);
-        })}</ul>;
+        })}</ul> : null;
 
         let checkbox = null;
 

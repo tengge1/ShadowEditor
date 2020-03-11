@@ -38,12 +38,14 @@ class ScriptPanel extends React.Component {
                 return {
                     value: n[0],
                     text: `${n[1].name}.${this.getExtension(n[1].type)}`,
+                    leaf: false,
                     expanded: true
                 };
             } else { // 脚本
                 return {
                     value: n[0],
                     text: `${n[1].name}.${this.getExtension(n[1].type)}`,
+                    leaf: true,
                     icons: [{
                         name: 'edit',
                         value: n[0],
