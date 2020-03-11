@@ -34,21 +34,29 @@ class ScriptPanel extends React.Component {
         const { scripts, selected } = this.state;
 
         const data = Object.entries(scripts || []).map(n => {
-            return {
-                value: n[0],
-                text: `${n[1].name}.${this.getExtension(n[1].type)}`,
-                icons: [{
-                    name: 'edit',
+            if (n[1].type === 'folder') { // 文件夹
+                return {
                     value: n[0],
-                    icon: 'edit',
-                    title: _t('Edit Script')
-                }, {
-                    name: 'delete',
+                    text: `${n[1].name}.${this.getExtension(n[1].type)}`,
+                    expanded: true
+                };
+            } else { // 脚本
+                return {
                     value: n[0],
-                    icon: 'delete',
-                    title: _t('Delete Script')
-                }]
-            };
+                    text: `${n[1].name}.${this.getExtension(n[1].type)}`,
+                    icons: [{
+                        name: 'edit',
+                        value: n[0],
+                        icon: 'edit',
+                        title: _t('Edit Script')
+                    }, {
+                        name: 'delete',
+                        value: n[0],
+                        icon: 'delete',
+                        title: _t('Delete Script')
+                    }]
+                };
+            }
         });
 
         return <div className={'ScriptPanel'}>
