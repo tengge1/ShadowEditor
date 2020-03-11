@@ -16,9 +16,11 @@ class ScriptPanel extends React.Component {
             expanded: {}
         };
 
+        this.handleAddScript = this.handleAddScript.bind(this);
         this.handleAddFolder = this.handleAddFolder.bind(this);
         this.handleCommitAddFolder = this.handleCommitAddFolder.bind(this);
-        this.handleAddScript = this.handleAddScript.bind(this);
+        this.handleRefresh = this.handleRefresh.bind(this);
+
         this.handleSelect = this.handleSelect.bind(this);
         this.handleClickIcon = this.handleClickIcon.bind(this);
         this.handleExpand = this.handleExpand.bind(this);
@@ -62,13 +64,17 @@ class ScriptPanel extends React.Component {
 
         return <div className={'ScriptPanel'}>
             <div className={'toolbar'}>
+                <IconButton icon={'add script'}
+                    title={_t('Create Script')}
+                    onClick={this.handleAddScript}
+                />
                 <IconButton icon={'add-folder'}
-                    title={_t('Add Folder')}
+                    title={_t('Create Folder')}
                     onClick={this.handleAddFolder}
                 />
-                <IconButton icon={'add script'}
-                    title={_t('Add Script')}
-                    onClick={this.handleAddScript}
+                <IconButton icon={'refresh'}
+                    title={_t('Refresh')}
+                    onClick={this.handleRefresh}
                 />
             </div>
             <div className={'content'}>
@@ -114,6 +120,11 @@ class ScriptPanel extends React.Component {
         });
     }
 
+    handleAddScript() {
+        const window = app.createElement(ScriptWindow);
+        app.addElement(window);
+    }
+
     handleAddFolder() {
         app.prompt({
             title: _t('Input Folder Name'),
@@ -138,9 +149,8 @@ class ScriptPanel extends React.Component {
         app.call(`scriptChanged`, this);
     }
 
-    handleAddScript() {
-        const window = app.createElement(ScriptWindow);
-        app.addElement(window);
+    handleRefresh() {
+        this.forceUpdate();
     }
 
     handleSelect(value) {

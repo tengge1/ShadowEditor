@@ -489,7 +489,7 @@
     "Luminance": "亮度",
     "Time Disk": "时间圆盘",
     "Square": "正方形",
-    "Create Script": "创建脚本",
+    "Create Script": "新建脚本",
     "Near": "近点",
     "Export Geometry JSON File": "导出几何体JSON文件",
     "Invert": "颜色反转",
@@ -1018,5 +1018,6 @@
     "Add Folder": "添加文件夹",
     "Input Folder Name": "输入文件夹名称",
     "Folder Name": "文件夹名称",
-    "New folder": "新文件夹"
+    "New folder": "新文件夹",
+    "Create Folder": "新建文件夹"
 }
