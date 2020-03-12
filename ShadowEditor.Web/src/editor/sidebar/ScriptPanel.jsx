@@ -22,14 +22,14 @@ class ScriptPanel extends React.Component {
         this.handleCommitAddFolder = this.handleCommitAddFolder.bind(this);
         this.handleRefresh = this.handleRefresh.bind(this);
 
+        this.handleEdit = this.handleEdit.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
+
         this.handleSelect = this.handleSelect.bind(this);
-        this.handleClickIcon = this.handleClickIcon.bind(this);
         this.handleExpand = this.handleExpand.bind(this);
 
-        this.handleEditScript = this.handleEditScript.bind(this);
-        this.handleSaveScript = this.handleSaveScript.bind(this);
-        this.handleRemoveScript = this.handleRemoveScript.bind(this);
         this.update = this.update.bind(this);
+        this.save = this.save.bind(this);
     }
 
     render() {
@@ -47,18 +47,7 @@ class ScriptPanel extends React.Component {
                 return {
                     value: n[0],
                     text: `${n[1].name}.${this.getExtension(n[1].type)}`,
-                    leaf: true,
-                    icons: [{
-                        name: 'edit',
-                        value: n[0],
-                        icon: 'edit',
-                        title: _t('Edit Script')
-                    }, {
-                        name: 'delete',
-                        value: n[0],
-                        icon: 'delete',
-                        title: _t('Delete Script')
-                    }]
+                    leaf: true
                 };
             }
         });
@@ -80,9 +69,11 @@ class ScriptPanel extends React.Component {
                 <ToolbarSeparator />
                 <IconButton icon={'edit'}
                     title={_t('Edit')}
+                    onClick={this.handleEdit}
                 />
                 <IconButton icon={'delete'}
                     title={_t('Delete')}
+                    onClick={this.handleDelete}
                 />
             </div>
             <div className={'content'}>
@@ -171,18 +162,41 @@ class ScriptPanel extends React.Component {
         });
     }
 
+    handleEdit() {
+        const selected = this.state.selected;
+        if (selected === null) {
+            app.toast(_('Please select a script.'));
+            return;
+        }
+        var script = app.editor.scripts[selected];
+        if (script) {
+            app.call(`editScript`, this, script.uuid, script.name, script.type, script.source, this.save);
+        }
+    }
+
+    handleDelete() {
+        const selected = this.state.selected;
+        if (selected === null) {
+            app.toast(_('Please select a script.'));
+            return;
+        }
+
+        const script = app.editor.scripts[selected];
+
+        app.confirm({
+            title: _t('Confirm'),
+            content: `${_t('Delete')} ${script.name}.${this.getExtension(script.type)}？`,
+            onOK: () => {
+                delete app.editor.scripts[script.uuid];
+                app.call('scriptChanged', this);
+            }
+        });
+    }
+
     handleSelect(value) {
         this.setState({
             selected: value
         });
-    }
-
-    handleClickIcon(value, name) {
-        if (name === 'edit') {
-            this.handleEditScript(value);
-        } else if (name === 'delete') {
-            this.handleRemoveScript(value);
-        }
     }
 
     handleExpand(value) {
@@ -197,14 +211,7 @@ class ScriptPanel extends React.Component {
         });
     }
 
-    handleEditScript(uuid) {
-        var script = app.editor.scripts[uuid];
-        if (script) {
-            app.call(`editScript`, this, uuid, script.name, script.type, script.source, this.handleSaveScript);
-        }
-    }
-
-    handleSaveScript(uuid, name, type, source) {
+    save(uuid, name, type, source) {
         app.editor.scripts[uuid] = {
             id: null,
             uuid,
@@ -214,19 +221,6 @@ class ScriptPanel extends React.Component {
         };
 
         app.call(`scriptChanged`, this);
-    }
-
-    handleRemoveScript(uuid) {
-        const script = app.editor.scripts[uuid];
-
-        app.confirm({
-            title: _t('Confirm'),
-            content: `${_t('Delete')} ${script.name}.${this.getExtension(script.type)}？`,
-            onOK: () => {
-                delete app.editor.scripts[uuid];
-                app.call('scriptChanged', this);
-            }
-        });
     }
 }
 
