@@ -52,6 +52,11 @@ class ScriptPanel extends React.Component {
             }
         });
 
+        let script = null;
+        if (selected !== null && scripts[selected] && scripts[selected].type !== 'folder') {
+            script = scripts[selected];
+        }
+
         return <div className={'ScriptPanel'}>
             <div className={'toolbar'}>
                 <IconButton icon={'add script'}
@@ -69,10 +74,12 @@ class ScriptPanel extends React.Component {
                 <ToolbarSeparator />
                 <IconButton icon={'edit'}
                     title={_t('Edit')}
+                    disabled={script === null}
                     onClick={this.handleEdit}
                 />
                 <IconButton icon={'delete'}
                     title={_t('Delete')}
+                    disabled={script === null}
                     onClick={this.handleDelete}
                 />
             </div>
@@ -165,7 +172,6 @@ class ScriptPanel extends React.Component {
     handleEdit() {
         const selected = this.state.selected;
         if (selected === null) {
-            app.toast(_('Please select a script.'));
             return;
         }
         var script = app.editor.scripts[selected];
@@ -177,7 +183,6 @@ class ScriptPanel extends React.Component {
     handleDelete() {
         const selected = this.state.selected;
         if (selected === null) {
-            app.toast(_('Please select a script.'));
             return;
         }
 
