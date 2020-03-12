@@ -21,9 +21,9 @@ class ScriptPanel extends React.Component {
         this.handleAddFolder = this.handleAddFolder.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
         this.handleRefresh = this.handleRefresh.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
 
         this.handleEditScript = this.handleEditScript.bind(this);
-        this.handleDelete = this.handleDelete.bind(this);
 
         this.handleSelect = this.handleSelect.bind(this);
         this.handleExpand = this.handleExpand.bind(this);
@@ -40,7 +40,7 @@ class ScriptPanel extends React.Component {
         this.createScriptTree(0, tree, Object.values(scripts), expanded);
 
         let script = null;
-        if (selected !== null && scripts[selected] && scripts[selected].type !== 'folder') {
+        if (selected !== null && scripts[selected]) {
             script = scripts[selected];
         }
 
@@ -63,16 +63,16 @@ class ScriptPanel extends React.Component {
                     title={_t('Refresh')}
                     onClick={this.handleRefresh}
                 />
-                <ToolbarSeparator />
-                <IconButton icon={'edit'}
-                    title={_t('Edit')}
-                    disabled={script === null}
-                    onClick={this.handleEditScript}
-                />
                 <IconButton icon={'delete'}
                     title={_t('Delete')}
                     disabled={script === null}
                     onClick={this.handleDelete}
+                />
+                <ToolbarSeparator />
+                <IconButton icon={'edit'}
+                    title={_t('Edit Script')}
+                    disabled={script === null || script.type === 'folder'}
+                    onClick={this.handleEditScript}
                 />
             </div>
             <div className={'content'}>
@@ -211,17 +211,6 @@ class ScriptPanel extends React.Component {
         });
     }
 
-    handleEditScript() {
-        const selected = this.state.selected;
-        if (selected === null) {
-            return;
-        }
-        var script = app.editor.scripts[selected];
-        if (script) {
-            app.call(`editScript`, this, script.uuid, script.name, script.type, script.source, this.save);
-        }
-    }
-
     handleDelete() {
         const selected = this.state.selected;
         if (selected === null) {
@@ -238,6 +227,17 @@ class ScriptPanel extends React.Component {
                 app.call('scriptChanged', this);
             }
         });
+    }
+
+    handleEditScript() {
+        const selected = this.state.selected;
+        if (selected === null) {
+            return;
+        }
+        var script = app.editor.scripts[selected];
+        if (script) {
+            app.call(`editScript`, this, script.uuid, script.name, script.type, script.source, this.save);
+        }
     }
 
     handleSelect(value) {
