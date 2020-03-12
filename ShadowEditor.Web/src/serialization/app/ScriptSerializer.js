@@ -21,9 +21,11 @@ ScriptSerializer.prototype.toJSON = function (scripts) {
 
         Object.assign(json, {
             id: script.id,
+            pid: script.pid,
             name: script.name,
             type: script.type,
             source: script.source,
+            sort: script.sort,
             uuid: script.uuid
         });
 
@@ -39,9 +41,11 @@ ScriptSerializer.prototype.fromJSON = function (jsons, parent) {
     jsons.forEach(json => {
         parent[json.uuid] = {
             id: json.id,
+            pid: json.pid,
             name: json.name,
             type: json.type,
             source: json.source,
+            sort: json.sort,
             uuid: json.uuid
         };
     });
