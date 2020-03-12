@@ -27,6 +27,7 @@ class ScriptPanel extends React.Component {
 
         this.handleSelect = this.handleSelect.bind(this);
         this.handleExpand = this.handleExpand.bind(this);
+        this.handleDrop = this.handleDrop.bind(this);
 
         this.update = this.update.bind(this);
         this.save = this.save.bind(this);
@@ -35,22 +36,8 @@ class ScriptPanel extends React.Component {
     render() {
         const { scripts, selected, expanded, mask } = this.state;
 
-        const data = Object.entries(scripts || []).map(n => {
-            if (n[1].type === 'folder') { // 文件夹
-                return {
-                    value: n[0],
-                    text: `${n[1].name}`,
-                    leaf: false,
-                    expanded: expanded[n[0]] !== false
-                };
-            } else { // 脚本
-                return {
-                    value: n[0],
-                    text: `${n[1].name}.${this.getExtension(n[1].type)}`,
-                    leaf: true
-                };
-            }
-        });
+        const tree = [];
+        this.createScriptTree(0, tree, Object.values(scripts), expanded);
 
         let script = null;
         if (selected !== null && scripts[selected] && scripts[selected].type !== 'folder') {
@@ -85,15 +72,49 @@ class ScriptPanel extends React.Component {
             </div>
             <div className={'content'}>
                 <Tree
-                    data={data}
+                    data={tree}
                     selected={selected}
                     mask={mask}
                     onSelect={this.handleSelect}
-                    onClickIcon={this.handleClickIcon}
                     onExpand={this.handleExpand}
+                    onDrop={this.handleDrop}
                 />
             </div>
         </div>;
+    }
+
+    createScriptTree(pid, tree, scripts, expanded) {
+        let list = null;
+
+        if (pid === 0) {
+            list = scripts.filter(n => n.pid === undefined || n.pid === null);
+        } else {
+            list = scripts.filter(n => n.pid === pid);
+        }
+
+        if (!list || list.length === 0) {
+            return;
+        }
+
+        list.forEach(n => {
+            if (n.type === 'folder') {
+                let node = {
+                    value: n.uuid,
+                    text: `${n.name}`,
+                    children: [],
+                    leaf: false,
+                    expanded: expanded[n.uuid] !== false
+                };
+                tree.push(node);
+                this.createScriptTree(n.uuid, node.children, scripts, expanded);
+            } else {
+                tree.push({
+                    value: n.uuid,
+                    text: `${n.name}.${this.getExtension(n.type)}`,
+                    leaf: true
+                });
+            }
+        });
     }
 
     getExtension(type) {
@@ -214,6 +235,15 @@ class ScriptPanel extends React.Component {
         this.setState({
             expanded
         });
+    }
+
+    handleDrop(current, newParent, newIndex) {
+        let scripts = this.state.scripts;
+
+        let currentScript = scripts[current];
+        currentScript.pid = newParent;
+
+        app.call(`scriptChanged`, this);
     }
 
     save(uuid, name, type, source) {
