@@ -19,10 +19,10 @@ class ScriptPanel extends React.Component {
 
         this.handleAddScript = this.handleAddScript.bind(this);
         this.handleAddFolder = this.handleAddFolder.bind(this);
-        this.handleCommitAddFolder = this.handleCommitAddFolder.bind(this);
+        this.handleEdit = this.handleEdit.bind(this);
         this.handleRefresh = this.handleRefresh.bind(this);
 
-        this.handleEdit = this.handleEdit.bind(this);
+        this.handleEditScript = this.handleEditScript.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
 
         this.handleSelect = this.handleSelect.bind(this);
@@ -54,6 +54,11 @@ class ScriptPanel extends React.Component {
                     title={_t('Create Folder')}
                     onClick={this.handleAddFolder}
                 />
+                <IconButton icon={'edit'}
+                    title={_t('Edit')}
+                    disabled={script === null}
+                    onClick={this.handleEdit}
+                />
                 <IconButton icon={'refresh'}
                     title={_t('Refresh')}
                     onClick={this.handleRefresh}
@@ -62,7 +67,7 @@ class ScriptPanel extends React.Component {
                 <IconButton icon={'edit'}
                     title={_t('Edit')}
                     disabled={script === null}
-                    onClick={this.handleEdit}
+                    onClick={this.handleEditScript}
                 />
                 <IconButton icon={'delete'}
                     title={_t('Delete')}
@@ -158,23 +163,39 @@ class ScriptPanel extends React.Component {
             title: _t('Input Folder Name'),
             content: _t('Folder Name'),
             value: _t('New folder'),
-            onOK: this.handleCommitAddFolder
+            onOK: value => {
+                const uuid = THREE.Math.generateUUID();
+
+                app.editor.scripts[uuid] = {
+                    id: null,
+                    pid: null,
+                    name: value,
+                    type: 'folder',
+                    uuid,
+                    sort: 0
+                };
+
+                app.call(`scriptChanged`, this);
+            }
         });
     }
 
-    handleCommitAddFolder(value) {
-        const uuid = THREE.Math.generateUUID();
+    handleEdit() {
+        const selected = this.state.selected;
+        if (selected === null) {
+            return;
+        }
+        var script = app.editor.scripts[selected];
 
-        app.editor.scripts[uuid] = {
-            id: null,
-            pid: null,
-            name: value,
-            type: 'folder',
-            uuid,
-            sort: 0
-        };
-
-        app.call(`scriptChanged`, this);
+        app.prompt({
+            title: _t('Input New Name'),
+            content: _t('Name'),
+            value: script.name,
+            onOK: value => {
+                script.name = value;
+                app.call('scriptChanged', this);
+            }
+        });
     }
 
     handleRefresh() {
@@ -190,7 +211,7 @@ class ScriptPanel extends React.Component {
         });
     }
 
-    handleEdit() {
+    handleEditScript() {
         const selected = this.state.selected;
         if (selected === null) {
             return;
