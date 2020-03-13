@@ -101,6 +101,16 @@ class ScriptPanel extends React.Component {
             return;
         }
 
+        list.sort((a, b) => {
+            if (!a.sort) {
+                a.sort = 0;
+            }
+            if (!b.sort) {
+                b.sort = 0;
+            }
+            return a.sort - b.sort;
+        });
+
         list.forEach(n => {
             if (n.type === 'folder') {
                 let node = {
@@ -263,6 +273,22 @@ class ScriptPanel extends React.Component {
 
         let currentScript = scripts[current];
         currentScript.pid = newParent;
+
+        // 排序
+        scripts = Object.values(scripts);
+
+        if(!newParent) {
+            scripts = scripts.filter(n => !n.pid && n !== currentScript);
+        } else {
+            scripts = scripts.filter(n => n.pid === newParent && n !== currentScript);
+        }
+
+        let index = scripts.findIndex(n => n.uuid === newIndex);
+        scripts.splice(index, 0, currentScript);
+
+        scripts.forEach((n, i) => {
+            n.sort = i;
+        });
 
         app.call(`scriptChanged`, this);
     }
