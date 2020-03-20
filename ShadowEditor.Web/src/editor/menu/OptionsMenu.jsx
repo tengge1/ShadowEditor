@@ -42,6 +42,19 @@ class OptionsMenu extends React.Component {
                 onClick={this.handleWeatherOptions}
             />
             <MenuItemSeparator />
+            <MenuItem title={_t('Control Mode')}>
+                <MenuItem title={_t('Editor Controls')}
+                    selected
+                />
+                <MenuItem title={_t('Free Controls')} />
+            </MenuItem>
+            <MenuItem title={_t('Add Mode')}>
+                <MenuItem title={_t('Add To Center')}
+                    selected
+                />
+                <MenuItem title={_t('Click Scene To Add')} />
+            </MenuItem>
+            <MenuItemSeparator />
             <MenuItem title={_t('Language')}>
                 <MenuItem title={'English'}
                     onClick={this.handleChangeEnglish}
