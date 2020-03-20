@@ -25,6 +25,8 @@ class OptionsMenu extends React.Component {
     render() {
         const isLogin = !app.server.enableAuthority || app.server.isLogin;
 
+        const lang = window.localStorage.getItem('lang');
+
         return <MenuItem title={_t('Options')}>
             <MenuItem title={_t('Display')}
                 onClick={this.handleDisplayOptions}
@@ -57,32 +59,41 @@ class OptionsMenu extends React.Component {
             <MenuItemSeparator />
             <MenuItem title={_t('Language')}>
                 <MenuItem title={'English'}
+                    selected={lang === 'en-US'}
                     onClick={this.handleChangeEnglish}
                 />
                 <MenuItem title={'简体中文'}
+                    selected={lang === 'zh-CN'}
                     onClick={this.handleChangeChinese}
                 />
                 <MenuItem title={'繁體中文'}
+                    selected={lang === 'zh-TW'}
                     onClick={this.handleChangeTraditionalChinese}
                 />
                 <MenuItem title={'日本語'}
+                    selected={lang === 'ja-JP'}
                     onClick={this.handleChangeJapanese}
                 />
                 <MenuItem title={'한국어'}
+                    selected={lang === 'ko-KR'}
                     onClick={this.handleChangeKorean}
                 />
                 <MenuItem title={'русский'}
+                    selected={lang === 'ru-RU'}
                     onClick={this.handleChangeRussian}
                 />
                 <MenuItem title={'Le français'}
+                    selected={lang === 'fr-FR'}
                     onClick={this.handleChangeFrench}
                 />
             </MenuItem>
             {isLogin && <MenuItem title={_t('Debug Mode')}>
                 <MenuItem title={_t('Enable')}
+                    selected={app.debug}
                     onClick={this.handleEnableDebugMode}
                 />
                 <MenuItem title={_t('Disable')}
+                    selected={!app.debug}
                     onClick={this.handleDisableDebugMode}
                 />
             </MenuItem>}

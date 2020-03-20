@@ -21,6 +21,7 @@ class LanguageLoader {
             } else {
                 lang = 'en-US';
             }
+            window.localStorage.setItem('lang', lang);
         }
 
         return new Promise(resolve => {
