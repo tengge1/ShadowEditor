@@ -271,13 +271,21 @@ class ScriptPanel extends React.Component {
     handleDrop(current, newParent, newIndex) {
         let scripts = this.state.scripts;
 
+        if (newParent) {
+            let parent = scripts[newParent];
+            if (parent.type !== 'folder') {
+                app.toast(_t('It is not allowed to drop on another script.'));
+                return;
+            }
+        }
+
         let currentScript = scripts[current];
         currentScript.pid = newParent;
 
         // 排序
         scripts = Object.values(scripts);
 
-        if(!newParent) {
+        if (!newParent) {
             scripts = scripts.filter(n => !n.pid && n !== currentScript);
         } else {
             scripts = scripts.filter(n => n.pid === newParent && n !== currentScript);
