@@ -1,5 +1,5 @@
 import './css/EditorStatusBar.css';
-import { Toolbar, ToolbarSeparator, Label, Select } from '../../ui/index';
+import { Toolbar, ToolbarSeparator, Label } from '../../ui/index';
 
 /**
  * 状态栏
@@ -8,16 +8,6 @@ import { Toolbar, ToolbarSeparator, Label, Select } from '../../ui/index';
 class EditorStatusBar extends React.Component {
     constructor(props) {
         super(props);
-
-        this.selectMode = {
-            whole: _t('Select Whole'),
-            part: _t('Select Part')
-        };
-
-        this.controlMode = {
-            EditorControls: _t('Editor Controls'),
-            FreeControls: _t('Free Controls')
-        };
 
         this.state = {
             x: 0,
@@ -29,15 +19,10 @@ class EditorStatusBar extends React.Component {
 
         this.handleUpdateMousePosition = this.handleUpdateMousePosition.bind(this);
         this.handleUpdateSceneInfo = this.handleUpdateSceneInfo.bind(this);
-        this.handleChangeSelectMode = this.handleChangeSelectMode.bind(this);
     }
 
     render() {
         const { x, y, objects, vertices, triangles } = this.state;
-
-        const selectMode = app.storage.selectMode;
-
-        const isLogin = !app.server.enableAuthority || app.server.isLogin;
 
         return <Toolbar className={'EditorStatusBar'}>
             <Label>{`r${THREE.REVISION}`}</Label>
@@ -58,15 +43,6 @@ class EditorStatusBar extends React.Component {
             <Label>{_t('Triangle')}</Label>
             <Label className={'value'}>{triangles}</Label>
             <ToolbarSeparator />
-            {isLogin && <>
-                <Label>{_t('Selected Mode')}</Label>
-                <Select name={'selectMode'}
-                    options={this.selectMode}
-                    value={selectMode}
-                    onChange={this.handleChangeSelectMode}
-                />
-                <ToolbarSeparator />
-            </>}
         </Toolbar>;
     }
 
@@ -130,11 +106,6 @@ class EditorStatusBar extends React.Component {
             vertices: vertices.format(),
             triangles: triangles.format()
         });
-    }
-
-    handleChangeSelectMode(value) {
-        app.storage.selectMode = value;
-        this.forceUpdate();
     }
 }
 

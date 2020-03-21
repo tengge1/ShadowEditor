@@ -16,6 +16,7 @@ class OptionsMenu extends React.Component {
         this.handleWeatherOptions = this.handleWeatherOptions.bind(this);
 
         this.handleChangeControlMode = this.handleChangeControlMode.bind(this);
+        this.handleChangeSelectMode = this.handleChangeSelectMode.bind(this);
         this.handleChangeAddMode = this.handleChangeAddMode.bind(this);
 
         this.handleChangeEnglish = this.handleChangeEnglish.bind(this);
@@ -29,6 +30,7 @@ class OptionsMenu extends React.Component {
         const isLogin = !app.server.enableAuthority || app.server.isLogin;
 
         const controlMode = app.storage.controlMode;
+        const selectMode = app.storage.selectMode;
         const addMode = app.storage.addMode;
 
         const lang = window.localStorage.getItem('lang');
@@ -60,6 +62,18 @@ class OptionsMenu extends React.Component {
                     title={_t('Free Controls')}
                     selected={controlMode === 'FreeControls'}
                     onClick={this.handleChangeControlMode}
+                />
+            </MenuItem>}
+            {isLogin && <MenuItem title={_t('Select Mode')}>
+                <MenuItem name={'whole'}
+                    title={_t('Select Whole')}
+                    selected={selectMode === 'whole'}
+                    onClick={this.handleChangeSelectMode}
+                />
+                <MenuItem name={'part'}
+                    title={_t('Select Part')}
+                    selected={selectMode === 'part'}
+                    onClick={this.handleChangeSelectMode}
                 />
             </MenuItem>}
             {isLogin && <MenuItem title={_t('Add Mode')}>
@@ -175,6 +189,13 @@ class OptionsMenu extends React.Component {
 
     handleChangeAddMode(value) {
         app.storage.addMode = value;
+        this.forceUpdate();
+    }
+
+    // --------------------------- 选择模式 ----------------------------------------------
+
+    handleChangeSelectMode(value) {
+        app.storage.selectMode = value;
         this.forceUpdate();
     }
 
