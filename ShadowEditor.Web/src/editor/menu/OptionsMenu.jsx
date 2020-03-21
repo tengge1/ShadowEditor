@@ -16,6 +16,7 @@ class OptionsMenu extends React.Component {
         this.handleWeatherOptions = this.handleWeatherOptions.bind(this);
 
         this.handleChangeControlMode = this.handleChangeControlMode.bind(this);
+        this.handleChangeAddMode = this.handleChangeAddMode.bind(this);
 
         this.handleChangeEnglish = this.handleChangeEnglish.bind(this);
         this.handleChangeChinese = this.handleChangeChinese.bind(this);
@@ -28,6 +29,7 @@ class OptionsMenu extends React.Component {
         const isLogin = !app.server.enableAuthority || app.server.isLogin;
 
         const controlMode = app.storage.controlMode;
+        const addMode = app.storage.addMode;
 
         const lang = window.localStorage.getItem('lang');
 
@@ -60,12 +62,18 @@ class OptionsMenu extends React.Component {
                     onClick={this.handleChangeControlMode}
                 />
             </MenuItem>}
-            <MenuItem title={_t('Add Mode')}>
-                <MenuItem title={_t('Add To Center')}
-                    selected
+            {isLogin && <MenuItem title={_t('Add Mode')}>
+                <MenuItem name={'center'}
+                    title={_t('Add To Center')}
+                    selected={addMode === 'center'}
+                    onClick={this.handleChangeAddMode}
                 />
-                <MenuItem title={_t('Click Scene To Add')} />
-            </MenuItem>
+                <MenuItem name={'click'}
+                    title={_t('Click Scene To Add')}
+                    selected={addMode === 'click'}
+                    onClick={this.handleChangeAddMode}
+                />
+            </MenuItem>}
             <MenuItemSeparator />
             <MenuItem title={_t('Language')}>
                 <MenuItem title={'English'}
@@ -165,6 +173,10 @@ class OptionsMenu extends React.Component {
 
     // ----------------------------- 添加模式 ------------------------------------------------
 
+    handleChangeAddMode(value) {
+        app.storage.addMode = value;
+        this.forceUpdate();
+    }
 
     // ---------------------------- 语言选项 -------------------------------------------------
 

@@ -36,7 +36,7 @@ class Storage {
             hoveredColor: '#ffff00',
 
             // 编辑模式
-            addMode: 'click', // 添加模式：center: 添加到场景中心；click: 点击场景添加。
+            addMode: 'center', // 添加模式：center: 添加到场景中心；click: 点击场景添加。
             controlMode: 'EditorControls' // 控制器模式：EditorControls: 编辑器控制器；FreeControls: 自由控制器。
         };
 
