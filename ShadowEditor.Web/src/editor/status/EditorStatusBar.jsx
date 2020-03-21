@@ -30,14 +30,12 @@ class EditorStatusBar extends React.Component {
         this.handleUpdateMousePosition = this.handleUpdateMousePosition.bind(this);
         this.handleUpdateSceneInfo = this.handleUpdateSceneInfo.bind(this);
         this.handleChangeSelectMode = this.handleChangeSelectMode.bind(this);
-        this.handleChangeControlMode = this.handleChangeControlMode.bind(this);
     }
 
     render() {
         const { x, y, objects, vertices, triangles } = this.state;
 
         const selectMode = app.storage.selectMode;
-        const controlMode = app.storage.controlMode;
 
         const isLogin = !app.server.enableAuthority || app.server.isLogin;
 
@@ -66,15 +64,6 @@ class EditorStatusBar extends React.Component {
                     options={this.selectMode}
                     value={selectMode}
                     onChange={this.handleChangeSelectMode}
-                />
-                <ToolbarSeparator />
-            </>}
-            {isLogin && <>
-                <Label>{_t('Control Mode')}</Label>
-                <Select name={'controlMode'}
-                    options={this.controlMode}
-                    value={controlMode}
-                    onChange={this.handleChangeControlMode}
                 />
                 <ToolbarSeparator />
             </>}
@@ -145,12 +134,6 @@ class EditorStatusBar extends React.Component {
 
     handleChangeSelectMode(value) {
         app.storage.selectMode = value;
-        this.forceUpdate();
-    }
-
-    handleChangeControlMode(value) {
-        app.editor.controls.changeMode(value);
-        app.storage.controlMode = value;
         this.forceUpdate();
     }
 }

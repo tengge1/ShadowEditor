@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 class MenuItem extends React.Component {
     constructor(props) {
         super(props);
+
         this.handleClick = this.handleClick.bind(this, props.onClick);
     }
 
@@ -37,16 +38,17 @@ class MenuItem extends React.Component {
         event.stopPropagation();
 
         if (!event.target.classList.contains('disabled')) {
-            onClick && onClick(event);
+            onClick && onClick(this.props.name, event);
         }
     }
 }
 
 MenuItem.propTypes = {
-    title: PropTypes.string,
     className: PropTypes.string,
     style: PropTypes.object,
     children: PropTypes.node,
+    name: PropTypes.string,
+    title: PropTypes.string,
     show: PropTypes.bool,
     checked: PropTypes.bool,
     selected: PropTypes.bool,
@@ -55,10 +57,11 @@ MenuItem.propTypes = {
 };
 
 MenuItem.defaultProps = {
-    title: null,
     className: null,
     style: null,
     children: null,
+    name: null,
+    title: null,
     show: true,
     checked: undefined,
     selected: undefined,

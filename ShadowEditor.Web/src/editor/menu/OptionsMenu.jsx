@@ -15,6 +15,8 @@ class OptionsMenu extends React.Component {
         this.handleFilterOptions = this.handleFilterOptions.bind(this);
         this.handleWeatherOptions = this.handleWeatherOptions.bind(this);
 
+        this.handleChangeControlMode = this.handleChangeControlMode.bind(this);
+
         this.handleChangeEnglish = this.handleChangeEnglish.bind(this);
         this.handleChangeChinese = this.handleChangeChinese.bind(this);
 
@@ -24,6 +26,8 @@ class OptionsMenu extends React.Component {
 
     render() {
         const isLogin = !app.server.enableAuthority || app.server.isLogin;
+
+        const controlMode = app.storage.controlMode;
 
         const lang = window.localStorage.getItem('lang');
 
@@ -44,12 +48,18 @@ class OptionsMenu extends React.Component {
                 onClick={this.handleWeatherOptions}
             />
             <MenuItemSeparator />
-            <MenuItem title={_t('Control Mode')}>
-                <MenuItem title={_t('Editor Controls')}
-                    selected
+            {isLogin && <MenuItem title={_t('Control Mode')}>
+                <MenuItem name={'EditorControls'}
+                    title={_t('Editor Controls')}
+                    selected={controlMode === 'EditorControls'}
+                    onClick={this.handleChangeControlMode}
                 />
-                <MenuItem title={_t('Free Controls')} />
-            </MenuItem>
+                <MenuItem name={'FreeControls'}
+                    title={_t('Free Controls')}
+                    selected={controlMode === 'FreeControls'}
+                    onClick={this.handleChangeControlMode}
+                />
+            </MenuItem>}
             <MenuItem title={_t('Add Mode')}>
                 <MenuItem title={_t('Add To Center')}
                     selected
@@ -144,6 +154,17 @@ class OptionsMenu extends React.Component {
         });
         app.addElement(win);
     }
+
+    // ------------------------------ 控制器模式 ---------------------------------------------
+
+    handleChangeControlMode(value) {
+        app.editor.controls.changeMode(value);
+        app.storage.controlMode = value;
+        this.forceUpdate();
+    }
+
+    // ----------------------------- 添加模式 ------------------------------------------------
+
 
     // ---------------------------- 语言选项 -------------------------------------------------
 

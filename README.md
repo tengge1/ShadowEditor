@@ -15,6 +15,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 2. `EnableDamping`的翻译由`启用减震`改为`启用惯性`。
 3. `DampingFactor`的翻译由`减震系数`改为`惯性系数`。
 4. 脚本面板新增`新建文件夹`，支持`树状结构`，支持`拖动排序`，支持`修改文件夹和脚本名称`。
+5. `控制器模式选择`由状态栏改到`选项`菜单中。
 
 ## v0.4.4更新【[更新日志](docs-dev/update/UpdateLog.md)】
 
