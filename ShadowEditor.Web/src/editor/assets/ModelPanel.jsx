@@ -170,6 +170,7 @@ class ModelPanel extends React.Component {
     // 点击场景添加
     clickSceneToAdd(obj) {
         let added = false;
+        app.editor.gpuPickNum += 1;
         app.on(`gpuPick.ModelPanel`, intersect => { // 鼠标移动出现预览效果
             if (!intersect.point) {
                 return;
@@ -185,6 +186,7 @@ class ModelPanel extends React.Component {
             app.on(`raycast.ModelPanel`, null);
             obj.position.copy(intersect.point);
             this.addToCenter(obj);
+            app.editor.gpuPickNum -= 1;
         });
     }
 
