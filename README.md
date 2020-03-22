@@ -11,7 +11,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 
 ## v0.4.5更新【[更新日志](docs-dev/update/UpdateLog.md)】
 
-* 发布日期：2020年3月8日
+* 发布日期：2020年3月22日
 * 更新日志：
 
 1. 播放场景，默认的轨道控制器`启用惯性`设置。
