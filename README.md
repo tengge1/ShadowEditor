@@ -20,7 +20,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 7. `选择模式`由状态栏移动到`选项`菜单中。
 8. 修复`点击场景添加模型`，添加过程中不出现模型预览bug。
 9. `app.editor.scripts`由`Object`改为`Array`，不会对以前的场景造成影响。
-10. 场景脚本第三方编辑器支持，场景中创建的脚本自动同步到`SceneScript`文件夹中。
+10. 场景脚本第三方编辑器支持，场景中创建的脚本自动同步到`SceneScript`文件夹中。（未完成）
 
 ## v0.4.4更新【[更新日志](docs-dev/update/UpdateLog.md)】
 

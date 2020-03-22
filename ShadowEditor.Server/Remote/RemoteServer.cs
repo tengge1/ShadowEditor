@@ -28,7 +28,9 @@ namespace ShadowEditor.Server.Remote
             {
                 // see: https://github.com/jjrdk/websocket-sharp
                 webSocketServer = new WebSocketServer(null, ConfigHelper.WebSocketServerPort);
-                webSocketServer.AddWebSocketService<SocketServer>("/RemoteEdit");
+
+                webSocketServer.AddWebSocketService<RemoteSocket>("/RemoteEdit");
+
                 webSocketServer.Start();
             }
             catch (Exception ex)

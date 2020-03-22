@@ -8,46 +8,95 @@ using System.Web;
 using WebSocketSharp;
 using WebSocketSharp.Server;
 using ShadowEditor.Model.Script;
+using ShadowEditor.Server.Helpers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace ShadowEditor.Server.Remote
 {
     /// <summary>
-    /// Socket服务端
+    /// Remote Socket
     /// </summary>
     /// <see cref="https://github.com/jjrdk/websocket-sharp"/>
-    public class SocketServer : WebSocketBehavior
+    public class RemoteSocket : WebSocketBehavior
     {
+        private string rootPath = RemoteHelper.GetRemotePath();
+
+        public RemoteSocket() : base()
+        {
+            var path = RemoteHelper.GetRemotePath();
+            try
+            {
+                var watcher = new FileSystemWatcher(path);
+                watcher.IncludeSubdirectories = true;
+                watcher.Changed += OnFileChanged;
+            }
+            catch (Exception ex)
+            {
+                var log = LogHelper.GetLogger(this.GetType());
+                log.Error("Create FileSystemWatcher failed.", ex);
+            }
+        }
+
+        protected override Task OnOpen()
+        {
+            var log = LogHelper.GetLogger(this.GetType());
+            log.Info("Socket open.");
+            return base.OnOpen();
+        }
+
         protected override Task OnMessage(MessageEventArgs e)
         {
-            var path = AppDomain.CurrentDomain.BaseDirectory;
-            if (path.EndsWith("\\"))
-            {
-                path = path.Substring(0, path.Length - 1);
-            }
-
-            var paths = path.Split('\\').ToList();
-            paths.RemoveAt(paths.Count - 1);
-            paths.Add("SceneScript");
-
-            path = string.Join("\\", paths);
-
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
-
             var list = GetScripts(e.Data);
 
-            DeleteScripts(path, true);
+            DeleteScripts(rootPath, true);
 
-            CreateScripts("", path, list);
+            CreateScripts("", rootPath, list);
 
-            Send("Hello, world!");
+            Send(JsonConvert.SerializeObject(new
+            {
+                Code = 200,
+                Msg = "Send Successfully!",
+                Type = "Response"
+            }));
+
             return base.OnMessage(e);
         }
 
+        protected override Task OnClose(CloseEventArgs e)
+        {
+            var log = LogHelper.GetLogger(this.GetType());
+            log.Warn("Socket close.");
+            return base.OnClose(e);
+        }
+
+        protected override Task OnError(WebSocketSharp.ErrorEventArgs e)
+        {
+            var log = LogHelper.GetLogger(this.GetType());
+            log.Error(e.Message, e.Exception);
+            return base.OnError(e);
+        }
+
+        /// <summary>
+        /// 远程编辑文件发生改变
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void OnFileChanged(object sender, FileSystemEventArgs e)
+        {
+            var list = new List<ScriptModel>();
+
+            TraverseFolder(rootPath, list);
+
+            Send(JsonConvert.SerializeObject(new
+            {
+                Code = 200,
+                Msg = "Send Successfully!",
+                Type = "Response"
+            }));
+        }
+
+        #region 场景脚本改变更新SceneScript文件夹
         private List<ScriptModel> GetScripts(Stream stream)
         {
             var reader = new StreamReader(stream, Encoding.UTF8);
@@ -156,5 +205,23 @@ namespace ShadowEditor.Server.Remote
 
             return extension;
         }
+        #endregion
+
+        #region SceneScript文件夹改变更新场景脚本
+        public void TraverseFolder(string path, List<ScriptModel> scripts)
+        {
+            var directories = Directory.GetDirectories(path);
+            var files = Directory.GetFiles(path);
+
+            foreach (var i in directories)
+            {
+
+            }
+            foreach (var i in files)
+            {
+
+            }
+        }
+        #endregion
     }
 }
