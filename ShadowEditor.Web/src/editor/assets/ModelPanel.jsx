@@ -161,7 +161,7 @@ class ModelPanel extends React.Component {
 
         if (obj.userData.scripts) {
             obj.userData.scripts.forEach(n => {
-                app.editor.scripts[n.uuid] = n;
+                app.editor.scripts.push(n);
             });
             app.call('scriptChanged', this);
         }

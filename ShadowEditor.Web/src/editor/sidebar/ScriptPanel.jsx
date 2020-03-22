@@ -11,7 +11,7 @@ class ScriptPanel extends React.Component {
         super(props);
 
         this.state = {
-            scripts: {},
+            scripts: [],
             selected: null,
             expanded: {},
             mask: false
@@ -37,11 +37,11 @@ class ScriptPanel extends React.Component {
         const { scripts, selected, expanded, mask } = this.state;
 
         const tree = [];
-        this.createScriptTree(0, tree, Object.values(scripts), expanded);
+        this.createScriptTree(0, tree, scripts, expanded);
 
         let script = null;
-        if (selected !== null && scripts[selected]) {
-            script = scripts[selected];
+        if (selected !== null) {
+            script = scripts.filter(n => n.uuid === selected)[0];
         }
 
         return <div className={'ScriptPanel'}>
@@ -174,16 +174,14 @@ class ScriptPanel extends React.Component {
             content: _t('Folder Name'),
             value: _t('New folder'),
             onOK: value => {
-                const uuid = THREE.Math.generateUUID();
-
-                app.editor.scripts[uuid] = {
+                app.editor.scripts.push({
                     id: null,
                     pid: null,
                     name: value,
                     type: 'folder',
-                    uuid,
+                    uuid: THREE.Math.generateUUID(),
                     sort: 0
-                };
+                });
 
                 app.call(`scriptChanged`, this);
             }
@@ -195,7 +193,7 @@ class ScriptPanel extends React.Component {
         if (selected === null) {
             return;
         }
-        var script = app.editor.scripts[selected];
+        var script = app.editor.scripts.filter(n => n.uuid === selected)[0];
 
         app.prompt({
             title: _t('Input New Name'),
@@ -227,11 +225,11 @@ class ScriptPanel extends React.Component {
             return;
         }
 
-        const script = app.editor.scripts[selected];
+        const script = app.editor.scripts.filter(n => n.uuid === selected)[0];
 
         app.confirm({
             title: _t('Confirm'),
-            content: `${_t('Delete')} ${script.name}.${this.getExtension(script.type)}？`,
+            content: `${_t('Delete')} ${script.name}.${this.getExtension(script.type)}?`,
             onOK: () => {
                 delete app.editor.scripts[script.uuid];
                 app.call('scriptChanged', this);
@@ -244,7 +242,7 @@ class ScriptPanel extends React.Component {
         if (selected === null) {
             return;
         }
-        var script = app.editor.scripts[selected];
+        var script = app.editor.scripts.filter(n => n.uuid === selected)[0];
         if (script) {
             app.call(`editScript`, this, script.uuid, script.name, script.type, script.source, this.save);
         }
@@ -272,19 +270,17 @@ class ScriptPanel extends React.Component {
         let scripts = this.state.scripts;
 
         if (newParent) {
-            let parent = scripts[newParent];
+            let parent = scripts.filter(n => n.uuid === newParent)[0];
             if (parent.type !== 'folder') {
                 app.toast(_t('It is not allowed to drop on another script.'));
                 return;
             }
         }
 
-        let currentScript = scripts[current];
+        let currentScript = scripts.filter(n => n.uuid === current)[0];
         currentScript.pid = newParent;
 
         // 排序
-        scripts = Object.values(scripts);
-
         if (!newParent) {
             scripts = scripts.filter(n => !n.pid && n !== currentScript);
         } else {
@@ -302,13 +298,25 @@ class ScriptPanel extends React.Component {
     }
 
     save(uuid, name, type, source) {
-        app.editor.scripts[uuid] = {
-            id: null,
-            uuid,
-            name,
-            type,
-            source
-        };
+        const index = app.editor.scripts.findIndex(n => n.uuid === uuid);
+
+        if (index > -1) {
+            app.editor.scripts[index] = {
+                id: null,
+                uuid,
+                name,
+                type,
+                source
+            };
+        } else {
+            app.editor.scripts.push({
+                id: null,
+                uuid,
+                name,
+                type,
+                source
+            });
+        }
 
         app.call(`scriptChanged`, this);
     }

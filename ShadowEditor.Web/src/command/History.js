@@ -35,14 +35,7 @@ Object.assign(History.prototype, {
             lastCmd.script === cmd.script &&
             lastCmd.attributeName === cmd.attributeName;
 
-        if (isUpdatableCmd && cmd.type === "SetScriptValueCommand") {
-
-            // When the cmd.type is "SetScriptValueCommand" the timeDifference is ignored
-
-            lastCmd.update(cmd);
-            cmd = lastCmd;
-
-        } else if (isUpdatableCmd && timeDifference < 500) {
+        if (isUpdatableCmd && timeDifference < 500) {
 
             lastCmd.update(cmd);
             cmd = lastCmd;

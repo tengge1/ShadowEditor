@@ -14,10 +14,8 @@ ScriptSerializer.prototype.constructor = ScriptSerializer;
 ScriptSerializer.prototype.toJSON = function (scripts) {
     var list = [];
 
-    Object.keys(scripts).forEach(uuid => {
+    scripts.forEach(script => {
         var json = BaseSerializer.prototype.toJSON.call(this);
-
-        var script = scripts[uuid];
 
         Object.assign(json, {
             id: script.id,
@@ -36,10 +34,10 @@ ScriptSerializer.prototype.toJSON = function (scripts) {
 };
 
 ScriptSerializer.prototype.fromJSON = function (jsons, parent) {
-    parent = parent || {};
+    parent = parent || [];
 
     jsons.forEach(json => {
-        parent[json.uuid] = {
+        parent.push({
             id: json.id,
             pid: json.pid,
             name: json.name,
@@ -47,7 +45,7 @@ ScriptSerializer.prototype.fromJSON = function (jsons, parent) {
             source: json.source,
             sort: json.sort,
             uuid: json.uuid
-        };
+        });
     });
 
     return parent;

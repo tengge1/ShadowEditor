@@ -142,12 +142,12 @@ class Editor extends React.Component {
         // 物体
         this.objects = [];
 
-        // 脚本 格式：{ uuid: { id: 'MongoDB _id', pid: null, name: 'Script Name', type: 'Script Type', source: 'Source Code', uuid: 'uuid', sort: 'sort' }}
+        // 脚本 格式：[{ id: 'MongoDB _id', pid: null, name: 'Script Name', type: 'Script Type', source: 'Source Code', uuid: 'uuid', sort: 'sort' }, ...]
         // 其中，uuid是创建脚本时自动生成，不可改变，关联时使用，id是mongo数据库ID字段；name：随便填写；
         // type：javascript，vertexShader, fragmentShader, json, folder；source：源码；sort: 排序，小的在前面。
         // pid是null或undefined是根节点，否则是子节点。
         // type为group时表示一个文件夹，此时，不需要source属性。
-        this.scripts = {};
+        this.scripts = [];
 
         // 动画格式：[{ id: 'MongoDB _id', uuid: 'uuid', layer: '动画层序号', layerName: '动画层名称', animations: '动画' }, ...]
         // 其中，动画：[{ id: 'MongoDB _id', uuid: 'uuid', name: '动画名称', target: '动画对象uuid', type: '动画类型', beginTime: '开始时间(s)', endTime: '结束时间(s)', data: '动画参数' }, ...]

@@ -80,15 +80,13 @@ class ExampleMenu extends React.Component {
                     // 说明: three.js示例中，物体和脚本的uuid是一致的，
                     // 这会导致本编辑器报错。
                     scripts.forEach(script => {
-                        const newScript = THREE.Math.generateUUID();
-
-                        app.editor.scripts[newScript] = {
+                        app.editor.scripts.push({
                             id: '',
                             name: script.name,
                             type: 'javascript',
                             source: script.source,
-                            uuid: newScript
-                        };
+                            uuid: THREE.Math.generateUUID()
+                        });
                     });
                 }
             }

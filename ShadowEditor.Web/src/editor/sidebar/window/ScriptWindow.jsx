@@ -102,13 +102,25 @@ class ScriptWindow extends React.Component {
                 source = JavaScriptStarter();
         }
 
-        app.editor.scripts[uuid] = {
-            id: null,
-            name,
-            type,
-            source,
-            uuid
-        };
+        const index = app.editor.scripts.findIndex(n => n.uuid === uuid);
+
+        if (index > -1) {
+            app.editor.scripts[index] = {
+                id: null,
+                name,
+                type,
+                source,
+                uuid
+            };
+        } else {
+            app.editor.scripts.push({
+                id: null,
+                name,
+                type,
+                source,
+                uuid
+            });
+        }
 
         app.call(`scriptChanged`, this);
 
@@ -126,13 +138,25 @@ class ScriptWindow extends React.Component {
     }
 
     handleSaveScript(uuid, name, type, source) {
-        app.editor.scripts[uuid] = {
-            id: null,
-            uuid,
-            name,
-            type,
-            source
-        };
+        const index = app.editor.scripts.findIndex(n => n.uuid === uuid);
+
+        if (index > -1) {
+            app.editor.scripts[index] = {
+                id: null,
+                uuid,
+                name,
+                type,
+                source
+            };
+        } else {
+            app.editor.scripts.push({
+                id: null,
+                uuid,
+                name,
+                type,
+                source
+            });
+        }
 
         app.call(`scriptChanged`, this);
     }

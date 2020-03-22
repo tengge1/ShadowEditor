@@ -45,7 +45,7 @@ class BaseSceneTemplate {
             editor.removeObject(objects[0]);
         }
 
-        editor.scripts = {};
+        editor.scripts.length = 0;
 
         editor.animations.length = 0;
 
