@@ -9,11 +9,6 @@ using System.Web;
 using System.Reflection;
 using WebSocketSharp.Server;
 using ShadowEditor.Server.Helpers;
-using FubarDev.FtpServer;
-using FubarDev.FtpServer.AccountManagement;
-using FubarDev.FtpServer.AccountManagement.Anonymous;
-
-using ShadowEditor.Server.Remote.FileSystem;
 
 namespace ShadowEditor.Server.Remote
 {
@@ -22,39 +17,11 @@ namespace ShadowEditor.Server.Remote
     /// </summary>
     public class RemoteServer
     {
-        private FtpServer ftpServer = null;
         private WebSocketServer webSocketServer = null;
 
         public void Start()
         {
             var log = LogHelper.GetLogger(this.GetType());
-
-            // 启动FTP服务器
-            try
-            {
-                var path = HttpContext.Current.Server.MapPath("~/Upload/TestFtpServer");
-                if (!Directory.Exists(path))
-                {
-                    Directory.CreateDirectory(path);
-                }
-
-                var fsProvider = new RemoteFileSystemProvider(path, false);
-
-                var membershipProvider = new AnonymousMembershipProvider(new NoValidation());
-
-                var ftpServer = new FtpServer(
-                    fsProvider,
-                    membershipProvider,
-                    "127.0.0.1",
-                    ConfigHelper.FTPServerPort,
-                    new AssemblyFtpCommandHandlerFactory(typeof(FtpServer).GetTypeInfo().Assembly)
-                );
-                ftpServer.Start();
-            }
-            catch (Exception ex)
-            {
-                log.Error("Create FtpServer failed.", ex);
-            }
 
             // 启动Websocket服务器
             try
@@ -72,11 +39,6 @@ namespace ShadowEditor.Server.Remote
 
         public void Stop()
         {
-            if (ftpServer != null)
-            {
-                ftpServer.Stop();
-            }
-
             try
             {
                 webSocketServer.Stop();

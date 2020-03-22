@@ -68,17 +68,6 @@ namespace ShadowEditor.Server.Helpers
         }
 
         /// <summary>
-        /// FPT服务器端口（远程编辑用）
-        /// </summary>
-        public static int FTPServerPort
-        {
-            get
-            {
-                return Convert.ToInt32(ConfigurationManager.AppSettings["FTPServerPort"]);
-            }
-        }
-
-        /// <summary>
         /// WebSocket服务器端口（远程编辑用）
         /// </summary>
         public static int WebSocketServerPort

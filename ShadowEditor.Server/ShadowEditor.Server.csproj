@@ -50,18 +50,6 @@
     <Reference Include="DnsClient, Version=1.2.0.0, Culture=neutral, PublicKeyToken=4574bb5573c51424, processorArchitecture=MSIL">
       <HintPath>..\packages\DnsClient.1.2.0\lib\net471\DnsClient.dll</HintPath>
     </Reference>
-    <Reference Include="FubarDev.FtpServer, Version=1.3.7.40971, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FubarDev.FtpServer.1.3.7\lib\portable45-net45+win8+wp8+wpa81\FubarDev.FtpServer.dll</HintPath>
-    </Reference>
-    <Reference Include="FubarDev.FtpServer.AccountManagement, Version=1.3.7.40968, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FubarDev.FtpServer.AccountManagement.1.3.7\lib\portable45-net45+win8+wp8+wpa81\FubarDev.FtpServer.AccountManagement.dll</HintPath>
-    </Reference>
-    <Reference Include="FubarDev.FtpServer.FileSystem, Version=1.3.7.40967, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FubarDev.FtpServer.FileSystem.1.3.7\lib\portable45-net45+win8+wp8+wpa81\FubarDev.FtpServer.FileSystem.dll</HintPath>
-    </Reference>
-    <Reference Include="FubarDev.FtpServer.FileSystem.DotNet, Version=1.3.7.40969, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FubarDev.FtpServer.FileSystem.DotNet.1.3.7\lib\net45\FubarDev.FtpServer.FileSystem.DotNet.dll</HintPath>
-    </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=1.2.0.246, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpZipLib.1.2.0\lib\net45\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
@@ -88,9 +76,6 @@
     </Reference>
     <Reference Include="Microsoft.Extensions.Primitives, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Primitives.2.0.0\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
-    </Reference>
-    <Reference Include="Minimatch, Version=1.1.0.0, Culture=neutral, PublicKeyToken=0cadeb0b849c27c0, processorArchitecture=MSIL">
-      <HintPath>..\packages\FubarDev.Minimatch.1.2.0\lib\portable-net45+dnxcore50+win+wpa81+wp80+MonoAndroid10+xamarinios10+MonoTouch10\Minimatch.dll</HintPath>
     </Reference>
     <Reference Include="MongoDB.Bson, Version=2.10.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MongoDB.Bson.2.10.2\lib\net452\MongoDB.Bson.dll</HintPath>
@@ -231,11 +216,6 @@
     <Compile Include="Helpers\ZipHelper.cs" />
     <Compile Include="OperatingAuthority.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Remote\FileSystem\RemoteDirectoryEntry.cs" />
-    <Compile Include="Remote\FileSystem\RemoteFileEntry.cs" />
-    <Compile Include="Remote\FileSystem\RemoteFileSystem.cs" />
-    <Compile Include="Remote\FileSystem\RemoteFileSystemProvider.cs" />
-    <Compile Include="Remote\FtpCommandHandlerFactory.cs" />
     <Compile Include="Remote\RemoteServer.cs" />
     <Compile Include="Remote\SocketServer.cs" />
     <Compile Include="Result.cs" />
