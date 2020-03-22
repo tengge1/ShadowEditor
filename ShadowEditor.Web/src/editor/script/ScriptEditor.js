@@ -57,7 +57,12 @@ function ScriptEditor(container = document.body) {
         if (this.mode !== 'javascript') {
             return;
         }
-        server.updateArgHints(cm);
+
+        try {
+            server.updateArgHints(cm);
+        } catch(e) {
+            console.log(e);
+        }
     });
 
     codemirror.on('keypress', (cm, kb) => {

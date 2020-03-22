@@ -15,10 +15,12 @@ LoadSceneEvent.prototype.constructor = LoadSceneEvent;
 
 LoadSceneEvent.prototype.start = function () {
     app.on(`load.${this.id}`, this.onLoad.bind(this));
+    app.on(`loadSceneList.${this.id}`, this.onLoadSceneList.bind(this));
 };
 
 LoadSceneEvent.prototype.stop = function () {
     app.on(`load.${this.id}`, null);
+    app.on(`loadSceneObj.${this.id}`, null);
 };
 
 LoadSceneEvent.prototype.onLoad = function (url, name, id) {
@@ -30,9 +32,7 @@ LoadSceneEvent.prototype.onLoad = function (url, name, id) {
         id = THREE.Math.generateUUID();
     }
 
-    var editor = app.editor;
-
-    editor.clear(false);
+    app.editor.clear(false);
     document.title = name;
 
     app.mask(_t('Loading...'));
@@ -44,42 +44,49 @@ LoadSceneEvent.prototype.onLoad = function (url, name, id) {
                 return;
             }
 
-            new Converter().fromJson(obj.Data, {
-                server: app.options.server,
-                camera: app.editor.camera,
-                domWidth: app.editor.renderer.domElement.width,
-                domHeight: app.editor.renderer.domElement.height
-            }).then(obj => {
-                this.onLoadScene(obj);
-
-                editor.sceneID = id;
-                editor.sceneName = name;
-
-                if (obj.options) {
-                    app.call('optionsChanged', this);
-
-                    if (obj.options.sceneType === 'GIS') {
-                        if (app.editor.gis) {
-                            app.editor.gis.stop();
-                        }
-                        app.editor.gis = new GISScene(app, {
-                            useCameraPosition: true
-                        });
-                        app.editor.gis.start();
-                    }
-                }
-
-                if (obj.scripts) {
-                    app.call('scriptChanged', this);
-                }
-
-                if (obj.scene) {
-                    app.call('sceneGraphChanged', this);
-                }
-
-                app.unmask();
-            });
+            this.onLoadSceneList(obj.Data, name, id);
         });
+    });
+};
+
+LoadSceneEvent.prototype.onLoadSceneList = function (list, name, id) {
+    app.mask(_t('Loading...'));
+
+    new Converter().fromJson(list, {
+        server: app.options.server,
+        camera: app.editor.camera,
+        domWidth: app.editor.renderer.domElement.width,
+        domHeight: app.editor.renderer.domElement.height
+    }).then(obj => {
+        this.onLoadScene(obj);
+
+        app.editor.sceneID = id || 0;
+        app.editor.sceneName = name || _t('No Name');
+        document.title = app.editor.sceneName;
+
+        if (obj.options) {
+            app.call('optionsChanged', this);
+
+            if (obj.options.sceneType === 'GIS') {
+                if (app.editor.gis) {
+                    app.editor.gis.stop();
+                }
+                app.editor.gis = new GISScene(app, {
+                    useCameraPosition: true
+                });
+                app.editor.gis.start();
+            }
+        }
+
+        if (obj.scripts) {
+            app.call('scriptChanged', this);
+        }
+
+        if (obj.scene) {
+            app.call('sceneGraphChanged', this);
+        }
+
+        app.unmask();
     });
 };
 

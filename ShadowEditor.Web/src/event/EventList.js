@@ -27,6 +27,7 @@ var EventList = [
     'logout', // 注销成功
     'message', // 接收到一个WebSocket消息，格式：{ type: 'Message Type', ... }
     'send', // 通过WebSocket向服务端发送消息，格式：{ type: 'Message Type', ... }
+    'queryLoadAutoSceneScene', // 提示是否加载自动保存的场景
 
     // 配置
     'optionChange', // 某个配置发生变化
@@ -50,7 +51,8 @@ var EventList = [
     'sceneSaved', // 场景保存成功
     'select', // 选中事件
     'clear', // 清空场景
-    'load', // 加载场景
+    'load', // 加载场景，(url, name, id)
+    'loadSceneList', // 加载场景，(list, name, id)
     'log', // 日志事件
 
     'editScript', // 编辑脚本事件 uuid, name, type, source

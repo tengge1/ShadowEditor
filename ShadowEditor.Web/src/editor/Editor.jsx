@@ -208,6 +208,9 @@ class Editor extends React.Component {
 
         this._addAudioListener = this._addAudioListener.bind(this);
         document.addEventListener('click', this._addAudioListener);
+
+        // 如果检测到有自动保存的场景，提示是否载入
+        app.call(`queryLoadAutoSceneScene`, this);
     }
 
     onToggle() {

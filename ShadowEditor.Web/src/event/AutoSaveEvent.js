@@ -13,6 +13,7 @@ class AutoSaveEvent extends BaseEvent {
         this.autoSave = true;
         this.autoSaveTime = 10000; // 自动保存时间
         this.saveProcess = null;
+        this.queryLoad = false; // 是否正在询问加载自动保存场景
 
         this.handleSave = this.handleSave.bind(this);
         this.handleLoad = this.handleLoad.bind(this);
@@ -23,6 +24,7 @@ class AutoSaveEvent extends BaseEvent {
     start() {
         this.autoSave = app.storage.autoSave;
         app.on(`storageChanged.${this.id}`, this.handleStorageChange);
+        app.on(`queryLoadAutoSceneScene.${this.id}`, this.handleLoad);
 
         if (this.autoSave) {
             this.saveProcess = setTimeout(this.handleSave, this.autoSaveTime);
@@ -36,6 +38,14 @@ class AutoSaveEvent extends BaseEvent {
     handleSave() {
         if (this.saveProcess) {
             clearTimeout(this.saveProcess);
+        }
+
+        // 正在询问是否加载自动保存的场景，避免自动保存功能将原来的场景覆盖。
+        if (this.queryLoad) {
+            if (this.autoSave) {
+                this.saveProcess = setTimeout(this.handleSave, this.autoSaveTime);
+            }
+            return;
         }
 
         const editor = app.editor;
@@ -53,6 +63,8 @@ class AutoSaveEvent extends BaseEvent {
 
         window.localStorage.setItem('autoSaveData', JSON.stringify(obj));
         window.localStorage.setItem('autoSaveTime', now);
+        window.localStorage.setItem('autoSaveSceneID', app.editor.sceneID);
+        window.localStorage.setItem('autoSaveSceneName', app.editor.sceneName);
 
         console.log(`${now}, scene auto saved.`);
 
@@ -62,7 +74,35 @@ class AutoSaveEvent extends BaseEvent {
     }
 
     handleLoad() {
+        const autoSaveTime = window.localStorage.getItem('autoSaveTime');
+        const autoSaveData = window.localStorage.getItem('autoSaveData');
+        const autoSaveSceneID = window.localStorage.getItem('autoSaveSceneID');
+        const autoSaveSceneName = window.localStorage.getItem('autoSaveSceneName');
 
+        if (!autoSaveData) {
+            return;
+        }
+
+        this.queryLoad = true;
+
+        app.confirm({
+            title: _t('Load Scene'),
+            content: _t('An auto-save scene was detected. Load?') + ` (${autoSaveTime})`,
+            onOK: () => {
+                this.queryLoad = false;
+                this.commitLoadScene(autoSaveData, autoSaveSceneName, autoSaveSceneID);
+            },
+            onCancel: () => {
+                this.queryLoad = false;
+            }
+        });
+    }
+
+    commitLoadScene(data, name, id) {
+        var obj = JSON.parse(data);
+        if (obj) {
+            app.call(`loadSceneList`, this, obj, name, id);
+        }
     }
 
     handleStorageChange(name, value) {
