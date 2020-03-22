@@ -22,12 +22,7 @@ namespace ShadowEditor.Server.Remote
     /// </summary>
     public class RemoteServer
     {
-        // ftp
-        private string ftpPort = ConfigurationManager.AppSettings["FTPServerPort"];
         private FtpServer ftpServer = null;
-
-        // websocket
-        private string webSocketPort = ConfigurationManager.AppSettings["WebSocketServerPort"];
         private WebSocketServer webSocketServer = null;
 
         public void Start()
@@ -51,7 +46,7 @@ namespace ShadowEditor.Server.Remote
                     fsProvider,
                     membershipProvider,
                     "127.0.0.1",
-                    int.Parse(ftpPort),
+                    ConfigHelper.FTPServerPort,
                     new AssemblyFtpCommandHandlerFactory(typeof(FtpServer).GetTypeInfo().Assembly)
                 );
                 ftpServer.Start();
@@ -65,8 +60,8 @@ namespace ShadowEditor.Server.Remote
             try
             {
                 // see: https://github.com/jjrdk/websocket-sharp
-                webSocketServer = new WebSocketServer(null, int.Parse(webSocketPort));
-                webSocketServer.AddWebSocketService<SocketServer>("/Socket");
+                webSocketServer = new WebSocketServer(null, ConfigHelper.WebSocketServerPort);
+                webSocketServer.AddWebSocketService<SocketServer>("/RemoteEdit");
                 webSocketServer.Start();
             }
             catch (Exception ex)

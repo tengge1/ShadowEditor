@@ -16,6 +16,9 @@ class Server {
         this.authorities = []; // 权限列表
 
         this.isAdmin = false; // 是否是管理员
+
+        this.enableRemoteEdit = false;
+        this.webSocketServerPort = 5000;
     }
 
     load() {
@@ -38,6 +41,9 @@ class Server {
                     this.authorities = obj.Data.OperatingAuthorities;
 
                     this.isAdmin = this.roleName === 'Administrator';
+
+                    this.enableRemoteEdit = obj.Data.EnableRemoteEdit;
+                    this.webSocketServerPort = obj.Data.WebSocketServerPort;
                     resolve();
                 }).catch(e => {
                     console.warn(e);

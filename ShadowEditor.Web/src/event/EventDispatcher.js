@@ -9,6 +9,7 @@ import ResizeEvent from './ResizeEvent';
 import FilterEvent from './FilterEvent';
 import ViewEvent from './ViewEvent';
 import GPUPickEvent from './GPUPickEvent';
+import WebSocketEvent from './WebSocketEvent';
 
 import TransformControlsEvent from './TransformControlsEvent';
 import ObjectEvent from './ObjectEvent';
@@ -38,6 +39,7 @@ function EventDispatcher() {
         new FilterEvent(),
         new ViewEvent(),
         new GPUPickEvent(),
+        new WebSocketEvent(),
 
         // viewport中的事件
         new TransformControlsEvent(),

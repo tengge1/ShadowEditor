@@ -63,7 +63,9 @@ namespace ShadowEditor.Server.Controllers.System
                 ["RoleName"] = "",
                 ["DeptID"] = 0,
                 ["DeptName"] = "",
-                ["OperatingAuthorities"] = new JArray()
+                ["OperatingAuthorities"] = new JArray(),
+                ["EnableRemoteEdit"] = ConfigHelper.EnableRemoteEdit,
+                ["WebSocketServerPort"] = ConfigHelper.WebSocketServerPort
             };
 
             // 获取用户登录信息
