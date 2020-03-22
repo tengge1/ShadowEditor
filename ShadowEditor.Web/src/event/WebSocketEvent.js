@@ -52,6 +52,11 @@ class WebSocketEvent extends BaseEvent {
         this.socket.removeEventListener('close', this.onClose);
     }
 
+    reconnect() {
+        this.stop();
+        this.start();
+    }
+
     /**
      * 通过WebSocket向服务端发送消息
      * @param {Object} obj 数据
@@ -61,9 +66,14 @@ class WebSocketEvent extends BaseEvent {
         if (!this.socket) {
             return;
         }
+        if (this.socket.readyState !== this.socket.OPEN) {
+            this.reconnect();
+            return;
+        }
+        this.socket.send(obj);
     }
 
-    onOpen(event) {
+    onOpen() {
         console.log('WebSocket open successfully.');
     }
 
@@ -73,10 +83,16 @@ class WebSocketEvent extends BaseEvent {
 
     onError(event) {
         console.warn('WebSocket Error:', event);
+        setTimeout(() => {
+            this.reconnect();
+        }, this.reconnectTime);
     }
 
-    onClose(event) {
+    onClose() {
         console.log('WebSocket closed.');
+        setTimeout(() => {
+            this.reconnect();
+        }, this.reconnectTime);
     }
 }
 
