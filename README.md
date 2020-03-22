@@ -3,13 +3,16 @@
 Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en.md) / 日本語 / 한국어 / русский / Le français
 
 * 名称：Shadow Editor
-* 版本：v0.4.5(开发中)
+* 版本：v0.4.5
 * 简介：基于`three.js`的场景编辑器。
 * 源码：[GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | 文档：[GitHub](https://tengge1.github.io/ShadowEditor/) [Gitee](https://tengge1.gitee.io/shadoweditor/) | 示例：[GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) | 视频：[微博](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) | 资源：[百度云](https://pan.baidu.com/s/1IxJVM6fFLoIAJG-GKHjVTA)
 * 技术栈：`html`、`css`、`javascript`、`rollup`、`react.js`、`webgl`、`three.js`、`asp.net`。
 * 如果对您有帮助，请[【捐赠】](https://gitee.com/tengge1/ShadowEditor)支持项目发展，谢谢。
 
-## v0.4.5即将更新
+## v0.4.5更新【[更新日志](docs-dev/update/UpdateLog.md)】
+
+* 发布日期：2020年3月8日
+* 更新日志：
 
 1. 播放场景，默认的轨道控制器`启用惯性`设置。
 2. `EnableDamping`的翻译由`启用减震`改为`启用惯性`。
@@ -23,20 +26,6 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 10. 场景脚本第三方编辑器支持，场景中创建的脚本自动同步到`SceneScript`文件夹中。（未完成）
 11. 新增`自动保存场景`功能，每10秒保存一次。刷新浏览器`询问是否加载自动保存的场景`，避免数据丢失。
 12. 修复部分情况下`javascript格式化插件`报错，导致页面崩溃的bug。
-
-## v0.4.4更新【[更新日志](docs-dev/update/UpdateLog.md)】
-
-* 发布日期：2020年3月8日
-* 更新日志：
-
-1. `three.js`从`r107`升级到`r113`。
-2. 状态栏添加`three.js`版本信息。
-3. 状态栏实时显示鼠标位置，不再对性能造成影响。
-4. 只有用到`GPU Pick`的时候才启用`GPU Pick`，提高性能。
-5. 由于需要支持`SameSite`属性，支持的`.net framework`最低版本由`4.5`（2012-08-15）改为`4.7.2`（2018-04-30）。
-6. 对服务端依赖的第三方模块进行升级。
-7. 修复`eslint`找到的所有错误和警告。
-8. 设置`HttpOnly=true, SameSite=Lax`，js不再能访问`.ASPXAUTH`，提高安全性。
 
 ## 项目截图
 
