@@ -49,12 +49,12 @@ class Editor extends React.Component {
                 <EditorMenuBar region={'north'} />
                 {<EditorStatusBar region={'south'}
                     show={statusBarShow}
-                 />}
+                />}
                 {<AssetsPanel region={'west'}
                     split
                     show={assetsPanelShow}
                     onToggle={this.onToggle}
-                 />}
+                />}
                 {isLogin && <EditorSideBar region={'east'}
                     split
                     show={sidebarShow}
@@ -341,33 +341,6 @@ class Editor extends React.Component {
             objects.splice(objects.indexOf(helper.getObjectByName('picker')), 1);
         }
     }
-
-    // ------------------------ 脚本 ----------------------------
-    // TODO: 应该没用了，删掉。
-
-    // addScript(object, script) { // 添加脚本
-    //     if (this.scripts[object.uuid] === undefined) {
-    //         this.scripts[object.uuid] = [];
-    //     }
-
-    //     this.scripts[object.uuid].push(script);
-
-    //     app.call('scriptAdded', this, script);
-    // }
-
-    // removeScript(object, script) { // 移除脚本
-    //     if (this.scripts[object.uuid] === undefined) {
-    //         return;
-    //     }
-
-    //     let index = this.scripts[object.uuid].indexOf(script);
-
-    //     if (index !== -1) {
-    //         this.scripts[object.uuid].splice(index, 1);
-    //     }
-
-    //     app.call('scriptRemoved', this);
-    // }
 
     // ------------------------ 选中事件 --------------------------------
 

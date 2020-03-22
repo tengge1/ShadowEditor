@@ -25,6 +25,8 @@ var EventList = [
     'showMask', // 是否显示加载器
     'login', // 登录成功
     'logout', // 注销成功
+    'message', // 接收到一个WebSocket消息，格式：{ type: 'Message Type', ... }
+    'send', // 通过WebSocket向服务端发送消息，格式：{ type: 'Message Type', ... }
 
     // 配置
     'optionChange', // 某个配置发生变化
@@ -73,9 +75,7 @@ var EventList = [
     'addText', // 添加文字
     'removeText', // 移除文字
 
-    'scriptAdded', // 添加脚本事件
     'scriptChanged', // 脚本改变事件
-    'scriptRemoved', // 脚本移除事件
 
     'historyChanged', // 历史改变事件
     'refreshScriptEditor', // 刷新脚本编辑器事件

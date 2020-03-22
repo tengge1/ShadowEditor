@@ -10,6 +10,8 @@ class WebSocketEvent extends BaseEvent {
 
         this.reconnectTime = 5000; // 重新连接时间
 
+        this.handleSend = this.handleSend.bind(this);
+
         this.onOpen = this.onOpen.bind(this);
         this.onMessage = this.onMessage.bind(this);
         this.onError = this.onError.bind(this);
@@ -29,6 +31,8 @@ class WebSocketEvent extends BaseEvent {
             console.warn(e);
         }
 
+        app.on(`send.${this.id}`, this.handleSend);
+
         this.socket.addEventListener('open', this.onOpen);
         this.socket.addEventListener('message', this.onMessage);
         this.socket.addEventListener('error', this.onError);
@@ -39,10 +43,24 @@ class WebSocketEvent extends BaseEvent {
         if (!this.socket) {
             return;
         }
+
+        app.on(`send.${this.id}`, null);
+
         this.socket.removeEventListener('open', this.onOpen);
         this.socket.removeEventListener('message', this.onMessage);
         this.socket.removeEventListener('error', this.onError);
         this.socket.removeEventListener('close', this.onClose);
+    }
+
+    /**
+     * 通过WebSocket向服务端发送消息
+     * @param {Object} obj 数据
+     * @param {String} obj.type 消息类型
+     */
+    handleSend(obj) {
+        if (!this.socket) {
+            return;
+        }
     }
 
     onOpen(event) {
