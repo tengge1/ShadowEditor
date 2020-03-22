@@ -1,5 +1,5 @@
 import './css/EditorStatusBar.css';
-import { Toolbar, ToolbarSeparator, Label } from '../../ui/index';
+import { Toolbar, ToolbarSeparator, Label, CheckBox } from '../../ui/index';
 
 /**
  * 状态栏
@@ -19,10 +19,14 @@ class EditorStatusBar extends React.Component {
 
         this.handleUpdateMousePosition = this.handleUpdateMousePosition.bind(this);
         this.handleUpdateSceneInfo = this.handleUpdateSceneInfo.bind(this);
+
+        this.handleAutoSaveChange = this.handleAutoSaveChange.bind(this);
     }
 
     render() {
         const { x, y, objects, vertices, triangles } = this.state;
+
+        const autoSave = app.storage.autoSave;
 
         return <Toolbar className={'EditorStatusBar'}>
             <Label>{`r${THREE.REVISION}`}</Label>
@@ -42,6 +46,12 @@ class EditorStatusBar extends React.Component {
             <Label className={'value'}>{vertices}</Label>
             <Label>{_t('Triangle')}</Label>
             <Label className={'value'}>{triangles}</Label>
+            <ToolbarSeparator />
+            <Label>{_t('Auto Save')}</Label>
+            <CheckBox name={'autoSave'}
+                checked={autoSave}
+                onChange={this.handleAutoSaveChange}
+            />
             <ToolbarSeparator />
         </Toolbar>;
     }
@@ -106,6 +116,12 @@ class EditorStatusBar extends React.Component {
             vertices: vertices.format(),
             triangles: triangles.format()
         });
+    }
+
+    handleAutoSaveChange(value, name) {
+        app.storage.autoSave = value;
+        this.forceUpdate();
+        app.call('storageChanged', this, name, value);
     }
 }
 

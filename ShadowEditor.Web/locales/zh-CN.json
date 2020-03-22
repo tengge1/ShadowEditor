@@ -1021,5 +1021,6 @@
     "New folder": "新文件夹",
     "Create Folder": "新建文件夹",
     "Input New Name": "输入新名称",
-    "It is not allowed to drop on another script.": "不允许拖动到另一个脚本上。"
+    "It is not allowed to drop on another script.": "不允许拖动到另一个脚本上。",
+    "Auto Save": "自动保存"
 }

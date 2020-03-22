@@ -6,6 +6,7 @@ class Storage {
         // 向本地存储写入默认配置，并提供快捷访问方法
         const defaultConfigs = {
             debug: false, // 调试模式
+            autoSave: true, // 自动保存
 
             // 视图相关
             assetsPanelShow: true,

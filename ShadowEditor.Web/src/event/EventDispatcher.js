@@ -11,6 +11,7 @@ import ViewEvent from './ViewEvent';
 import GPUPickEvent from './GPUPickEvent';
 import WebSocketEvent from './WebSocketEvent';
 import ScriptChangedEvent from './ScriptChangedEvent';
+import AutoSaveEvent from './AutoSaveEvent';
 
 import TransformControlsEvent from './TransformControlsEvent';
 import ObjectEvent from './ObjectEvent';
@@ -42,6 +43,7 @@ function EventDispatcher() {
         new GPUPickEvent(),
         new WebSocketEvent(),
         new ScriptChangedEvent(),
+        new AutoSaveEvent(),
 
         // viewport中的事件
         new TransformControlsEvent(),
