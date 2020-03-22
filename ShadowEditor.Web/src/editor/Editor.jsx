@@ -49,12 +49,12 @@ class Editor extends React.Component {
                 <EditorMenuBar region={'north'} />
                 {<EditorStatusBar region={'south'}
                     show={statusBarShow}
-                />}
+                 />}
                 {<AssetsPanel region={'west'}
                     split
                     show={assetsPanelShow}
                     onToggle={this.onToggle}
-                />}
+                 />}
                 {isLogin && <EditorSideBar region={'east'}
                     split
                     show={sidebarShow}

@@ -70,7 +70,7 @@ class WebSocketEvent extends BaseEvent {
             this.reconnect();
             return;
         }
-        this.socket.send(obj);
+        this.socket.send(JSON.stringify(obj));
     }
 
     onOpen() {
@@ -78,7 +78,7 @@ class WebSocketEvent extends BaseEvent {
     }
 
     onMessage(event) {
-        console.log('WebSocket message received.');
+        console.log('WebSocket message received.', event.data);
     }
 
     onError(event) {

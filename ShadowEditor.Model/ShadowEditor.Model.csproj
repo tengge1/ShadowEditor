@@ -81,6 +81,7 @@
     <Compile Include="Screenshot\ScreenshotEditModel.cs" />
     <Compile Include="Screenshot\ScreenshotModel.cs" />
     <Compile Include="Screenshot\ScreenshotSaveModel.cs" />
+    <Compile Include="Script\ScriptModel.cs" />
     <Compile Include="System\AuthorityModel.cs" />
     <Compile Include="System\ChangePasswordModel.cs" />
     <Compile Include="System\ConfigModel.cs" />
