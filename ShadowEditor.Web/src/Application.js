@@ -189,7 +189,7 @@ Application.prototype.alert = function (options = {}) {
  * @returns {*} React元素
  */
 Application.prototype.confirm = function (options = {}) {
-    let {
+    const {
         title,
         content,
         className,
@@ -210,9 +210,11 @@ Application.prototype.confirm = function (options = {}) {
         }
     };
 
-    if (onCancel === undefined) {
-        onCancel = close;
-    }
+    let handleCancel = () => {
+        if(onCancel && onCancel() !== false) {
+            close();
+        }
+    };
 
     component = this.createElement(Confirm, {
         title,
@@ -221,8 +223,8 @@ Application.prototype.confirm = function (options = {}) {
         className,
         style,
         onOK: handleOK,
-        onCancel,
-        onClose: onCancel
+        onCancel: handleCancel,
+        onClose: handleCancel
     }, content);
 
     this.addElement(component);
