@@ -88,11 +88,17 @@ class AutoSaveEvent extends BaseEvent {
         app.confirm({
             title: _t('Load Scene'),
             content: _t('An auto-save scene was detected. Load?') + ` (${autoSaveTime})`,
+            cancelText: _t('Clear'),
             onOK: () => {
                 this.queryLoad = false;
                 this.commitLoadScene(autoSaveData, autoSaveSceneName, autoSaveSceneID);
             },
             onCancel: () => {
+                window.localStorage.removeItem('autoSaveTime');
+                window.localStorage.removeItem('autoSaveData');
+                window.localStorage.removeItem('autoSaveSceneID');
+                window.localStorage.removeItem('autoSaveSceneName');
+                app.toast(_t('Auto-save scene is cleared.'));
                 this.queryLoad = false;
             }
         });

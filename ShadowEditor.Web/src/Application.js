@@ -192,6 +192,8 @@ Application.prototype.confirm = function (options = {}) {
     const {
         title,
         content,
+        okText,
+        cancelText,
         className,
         style,
         onOK,
@@ -211,15 +213,15 @@ Application.prototype.confirm = function (options = {}) {
     };
 
     let handleCancel = () => {
-        if(onCancel && onCancel() !== false) {
+        if (onCancel && onCancel() !== false) {
             close();
         }
     };
 
     component = this.createElement(Confirm, {
         title,
-        okText: _t('OK'),
-        cancelText: _t('Cancel'),
+        okText: okText || _t('OK'),
+        cancelText: cancelText || _t('Cancel'),
         className,
         style,
         onOK: handleOK,

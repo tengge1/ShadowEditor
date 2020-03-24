@@ -1024,5 +1024,6 @@
     "It is not allowed to drop on another script.": "不允许拖动到另一个脚本上。",
     "Auto Save": "自动保存",
     "Load Scene": "加载场景",
-    "An auto-save scene was detected. Load?": "检测到有自动保存的场景。是否加载？"
+    "An auto-save scene was detected. Load?": "检测到有自动保存的场景。是否加载？",
+    "Auto-save scene is cleared.": "自动保存场景已被清空。"
 }

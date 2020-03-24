@@ -11,7 +11,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 
 ## v0.4.6即将更新
 
-1. 修复加载自动保存场景确认对话框无法取消bug。
+1. 修复加载自动保存场景确认对话框无法取消bug，取消按钮改为`清空`。
 
 ## v0.4.5更新【[更新日志](docs-dev/update/UpdateLog.md)】
 
