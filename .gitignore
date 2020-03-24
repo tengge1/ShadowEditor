@@ -106,3 +106,4 @@ __pycache__
 /ShadowEditor.Web/test/think
 /ShadowEditor.Web/Upload/TestFtpServer
 /SceneScript
+/ShadowEditor.Server.Go/*.exe
