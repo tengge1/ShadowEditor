@@ -23,14 +23,15 @@ LoadSceneEvent.prototype.stop = function () {
     app.on(`loadSceneObj.${this.id}`, null);
 };
 
-LoadSceneEvent.prototype.onLoad = function (url, name, id) {
+LoadSceneEvent.prototype.onLoad = function (url, name, id) { // id: MongoDB _id
     if (!name || name.trim() === '') {
         name = _t('No Name');
     }
 
-    if (!id) {
-        id = THREE.Math.generateUUID();
-    }
+    // 新增场景id为null，不需要创建；否则导致保存示例场景报错。
+    // if (!id) {
+    //     id = THREE.Math.generateUUID();
+    // }
 
     app.editor.clear(false);
     document.title = name;
