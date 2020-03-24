@@ -148,6 +148,10 @@ namespace ShadowEditor.Server.Controllers.Export
                         GetUrlInMaterial(i["material"].AsBsonDocument, urls);
                     }
                 }
+                else if (generator == "AudioSerializer")
+                {
+                    urls.Add(i["userData"]["Url"].ToString());
+                }
 
                 data.Add(JsonHelper.ToObject<JObject>(i.ToJson()));
             }
