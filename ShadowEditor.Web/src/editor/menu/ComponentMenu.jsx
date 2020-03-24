@@ -70,17 +70,20 @@ class ComponentMenu extends React.Component {
 
     handleAddBackgroundMusic() {
         var editor = app.editor;
-        var listener = editor.audioListener;
 
-        var audio = new THREE.Audio(listener);
-        audio.name = _t('Background Music');
-        audio.autoplay = false;
-        audio.setLoop(true);
-        audio.setVolume(1.0);
+        setTimeout(() => {
+            var listener = editor.audioListener;
 
-        audio.userData.autoplay = true;
-
-        app.editor.execute(new AddObjectCommand(audio));
+            var audio = new THREE.Audio(listener);
+            audio.name = _t('Background Music');
+            audio.autoplay = false;
+            audio.setLoop(true);
+            audio.setVolume(1.0);
+    
+            audio.userData.autoplay = true;
+    
+            app.editor.execute(new AddObjectCommand(audio));
+        });
     }
 
     // ---------------------------- 添加粒子发射器 --------------------------------------------
