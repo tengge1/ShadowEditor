@@ -34,7 +34,7 @@ class MultiMaterialComponent extends React.Component {
         let _materials = {};
 
         materials.forEach((n, i) => {
-            _materials[i] = n.name;
+            _materials[i] = n.name || (i + 1).toString();
         });
 
         return <PropertyGroup title={_t('MultiMaterial Component')}
@@ -78,9 +78,9 @@ class MultiMaterialComponent extends React.Component {
         this.selected = editor.selected;
         const materials = this.selected.material;
         const index = 0;
-        const currentMaterial = materials[index];
+        const current = materials[index];
 
-        app.call(`currentMaterialChange`, this, currentMaterial, index, materials, this.selected);
+        app.call(`currentMaterialChange`, this, current, index, materials, this.selected);
 
         let state = {
             show: true,
@@ -93,15 +93,15 @@ class MultiMaterialComponent extends React.Component {
     }
 
     handleChange(value, name) {
-        const { materials, index } = this.state;
+        const materials = this.state.materials;
+        const index = parseInt(value);
+        const current = materials[index];
+
+        app.call(`currentMaterialChange`, this, current, index, materials, this.selected);
 
         this.setState({
             [name]: value
         });
-
-        const currentMaterial = materials[index];
-
-        app.call(`currentMaterialChange`, this, currentMaterial, index, materials, this.selected);
     }
 }
 

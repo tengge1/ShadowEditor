@@ -25,6 +25,8 @@ class MaterialComponent extends React.Component {
         super(props);
 
         this.selected = null;
+        this.materialIndex = 0;
+        this.material = null;
 
         this.materials = {
             'LineBasicMaterial': _t('LineBasicMaterial'),
@@ -182,6 +184,7 @@ class MaterialComponent extends React.Component {
 
         this.handleExpand = this.handleExpand.bind(this);
         this.handleUpdate = this.handleUpdate.bind(this);
+        this.handleCurrentMaterialChange = this.handleCurrentMaterialChange.bind(this);
         this.handleMaterial = this.handleMaterial.bind(this);
 
         this.handleChange = this.handleChange.bind(this);
@@ -455,7 +458,7 @@ class MaterialComponent extends React.Component {
     componentDidMount() {
         app.on(`objectSelected.MaterialComponent`, this.handleUpdate);
         app.on(`objectChanged.MaterialComponent`, this.handleUpdate);
-        app.on(`currentMaterialChange.MaterialComponent`, this.handleMaterial);
+        app.on(`currentMaterialChange.MaterialComponent`, this.handleCurrentMaterialChange); // 多材质组件
     }
 
     handleExpand(expanded) {
@@ -479,8 +482,16 @@ class MaterialComponent extends React.Component {
         }
 
         this.selected = editor.selected;
+        this.materialIndex = 0;
+        this.material = this.selected.material;
 
-        this.handleMaterial(this.selected.material);
+        this.handleMaterial(this.material);
+    }
+
+    handleCurrentMaterialChange(material, index, materials, selected) { // 多材质组件材质改变
+        this.selected = selected;
+        this.materialIndex = index;
+        this.handleMaterial(material);
     }
 
     handleMaterial(material) {
@@ -696,8 +707,8 @@ class MaterialComponent extends React.Component {
         }
 
         const editor = app.editor;
-        const object = this.selected;
-        let material = object.material;
+        let object = this.selected;
+        let material = this.material;
 
         const { type, color, roughness, metalness, emissive, specular, shininess, clearCoat, clearCoatRoughness, vertexColors, skinning, map, alphaMap,
             bumpMap, bumpScale, normalMap, displacementMap, displacementScale, roughnessMap, metalnessMap, specularMap, envMap, envMapIntensity, lightMap,
@@ -896,20 +907,20 @@ class MaterialComponent extends React.Component {
     }
 
     handleTextureSetting() {
-        if (!this.selected.material.map) {
+        if (!this.material.map) {
             app.toast(_t('Please select texture first.'), 'warn');
             return;
         }
 
         let win = app.createElement(TextureSettingWindow, {
-            map: this.selected.material.map
+            map: this.material.map
         });
 
         app.addElement(win);
     }
 
     editProgramInfo() {
-        let material = this.selected.material;
+        let material = this.material;
 
         let obj = {
             defines: material.defines,
@@ -921,7 +932,7 @@ class MaterialComponent extends React.Component {
     }
 
     saveProgramInfo(uuid, name, type, source) {
-        let material = this.selected.material;
+        let material = this.material;
 
         try {
             let obj = JSON.parse(source);
@@ -935,25 +946,25 @@ class MaterialComponent extends React.Component {
     }
 
     editVertexShader() {
-        let material = this.selected.material;
+        let material = this.material;
 
         app.call(`editScript`, this, material.uuid, this.selected.name + '-VertexShader', 'vertexShader', material.vertexShader, this.saveVertexShader);
     }
 
     saveVertexShader(uuid, name, type, source) {
-        let material = this.selected.material;
+        let material = this.material;
         material.vertexShader = source;
         material.needsUpdate = true;
     }
 
     editFragmentShader() {
-        let material = this.selected.material;
+        let material = this.material;
 
         app.call(`editScript`, this, material.uuid, this.selected.name + '-FragmentShader', 'fragmentShader', material.fragmentShader, this.saveFragmentShader);
     }
 
     saveFragmentShader(uuid, name, type, source) {
-        let material = this.selected.material;
+        let material = this.material;
         material.fragmentShader = source;
         material.needsUpdate = true;
     }
@@ -972,7 +983,7 @@ class MaterialComponent extends React.Component {
     }
 
     commitSave(name) {
-        const material = this.selected.material;
+        const material = this.material;
         const data = new MaterialsSerializer().toJSON(material);
 
         // 材质球图片
@@ -1015,11 +1026,15 @@ class MaterialComponent extends React.Component {
     onWaitingForMaterial(material) {
         app.on(`selectMaterial.MaterialComponent`, null);
 
-        if (this.selected.material) {
-            this.selected.material.dispose();
+        if (this.material) {
+            this.material.dispose();
         }
 
-        this.selected.material = material;
+        if (Array.isArray(this.selected.material)) {
+            this.selected.material[this.materialIndex] = material;
+        } else {
+            this.selected.material = material;
+        }
 
         app.call('objectChanged', this, this.selected);
     }
