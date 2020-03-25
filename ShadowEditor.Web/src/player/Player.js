@@ -134,8 +134,8 @@ Player.prototype.start = function (sceneData) {
             this.event.init();
             this.clock.start();
             this.event.start();
+            requestAnimationFrame(this.animate.bind(this));
         });
-        requestAnimationFrame(this.animate.bind(this));
     });
 };
 

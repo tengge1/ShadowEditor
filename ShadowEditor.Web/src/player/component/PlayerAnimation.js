@@ -57,7 +57,7 @@ PlayerAnimation.prototype.calculateMaxTime = function () {
 
 PlayerAnimation.prototype.update = function (clock, deltaTime) {
     if (this.maxTime > 0) {
-        this.currentTime = clock.getElapsedTime() % this.maxTime;
+        this.currentTime = clock.elapsedTime % this.maxTime;
     }
 
     this.animators.forEach(n => {

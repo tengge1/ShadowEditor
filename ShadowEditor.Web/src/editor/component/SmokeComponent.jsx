@@ -135,7 +135,7 @@ class SmokeComponent extends React.Component {
     }
 
     onAnimate(clock) {
-        const elapsed = clock.getElapsedTime();
+        const elapsed = clock.elapsedTime;
         this.selected.update(elapsed);
     }
 }

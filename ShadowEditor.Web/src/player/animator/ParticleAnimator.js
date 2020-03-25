@@ -20,7 +20,7 @@ ParticleAnimator.prototype.create = function (scene, camera, renderer) { // esli
 };
 
 ParticleAnimator.prototype.update = function (clock, deltaTime, time) { // eslint-disable-line
-    var elapsed = clock.getElapsedTime();
+    var elapsed = clock.elapsedTime;
 
     this.scene.children.forEach(n => {
         if (n.userData.type === 'Fire') {

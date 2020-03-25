@@ -140,7 +140,7 @@ class LMeshComponent extends React.Component {
 
     onAnimate(clock) {
         var model = this.selected.userData.model;
-        model.update(clock.getElapsedTime() * 1000);
+        model.update(clock.elapsedTime * 1000);
     }
 }
 

@@ -176,7 +176,7 @@ class FireComponent extends React.Component {
     }
 
     onAnimate(clock) {
-        const elapsed = clock.getElapsedTime();
+        const elapsed = clock.elapsedTime;
 
         const fire = this.selected.userData.fire;
         fire.update(elapsed);

@@ -90,7 +90,7 @@ LOLLoader.prototype.createScripts = function (name, model) {
         `var model = mesh.userData.model;\n\n` +
         `// animNames: ${animations.join(',')}\n` +
         `model.setAnimation('${animations[0]}');\n\n` +
-        `function update(clock, deltaTime) { \n    model.update(clock.getElapsedTime() * 1000); \n}`;
+        `function update(clock, deltaTime) { \n    model.update(clock.elapsedTime * 1000); \n}`;
 };
 
 export default LOLLoader;
