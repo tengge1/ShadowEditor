@@ -1,7 +1,7 @@
 package animation
 
-// AnimationEditModel 动画编辑模型
-type AnimationEditModel struct {
+// EditModel 动画编辑模型
+type EditModel struct {
 	// ID
 	ID string
 	// 名称
