@@ -25,7 +25,7 @@ VideoTextureSerializer.prototype.toJSON = function (obj) {
 
 VideoTextureSerializer.prototype.fromJSON = function (json, parent, server) {
     let video = document.createElement('video');
-    video.setAttribute('src', json.image.src);
+    video.setAttribute('src', server + json.image.src);
     video.setAttribute('autoplay', 'autoplay');
     video.setAttribute('loop', 'loop');
     video.setAttribute('crossorigin', 'anonymous');

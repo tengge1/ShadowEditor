@@ -16,6 +16,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 3. 修复一打开页面，立刻添加`背景音乐`组件报错bug。
 4. 修复`背景音乐组件`发布场景时，未导出音乐文件bug。
 5. 修复了一个严重bug，由于多次调用`clock.getElapsedTime`，导致所有动画播放变慢bug。
+6. 修复`视频贴图`发布场景后，视频地址不正确bug。
 
 ## v0.4.5更新【[更新日志](docs-dev/update/UpdateLog.md)】
 
