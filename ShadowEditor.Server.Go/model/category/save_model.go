@@ -7,5 +7,5 @@ type SaveModel struct {
 	// 名称
 	Name string
 	// 类型
-	Type int
+	Type Type
 }
