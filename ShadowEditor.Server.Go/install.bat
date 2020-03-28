@@ -34,3 +34,4 @@ go get -u -v github.com/spf13/viper
 go get -u -v github.com/mitchellh/go-homedir
 go get -u -v go.mongodb.org/mongo-driver/mongo
 go get -u -v github.com/dimfeld/httptreemux
+go get -u -v github.com/elazarl/go-bindata-assetfs
