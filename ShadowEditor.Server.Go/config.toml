@@ -1,0 +1,14 @@
+# Shadow Editor Server Configuration
+
+[database]
+type = "mongo"                              # only support mongo
+connection = "mongodb://127.0.0.1:27017"    # mongo connection string
+database = "ShadowEditor"                   # mongo database name
+
+[authority]
+enabled = false                             # enable authority
+expires = 120                               # login time, minutes, only support integer 
+
+[remote]
+enabled = false                             # enable remote edit
+web_socket_port = 5000                      # web socket server port

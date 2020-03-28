@@ -16,10 +16,9 @@ var (
 
 	rootCmd = &cobra.Command{
 		Use:   "cobra",
-		Short: "A generator for Cobra based Applications",
-		Long: `Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+		Short: "3d scene editor based on three.js",
+		Long: `ShadowEditor is a 3d scene editor based on three.js.
+This application uses mongodb to store data.`,
 	}
 )
 
@@ -40,6 +39,7 @@ func init() {
 	viper.SetDefault("author", "NAME HERE <EMAIL ADDRESS>")
 	viper.SetDefault("license", "apache")
 
+	rootCmd.AddCommand(serveCmd)
 	rootCmd.AddCommand(versionCmd)
 }
 
