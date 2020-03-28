@@ -11,6 +11,7 @@ go get -u golang.org/x/tools/cmd/gorename
 go get -u golang.org/x/tools/cmd/goimports
 go get -u golang.org/x/lint/golint
 go get -u golang.org/x/tools/cmd/godoc
+go get -u -v golang.org/x/tools/gopls
 
 go get -u -v github.com/acroca/go-symbols
 go get -u -v github.com/cweill/gotests/...
