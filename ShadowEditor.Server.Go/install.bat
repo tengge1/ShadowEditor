@@ -28,3 +28,7 @@ go get -u -v github.com/sqs/goreturns
 go get -u -v github.com/tylerb/gotype-live
 go get -u -v github.com/sourcegraph/go-langserver
 go get -u -v github.com/stamblerre/gocode
+
+go get -u -v github.com/spf13/cobra
+go get -u -v github.com/spf13/viper
+go get -u -v github.com/mitchellh/go-homedir
