@@ -8,6 +8,7 @@ require (
 	github.com/cosiner/argv v0.0.1 // indirect
 	github.com/cweill/gotests v1.5.3 // indirect
 	github.com/davidrjenni/reftools v0.0.0-20191222082827-65925cf01315 // indirect
+	github.com/dimfeld/httptreemux v5.0.1+incompatible // indirect
 	github.com/fatih/gomodifytags v1.3.0 // indirect
 	github.com/fatih/structtag v1.2.0 // indirect
 	github.com/fsnotify/fsnotify v1.4.9 // indirect
