@@ -2,13 +2,15 @@ package server
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/dimfeld/httptreemux"
+	"github.com/tengge1/shadoweditor/helper"
 )
 
-// Start 启动服务端
-func Start(port int) {
+// Start start the server
+func Start(config *helper.Config) {
 	router := httptreemux.New()
 
 	group := router.NewGroup("/api")
@@ -25,5 +27,7 @@ func Start(port int) {
 		fmt.Fprintf(w, "GET /api/v2/%s", id)
 	})
 
-	http.ListenAndServe(":8080", router)
+	log.Printf("starting shadoweditor server on port %v", config.Server.Port)
+
+	http.ListenAndServe(config.Server.Port, router)
 }

@@ -22,14 +22,15 @@ func GetConfig(path string) (config *Config, err error) {
 
 	config = new(Config)
 
-	database := viper.Sub("database")
+	server := viper.Sub("server")
+	config.Server.Port = server.GetString("port")
 
+	database := viper.Sub("database")
 	config.Database.Type = database.GetString("type")
 	config.Database.Connection = database.GetString("connection")
 	config.Database.Database = database.GetString("database")
 
 	authority := viper.Sub("authority")
-
 	config.Authority.Enabled = authority.GetBool("enabled")
 	config.Authority.Expires = authority.GetInt("expires")
 
@@ -45,10 +46,16 @@ func GetConfig(path string) (config *Config, err error) {
 
 // Config shadoweditor config
 type Config struct {
+	Server    ServerConfig
 	Database  DatabaseConfig
 	Authority AuthorityConfig
 	Remote    RemoteConfig
 	Log       LogConfig
+}
+
+// ServerConfig server config
+type ServerConfig struct {
+	Port string
 }
 
 // DatabaseConfig database config

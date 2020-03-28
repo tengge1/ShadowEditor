@@ -1,5 +1,8 @@
 # Shadow Editor Server Configuration
 
+[server]
+port = ":2020"                              # server address
+
 [database]
 type = "mongo"                              # only support mongo
 connection = "mongodb://127.0.0.1:27017"    # mongo connection string

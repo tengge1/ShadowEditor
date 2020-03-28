@@ -1,9 +1,11 @@
 package cmd
 
 import (
-	"fmt"
+	"log"
 
 	"github.com/spf13/cobra"
+	"github.com/tengge1/shadoweditor/helper"
+	"github.com/tengge1/shadoweditor/server"
 )
 
 var serveCmd = &cobra.Command{
@@ -12,6 +14,12 @@ var serveCmd = &cobra.Command{
 	Aliases: []string{"server"},
 	Long:    `Use shadoweditor server to provider data.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("ShadowEditor serve started")
+		config, err := helper.GetConfig("./config.toml")
+		if err != nil {
+			log.Fatal(err)
+			return
+		}
+
+		server.Start(config)
 	},
 }
