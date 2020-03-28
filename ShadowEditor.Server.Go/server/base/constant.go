@@ -1,4 +1,4 @@
-package server
+package base
 
 const (
 	// CategoryCollectionName 类别表名

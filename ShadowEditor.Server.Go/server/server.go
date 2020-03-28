@@ -6,8 +6,8 @@ import (
 
 	"github.com/dimfeld/httptreemux"
 	"github.com/tengge1/shadoweditor/helper"
+	"github.com/tengge1/shadoweditor/server/base"
 	_ "github.com/tengge1/shadoweditor/server/export" // export apis
-	"github.com/tengge1/shadoweditor/server/router"
 	_ "github.com/tengge1/shadoweditor/server/system" // system apis
 	_ "github.com/tengge1/shadoweditor/server/tools"  // tools apis
 )
@@ -27,13 +27,13 @@ func Start(config *helper.Config) {
 	}
 }
 
-// NewRouter handle all register handlers
+// NewRouter handle all register routes
 func NewRouter(config *helper.Config) *httptreemux.TreeMux {
 	mux := httptreemux.New()
 	group := mux.NewGroup("/")
 
-	for _, handler := range router.Handlers {
-		group.UsingContext().Handle("GET", handler.Path, handler.Handler)
+	for _, handler := range base.Routes {
+		group.UsingContext().Handle("GET", handler.Path, handler.Handler{config})
 	}
 
 	return mux
@@ -41,5 +41,5 @@ func NewRouter(config *helper.Config) *httptreemux.TreeMux {
 
 // Register register a handler
 func Register(path string, handler http.HandlerFunc) {
-	router.Register(path, handler)
+	base.Register(path, handler)
 }
