@@ -1,7 +1,6 @@
 package server
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 
@@ -9,25 +8,45 @@ import (
 	"github.com/tengge1/shadoweditor/helper"
 )
 
+// Handler map a path to a HandlerFunc
+type Handler struct {
+	Path    string
+	Handler http.HandlerFunc
+}
+
+var (
+	// Handlers are registered by Register function
+	Handlers []Handler
+)
+
 // Start start the server
 func Start(config *helper.Config) {
-	router := httptreemux.New()
-
-	group := router.NewGroup("/api")
-	group.GET("/v1/:id", func(w http.ResponseWriter, r *http.Request, params map[string]string) {
-		id := params["id"]
-		fmt.Fprintf(w, "GET /api/v1/%s", id)
-	})
-
-	// UsingContext returns a version of the router or group with context support.
-	ctxGroup := group.UsingContext() // sibling to 'group' node in tree
-	ctxGroup.GET("/v2/:id", func(w http.ResponseWriter, r *http.Request) {
-		params := httptreemux.ContextParams(r.Context())
-		id := params["id"]
-		fmt.Fprintf(w, "GET /api/v2/%s", id)
-	})
-
 	log.Printf("starting shadoweditor server on port %v", config.Server.Port)
 
-	http.ListenAndServe(config.Server.Port, router)
+	err := http.ListenAndServe(config.Server.Port, NewRouter())
+	if err != nil {
+		switch err {
+		case http.ErrServerClosed:
+			log.Panicln("http server closed")
+		default:
+			log.Fatal(err)
+		}
+	}
+}
+
+// NewRouter handle all register handlers
+func NewRouter() *httptreemux.TreeMux {
+	mux := httptreemux.New()
+	group := mux.NewGroup("/")
+
+	for _, handler := range Handlers {
+		group.UsingContext().Handle("GET", handler.Path, handler.Handler)
+	}
+
+	return mux
+}
+
+// Register register a handler
+func Register(path string, handler http.HandlerFunc) {
+	Handlers = append(Handlers, Handler{path, handler})
 }
