@@ -1,7 +1,7 @@
 package system
 
-// DepartmentEditModel 组织机构编辑模型
-type DepartmentEditModel struct {
+// DepartmentEdit 组织机构编辑模型
+type DepartmentEdit struct {
 	// 编号
 	ID string
 	// 父组织机构名称

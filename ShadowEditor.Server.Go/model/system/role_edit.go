@@ -1,7 +1,7 @@
 package system
 
-// RoleEditModel 角色编辑模型
-type RoleEditModel struct {
+// RoleEdit 角色编辑模型
+type RoleEdit struct {
 	// 编号
 	ID string
 	// 名称

@@ -2,8 +2,8 @@ package system
 
 import "time"
 
-// RoleModel 角色模型
-type RoleModel struct {
+// Role 角色模型
+type Role struct {
 	// 编号
 	ID string
 	// 名称

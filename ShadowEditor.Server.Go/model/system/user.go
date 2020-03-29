@@ -2,8 +2,8 @@ package system
 
 import "time"
 
-// UserModel 用户模型
-type UserModel struct {
+// User 用户模型
+type User struct {
 	// 编号
 	ID string
 	// 用户名

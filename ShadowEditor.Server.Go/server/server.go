@@ -13,10 +13,10 @@ import (
 )
 
 // Start start the server
-func Start(config *helper.Config) {
-	log.Printf("starting shadoweditor server on port %v", config.Server.Port)
+func Start() {
+	log.Printf("starting shadoweditor server on port %v", helper.Config.Server.Port)
 
-	err := http.ListenAndServe(config.Server.Port, NewRouter(config))
+	err := http.ListenAndServe(helper.Config.Server.Port, NewRouter())
 	if err != nil {
 		switch err {
 		case http.ErrServerClosed:
@@ -28,12 +28,12 @@ func Start(config *helper.Config) {
 }
 
 // NewRouter handle all register routes
-func NewRouter(config *helper.Config) *httptreemux.TreeMux {
+func NewRouter() *httptreemux.TreeMux {
 	mux := httptreemux.New()
 	group := mux.NewGroup("/")
 
-	for _, handler := range base.Routes {
-		group.UsingContext().Handle("GET", handler.Path, handler.Handler{config})
+	for _, route := range base.Routes {
+		group.UsingContext().Handle("GET", route.Path, route.Handler)
 	}
 
 	return mux

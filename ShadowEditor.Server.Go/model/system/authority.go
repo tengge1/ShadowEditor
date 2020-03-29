@@ -1,7 +1,7 @@
 package system
 
-// AuthorityModel 权限模型
-type AuthorityModel struct {
+// Authority 权限模型
+type Authority struct {
 	// 编号
 	ID string
 	// 角色ID

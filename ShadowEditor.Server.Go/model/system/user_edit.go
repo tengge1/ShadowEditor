@@ -1,7 +1,7 @@
 package system
 
-// UserEditModel 用户编辑模型
-type UserEditModel struct {
+// UserEdit 用户编辑模型
+type UserEdit struct {
 	// 编号
 	ID string
 	// 用户名

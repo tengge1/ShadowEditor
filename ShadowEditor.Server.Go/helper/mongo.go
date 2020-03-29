@@ -2,14 +2,23 @@ package helper
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-// Mongo provide mongodb help functions
-func Mongo(connection, database string) (db *mongo.Database, err error) {
+// Mongo create new mongo from current config
+func Mongo() (db *mongo.Database, err error) {
+	if Config == nil {
+		return nil, fmt.Errorf("config is not initialized")
+	}
+	return NewMongo(Config.Database.Connection, Config.Database.Database)
+}
+
+// NewMongo create mongo database from collection string and databasename
+func NewMongo(connection, database string) (db *mongo.Database, err error) {
 	clientOptions := options.Client().ApplyURI(connection)
 
 	client, err := mongo.NewClient(clientOptions)

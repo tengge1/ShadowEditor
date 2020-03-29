@@ -1,7 +1,7 @@
 package system
 
-// RegisterModel 注册模型
-type RegisterModel struct {
+// Register 注册模型
+type Register struct {
 	// 用户名
 	Username string
 	// 密码

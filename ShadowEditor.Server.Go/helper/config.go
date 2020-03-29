@@ -6,8 +6,13 @@ import (
 	"github.com/spf13/viper"
 )
 
+var (
+	// Config config cache
+	Config *ConfigModel
+)
+
 // GetConfig get config from config.toml
-func GetConfig(path string) (config *Config, err error) {
+func GetConfig(path string) (config *ConfigModel, err error) {
 	file, err := os.Open(path)
 	if err != nil {
 		return nil, err
@@ -20,7 +25,7 @@ func GetConfig(path string) (config *Config, err error) {
 		return nil, err
 	}
 
-	config = new(Config)
+	config = new(ConfigModel)
 
 	server := viper.Sub("server")
 	config.Server.Port = server.GetString("port")
@@ -44,40 +49,40 @@ func GetConfig(path string) (config *Config, err error) {
 	return config, nil
 }
 
-// Config shadoweditor config
-type Config struct {
-	Server    ServerConfig
-	Database  DatabaseConfig
-	Authority AuthorityConfig
-	Remote    RemoteConfig
-	Log       LogConfig
+// ConfigModel shadoweditor config
+type ConfigModel struct {
+	Server    ServerConfigModel
+	Database  DatabaseConfigModel
+	Authority AuthorityConfigModel
+	Remote    RemoteConfigModel
+	Log       LogConfigModel
 }
 
-// ServerConfig server config
-type ServerConfig struct {
+// ServerConfigModel server config
+type ServerConfigModel struct {
 	Port string
 }
 
-// DatabaseConfig database config
-type DatabaseConfig struct {
+// DatabaseConfigModel database config
+type DatabaseConfigModel struct {
 	Type       string
 	Connection string
 	Database   string
 }
 
-// AuthorityConfig authority config
-type AuthorityConfig struct {
+// AuthorityConfigModel authority config
+type AuthorityConfigModel struct {
 	Enabled bool
 	Expires int
 }
 
-// RemoteConfig remote config
-type RemoteConfig struct {
+// RemoteConfigModel remote config
+type RemoteConfigModel struct {
 	Enabled       bool
 	WebSocketPort int
 }
 
-// LogConfig log config
-type LogConfig struct {
+// LogConfigModel  log config
+type LogConfigModel struct {
 	File string
 }

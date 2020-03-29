@@ -1,4 +1,4 @@
-package base
+package helper
 
 const (
 	// CategoryCollectionName 类别表名

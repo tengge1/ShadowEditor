@@ -20,6 +20,8 @@ var serveCmd = &cobra.Command{
 			return
 		}
 
-		server.Start(config)
+		helper.Config = config
+
+		server.Start()
 	},
 }

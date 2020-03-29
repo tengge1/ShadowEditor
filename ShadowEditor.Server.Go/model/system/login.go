@@ -1,7 +1,7 @@
 package system
 
-// LoginModel 登录模型
-type LoginModel struct {
+// Login 登录模型
+type Login struct {
 	// 用户名
 	Username string
 	// 密码

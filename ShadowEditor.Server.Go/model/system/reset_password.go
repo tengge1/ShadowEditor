@@ -1,7 +1,7 @@
 package system
 
-// ResetPasswordModel 重置密码模型
-type ResetPasswordModel struct {
+// ResetPassword 重置密码模型
+type ResetPassword struct {
 	// 用户ID
 	UserID string
 	// 新密码

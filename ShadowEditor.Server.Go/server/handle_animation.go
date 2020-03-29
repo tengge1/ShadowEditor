@@ -3,8 +3,8 @@ package server
 import "net/http"
 
 func init() {
-	animation := Animation{}
-	Register("/api/Animation/List", animation.List)
+	// animation := Animation{}
+	// Register("/api/Animation/List", animation.List)
 }
 
 type Animation struct {

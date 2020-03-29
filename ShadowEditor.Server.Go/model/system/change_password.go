@@ -1,7 +1,7 @@
 package system
 
-// ChangePasswordModel 修改密码模型
-type ChangePasswordModel struct {
+// ChangePassword 修改密码模型
+type ChangePassword struct {
 	// 旧密码
 	OldPassword string
 	// 新密码

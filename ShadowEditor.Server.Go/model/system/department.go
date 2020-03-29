@@ -1,7 +1,7 @@
 package system
 
-// DepartmentModel 组织机构模型
-type DepartmentModel struct {
+// Department 组织机构模型
+type Department struct {
 	// 编号
 	ID string
 	// 父组织机构名称
