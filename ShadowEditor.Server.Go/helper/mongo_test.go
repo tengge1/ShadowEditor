@@ -16,7 +16,7 @@ func TestMongo(t *testing.T) {
 		return
 	}
 
-	db, err := Mongo(config.Database.Connection, config.Database.Database)
+	db, err := NewMongo(config.Database.Connection, config.Database.Database)
 	if err != nil {
 		t.Error(err)
 		return

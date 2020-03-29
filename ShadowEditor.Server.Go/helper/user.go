@@ -1,17 +1,23 @@
 package helper
 
 import (
+	"context"
+	"fmt"
+
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 
 	"github.com/tengge1/shadoweditor/model/system"
 )
 
+// GetCurrentUser get the current login user
 func GetCurrentUser() (*system.User, error) {
 	return nil, nil
 }
 
+// GetUser get a user from userID
 func GetUser(userID string) (*system.User, error) {
-	_, err := primitive.ObjectIDFromHex(userID)
+	objectID, err := primitive.ObjectIDFromHex(userID)
 	if err != nil {
 		return nil, err
 	}
@@ -21,6 +27,40 @@ func GetUser(userID string) (*system.User, error) {
 		return nil, err
 	}
 
-	_ = mongo.Collection(UserCollectionName)
-	return nil, nil
+	collection := mongo.Collection(UserCollectionName)
+
+	filter := bson.M{
+		"ID": objectID,
+	}
+
+	result := collection.FindOne(context.TODO(), filter)
+	if result == nil {
+		return nil, fmt.Errorf("user (%v) is not found", userID)
+	}
+
+	user := system.User{}
+	result.Decode(&user)
+
+	// get roles and authorities
+	if user.RoleID != "" {
+		objectID, err := primitive.ObjectIDFromHex(user.RoleID)
+		if err != nil {
+			return nil, err
+		}
+
+		filter = bson.M{
+			"ID": objectID,
+		}
+		result = collection.FindOne(context.TODO(), filter)
+
+		if result != nil {
+			role := system.Role{}
+			result.Decode(&role)
+
+			user.RoleID = role.ID
+			user.RoleName = role.Name
+		}
+	}
+
+	return &user, nil
 }
