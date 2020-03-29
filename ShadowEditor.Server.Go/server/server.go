@@ -35,7 +35,7 @@ func NewRouter() *httptreemux.TreeMux {
 	group := mux.NewGroup("/")
 
 	for _, route := range base.Routes {
-		group.UsingContext().Handle("GET", route.Path, route.Handler)
+		group.UsingContext().Handler("GET", route.Path, SetDefaultHeaders(route.Handler))
 	}
 
 	return mux
@@ -43,6 +43,14 @@ func NewRouter() *httptreemux.TreeMux {
 
 func corsHandler(w http.ResponseWriter, r *http.Request, params map[string]string) {
 	base.EnableCrossOrigin(w)
+}
+
+// SetDefaultHeaders set cross origin response headers
+func SetDefaultHeaders(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		base.EnableCrossOrigin(w)
+		next.ServeHTTP(w, r)
+	})
 }
 
 // Register register a handler

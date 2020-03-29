@@ -108,3 +108,4 @@ __pycache__
 /SceneScript
 /ShadowEditor.Server.Go/*.exe
 /ShadowEditor.Server.Go/vendor
+/ShadowEditor.Server.Go/__debug_bin
