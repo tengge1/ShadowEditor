@@ -66,7 +66,23 @@ func GetUser(userID string) (*system.User, error) {
 					user.OperatingAuthorities = append(user.OperatingAuthorities, item.ID)
 				}
 			} else {
+				collection := mongo.Collection(OperatingAuthorityCollectionName)
 
+				filter := bson.M{
+					"RoleID": role.ID,
+				}
+
+				cursor, err := collection.Find(context.TODO(), filter)
+				if err != nil {
+					return nil, err
+				}
+
+				for cursor.Next(context.TODO()) {
+					authority := system.RoleAuthority{}
+					cursor.Decode(&authority)
+
+					user.OperatingAuthorities = append(user.OperatingAuthorities, authority.AuthorityID)
+				}
 			}
 		}
 	}
