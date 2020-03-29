@@ -10,6 +10,8 @@ import (
 func Write(w http.ResponseWriter, args ...interface{}) {
 	header := w.Header()
 
+	EnableCrossOrigin(w)
+
 	header.Set("Content-Type", "text/plain")
 	header.Set("Cache-Control", "no-cache, no-store, must-revalidate")
 	header.Set("Pragma", "no-cache")
@@ -22,6 +24,8 @@ func Write(w http.ResponseWriter, args ...interface{}) {
 func Writef(w http.ResponseWriter, format string, args ...interface{}) {
 	header := w.Header()
 
+	EnableCrossOrigin(w)
+
 	header.Set("Content-Type", "text/plain")
 	header.Set("Cache-Control", "no-cache, no-store, must-revalidate")
 	header.Set("Pragma", "no-cache")
@@ -33,6 +37,8 @@ func Writef(w http.ResponseWriter, format string, args ...interface{}) {
 // WriteJSON write a json to http response
 func WriteJSON(w http.ResponseWriter, obj interface{}) error {
 	header := w.Header()
+
+	EnableCrossOrigin(w)
 
 	header.Set("Content-Type", "application/json")
 	header.Set("Cache-Control", "no-cache, no-store, must-revalidate")

@@ -30,6 +30,8 @@ func Start() {
 // NewRouter handle all register routes
 func NewRouter() *httptreemux.TreeMux {
 	mux := httptreemux.New()
+	mux.OptionsHandler = corsHandler
+
 	group := mux.NewGroup("/")
 
 	for _, route := range base.Routes {
@@ -37,6 +39,10 @@ func NewRouter() *httptreemux.TreeMux {
 	}
 
 	return mux
+}
+
+func corsHandler(w http.ResponseWriter, r *http.Request, params map[string]string) {
+	base.EnableCrossOrigin(w)
 }
 
 // Register register a handler

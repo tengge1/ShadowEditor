@@ -13,9 +13,23 @@ import (
 
 // GetCurrentUser get the current login user
 func GetCurrentUser(r *http.Request) (*system.User, error) {
-	cookie, err := r.Cookie(".ASPXAUTH")
-	if err != nil {
-		return nil, err
+	cookies := r.Cookies()
+
+	if len(cookies) == 0 {
+		return nil, nil
+	}
+
+	var cookie *http.Cookie = nil
+
+	for _, item := range cookies {
+		if item.Name == ".ASPXAUTH" {
+			cookie = item
+			break
+		}
+	}
+
+	if cookie == nil {
+		return nil, nil
 	}
 
 	user, err := GetUser(cookie.Value)

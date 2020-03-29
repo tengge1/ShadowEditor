@@ -2,7 +2,6 @@ package system
 
 import (
 	"context"
-	"encoding/json"
 	"net/http"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -15,7 +14,7 @@ import (
 
 func init() {
 	config := Config{}
-	base.Register("/api/Config/List", config.Get)
+	base.Register("/api/Config/Get", config.Get)
 }
 
 // Config 配置控制器
@@ -80,16 +79,11 @@ func (Config) Get(w http.ResponseWriter, r *http.Request) {
 		model.DeptName = user.DeptName
 	}
 
-	result, err := json.Marshal(model)
-	if err != nil {
-		base.WriteJSON(w, base.Result{
-			Code: 300,
-			Msg:  err.Error(),
-		})
-		return
-	}
-
-	w.Write(result)
+	base.WriteJSON(w, base.Result{
+		Code: 200,
+		Msg:  "Get Successfully!",
+		Data: model,
+	})
 }
 
 // ConfigResult config to front end
