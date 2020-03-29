@@ -59,6 +59,15 @@ func GetUser(userID string) (*system.User, error) {
 
 			user.RoleID = role.ID
 			user.RoleName = role.Name
+			user.OperatingAuthorities = []string{}
+
+			if role.Name == "Administrator" {
+				for _, item := range GetAllOperatingAuthorities() {
+					user.OperatingAuthorities = append(user.OperatingAuthorities, item.ID)
+				}
+			} else {
+
+			}
 		}
 	}
 
