@@ -48,13 +48,17 @@ func GetUser(userID string) (*system.User, error) {
 			return nil, err
 		}
 
+		collection = mongo.Collection(RoleCollectionName)
+
 		filter = bson.M{
 			"ID": objectID,
 		}
+
 		result = collection.FindOne(context.TODO(), filter)
 
 		if result != nil {
 			role := system.Role{}
+
 			result.Decode(&role)
 
 			user.RoleID = role.ID
