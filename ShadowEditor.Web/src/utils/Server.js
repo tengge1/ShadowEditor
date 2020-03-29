@@ -3,7 +3,9 @@
  * @author tengge / https://github.com/tengge1
  */
 class Server {
-    constructor() {
+    constructor(server) {
+        this.origin = server;
+
         this.enableAuthority = false; // 是否开启权限
         this.initialized = false; // 系统是否初始化
 
@@ -23,7 +25,7 @@ class Server {
 
     load() {
         return new Promise(resolve => {
-            fetch(`/api/Config/Get`).then(response => {
+            fetch(`${this.origin}/api/Config/Get`).then(response => {
                 response.json().then(obj => {
                     if (obj.Code !== 200) {
                         app.toast(_t(obj.Msg), 'warn');
@@ -60,7 +62,7 @@ class Server {
 
     login(username, password) {
         return new Promise(resolve => {
-            fetch(`/api/Login/Login`, {
+            fetch(`${this.origin}/api/Login/Login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -94,7 +96,7 @@ class Server {
 
     logout() {
         return new Promise(resolve => {
-            fetch(`/api/Login/Logout`, {
+            fetch(`${this.origin}/api/Login/Logout`, {
                 method: 'POST'
             }).then(response => {
                 response.json().then(obj => {

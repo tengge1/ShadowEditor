@@ -38,7 +38,7 @@ function Application(container, options) {
     this.debug = this.storage.get('debug') || false;
 
     // 服务端配置
-    this.server = new Server();
+    this.server = new Server(this.options.server);
 
     // 包管理器
     this.packageManager = new PackageManager();
