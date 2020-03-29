@@ -18,6 +18,7 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 5. 修复了一个严重bug，由于多次调用`clock.getElapsedTime`，导致所有动画播放变慢bug。
 6. 修复`视频贴图`发布场景后，视频地址不正确bug。
 7. 修复获取服务端配置，未使用配置的服务端地址的bug。
+8. Go语言服务端。（开发中）
 
 ## v0.4.5更新【[更新日志](docs-dev/update/UpdateLog.md)】
 
