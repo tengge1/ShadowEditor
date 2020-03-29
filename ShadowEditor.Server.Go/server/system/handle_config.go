@@ -47,31 +47,65 @@ func (Config) Get(w http.ResponseWriter, r *http.Request) {
 	config := system.Config{}
 	doc.Decode(&config)
 
-	model := map[string]interface{}{
-		"ID":                   config.ID,
-		"EnableAuthority":      helper.Config.Authority.Enabled,
-		"Initialized":          config.Initialized,
-		"DefaultRegisterRole":  config.DefaultRegisterRole,
-		"IsLogin":              false,
-		"Username":             "",
-		"Name":                 "",
-		"RoleID":               0,
-		"RoleName":             "",
-		"DeptID":               0,
-		"DeptName":             "",
-		"OperatingAuthorities": []string{},
-		"EnableRemoteEdit":     helper.Config.Remote.Enabled,
-		"WebSocketServerPort":  helper.Config.Remote.WebSocketPort,
+	model := ConfigResult{
+		ID:                   config.ID,
+		EnableAuthority:      helper.Config.Authority.Enabled,
+		Initialized:          config.Initialized,
+		DefaultRegisterRole:  config.DefaultRegisterRole,
+		IsLogin:              false,
+		Username:             "",
+		Name:                 "",
+		RoleID:               "",
+		RoleName:             "",
+		DeptID:               "",
+		DeptName:             "",
+		OperatingAuthorities: []string{},
+		EnableRemoteEdit:     helper.Config.Remote.Enabled,
+		WebSocketServerPort:  helper.Config.Remote.WebSocketPort,
+	}
+
+	user, err := helper.GetCurrentUser(r)
+	if err != nil {
+		base.Write(w, err.Error())
+		return
+	}
+
+	if user != nil {
+		model.IsLogin = true
+		model.Username = user.Username
+		model.Name = user.Name
+		model.RoleID = user.RoleID
+		model.RoleName = user.RoleName
+		model.DeptID = user.DeptID
+		model.DeptName = user.DeptName
 	}
 
 	result, err := json.Marshal(model)
 	if err != nil {
-		base.WriteJSON(w, map[string]interface{}{
-			"Code": 300,
-			"Msg":  err.Error(),
+		base.WriteJSON(w, base.Result{
+			Code: 300,
+			Msg:  err.Error(),
 		})
 		return
 	}
 
 	w.Write(result)
+}
+
+// ConfigResult config to front end
+type ConfigResult struct {
+	ID                   string
+	EnableAuthority      bool
+	Initialized          bool
+	DefaultRegisterRole  string
+	IsLogin              bool
+	Username             string
+	Name                 string
+	RoleID               string
+	RoleName             string
+	DeptID               string
+	DeptName             string
+	OperatingAuthorities []string
+	EnableRemoteEdit     bool
+	WebSocketServerPort  int
 }

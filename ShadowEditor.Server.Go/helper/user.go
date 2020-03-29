@@ -3,6 +3,7 @@ package helper
 import (
 	"context"
 	"fmt"
+	"net/http"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -11,8 +12,18 @@ import (
 )
 
 // GetCurrentUser get the current login user
-func GetCurrentUser() (*system.User, error) {
-	return nil, nil
+func GetCurrentUser(r *http.Request) (*system.User, error) {
+	cookie, err := r.Cookie(".ASPXAUTH")
+	if err != nil {
+		return nil, err
+	}
+
+	user, err := GetUser(cookie.Value)
+	if err != nil {
+		return nil, err
+	}
+
+	return user, nil
 }
 
 // GetUser get a user from userID
