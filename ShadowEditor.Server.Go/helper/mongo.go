@@ -26,12 +26,12 @@ type Mongo struct {
 	Database         *mongo.Database
 }
 
-// Create create a mongo client from connString and dbName
-func (m Mongo) Create(connString, dbName string) (mr *Mongo, err error) {
-	m.ConnectionString = connString
-	m.DatabaseName = dbName
+// Create create a mongo client from connectionString and databaseName
+func (m Mongo) Create(connectionString, databaseName string) (mr *Mongo, err error) {
+	m.ConnectionString = connectionString
+	m.DatabaseName = databaseName
 
-	clientOptions := options.Client().ApplyURI(connString)
+	clientOptions := options.Client().ApplyURI(connectionString)
 
 	client, err := mongo.NewClient(clientOptions)
 	if err != nil {
@@ -46,7 +46,7 @@ func (m Mongo) Create(connString, dbName string) (mr *Mongo, err error) {
 		return nil, err
 	}
 
-	db := client.Database(dbName)
+	db := client.Database(databaseName)
 
 	m.Client = client
 	m.Database = db
@@ -142,17 +142,48 @@ func (m Mongo) FindMany(collectionName string, filter interface{}) (result []int
 	if err != nil {
 		return nil, err
 	}
-	for cursor.Next(context.TODO()) {
-		var val interface{}
-		cursor.Decode(&val)
-		result = append(result, val)
+	defer cursor.Close(context.TODO())
+
+	results := []interface{}{}
+	err = cursor.All(context.TODO(), results)
+	if err != nil {
+		return nil, err
 	}
-	return
+	return results, nil
 }
 
-func UpdateOne(collectionName string, filter interface{}) (*int, error) {
+// UpdateOne update one document
+func (m Mongo) UpdateOne(collectionName string, filter interface{}, update interface{}) (*mongo.UpdateResult, error) {
 	collection, err := m.GetCollection(collectionName)
 	if err != nil {
 		return nil, err
 	}
+	return collection.UpdateOne(context.TODO(), filter, update)
+}
+
+// UpdateMany update many documents
+func (m Mongo) UpdateMany(collectionName string, filter interface{}, update interface{}) (*mongo.UpdateResult, error) {
+	collection, err := m.GetCollection(collectionName)
+	if err != nil {
+		return nil, err
+	}
+	return collection.UpdateMany(context.TODO(), filter, update)
+}
+
+// DeleteOne delete one document
+func (m Mongo) DeleteOne(collectionName string, filter interface{}) (*mongo.DeleteResult, error) {
+	collection, err := m.GetCollection(collectionName)
+	if err != nil {
+		return nil, err
+	}
+	return collection.DeleteOne(context.TODO(), filter)
+}
+
+// DeleteMany delete many documents
+func (m Mongo) DeleteMany(collectionName string, filter interface{}) (*mongo.DeleteResult, error) {
+	collection, err := m.GetCollection(collectionName)
+	if err != nil {
+		return nil, err
+	}
+	return collection.DeleteMany(context.TODO(), filter)
 }
