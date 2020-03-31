@@ -53,8 +53,8 @@ func (m Mongo) Create(connectionString, databaseName string) (mr *Mongo, err err
 	return &m, nil
 }
 
-// ListCollections list collectionNames of database
-func (m Mongo) ListCollections() (collectionNames []string, err error) {
+// ListCollectionNames list collectionNames of database
+func (m Mongo) ListCollectionNames() (collectionNames []string, err error) {
 	if m.Database == nil {
 		return nil, fmt.Errorf("mongo client is not created")
 	}

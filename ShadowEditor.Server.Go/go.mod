@@ -4,6 +4,7 @@ go 1.14
 
 require (
 	9fans.net/go v0.0.2 // indirect
+	github.com/BurntSushi/toml v0.3.1
 	github.com/acroca/go-symbols v0.1.1 // indirect
 	github.com/cosiner/argv v0.0.1 // indirect
 	github.com/cweill/gotests v1.5.3 // indirect

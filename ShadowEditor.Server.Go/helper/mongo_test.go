@@ -4,7 +4,6 @@ import (
 	"testing"
 
 	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/mongo/options"
 
 	"golang.org/x/net/context"
 )
@@ -16,14 +15,13 @@ func TestMongo(t *testing.T) {
 		return
 	}
 
-	db, err := Mongo{config.Database.Connection, config.Database.Database}.Create()
+	db, err := Mongo{}.Create(config.Database.Connection, config.Database.Database)
 	if err != nil {
 		t.Error(err)
 		return
 	}
 
-	nameOnly := true
-	collectionNames, err := db.ListCollectionNames(context.TODO(), bson.M{}, &options.ListCollectionsOptions{NameOnly: &nameOnly})
+	collectionNames, err := db.ListCollectionNames()
 	if err != nil {
 		t.Error(err)
 		return
@@ -35,9 +33,7 @@ func TestMongo(t *testing.T) {
 	}
 
 	// list documents
-	collection := db.Collection("_Scene")
-
-	cursor, err := collection.Find(context.TODO(), bson.M{})
+	cursor, err := db.Find("_Scene", bson.M{})
 	if err != nil {
 		t.Error(err)
 		return

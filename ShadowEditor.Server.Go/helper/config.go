@@ -3,7 +3,7 @@ package helper
 import (
 	"os"
 
-	"github.com/spf13/viper"
+	"github.com/BurntSushi/toml"
 )
 
 var (
@@ -18,71 +18,50 @@ func GetConfig(path string) (config *ConfigModel, err error) {
 		return nil, err
 	}
 
-	viper.SetConfigType("toml")
+	defer file.Close()
 
-	err = viper.ReadConfig(file)
+	_, err = toml.DecodeReader(file, &config)
 	if err != nil {
 		return nil, err
 	}
 
-	config = new(ConfigModel)
-
-	server := viper.Sub("server")
-	config.Server.Port = server.GetString("port")
-
-	database := viper.Sub("database")
-	config.Database.Type = database.GetString("type")
-	config.Database.Connection = database.GetString("connection")
-	config.Database.Database = database.GetString("database")
-
-	authority := viper.Sub("authority")
-	config.Authority.Enabled = authority.GetBool("enabled")
-	config.Authority.Expires = authority.GetInt("expires")
-
-	remote := viper.Sub("remote")
-	config.Remote.Enabled = remote.GetBool("enabled")
-	config.Remote.WebSocketPort = remote.GetInt("web_socket_port")
-
-	log := viper.Sub("log")
-	config.Log.File = log.GetString("file")
-
-	return config, nil
+	return
 }
 
 // ConfigModel shadoweditor config
 type ConfigModel struct {
-	Server    ServerConfigModel
-	Database  DatabaseConfigModel
-	Authority AuthorityConfigModel
-	Remote    RemoteConfigModel
-	Log       LogConfigModel
+	Server    ServerConfigModel    `toml:"server"`
+	Database  DatabaseConfigModel  `toml:"database"`
+	Authority AuthorityConfigModel `toml:"authority"`
+	Remote    RemoteConfigModel    `toml:"remote"`
+	Log       LogConfigModel       `toml:"log"`
 }
 
 // ServerConfigModel server config
 type ServerConfigModel struct {
-	Port string
+	Port string `toml:"port"`
 }
 
 // DatabaseConfigModel database config
 type DatabaseConfigModel struct {
-	Type       string
-	Connection string
-	Database   string
+	Type       string `toml:"type"`
+	Connection string `toml:"connection"`
+	Database   string `toml:"database"`
 }
 
 // AuthorityConfigModel authority config
 type AuthorityConfigModel struct {
-	Enabled bool
-	Expires int
+	Enabled bool `toml:"enabled"`
+	Expires int  `toml:"expires"`
 }
 
 // RemoteConfigModel remote config
 type RemoteConfigModel struct {
-	Enabled       bool
-	WebSocketPort int
+	Enabled       bool `toml:"enabled"`
+	WebSocketPort int  `toml:"web_socket_port"`
 }
 
 // LogConfigModel  log config
 type LogConfigModel struct {
-	File string
+	File string `toml:"file"`
 }
