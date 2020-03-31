@@ -47,18 +47,19 @@ func GetUser(userID string) (*system.User, error) {
 		return nil, err
 	}
 
-	mongo, err := Mongo()
+	mongo, err := NewMongo()
 	if err != nil {
 		return nil, err
 	}
-
-	collection := mongo.Collection(UserCollectionName)
 
 	filter := bson.M{
 		"ID": objectID,
 	}
 
-	result := collection.FindOne(context.TODO(), filter)
+	result, err := mongo.FindOne(UserCollectionName, filter)
+	if err != nil {
+		return nil, err
+	}
 	if result == nil {
 		return nil, fmt.Errorf("user (%v) is not found", userID)
 	}
@@ -73,13 +74,14 @@ func GetUser(userID string) (*system.User, error) {
 			return nil, err
 		}
 
-		collection = mongo.Collection(RoleCollectionName)
-
 		filter = bson.M{
 			"ID": objectID,
 		}
 
-		result = collection.FindOne(context.TODO(), filter)
+		result, err = mongo.FindOne(RoleCollectionName, filter)
+		if err != nil {
+			return nil, err
+		}
 
 		if result != nil {
 			role := system.Role{}
@@ -95,13 +97,11 @@ func GetUser(userID string) (*system.User, error) {
 					user.OperatingAuthorities = append(user.OperatingAuthorities, item.ID)
 				}
 			} else {
-				collection := mongo.Collection(OperatingAuthorityCollectionName)
-
 				filter := bson.M{
 					"RoleID": role.ID,
 				}
 
-				cursor, err := collection.Find(context.TODO(), filter)
+				cursor, err := mongo.Find(OperatingAuthorityCollectionName, filter)
 				if err != nil {
 					return nil, err
 				}
