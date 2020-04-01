@@ -6,6 +6,8 @@ require (
 	github.com/BurntSushi/toml v0.3.1
 	github.com/dimfeld/httptreemux v5.0.1+incompatible
 	github.com/fsnotify/fsnotify v1.4.9 // indirect
+	github.com/go-delve/delve v1.4.0
+	github.com/go-redis/redis v6.15.7+incompatible
 	github.com/google/go-cmp v0.4.0 // indirect
 	github.com/klauspost/compress v1.10.3 // indirect
 	github.com/mitchellh/go-homedir v1.1.0
