@@ -5,7 +5,7 @@ type FilterFunc func(interface{}) bool
 
 // IndexOf find index of an item in a list
 func IndexOf(list []interface{}, item interface{}, startIndex int) (index int) {
-	index := -1
+	index = -1
 	for i, n := range list {
 		if i < startIndex {
 			continue
@@ -20,8 +20,8 @@ func IndexOf(list []interface{}, item interface{}, startIndex int) (index int) {
 
 // LastIndexOf find last index of an item in a list
 func LastIndexOf(list []interface{}, item interface{}, lastIndex int) (index int) {
-	index := -1
-	for i = len(list) - lastIndex - 1; i >= 0; i-- {
+	index = -1
+	for i := len(list) - lastIndex - 1; i >= 0; i-- {
 		if item == list[i] {
 			index = i
 			break

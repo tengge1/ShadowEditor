@@ -51,7 +51,6 @@ require (
 	github.com/spf13/viper v1.6.2
 	github.com/sqs/goreturns v0.0.0-20181028201513-538ac6014518 // indirect
 	github.com/stamblerre/gocode v1.0.0 // indirect
-	github.com/stretchr/testify v1.4.0 // indirect
 	github.com/tylerb/gotype-live v0.0.0-20181002172717-440f9c77a467 // indirect
 	github.com/willf/bitset v1.1.10 // indirect
 	github.com/zmb3/gogetdoc v0.0.0-20190228002656-b37376c5da6a // indirect
@@ -63,9 +62,7 @@ require (
 	golang.org/x/net v0.0.0-20200324143707-d3edc9973b7e
 	golang.org/x/sync v0.0.0-20200317015054-43a5402ce75a // indirect
 	golang.org/x/sys v0.0.0-20200327173247-9dae0f8f5775 // indirect
-	golang.org/x/text v0.3.2 // indirect
 	golang.org/x/tools v0.0.0-20200328031815-3db5fc6bac03 // indirect
-	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 	gopkg.in/ini.v1 v1.55.0 // indirect
 	gopkg.in/yaml.v2 v2.2.8 // indirect
 )
