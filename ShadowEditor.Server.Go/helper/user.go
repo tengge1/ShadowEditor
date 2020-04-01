@@ -8,6 +8,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 
+	shadow "github.com/tengge1/shadoweditor"
 	"github.com/tengge1/shadoweditor/model/system"
 )
 
@@ -56,7 +57,7 @@ func GetUser(userID string) (*system.User, error) {
 		"ID": objectID,
 	}
 
-	result, err := mongo.FindOne(UserCollectionName, filter)
+	result, err := mongo.FindOne(shadow.UserCollectionName, filter)
 	if err != nil {
 		return nil, err
 	}
@@ -78,7 +79,7 @@ func GetUser(userID string) (*system.User, error) {
 			"ID": objectID,
 		}
 
-		result, err = mongo.FindOne(RoleCollectionName, filter)
+		result, err = mongo.FindOne(shadow.RoleCollectionName, filter)
 		if err != nil {
 			return nil, err
 		}
@@ -101,7 +102,7 @@ func GetUser(userID string) (*system.User, error) {
 					"RoleID": role.ID,
 				}
 
-				cursor, err := mongo.Find(OperatingAuthorityCollectionName, filter)
+				cursor, err := mongo.Find(shadow.OperatingAuthorityCollectionName, filter)
 				if err != nil {
 					return nil, err
 				}

@@ -6,6 +6,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 
+	shadow "github.com/tengge1/shadoweditor"
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/model/system"
 	"github.com/tengge1/shadoweditor/server/base"
@@ -28,7 +29,7 @@ func (Config) Get(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	doc, err := db.FindOne(helper.ConfigCollectionName, bson.M{})
+	doc, err := db.FindOne(shadow.ConfigCollectionName, bson.M{})
 
 	if err != nil || doc == nil {
 		doc1 := bson.M{
@@ -36,8 +37,8 @@ func (Config) Get(w http.ResponseWriter, r *http.Request) {
 			"Initialized":         false,
 			"DefaultRegisterRole": "",
 		}
-		db.InsertOne(helper.ConfigCollectionName, doc1)
-		doc, _ = db.FindOne(helper.ConfigCollectionName, bson.M{})
+		db.InsertOne(shadow.ConfigCollectionName, doc1)
+		doc, _ = db.FindOne(shadow.ConfigCollectionName, bson.M{})
 	}
 
 	config := system.Config{}

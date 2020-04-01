@@ -1,11 +1,11 @@
 package server
 
 import (
-	"context"
 	"net/http"
 
 	"go.mongodb.org/mongo-driver/bson"
 
+	shadow "github.com/tengge1/shadoweditor"
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server/base"
 )
@@ -21,7 +21,7 @@ type Assets struct {
 
 // List 获取信息列表
 func (Assets) List(w http.ResponseWriter, r *http.Request) {
-	db, err := helper.Mongo()
+	db, err := helper.NewMongo()
 	if err != nil {
 		base.Write(w, err.Error())
 		return
@@ -51,32 +51,32 @@ func (Assets) List(w http.ResponseWriter, r *http.Request) {
 				}
 			}
 
-			sceneCount, _ = db.Collection(helper.SceneCollectionName).CountDocuments(context.TODO(), filter)
-			meshCount, _ = db.Collection(helper.MeshCollectionName).CountDocuments(context.TODO(), filter)
-			mapCount, _ = db.Collection(helper.MapCollectionName).CountDocuments(context.TODO(), filter)
-			materialCount, _ = db.Collection(helper.MaterialCollectionName).CountDocuments(context.TODO(), filter)
-			audioCount, _ = db.Collection(helper.AudioCollectionName).CountDocuments(context.TODO(), filter)
-			animationCount, _ = db.Collection(helper.AnimationCollectionName).CountDocuments(context.TODO(), filter)
-			particleCount, _ = db.Collection(helper.ParticleCollectionName).CountDocuments(context.TODO(), filter)
-			prefabCount, _ = db.Collection(helper.PrefabCollectionName).CountDocuments(context.TODO(), filter)
-			characterCount, _ = db.Collection(helper.CharacterCollectionName).CountDocuments(context.TODO(), filter)
-			screenshotCount, _ = db.Collection(helper.ScreenshotCollectionName).CountDocuments(context.TODO(), filter)
-			videoCount, _ = db.Collection(helper.VideoCollectionName).CountDocuments(context.TODO(), filter)
+			sceneCount, _ = db.Count(shadow.SceneCollectionName, filter)
+			meshCount, _ = db.Count(shadow.MeshCollectionName, filter)
+			mapCount, _ = db.Count(shadow.MapCollectionName, filter)
+			materialCount, _ = db.Count(shadow.MaterialCollectionName, filter)
+			audioCount, _ = db.Count(shadow.AudioCollectionName, filter)
+			animationCount, _ = db.Count(shadow.AnimationCollectionName, filter)
+			particleCount, _ = db.Count(shadow.ParticleCollectionName, filter)
+			prefabCount, _ = db.Count(shadow.PrefabCollectionName, filter)
+			characterCount, _ = db.Count(shadow.CharacterCollectionName, filter)
+			screenshotCount, _ = db.Count(shadow.ScreenshotCollectionName, filter)
+			videoCount, _ = db.Count(shadow.VideoCollectionName, filter)
 		}
 	} else {
 		filter := bson.M{}
 
-		sceneCount, _ = db.Collection(helper.SceneCollectionName).CountDocuments(context.TODO(), filter)
-		meshCount, _ = db.Collection(helper.MeshCollectionName).CountDocuments(context.TODO(), filter)
-		mapCount, _ = db.Collection(helper.MapCollectionName).CountDocuments(context.TODO(), filter)
-		materialCount, _ = db.Collection(helper.MaterialCollectionName).CountDocuments(context.TODO(), filter)
-		audioCount, _ = db.Collection(helper.AudioCollectionName).CountDocuments(context.TODO(), filter)
-		animationCount, _ = db.Collection(helper.AnimationCollectionName).CountDocuments(context.TODO(), filter)
-		particleCount, _ = db.Collection(helper.ParticleCollectionName).CountDocuments(context.TODO(), filter)
-		prefabCount, _ = db.Collection(helper.PrefabCollectionName).CountDocuments(context.TODO(), filter)
-		characterCount, _ = db.Collection(helper.CharacterCollectionName).CountDocuments(context.TODO(), filter)
-		screenshotCount, _ = db.Collection(helper.ScreenshotCollectionName).CountDocuments(context.TODO(), filter)
-		videoCount, _ = db.Collection(helper.VideoCollectionName).CountDocuments(context.TODO(), filter)
+		sceneCount, _ = db.Count(shadow.SceneCollectionName, filter)
+		meshCount, _ = db.Count(shadow.MeshCollectionName, filter)
+		mapCount, _ = db.Count(shadow.MapCollectionName, filter)
+		materialCount, _ = db.Count(shadow.MaterialCollectionName, filter)
+		audioCount, _ = db.Count(shadow.AudioCollectionName, filter)
+		animationCount, _ = db.Count(shadow.AnimationCollectionName, filter)
+		particleCount, _ = db.Count(shadow.ParticleCollectionName, filter)
+		prefabCount, _ = db.Count(shadow.PrefabCollectionName, filter)
+		characterCount, _ = db.Count(shadow.CharacterCollectionName, filter)
+		screenshotCount, _ = db.Count(shadow.ScreenshotCollectionName, filter)
+		videoCount, _ = db.Count(shadow.VideoCollectionName, filter)
 	}
 
 	result := AssetsResult{

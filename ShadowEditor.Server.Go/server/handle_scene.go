@@ -18,7 +18,7 @@ type Scene struct {
 
 // List 获取列表
 func (Scene) List(w http.ResponseWriter, r *http.Request) {
-	db, err := helper.Mongo()
+	db, err := helper.NewMongo()
 	if err != nil {
 		base.Write(w, err.Error())
 		return
