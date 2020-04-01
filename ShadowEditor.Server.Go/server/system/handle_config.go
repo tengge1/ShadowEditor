@@ -1,7 +1,6 @@
 package system
 
 import (
-	"context"
 	"net/http"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -23,24 +22,22 @@ type Config struct {
 
 // Get 获取配置信息
 func (Config) Get(w http.ResponseWriter, r *http.Request) {
-	db, err := helper.Mongo()
+	db, err := helper.NewMongo()
 	if err != nil {
 		base.Write(w, err.Error())
 		return
 	}
 
-	collection := db.Collection(helper.ConfigCollectionName)
+	doc, err := db.FindOne(helper.ConfigCollectionName, bson.M{})
 
-	doc := collection.FindOne(context.TODO(), bson.M{})
-
-	if doc == nil {
+	if err != nil || doc == nil {
 		doc1 := bson.M{
 			"ID":                  primitive.NewObjectID().Hex(),
 			"Initialized":         false,
 			"DefaultRegisterRole": "",
 		}
-		collection.InsertOne(context.TODO(), doc1)
-		doc = collection.FindOne(context.TODO(), bson.M{})
+		db.InsertOne(helper.ConfigCollectionName, doc1)
+		doc, _ = db.FindOne(helper.ConfigCollectionName, bson.M{})
 	}
 
 	config := system.Config{}

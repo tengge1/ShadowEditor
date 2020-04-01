@@ -1,4 +1,4 @@
-package helper
+package shadoweditor
 
 const (
 	// CategoryCollectionName 类别表名
