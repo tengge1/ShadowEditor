@@ -1,1 +1,1 @@
-go run . serve
+go run ./cmd serve
