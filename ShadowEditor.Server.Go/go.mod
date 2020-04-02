@@ -9,6 +9,8 @@ require (
 	github.com/go-delve/delve v1.4.0
 	github.com/go-redis/redis v6.15.7+incompatible
 	github.com/google/go-cmp v0.4.0 // indirect
+	github.com/jackc/pgconn v1.5.0
+	github.com/jackc/pgx/v4 v4.6.0
 	github.com/klauspost/compress v1.10.3 // indirect
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/mitchellh/mapstructure v1.2.2 // indirect
@@ -20,9 +22,7 @@ require (
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/spf13/viper v1.6.2
-	github.com/stretchr/testify v1.4.0 // indirect
 	go.mongodb.org/mongo-driver v1.3.1
-	golang.org/x/crypto v0.0.0-20200323165209-0ec3e9974c59 // indirect
 	golang.org/x/net v0.0.0-20200324143707-d3edc9973b7e
 	golang.org/x/sync v0.0.0-20200317015054-43a5402ce75a // indirect
 	golang.org/x/sys v0.0.0-20200327173247-9dae0f8f5775 // indirect
