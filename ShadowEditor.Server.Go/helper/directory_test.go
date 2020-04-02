@@ -1,14 +1,45 @@
 package helper
 
 import (
-	"os"
-	"testing"
-
 	"io/ioutil"
+	"os"
+	"path/filepath"
+	"testing"
 )
 
-func TestCopyDirectory(t *testing.T) {
+var (
+	DirTree = map[string]interface{}{
+		"foo": map[string]interface{}{
+			"type":     "dir",
+			"children": map[string]interface{}{},
+		},
+		"bar.txt": map[string]interface{}{
+			"type": "file",
+		},
+	}
+)
 
+func prepareTestDirTree() error {
+	root, err := ioutil.TempDir("", "")
+	if err != nil {
+		return err
+	}
+
+	err = os.MkdirAll(filepath.Join(tmpDir, "1"))
+	if err != nil {
+		return err
+	}
+
+	err = os.MkdirAll(filepath.Join(tmpDir, tree), 0755)
+	if err != nil {
+		os.RemoveAll(tmpDir)
+		return "", err
+	}
+	return tmpDir, nil
+}
+
+func TestCopyDirectory(t *testing.T) {
+	os.TempDir()
 }
 
 func TestRemoveEmptyDirectory(t *testing.T) {
@@ -17,20 +48,11 @@ func TestRemoveEmptyDirectory(t *testing.T) {
 
 func TestTempDir(t *testing.T) {
 	t.Log(os.TempDir())
-}
-
-func TestWalk(t *testing.T) {
-	children, err := ioutil.ReadDir("./")
+	tmpDir, err := ioutil.TempDir("", "")
 	if err != nil {
 		t.Error(err)
 		return
 	}
-
-	for _, child := range children {
-		childType := "file"
-		if child.IsDir() {
-			childType = "dir"
-		}
-		t.Logf("%v\t%v", child.Name(), childType)
-	}
+	defer os.Remove(tmpDir)
+	t.Log(tmpDir)
 }
