@@ -1,7 +1,7 @@
-package authority
+package shadoweditor
 
-// All return all operating authorities
-var All = map[string]string{
+// OperatingAuthority all operating authorities
+var OperatingAuthority = map[string]string{
 	"ADMINISTRATOR":     Administrator,
 	"LOGIN":             Login,
 	"LIST_ANIMATION":    ListAnimation,
