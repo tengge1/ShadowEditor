@@ -6,7 +6,6 @@ require (
 	github.com/BurntSushi/toml v0.3.1
 	github.com/dimfeld/httptreemux v5.0.1+incompatible
 	github.com/fsnotify/fsnotify v1.4.9 // indirect
-	github.com/go-delve/delve v1.4.0
 	github.com/go-redis/redis v6.15.7+incompatible
 	github.com/google/go-cmp v0.4.0 // indirect
 	github.com/jackc/pgconn v1.5.0
@@ -14,6 +13,8 @@ require (
 	github.com/klauspost/compress v1.10.3 // indirect
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/mitchellh/mapstructure v1.2.2 // indirect
+	github.com/onsi/ginkgo v1.8.0 // indirect
+	github.com/onsi/gomega v1.5.0 // indirect
 	github.com/pelletier/go-toml v1.6.0 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/spf13/afero v1.2.2 // indirect
