@@ -67,10 +67,6 @@ func TestCopyDirectory(t *testing.T) {
 	}
 }
 
-func TestRemoveEmptyDirectory(t *testing.T) {
-
-}
-
 func prepareTestTree(root string) error {
 	_, err := os.Stat(root)
 	if !os.IsExist(err) {

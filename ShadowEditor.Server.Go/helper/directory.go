@@ -70,8 +70,3 @@ func copyDirectory(sourceDirName, destDirName string) error {
 
 	return err
 }
-
-// RemoveEmptyDirectory remove empty folder under path
-func RemoveEmptyDirectory(path string) {
-
-}
