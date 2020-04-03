@@ -42,28 +42,37 @@ var (
 	}
 )
 
-func TestRemoveEmptyDirectory(t *testing.T) {
-
-}
-
-func TestTempDir(t *testing.T) {
-	t.Log(os.TempDir())
-	tmpDir, err := ioutil.TempDir("", "")
+func TestCopyDirectory(t *testing.T) {
+	sourceDirName, err := ioutil.TempDir("", "")
 	if err != nil {
 		t.Error(err)
 		return
 	}
-	defer os.Remove(tmpDir)
-	t.Log(tmpDir)
+	t.Logf("sourceDirName: %v", sourceDirName)
+	err = prepareTestTree(sourceDirName)
+	if err != nil {
+		t.Error(err)
+	}
+	destDirName, err := ioutil.TempDir("", "")
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	t.Logf("destDirName: %v", destDirName)
+
+	err = CopyDirectory(sourceDirName, destDirName)
+	if err != nil {
+		t.Error(err)
+		return
+	}
 }
 
-func prepareTestTree(t *testing.T) error {
-	root, err := ioutil.TempDir("", "")
-	if err != nil {
-		return err
-	}
-	t.Logf("create temp dir: %v", root)
-	_, err = os.Stat(root)
+func TestRemoveEmptyDirectory(t *testing.T) {
+
+}
+
+func prepareTestTree(root string) error {
+	_, err := os.Stat(root)
 	if !os.IsExist(err) {
 		os.MkdirAll(root, 0755)
 	}
@@ -98,11 +107,4 @@ func CreateNode(parent string, infos []FileInfo) error {
 		}
 	}
 	return nil
-}
-
-func TestCopyDirectory(t *testing.T) {
-	err := prepareTestTree(t)
-	if err != nil {
-		t.Error(err)
-	}
 }
