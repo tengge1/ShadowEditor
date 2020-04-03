@@ -20,6 +20,12 @@ func CopyDirectory(sourceDirName, destDirName string) error {
 	if !stat.IsDir() {
 		return fmt.Errorf("sourceDirName (%v) is not a directory", sourceDirName)
 	}
+
+	stat, err = os.Stat(destDirName)
+	if err == nil && !stat.IsDir() {
+		return fmt.Errorf("destDirName (%v) is a file", destDirName)
+	}
+
 	return copyDirectory(sourceDirName, destDirName)
 }
 
