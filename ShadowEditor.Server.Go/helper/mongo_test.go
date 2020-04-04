@@ -4,8 +4,6 @@ import (
 	"testing"
 
 	"go.mongodb.org/mongo-driver/bson"
-
-	"golang.org/x/net/context"
 )
 
 func TestMongo(t *testing.T) {
@@ -15,34 +13,49 @@ func TestMongo(t *testing.T) {
 		return
 	}
 
-	db, err := NewMongo(config.Database.Connection, config.Database.Database)
+	db, err := NewMongo(config.Database.Connection, "Test")
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	collectionName := "PersonTest"
+	persons := []Person{
+		{"xiaoming", 10},
+		{"xiaoli", 20},
+	}
+
+	// insert
+	_, err = db.InsertMany(collectionName, persons)
 	if err != nil {
 		t.Error(err)
 		return
 	}
 
+	// find
+	results := []Person{}
+	err = db.FindMany(collectionName, bson.M{}, &results)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	t.Log(results)
+
+	// listCollectionNames
 	collectionNames, err := db.ListCollectionNames()
 	if err != nil {
 		t.Error(err)
 		return
 	}
+	t.Log(collectionNames)
 
-	// list collections
-	for _, collectionName := range collectionNames {
-		t.Logf("%v", collectionName)
-	}
-
-	// list documents
-	cursor, err := db.Find("_Scene", bson.M{})
+	// drop
+	err = db.DropCollection(collectionName)
 	if err != nil {
 		t.Error(err)
-		return
 	}
-	defer cursor.Close(context.TODO())
+}
 
-	for cursor.Next(context.TODO()) {
-		record := bson.M{}
-		cursor.Decode(&record)
-		t.Log(cursor)
-	}
+type Person struct {
+	name string
+	age  int
 }

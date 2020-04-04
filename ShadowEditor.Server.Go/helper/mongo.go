@@ -50,7 +50,7 @@ func (m Mongo) ListCollectionNames() (collectionNames []string, err error) {
 		return nil, fmt.Errorf("mongo client is not created")
 	}
 	nameOnly := true
-	listOptions := options.ListCollectionsOptions{&nameOnly}
+	listOptions := options.ListCollectionsOptions{NameOnly: &nameOnly}
 	return m.Database.ListCollectionNames(context.TODO(), bson.M{}, &listOptions)
 }
 
@@ -88,12 +88,16 @@ func (m Mongo) InsertOne(collectionName string, document interface{}) (*mongo.In
 }
 
 // InsertMany insert many documents to a collection
-func (m Mongo) InsertMany(collectionName string, documents []interface{}) (*mongo.InsertManyResult, error) {
+func (m Mongo) InsertMany(collectionName string, documents interface{}) (*mongo.InsertManyResult, error) {
 	collection, err := m.GetCollection(collectionName)
 	if err != nil {
 		return nil, err
 	}
-	return collection.InsertMany(context.TODO(), documents)
+	docs, ok := documents.([]interface{})
+	if !ok {
+		return nil, fmt.Errorf("documents should be an array")
+	}
+	return collection.InsertMany(context.TODO(), docs)
 }
 
 // Count get documents count of a collection
@@ -124,23 +128,22 @@ func (m Mongo) Find(collectionName string, filter interface{}) (*mongo.Cursor, e
 }
 
 // FindMany find many results of a collection
-func (m Mongo) FindMany(collectionName string, filter interface{}) (result []interface{}, err error) {
+func (m Mongo) FindMany(collectionName string, filter interface{}, results interface{}) (err error) {
 	collection, err := m.GetCollection(collectionName)
 	if err != nil {
-		return nil, err
+		return err
 	}
 	cursor, err := collection.Find(context.TODO(), filter)
 	if err != nil {
-		return nil, err
+		return err
 	}
 	defer cursor.Close(context.TODO())
 
-	results := []interface{}{}
 	err = cursor.All(context.TODO(), results)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return results, nil
+	return nil
 }
 
 // UpdateOne update one document
