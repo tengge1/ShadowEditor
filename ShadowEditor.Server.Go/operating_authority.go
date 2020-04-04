@@ -2,7 +2,7 @@ package shadoweditor
 
 import "github.com/tengge1/shadoweditor/model/system"
 
-// GetAllOperatingAuthorities Get all operatingAuthorities
+// GetAllOperatingAuthorities returns all operatingAuthorities.
 func GetAllOperatingAuthorities() []system.OperatingAuthority {
 	authorities := []system.OperatingAuthority{}
 
