@@ -13,6 +13,12 @@ func NewMySQL(host string, port uint16, username, password, database string) (*M
 	if err != nil {
 		return nil, err
 	}
+
+	err = db.Ping()
+	if err != nil {
+		return nil, err
+	}
+
 	return &MySQL{db}, nil
 }
 
