@@ -41,7 +41,7 @@ func GetCurrentUser(r *http.Request) (*system.User, error) {
 	return user, nil
 }
 
-// GetUser get a user from userID
+// GetUser get a user from userID.
 func GetUser(userID string) (*system.User, error) {
 	objectID, err := primitive.ObjectIDFromHex(userID)
 	if err != nil {
