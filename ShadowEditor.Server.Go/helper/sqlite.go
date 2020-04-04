@@ -3,105 +3,65 @@ package helper
 import (
 	"database/sql"
 	"fmt"
-	"log"
-	"os"
 
 	_ "github.com/mattn/go-sqlite3" // sqlite3 driver for go using database/sql
 )
 
-func main() {
-	os.Remove("./foo.db")
-
-	db, err := sql.Open("sqlite3", "./foo.db")
+// NewSQLite create a new sqlite connection.
+func NewSQLite(path string) (*SQLite, error) {
+	db, err := sql.Open("sqlite3", path)
 	if err != nil {
-		log.Fatal(err)
-	}
-	defer db.Close()
-
-	sqlStmt := `
-	create table foo (id integer not null primary key, name text);
-	delete from foo;
-	`
-	_, err = db.Exec(sqlStmt)
-	if err != nil {
-		log.Printf("%q: %s\n", err, sqlStmt)
-		return
+		return nil, err
 	}
 
-	tx, err := db.Begin()
+	err = db.Ping()
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
-	stmt, err := tx.Prepare("insert into foo(id, name) values(?, ?)")
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer stmt.Close()
-	for i := 0; i < 100; i++ {
-		_, err = stmt.Exec(i, fmt.Sprintf("こんにちわ世界%03d", i))
-		if err != nil {
-			log.Fatal(err)
-		}
-	}
-	tx.Commit()
+	return &SQLite{db}, nil
+}
 
-	rows, err := db.Query("select id, name from foo")
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer rows.Close()
-	for rows.Next() {
-		var id int
-		var name string
-		err = rows.Scan(&id, &name)
-		if err != nil {
-			log.Fatal(err)
-		}
-		fmt.Println(id, name)
-	}
-	err = rows.Err()
-	if err != nil {
-		log.Fatal(err)
-	}
+// SQLite is a SQLite client.
+type SQLite struct {
+	DB *sql.DB
+}
 
-	stmt, err = db.Prepare("select name from foo where id = ?")
-	if err != nil {
-		log.Fatal(err)
+// Prepare creates a prepared statement for later queries or executions.
+func (s SQLite) Prepare(query string) (*sql.Stmt, error) {
+	if s.DB == nil {
+		return nil, fmt.Errorf("db is not created")
 	}
-	defer stmt.Close()
-	var name string
-	err = stmt.QueryRow("3").Scan(&name)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println(name)
+	return s.DB.Prepare(query)
+}
 
-	_, err = db.Exec("delete from foo")
-	if err != nil {
-		log.Fatal(err)
+// Exec executes a query without returning any rows.
+func (s SQLite) Exec(query string, args ...interface{}) (sql.Result, error) {
+	if s.DB == nil {
+		return nil, fmt.Errorf("db is not created")
 	}
+	return s.DB.Exec(query, args...)
+}
 
-	_, err = db.Exec("insert into foo(id, name) values(1, 'foo'), (2, 'bar'), (3, 'baz')")
-	if err != nil {
-		log.Fatal(err)
+// Query executes a query that returns rows, typically a SELECT.
+func (s SQLite) Query(query string, args ...interface{}) (*sql.Rows, error) {
+	if s.DB == nil {
+		return nil, fmt.Errorf("db is not created")
 	}
+	return s.DB.Query(query, args...)
+}
 
-	rows, err = db.Query("select id, name from foo")
-	if err != nil {
-		log.Fatal(err)
+// QueryRow executes a query that is expected to return at most one row.
+func (s SQLite) QueryRow(query string, args ...interface{}) (*sql.Row, error) {
+	if s.DB == nil {
+		return nil, fmt.Errorf("db is not created")
 	}
-	defer rows.Close()
-	for rows.Next() {
-		var id int
-		var name string
-		err = rows.Scan(&id, &name)
-		if err != nil {
-			log.Fatal(err)
-		}
-		fmt.Println(id, name)
+	return s.DB.QueryRow(query, args...), nil
+}
+
+// Close closes the database and prevents new queries from starting.
+func (s SQLite) Close() error {
+	if s.DB == nil {
+		return fmt.Errorf("db is not created")
 	}
-	err = rows.Err()
-	if err != nil {
-		log.Fatal(err)
-	}
+	return s.DB.Close()
 }
