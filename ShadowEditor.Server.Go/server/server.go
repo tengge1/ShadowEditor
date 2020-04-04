@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/dimfeld/httptreemux"
-	"github.com/tengge1/shadoweditor/helper"
+	"github.com/tengge1/shadoweditor/context"
 	"github.com/tengge1/shadoweditor/server/base"
 	_ "github.com/tengge1/shadoweditor/server/export" // export apis
 	_ "github.com/tengge1/shadoweditor/server/system" // system apis
@@ -14,9 +14,9 @@ import (
 
 // Start start the server
 func Start() {
-	log.Printf("starting shadoweditor server on port %v", helper.Config.Server.Port)
+	log.Printf("starting shadoweditor server on port %v", context.Config.Server.Port)
 
-	err := http.ListenAndServe(helper.Config.Server.Port, NewRouter())
+	err := http.ListenAndServe(context.Config.Server.Port, NewRouter())
 	if err != nil {
 		switch err {
 		case http.ErrServerClosed:

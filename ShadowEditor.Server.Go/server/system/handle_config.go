@@ -7,7 +7,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 
 	shadow "github.com/tengge1/shadoweditor"
-	"github.com/tengge1/shadoweditor/helper"
+	"github.com/tengge1/shadoweditor/context"
 	"github.com/tengge1/shadoweditor/model/system"
 	"github.com/tengge1/shadoweditor/server/base"
 )
@@ -23,7 +23,7 @@ type Config struct {
 
 // Get 获取配置信息
 func (Config) Get(w http.ResponseWriter, r *http.Request) {
-	db, err := helper.NewMongo()
+	db, err := context.Mongo()
 	if err != nil {
 		base.Write(w, err.Error())
 		return
@@ -46,7 +46,7 @@ func (Config) Get(w http.ResponseWriter, r *http.Request) {
 
 	model := ConfigResult{
 		ID:                   config.ID,
-		EnableAuthority:      helper.Config.Authority.Enabled,
+		EnableAuthority:      context.Config.Authority.Enabled,
 		Initialized:          config.Initialized,
 		DefaultRegisterRole:  config.DefaultRegisterRole,
 		IsLogin:              false,
@@ -57,11 +57,11 @@ func (Config) Get(w http.ResponseWriter, r *http.Request) {
 		DeptID:               "",
 		DeptName:             "",
 		OperatingAuthorities: []string{},
-		EnableRemoteEdit:     helper.Config.Remote.Enabled,
-		WebSocketServerPort:  helper.Config.Remote.WebSocketPort,
+		EnableRemoteEdit:     context.Config.Remote.Enabled,
+		WebSocketServerPort:  context.Config.Remote.WebSocketPort,
 	}
 
-	user, err := helper.GetCurrentUser(r)
+	user, err := context.GetCurrentUser(r)
 	if err != nil {
 		base.Write(w, err.Error())
 		return

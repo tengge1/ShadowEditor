@@ -6,7 +6,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 
 	shadow "github.com/tengge1/shadoweditor"
-	"github.com/tengge1/shadoweditor/helper"
+	"github.com/tengge1/shadoweditor/context"
 	"github.com/tengge1/shadoweditor/server/base"
 )
 
@@ -21,7 +21,7 @@ type Assets struct {
 
 // List 获取信息列表
 func (Assets) List(w http.ResponseWriter, r *http.Request) {
-	db, err := helper.NewMongo()
+	db, err := context.Mongo()
 	if err != nil {
 		base.Write(w, err.Error())
 		return
@@ -30,8 +30,8 @@ func (Assets) List(w http.ResponseWriter, r *http.Request) {
 	var sceneCount, meshCount, mapCount, materialCount, audioCount, animationCount, particleCount,
 		prefabCount, characterCount, screenshotCount, videoCount int64
 
-	if helper.Config.Authority.Enabled {
-		user, _ := helper.GetCurrentUser(r)
+	if context.Config.Authority.Enabled {
+		user, _ := context.GetCurrentUser(r)
 		if user != nil {
 			filter := bson.M{
 				"UserID": user.ID,
