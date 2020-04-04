@@ -10,26 +10,9 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-// NewMongo create new mongo from current config
-func NewMongo() (*Mongo, error) {
-	if Config == nil {
-		return nil, fmt.Errorf("config is not initialized")
-	}
-	return Mongo{}.Create(Config.Database.Connection, Config.Database.Database)
-}
-
-// Mongo represent a mongo client
-type Mongo struct {
-	ConnectionString string
-	DatabaseName     string
-	Client           *mongo.Client
-	Database         *mongo.Database
-}
-
-// Create create a mongo client from connectionString and databaseName
-func (m Mongo) Create(connectionString, databaseName string) (mr *Mongo, err error) {
-	m.ConnectionString = connectionString
-	m.DatabaseName = databaseName
+// NewMongo create a mongo client from connectionString and databaseName
+func NewMongo(connectionString, databaseName string) (*Mongo, error) {
+	m := Mongo{connectionString, databaseName, nil, nil}
 
 	clientOptions := options.Client().ApplyURI(connectionString)
 
@@ -51,6 +34,14 @@ func (m Mongo) Create(connectionString, databaseName string) (mr *Mongo, err err
 	m.Client = client
 	m.Database = db
 	return &m, nil
+}
+
+// Mongo represent a mongo client
+type Mongo struct {
+	ConnectionString string
+	DatabaseName     string
+	Client           *mongo.Client
+	Database         *mongo.Database
 }
 
 // ListCollectionNames list collectionNames of database

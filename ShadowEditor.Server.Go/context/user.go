@@ -1,4 +1,4 @@
-package helper
+package context
 
 import (
 	"context"
@@ -48,7 +48,7 @@ func GetUser(userID string) (*system.User, error) {
 		return nil, err
 	}
 
-	mongo, err := NewMongo()
+	mongo, err := Mongo()
 	if err != nil {
 		return nil, err
 	}
@@ -94,7 +94,7 @@ func GetUser(userID string) (*system.User, error) {
 			user.OperatingAuthorities = []string{}
 
 			if role.Name == "Administrator" {
-				for _, item := range GetAllOperatingAuthorities() {
+				for _, item := range shadow.GetAllOperatingAuthorities() {
 					user.OperatingAuthorities = append(user.OperatingAuthorities, item.ID)
 				}
 			} else {

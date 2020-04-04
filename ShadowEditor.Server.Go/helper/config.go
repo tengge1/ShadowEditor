@@ -6,11 +6,6 @@ import (
 	"github.com/BurntSushi/toml"
 )
 
-var (
-	// Config config cache
-	Config *ConfigModel
-)
-
 // GetConfig get config from config.toml
 func GetConfig(path string) (config *ConfigModel, err error) {
 	file, err := os.Open(path)
