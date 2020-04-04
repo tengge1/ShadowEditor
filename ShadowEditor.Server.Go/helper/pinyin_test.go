@@ -15,4 +15,6 @@ func TestConvertToPinYin(t *testing.T) {
 		t.Errorf("first pinyin should be `zhong` `guo` `ren`, get `%v` `%v` `%v`", pinyin.TotalPinYin[0], pinyin.TotalPinYin[1], pinyin.TotalPinYin[2])
 		return
 	}
+
+	t.Log(pinyin)
 }
