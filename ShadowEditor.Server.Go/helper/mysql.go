@@ -4,54 +4,59 @@ import (
 	"database/sql"
 	"fmt"
 
-	_ "github.com/go-sql-driver/mysql"
+	_ "github.com/go-sql-driver/mysql" // mysql driver
 )
 
-type MySQL struct {
+// NewMySQL create a new MySQL client
+func NewMySQL(host string, port uint16, username, password, database string) (*MySQL, error) {
+	db, err := sql.Open("mysql", fmt.Sprintf("%v:%v@tcp(%v:%v)/%v", username, password, host, port, database))
+	if err != nil {
+		return nil, err
+	}
+	return &MySQL{db}, nil
 }
 
-func (m MySQL) Create() {
-	db, err := sql.Open("mysql", "user:password@/database")
-	if err != nil {
-		panic(err.Error()) // Just for example purpose. You should use proper error handling instead of panic
-	}
-	defer db.Close()
+// MySQL a new MySQL client
+type MySQL struct {
+	DB *sql.DB
+}
 
-	// Prepare statement for inserting data
-	stmtIns, err := db.Prepare("INSERT INTO squareNum VALUES( ?, ? )") // ? = placeholder
-	if err != nil {
-		panic(err.Error()) // proper error handling instead of panic in your app
+// Prepare creates a prepared statement for later queries or executions.
+func (m MySQL) Prepare(query string) (*sql.Stmt, error) {
+	if m.DB == nil {
+		return nil, fmt.Errorf("db is not created")
 	}
-	defer stmtIns.Close() // Close the statement when we leave main() / the program terminates
+	return m.DB.Prepare(query)
+}
 
-	// Prepare statement for reading data
-	stmtOut, err := db.Prepare("SELECT squareNumber FROM squarenum WHERE number = ?")
-	if err != nil {
-		panic(err.Error()) // proper error handling instead of panic in your app
+// Exec executes a query without returning any rows.
+func (m MySQL) Exec(query string, args ...interface{}) (sql.Result, error) {
+	if m.DB == nil {
+		return nil, fmt.Errorf("db is not created")
 	}
-	defer stmtOut.Close()
+	return m.DB.Exec(query, args...)
+}
 
-	// Insert square numbers for 0-24 in the database
-	for i := 0; i < 25; i++ {
-		_, err = stmtIns.Exec(i, (i * i)) // Insert tuples (i, i^2)
-		if err != nil {
-			panic(err.Error()) // proper error handling instead of panic in your app
-		}
+// Query executes a query that returns rows, typically a SELECT.
+func (m MySQL) Query(query string, args ...interface{}) (*sql.Rows, error) {
+	if m.DB == nil {
+		return nil, fmt.Errorf("db is not created")
 	}
+	return m.DB.Query(query, args...)
+}
 
-	var squareNum int // we "scan" the result in here
-
-	// Query the square-number of 13
-	err = stmtOut.QueryRow(13).Scan(&squareNum) // WHERE number = 13
-	if err != nil {
-		panic(err.Error()) // proper error handling instead of panic in your app
+// QueryRow executes a query that is expected to return at most one row.
+func (m MySQL) QueryRow(query string, args ...interface{}) (*sql.Row, error) {
+	if m.DB == nil {
+		return nil, fmt.Errorf("db is not created")
 	}
-	fmt.Printf("The square number of 13 is: %d", squareNum)
+	return m.DB.QueryRow(query, args...), nil
+}
 
-	// Query another number.. 1 maybe?
-	err = stmtOut.QueryRow(1).Scan(&squareNum) // WHERE number = 1
-	if err != nil {
-		panic(err.Error()) // proper error handling instead of panic in your app
+// Close closes the database and prevents new queries from starting.
+func (m MySQL) Close() error {
+	if m.DB == nil {
+		return fmt.Errorf("db is not created")
 	}
-	fmt.Printf("The square number of 1 is: %d", squareNum)
+	return m.DB.Close()
 }
