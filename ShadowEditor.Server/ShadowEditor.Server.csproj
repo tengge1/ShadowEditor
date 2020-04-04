@@ -191,6 +191,7 @@
     <Compile Include="Controllers\System\RegisterController.cs" />
     <Compile Include="Controllers\System\RoleController.cs" />
     <Compile Include="Controllers\System\UserController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\Tools\BackupDatabaseController.cs" />
     <Compile Include="Controllers\Tools\CleanUpScenesController.cs" />
     <Compile Include="Controllers\Tools\PluginController.cs" />
