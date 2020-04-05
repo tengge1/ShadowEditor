@@ -3,13 +3,16 @@
 Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en.md) / 日本語 / 한국어 / русский / Le français
 
 * 名称：Shadow Editor
-* 版本：v0.4.6(开发中)
+* 版本：v0.4.6
 * 简介：基于`three.js`的场景编辑器。
 * 源码：[GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | 文档：[GitHub](https://tengge1.github.io/ShadowEditor/) [Gitee](https://tengge1.gitee.io/shadoweditor/) | 示例：[GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) | 视频：[微博](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) | 资源：[百度云](https://pan.baidu.com/s/1IxJVM6fFLoIAJG-GKHjVTA)
 * 技术栈：`html`、`css`、`javascript`、`rollup`、`react.js`、`webgl`、`three.js`、`asp.net`。
 * 如果对您有帮助，请[【捐赠】](https://gitee.com/tengge1/ShadowEditor)支持项目发展，谢谢。
 
-## v0.4.6即将更新
+## v0.4.6更新【[更新日志](docs-dev/update/UpdateLog.md)】
+
+* 发布日期：2020年4月5日
+* 更新日志：
 
 1. 修复加载自动保存场景确认对话框无法取消bug，`取消`按钮改为`清空`。
 2. 修复保存示例场景报`ID不合法`的错误，现在可以正常保存示例场景。
@@ -19,24 +22,6 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 6. 修复获取服务端配置，未使用配置的服务端地址的bug。
 7. Go语言服务端。（开发中）
 8. 修复脚本中多次调用`clock.getDelta`和`clock.getElapsedTime`导致动画异常的bug。现在脚本中可以多次调用这两个函数。
-
-## v0.4.5更新【[更新日志](docs-dev/update/UpdateLog.md)】
-
-* 发布日期：2020年3月22日
-* 更新日志：
-
-1. 播放场景，默认的轨道控制器`启用惯性`设置。
-2. `EnableDamping`的翻译由`启用减震`改为`启用惯性`。
-3. `DampingFactor`的翻译由`减震系数`改为`惯性系数`。
-4. 脚本面板新增`新建文件夹`，支持`树状结构`，支持`拖动排序`，支持`修改文件夹和脚本名称`。
-5. `控制器模式选择`由状态栏移动到`选项`菜单中。
-6. `添加模式`由绘制工具栏移动到`选项`菜单中，默认改为`添加到场景中心`。
-7. `选择模式`由状态栏移动到`选项`菜单中。
-8. 修复`点击场景添加模型`，添加过程中不出现模型预览bug。
-9. `app.editor.scripts`由`Object`改为`Array`，不会对以前的场景造成影响。
-10. 场景脚本第三方编辑器支持，场景中创建的脚本自动同步到`SceneScript`文件夹中。（未完成）
-11. 新增`自动保存场景`功能，每10秒保存一次。刷新浏览器`询问是否加载自动保存的场景`，避免数据丢失。
-12. 修复部分情况下`javascript格式化插件`报错，导致页面崩溃的bug。
 
 ## 项目截图
 
