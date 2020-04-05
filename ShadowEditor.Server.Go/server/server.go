@@ -37,7 +37,11 @@ func NewRouter() *httptreemux.TreeMux {
 	group := mux.NewGroup("/")
 
 	for _, route := range base.Routes {
-		group.UsingContext().Handler("GET", route.Path, SetDefaultHeaders(route.Handler))
+		if route.Method != http.MethodGet && route.Method != http.MethodPost {
+			log.Fatalf("method only support GET and POST, got %v", route.Method)
+			return nil
+		}
+		group.UsingContext().Handler(route.Method, route.Path, SetDefaultHeaders(route.Handler))
 	}
 
 	return mux
@@ -56,6 +60,6 @@ func SetDefaultHeaders(next http.Handler) http.Handler {
 }
 
 // Register register a handler
-func Register(path string, handler http.HandlerFunc) {
-	base.Register(path, handler)
+func Register(path, method string, handler http.HandlerFunc) {
+	base.Register(path, method, handler)
 }

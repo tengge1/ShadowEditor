@@ -13,7 +13,7 @@ import (
 
 func init() {
 	assets := Assets{}
-	base.Register("/api/Assets/List", assets.List)
+	base.Register("/api/Assets/List", http.MethodGet, assets.List)
 }
 
 // Assets (所有)资源控制器

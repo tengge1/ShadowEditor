@@ -9,7 +9,7 @@ import (
 
 func init() {
 	assets := Assets{}
-	base.Register("/api/Scene/List", assets.List)
+	base.Register("/api/Scene/List", http.MethodGet, assets.List)
 }
 
 // Scene 场景控制器

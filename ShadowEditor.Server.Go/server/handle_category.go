@@ -9,7 +9,7 @@ import (
 
 func init() {
 	category := Category{}
-	base.Register("/api/Category/List", category.List)
+	base.Register("/api/Category/List", http.MethodGet, category.List)
 }
 
 // Category 类别控制器
