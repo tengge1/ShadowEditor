@@ -242,6 +242,8 @@ Player.prototype.animate = function () {
         this.stats.begin();
     }
 
+    this.clock._getDelta(); // see: ../polyfills.js
+
     var deltaTime = this.clock.getDelta();
 
     this.event.update(this.clock, deltaTime);

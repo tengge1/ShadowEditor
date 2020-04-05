@@ -15,10 +15,10 @@ Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en
 2. 修复保存示例场景报`ID不合法`的错误，现在可以正常保存示例场景。
 3. 修复一打开页面，立刻添加`背景音乐`组件报错bug。
 4. 修复`背景音乐组件`发布场景时，未导出音乐文件bug。
-5. 修复了一个严重bug，由于多次调用`clock.getElapsedTime`，导致所有动画播放变慢bug。
-6. 修复`视频贴图`发布场景后，视频地址不正确bug。
-7. 修复获取服务端配置，未使用配置的服务端地址的bug。
-8. Go语言服务端。（开发中）
+5. 修复`视频贴图`发布场景后，视频地址不正确bug。
+6. 修复获取服务端配置，未使用配置的服务端地址的bug。
+7. Go语言服务端。（开发中）
+8. 修复脚本中多次调用`clock.getDelta`和`clock.getElapsedTime`导致动画异常的bug。现在脚本中可以多次调用这两个函数。
 
 ## v0.4.5更新【[更新日志](docs-dev/update/UpdateLog.md)】
 

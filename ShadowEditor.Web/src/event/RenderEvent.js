@@ -35,6 +35,8 @@ RenderEvent.prototype.stop = function () {
 RenderEvent.prototype.render = function () {
     const { scene, sceneHelpers } = app.editor;
 
+    this.clock._getDelta(); // see: ../polyfills.js
+
     const deltaTime = this.clock.getDelta();
 
     app.call('animate', this, this.clock, deltaTime);
