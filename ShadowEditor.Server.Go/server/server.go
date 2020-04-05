@@ -10,6 +10,7 @@ import (
 	"github.com/tengge1/shadoweditor/context"
 	"github.com/tengge1/shadoweditor/server/base"
 	_ "github.com/tengge1/shadoweditor/server/export" // export apis
+	"github.com/tengge1/shadoweditor/server/middleware"
 	_ "github.com/tengge1/shadoweditor/server/system" // system apis
 	_ "github.com/tengge1/shadoweditor/server/tools"  // tools apis
 	"github.com/urfave/negroni"
@@ -20,7 +21,7 @@ func Start() {
 	log.Printf("starting shadoweditor server on port %v", context.Config.Server.Port)
 
 	handler := negroni.Classic()
-	handler.Use(negroni.HandlerFunc(MyMiddleware))
+	handler.Use(negroni.HandlerFunc(middleware.GZipHandler))
 	handler.UseHandler(NewRouter())
 
 	err := http.ListenAndServe(context.Config.Server.Port, handler)
