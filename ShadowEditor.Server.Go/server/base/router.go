@@ -10,10 +10,11 @@ var (
 // Route map a path to a HandlerFunc
 type Route struct {
 	Path    string
+	Method  string
 	Handler http.HandlerFunc
 }
 
 // Register register a route
-func Register(path string, handler http.HandlerFunc) {
-	Routes = append(Routes, Route{path, handler})
+func Register(path, method string, handler http.HandlerFunc) {
+	Routes = append(Routes, Route{path, method, handler})
 }
