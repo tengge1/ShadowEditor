@@ -8,6 +8,7 @@ require (
 	github.com/fsnotify/fsnotify v1.4.9 // indirect
 	github.com/go-redis/redis v6.15.7+incompatible
 	github.com/go-sql-driver/mysql v1.5.0
+	github.com/golang/protobuf v1.3.5 // indirect
 	github.com/google/go-cmp v0.4.0 // indirect
 	github.com/jackc/pgconn v1.5.0
 	github.com/jackc/pgx/v4 v4.6.0
