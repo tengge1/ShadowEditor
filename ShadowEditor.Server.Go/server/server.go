@@ -20,6 +20,7 @@ func Start() {
 	log.Printf("starting shadoweditor server on port %v", context.Config.Server.Port)
 
 	handler := negroni.Classic()
+	handler.Use(negroni.HandlerFunc(MyMiddleware))
 	handler.UseHandler(NewRouter())
 
 	err := http.ListenAndServe(context.Config.Server.Port, handler)
