@@ -8,6 +8,7 @@ import (
 
 	shadow "github.com/tengge1/shadoweditor"
 	"github.com/tengge1/shadoweditor/context"
+	"github.com/tengge1/shadoweditor/model"
 	"github.com/tengge1/shadoweditor/model/system"
 	"github.com/tengge1/shadoweditor/server/base"
 )
@@ -44,7 +45,7 @@ func (Config) Get(w http.ResponseWriter, r *http.Request) {
 	config := system.Config{}
 	doc.Decode(&config)
 
-	model := ConfigResult{
+	result := ConfigResult{
 		ID:                   config.ID,
 		EnableAuthority:      context.Config.Authority.Enabled,
 		Initialized:          config.Initialized,
@@ -68,19 +69,19 @@ func (Config) Get(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if user != nil {
-		model.IsLogin = true
-		model.Username = user.Username
-		model.Name = user.Name
-		model.RoleID = user.RoleID
-		model.RoleName = user.RoleName
-		model.DeptID = user.DeptID
-		model.DeptName = user.DeptName
+		result.IsLogin = true
+		result.Username = user.Username
+		result.Name = user.Name
+		result.RoleID = user.RoleID
+		result.RoleName = user.RoleName
+		result.DeptID = user.DeptID
+		result.DeptName = user.DeptName
 	}
 
-	base.WriteJSON(w, base.Result{
+	base.WriteJSON(w, model.Result{
 		Code: 200,
 		Msg:  "Get Successfully!",
-		Data: model,
+		Data: result,
 	})
 }
 

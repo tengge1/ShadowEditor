@@ -4,6 +4,8 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/tengge1/shadoweditor/helper"
+
 	"github.com/dimfeld/httptreemux"
 	"github.com/tengge1/shadoweditor/context"
 	"github.com/tengge1/shadoweditor/server/base"
@@ -42,13 +44,13 @@ func NewRouter() *httptreemux.TreeMux {
 }
 
 func corsHandler(w http.ResponseWriter, r *http.Request, params map[string]string) {
-	base.EnableCrossOrigin(w)
+	helper.EnableCrossDomain(w, r)
 }
 
 // SetDefaultHeaders set cross origin response headers
 func SetDefaultHeaders(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		base.EnableCrossOrigin(w)
+		helper.EnableCrossDomain(w, r)
 		next.ServeHTTP(w, r)
 	})
 }

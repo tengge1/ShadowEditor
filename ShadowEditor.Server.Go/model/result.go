@@ -1,4 +1,4 @@
-package base
+package model
 
 // Result present a handle result
 type Result struct {
