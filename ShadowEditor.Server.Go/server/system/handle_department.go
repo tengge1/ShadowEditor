@@ -13,7 +13,7 @@ import (
 
 func init() {
 	department := Department{}
-	context.Mux.UsingContext().Handle(http.MethodGet, "/api/Department/Get", department.List)
+	context.Mux.UsingContext().Handle(http.MethodGet, "/api/Department/List", department.List)
 }
 
 // Department 组织机构控制器
