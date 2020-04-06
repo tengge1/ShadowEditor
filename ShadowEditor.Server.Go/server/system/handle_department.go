@@ -2,7 +2,11 @@ package system
 
 import (
 	"net/http"
+	"strings"
 
+	"go.mongodb.org/mongo-driver/bson/primitive"
+
+	"github.com/dimfeld/httptreemux"
 	shadow "github.com/tengge1/shadoweditor"
 	"github.com/tengge1/shadoweditor/context"
 	"github.com/tengge1/shadoweditor/helper"
@@ -69,5 +73,46 @@ func (Department) List(w http.ResponseWriter, r *http.Request) {
 		Code: 200,
 		Msg:  "Get Successfully!",
 		Data: list,
+	})
+}
+
+// Add 添加
+func (Department) Add(w http.ResponseWriter, r *http.Request) {
+	params := httptreemux.ContextParams(r.Context())
+
+	parentID := params["ParentID"]
+	name := params["Name"]
+	adminID := params["AdminID"]
+
+	if strings.Trim(name, " ") == "" {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  "Name is not allowed to be empty.",
+		})
+		return
+	}
+
+	db, err := context.Mongo()
+	if err != nil {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  err.Error(),
+		})
+		return
+	}
+
+	doc := bson.M{
+		"ID":       primitive.NewObjectID(),
+		"ParentID": parentID,
+		"Name":     name,
+		"AdminID":  adminID,
+		"Status":   0,
+	}
+
+	db.InsertOne(shadow.DepartmentCollectionName, doc)
+
+	helper.WriteJSON(w, model.Result{
+		Code: 200,
+		Msg:  "Saved successfully!",
 	})
 }
