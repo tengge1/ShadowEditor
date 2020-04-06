@@ -7,13 +7,13 @@ import (
 
 	shadow "github.com/tengge1/shadoweditor"
 	"github.com/tengge1/shadoweditor/context"
+	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/model"
-	"github.com/tengge1/shadoweditor/server/base"
 )
 
 func init() {
 	assets := Assets{}
-	base.Register("/api/Assets/List", http.MethodGet, assets.List)
+	context.Mux.UsingContext().Handle(http.MethodGet, "/api/Assets/List", assets.List)
 }
 
 // Assets (所有)资源控制器
@@ -24,7 +24,7 @@ type Assets struct {
 func (Assets) List(w http.ResponseWriter, r *http.Request) {
 	db, err := context.Mongo()
 	if err != nil {
-		base.Write(w, err.Error())
+		helper.Write(w, err.Error())
 		return
 	}
 
@@ -96,7 +96,7 @@ func (Assets) List(w http.ResponseWriter, r *http.Request) {
 	result.Code = 200
 	result.Msg = "Get Successfully!"
 
-	base.WriteJSON(w, result)
+	helper.WriteJSON(w, result)
 }
 
 // AssetsResult a result contains assets nums

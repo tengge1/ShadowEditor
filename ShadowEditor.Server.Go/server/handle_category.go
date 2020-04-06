@@ -4,12 +4,12 @@ import (
 	"net/http"
 
 	"github.com/tengge1/shadoweditor/context"
-	"github.com/tengge1/shadoweditor/server/base"
+	"github.com/tengge1/shadoweditor/helper"
 )
 
 func init() {
 	category := Category{}
-	base.Register("/api/Category/List", http.MethodGet, category.List)
+	context.Mux.UsingContext().Handle(http.MethodGet, "/api/Category/List", category.List)
 }
 
 // Category 类别控制器
@@ -20,7 +20,7 @@ type Category struct {
 func (Category) List(w http.ResponseWriter, r *http.Request) {
 	db, err := context.Mongo()
 	if err != nil {
-		base.Write(w, err.Error())
+		helper.Write(w, err.Error())
 		return
 	}
 

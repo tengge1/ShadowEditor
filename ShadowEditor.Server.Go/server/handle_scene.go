@@ -4,12 +4,12 @@ import (
 	"net/http"
 
 	"github.com/tengge1/shadoweditor/context"
-	"github.com/tengge1/shadoweditor/server/base"
+	"github.com/tengge1/shadoweditor/helper"
 )
 
 func init() {
 	assets := Assets{}
-	base.Register("/api/Scene/List", http.MethodGet, assets.List)
+	context.Mux.UsingContext().Handle(http.MethodGet, "/api/Scene/List", assets.List)
 }
 
 // Scene 场景控制器
@@ -20,7 +20,7 @@ type Scene struct {
 func (Scene) List(w http.ResponseWriter, r *http.Request) {
 	db, err := context.Mongo()
 	if err != nil {
-		base.Write(w, err.Error())
+		helper.Write(w, err.Error())
 		return
 	}
 

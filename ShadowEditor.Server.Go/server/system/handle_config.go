@@ -8,9 +8,9 @@ import (
 
 	shadow "github.com/tengge1/shadoweditor"
 	"github.com/tengge1/shadoweditor/context"
+	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/model"
 	"github.com/tengge1/shadoweditor/model/system"
-	"github.com/tengge1/shadoweditor/server/base"
 )
 
 func init() {
@@ -26,7 +26,7 @@ type Config struct {
 func (Config) Get(w http.ResponseWriter, r *http.Request) {
 	db, err := context.Mongo()
 	if err != nil {
-		base.Write(w, err.Error())
+		helper.Write(w, err.Error())
 		return
 	}
 
@@ -64,7 +64,7 @@ func (Config) Get(w http.ResponseWriter, r *http.Request) {
 
 	user, err := context.GetCurrentUser(r)
 	if err != nil {
-		base.Write(w, err.Error())
+		helper.Write(w, err.Error())
 		return
 	}
 
@@ -78,7 +78,7 @@ func (Config) Get(w http.ResponseWriter, r *http.Request) {
 		result.DeptName = user.DeptName
 	}
 
-	base.WriteJSON(w, model.Result{
+	helper.WriteJSON(w, model.Result{
 		Code: 200,
 		Msg:  "Get Successfully!",
 		Data: result,
