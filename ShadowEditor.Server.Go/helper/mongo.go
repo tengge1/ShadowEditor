@@ -106,12 +106,17 @@ func (m Mongo) Count(collectionName string, filter interface{}) (int64, error) {
 }
 
 // FindOne find one document from a collection
-func (m Mongo) FindOne(collectionName string, filter interface{}) (*mongo.SingleResult, error) {
+func (m Mongo) FindOne(collectionName string, filter interface{}, result interface{}) (find bool, err error) {
 	collection, err := m.GetCollection(collectionName)
 	if err != nil {
-		return nil, err
+		return false, err
 	}
-	return collection.FindOne(context.TODO(), filter), nil
+	cursor := collection.FindOne(context.TODO(), filter)
+	if cursor.Err() == mongo.ErrNoDocuments {
+		return false, nil
+	}
+	cursor.Decode(result)
+	return true, nil
 }
 
 // Find find a cursor from a collection

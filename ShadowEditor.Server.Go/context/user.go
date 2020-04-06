@@ -57,16 +57,15 @@ func GetUser(userID string) (*system.User, error) {
 		"ID": objectID,
 	}
 
-	result, err := mongo.FindOne(shadow.UserCollectionName, filter)
+	user := system.User{}
+
+	find, err := mongo.FindOne(shadow.UserCollectionName, filter, &user)
 	if err != nil {
 		return nil, err
 	}
-	if result == nil {
+	if !find {
 		return nil, fmt.Errorf("user (%v) is not found", userID)
 	}
-
-	user := system.User{}
-	result.Decode(&user)
 
 	// get roles and authorities
 	if user.RoleID != "" {
@@ -79,16 +78,13 @@ func GetUser(userID string) (*system.User, error) {
 			"ID": objectID,
 		}
 
-		result, err = mongo.FindOne(shadow.RoleCollectionName, filter)
+		role := system.Role{}
+		find, err = mongo.FindOne(shadow.RoleCollectionName, filter, &role)
 		if err != nil {
 			return nil, err
 		}
 
-		if result != nil {
-			role := system.Role{}
-
-			result.Decode(&role)
-
+		if find {
 			user.RoleID = role.ID
 			user.RoleName = role.Name
 			user.OperatingAuthorities = []string{}

@@ -40,6 +40,31 @@ func TestMongo(t *testing.T) {
 	}
 	t.Log(results)
 
+	// single find
+	var result Person
+	find, err := db.FindOne(collectionName, bson.M{}, &result)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	if find {
+		t.Log(result)
+	} else {
+		t.Log("not find")
+	}
+
+	// single not find
+	find, err = db.FindOne(collectionName, bson.M{"foo": "bar"}, &result)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	if find {
+		t.Log(result)
+	} else {
+		t.Log("not find")
+	}
+
 	// listCollectionNames
 	collectionNames, err := db.ListCollectionNames()
 	if err != nil {

@@ -215,7 +215,8 @@ func (Department) Delete(w http.ResponseWriter, r *http.Request) {
 		"ID": objectID,
 	}
 
-	doc, err := db.FindOne(shadow.DepartmentCollectionName, filter)
+	var doc = bson.M{}
+	find, err := db.FindOne(shadow.DepartmentCollectionName, filter, &doc)
 	if err != nil {
 		helper.WriteJSON(w, model.Result{
 			Code: 300,
@@ -224,7 +225,7 @@ func (Department) Delete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if doc == nil {
+	if !find {
 		helper.WriteJSON(w, model.Result{
 			Code: 300,
 			Msg:  "The department is not existed.",

@@ -30,20 +30,25 @@ func (Config) Get(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	doc, err := db.FindOne(shadow.ConfigCollectionName, bson.M{})
+	config := system.Config{}
+	find, err := db.FindOne(shadow.ConfigCollectionName, bson.M{}, &config)
+	if err != nil {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  err.Error(),
+		})
+		return
+	}
 
-	if err != nil || doc == nil {
+	if !find {
 		doc1 := bson.M{
 			"ID":                  primitive.NewObjectID().Hex(),
 			"Initialized":         false,
 			"DefaultRegisterRole": "",
 		}
 		db.InsertOne(shadow.ConfigCollectionName, doc1)
-		doc, _ = db.FindOne(shadow.ConfigCollectionName, bson.M{})
+		db.FindOne(shadow.ConfigCollectionName, bson.M{}, &config)
 	}
-
-	config := system.Config{}
-	doc.Decode(&config)
 
 	result := ConfigResult{
 		ID:                   config.ID,
