@@ -63,6 +63,10 @@ func (Initialize) Initialize(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if !find {
+		doc = nil
+	}
+
 	defaultRegisterRoleID := primitive.NewObjectID()
 
 	if doc == nil {
