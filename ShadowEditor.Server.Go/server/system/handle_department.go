@@ -79,10 +79,10 @@ func (Department) List(w http.ResponseWriter, r *http.Request) {
 func (Department) Add(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	parentID := r.FormValue("ParentID")
-	name := r.FormValue("Name")
+	name := strings.Trim(r.FormValue("Name"), " ")
 	adminID := r.FormValue("AdminID")
 
-	if strings.Trim(name, " ") == "" {
+	if name == "" {
 		helper.WriteJSON(w, model.Result{
 			Code: 300,
 			Msg:  "Name is not allowed to be empty.",
@@ -108,6 +108,76 @@ func (Department) Add(w http.ResponseWriter, r *http.Request) {
 	}
 
 	db.InsertOne(shadow.DepartmentCollectionName, doc)
+
+	helper.WriteJSON(w, model.Result{
+		Code: 200,
+		Msg:  "Saved successfully!",
+	})
+}
+
+// Edit 编辑
+func (Department) Edit(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	id := r.FormValue("ID")
+	parentID := r.FormValue("ParentID")
+	name := r.FormValue("Name")
+	adminID := r.FormValue("AdminID")
+
+	objectID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  "ID is not allowed.",
+		})
+		return
+	}
+
+	if strings.Trim(name, " ") == "" {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  "Name is not allowed to be empty.",
+		})
+		return
+	}
+
+	db, err := context.Mongo()
+	if err != nil {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  err.Error(),
+		})
+		return
+	}
+
+	filter := bson.M{
+		"ID": objectID,
+	}
+
+	update1 := bson.M{
+		"$set": bson.M{
+			"ParentID": parentID,
+		},
+	}
+	update2 := bson.M{
+		"$set": bson.M{
+			"Name": name,
+		},
+	}
+	update3 := bson.M{
+		"$set": bson.M{
+			"AdminID": adminID,
+		},
+	}
+	update := bson.A{update1, update2, update3}
+
+	_, err = db.UpdateOne(shadow.DepartmentCollectionName, filter, update)
+	if err != nil {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  err.Error(),
+		})
+		return
+	}
 
 	helper.WriteJSON(w, model.Result{
 		Code: 200,
