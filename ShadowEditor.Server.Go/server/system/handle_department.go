@@ -17,6 +17,9 @@ import (
 func init() {
 	department := Department{}
 	context.Mux.UsingContext().Handle(http.MethodGet, "/api/Department/List", department.List)
+	context.Mux.UsingContext().Handle(http.MethodPost, "/api/Department/Add", department.Add)
+	context.Mux.UsingContext().Handle(http.MethodPost, "/api/Department/Edit", department.Edit)
+	context.Mux.UsingContext().Handle(http.MethodPost, "/api/Department/Delete", department.Delete)
 }
 
 // Department 组织机构控制器
