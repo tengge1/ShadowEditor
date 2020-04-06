@@ -4,11 +4,18 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
 	"runtime"
 )
 
 // NewLogger create a new logger
 func NewLogger(path string) (*Logger, error) {
+	dir := filepath.Dir(path)
+	_, err := os.Stat(dir)
+	if os.IsNotExist(err) {
+		os.MkdirAll(dir, 0755)
+	}
+
 	file, err := os.OpenFile(path, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 	if err != nil {
 		return nil, err

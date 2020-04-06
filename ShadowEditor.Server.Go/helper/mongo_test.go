@@ -19,9 +19,9 @@ func TestMongo(t *testing.T) {
 		return
 	}
 	collectionName := "PersonTest"
-	persons := []Person{
-		{"xiaoming", 10},
-		{"xiaoli", 20},
+	persons := []interface{}{
+		Person{"xiaoming", 10},
+		Person{"xiaoli", 20},
 	}
 
 	// insert

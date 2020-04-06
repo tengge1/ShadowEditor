@@ -88,16 +88,12 @@ func (m Mongo) InsertOne(collectionName string, document interface{}) (*mongo.In
 }
 
 // InsertMany insert many documents to a collection
-func (m Mongo) InsertMany(collectionName string, documents interface{}) (*mongo.InsertManyResult, error) {
+func (m Mongo) InsertMany(collectionName string, documents []interface{}) (*mongo.InsertManyResult, error) {
 	collection, err := m.GetCollection(collectionName)
 	if err != nil {
 		return nil, err
 	}
-	docs, ok := documents.([]interface{})
-	if !ok {
-		return nil, fmt.Errorf("documents should be an array")
-	}
-	return collection.InsertMany(context.TODO(), docs)
+	return collection.InsertMany(context.TODO(), documents)
 }
 
 // Count get documents count of a collection

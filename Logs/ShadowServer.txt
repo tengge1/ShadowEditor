@@ -1,0 +1,10 @@
+2020/04/06 14:12:59 [Debug] log_test.go:11 This is a debug.
+2020/04/06 14:12:59 [Info] log_test.go:12 This is an info.
+2020/04/06 14:12:59 [Warn] log_test.go:13 This is a warn.
+2020/04/06 14:12:59 [Error] log_test.go:14 This is an error.
+2020/04/06 14:12:59 [Fatal] log_test.go:15 This is a fatal.
+2020/04/06 14:12:59 [Debug] log_test.go:17 This is a debug. foo 123
+2020/04/06 14:12:59 [Info] log_test.go:18 This is an info. foo 123
+2020/04/06 14:12:59 [Warn] log_test.go:19 This is a warn. foo 123
+2020/04/06 14:12:59 [Error] log_test.go:20 This is an error. foo 123
+2020/04/06 14:12:59 [Fatal] log_test.go:21 This is a fatal. foo 123
