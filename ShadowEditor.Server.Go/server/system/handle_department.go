@@ -6,7 +6,6 @@ import (
 
 	"go.mongodb.org/mongo-driver/bson/primitive"
 
-	"github.com/dimfeld/httptreemux"
 	shadow "github.com/tengge1/shadoweditor"
 	"github.com/tengge1/shadoweditor/context"
 	"github.com/tengge1/shadoweditor/helper"
@@ -78,11 +77,10 @@ func (Department) List(w http.ResponseWriter, r *http.Request) {
 
 // Add 添加
 func (Department) Add(w http.ResponseWriter, r *http.Request) {
-	params := httptreemux.ContextParams(r.Context())
-
-	parentID := params["ParentID"]
-	name := params["Name"]
-	adminID := params["AdminID"]
+	r.ParseForm()
+	parentID := r.FormValue("ParentID")
+	name := r.FormValue("Name")
+	adminID := r.FormValue("AdminID")
 
 	if strings.Trim(name, " ") == "" {
 		helper.WriteJSON(w, model.Result{
