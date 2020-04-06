@@ -184,3 +184,61 @@ func (Department) Edit(w http.ResponseWriter, r *http.Request) {
 		Msg:  "Saved successfully!",
 	})
 }
+
+// Delete 删除
+func (Department) Delete(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	id := r.FormValue("ID")
+
+	objectID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  "ID is not allowed.",
+		})
+		return
+	}
+
+	db, err := context.Mongo()
+	if err != nil {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  err.Error(),
+		})
+		return
+	}
+
+	filter := bson.M{
+		"ID": objectID,
+	}
+
+	doc, err := db.FindOne(shadow.DepartmentCollectionName, filter)
+	if err != nil {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  err.Error(),
+		})
+		return
+	}
+
+	if doc == nil {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  "The department is not existed.",
+		})
+		return
+	}
+
+	update := bson.M{
+		"$set": bson.M{
+			"Status": -1,
+		},
+	}
+
+	db.UpdateOne(shadow.DepartmentCollectionName, filter, update)
+
+	helper.WriteJSON(w, model.Result{
+		Code: 200,
+		Msg:  "Delete successfully!",
+	})
+}
