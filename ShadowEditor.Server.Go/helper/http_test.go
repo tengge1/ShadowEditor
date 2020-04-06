@@ -1,6 +1,10 @@
 package helper
 
 import (
+	"encoding/json"
+	"io/ioutil"
+	"net/http"
+	"net/http/httptest"
 	"net/url"
 	"testing"
 )
@@ -21,4 +25,84 @@ func TestPost(t *testing.T) {
 		return
 	}
 	t.Log(string(bytes))
+}
+
+func TestWrite(t *testing.T) {
+	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		Write(w, "hello")
+	}))
+	defer ts.Close()
+
+	res, err := http.Get(ts.URL)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	defer res.Body.Close()
+
+	bytes, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	if string(bytes) != "hello" {
+		t.Errorf("expect `hello`, get `%v`", string(bytes))
+	}
+}
+
+func TestWritef(t *testing.T) {
+	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		Writef(w, "%v", "hello")
+	}))
+	defer ts.Close()
+
+	res, err := http.Get(ts.URL)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	defer res.Body.Close()
+
+	bytes, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	if string(bytes) != "hello" {
+		t.Errorf("expect `hello`, get `%v`", string(bytes))
+	}
+}
+
+func TestWriteJSON(t *testing.T) {
+	person := Person{"xiaoming", 20}
+
+	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		WriteJSON(w, person)
+	}))
+	defer ts.Close()
+
+	res, err := http.Get(ts.URL)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	defer res.Body.Close()
+
+	result := Person{}
+
+	decoder := json.NewDecoder(res.Body)
+	err = decoder.Decode(&result)
+	if err != nil {
+		t.Error("json decode failed")
+		return
+	}
+
+	if result.Name != "xiaoming" {
+		t.Errorf("write: expect `xiaoming`, get `%v`", result.Name)
+	}
+	if result.Age != 20 {
+		t.Errorf("write: expect `20`, get `%v`", result.Age)
+	}
 }

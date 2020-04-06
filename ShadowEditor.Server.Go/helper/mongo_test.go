@@ -56,6 +56,6 @@ func TestMongo(t *testing.T) {
 }
 
 type Person struct {
-	name string
-	age  int
+	Name string `json:"name"`
+	Age  int    `json:"age"`
 }

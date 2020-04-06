@@ -15,7 +15,7 @@ import (
 
 func init() {
 	config := Config{}
-	base.Register("/api/Config/Get", http.MethodGet, config.Get)
+	context.Mux.UsingContext().Handle(http.MethodGet, "/api/Config/Get", config.Get)
 }
 
 // Config 配置控制器
