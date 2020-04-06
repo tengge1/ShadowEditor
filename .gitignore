@@ -112,3 +112,4 @@ __pycache__
 /ShadowEditor.Server.Go/__debug_bin
 /ShadowEditor.Server.Go/logs
 Logs
+ShadowServer.txt
