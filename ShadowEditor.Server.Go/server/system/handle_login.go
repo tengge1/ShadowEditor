@@ -119,5 +119,17 @@ func (Login) Login(w http.ResponseWriter, r *http.Request) {
 
 // Logout 注销
 func (Login) Logout(w http.ResponseWriter, r *http.Request) {
+	// var cookie = HttpContext.Current.Request.Cookies.Get(FormsAuthentication.FormsCookieName);
 
+	// if (cookie != null)
+	// {
+	// 	cookie.SameSite = SameSiteMode.Lax;
+	// 	cookie.Expires = DateTime.Now.AddDays(-1);
+	// 	HttpContext.Current.Response.Cookies.Add(cookie);
+	// }
+
+	helper.WriteJSON(w, model.Result{
+		Code: 200,
+		Msg:  "Logout Successfully!",
+	})
 }
