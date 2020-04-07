@@ -16,6 +16,7 @@ import (
 func init() {
 	initialize := Initialize{}
 	context.Mux.UsingContext().Handle(http.MethodPost, "/api/Initialize/Initialize", initialize.Initialize)
+	context.Mux.UsingContext().Handle(http.MethodPost, "/api/Initialize/Reset", initialize.Reset)
 }
 
 // Initialize 初始化控制器
@@ -176,27 +177,27 @@ func (Initialize) Reset(w http.ResponseWriter, r *http.Request) {
 
 	// 备份数据表
 	docs := bson.A{}
-	db.FindMany(shadow.ConfigCollectionName, bson.M{}, docs)
+	db.FindMany(shadow.ConfigCollectionName, bson.M{}, &docs)
 	if len(docs) > 0 {
 		db.InsertMany(shadow.ConfigCollectionName+now, docs)
 	}
 
-	db.FindMany(shadow.RoleCollectionName, bson.M{}, docs)
+	db.FindMany(shadow.RoleCollectionName, bson.M{}, &docs)
 	if len(docs) > 0 {
 		db.InsertMany(shadow.RoleCollectionName+now, docs)
 	}
 
-	db.FindMany(shadow.UserCollectionName, bson.M{}, docs)
+	db.FindMany(shadow.UserCollectionName, bson.M{}, &docs)
 	if len(docs) > 0 {
 		db.InsertMany(shadow.UserCollectionName+now, docs)
 	}
 
-	db.FindMany(shadow.DepartmentCollectionName, bson.M{}, docs)
+	db.FindMany(shadow.DepartmentCollectionName, bson.M{}, &docs)
 	if len(docs) > 2 {
 		db.InsertMany(shadow.DepartmentCollectionName+now, docs)
 	}
 
-	db.FindMany(shadow.OperatingAuthorityCollectionName, bson.M{}, docs)
+	db.FindMany(shadow.OperatingAuthorityCollectionName, bson.M{}, &docs)
 	if len(docs) > 0 {
 		db.InsertMany(shadow.OperatingAuthorityCollectionName+now, docs)
 	}
