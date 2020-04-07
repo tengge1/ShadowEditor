@@ -136,7 +136,7 @@ func (Initialize) Initialize(w http.ResponseWriter, r *http.Request) {
 
 	// 初始化用户
 	password := "123456"
-	salt := time.Now().String() // TODO: yyyyMMddHHmmss
+	salt := helper.TimeToString(time.Now(), "yyyyMMddHHmmss")
 
 	user := bson.M{
 		"ID":         primitive.NewObjectID(),

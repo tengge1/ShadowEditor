@@ -4,6 +4,8 @@ import (
 	"net/http"
 	"strings"
 
+	"go.mongodb.org/mongo-driver/bson/primitive"
+
 	shadow "github.com/tengge1/shadoweditor"
 	"github.com/tengge1/shadoweditor/helper"
 	"go.mongodb.org/mongo-driver/bson"
@@ -87,7 +89,7 @@ func (Login) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	id := user["ID"].(string)
+	id := user["ID"].(primitive.ObjectID).Hex()
 	_ = id
 
 	// // 票据数据
