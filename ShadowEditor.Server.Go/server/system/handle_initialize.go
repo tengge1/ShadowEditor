@@ -160,3 +160,65 @@ func (Initialize) Initialize(w http.ResponseWriter, r *http.Request) {
 		Msg:  "Initialize successfully!",
 	})
 }
+
+// Reset 重置系统
+func (Initialize) Reset(w http.ResponseWriter, r *http.Request) {
+	db, err := context.Mongo()
+	if err != nil {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  err.Error(),
+		})
+		return
+	}
+
+	now := helper.TimeToString(time.Now(), "yyyyMMddHHmmss")
+
+	// 备份数据表
+	docs := bson.A{}
+	db.FindMany(shadow.ConfigCollectionName, bson.M{}, docs)
+	if len(docs) > 0 {
+		db.InsertMany(shadow.ConfigCollectionName+now, docs)
+	}
+
+	db.FindMany(shadow.RoleCollectionName, bson.M{}, docs)
+	if len(docs) > 0 {
+		db.InsertMany(shadow.RoleCollectionName+now, docs)
+	}
+
+	db.FindMany(shadow.UserCollectionName, bson.M{}, docs)
+	if len(docs) > 0 {
+		db.InsertMany(shadow.UserCollectionName+now, docs)
+	}
+
+	db.FindMany(shadow.DepartmentCollectionName, bson.M{}, docs)
+	if len(docs) > 2 {
+		db.InsertMany(shadow.DepartmentCollectionName+now, docs)
+	}
+
+	db.FindMany(shadow.OperatingAuthorityCollectionName, bson.M{}, docs)
+	if len(docs) > 0 {
+		db.InsertMany(shadow.OperatingAuthorityCollectionName+now, docs)
+	}
+
+	// 清除数据表
+	db.DropCollection(shadow.ConfigCollectionName)
+	db.DropCollection(shadow.RoleCollectionName)
+	db.DropCollection(shadow.UserCollectionName)
+	db.DropCollection(shadow.DepartmentCollectionName)
+	db.DropCollection(shadow.OperatingAuthorityCollectionName)
+
+	// 注销登录
+	// cookie := HttpContext.Current.Request.Cookies.Get(FormsAuthentication.FormsCookieName);
+
+	// if (cookie != null)
+	// {
+	// 	cookie.Expires = DateTime.Now.AddDays(-1);
+	// 	HttpContext.Current.Response.Cookies.Add(cookie);
+	// }
+
+	helper.WriteJSON(w, model.Result{
+		Code: 200,
+		Msg:  "Reset successfully!",
+	})
+}
