@@ -13,7 +13,7 @@ func TestMongo(t *testing.T) {
 		return
 	}
 
-	db, err := NewMongo(config.Database.Connection, "Test")
+	db, err := NewMongo(config.Database.Connection, "test")
 	if err != nil {
 		t.Error(err)
 		return
