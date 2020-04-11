@@ -9,8 +9,8 @@ var (
 
 	rootCmd = &cobra.Command{
 		Use:   "ShadowEditor",
-		Short: "3d scene editor based on three.js",
-		Long: `ShadowEditor is a 3d scene editor based on three.js.
+		Short: "3D scene editor based on three.js",
+		Long: `ShadowEditor is a 3D scene editor based on three.js.
 This application uses mongodb to store data.`,
 	}
 )
