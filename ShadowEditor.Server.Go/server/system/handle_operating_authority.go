@@ -1,8 +1,8 @@
 package system
 
 import (
-	"strings"
 	"net/http"
+	"strings"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -108,86 +108,85 @@ func (OperatingAuthority) Get(w http.ResponseWriter, r *http.Request) {
 
 // Save 保存
 func (OperatingAuthority) Save(w http.ResponseWriter, r *http.Request) {
-	// RoleID, Authorities
 	r.ParseForm()
 	roleID := strings.TrimSpace(r.FormValue("RoleID"))
-	authorities := strings.TrimSpace(r.FormValue("Authorities"))
+	authorities := r.Form["Authorities"]
 
 	if roleID == "" {
-		helper.WriteJSON(model.Result {
+		helper.WriteJSON(w, model.Result{
 			Code: 300,
-			Msg: "RoleID is not defined.",
+			Msg:  "RoleID is not defined.",
 		})
 		return
 	}
 
-	if authorities == "" {
-		model.Authorities = new List<string>();
-	}
-
 	// 获取角色
-	var roleID = ObjectId.GenerateNewId();
-
-	if (!string.IsNullOrEmpty(model.RoleID) && !ObjectId.TryParse(model.RoleID, out roleID))
-	{
-		return Json(new
-		{
-			Code = 300,
-			Msg = "ID is not allowed."
-		});
+	objRoleID, err := primitive.ObjectIDFromHex(roleID)
+	if err != nil {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  "ID is not allowed.",
+		})
+		return
 	}
 
-	var mongo = new MongoHelper();
-
-	var filter = Builders<BsonDocument>.Filter.Eq("ID", roleID);
-	var role = mongo.FindOne(Constant.RoleCollectionName, filter);
-
-	if (role == null)
-	{
-		return Json(new
-		{
-			Code = 300,
-			Msg = "The role is not existed."
-		});
+	db, err := context.Mongo()
+	if err != nil {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  err.Error(),
+		})
+		return
 	}
 
-	var roleName = role["Name"].ToString();
+	filter := bson.M{
+		"ID": objRoleID,
+	}
+	role := bson.M{}
+	find, _ := db.FindOne(shadow.RoleCollectionName, filter, &role)
 
-	if (roleName == "Administrator")
-	{
-		return Json(new
-		{
-			Code = 300,
-			Msg = "Modifying admin rights is not allowed."
-		});
+	if !find {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  "The role is not existed.",
+		})
+		return
+	}
+
+	roleName := role["Name"].(string)
+
+	if roleName == "Administrator" {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  "Modifying admin rights is not allowed.",
+		})
+		return
 	}
 
 	// 移除旧权限
-	filter = Builders<BsonDocument>.Filter.Eq("RoleID", model.RoleID);
-	mongo.DeleteMany(Constant.OperatingAuthorityCollectionName, filter);
+	filter = bson.M{
+		"RoleID": roleID,
+	}
+	db.DeleteMany(shadow.OperatingAuthorityCollectionName, filter)
 
 	// 添加新权限
-	if (model.Authorities.Count > 0)
-	{
-		var docs = new List<BsonDocument>();
+	if len(authorities) > 0 {
+		docs := []interface{}{}
 
-		foreach (var i in model.Authorities)
-		{
-			docs.Add(new BsonDocument
-			{
-				["RoleID"] = model.RoleID,
-				["AuthorityID"] = i
-			});
+		for _, i := range authorities {
+			docs = append(docs, bson.M{
+				"RoleID":      roleID,
+				"AuthorityID": i,
+			})
 		}
 
-		mongo.InsertMany(Constant.OperatingAuthorityCollectionName, docs);
+		db.InsertMany(shadow.OperatingAuthorityCollectionName, docs)
 	}
 
-	return Json(new
-	{
-		Code = 200,
-		Msg = "Saved successfully!"
-	});
+	helper.WriteJSON(w, model.Result{
+		Code: 200,
+		Msg:  "Saved successfully!",
+	})
 }
 
 // OperatingAuthorityModel is _operating_authority collection structure.
