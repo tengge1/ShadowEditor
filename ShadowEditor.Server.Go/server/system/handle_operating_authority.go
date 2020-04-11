@@ -1,6 +1,7 @@
 package system
 
 import (
+	"strings"
 	"net/http"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -107,7 +108,86 @@ func (OperatingAuthority) Get(w http.ResponseWriter, r *http.Request) {
 
 // Save 保存
 func (OperatingAuthority) Save(w http.ResponseWriter, r *http.Request) {
+	// RoleID, Authorities
+	r.ParseForm()
+	roleID := strings.TrimSpace(r.FormValue("RoleID"))
+	authorities := strings.TrimSpace(r.FormValue("Authorities"))
 
+	if roleID == "" {
+		helper.WriteJSON(model.Result {
+			Code: 300,
+			Msg: "RoleID is not defined.",
+		})
+		return
+	}
+
+	if authorities == "" {
+		model.Authorities = new List<string>();
+	}
+
+	// 获取角色
+	var roleID = ObjectId.GenerateNewId();
+
+	if (!string.IsNullOrEmpty(model.RoleID) && !ObjectId.TryParse(model.RoleID, out roleID))
+	{
+		return Json(new
+		{
+			Code = 300,
+			Msg = "ID is not allowed."
+		});
+	}
+
+	var mongo = new MongoHelper();
+
+	var filter = Builders<BsonDocument>.Filter.Eq("ID", roleID);
+	var role = mongo.FindOne(Constant.RoleCollectionName, filter);
+
+	if (role == null)
+	{
+		return Json(new
+		{
+			Code = 300,
+			Msg = "The role is not existed."
+		});
+	}
+
+	var roleName = role["Name"].ToString();
+
+	if (roleName == "Administrator")
+	{
+		return Json(new
+		{
+			Code = 300,
+			Msg = "Modifying admin rights is not allowed."
+		});
+	}
+
+	// 移除旧权限
+	filter = Builders<BsonDocument>.Filter.Eq("RoleID", model.RoleID);
+	mongo.DeleteMany(Constant.OperatingAuthorityCollectionName, filter);
+
+	// 添加新权限
+	if (model.Authorities.Count > 0)
+	{
+		var docs = new List<BsonDocument>();
+
+		foreach (var i in model.Authorities)
+		{
+			docs.Add(new BsonDocument
+			{
+				["RoleID"] = model.RoleID,
+				["AuthorityID"] = i
+			});
+		}
+
+		mongo.InsertMany(Constant.OperatingAuthorityCollectionName, docs);
+	}
+
+	return Json(new
+	{
+		Code = 200,
+		Msg = "Saved successfully!"
+	});
 }
 
 // OperatingAuthorityModel is _operating_authority collection structure.
