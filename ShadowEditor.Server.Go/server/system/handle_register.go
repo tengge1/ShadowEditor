@@ -101,7 +101,7 @@ func (Register) Register(w http.ResponseWriter, r *http.Request) {
 	find, _ := db.FindOne(shadow.ConfigCollectionName, bson.M{}, &config)
 
 	if find && config["DefaultRegisterRole"] != nil {
-		defaultRegisterRole = config["DefaultRegisterRole"].(string)
+		defaultRegisterRole = config["DefaultRegisterRole"].(primitive.ObjectID).Hex()
 	} else {
 		filter := bson.M{
 			"Name": "User",
@@ -117,7 +117,7 @@ func (Register) Register(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		defaultRegisterRole = role["ID"].(string)
+		defaultRegisterRole = role["ID"].(primitive.ObjectID).Hex()
 	}
 
 	// 添加用户
