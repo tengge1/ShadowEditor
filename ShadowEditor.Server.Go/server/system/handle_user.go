@@ -172,13 +172,48 @@ func (User) List(w http.ResponseWriter, r *http.Request) {
 // Add 添加
 func (User) Add(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
+	username := strings.TrimSpace(r.FormValue("Username"))
+	password := strings.TrimSpace(r.FormValue("Password"))
 	name := strings.TrimSpace(r.FormValue("Name"))
-	description := strings.TrimSpace(r.FormValue("Description"))
+	roleID := strings.TrimSpace(r.FormValue("RoleID"))
+	deptID := strings.TrimSpace(r.FormValue("DeptID"))
+
+	if username == "" {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  "Username is not allowed to be empty.",
+		})
+		return
+	}
+
+	if password == "" {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  "Password is not allowed to be empty.",
+		})
+		return
+	}
 
 	if name == "" {
 		helper.WriteJSON(w, model.Result{
 			Code: 300,
 			Msg:  "Name is not allowed to be empty.",
+		})
+		return
+	}
+
+	if roleID == "" {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  "Please select a role.",
+		})
+		return
+	}
+
+	if deptID == "" {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  "Please select a department.",
 		})
 		return
 	}
@@ -193,31 +228,48 @@ func (User) Add(w http.ResponseWriter, r *http.Request) {
 	}
 
 	filter := bson.M{
-		"Name": name,
+		"Username": username,
 	}
 
-	count, _ := db.Count(shadow.RoleCollectionName, filter)
+	count, _ := db.Count(shadow.UserCollectionName, filter)
 
 	if count > 0 {
 		helper.WriteJSON(w, model.Result{
 			Code: 300,
-			Msg:  "The name is already existed.",
+			Msg:  "The username is already existed.",
 		})
 		return
 	}
 
 	now := time.Now()
 
-	var doc = bson.M{
-		"ID":          primitive.NewObjectID(),
-		"Name":        name,
-		"CreateTime":  now,
-		"UpdateTime":  now,
-		"Description": description,
-		"Status":      0,
+	salt := helper.TimeToString(now, "yyyyMMddHHmmss")
+
+	doc := bson.M{
+		"ID":         primitive.NewObjectID(),
+		"Username":   username,
+		"Password":   helper.MD5(password + salt),
+		"Name":       name,
+		"RoleID":     roleID,
+		"DeptID":     deptID,
+		"Gender":     0,
+		"Phone":      "",
+		"Email":      "",
+		"QQ":         "",
+		"CreateTime": now,
+		"UpdateTime": now,
+		"Salt":       salt,
+		"Status":     0,
 	}
 
-	db.InsertOne(shadow.RoleCollectionName, doc)
+	_, err = db.InsertOne(shadow.UserCollectionName, doc)
+	if err != nil {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  err.Error(),
+		})
+		return
+	}
 
 	helper.WriteJSON(w, model.Result{
 		Code: 200,

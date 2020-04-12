@@ -42,16 +42,19 @@ func TestUserAdd(t *testing.T) {
 	context.Create("../../config.toml")
 	context.Config.Authority.Enabled = true
 
-	role := Role{}
+	user := User{}
 
-	ts := httptest.NewServer(http.HandlerFunc(role.Add))
+	ts := httptest.NewServer(http.HandlerFunc(user.Add))
 	defer ts.Close()
 
-	roleName := helper.TimeToString(time.Now(), "mmss")
+	userName := helper.TimeToString(time.Now(), "mmss")
 
 	res, err := http.PostForm(ts.URL, url.Values{
-		"Name":        {"role-" + roleName},
-		"Description": {"role-" + roleName + " Description"},
+		"Username": {"user-" + userName},
+		"Password": {"123"},
+		"Name":     {"User " + userName},
+		"RoleID":   {"5dd101a84859d02218efef80"},
+		"DeptID":   {"5dd3fec44859d038303b26bc"},
 	})
 	if err != nil {
 		t.Error(err)
