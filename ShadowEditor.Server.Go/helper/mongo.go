@@ -106,12 +106,12 @@ func (m Mongo) Count(collectionName string, filter interface{}) (int64, error) {
 }
 
 // FindOne find one document from a collection
-func (m Mongo) FindOne(collectionName string, filter interface{}, result interface{}) (find bool, err error) {
+func (m Mongo) FindOne(collectionName string, filter interface{}, result interface{}, opts ...*options.FindOneOptions) (find bool, err error) {
 	collection, err := m.GetCollection(collectionName)
 	if err != nil {
 		return false, err
 	}
-	cursor := collection.FindOne(context.TODO(), filter)
+	cursor := collection.FindOne(context.TODO(), filter, opts...)
 	if cursor.Err() == mongo.ErrNoDocuments {
 		return false, nil
 	}
@@ -120,21 +120,21 @@ func (m Mongo) FindOne(collectionName string, filter interface{}, result interfa
 }
 
 // Find find a cursor from a collection
-func (m Mongo) Find(collectionName string, filter interface{}) (*mongo.Cursor, error) {
+func (m Mongo) Find(collectionName string, filter interface{}, opts ...*options.FindOptions) (*mongo.Cursor, error) {
 	collection, err := m.GetCollection(collectionName)
 	if err != nil {
 		return nil, err
 	}
-	return collection.Find(context.TODO(), filter)
+	return collection.Find(context.TODO(), filter, opts...)
 }
 
 // FindMany find many results of a collection
-func (m Mongo) FindMany(collectionName string, filter interface{}, results interface{}) (err error) {
+func (m Mongo) FindMany(collectionName string, filter interface{}, results interface{}, opts ...*options.FindOptions) (err error) {
 	collection, err := m.GetCollection(collectionName)
 	if err != nil {
 		return err
 	}
-	cursor, err := collection.Find(context.TODO(), filter)
+	cursor, err := collection.Find(context.TODO(), filter, opts...)
 	if err != nil {
 		return err
 	}

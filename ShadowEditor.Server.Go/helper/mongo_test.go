@@ -3,7 +3,12 @@ package helper
 import (
 	"testing"
 
+	"go.mongodb.org/mongo-driver/mongo/options"
+
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
+
+	shadow "github.com/tengge1/shadoweditor"
 )
 
 func TestMongo(t *testing.T) {
@@ -77,6 +82,42 @@ func TestMongo(t *testing.T) {
 	err = db.DropCollection(collectionName)
 	if err != nil {
 		t.Error(err)
+	}
+}
+
+func TestSort(t *testing.T) {
+	config, err := GetConfig("../config.toml")
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	db, err := NewMongo(config.Database.Connection, "ShadowEditor")
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	opts := options.FindOptions{
+		Sort: bson.M{
+			"Name": -1,
+		},
+	}
+
+	results := bson.A{}
+
+	err = db.FindMany(shadow.UserCollectionName, bson.M{}, &results, &opts)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	for _, res := range results {
+		data, ok := res.(primitive.D)
+		if ok {
+			m := data.Map()
+			t.Log(m["Name"].(string))
+		}
 	}
 }
 
