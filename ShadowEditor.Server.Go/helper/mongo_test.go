@@ -121,6 +121,46 @@ func TestSort(t *testing.T) {
 	}
 }
 
+func TestDecode(t *testing.T) {
+	config, err := GetConfig("../config.toml")
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	db, err := NewMongo(config.Database.Connection, "test")
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	collectionName := "PersonTest"
+	persons := []interface{}{
+		Person{"xiaoming", 10},
+		Person{"xiaoli", 20},
+	}
+
+	// insert
+	_, err = db.InsertMany(collectionName, persons)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	// single find
+	var result Person
+	find, err := db.FindOne(collectionName, bson.M{}, &result)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	if find {
+		t.Log(result)
+	} else {
+		t.Log("not find")
+	}
+
+}
+
 type Person struct {
 	Name string `json:"name"`
 	Age  int    `json:"age"`
