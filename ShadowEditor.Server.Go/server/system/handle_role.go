@@ -231,23 +231,13 @@ func (Role) Edit(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// 更新用户信息
-	update1 := bson.M{
+	update := bson.M{
 		"$set": bson.M{
-			"Name": name,
-		},
-	}
-	update2 := bson.M{
-		"$set": bson.M{
-			"UpdateTime": time.Now(),
-		},
-	}
-	update3 := bson.M{
-		"$set": bson.M{
+			"Name":        name,
+			"UpdateTime":  time.Now(),
 			"Description": description,
 		},
 	}
-
-	update := bson.A{update1, update2, update3}
 
 	db.UpdateOne(shadow.RoleCollectionName, filter, update)
 
