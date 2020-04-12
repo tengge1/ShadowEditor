@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"net/url"
+	"strings"
 	"testing"
 	"time"
 
@@ -118,6 +119,49 @@ func TestUserDelete(t *testing.T) {
 		t.Error(err)
 		return
 	}
+	defer res.Body.Close()
+
+	bytes, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	t.Log(string(bytes))
+}
+
+func TestUserChangePassword(t *testing.T) {
+	context.Create("../../config.toml")
+	context.Config.Authority.Enabled = true
+
+	user := User{}
+
+	ts := httptest.NewServer(http.HandlerFunc(user.ChangePassword))
+	defer ts.Close()
+
+	params := url.Values{
+		"OldPassword":     {"123"},
+		"NewPassword":     {"456"},
+		"ConfirmPassword": {"456"},
+	}
+
+	req, err := http.NewRequest(http.MethodPost, ts.URL, strings.NewReader(params.Encode()))
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+
+	cookie := http.Cookie{Name: ".ASPXAUTH", Value: "5e927a545d749efc3065fae7"}
+	req.AddCookie(&cookie)
+
+	res, err := ts.Client().Do(req)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
 	defer res.Body.Close()
 
 	bytes, err := ioutil.ReadAll(res.Body)

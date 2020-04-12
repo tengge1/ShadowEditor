@@ -467,7 +467,103 @@ func (User) Delete(w http.ResponseWriter, r *http.Request) {
 
 // ChangePassword 修改密码
 func (User) ChangePassword(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	oldPassword := strings.TrimSpace(r.FormValue("OldPassword"))
+	newPassword := strings.TrimSpace(r.FormValue("NewPassword"))
+	confirmPassword := strings.TrimSpace(r.FormValue("ConfirmPassword"))
 
+	user, err := context.GetCurrentUser(r)
+	if err != nil {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  err.Error(),
+		})
+		return
+	}
+
+	if user == nil {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  "The user is not existed.",
+		})
+		return
+	}
+
+	// 验证密码是否为空
+	if oldPassword == "" {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  "Old password is not allowed to be empty.",
+		})
+		return
+	}
+
+	if newPassword == "" {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  "New password is not allowed to be empty.",
+		})
+		return
+	}
+
+	if confirmPassword == "" {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  "Confirm password is not allowed to be empty.",
+		})
+		return
+	}
+
+	if newPassword != confirmPassword {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  "New password and confirm password is not the same.",
+		})
+		return
+	}
+
+	// 验证旧密码
+	oldPassword = helper.MD5(oldPassword + user.Salt)
+
+	if oldPassword != user.Password {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  "Old password is not correct.",
+		})
+		return
+	}
+
+	// 修改密码
+	salt := helper.TimeToString(time.Now(), "yyyyMMddHHmmss")
+	password := helper.MD5(newPassword + salt)
+
+	userID, _ := primitive.ObjectIDFromHex(user.ID)
+
+	filter := bson.M{
+		"ID": userID,
+	}
+	update := bson.M{
+		"$set": bson.M{
+			"Password": password,
+			"Salt":     salt,
+		},
+	}
+
+	db, err := context.Mongo()
+	if err != nil {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  err.Error(),
+		})
+		return
+	}
+
+	db.UpdateOne(shadow.UserCollectionName, filter, update)
+
+	helper.WriteJSON(w, model.Result{
+		Code: 200,
+		Msg:  "Password changed successfully!",
+	})
 }
 
 // ResetPassword 重置密码
