@@ -4,7 +4,6 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
-	"time"
 
 	"go.mongodb.org/mongo-driver/mongo/options"
 
@@ -53,8 +52,8 @@ func (Role) List(w http.ResponseWriter, r *http.Request) {
 	}
 
 	filter := bson.M{
-		"$ne": bson.M{
-			"Status": -1,
+		"Status": bson.M{
+			"$ne": -1,
 		},
 	}
 
@@ -85,19 +84,26 @@ func (Role) List(w http.ResponseWriter, r *http.Request) {
 	total, _ := db.Count(shadow.RoleCollectionName, filter)
 
 	docs := bson.A{}
-	_ = db.FindMany(shadow.RoleCollectionName, filter, &docs, &opts)
+	err = db.FindMany(shadow.RoleCollectionName, filter, &docs, &opts)
+	if err != nil {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  err.Error(),
+		})
+		return
+	}
 
 	rows := []system.Role{}
 
 	for _, doc := range docs {
 		data := doc.(primitive.D).Map()
 		rows = append(rows, system.Role{
-			ID:          data["ID"].(string),
+			ID:          data["ID"].(primitive.ObjectID).Hex(),
 			Name:        data["Name"].(string),
-			CreateTime:  data["CreateTime"].(time.Time),
-			UpdateTime:  data["UpdateTime"].(time.Time),
+			CreateTime:  data["CreateTime"].(primitive.DateTime).Time(),
+			UpdateTime:  data["UpdateTime"].(primitive.DateTime).Time(),
 			Description: data["Description"].(string),
-			Status:      data["Status"].(int),
+			Status:      int(data["Status"].(int32)),
 		})
 	}
 
