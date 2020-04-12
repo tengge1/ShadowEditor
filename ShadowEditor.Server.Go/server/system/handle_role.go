@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 
 	"go.mongodb.org/mongo-driver/mongo/options"
 
@@ -120,9 +121,8 @@ func (Role) List(w http.ResponseWriter, r *http.Request) {
 // Add 添加
 func (Role) Add(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
-	parentID := r.FormValue("ParentID")
-	name := strings.Trim(r.FormValue("Name"), " ")
-	adminID := r.FormValue("AdminID")
+	name := strings.TrimSpace(r.FormValue("Name"))
+	description := strings.TrimSpace(r.FormValue("Description"))
 
 	if name == "" {
 		helper.WriteJSON(w, model.Result{
@@ -141,15 +141,32 @@ func (Role) Add(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	doc := bson.M{
-		"ID":       primitive.NewObjectID(),
-		"ParentID": parentID,
-		"Name":     name,
-		"AdminID":  adminID,
-		"Status":   0,
+	filter := bson.M{
+		"Name": name,
 	}
 
-	db.InsertOne(shadow.DepartmentCollectionName, doc)
+	count, _ := db.Count(shadow.RoleCollectionName, filter)
+
+	if count > 0 {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  "The name is already existed.",
+		})
+		return
+	}
+
+	now := time.Now()
+
+	var doc = bson.M{
+		"ID":          primitive.NewObjectID(),
+		"Name":        name,
+		"CreateTime":  now,
+		"UpdateTime":  now,
+		"Description": description,
+		"Status":      0,
+	}
+
+	db.InsertOne(shadow.RoleCollectionName, doc)
 
 	helper.WriteJSON(w, model.Result{
 		Code: 200,
