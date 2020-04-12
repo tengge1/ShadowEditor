@@ -106,13 +106,13 @@ func TestUserDelete(t *testing.T) {
 	context.Create("../../config.toml")
 	context.Config.Authority.Enabled = true
 
-	role := Role{}
+	user := User{}
 
-	ts := httptest.NewServer(http.HandlerFunc(role.Delete))
+	ts := httptest.NewServer(http.HandlerFunc(user.Delete))
 	defer ts.Close()
 
 	res, err := http.PostForm(ts.URL, url.Values{
-		"ID": {"5e9267a43003597156ac49a0"},
+		"ID": {"5e927a545d749efc3065fae7"},
 	})
 	if err != nil {
 		t.Error(err)

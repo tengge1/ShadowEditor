@@ -430,25 +430,25 @@ func (User) Delete(w http.ResponseWriter, r *http.Request) {
 	filter := bson.M{
 		"ID": id,
 	}
-
 	doc := bson.M{}
-	find, _ := db.FindOne(shadow.RoleCollectionName, filter, &doc)
+	find, _ := db.FindOne(shadow.UserCollectionName, filter, &doc)
 
 	if !find {
 		helper.WriteJSON(w, model.Result{
 			Code: 300,
-			Msg:  "The role is not existed.",
+			Msg:  "The user is not existed.",
 		})
 		return
 	}
 
-	roleName := doc["Name"].(string)
+	userName := doc["Username"].(string)
 
-	if roleName == "Administrator" || roleName == "User" || roleName == "Guest" {
+	if userName == "admin" {
 		helper.WriteJSON(w, model.Result{
 			Code: 300,
-			Msg:  "It is not allowed to delete system built-in roles.",
+			Msg:  "It is not allowed to delete system built-in users.",
 		})
+		return
 	}
 
 	update := bson.M{
@@ -457,7 +457,7 @@ func (User) Delete(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 
-	db.UpdateOne(shadow.RoleCollectionName, filter, update)
+	db.UpdateOne(shadow.UserCollectionName, filter, update)
 
 	helper.WriteJSON(w, model.Result{
 		Code: 200,
