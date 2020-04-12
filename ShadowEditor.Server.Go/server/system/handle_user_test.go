@@ -13,16 +13,16 @@ import (
 	"github.com/tengge1/shadoweditor/context"
 )
 
-func TestRoleList(t *testing.T) {
+func TestUserList(t *testing.T) {
 	context.Create("../../config.toml")
 	context.Config.Authority.Enabled = true
 
-	role := Role{}
+	user := User{}
 
-	ts := httptest.NewServer(http.HandlerFunc(role.List))
+	ts := httptest.NewServer(http.HandlerFunc(user.List))
 	defer ts.Close()
 
-	res, err := http.Get(ts.URL + "?keyword=us")
+	res, err := http.Get(ts.URL + "?keyword=ad")
 	if err != nil {
 		t.Error(err)
 		return
@@ -38,7 +38,7 @@ func TestRoleList(t *testing.T) {
 	t.Log(string(bytes))
 }
 
-func TestRoleAdd(t *testing.T) {
+func TestUserAdd(t *testing.T) {
 	context.Create("../../config.toml")
 	context.Config.Authority.Enabled = true
 
@@ -68,7 +68,7 @@ func TestRoleAdd(t *testing.T) {
 	t.Log(string(bytes))
 }
 
-func TestRoleEdit(t *testing.T) {
+func TestUserEdit(t *testing.T) {
 	context.Create("../../config.toml")
 	context.Config.Authority.Enabled = true
 
@@ -99,7 +99,7 @@ func TestRoleEdit(t *testing.T) {
 	t.Log(string(bytes))
 }
 
-func TestRoleDelete(t *testing.T) {
+func TestUserDelete(t *testing.T) {
 	context.Create("../../config.toml")
 	context.Config.Authority.Enabled = true
 

@@ -128,7 +128,7 @@ func (m Mongo) Find(collectionName string, filter interface{}, opts ...*options.
 	return collection.Find(context.TODO(), filter, opts...)
 }
 
-// FindMany find many results of a collection
+// FindMany find many documents of a collection
 func (m Mongo) FindMany(collectionName string, filter interface{}, results interface{}, opts ...*options.FindOptions) (err error) {
 	collection, err := m.GetCollection(collectionName)
 	if err != nil {
@@ -145,6 +145,11 @@ func (m Mongo) FindMany(collectionName string, filter interface{}, results inter
 		return err
 	}
 	return nil
+}
+
+// FindAll find many documents of a collection
+func (m Mongo) FindAll(collectionName string, results interface{}, opts ...*options.FindOptions) (err error) {
+	return m.FindMany(collectionName, bson.M{}, results, opts...)
 }
 
 // UpdateOne update one document

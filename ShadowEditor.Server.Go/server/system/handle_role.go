@@ -60,8 +60,9 @@ func (Role) List(w http.ResponseWriter, r *http.Request) {
 
 	if keyword != "" {
 		filter1 := bson.M{
-			"$regex": bson.M{
-				"Name": "/" + keyword + "/i",
+			"Name": bson.M{
+				"$regex":   keyword,
+				"$options": "i",
 			},
 		}
 		filter = bson.M{
