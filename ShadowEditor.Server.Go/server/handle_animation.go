@@ -3,10 +3,9 @@
 package server
 
 import (
-	"os"
-	"io"
 	"fmt"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 
@@ -150,117 +149,118 @@ func (Animation) List(w http.ResponseWriter, r *http.Request) {
 func (Animation) Add(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
-	var Request = HttpContext.Current.Request;
-    var Server = HttpContext.Current.Server;
+	r.FormFile()
 
-    if len(r.FormFile) == 0 {
-        helper.WriteJSON(w, model.Result {
-            Code: 300,
-            Msg: "Please select an file.",
-		})
-		return
-    }
-
-    // 文件信息
-    var file = Request.Files[0];
-    var fileName = file.FileName;
-    var fileSize = file.ContentLength;
-    var fileType = file.ContentType;
-    var fileExt = Path.GetExtension(fileName);
-    var fileNameWithoutExt = Path.GetFileNameWithoutExtension(fileName);
-
-    if fileExt == null || strings.ToLower(fileExt) != ".zip" {
-        helper.WriteJSON(w, model.Result {
-            Code: 300,
-            Msg: "Only zip file is allowed!",
-		})
-		return
-    }
-
-    // 保存文件
-    var now = DateTime.Now;
-
-    savePath := fmt.Sprintf("/Upload/Animation/%v", helper.TimeToString(now, "yyyyMMddHHmmss"));
-    physicalPath := Server.MapPath(savePath);
-
-    tempPath := physicalPath + "\\temp" // zip压缩文件临时保存目录
-
-    if !Directory.Exists(tempPath) {
-        Directory.CreateDirectory(tempPath);
-    }
-
-    file.SaveAs("{tempPath}\\{fileName}");
-
-	// 解压文件
-    ZipHelper.Unzip($"{tempPath}\\{fileName}", physicalPath);
-
-	// 删除临时目录
-	os.RemoveAll(tempPath)
-
-    // 判断文件类型
-	entryFileName := ""
-	
-    animationType := animation.Unknown
-
-    var files = Directory.GetFiles(physicalPath);
-
-    if files.Where(o => o.ToLower().EndsWith(".vmd")).Count() > 0 { // mmd动画文件或mmd相机动画文件
-        entryFileName = files.Where(o => o.ToLower().EndsWith(".vmd")).FirstOrDefault();
-        entryFileName = $"{savePath}/{Path.GetFileName(entryFileName)}";
-        animationType = AnimationType.mmd;
-    }
-
-    if entryFileName == null || animationType == AnimationType.unknown {
-        Directory.Delete(physicalPath, true);
-
-        helper.WriteJSON(w, model.Result {
-            Code: 300,
-            Msg: "Unknown file type!",
-		})
-		return
-    }
-
-    pinyin := helper.GetTotalPinYin(fileNameWithoutExt);
-
-    // 保存到Mongo
-	db, err := context.Mongo()
-	if err != nil {
-		helper.WriteJSON(w, model.Result {
-            Code: 300,
-            Msg: err.Error(),
+	if len(r.FormFile) == 0 {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  "Please select an file.",
 		})
 		return
 	}
 
-    doc := bson.M {
-        "AddTime": BsonDateTime.Create(now),
-        "FileName": fileName,
-        "FileSize": fileSize,
-        "FileType": fileType,
-        "FirstPinYin": string.Join("", pinyin.FirstPinYin),
-        "Name": fileNameWithoutExt,
-        "SaveName": fileName,
-        "SavePath": savePath,
-        "Thumbnail": "",
-        "TotalPinYin": string.Join("", pinyin.TotalPinYin),
-        "Type": animationType.ToString(),
-        "Url": entryFileName,
-    }
+	// 文件信息
+	var file = Request.Files[0]
+	var fileName = file.FileName
+	var fileSize = file.ContentLength
+	var fileType = file.ContentType
+	var fileExt = Path.GetExtension(fileName)
+	var fileNameWithoutExt = Path.GetFileNameWithoutExtension(fileName)
 
-    if context.Config.Authority.Enabled {
-        user := context.GetCurrentUser();
+	if fileExt == null || strings.ToLower(fileExt) != ".zip" {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  "Only zip file is allowed!",
+		})
+		return
+	}
 
-        if user != null {
-            doc["UserID"] = user.ID;
-        }
-    }
+	// 保存文件
+	var now = DateTime.Now
 
-    db.InsertOne(Constant.AnimationCollectionName, doc)
+	savePath := fmt.Sprintf("/Upload/Animation/%v", helper.TimeToString(now, "yyyyMMddHHmmss"))
+	physicalPath := Server.MapPath(savePath)
 
-    helper.WriteJSON(w, model.Result {
-        Code: 200,
-        Msg: "Upload successfully!",
-    })
+	tempPath := physicalPath + "\\temp" // zip压缩文件临时保存目录
+
+	if !Directory.Exists(tempPath) {
+		Directory.CreateDirectory(tempPath)
+	}
+
+	file.SaveAs("{tempPath}\\{fileName}")
+
+	// 解压文件
+	helper.Unzip("{tempPath}\\{fileName}", physicalPath)
+
+	// 删除临时目录
+	os.RemoveAll(tempPath)
+
+	// 判断文件类型
+	entryFileName := ""
+
+	animationType := animation.Unknown
+
+	files := Directory.GetFiles(physicalPath)
+
+	for _, file := range files {
+		if strings.HasSuffix(strings.ToLower(file), ".vmd") {
+			entryFileName = file.Name
+			entryFileName = fmt.Sprintf("%v/%v", savePath, Path.GetFileName(entryFileName))
+			animationType = animation.Mmd
+		}
+	}
+
+	if entryFileName == null || animationType == AnimationType.unknown {
+		Directory.Delete(physicalPath, true)
+
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  "Unknown file type!",
+		})
+		return
+	}
+
+	pinyin := helper.GetTotalPinYin(fileNameWithoutExt)
+
+	// 保存到Mongo
+	db, err := context.Mongo()
+	if err != nil {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  err.Error(),
+		})
+		return
+	}
+
+	doc := bson.M{
+		"AddTime":     BsonDateTime.Create(now),
+		"FileName":    fileName,
+		"FileSize":    fileSize,
+		"FileType":    fileType,
+		"FirstPinYin": string.Join("", pinyin.FirstPinYin),
+		"Name":        fileNameWithoutExt,
+		"SaveName":    fileName,
+		"SavePath":    savePath,
+		"Thumbnail":   "",
+		"TotalPinYin": string.Join("", pinyin.TotalPinYin),
+		"Type":        animationType.ToString(),
+		"Url":         entryFileName,
+	}
+
+	if context.Config.Authority.Enabled {
+		user := context.GetCurrentUser()
+
+		if user != null {
+			doc["UserID"] = user.ID
+		}
+	}
+
+	db.InsertOne(Constant.AnimationCollectionName, doc)
+
+	helper.WriteJSON(w, model.Result{
+		Code: 200,
+		Msg:  "Upload successfully!",
+	})
 }
 
 // Edit 编辑
