@@ -75,17 +75,17 @@ func TestUserEdit(t *testing.T) {
 	context.Create("../../config.toml")
 	context.Config.Authority.Enabled = true
 
-	role := Role{}
+	user := User{}
 
-	ts := httptest.NewServer(http.HandlerFunc(role.Edit))
+	ts := httptest.NewServer(http.HandlerFunc(user.Edit))
 	defer ts.Close()
 
-	roleName := helper.TimeToString(time.Now(), "mmss")
-
 	res, err := http.PostForm(ts.URL, url.Values{
-		"ID":          {"5e9267a43003597156ac49a0"},
-		"Name":        {"role-" + roleName},
-		"Description": {"role-" + roleName + " Description"},
+		"ID":       {"5e927a545d749efc3065fae7"},
+		"Username": {"1"},
+		"Name":     {"3"},
+		"RoleID":   {"5dd101a84859d02218efef80"},
+		"DeptID":   {"5dd3fec44859d038303b26bc"},
 	})
 	if err != nil {
 		t.Error(err)

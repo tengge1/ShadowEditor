@@ -286,14 +286,41 @@ func (User) Edit(w http.ResponseWriter, r *http.Request) {
 			Code: 300,
 			Msg:  "ID is not allowed.",
 		})
+		return
 	}
-	name := strings.TrimSpace(r.FormValue("Name"))
-	description := strings.TrimSpace(r.FormValue("Description"))
 
+	username := strings.TrimSpace(r.FormValue("Username"))
+	if username == "" {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  "Username is not allowed to be empty.",
+		})
+		return
+	}
+
+	name := strings.TrimSpace(r.FormValue("Name"))
 	if name == "" {
 		helper.WriteJSON(w, model.Result{
 			Code: 300,
 			Msg:  "Name is not allowed to be empty.",
+		})
+		return
+	}
+
+	roleID := strings.TrimSpace(r.FormValue("RoleID"))
+	if roleID == "" {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  "Please select a role.",
+		})
+		return
+	}
+
+	deptID := strings.TrimSpace(r.FormValue("DeptID"))
+	if deptID == "" {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  "Please select a department.",
 		})
 		return
 	}
@@ -307,51 +334,71 @@ func (User) Edit(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// 判断是否是系统内置角色
+	// 判断是否是系统内置用户
 	filter := bson.M{
 		"ID": id,
 	}
 	doc := bson.M{}
-	find, _ := db.FindOne(shadow.RoleCollectionName, filter, &doc)
+	find, _ := db.FindOne(shadow.UserCollectionName, filter, &doc)
 
 	if !find {
 		helper.WriteJSON(w, model.Result{
 			Code: 300,
-			Msg:  "The role is not existed.",
+			Msg:  "The user is not existed.",
 		})
 		return
 	}
 
-	roleName := doc["Name"].(string)
+	userName := doc["Username"].(string)
 
-	if roleName == "Administrator" || roleName == "User" || roleName == "Guest" {
+	if userName == "admin" {
 		helper.WriteJSON(w, model.Result{
 			Code: 300,
-			Msg:  "Modifying system built-in roles is not allowed.",
+			Msg:  "Modifying system built-in users is not allowed.",
 		})
 		return
 	}
 
-	// 更新用户信息
-	update1 := bson.M{
-		"$set": bson.M{
-			"Name": name,
+	// 判断用户名是否重复
+	filter1 := bson.M{
+		"ID": bson.M{
+			"$ne": id,
 		},
 	}
-	update2 := bson.M{
+	filter2 := bson.M{
+		"Username": username,
+	}
+	filter = bson.M{
+		"$and": bson.A{
+			filter1,
+			filter2,
+		},
+	}
+
+	count, _ := db.Count(shadow.UserCollectionName, filter)
+	if count > 0 {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  "The username is already existed.",
+		})
+		return
+	}
+
+	filter = bson.M{
+		"ID": id,
+	}
+
+	update := bson.M{
 		"$set": bson.M{
+			"Username":   username,
+			"Name":       name,
+			"RoleID":     roleID,
+			"DeptID":     deptID,
 			"UpdateTime": time.Now(),
 		},
 	}
-	update3 := bson.M{
-		"$set": bson.M{
-			"Description": description,
-		},
-	}
 
-	update := bson.A{update1, update2, update3}
-
-	db.UpdateOne(shadow.RoleCollectionName, filter, update)
+	db.UpdateOne(shadow.UserCollectionName, filter, update)
 
 	helper.WriteJSON(w, model.Result{
 		Code: 200,
