@@ -259,9 +259,7 @@ func (Role) Edit(w http.ResponseWriter, r *http.Request) {
 // Delete 删除
 func (Role) Delete(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
-	id := r.FormValue("ID")
-
-	objectID, err := primitive.ObjectIDFromHex(id)
+	id, err := primitive.ObjectIDFromHex(r.FormValue("ID"))
 	if err != nil {
 		helper.WriteJSON(w, model.Result{
 			Code: 300,
@@ -280,25 +278,27 @@ func (Role) Delete(w http.ResponseWriter, r *http.Request) {
 	}
 
 	filter := bson.M{
-		"ID": objectID,
+		"ID": id,
 	}
 
-	var doc = bson.M{}
-	find, err := db.FindOne(shadow.DepartmentCollectionName, filter, &doc)
-	if err != nil {
-		helper.WriteJSON(w, model.Result{
-			Code: 300,
-			Msg:  err.Error(),
-		})
-		return
-	}
+	doc := bson.M{}
+	find, _ := db.FindOne(shadow.RoleCollectionName, filter, &doc)
 
 	if !find {
 		helper.WriteJSON(w, model.Result{
 			Code: 300,
-			Msg:  "The department is not existed.",
+			Msg:  "The role is not existed.",
 		})
 		return
+	}
+
+	roleName := doc["Name"].(string)
+
+	if roleName == "Administrator" || roleName == "User" || roleName == "Guest" {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  "It is not allowed to delete system built-in roles.",
+		})
 	}
 
 	update := bson.M{
@@ -307,7 +307,7 @@ func (Role) Delete(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 
-	db.UpdateOne(shadow.DepartmentCollectionName, filter, update)
+	db.UpdateOne(shadow.RoleCollectionName, filter, update)
 
 	helper.WriteJSON(w, model.Result{
 		Code: 200,
