@@ -1,9 +1,12 @@
 package system
 
 import (
-	"strconv"
 	"net/http"
+	"strconv"
 	"strings"
+	"time"
+
+	"go.mongodb.org/mongo-driver/mongo/options"
 
 	"go.mongodb.org/mongo-driver/bson/primitive"
 
@@ -30,79 +33,82 @@ type Role struct {
 // List 获取列表
 func (Role) List(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
-	if pageSize, err := strconv.Atoi(r.FormValue("pageSize")); err != nil {
+	pageSize, err := strconv.Atoi(r.FormValue("pageSize"))
+	if err != nil {
 		pageSize = 20
 	}
-	if pageNum, err := strconv.Atoi(r.FormValue("pageNum")); err != nil {
+	pageNum, err := strconv.Atoi(r.FormValue("pageNum"))
+	if err != nil {
 		pageNum = 1
 	}
 	keyword := strings.TrimSpace(r.FormValue("keyword"))
 
-	db, err = context.Mongo()
+	db, err := context.Mongo()
 	if err != nil {
 		helper.WriteJSON(w, model.Result{
 			Code: 300,
-			Msg: err.Error(),
+			Msg:  err.Error(),
 		})
 		return
 	}
-	
+
 	filter := bson.M{
-		"$ne": bson.M {
+		"$ne": bson.M{
 			"Status": -1,
 		},
 	}
-	
+
 	if keyword != "" {
 		filter1 := bson.M{
-			"$regex": {
-				bson.M {
-					"Name": "/" + keyword + "/i",
-				},
+			"$regex": bson.M{
+				"Name": "/" + keyword + "/i",
 			},
 		}
 		filter = bson.M{
 			"$and": bson.A{
-				filter, 
+				filter,
 				filter1,
 			},
 		}
 	}
-	
-	sort = Builders<BsonDocument>.Sort.Descending("ID");
 
-    total := mongo.Count(Constant.RoleCollectionName, filter);
-	docs := mongo.FindMany(Constant.RoleCollectionName, filter)
-	    .Sort(sort)
-                .Skip(pageSize * (pageNum - 1))
-                .Limit(pageSize)
-                .ToList();
+	skip := int64(pageSize * (pageNum - 1))
+	limit := int64(pageSize)
+	opts := options.FindOptions{
+		Skip:  &skip,
+		Limit: &limit,
+		Sort: bson.M{
+			"ID": -1,
+		},
+	}
 
-    rows = new List<RoleModel>();
+	total, _ := db.Count(shadow.RoleCollectionName, filter)
 
-    foreach (var doc in docs)
-    {
-        rows.Add(new RoleModel
-        {
-            ID = doc["ID"].ToString(),
-            Name = doc["Name"].ToString(),
-            CreateTime = doc["CreateTime"].ToLocalTime(),
-            UpdateTime = doc["UpdateTime"].ToLocalTime(),
-            Description = doc.Contains("Description") ? doc["Description"].ToString() : "",
-            Status = doc["Status"].ToInt32(),
-        });
-    }
+	docs := bson.A{}
+	_ = db.FindMany(shadow.RoleCollectionName, filter, &docs, &opts)
 
-    return Json(new
-    {
-        Code = 200,
-        Msg = "Get Successfully!",
-        Data = new
-        {
-            total,
-            rows,
-        },
-    });
+	rows := []system.Role{}
+
+	for _, doc := range docs {
+		data := doc.(primitive.D).Map()
+		rows = append(rows, system.Role{
+			ID:          data["ID"].(string),
+			Name:        data["Name"].(string),
+			CreateTime:  data["CreateTime"].(time.Time),
+			UpdateTime:  data["UpdateTime"].(time.Time),
+			Description: data["Description"].(string),
+			Status:      data["Status"].(int),
+		})
+	}
+
+	helper.WriteJSON(w, model.Result{
+		Code: 200,
+		Msg:  "Get Successfully!",
+		Data: map[string]interface{}{
+			"total": total,
+			"rows":  rows,
+		},
+	})
 }
 
 // Add 添加
