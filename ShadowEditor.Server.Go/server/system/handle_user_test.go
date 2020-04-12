@@ -172,3 +172,32 @@ func TestUserChangePassword(t *testing.T) {
 
 	t.Log(string(bytes))
 }
+
+func TestUserResetPassword(t *testing.T) {
+	context.Create("../../config.toml")
+	context.Config.Authority.Enabled = true
+
+	user := User{}
+
+	ts := httptest.NewServer(http.HandlerFunc(user.ResetPassword))
+	defer ts.Close()
+
+	res, err := http.PostForm(ts.URL, url.Values{
+		"UserID":          {"5e927a545d749efc3065fae7"},
+		"NewPassword":     {"456"},
+		"ConfirmPassword": {"456"},
+	})
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	defer res.Body.Close()
+
+	bytes, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	t.Log(string(bytes))
+}

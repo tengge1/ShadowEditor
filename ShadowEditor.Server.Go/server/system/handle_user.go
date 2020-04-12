@@ -568,5 +568,81 @@ func (User) ChangePassword(w http.ResponseWriter, r *http.Request) {
 
 // ResetPassword 重置密码
 func (User) ResetPassword(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	userID, err := primitive.ObjectIDFromHex(r.FormValue("UserID"))
+	if err != nil {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  "ID is not allowed.",
+		})
+		return
+	}
 
+	newPassword := strings.TrimSpace(r.FormValue("NewPassword"))
+	if newPassword == "" {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  "New password is not allowed to be empty.",
+		})
+		return
+	}
+
+	confirmPassword := strings.TrimSpace(r.FormValue("ConfirmPassword"))
+	if confirmPassword == "" {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  "Confirm password is not allowed to be empty.",
+		})
+		return
+	}
+
+	if newPassword != confirmPassword {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  "New password and confirm password is not the same.",
+		})
+		return
+	}
+
+	// 判断用户是否存在
+	db, err := context.Mongo()
+	if err != nil {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  err.Error(),
+		})
+		return
+	}
+
+	filter := bson.M{
+		"ID": userID,
+	}
+	doc := bson.M{}
+	find, _ := db.FindOne(shadow.UserCollectionName, filter, &doc)
+
+	if !find {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  "The user is not existed.",
+		})
+		return
+	}
+
+	// 修改密码
+	salt := helper.TimeToString(time.Now(), "yyyyMMddHHmmss")
+	password := helper.MD5(newPassword + salt)
+
+	update := bson.M{
+		"$set": bson.M{
+			"Password": password,
+			"Salt":     salt,
+		},
+	}
+
+	db.UpdateOne(shadow.UserCollectionName, filter, update)
+
+	helper.WriteJSON(w, model.Result{
+		Code: 200,
+		Msg:  "Password reset successfully.",
+	})
 }
