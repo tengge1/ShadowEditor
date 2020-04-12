@@ -2,6 +2,7 @@ package helper
 
 import (
 	"github.com/mozillazg/go-pinyin"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 // ConvertToPinYin 汉字转拼音
@@ -15,6 +16,20 @@ func ConvertToPinYin(text string) (model PinYinModel) {
 	}
 
 	return
+}
+
+// PinYinToString convert pinyin to string.
+func PinYinToString(obj interface{}) string {
+	result := ""
+	switch elem := obj.(type) {
+	case primitive.A:
+		for _, item := range elem {
+			result += item.(string)
+		}
+	case string:
+		result = obj.(string)
+	}
+	return result
 }
 
 // PinYinModel 返回拼音模型

@@ -106,21 +106,6 @@ func (Animation) List(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 
-		totalPinYin, ok := doc["TotalPinYin"].(string)
-		if !ok {
-			arr := doc["TotalPinYin"].(primitive.A)
-			for _, item := range arr {
-				totalPinYin += item.(string)
-			}
-		}
-		firstPinYin, ok := doc["FirstPinYin"].(string)
-		if !ok {
-			arr := doc["TotalPinYin"].(primitive.A)
-			for _, item := range arr {
-				firstPinYin += item.(string)
-			}
-		}
-
 		thumbnail, _ := doc["Thumbnail"].(string)
 
 		info := animation.Model{
@@ -128,8 +113,8 @@ func (Animation) List(w http.ResponseWriter, r *http.Request) {
 			Name:         doc["Name"].(string),
 			CategoryID:   categoryID,
 			CategoryName: categoryName,
-			TotalPinYin:  totalPinYin,
-			FirstPinYin:  firstPinYin,
+			TotalPinYin:  helper.PinYinToString(doc["TotalPinYin"]),
+			FirstPinYin:  helper.PinYinToString(doc["FirstPinYin"]),
 			Type:         doc["Type"].(string),
 			URL:          doc["Url"].(string),
 			Thumbnail:    thumbnail,

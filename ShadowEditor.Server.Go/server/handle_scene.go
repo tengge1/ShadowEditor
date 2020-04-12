@@ -3,13 +3,27 @@ package server
 import (
 	"net/http"
 
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo/options"
+
+	"go.mongodb.org/mongo-driver/bson/primitive"
+
+	shadow "github.com/tengge1/shadoweditor"
 	"github.com/tengge1/shadoweditor/context"
 	"github.com/tengge1/shadoweditor/helper"
+	"github.com/tengge1/shadoweditor/model"
+	"github.com/tengge1/shadoweditor/model/category"
+	"github.com/tengge1/shadoweditor/model/scene"
 )
 
 func init() {
-	assets := Assets{}
-	context.Mux.UsingContext().Handle(http.MethodGet, "/api/Scene/List", assets.List)
+	scene := Scene{}
+	context.Mux.UsingContext().Handle(http.MethodGet, "/api/Scene/List", scene.List)
+	context.Mux.UsingContext().Handle(http.MethodGet, "/api/Scene/HistoryList", scene.HistoryList)
+	context.Mux.UsingContext().Handle(http.MethodGet, "/api/Scene/Load", scene.Load)
+	context.Mux.UsingContext().Handle(http.MethodPost, "/api/Scene/Edit", scene.Edit)
+	context.Mux.UsingContext().Handle(http.MethodPost, "/api/Scene/Save", scene.Save)
+	context.Mux.UsingContext().Handle(http.MethodPost, "/api/Scene/Delete", scene.Delete)
 }
 
 // Scene 场景控制器
@@ -20,105 +34,135 @@ type Scene struct {
 func (Scene) List(w http.ResponseWriter, r *http.Request) {
 	db, err := context.Mongo()
 	if err != nil {
-		helper.Write(w, err.Error())
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  err.Error(),
+		})
 		return
 	}
 
-	_ = db
-
 	// 获取所有类别
-	// categories, err := db.Collection(helper.CategoryCollectionName).Find(context.TODO())
+	categories := []category.Model{}
+	db.FindAll(shadow.CategoryCollectionName, &categories)
 
-	// collection := db.Collection(helper.SceneCollectionName)
+	docs := bson.A{}
+	opts := options.FindOptions{
+		Sort: bson.M{
+			"UpdateTime": -1,
+		},
+	}
 
-	// var docs = []bson.M{}
+	if context.Config.Authority.Enabled {
+		user, _ := context.GetCurrentUser(r)
 
-	// if helper.Config.Authority.Enabled {
-	// 	user, _ := helper.GetCurrentUser(r)
+		if user != nil {
+			filter1 := bson.M{
+				"$or": bson.A{
+					bson.M{
+						"UserID": user.ID,
+					},
+					bson.M{
+						"IsPublic": true,
+					},
+				},
+			}
 
-	// 	if user != nil {
-	// 		filter1 := bson.M{
-	// 			"UserID": user.ID,
-	// 		}
-	// 		filter11 := bson.M{
-	// 			"IsPublic": true,
-	// 		}
-	// 		filter1 = bson.M{
-	// 			"$or": bson.A{
-	// 				filter1,
-	// 				filter11,
-	// 			},
-	// 		}
+			if user.Name == "Administrator" {
+				filter1 = bson.M{
+					"$or": bson.A{
+						filter1,
+						bson.M{
+							"UserID": bson.M{
+								"$exists": 0,
+							},
+						},
+					},
+				}
+			}
+			db.FindMany(shadow.SceneCollectionName, filter1, &docs, &opts)
+		} else { // 不登录可以查看所有公开场景
+			filter1 := bson.M{
+				"IsPublic": true,
+			}
+			db.FindMany(shadow.SceneCollectionName, filter1, &docs, &opts)
+		}
+	} else {
+		db.FindAll(shadow.SceneCollectionName, &docs, &opts)
+	}
 
-	// 		if user.Name == "Administrator" {
-	// 			var filter2 = bson.M{
-	// 				"UserID": bson.M{
-	// 					"$exists": 1,
-	// 				},
-	// 			}
-	// 			var filter3 = bson.M{
-	// 				"$not": filter2,
-	// 			}
-	// 			filter1 = Bson.M{
-	// 				"$or": bson.A{
-	// 					filter1,
-	// 					filter3,
-	// 				},
-	// 			}
-	// 		}
-	// 		docs = mongo.FindMany(Constant.SceneCollectionName, filter1).ToList()
-	// 	} else { // 不登录可以查看所有公开场景
-	// 		filter1 := bson.M{
-	// 			"IsPublic": true,
-	// 		}
-	// 		docs = db.FindMany(context.TODO(), Constant.SceneCollectionName, filter1).ToList()
-	// 	}
-	// } else {
-	// 	docs = db.FindAll(context.TODO(), helper.SceneCollectionName).ToList()
-	// }
+	list := []scene.Model{}
 
-	// var list = [] model.Scene{}
+	for _, i := range docs {
+		doc := i.(primitive.D).Map()
 
-	// for _, i := range docs {
-	// 	var categoryID = "";
-	// 	var categoryName = "";
+		categoryID := ""
+		categoryName := ""
 
-	// 	if i["Category"] && i["Category"] != "" {
-	// 		for _, category := categories {
+		if doc["Category"] != nil {
+			for _, category := range categories {
+				if category.ID == doc["Category"].(string) {
+					categoryID = category.ID
+					categoryName = category.Name
+					break
+				}
+			}
+		}
 
-	// 		}
+		thumbnail := ""
+		if doc["Thumbnail"] != nil {
+			thumbnail = doc["Thumbnail"].(string)
+		}
 
-	// 		var doc = categories.Where(n => n["_id"].ToString() == i["Category"].ToString()).FirstOrDefault();
-	// 		if (doc != null)
-	// 		{
-	// 			categoryID = doc["_id"].ToString();
-	// 			categoryName = doc["Name"].ToString();
-	// 		}
-	// 	}
+		isPublic := false
+		if doc["IsPublic"] != nil {
+			isPublic = doc["IsPublic"].(bool)
+		}
 
-	// 	info := model.Scene {
-	// 		ID = i["ID"].AsObjectId.ToString(),
-	// 		Name = i["Name"].AsString,
-	// 		CategoryID = categoryID,
-	// 		CategoryName = categoryName,
-	// 		TotalPinYin = i["TotalPinYin"].ToString(),
-	// 		FirstPinYin = i["FirstPinYin"].ToString(),
-	// 		CollectionName = i["CollectionName"].AsString,
-	// 		Version = i["Version"].AsInt32,
-	// 		CreateTime = i["CreateTime"].ToUniversalTime(),
-	// 		UpdateTime = i["UpdateTime"].ToUniversalTime(),
-	// 		Thumbnail = i.Contains("Thumbnail") && !i["Thumbnail"].IsBsonNull ? i["Thumbnail"].ToString() : null,
-	// 		IsPublic = i.Contains("IsPublic") ? i["IsPublic"].ToBoolean() : false,
-	// 	};
-	// 	list.Add(info);
-	// }
+		info := scene.Model{
+			ID:             doc["ID"].(primitive.ObjectID).Hex(),
+			Name:           doc["Name"].(string),
+			CategoryID:     categoryID,
+			CategoryName:   categoryName,
+			TotalPinYin:    helper.PinYinToString(doc["TotalPinYin"]),
+			FirstPinYin:    helper.PinYinToString(doc["FirstPinYin"]),
+			CollectionName: doc["CollectionName"].(string),
+			Version:        int(doc["Version"].(int32)),
+			CreateTime:     doc["CreateTime"].(primitive.DateTime).Time(),
+			UpdateTime:     doc["UpdateTime"].(primitive.DateTime).Time(),
+			Thumbnail:      thumbnail,
+			IsPublic:       isPublic,
+		}
+		list = append(list, info)
+	}
 
-	// list = list.OrderByDescending(o => o.UpdateTime).ToList();
+	helper.WriteJSON(w, model.Result{
+		Code: 200,
+		Msg:  "Get Successfully!",
+		Data: list,
+	})
+}
 
-	// result := base.Result{
-	// 	Code: 200,
-	// 	Msg: "Get Successfully!"
-	// }
+// HistoryList 获取场景历史列表
+func (Scene) HistoryList(w http.ResponseWriter, r *http.Request) {
 
-	// base.WriteJSON(w, result)
+}
+
+// Load 获取数据
+func (Scene) Load(w http.ResponseWriter, r *http.Request) {
+
+}
+
+// Edit 编辑
+func (Scene) Edit(w http.ResponseWriter, r *http.Request) {
+
+}
+
+// Save 保存
+func (Scene) Save(w http.ResponseWriter, r *http.Request) {
+
+}
+
+// Delete 删除
+func (Scene) Delete(w http.ResponseWriter, r *http.Request) {
+
 }
