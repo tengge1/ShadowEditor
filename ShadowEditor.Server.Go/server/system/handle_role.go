@@ -177,21 +177,17 @@ func (Role) Add(w http.ResponseWriter, r *http.Request) {
 // Edit 编辑
 func (Role) Edit(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
-	id := r.FormValue("ID")
-	parentID := r.FormValue("ParentID")
-	name := r.FormValue("Name")
-	adminID := r.FormValue("AdminID")
-
-	objectID, err := primitive.ObjectIDFromHex(id)
+	id, err := primitive.ObjectIDFromHex(r.FormValue("ID"))
 	if err != nil {
 		helper.WriteJSON(w, model.Result{
 			Code: 300,
 			Msg:  "ID is not allowed.",
 		})
-		return
 	}
+	name := strings.TrimSpace(r.FormValue("Name"))
+	description := strings.TrimSpace(r.FormValue("Description"))
 
-	if strings.Trim(name, " ") == "" {
+	if name == "" {
 		helper.WriteJSON(w, model.Result{
 			Code: 300,
 			Msg:  "Name is not allowed to be empty.",
@@ -208,35 +204,51 @@ func (Role) Edit(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// 判断是否是系统内置角色
 	filter := bson.M{
-		"ID": objectID,
+		"ID": id,
+	}
+	doc := bson.M{}
+	find, _ := db.FindOne(shadow.RoleCollectionName, filter, &doc)
+
+	if !find {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  "The role is not existed.",
+		})
+		return
 	}
 
-	update1 := bson.M{
-		"$set": bson.M{
-			"ParentID": parentID,
-		},
+	roleName := doc["Name"].(string)
+
+	if roleName == "Administrator" || roleName == "User" || roleName == "Guest" {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  "Modifying system built-in roles is not allowed.",
+		})
+		return
 	}
-	update2 := bson.M{
+
+	// 更新用户信息
+	update1 := bson.M{
 		"$set": bson.M{
 			"Name": name,
 		},
 	}
-	update3 := bson.M{
+	update2 := bson.M{
 		"$set": bson.M{
-			"AdminID": adminID,
+			"UpdateTime": time.Now(),
 		},
 	}
+	update3 := bson.M{
+		"$set": bson.M{
+			"Description": description,
+		},
+	}
+
 	update := bson.A{update1, update2, update3}
 
-	_, err = db.UpdateOne(shadow.DepartmentCollectionName, filter, update)
-	if err != nil {
-		helper.WriteJSON(w, model.Result{
-			Code: 300,
-			Msg:  err.Error(),
-		})
-		return
-	}
+	db.UpdateOne(shadow.RoleCollectionName, filter, update)
 
 	helper.WriteJSON(w, model.Result{
 		Code: 200,
