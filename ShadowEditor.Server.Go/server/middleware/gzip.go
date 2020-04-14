@@ -46,10 +46,6 @@ func (w gzipResponseWriter) Header() http.Header {
 }
 
 func (w gzipResponseWriter) Write(b []byte) (int, error) {
-	if w.status != http.StatusOK {
-		return w.resp.Write(b)
-	}
-
 	writer := gzip.NewWriter(w.resp)
 	defer writer.Close()
 
@@ -58,13 +54,13 @@ func (w gzipResponseWriter) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
+	w.resp.Header().Del("Content-Length")
 	w.resp.Header().Set("Content-Length", strconv.Itoa(n))
 
 	return n, nil
 }
 
 func (w gzipResponseWriter) WriteHeader(i int) {
-	w.resp.Header().Del("Content-Length")
 	w.status = i
 	w.resp.WriteHeader(i)
 }

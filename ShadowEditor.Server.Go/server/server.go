@@ -18,7 +18,7 @@ func Start() {
 
 	handler := negroni.Classic()
 	handler.Use(negroni.HandlerFunc(middleware.CrossOriginHandler))
-	// handler.Use(negroni.HandlerFunc(middleware.GZipHandler))
+	handler.Use(negroni.HandlerFunc(middleware.GZipHandler))
 	handler.Use(negroni.HandlerFunc(middleware.StaticHandler))
 	handler.UseHandler(context.Mux)
 
