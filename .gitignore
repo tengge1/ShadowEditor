@@ -89,7 +89,7 @@ typings/
 /ShadowEditor.Web/build
 /ShadowEditor.Web/test/unit/build
 /ShadowEditor.Web/temp
-/.vscode
+#/.vscode
 /ShadowEditor.Web/test/weekend/build
 /temp
 /ShadowEditor.AI/build
