@@ -8,7 +8,7 @@ import (
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/model"
 	"github.com/tengge1/shadoweditor/model/category"
-	"github.com/tengge1/shadoweditor/model/particle"
+	"github.com/tengge1/shadoweditor/model/prefab"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -82,7 +82,7 @@ func (Prefab) List(w http.ResponseWriter, r *http.Request) {
 		db.FindAll(shadow.PrefabCollectionName, &docs, &opts)
 	}
 
-	list := []particle.Model{}
+	list := []prefab.Model{}
 	for _, i := range docs {
 		doc := i.(primitive.D).Map()
 		categoryID := ""
@@ -100,7 +100,7 @@ func (Prefab) List(w http.ResponseWriter, r *http.Request) {
 
 		thumbnail, _ := doc["Thumbnail"].(string)
 
-		info := particle.Model{
+		info := prefab.Model{
 			ID:           doc["_id"].(primitive.ObjectID).Hex(),
 			Name:         doc["Name"].(string),
 			CategoryID:   categoryID,
