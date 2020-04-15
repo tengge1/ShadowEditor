@@ -1,16 +1,15 @@
-// +build ignore
-
 package server
 
 import (
+	"bytes"
 	"net/http"
 	"strings"
 	"time"
 
 	"go.mongodb.org/mongo-driver/mongo/options"
 
-	"github.com/tengge1/shadoweditor/model/animation"
 	"github.com/tengge1/shadoweditor/model/category"
+	"github.com/tengge1/shadoweditor/model/texture"
 
 	"go.mongodb.org/mongo-driver/bson/primitive"
 
@@ -41,106 +40,106 @@ func (Texture) List(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		helper.WriteJSON(w, model.Result{
 			Code: 300,
-			Msg: err.Error(),
+			Msg:  err.Error(),
 		})
 		return
 	}
 
-    // 获取所有类别
-    filter := bson.M{
-		"Type", "Map",
+	// 获取所有类别
+	filter := bson.M{
+		"Type": "Map",
 	}
 	categories := []category.Model{}
-    mongo.FindMany(shadow.CategoryCollectionName, filter, &categories)
+	db.FindMany(shadow.CategoryCollectionName, filter, &categories)
 
 	docs := bson.A{}
+
 	opts := options.FindOptions{
 		Sort: bson.M{
-			"Name": 1,
-		}
+			"_id": -1,
+		},
 	}
 
-    if context.Config.Authority.Enabled {
-        user := context.GetCurrentUser();
+	if context.Config.Authority.Enabled {
+		user, _ := context.GetCurrentUser(r)
 
-        if user != null {
-            filter1 := bson.M{
+		if user != nil {
+			filter1 := bson.M{
 				"UserID": user.ID,
 			}
 
-            if user.Name == "Administrator" {
-                filter1 = bson.M{
-					"$or": bson.A{
-						filter1,
-						bson.M{
-							"UserID": bson.M{
-								"$exists": 0,
-							},
-						},
+			if user.Name == "Administrator" {
+				filter2 := bson.M{
+					"UserID": bson.M{
+						"$exists": 0,
 					},
 				}
-            }
-            db.FindMany(shadow.MapCollectionName, filter1, &docs, &opts)
-        }
-    } else {
-        db.FindAll(Constant.MapCollectionName, &docs, &opts)
-    }
+				filter1 = bson.M{
+					"$or": bson.A{
+						filter1,
+						filter2,
+					},
+				}
+			}
+			db.FindMany(shadow.MapCollectionName, filter1, &docs, &opts)
+		}
+	} else {
+		db.FindAll(shadow.MapCollectionName, &docs, &opts)
+	}
 
-    list := []texture.Model{}
+	list := []texture.Model{}
 
-    for _, i := range docs {
-        var categoryID = "";
-        var categoryName = "";
+	for _, i := range docs {
+		doc := i.(primitive.D).Map()
+		categoryID := ""
+		categoryName := ""
 
-        if (i.Contains("Category") && !i["Category"].IsBsonNull && !string.IsNullOrEmpty(i["Category"].ToString()))
-        {
-            var doc = categories.Where(n => n["_id"].ToString() == i["Category"].ToString()).FirstOrDefault();
-            if (doc != null)
-            {
-                categoryID = doc["_id"].ToString();
-                categoryName = doc["Name"].ToString();
-            }
-        }
+		if doc["Category"] != nil {
+			for _, category := range categories {
+				if category.ID == doc["Category"].(string) {
+					categoryID = category.ID
+					categoryName = category.Name
+					break
+				}
+			}
+		}
 
-        var builder = new StringBuilder();
+		var buffer bytes.Buffer
 
-        if (i["Url"].IsBsonDocument) // 立体贴图
-        {
-            builder.Append($"{i["Url"]["PosX"].AsString};");
-            builder.Append($"{i["Url"]["NegX"].AsString};");
-            builder.Append($"{i["Url"]["PosY"].AsString};");
-            builder.Append($"{i["Url"]["NegY"].AsString};");
-            builder.Append($"{i["Url"]["PosZ"].AsString};");
-            builder.Append($"{i["Url"]["NegZ"].AsString};");
-        }
-        else // 其他贴图
-        {
-            builder.Append(i["Url"].AsString);
-        }
+		if url, ok := doc["Url"].(primitive.D); ok { // 立体贴图
+			imgs := url.Map()
+			buffer.WriteString(imgs["PosX"].(string) + ";")
+			buffer.WriteString(imgs["NegX"].(string) + ";")
+			buffer.WriteString(imgs["PosY"].(string) + ";")
+			buffer.WriteString(imgs["NegY"].(string) + ";")
+			buffer.WriteString(imgs["PosZ"].(string) + ";")
+		} else { // 其他贴图
+			buffer.WriteString(doc["Url"].(string))
+		}
 
-        var info = new MapModel
-        {
-            ID = i["ID"].AsObjectId.ToString(),
-            Name = i["Name"].AsString,
-            CategoryID = categoryID,
-            CategoryName = categoryName,
-            TotalPinYin = i["TotalPinYin"].ToString(),
-            FirstPinYin = i["FirstPinYin"].ToString(),
-            Type = i["Type"].AsString,
-            Url = builder.ToString().TrimEnd(';'),
-            CreateTime = i["CreateTime"].ToUniversalTime(),
-            UpdateTime = i["UpdateTime"].ToUniversalTime(),
-            Thumbnail = i["Thumbnail"].ToString()
-        };
-        list.Add(info);
-    }
+		thumbnail, _ := doc["Thumbnail"].(string)
 
-    return Json(new
-    {
-        Code = 200,
-        Msg = "Get Successfully!",
-        Data = list
-    });
+		info := texture.Model{
+			ID:           doc["_id"].(primitive.ObjectID).Hex(),
+			Name:         doc["Name"].(string),
+			CategoryID:   categoryID,
+			CategoryName: categoryName,
+			TotalPinYin:  helper.PinYinToString(doc["TotalPinYin"]),
+			FirstPinYin:  helper.PinYinToString(doc["FirstPinYin"]),
+			Type:         doc["Type"].(string),
+			URL:          strings.TrimRight(buffer.String(), ";"),
+			CreateTime:   doc["CreateTime"].(primitive.DateTime).Time(),
+			UpdateTime:   doc["UpdateTime"].(primitive.DateTime).Time(),
+			Thumbnail:    thumbnail,
+		}
+		list = append(list, info)
+	}
+
+	helper.WriteJSON(w, model.Result{
+		Code: 200,
+		Msg:  "Get Successfully!",
+		Data: list,
+	})
 }
 
 // Add 添加
