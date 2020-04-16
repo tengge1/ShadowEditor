@@ -149,7 +149,7 @@ func (Texture) List(w http.ResponseWriter, r *http.Request) {
 
 // Add 添加
 func (Texture) Add(w http.ResponseWriter, r *http.Request) {
-	r.ParseForm()
+	r.ParseMultipartForm(context.Config.Upload.MaxSize)
 	files := r.MultipartForm.File
 
 	// 校验上传文件
@@ -162,14 +162,13 @@ func (Texture) Add(w http.ResponseWriter, r *http.Request) {
 	}
 
 	for _, val := range files {
-		fileName1 := val[0].Filename
-		fileExt1 := filepath.Ext(fileName1)
-		if fileExt1 == "" ||
-			strings.ToLower(fileExt1) != ".jpg" &&
-				strings.ToLower(fileExt1) != ".jpeg" &&
-				strings.ToLower(fileExt1) != ".png" &&
-				strings.ToLower(fileExt1) != ".gif" &&
-				strings.ToLower(fileExt1) != ".mp4" {
+		ext := filepath.Ext(val[0].Filename)
+		if ext == "" ||
+			strings.ToLower(ext) != ".jpg" &&
+				strings.ToLower(ext) != ".jpeg" &&
+				strings.ToLower(ext) != ".png" &&
+				strings.ToLower(ext) != ".gif" &&
+				strings.ToLower(ext) != ".mp4" {
 			helper.WriteJSON(w, model.Result{
 				Code: 300,
 				Msg:  "Only jpg, png, mp4 file is allowed to upload!",
@@ -189,9 +188,7 @@ func (Texture) Add(w http.ResponseWriter, r *http.Request) {
 	}
 
 	for _, val := range files {
-		fileName1 := val[0].Filename
-
-		file, err := os.Create(fmt.Sprintf("%v/%v", physicalPath, fileName1))
+		target, err := os.Create(fmt.Sprintf("%v/%v", physicalPath, val[0].Filename))
 		if err != nil {
 			helper.WriteJSON(w, model.Result{
 				Code: 300,
@@ -199,9 +196,9 @@ func (Texture) Add(w http.ResponseWriter, r *http.Request) {
 			})
 			return
 		}
-		defer file.Close()
+		defer target.Close()
 
-		file1, err := val[0].Open()
+		source, err := val[0].Open()
 		if err != nil {
 			helper.WriteJSON(w, model.Result{
 				Code: 300,
@@ -209,16 +206,22 @@ func (Texture) Add(w http.ResponseWriter, r *http.Request) {
 			})
 			return
 		}
-		defer file1.Close()
-		io.Copy(file, file1)
+		defer source.Close()
+		io.Copy(target, source)
 	}
 
 	// 保存到Mongo
 	// 立体贴图的情况，除Url外，所有信息取posX的信息即可。
 	var file *multipart.FileHeader = nil
+	if len(files) == 6 {
+		file = files["PosX"][0]
+	} else {
+		file = files["file"][0]
+	}
+
 	fileName := file.Filename
 	fileSize := file.Size
-	fileType := file.Header.Get("type")
+	fileType := file.Header.Get("Content-Type")
 	fileExt := filepath.Ext(fileName)
 	fileNameWithoutExt := strings.TrimRight(fileName, fileExt)
 

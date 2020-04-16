@@ -12,6 +12,9 @@ database = "ShadowEditor"                   # mongo database name
 enabled = false                             # enable authority
 expires = 120                               # login time, minutes, only support integer 
 
+[upload]
+max_size = 1000000000                       # max upload file size
+
 [remote]
 enabled = false                             # enable remote edit
 web_socket_port = 5000                      # web socket server port

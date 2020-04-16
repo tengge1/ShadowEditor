@@ -28,6 +28,7 @@ type ConfigModel struct {
 	Server    ServerConfigModel    `toml:"server"`
 	Database  DatabaseConfigModel  `toml:"database"`
 	Authority AuthorityConfigModel `toml:"authority"`
+	Upload    UploadConfigModel    `toml:"upload"`
 	Remote    RemoteConfigModel    `toml:"remote"`
 	Log       LogConfigModel       `toml:"log"`
 }
@@ -48,6 +49,11 @@ type DatabaseConfigModel struct {
 type AuthorityConfigModel struct {
 	Enabled bool `toml:"enabled"`
 	Expires int  `toml:"expires"`
+}
+
+// UploadConfigModel upload config
+type UploadConfigModel struct {
+	MaxSize int64 `toml:"max_size"`
 }
 
 // RemoteConfigModel remote config
