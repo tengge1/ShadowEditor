@@ -2,7 +2,12 @@ package server
 
 import (
 	"bytes"
+	"fmt"
+	"io"
+	"mime/multipart"
 	"net/http"
+	"os"
+	"path/filepath"
 	"strings"
 	"time"
 
@@ -144,7 +149,153 @@ func (Texture) List(w http.ResponseWriter, r *http.Request) {
 
 // Add 添加
 func (Texture) Add(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	files := r.MultipartForm.File
 
+	// 校验上传文件
+	if len(files) != 1 && len(files) != 6 {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  "Only one or six files is allowed to upload!",
+		})
+		return
+	}
+
+	for _, val := range files {
+		fileName1 := val[0].Filename
+		fileExt1 := filepath.Ext(fileName1)
+		if fileExt1 == "" ||
+			strings.ToLower(fileExt1) != ".jpg" &&
+				strings.ToLower(fileExt1) != ".jpeg" &&
+				strings.ToLower(fileExt1) != ".png" &&
+				strings.ToLower(fileExt1) != ".gif" &&
+				strings.ToLower(fileExt1) != ".mp4" {
+			helper.WriteJSON(w, model.Result{
+				Code: 300,
+				Msg:  "Only jpg, png, mp4 file is allowed to upload!",
+			})
+			return
+		}
+	}
+
+	// 保存文件
+	now := time.Now()
+
+	savePath := fmt.Sprintf("/Upload/Texture/%v", helper.TimeToString(now, "yyyyMMddHHmmss"))
+	physicalPath := helper.MapPath(savePath)
+
+	if _, err := os.Stat(physicalPath); os.IsNotExist(err) {
+		os.MkdirAll(physicalPath, 0755)
+	}
+
+	for _, val := range files {
+		fileName1 := val[0].Filename
+
+		file, err := os.Create(fmt.Sprintf("%v/%v", physicalPath, fileName1))
+		if err != nil {
+			helper.WriteJSON(w, model.Result{
+				Code: 300,
+				Msg:  err.Error(),
+			})
+			return
+		}
+		defer file.Close()
+
+		file1, err := val[0].Open()
+		if err != nil {
+			helper.WriteJSON(w, model.Result{
+				Code: 300,
+				Msg:  err.Error(),
+			})
+			return
+		}
+		defer file1.Close()
+		io.Copy(file, file1)
+	}
+
+	// 保存到Mongo
+	// 立体贴图的情况，除Url外，所有信息取posX的信息即可。
+	var file *multipart.FileHeader = nil
+	fileName := file.Filename
+	fileSize := file.Size
+	fileType := file.Header.Get("type")
+	fileExt := filepath.Ext(fileName)
+	fileNameWithoutExt := strings.TrimRight(fileName, fileExt)
+
+	pinyin := helper.ConvertToPinYin(fileNameWithoutExt)
+
+	db, err := context.Mongo()
+	if err != nil {
+		helper.WriteJSON(w, model.Result{
+			Code: 300,
+			Msg:  err.Error(),
+		})
+		return
+	}
+
+	doc := bson.M{
+		"ID":          primitive.NewObjectID(),
+		"AddTime":     now,
+		"FileName":    fileName,
+		"FileSize":    fileSize,
+		"FileType":    fileType,
+		"FirstPinYin": pinyin.FirstPinYin,
+		"Name":        fileNameWithoutExt,
+		"SaveName":    fileName,
+		"SavePath":    savePath,
+	}
+
+	if strings.ToLower(filepath.Ext(file.Filename)) == ".mp4" {
+		// TODO: 通过插件获取mp4缩略图
+		doc["Thumbnail"] = ""
+	} else {
+		// TODO: 天空球太大，缩略图最好处理一下
+		doc["Thumbnail"] = fmt.Sprintf("%v/%v", savePath, fileName)
+	}
+
+	doc["TotalPinYin"] = pinyin.TotalPinYin
+
+	if len(files) == 6 { // 立体贴图
+		doc["Type"] = texture.Cube
+
+		doc1 := bson.M{
+			"PosX": fmt.Sprintf("%v/%v", savePath, files["posX"][0].Filename),
+			"NegX": fmt.Sprintf("%v/%v", savePath, files["negX"][0].Filename),
+			"PosY": fmt.Sprintf("%v/%v", savePath, files["posY"][0].Filename),
+			"NegY": fmt.Sprintf("%v/%v", savePath, files["negY"][0].Filename),
+			"PosZ": fmt.Sprintf("%v/%v", savePath, files["posZ"][0].Filename),
+			"NegZ": fmt.Sprintf("%v/%v", savePath, files["negZ"][0].Filename),
+		}
+
+		doc["Url"] = doc1
+	} else if strings.ToLower(filepath.Ext(file.Filename)) == ".mp4" { // 视频贴图
+		doc["Type"] = texture.Video
+		doc["Url"] = fmt.Sprintf("%v/%v", savePath, fileName)
+	} else if fileType == "skyBall" {
+		doc["Type"] = texture.SkyBall
+		doc["Url"] = fmt.Sprintf("%v/%v", savePath, fileName)
+	} else {
+		doc["Type"] = texture.Unknown
+		doc["Url"] = fmt.Sprintf("%v/%v", savePath, fileName)
+	}
+
+	doc["CreateTime"] = now
+	doc["UpdateTime"] = now
+
+	if context.Config.Authority.Enabled {
+		user, err := context.GetCurrentUser(r)
+
+		if err != nil && user != nil {
+			doc["UserID"] = user.ID
+		}
+	}
+
+	db.InsertOne(shadow.MapCollectionName, doc)
+
+	helper.WriteJSON(w, model.Result{
+		Code: 200,
+		Msg:  "Upload successfully!",
+	})
 }
 
 // Edit 编辑
