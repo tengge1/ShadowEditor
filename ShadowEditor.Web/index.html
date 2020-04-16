@@ -32,7 +32,7 @@
     <script>
         window.onload = function () {
             new Shadow.Application(document.getElementById('container'), {
-                server: "http://localhost:2020",
+                server: location.origin,
                 enableTileCache: false,
             });
         };
