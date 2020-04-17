@@ -1,4 +1,4 @@
-package server
+package screenshot
 
 import (
 	"net/http"
