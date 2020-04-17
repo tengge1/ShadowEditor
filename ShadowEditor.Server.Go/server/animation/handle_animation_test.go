@@ -1,6 +1,4 @@
-// +build ignore
-
-package server
+package animation
 
 import (
 	"io/ioutil"
