@@ -11,6 +11,7 @@ import (
 	_ "github.com/tengge1/shadoweditor/server/animation" // animation api
 	_ "github.com/tengge1/shadoweditor/server/assets"    // assets api
 	_ "github.com/tengge1/shadoweditor/server/audio"     // audio api
+	_ "github.com/tengge1/shadoweditor/server/category"  // category api
 	_ "github.com/tengge1/shadoweditor/server/export"    // export api
 	_ "github.com/tengge1/shadoweditor/server/system"    // system api
 	_ "github.com/tengge1/shadoweditor/server/texture"   // texture api
