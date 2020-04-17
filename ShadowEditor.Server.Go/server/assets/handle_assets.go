@@ -1,4 +1,4 @@
-package server
+package assets
 
 import (
 	"net/http"
