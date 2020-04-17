@@ -1,4 +1,4 @@
-package server
+package particle
 
 import (
 	"net/http"
