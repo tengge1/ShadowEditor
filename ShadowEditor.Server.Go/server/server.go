@@ -25,6 +25,7 @@ import (
 	_ "github.com/tengge1/shadoweditor/server/texture"    // texture api
 	_ "github.com/tengge1/shadoweditor/server/tools"      // tools api
 	_ "github.com/tengge1/shadoweditor/server/upload"     // upload api
+	_ "github.com/tengge1/shadoweditor/server/video"      // video api
 )
 
 // Start start the server
