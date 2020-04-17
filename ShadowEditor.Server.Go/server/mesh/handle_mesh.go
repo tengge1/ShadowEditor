@@ -1,4 +1,4 @@
-package server
+package mesh
 
 import (
 	"net/http"
