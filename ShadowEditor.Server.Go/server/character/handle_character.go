@@ -1,4 +1,4 @@
-package server
+package character
 
 import (
 	"net/http"
