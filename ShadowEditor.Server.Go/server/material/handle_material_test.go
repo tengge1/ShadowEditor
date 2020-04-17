@@ -1,4 +1,4 @@
-package server
+package material
 
 import (
 	"io/ioutil"

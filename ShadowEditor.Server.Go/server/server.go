@@ -14,6 +14,7 @@ import (
 	_ "github.com/tengge1/shadoweditor/server/category"  // category api
 	_ "github.com/tengge1/shadoweditor/server/character" // character api
 	_ "github.com/tengge1/shadoweditor/server/export"    // export api
+	_ "github.com/tengge1/shadoweditor/server/material"  // material api
 	_ "github.com/tengge1/shadoweditor/server/system"    // system api
 	_ "github.com/tengge1/shadoweditor/server/texture"   // texture api
 	_ "github.com/tengge1/shadoweditor/server/tools"     // tools api
