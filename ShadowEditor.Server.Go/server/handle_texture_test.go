@@ -1,12 +1,17 @@
 package server
 
 import (
+	"bytes"
+	"io"
 	"io/ioutil"
+	"mime/multipart"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
+	"os"
 	"testing"
 
+	"github.com/prometheus/common/log"
 	"github.com/tengge1/shadoweditor/context"
 )
 
@@ -32,6 +37,54 @@ func TestTextureList(t *testing.T) {
 	}
 
 	t.Log(string(bytes))
+}
+
+func TestTextureAdd(t *testing.T) {
+	context.Create("../config.toml")
+
+	texture := Texture{}
+
+	ts := httptest.NewServer(http.HandlerFunc(texture.Add))
+	defer ts.Close()
+
+	bodyBuffer := &bytes.Buffer{}
+	bodyWriter := multipart.NewWriter(bodyBuffer)
+
+	name := "TestTextureAdd" + ".jpg"
+	path := "../../ShadowEditor.Web/assets/textures/air.jpg"
+
+	fileWriter, err := bodyWriter.CreateFormFile("file", name)
+	if err != nil {
+		log.Error(err)
+		return
+	}
+
+	file, err := os.Open(path)
+	if err != nil {
+		log.Error(err)
+		return
+	}
+	defer file.Close()
+
+	io.Copy(fileWriter, file)
+
+	contentType := bodyWriter.FormDataContentType()
+	bodyWriter.Close()
+
+	res, err := http.Post(ts.URL, contentType, bodyBuffer)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	defer res.Body.Close()
+
+	byts, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	t.Log(string(byts))
 }
 
 func TestTextureEdit(t *testing.T) {
