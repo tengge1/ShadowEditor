@@ -5,10 +5,11 @@ import (
 	"net/http"
 
 	"github.com/tengge1/shadoweditor/context"
-	_ "github.com/tengge1/shadoweditor/server/export" // export apis
+	_ "github.com/tengge1/shadoweditor/server/export" // export api
 	"github.com/tengge1/shadoweditor/server/middleware"
-	_ "github.com/tengge1/shadoweditor/server/system" // system apis
-	_ "github.com/tengge1/shadoweditor/server/tools"  // tools apis
+	_ "github.com/tengge1/shadoweditor/server/system"  // system api
+	_ "github.com/tengge1/shadoweditor/server/texture" // texture api
+	_ "github.com/tengge1/shadoweditor/server/tools"   // tools api
 	"github.com/urfave/negroni"
 )
 
