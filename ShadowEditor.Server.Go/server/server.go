@@ -4,8 +4,9 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/tengge1/shadoweditor/context"
+	"github.com/urfave/negroni"
 
+	"github.com/tengge1/shadoweditor/context"
 	"github.com/tengge1/shadoweditor/server/middleware"
 
 	_ "github.com/tengge1/shadoweditor/server/animation"  // animation api
@@ -23,7 +24,7 @@ import (
 	_ "github.com/tengge1/shadoweditor/server/system"     // system api
 	_ "github.com/tengge1/shadoweditor/server/texture"    // texture api
 	_ "github.com/tengge1/shadoweditor/server/tools"      // tools api
-	"github.com/urfave/negroni"
+	_ "github.com/tengge1/shadoweditor/server/upload"     // upload api
 )
 
 // Start start the server
