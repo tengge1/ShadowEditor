@@ -1,4 +1,4 @@
-package server
+package prefab
 
 import (
 	"io/ioutil"
