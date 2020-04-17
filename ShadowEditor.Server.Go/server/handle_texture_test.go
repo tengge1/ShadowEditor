@@ -43,9 +43,35 @@ func TestTextureEdit(t *testing.T) {
 	defer ts.Close()
 
 	res, err := http.PostForm(ts.URL, url.Values{
-		"ID":       {"5e9996894a8c40e5755b5e0a"},
+		"ID":       {"5e9996894a8c40e5755b5e09"},
 		"Name":     {"TestTextureEdit"},
 		"Category": {"5c14b3a7c8b49a33c4845ba1"},
+	})
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	defer res.Body.Close()
+
+	bytes, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	t.Log(string(bytes))
+}
+
+func TestTextureDelete(t *testing.T) {
+	context.Create("../config.toml")
+
+	texture := Texture{}
+
+	ts := httptest.NewServer(http.HandlerFunc(texture.Delete))
+	defer ts.Close()
+
+	res, err := http.PostForm(ts.URL, url.Values{
+		"ID": {"5e9996894a8c40e5755b5e09"},
 	})
 	if err != nil {
 		t.Error(err)

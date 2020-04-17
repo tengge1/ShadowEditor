@@ -337,7 +337,7 @@ func (Texture) Edit(w http.ResponseWriter, r *http.Request) {
 	pinyin := helper.ConvertToPinYin(name)
 
 	filter := bson.M{
-		"_id": id,
+		"ID": id,
 	}
 
 	set := bson.M{
@@ -369,7 +369,7 @@ func (Texture) Edit(w http.ResponseWriter, r *http.Request) {
 // Delete 删除
 func (Texture) Delete(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
-	id, err := primitive.ObjectIDFromHex(r.FormValue("ID"))
+	id, err := primitive.ObjectIDFromHex(strings.TrimSpace(r.FormValue("ID")))
 	if err != nil {
 		helper.WriteJSON(w, model.Result{
 			Code: 300,
@@ -392,32 +392,30 @@ func (Texture) Delete(w http.ResponseWriter, r *http.Request) {
 	}
 
 	doc := bson.M{}
-	find, _ := db.FindOne(shadow.RoleCollectionName, filter, &doc)
+	find, _ := db.FindOne(shadow.MapCollectionName, filter, &doc)
 
 	if !find {
 		helper.WriteJSON(w, model.Result{
 			Code: 300,
-			Msg:  "The role is not existed.",
+			Msg:  "The asset is not existed!",
 		})
 		return
 	}
 
-	roleName := doc["Name"].(string)
+	// 删除纹理所在目录
+	path := doc["SavePath"].(string)
+	physicalPath := helper.MapPath(path)
 
-	if roleName == "Administrator" || roleName == "User" || roleName == "Guest" {
+	err = os.RemoveAll(physicalPath)
+	if err != nil {
 		helper.WriteJSON(w, model.Result{
 			Code: 300,
-			Msg:  "It is not allowed to delete system built-in roles.",
+			Msg:  err.Error(),
 		})
+		return
 	}
 
-	update := bson.M{
-		"$set": bson.M{
-			"Status": -1,
-		},
-	}
-
-	db.UpdateOne(shadow.RoleCollectionName, filter, update)
+	db.DeleteOne(shadow.MapCollectionName, filter)
 
 	helper.WriteJSON(w, model.Result{
 		Code: 200,
