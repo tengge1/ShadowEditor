@@ -1,4 +1,4 @@
-package server
+package audio
 
 import (
 	"io/ioutil"
