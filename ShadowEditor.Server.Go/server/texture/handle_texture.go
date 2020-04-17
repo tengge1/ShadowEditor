@@ -14,7 +14,6 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 
 	"github.com/tengge1/shadoweditor/model/category"
-	"github.com/tengge1/shadoweditor/model/texture"
 
 	"go.mongodb.org/mongo-driver/bson/primitive"
 
@@ -92,7 +91,7 @@ func (Texture) List(w http.ResponseWriter, r *http.Request) {
 		db.FindAll(shadow.MapCollectionName, &docs, &opts)
 	}
 
-	list := []texture.Model{}
+	list := []Model{}
 
 	for _, i := range docs {
 		doc := i.(primitive.D).Map()
@@ -124,7 +123,7 @@ func (Texture) List(w http.ResponseWriter, r *http.Request) {
 
 		thumbnail, _ := doc["Thumbnail"].(string)
 
-		info := texture.Model{
+		info := Model{
 			ID:           doc["_id"].(primitive.ObjectID).Hex(),
 			Name:         doc["Name"].(string),
 			CategoryID:   categoryID,
@@ -259,7 +258,7 @@ func (Texture) Add(w http.ResponseWriter, r *http.Request) {
 	doc["TotalPinYin"] = pinyin.TotalPinYin
 
 	if len(files) == 6 { // 立体贴图
-		doc["Type"] = texture.Cube
+		doc["Type"] = Cube
 
 		doc1 := bson.M{
 			"PosX": fmt.Sprintf("%v/%v", savePath, files["posX"][0].Filename),
@@ -272,13 +271,13 @@ func (Texture) Add(w http.ResponseWriter, r *http.Request) {
 
 		doc["Url"] = doc1
 	} else if strings.ToLower(filepath.Ext(file.Filename)) == ".mp4" { // 视频贴图
-		doc["Type"] = texture.Video
+		doc["Type"] = Video
 		doc["Url"] = fmt.Sprintf("%v/%v", savePath, fileName)
 	} else if fileType == "skyBall" {
-		doc["Type"] = texture.SkyBall
+		doc["Type"] = SkyBall
 		doc["Url"] = fmt.Sprintf("%v/%v", savePath, fileName)
 	} else {
-		doc["Type"] = texture.Unknown
+		doc["Type"] = Unknown
 		doc["Url"] = fmt.Sprintf("%v/%v", savePath, fileName)
 	}
 
