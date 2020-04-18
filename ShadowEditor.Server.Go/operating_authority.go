@@ -1,13 +1,11 @@
 package shadoweditor
 
-import "github.com/tengge1/shadoweditor/model/system"
-
 // GetAllOperatingAuthorities returns all operatingAuthorities.
-func GetAllOperatingAuthorities() []system.OperatingAuthority {
-	authorities := []system.OperatingAuthority{}
+func GetAllOperatingAuthorities() []OperatingAuthority {
+	authorities := []OperatingAuthority{}
 
-	for key, value := range OperatingAuthority {
-		authorities = append(authorities, system.OperatingAuthority{
+	for key, value := range OperatingAuthorities {
+		authorities = append(authorities, OperatingAuthority{
 			ID:   key,
 			Name: value,
 		})
@@ -16,8 +14,16 @@ func GetAllOperatingAuthorities() []system.OperatingAuthority {
 	return authorities
 }
 
-// OperatingAuthority all operating authorities
-var OperatingAuthority = map[string]string{
+// OperatingAuthority 操作权限模型
+type OperatingAuthority struct {
+	// 权限ID
+	ID string
+	// 权限名称
+	Name string
+}
+
+// OperatingAuthorities all operating authorities
+var OperatingAuthorities = map[string]string{
 	"ADMINISTRATOR":     Administrator,
 	"LOGIN":             Login,
 	"LIST_ANIMATION":    ListAnimation,

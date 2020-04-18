@@ -9,7 +9,7 @@ import (
 	shadow "github.com/tengge1/shadoweditor"
 	"github.com/tengge1/shadoweditor/context"
 	"github.com/tengge1/shadoweditor/helper"
-	"github.com/tengge1/shadoweditor/model"
+	"github.com/tengge1/shadoweditor/server"
 )
 
 func init() {
@@ -89,7 +89,7 @@ func (Category) List(w http.ResponseWriter, r *http.Request) {
 		list = append(list, obj)
 	}
 
-	helper.WriteJSON(w, model.Result{
+	helper.WriteJSON(w, server.Result{
 		Code: 200,
 		Msg:  "Get Successfully!",
 		Data: list,

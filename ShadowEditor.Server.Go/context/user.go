@@ -9,11 +9,11 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 
 	shadow "github.com/tengge1/shadoweditor"
-	"github.com/tengge1/shadoweditor/model/system"
+	"github.com/tengge1/shadoweditor/server/system/model"
 )
 
 // GetCurrentUser get the current login user
-func GetCurrentUser(r *http.Request) (*system.User, error) {
+func GetCurrentUser(r *http.Request) (*model.User, error) {
 	cookies := r.Cookies()
 
 	if len(cookies) == 0 {
@@ -42,7 +42,7 @@ func GetCurrentUser(r *http.Request) (*system.User, error) {
 }
 
 // GetUser get a user from userID.
-func GetUser(userID string) (*system.User, error) {
+func GetUser(userID string) (*model.User, error) {
 	objectID, err := primitive.ObjectIDFromHex(userID)
 	if err != nil {
 		return nil, err
@@ -57,7 +57,7 @@ func GetUser(userID string) (*system.User, error) {
 		"ID": objectID,
 	}
 
-	user := system.User{}
+	user := model.User{}
 
 	find, err := mongo.FindOne(shadow.UserCollectionName, filter, &user)
 	if err != nil {
@@ -78,7 +78,7 @@ func GetUser(userID string) (*system.User, error) {
 			"ID": objectID,
 		}
 
-		role := system.Role{}
+		role := model.Role{}
 		find, err = mongo.FindOne(shadow.RoleCollectionName, filter, &role)
 		if err != nil {
 			return nil, err
@@ -104,7 +104,7 @@ func GetUser(userID string) (*system.User, error) {
 				}
 
 				for cursor.Next(context.TODO()) {
-					authority := system.RoleAuthority{}
+					authority := model.RoleAuthority{}
 					cursor.Decode(&authority)
 
 					user.OperatingAuthorities = append(user.OperatingAuthorities, authority.AuthorityID)

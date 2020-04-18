@@ -18,7 +18,7 @@ import (
 	shadow "github.com/tengge1/shadoweditor"
 	"github.com/tengge1/shadoweditor/context"
 	"github.com/tengge1/shadoweditor/helper"
-	"github.com/tengge1/shadoweditor/model"
+	"github.com/tengge1/shadoweditor/server"
 	"github.com/tengge1/shadoweditor/server/category"
 )
 
@@ -40,7 +40,7 @@ func (Texture) List(w http.ResponseWriter, r *http.Request) {
 
 	db, err := context.Mongo()
 	if err != nil {
-		helper.WriteJSON(w, model.Result{
+		helper.WriteJSON(w, server.Result{
 			Code: 300,
 			Msg:  err.Error(),
 		})
@@ -137,7 +137,7 @@ func (Texture) List(w http.ResponseWriter, r *http.Request) {
 		list = append(list, info)
 	}
 
-	helper.WriteJSON(w, model.Result{
+	helper.WriteJSON(w, server.Result{
 		Code: 200,
 		Msg:  "Get Successfully!",
 		Data: list,
@@ -151,7 +151,7 @@ func (Texture) Add(w http.ResponseWriter, r *http.Request) {
 
 	// 校验上传文件
 	if len(files) != 1 && len(files) != 6 {
-		helper.WriteJSON(w, model.Result{
+		helper.WriteJSON(w, server.Result{
 			Code: 300,
 			Msg:  "Only one or six files is allowed to upload!",
 		})
@@ -166,7 +166,7 @@ func (Texture) Add(w http.ResponseWriter, r *http.Request) {
 				strings.ToLower(ext) != ".png" &&
 				strings.ToLower(ext) != ".gif" &&
 				strings.ToLower(ext) != ".mp4" {
-			helper.WriteJSON(w, model.Result{
+			helper.WriteJSON(w, server.Result{
 				Code: 300,
 				Msg:  "Only jpg, png, mp4 file is allowed to upload!",
 			})
@@ -187,7 +187,7 @@ func (Texture) Add(w http.ResponseWriter, r *http.Request) {
 	for _, val := range files {
 		target, err := os.Create(fmt.Sprintf("%v/%v", physicalPath, val[0].Filename))
 		if err != nil {
-			helper.WriteJSON(w, model.Result{
+			helper.WriteJSON(w, server.Result{
 				Code: 300,
 				Msg:  err.Error(),
 			})
@@ -197,7 +197,7 @@ func (Texture) Add(w http.ResponseWriter, r *http.Request) {
 
 		source, err := val[0].Open()
 		if err != nil {
-			helper.WriteJSON(w, model.Result{
+			helper.WriteJSON(w, server.Result{
 				Code: 300,
 				Msg:  err.Error(),
 			})
@@ -226,7 +226,7 @@ func (Texture) Add(w http.ResponseWriter, r *http.Request) {
 
 	db, err := context.Mongo()
 	if err != nil {
-		helper.WriteJSON(w, model.Result{
+		helper.WriteJSON(w, server.Result{
 			Code: 300,
 			Msg:  err.Error(),
 		})
@@ -292,7 +292,7 @@ func (Texture) Add(w http.ResponseWriter, r *http.Request) {
 
 	db.InsertOne(shadow.MapCollectionName, doc)
 
-	helper.WriteJSON(w, model.Result{
+	helper.WriteJSON(w, server.Result{
 		Code: 200,
 		Msg:  "Upload successfully!",
 	})
@@ -307,7 +307,7 @@ func (Texture) Edit(w http.ResponseWriter, r *http.Request) {
 	category := strings.TrimSpace(r.FormValue("Category"))
 
 	if err != nil {
-		helper.WriteJSON(w, model.Result{
+		helper.WriteJSON(w, server.Result{
 			Code: 300,
 			Msg:  "ID is not allowed.",
 		})
@@ -315,7 +315,7 @@ func (Texture) Edit(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if name == "" {
-		helper.WriteJSON(w, model.Result{
+		helper.WriteJSON(w, server.Result{
 			Code: 300,
 			Msg:  "Name is not allowed to be empty.",
 		})
@@ -324,7 +324,7 @@ func (Texture) Edit(w http.ResponseWriter, r *http.Request) {
 
 	db, err := context.Mongo()
 	if err != nil {
-		helper.WriteJSON(w, model.Result{
+		helper.WriteJSON(w, server.Result{
 			Code: 300,
 			Msg:  err.Error(),
 		})
@@ -357,7 +357,7 @@ func (Texture) Edit(w http.ResponseWriter, r *http.Request) {
 
 	db.UpdateOne(shadow.MapCollectionName, filter, update)
 
-	helper.WriteJSON(w, model.Result{
+	helper.WriteJSON(w, server.Result{
 		Code: 200,
 		Msg:  "Saved successfully!",
 	})
@@ -368,7 +368,7 @@ func (Texture) Delete(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	id, err := primitive.ObjectIDFromHex(strings.TrimSpace(r.FormValue("ID")))
 	if err != nil {
-		helper.WriteJSON(w, model.Result{
+		helper.WriteJSON(w, server.Result{
 			Code: 300,
 			Msg:  "ID is not allowed.",
 		})
@@ -377,7 +377,7 @@ func (Texture) Delete(w http.ResponseWriter, r *http.Request) {
 
 	db, err := context.Mongo()
 	if err != nil {
-		helper.WriteJSON(w, model.Result{
+		helper.WriteJSON(w, server.Result{
 			Code: 300,
 			Msg:  err.Error(),
 		})
@@ -392,7 +392,7 @@ func (Texture) Delete(w http.ResponseWriter, r *http.Request) {
 	find, _ := db.FindOne(shadow.MapCollectionName, filter, &doc)
 
 	if !find {
-		helper.WriteJSON(w, model.Result{
+		helper.WriteJSON(w, server.Result{
 			Code: 300,
 			Msg:  "The asset is not existed!",
 		})
@@ -405,7 +405,7 @@ func (Texture) Delete(w http.ResponseWriter, r *http.Request) {
 
 	err = os.RemoveAll(physicalPath)
 	if err != nil {
-		helper.WriteJSON(w, model.Result{
+		helper.WriteJSON(w, server.Result{
 			Code: 300,
 			Msg:  err.Error(),
 		})
@@ -414,7 +414,7 @@ func (Texture) Delete(w http.ResponseWriter, r *http.Request) {
 
 	db.DeleteOne(shadow.MapCollectionName, filter)
 
-	helper.WriteJSON(w, model.Result{
+	helper.WriteJSON(w, server.Result{
 		Code: 200,
 		Msg:  "Delete successfully!",
 	})

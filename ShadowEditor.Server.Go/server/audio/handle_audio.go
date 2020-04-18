@@ -10,7 +10,7 @@ import (
 	shadow "github.com/tengge1/shadoweditor"
 	"github.com/tengge1/shadoweditor/context"
 	"github.com/tengge1/shadoweditor/helper"
-	"github.com/tengge1/shadoweditor/model"
+	"github.com/tengge1/shadoweditor/server"
 	"github.com/tengge1/shadoweditor/server/category"
 )
 
@@ -32,7 +32,7 @@ func (Audio) List(w http.ResponseWriter, r *http.Request) {
 
 	db, err := context.Mongo()
 	if err != nil {
-		helper.WriteJSON(w, model.Result{
+		helper.WriteJSON(w, server.Result{
 			Code: 300,
 			Msg:  err.Error(),
 		})
@@ -113,7 +113,7 @@ func (Audio) List(w http.ResponseWriter, r *http.Request) {
 		list = append(list, info)
 	}
 
-	helper.WriteJSON(w, model.Result{
+	helper.WriteJSON(w, server.Result{
 		Code: 200,
 		Msg:  "Get Successfully!",
 		Data: list,

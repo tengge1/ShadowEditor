@@ -12,7 +12,7 @@ import (
 	shadow "github.com/tengge1/shadoweditor"
 	"github.com/tengge1/shadoweditor/context"
 	"github.com/tengge1/shadoweditor/helper"
-	"github.com/tengge1/shadoweditor/model"
+	"github.com/tengge1/shadoweditor/server"
 	"github.com/tengge1/shadoweditor/server/category"
 )
 
@@ -34,7 +34,7 @@ func (Animation) List(w http.ResponseWriter, r *http.Request) {
 
 	db, err := context.Mongo()
 	if err != nil {
-		helper.WriteJSON(w, model.Result{
+		helper.WriteJSON(w, server.Result{
 			Code: 300,
 			Msg:  err.Error(),
 		})
@@ -116,7 +116,7 @@ func (Animation) List(w http.ResponseWriter, r *http.Request) {
 		list = append(list, info)
 	}
 
-	helper.WriteJSON(w, model.Result{
+	helper.WriteJSON(w, server.Result{
 		Code: 200,
 		Msg:  "Get Successfully!",
 		Data: list,
@@ -133,7 +133,7 @@ func (Animation) Edit(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	id, err := primitive.ObjectIDFromHex(r.FormValue("ID"))
 	if err != nil {
-		helper.WriteJSON(w, model.Result{
+		helper.WriteJSON(w, server.Result{
 			Code: 300,
 			Msg:  "ID is not allowed.",
 		})
@@ -142,7 +142,7 @@ func (Animation) Edit(w http.ResponseWriter, r *http.Request) {
 	description := strings.TrimSpace(r.FormValue("Description"))
 
 	if name == "" {
-		helper.WriteJSON(w, model.Result{
+		helper.WriteJSON(w, server.Result{
 			Code: 300,
 			Msg:  "Name is not allowed to be empty.",
 		})
@@ -151,7 +151,7 @@ func (Animation) Edit(w http.ResponseWriter, r *http.Request) {
 
 	db, err := context.Mongo()
 	if err != nil {
-		helper.WriteJSON(w, model.Result{
+		helper.WriteJSON(w, server.Result{
 			Code: 300,
 			Msg:  err.Error(),
 		})
@@ -166,7 +166,7 @@ func (Animation) Edit(w http.ResponseWriter, r *http.Request) {
 	find, _ := db.FindOne(shadow.RoleCollectionName, filter, &doc)
 
 	if !find {
-		helper.WriteJSON(w, model.Result{
+		helper.WriteJSON(w, server.Result{
 			Code: 300,
 			Msg:  "The role is not existed.",
 		})
@@ -176,7 +176,7 @@ func (Animation) Edit(w http.ResponseWriter, r *http.Request) {
 	roleName := doc["Name"].(string)
 
 	if roleName == "Administrator" || roleName == "User" || roleName == "Guest" {
-		helper.WriteJSON(w, model.Result{
+		helper.WriteJSON(w, server.Result{
 			Code: 300,
 			Msg:  "Modifying system built-in roles is not allowed.",
 		})
@@ -194,7 +194,7 @@ func (Animation) Edit(w http.ResponseWriter, r *http.Request) {
 
 	db.UpdateOne(shadow.RoleCollectionName, filter, update)
 
-	helper.WriteJSON(w, model.Result{
+	helper.WriteJSON(w, server.Result{
 		Code: 200,
 		Msg:  "Saved successfully!",
 	})
@@ -205,7 +205,7 @@ func (Animation) Delete(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	id, err := primitive.ObjectIDFromHex(r.FormValue("ID"))
 	if err != nil {
-		helper.WriteJSON(w, model.Result{
+		helper.WriteJSON(w, server.Result{
 			Code: 300,
 			Msg:  "ID is not allowed.",
 		})
@@ -214,7 +214,7 @@ func (Animation) Delete(w http.ResponseWriter, r *http.Request) {
 
 	db, err := context.Mongo()
 	if err != nil {
-		helper.WriteJSON(w, model.Result{
+		helper.WriteJSON(w, server.Result{
 			Code: 300,
 			Msg:  err.Error(),
 		})
@@ -229,7 +229,7 @@ func (Animation) Delete(w http.ResponseWriter, r *http.Request) {
 	find, _ := db.FindOne(shadow.RoleCollectionName, filter, &doc)
 
 	if !find {
-		helper.WriteJSON(w, model.Result{
+		helper.WriteJSON(w, server.Result{
 			Code: 300,
 			Msg:  "The role is not existed.",
 		})
@@ -239,7 +239,7 @@ func (Animation) Delete(w http.ResponseWriter, r *http.Request) {
 	roleName := doc["Name"].(string)
 
 	if roleName == "Administrator" || roleName == "User" || roleName == "Guest" {
-		helper.WriteJSON(w, model.Result{
+		helper.WriteJSON(w, server.Result{
 			Code: 300,
 			Msg:  "It is not allowed to delete system built-in roles.",
 		})
@@ -253,7 +253,7 @@ func (Animation) Delete(w http.ResponseWriter, r *http.Request) {
 
 	db.UpdateOne(shadow.RoleCollectionName, filter, update)
 
-	helper.WriteJSON(w, model.Result{
+	helper.WriteJSON(w, server.Result{
 		Code: 200,
 		Msg:  "Delete successfully!",
 	})

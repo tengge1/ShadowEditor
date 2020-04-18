@@ -8,7 +8,7 @@ import (
 	shadow "github.com/tengge1/shadoweditor"
 	"github.com/tengge1/shadoweditor/context"
 	"github.com/tengge1/shadoweditor/helper"
-	"github.com/tengge1/shadoweditor/model"
+	"github.com/tengge1/shadoweditor/server"
 )
 
 func init() {
@@ -101,7 +101,7 @@ func (Assets) List(w http.ResponseWriter, r *http.Request) {
 
 // AssetsResult a result contains assets nums
 type AssetsResult struct {
-	model.Result
+	server.Result
 	SceneCount      int64 `json:"sceneCount"`
 	MeshCount       int64 `json:"meshCount"`
 	MapCount        int64 `json:"mapCount"`
