@@ -13,7 +13,6 @@ import (
 	"github.com/tengge1/shadoweditor/context"
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/model"
-	"github.com/tengge1/shadoweditor/model/video"
 	"github.com/tengge1/shadoweditor/server/category"
 )
 
@@ -84,7 +83,7 @@ func (Video) List(w http.ResponseWriter, r *http.Request) {
 		db.FindAll(shadow.VideoCollectionName, &docs, &opts)
 	}
 
-	list := []video.Model{}
+	list := []Model{}
 
 	for _, i := range docs {
 		doc := i.(primitive.D).Map()
@@ -103,7 +102,7 @@ func (Video) List(w http.ResponseWriter, r *http.Request) {
 
 		thumbnail, _ := doc["Thumbnail"].(string)
 
-		info := video.Model{
+		info := Model{
 			ID:           doc["_id"].(primitive.ObjectID).Hex(),
 			Name:         doc["Name"].(string),
 			CategoryID:   categoryID,
