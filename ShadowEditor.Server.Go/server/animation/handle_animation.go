@@ -7,7 +7,6 @@ import (
 
 	"go.mongodb.org/mongo-driver/mongo/options"
 
-	"github.com/tengge1/shadoweditor/model/animation"
 	"github.com/tengge1/shadoweditor/model/category"
 
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -86,7 +85,7 @@ func (Animation) List(w http.ResponseWriter, r *http.Request) {
 		db.FindAll(shadow.AnimationCollectionName, &docs, &opts)
 	}
 
-	list := []animation.Model{}
+	list := []Model{}
 	for _, i := range docs {
 		doc := i.(primitive.D).Map()
 		categoryID := ""
@@ -104,7 +103,7 @@ func (Animation) List(w http.ResponseWriter, r *http.Request) {
 
 		thumbnail, _ := doc["Thumbnail"].(string)
 
-		info := animation.Model{
+		info := Model{
 			ID:           doc["_id"].(primitive.ObjectID).Hex(),
 			Name:         doc["Name"].(string),
 			CategoryID:   categoryID,
