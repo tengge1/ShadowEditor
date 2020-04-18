@@ -11,7 +11,6 @@ import (
 	"github.com/tengge1/shadoweditor/context"
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/model"
-	"github.com/tengge1/shadoweditor/model/scene"
 	"github.com/tengge1/shadoweditor/server/category"
 )
 
@@ -89,7 +88,7 @@ func (Scene) List(w http.ResponseWriter, r *http.Request) {
 		db.FindAll(shadow.SceneCollectionName, &docs, &opts)
 	}
 
-	list := []scene.Model{}
+	list := []Model{}
 
 	for _, i := range docs {
 		doc := i.(primitive.D).Map()
@@ -117,7 +116,7 @@ func (Scene) List(w http.ResponseWriter, r *http.Request) {
 			isPublic = doc["IsPublic"].(bool)
 		}
 
-		info := scene.Model{
+		info := Model{
 			ID:             doc["ID"].(primitive.ObjectID).Hex(),
 			Name:           doc["Name"].(string),
 			CategoryID:     categoryID,
