@@ -1,31 +1,31 @@
 package category
 
 // Type 类别类型
-type Type int
+type Type string
 
 const (
 	// Scene 场景
-	Scene Type = iota
+	Scene Type = "Scene"
 	// Mesh 网格模型
-	Mesh
+	Mesh Type = "Mesh"
 	// Map 贴图
-	Map
+	Map Type = "Map"
 	// Texture 纹理
-	Texture
+	Texture Type = "Texture"
 	// Material 材质
-	Material
+	Material Type = "Material"
 	// Audio 音频
-	Audio
+	Audio Type = "Audio"
 	// Animation 动画
-	Animation
+	Animation Type = "Animation"
 	// Particle 粒子
-	Particle
+	Particle Type = "Particle"
 	// Prefab 预设体
-	Prefab
+	Prefab Type = "Prefab"
 	// Character 角色
-	Character
+	Character Type = "Character"
 	// Screenshot 截图
-	Screenshot
+	Screenshot Type = "Screenshot"
 	// Video 视频
-	Video
+	Video Type = "Video"
 )
