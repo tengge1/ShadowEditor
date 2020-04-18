@@ -7,7 +7,6 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo/options"
 
-	shadow "github.com/tengge1/shadoweditor"
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server"
 	"github.com/tengge1/shadoweditor/server/category"
@@ -44,7 +43,7 @@ func (Mesh) List(w http.ResponseWriter, r *http.Request) {
 		"Type": "Mesh",
 	}
 	categories := []category.Model{}
-	db.FindMany(shadow.CategoryCollectionName, filter, &categories)
+	db.FindMany(server.CategoryCollectionName, filter, &categories)
 
 	docs := bson.A{}
 
@@ -75,10 +74,10 @@ func (Mesh) List(w http.ResponseWriter, r *http.Request) {
 					},
 				}
 			}
-			db.FindMany(shadow.MeshCollectionName, filter1, &docs, &opts)
+			db.FindMany(server.MeshCollectionName, filter1, &docs, &opts)
 		}
 	} else {
-		db.FindAll(shadow.MeshCollectionName, &docs, &opts)
+		db.FindAll(server.MeshCollectionName, &docs, &opts)
 	}
 
 	list := []Model{}

@@ -7,7 +7,6 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo/options"
 
-	shadow "github.com/tengge1/shadoweditor"
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server"
 	"github.com/tengge1/shadoweditor/server/category"
@@ -44,7 +43,7 @@ func (Material) List(w http.ResponseWriter, r *http.Request) {
 		"Type": "Material",
 	}
 	categories := []category.Model{}
-	db.FindMany(shadow.CategoryCollectionName, filter, &categories)
+	db.FindMany(server.CategoryCollectionName, filter, &categories)
 
 	docs := bson.A{}
 
@@ -75,10 +74,10 @@ func (Material) List(w http.ResponseWriter, r *http.Request) {
 					},
 				}
 			}
-			db.FindMany(shadow.MaterialCollectionName, filter1, &docs, &opts)
+			db.FindMany(server.MaterialCollectionName, filter1, &docs, &opts)
 		}
 	} else {
-		db.FindAll(shadow.MaterialCollectionName, &docs, &opts)
+		db.FindAll(server.MaterialCollectionName, &docs, &opts)
 	}
 
 	list := []Model{}

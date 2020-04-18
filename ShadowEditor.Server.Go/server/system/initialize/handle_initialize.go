@@ -6,7 +6,6 @@ import (
 
 	"go.mongodb.org/mongo-driver/bson/primitive"
 
-	shadow "github.com/tengge1/shadoweditor"
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server"
 	"go.mongodb.org/mongo-driver/bson"
@@ -46,7 +45,7 @@ func (Initialize) Initialize(w http.ResponseWriter, r *http.Request) {
 	}
 
 	doc := bson.M{}
-	find, err := db.FindOne(shadow.ConfigCollectionName, bson.M{}, &doc)
+	find, err := db.FindOne(server.ConfigCollectionName, bson.M{}, &doc)
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
@@ -75,7 +74,7 @@ func (Initialize) Initialize(w http.ResponseWriter, r *http.Request) {
 			"Initialized":         true,
 			"DefaultRegisterRole": defaultRegisterRoleID,
 		}
-		db.InsertOne(shadow.ConfigCollectionName, doc)
+		db.InsertOne(server.ConfigCollectionName, doc)
 	} else {
 		filter11 := bson.M{
 			"_id": doc["_id"].(primitive.ObjectID),
@@ -91,7 +90,7 @@ func (Initialize) Initialize(w http.ResponseWriter, r *http.Request) {
 			},
 		}
 		update13 := bson.A{update11, update12}
-		db.UpdateOne(shadow.ConfigCollectionName, filter11, update13)
+		db.UpdateOne(server.ConfigCollectionName, filter11, update13)
 	}
 
 	// 初始化角色
@@ -109,7 +108,7 @@ func (Initialize) Initialize(w http.ResponseWriter, r *http.Request) {
 	filter := bson.M{
 		"$or": bson.A{filter1, filter2, filter3},
 	}
-	db.DeleteMany(shadow.RoleCollectionName, filter)
+	db.DeleteMany(server.RoleCollectionName, filter)
 
 	adminRoleID := primitive.NewObjectID() // 管理员RoleID
 
@@ -131,7 +130,7 @@ func (Initialize) Initialize(w http.ResponseWriter, r *http.Request) {
 		"Status":      0,
 	}
 
-	db.InsertMany(shadow.RoleCollectionName, bson.A{role1, role2})
+	db.InsertMany(server.RoleCollectionName, bson.A{role1, role2})
 
 	// 初始化用户
 	password := "123456"
@@ -153,7 +152,7 @@ func (Initialize) Initialize(w http.ResponseWriter, r *http.Request) {
 		"Status":     0,
 	}
 
-	db.InsertOne(shadow.UserCollectionName, user)
+	db.InsertOne(server.UserCollectionName, user)
 
 	helper.WriteJSON(w, server.Result{
 		Code: 200,
@@ -176,37 +175,37 @@ func (Initialize) Reset(w http.ResponseWriter, r *http.Request) {
 
 	// 备份数据表
 	docs := bson.A{}
-	db.FindMany(shadow.ConfigCollectionName, bson.M{}, &docs)
+	db.FindMany(server.ConfigCollectionName, bson.M{}, &docs)
 	if len(docs) > 0 {
-		db.InsertMany(shadow.ConfigCollectionName+now, docs)
+		db.InsertMany(server.ConfigCollectionName+now, docs)
 	}
 
-	db.FindMany(shadow.RoleCollectionName, bson.M{}, &docs)
+	db.FindMany(server.RoleCollectionName, bson.M{}, &docs)
 	if len(docs) > 0 {
-		db.InsertMany(shadow.RoleCollectionName+now, docs)
+		db.InsertMany(server.RoleCollectionName+now, docs)
 	}
 
-	db.FindMany(shadow.UserCollectionName, bson.M{}, &docs)
+	db.FindMany(server.UserCollectionName, bson.M{}, &docs)
 	if len(docs) > 0 {
-		db.InsertMany(shadow.UserCollectionName+now, docs)
+		db.InsertMany(server.UserCollectionName+now, docs)
 	}
 
-	db.FindMany(shadow.DepartmentCollectionName, bson.M{}, &docs)
+	db.FindMany(server.DepartmentCollectionName, bson.M{}, &docs)
 	if len(docs) > 2 {
-		db.InsertMany(shadow.DepartmentCollectionName+now, docs)
+		db.InsertMany(server.DepartmentCollectionName+now, docs)
 	}
 
-	db.FindMany(shadow.OperatingAuthorityCollectionName, bson.M{}, &docs)
+	db.FindMany(server.OperatingAuthorityCollectionName, bson.M{}, &docs)
 	if len(docs) > 0 {
-		db.InsertMany(shadow.OperatingAuthorityCollectionName+now, docs)
+		db.InsertMany(server.OperatingAuthorityCollectionName+now, docs)
 	}
 
 	// 清除数据表
-	db.DropCollection(shadow.ConfigCollectionName)
-	db.DropCollection(shadow.RoleCollectionName)
-	db.DropCollection(shadow.UserCollectionName)
-	db.DropCollection(shadow.DepartmentCollectionName)
-	db.DropCollection(shadow.OperatingAuthorityCollectionName)
+	db.DropCollection(server.ConfigCollectionName)
+	db.DropCollection(server.RoleCollectionName)
+	db.DropCollection(server.UserCollectionName)
+	db.DropCollection(server.DepartmentCollectionName)
+	db.DropCollection(server.OperatingAuthorityCollectionName)
 
 	// 注销登录
 	// cookie := HttpContext.Current.Request.Cookies.Get(FormsAuthentication.FormsCookieName);

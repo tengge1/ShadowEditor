@@ -50,7 +50,7 @@ func (OperatingAuthority) Get(w http.ResponseWriter, r *http.Request) {
 		"ID": objectID,
 	}
 	doc := bson.M{}
-	find, _ := db.FindOne(shadow.RoleCollectionName, filter, &doc)
+	find, _ := db.FindOne(server.RoleCollectionName, filter, &doc)
 
 	if !find {
 		helper.WriteJSON(w, server.Result{
@@ -70,7 +70,7 @@ func (OperatingAuthority) Get(w http.ResponseWriter, r *http.Request) {
 
 	docs := []OperatingAuthorityModel{}
 
-	err = db.FindMany(shadow.OperatingAuthorityCollectionName, filter, &docs)
+	err = db.FindMany(server.OperatingAuthorityCollectionName, filter, &docs)
 
 	rows := []map[string]interface{}{}
 
@@ -142,7 +142,7 @@ func (OperatingAuthority) Save(w http.ResponseWriter, r *http.Request) {
 		"ID": objRoleID,
 	}
 	role := bson.M{}
-	find, _ := db.FindOne(shadow.RoleCollectionName, filter, &role)
+	find, _ := db.FindOne(server.RoleCollectionName, filter, &role)
 
 	if !find {
 		helper.WriteJSON(w, server.Result{
@@ -166,7 +166,7 @@ func (OperatingAuthority) Save(w http.ResponseWriter, r *http.Request) {
 	filter = bson.M{
 		"RoleID": roleID,
 	}
-	db.DeleteMany(shadow.OperatingAuthorityCollectionName, filter)
+	db.DeleteMany(server.OperatingAuthorityCollectionName, filter)
 
 	// 添加新权限
 	if len(authorities) > 0 {
@@ -179,7 +179,7 @@ func (OperatingAuthority) Save(w http.ResponseWriter, r *http.Request) {
 			})
 		}
 
-		db.InsertMany(shadow.OperatingAuthorityCollectionName, docs)
+		db.InsertMany(server.OperatingAuthorityCollectionName, docs)
 	}
 
 	helper.WriteJSON(w, server.Result{

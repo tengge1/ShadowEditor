@@ -7,7 +7,6 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 
-	shadow "github.com/tengge1/shadoweditor"
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server"
 	"github.com/tengge1/shadoweditor/server/system/model"
@@ -36,7 +35,7 @@ func (Department) List(w http.ResponseWriter, r *http.Request) {
 	// 获取所有用户
 	users := []model.User{}
 
-	err = db.FindMany(shadow.UserCollectionName, bson.M{}, &users)
+	err = db.FindMany(server.UserCollectionName, bson.M{}, &users)
 	if err != nil {
 		helper.Write(w, err.Error())
 		return
@@ -49,7 +48,7 @@ func (Department) List(w http.ResponseWriter, r *http.Request) {
 
 	list := []model.Department{}
 
-	err = db.FindMany(shadow.DepartmentCollectionName, filter, &list)
+	err = db.FindMany(server.DepartmentCollectionName, filter, &list)
 	if err != nil {
 		helper.Write(w, err.Error())
 		return
@@ -109,7 +108,7 @@ func (Department) Add(w http.ResponseWriter, r *http.Request) {
 		"Status":   0,
 	}
 
-	db.InsertOne(shadow.DepartmentCollectionName, doc)
+	db.InsertOne(server.DepartmentCollectionName, doc)
 
 	helper.WriteJSON(w, server.Result{
 		Code: 200,
@@ -172,7 +171,7 @@ func (Department) Edit(w http.ResponseWriter, r *http.Request) {
 	}
 	update := bson.A{update1, update2, update3}
 
-	_, err = db.UpdateOne(shadow.DepartmentCollectionName, filter, update)
+	_, err = db.UpdateOne(server.DepartmentCollectionName, filter, update)
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
@@ -215,7 +214,7 @@ func (Department) Delete(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var doc = bson.M{}
-	find, err := db.FindOne(shadow.DepartmentCollectionName, filter, &doc)
+	find, err := db.FindOne(server.DepartmentCollectionName, filter, &doc)
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
@@ -238,7 +237,7 @@ func (Department) Delete(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 
-	db.UpdateOne(shadow.DepartmentCollectionName, filter, update)
+	db.UpdateOne(server.DepartmentCollectionName, filter, update)
 
 	helper.WriteJSON(w, server.Result{
 		Code: 200,

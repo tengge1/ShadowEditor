@@ -15,7 +15,6 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo/options"
 
-	shadow "github.com/tengge1/shadoweditor"
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server"
 	"github.com/tengge1/shadoweditor/server/category"
@@ -51,7 +50,7 @@ func (Texture) List(w http.ResponseWriter, r *http.Request) {
 		"Type": "Map",
 	}
 	categories := []category.Model{}
-	db.FindMany(shadow.CategoryCollectionName, filter, &categories)
+	db.FindMany(server.CategoryCollectionName, filter, &categories)
 
 	docs := bson.A{}
 
@@ -82,10 +81,10 @@ func (Texture) List(w http.ResponseWriter, r *http.Request) {
 					},
 				}
 			}
-			db.FindMany(shadow.MapCollectionName, filter1, &docs, &opts)
+			db.FindMany(server.MapCollectionName, filter1, &docs, &opts)
 		}
 	} else {
-		db.FindAll(shadow.MapCollectionName, &docs, &opts)
+		db.FindAll(server.MapCollectionName, &docs, &opts)
 	}
 
 	list := []Model{}
@@ -289,7 +288,7 @@ func (Texture) Add(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	db.InsertOne(shadow.MapCollectionName, doc)
+	db.InsertOne(server.MapCollectionName, doc)
 
 	helper.WriteJSON(w, server.Result{
 		Code: 200,
@@ -354,7 +353,7 @@ func (Texture) Edit(w http.ResponseWriter, r *http.Request) {
 		set["Category"] = category
 	}
 
-	db.UpdateOne(shadow.MapCollectionName, filter, update)
+	db.UpdateOne(server.MapCollectionName, filter, update)
 
 	helper.WriteJSON(w, server.Result{
 		Code: 200,
@@ -388,7 +387,7 @@ func (Texture) Delete(w http.ResponseWriter, r *http.Request) {
 	}
 
 	doc := bson.M{}
-	find, _ := db.FindOne(shadow.MapCollectionName, filter, &doc)
+	find, _ := db.FindOne(server.MapCollectionName, filter, &doc)
 
 	if !find {
 		helper.WriteJSON(w, server.Result{
@@ -411,7 +410,7 @@ func (Texture) Delete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	db.DeleteOne(shadow.MapCollectionName, filter)
+	db.DeleteOne(server.MapCollectionName, filter)
 
 	helper.WriteJSON(w, server.Result{
 		Code: 200,

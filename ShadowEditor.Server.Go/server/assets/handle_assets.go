@@ -5,7 +5,6 @@ import (
 
 	"go.mongodb.org/mongo-driver/bson"
 
-	shadow "github.com/tengge1/shadoweditor"
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server"
 )
@@ -51,32 +50,32 @@ func (Assets) List(w http.ResponseWriter, r *http.Request) {
 				}
 			}
 
-			sceneCount, _ = db.Count(shadow.SceneCollectionName, filter)
-			meshCount, _ = db.Count(shadow.MeshCollectionName, filter)
-			mapCount, _ = db.Count(shadow.MapCollectionName, filter)
-			materialCount, _ = db.Count(shadow.MaterialCollectionName, filter)
-			audioCount, _ = db.Count(shadow.AudioCollectionName, filter)
-			animationCount, _ = db.Count(shadow.AnimationCollectionName, filter)
-			particleCount, _ = db.Count(shadow.ParticleCollectionName, filter)
-			prefabCount, _ = db.Count(shadow.PrefabCollectionName, filter)
-			characterCount, _ = db.Count(shadow.CharacterCollectionName, filter)
-			screenshotCount, _ = db.Count(shadow.ScreenshotCollectionName, filter)
-			videoCount, _ = db.Count(shadow.VideoCollectionName, filter)
+			sceneCount, _ = db.Count(server.SceneCollectionName, filter)
+			meshCount, _ = db.Count(server.MeshCollectionName, filter)
+			mapCount, _ = db.Count(server.MapCollectionName, filter)
+			materialCount, _ = db.Count(server.MaterialCollectionName, filter)
+			audioCount, _ = db.Count(server.AudioCollectionName, filter)
+			animationCount, _ = db.Count(server.AnimationCollectionName, filter)
+			particleCount, _ = db.Count(server.ParticleCollectionName, filter)
+			prefabCount, _ = db.Count(server.PrefabCollectionName, filter)
+			characterCount, _ = db.Count(server.CharacterCollectionName, filter)
+			screenshotCount, _ = db.Count(server.ScreenshotCollectionName, filter)
+			videoCount, _ = db.Count(server.VideoCollectionName, filter)
 		}
 	} else {
 		filter := bson.M{}
 
-		sceneCount, _ = db.Count(shadow.SceneCollectionName, filter)
-		meshCount, _ = db.Count(shadow.MeshCollectionName, filter)
-		mapCount, _ = db.Count(shadow.MapCollectionName, filter)
-		materialCount, _ = db.Count(shadow.MaterialCollectionName, filter)
-		audioCount, _ = db.Count(shadow.AudioCollectionName, filter)
-		animationCount, _ = db.Count(shadow.AnimationCollectionName, filter)
-		particleCount, _ = db.Count(shadow.ParticleCollectionName, filter)
-		prefabCount, _ = db.Count(shadow.PrefabCollectionName, filter)
-		characterCount, _ = db.Count(shadow.CharacterCollectionName, filter)
-		screenshotCount, _ = db.Count(shadow.ScreenshotCollectionName, filter)
-		videoCount, _ = db.Count(shadow.VideoCollectionName, filter)
+		sceneCount, _ = db.Count(server.SceneCollectionName, filter)
+		meshCount, _ = db.Count(server.MeshCollectionName, filter)
+		mapCount, _ = db.Count(server.MapCollectionName, filter)
+		materialCount, _ = db.Count(server.MaterialCollectionName, filter)
+		audioCount, _ = db.Count(server.AudioCollectionName, filter)
+		animationCount, _ = db.Count(server.AnimationCollectionName, filter)
+		particleCount, _ = db.Count(server.ParticleCollectionName, filter)
+		prefabCount, _ = db.Count(server.PrefabCollectionName, filter)
+		characterCount, _ = db.Count(server.CharacterCollectionName, filter)
+		screenshotCount, _ = db.Count(server.ScreenshotCollectionName, filter)
+		videoCount, _ = db.Count(server.VideoCollectionName, filter)
 	}
 
 	result := AssetsResult{

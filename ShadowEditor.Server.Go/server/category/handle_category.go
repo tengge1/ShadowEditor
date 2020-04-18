@@ -6,7 +6,6 @@ import (
 
 	"go.mongodb.org/mongo-driver/bson"
 
-	shadow "github.com/tengge1/shadoweditor"
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server"
 )
@@ -65,16 +64,16 @@ func (Category) List(w http.ResponseWriter, r *http.Request) {
 					},
 				}
 			}
-			db.FindMany(shadow.CategoryCollectionName, filter1, &docs)
+			db.FindMany(server.CategoryCollectionName, filter1, &docs)
 		}
 	} else {
 		if typ != "" {
 			filter1 := bson.M{
 				"Type": typ,
 			}
-			db.FindMany(shadow.CategoryCollectionName, filter1, &docs)
+			db.FindMany(server.CategoryCollectionName, filter1, &docs)
 		} else {
-			db.FindAll(shadow.CategoryCollectionName, &docs)
+			db.FindAll(server.CategoryCollectionName, &docs)
 		}
 	}
 

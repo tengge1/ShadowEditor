@@ -1,4 +1,4 @@
-package shadoweditor
+package server
 
 const (
 	// CategoryCollectionName category collection name

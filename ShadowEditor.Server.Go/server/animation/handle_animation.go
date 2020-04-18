@@ -9,7 +9,6 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo/options"
 
-	shadow "github.com/tengge1/shadoweditor"
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server"
 	"github.com/tengge1/shadoweditor/server/category"
@@ -45,7 +44,7 @@ func (Animation) List(w http.ResponseWriter, r *http.Request) {
 		"Type": "Animation",
 	}
 	categories := []category.Model{}
-	db.FindMany(shadow.CategoryCollectionName, filter, &categories)
+	db.FindMany(server.CategoryCollectionName, filter, &categories)
 
 	docs := bson.A{}
 
@@ -76,10 +75,10 @@ func (Animation) List(w http.ResponseWriter, r *http.Request) {
 					},
 				}
 			}
-			db.FindMany(shadow.AnimationCollectionName, filter1, &docs, &opts)
+			db.FindMany(server.AnimationCollectionName, filter1, &docs, &opts)
 		}
 	} else {
-		db.FindAll(shadow.AnimationCollectionName, &docs, &opts)
+		db.FindAll(server.AnimationCollectionName, &docs, &opts)
 	}
 
 	list := []Model{}
@@ -162,7 +161,7 @@ func (Animation) Edit(w http.ResponseWriter, r *http.Request) {
 		"ID": id,
 	}
 	doc := bson.M{}
-	find, _ := db.FindOne(shadow.RoleCollectionName, filter, &doc)
+	find, _ := db.FindOne(server.RoleCollectionName, filter, &doc)
 
 	if !find {
 		helper.WriteJSON(w, server.Result{
@@ -191,7 +190,7 @@ func (Animation) Edit(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 
-	db.UpdateOne(shadow.RoleCollectionName, filter, update)
+	db.UpdateOne(server.RoleCollectionName, filter, update)
 
 	helper.WriteJSON(w, server.Result{
 		Code: 200,
@@ -225,7 +224,7 @@ func (Animation) Delete(w http.ResponseWriter, r *http.Request) {
 	}
 
 	doc := bson.M{}
-	find, _ := db.FindOne(shadow.RoleCollectionName, filter, &doc)
+	find, _ := db.FindOne(server.RoleCollectionName, filter, &doc)
 
 	if !find {
 		helper.WriteJSON(w, server.Result{
@@ -250,7 +249,7 @@ func (Animation) Delete(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 
-	db.UpdateOne(shadow.RoleCollectionName, filter, update)
+	db.UpdateOne(server.RoleCollectionName, filter, update)
 
 	helper.WriteJSON(w, server.Result{
 		Code: 200,

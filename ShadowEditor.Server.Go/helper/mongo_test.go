@@ -3,12 +3,11 @@ package helper
 import (
 	"testing"
 
+	"github.com/tengge1/shadoweditor/server"
 	"go.mongodb.org/mongo-driver/mongo/options"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
-
-	shadow "github.com/tengge1/shadoweditor"
 )
 
 func TestMongo(t *testing.T) {
@@ -106,7 +105,7 @@ func TestSort(t *testing.T) {
 
 	results := bson.A{}
 
-	err = db.FindMany(shadow.UserCollectionName, bson.M{}, &results, &opts)
+	err = db.FindMany(server.UserCollectionName, bson.M{}, &results, &opts)
 	if err != nil {
 		t.Error(err)
 		return

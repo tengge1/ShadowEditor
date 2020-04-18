@@ -7,7 +7,6 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo/options"
 
-	shadow "github.com/tengge1/shadoweditor"
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server"
 	"github.com/tengge1/shadoweditor/server/category"
@@ -43,7 +42,7 @@ func (Audio) List(w http.ResponseWriter, r *http.Request) {
 		"Type": "Audio",
 	}
 	categories := []category.Model{}
-	db.FindMany(shadow.CategoryCollectionName, filter, &categories)
+	db.FindMany(server.CategoryCollectionName, filter, &categories)
 
 	docs := bson.A{}
 
@@ -74,10 +73,10 @@ func (Audio) List(w http.ResponseWriter, r *http.Request) {
 					},
 				}
 			}
-			db.FindMany(shadow.AudioCollectionName, filter1, &docs, &opts)
+			db.FindMany(server.AudioCollectionName, filter1, &docs, &opts)
 		}
 	} else {
-		db.FindAll(shadow.AudioCollectionName, &docs, &opts)
+		db.FindAll(server.AudioCollectionName, &docs, &opts)
 	}
 
 	list := []Model{}

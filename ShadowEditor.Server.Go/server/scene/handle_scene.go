@@ -7,7 +7,6 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo/options"
 
-	shadow "github.com/tengge1/shadoweditor"
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server"
 	"github.com/tengge1/shadoweditor/server/category"
@@ -40,7 +39,7 @@ func (Scene) List(w http.ResponseWriter, r *http.Request) {
 
 	// 获取所有类别
 	categories := []category.Model{}
-	db.FindAll(shadow.CategoryCollectionName, &categories)
+	db.FindAll(server.CategoryCollectionName, &categories)
 
 	docs := bson.A{}
 	opts := options.FindOptions{
@@ -76,15 +75,15 @@ func (Scene) List(w http.ResponseWriter, r *http.Request) {
 					},
 				}
 			}
-			db.FindMany(shadow.SceneCollectionName, filter1, &docs, &opts)
+			db.FindMany(server.SceneCollectionName, filter1, &docs, &opts)
 		} else { // 不登录可以查看所有公开场景
 			filter1 := bson.M{
 				"IsPublic": true,
 			}
-			db.FindMany(shadow.SceneCollectionName, filter1, &docs, &opts)
+			db.FindMany(server.SceneCollectionName, filter1, &docs, &opts)
 		}
 	} else {
-		db.FindAll(shadow.SceneCollectionName, &docs, &opts)
+		db.FindAll(server.SceneCollectionName, &docs, &opts)
 	}
 
 	list := []Model{}

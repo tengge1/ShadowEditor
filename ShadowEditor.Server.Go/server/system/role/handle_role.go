@@ -10,7 +10,6 @@ import (
 
 	"go.mongodb.org/mongo-driver/bson/primitive"
 
-	shadow "github.com/tengge1/shadoweditor"
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server"
 	"github.com/tengge1/shadoweditor/server/system/model"
@@ -82,10 +81,10 @@ func (Role) List(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 
-	total, _ := db.Count(shadow.RoleCollectionName, filter)
+	total, _ := db.Count(server.RoleCollectionName, filter)
 
 	docs := bson.A{}
-	err = db.FindMany(shadow.RoleCollectionName, filter, &docs, &opts)
+	err = db.FindMany(server.RoleCollectionName, filter, &docs, &opts)
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
@@ -145,7 +144,7 @@ func (Role) Add(w http.ResponseWriter, r *http.Request) {
 		"Name": name,
 	}
 
-	count, _ := db.Count(shadow.RoleCollectionName, filter)
+	count, _ := db.Count(server.RoleCollectionName, filter)
 
 	if count > 0 {
 		helper.WriteJSON(w, server.Result{
@@ -166,7 +165,7 @@ func (Role) Add(w http.ResponseWriter, r *http.Request) {
 		"Status":      0,
 	}
 
-	db.InsertOne(shadow.RoleCollectionName, doc)
+	db.InsertOne(server.RoleCollectionName, doc)
 
 	helper.WriteJSON(w, server.Result{
 		Code: 200,
@@ -209,7 +208,7 @@ func (Role) Edit(w http.ResponseWriter, r *http.Request) {
 		"ID": id,
 	}
 	doc := bson.M{}
-	find, _ := db.FindOne(shadow.RoleCollectionName, filter, &doc)
+	find, _ := db.FindOne(server.RoleCollectionName, filter, &doc)
 
 	if !find {
 		helper.WriteJSON(w, server.Result{
@@ -238,7 +237,7 @@ func (Role) Edit(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 
-	db.UpdateOne(shadow.RoleCollectionName, filter, update)
+	db.UpdateOne(server.RoleCollectionName, filter, update)
 
 	helper.WriteJSON(w, server.Result{
 		Code: 200,
@@ -272,7 +271,7 @@ func (Role) Delete(w http.ResponseWriter, r *http.Request) {
 	}
 
 	doc := bson.M{}
-	find, _ := db.FindOne(shadow.RoleCollectionName, filter, &doc)
+	find, _ := db.FindOne(server.RoleCollectionName, filter, &doc)
 
 	if !find {
 		helper.WriteJSON(w, server.Result{
@@ -297,7 +296,7 @@ func (Role) Delete(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 
-	db.UpdateOne(shadow.RoleCollectionName, filter, update)
+	db.UpdateOne(server.RoleCollectionName, filter, update)
 
 	helper.WriteJSON(w, server.Result{
 		Code: 200,

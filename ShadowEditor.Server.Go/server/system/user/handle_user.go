@@ -10,7 +10,6 @@ import (
 
 	"go.mongodb.org/mongo-driver/bson/primitive"
 
-	shadow "github.com/tengge1/shadoweditor"
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server"
 	"github.com/tengge1/shadoweditor/server/system/model"
@@ -55,11 +54,11 @@ func (User) List(w http.ResponseWriter, r *http.Request) {
 
 	// 获取所有角色
 	roles := []model.Role{}
-	db.FindAll(shadow.RoleCollectionName, &roles)
+	db.FindAll(server.RoleCollectionName, &roles)
 
 	// 获取所有机构
 	depts := []model.Department{}
-	db.FindAll(shadow.DepartmentCollectionName, &depts)
+	db.FindAll(server.DepartmentCollectionName, &depts)
 
 	// 获取用户
 	filter := bson.M{
@@ -105,10 +104,10 @@ func (User) List(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 
-	total, _ := db.Count(shadow.UserCollectionName, filter)
+	total, _ := db.Count(server.UserCollectionName, filter)
 
 	docs := bson.A{}
-	db.FindMany(shadow.UserCollectionName, filter, &docs, &opts)
+	db.FindMany(server.UserCollectionName, filter, &docs, &opts)
 
 	rows := []model.User{}
 
@@ -230,7 +229,7 @@ func (User) Add(w http.ResponseWriter, r *http.Request) {
 		"Username": username,
 	}
 
-	count, _ := db.Count(shadow.UserCollectionName, filter)
+	count, _ := db.Count(server.UserCollectionName, filter)
 
 	if count > 0 {
 		helper.WriteJSON(w, server.Result{
@@ -261,7 +260,7 @@ func (User) Add(w http.ResponseWriter, r *http.Request) {
 		"Status":     0,
 	}
 
-	_, err = db.InsertOne(shadow.UserCollectionName, doc)
+	_, err = db.InsertOne(server.UserCollectionName, doc)
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
@@ -338,7 +337,7 @@ func (User) Edit(w http.ResponseWriter, r *http.Request) {
 		"ID": id,
 	}
 	doc := bson.M{}
-	find, _ := db.FindOne(shadow.UserCollectionName, filter, &doc)
+	find, _ := db.FindOne(server.UserCollectionName, filter, &doc)
 
 	if !find {
 		helper.WriteJSON(w, server.Result{
@@ -374,7 +373,7 @@ func (User) Edit(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 
-	count, _ := db.Count(shadow.UserCollectionName, filter)
+	count, _ := db.Count(server.UserCollectionName, filter)
 	if count > 0 {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
@@ -397,7 +396,7 @@ func (User) Edit(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 
-	db.UpdateOne(shadow.UserCollectionName, filter, update)
+	db.UpdateOne(server.UserCollectionName, filter, update)
 
 	helper.WriteJSON(w, server.Result{
 		Code: 200,
@@ -430,7 +429,7 @@ func (User) Delete(w http.ResponseWriter, r *http.Request) {
 		"ID": id,
 	}
 	doc := bson.M{}
-	find, _ := db.FindOne(shadow.UserCollectionName, filter, &doc)
+	find, _ := db.FindOne(server.UserCollectionName, filter, &doc)
 
 	if !find {
 		helper.WriteJSON(w, server.Result{
@@ -456,7 +455,7 @@ func (User) Delete(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 
-	db.UpdateOne(shadow.UserCollectionName, filter, update)
+	db.UpdateOne(server.UserCollectionName, filter, update)
 
 	helper.WriteJSON(w, server.Result{
 		Code: 200,
@@ -557,7 +556,7 @@ func (User) ChangePassword(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	db.UpdateOne(shadow.UserCollectionName, filter, update)
+	db.UpdateOne(server.UserCollectionName, filter, update)
 
 	helper.WriteJSON(w, server.Result{
 		Code: 200,
@@ -617,7 +616,7 @@ func (User) ResetPassword(w http.ResponseWriter, r *http.Request) {
 		"ID": userID,
 	}
 	doc := bson.M{}
-	find, _ := db.FindOne(shadow.UserCollectionName, filter, &doc)
+	find, _ := db.FindOne(server.UserCollectionName, filter, &doc)
 
 	if !find {
 		helper.WriteJSON(w, server.Result{
@@ -638,7 +637,7 @@ func (User) ResetPassword(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 
-	db.UpdateOne(shadow.UserCollectionName, filter, update)
+	db.UpdateOne(server.UserCollectionName, filter, update)
 
 	helper.WriteJSON(w, server.Result{
 		Code: 200,

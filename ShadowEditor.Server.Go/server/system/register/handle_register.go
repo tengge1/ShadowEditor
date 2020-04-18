@@ -5,7 +5,6 @@ import (
 	"strings"
 	"time"
 
-	shadow "github.com/tengge1/shadoweditor"
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server"
 	"go.mongodb.org/mongo-driver/bson"
@@ -82,7 +81,7 @@ func (Register) Register(w http.ResponseWriter, r *http.Request) {
 		"Username": username,
 	}
 
-	count, _ := db.Count(shadow.UserCollectionName, filter)
+	count, _ := db.Count(server.UserCollectionName, filter)
 
 	if count > 0 {
 		helper.WriteJSON(w, server.Result{
@@ -96,7 +95,7 @@ func (Register) Register(w http.ResponseWriter, r *http.Request) {
 	defaultRegisterRole := ""
 
 	config := bson.M{}
-	find, _ := db.FindOne(shadow.ConfigCollectionName, bson.M{}, &config)
+	find, _ := db.FindOne(server.ConfigCollectionName, bson.M{}, &config)
 
 	if find && config["DefaultRegisterRole"] != nil {
 		defaultRegisterRole = config["DefaultRegisterRole"].(primitive.ObjectID).Hex()
@@ -106,7 +105,7 @@ func (Register) Register(w http.ResponseWriter, r *http.Request) {
 		}
 
 		role := bson.M{}
-		find, _ = db.FindOne(shadow.RoleCollectionName, filter, &role)
+		find, _ = db.FindOne(server.RoleCollectionName, filter, &role)
 		if !find {
 			helper.WriteJSON(w, server.Result{
 				Code: 300,
@@ -139,7 +138,7 @@ func (Register) Register(w http.ResponseWriter, r *http.Request) {
 		"Status":     0,
 	}
 
-	db.InsertOne(shadow.UserCollectionName, doc)
+	db.InsertOne(server.UserCollectionName, doc)
 
 	helper.WriteJSON(w, server.Result{
 		Code: 200,

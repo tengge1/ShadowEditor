@@ -6,7 +6,6 @@ import (
 
 	"go.mongodb.org/mongo-driver/bson/primitive"
 
-	shadow "github.com/tengge1/shadoweditor"
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server"
 	"go.mongodb.org/mongo-driver/bson"
@@ -59,7 +58,7 @@ func (Login) Login(w http.ResponseWriter, r *http.Request) {
 	}
 
 	user := bson.M{}
-	find, _ := db.FindOne(shadow.UserCollectionName, filter, &user)
+	find, _ := db.FindOne(server.UserCollectionName, filter, &user)
 	if !find {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
@@ -78,7 +77,7 @@ func (Login) Login(w http.ResponseWriter, r *http.Request) {
 		"$and": bson.A{filter, filter1},
 	}
 
-	find, _ = db.FindOne(shadow.UserCollectionName, filter, &user)
+	find, _ = db.FindOne(server.UserCollectionName, filter, &user)
 	if !find {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,

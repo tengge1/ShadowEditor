@@ -59,7 +59,7 @@ func GetUser(userID string) (*model.User, error) {
 
 	user := model.User{}
 
-	find, err := mongo.FindOne(shadow.UserCollectionName, filter, &user)
+	find, err := mongo.FindOne(UserCollectionName, filter, &user)
 	if err != nil {
 		return nil, err
 	}
@@ -79,7 +79,7 @@ func GetUser(userID string) (*model.User, error) {
 		}
 
 		role := model.Role{}
-		find, err = mongo.FindOne(shadow.RoleCollectionName, filter, &role)
+		find, err = mongo.FindOne(RoleCollectionName, filter, &role)
 		if err != nil {
 			return nil, err
 		}
@@ -98,7 +98,7 @@ func GetUser(userID string) (*model.User, error) {
 					"RoleID": role.ID,
 				}
 
-				cursor, err := mongo.Find(shadow.OperatingAuthorityCollectionName, filter)
+				cursor, err := mongo.Find(OperatingAuthorityCollectionName, filter)
 				if err != nil {
 					return nil, err
 				}

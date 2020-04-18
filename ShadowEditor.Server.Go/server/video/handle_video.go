@@ -9,7 +9,6 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo/options"
 
-	shadow "github.com/tengge1/shadoweditor"
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server"
 	"github.com/tengge1/shadoweditor/server/category"
@@ -45,7 +44,7 @@ func (Video) List(w http.ResponseWriter, r *http.Request) {
 		"Type": "Video",
 	}
 	categories := []category.Model{}
-	db.FindMany(shadow.CategoryCollectionName, filter, &categories)
+	db.FindMany(server.CategoryCollectionName, filter, &categories)
 
 	docs := bson.A{}
 
@@ -76,10 +75,10 @@ func (Video) List(w http.ResponseWriter, r *http.Request) {
 					},
 				}
 			}
-			db.FindMany(shadow.VideoCollectionName, filter1, &docs, &opts)
+			db.FindMany(server.VideoCollectionName, filter1, &docs, &opts)
 		}
 	} else {
-		db.FindAll(shadow.VideoCollectionName, &docs, &opts)
+		db.FindAll(server.VideoCollectionName, &docs, &opts)
 	}
 
 	list := []Model{}
@@ -163,7 +162,7 @@ func (Video) Edit(w http.ResponseWriter, r *http.Request) {
 		"ID": id,
 	}
 	doc := bson.M{}
-	find, _ := db.FindOne(shadow.RoleCollectionName, filter, &doc)
+	find, _ := db.FindOne(server.RoleCollectionName, filter, &doc)
 
 	if !find {
 		helper.WriteJSON(w, server.Result{
@@ -192,7 +191,7 @@ func (Video) Edit(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 
-	db.UpdateOne(shadow.RoleCollectionName, filter, update)
+	db.UpdateOne(server.RoleCollectionName, filter, update)
 
 	helper.WriteJSON(w, server.Result{
 		Code: 200,
@@ -226,7 +225,7 @@ func (Video) Delete(w http.ResponseWriter, r *http.Request) {
 	}
 
 	doc := bson.M{}
-	find, _ := db.FindOne(shadow.RoleCollectionName, filter, &doc)
+	find, _ := db.FindOne(server.RoleCollectionName, filter, &doc)
 
 	if !find {
 		helper.WriteJSON(w, server.Result{
@@ -251,7 +250,7 @@ func (Video) Delete(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 
-	db.UpdateOne(shadow.RoleCollectionName, filter, update)
+	db.UpdateOne(server.RoleCollectionName, filter, update)
 
 	helper.WriteJSON(w, server.Result{
 		Code: 200,

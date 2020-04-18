@@ -7,7 +7,6 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo/options"
 
-	shadow "github.com/tengge1/shadoweditor"
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server"
 	"github.com/tengge1/shadoweditor/server/category"
@@ -44,7 +43,7 @@ func (Prefab) List(w http.ResponseWriter, r *http.Request) {
 		"Type": "Prefab",
 	}
 	categories := []category.Model{}
-	db.FindMany(shadow.CategoryCollectionName, filter, &categories)
+	db.FindMany(server.CategoryCollectionName, filter, &categories)
 
 	docs := bson.A{}
 
@@ -75,10 +74,10 @@ func (Prefab) List(w http.ResponseWriter, r *http.Request) {
 					},
 				}
 			}
-			db.FindMany(shadow.PrefabCollectionName, filter1, &docs, &opts)
+			db.FindMany(server.PrefabCollectionName, filter1, &docs, &opts)
 		}
 	} else {
-		db.FindAll(shadow.PrefabCollectionName, &docs, &opts)
+		db.FindAll(server.PrefabCollectionName, &docs, &opts)
 	}
 
 	list := []Model{}
