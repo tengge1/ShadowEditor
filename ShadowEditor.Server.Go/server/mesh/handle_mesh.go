@@ -11,7 +11,6 @@ import (
 	"github.com/tengge1/shadoweditor/context"
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/model"
-	"github.com/tengge1/shadoweditor/model/mesh"
 	"github.com/tengge1/shadoweditor/server/category"
 )
 
@@ -83,7 +82,7 @@ func (Mesh) List(w http.ResponseWriter, r *http.Request) {
 		db.FindAll(shadow.MeshCollectionName, &docs, &opts)
 	}
 
-	list := []mesh.Model{}
+	list := []Model{}
 	for _, i := range docs {
 		doc := i.(primitive.D).Map()
 		categoryID := ""
@@ -101,7 +100,7 @@ func (Mesh) List(w http.ResponseWriter, r *http.Request) {
 
 		thumbnail, _ := doc["Thumbnail"].(string)
 
-		info := mesh.Model{
+		info := Model{
 			ID:           doc["_id"].(primitive.ObjectID).Hex(),
 			Name:         doc["Name"].(string),
 			CategoryID:   categoryID,
