@@ -1,9 +1,9 @@
-package typeface
+package tools
 
 import "time"
 
-// Model 字体模型
-type Model struct {
+// TypefaceModel 字体模型
+type TypefaceModel struct {
 	// ID
 	ID string
 	// 名称
