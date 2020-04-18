@@ -10,7 +10,6 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 
 	shadow "github.com/tengge1/shadoweditor"
-	"github.com/tengge1/shadoweditor/context"
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server"
 	"github.com/tengge1/shadoweditor/server/category"
@@ -18,10 +17,10 @@ import (
 
 func init() {
 	video := Video{}
-	context.Mux.UsingContext().Handle(http.MethodGet, "/api/Video/List", video.List)
-	context.Mux.UsingContext().Handle(http.MethodPost, "/api/Video/Add", video.Add)
-	context.Mux.UsingContext().Handle(http.MethodPost, "/api/Video/Edit", video.Edit)
-	context.Mux.UsingContext().Handle(http.MethodPost, "/api/Video/Delete", video.Delete)
+	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Video/List", video.List)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Video/Add", video.Add)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Video/Edit", video.Edit)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Video/Delete", video.Delete)
 }
 
 // Video 视频控制器
@@ -32,7 +31,7 @@ type Video struct {
 func (Video) List(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
-	db, err := context.Mongo()
+	db, err := server.Mongo()
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
@@ -56,8 +55,8 @@ func (Video) List(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 
-	if context.Config.Authority.Enabled {
-		user, _ := context.GetCurrentUser(r)
+	if server.Config.Authority.Enabled {
+		user, _ := server.GetCurrentUser(r)
 
 		if user != nil {
 			filter1 := bson.M{
@@ -150,7 +149,7 @@ func (Video) Edit(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	db, err := context.Mongo()
+	db, err := server.Mongo()
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
@@ -213,7 +212,7 @@ func (Video) Delete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	db, err := context.Mongo()
+	db, err := server.Mongo()
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,

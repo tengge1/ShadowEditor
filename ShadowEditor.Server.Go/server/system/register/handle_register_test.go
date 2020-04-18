@@ -9,13 +9,12 @@ import (
 	"time"
 
 	"github.com/tengge1/shadoweditor/helper"
-
-	"github.com/tengge1/shadoweditor/context"
+	"github.com/tengge1/shadoweditor/server"
 )
 
 func TestRegister(t *testing.T) {
-	context.Create("../../config.toml")
-	context.Config.Authority.Enabled = true
+	server.Create("../../config.toml")
+	server.Config.Authority.Enabled = true
 
 	register := Register{}
 

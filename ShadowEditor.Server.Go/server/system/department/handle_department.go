@@ -8,7 +8,6 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 
 	shadow "github.com/tengge1/shadoweditor"
-	"github.com/tengge1/shadoweditor/context"
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server"
 	"github.com/tengge1/shadoweditor/server/system/model"
@@ -16,10 +15,10 @@ import (
 
 func init() {
 	department := Department{}
-	context.Mux.UsingContext().Handle(http.MethodGet, "/api/Department/List", department.List)
-	context.Mux.UsingContext().Handle(http.MethodPost, "/api/Department/Add", department.Add)
-	context.Mux.UsingContext().Handle(http.MethodPost, "/api/Department/Edit", department.Edit)
-	context.Mux.UsingContext().Handle(http.MethodPost, "/api/Department/Delete", department.Delete)
+	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Department/List", department.List)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Department/Add", department.Add)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Department/Edit", department.Edit)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Department/Delete", department.Delete)
 }
 
 // Department 组织机构控制器
@@ -28,7 +27,7 @@ type Department struct {
 
 // List 获取列表
 func (Department) List(w http.ResponseWriter, r *http.Request) {
-	db, err := context.Mongo()
+	db, err := server.Mongo()
 	if err != nil {
 		helper.Write(w, err.Error())
 		return
@@ -93,7 +92,7 @@ func (Department) Add(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	db, err := context.Mongo()
+	db, err := server.Mongo()
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
@@ -143,7 +142,7 @@ func (Department) Edit(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	db, err := context.Mongo()
+	db, err := server.Mongo()
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
@@ -202,7 +201,7 @@ func (Department) Delete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	db, err := context.Mongo()
+	db, err := server.Mongo()
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,

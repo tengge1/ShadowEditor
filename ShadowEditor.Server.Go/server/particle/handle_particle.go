@@ -8,7 +8,6 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 
 	shadow "github.com/tengge1/shadoweditor"
-	"github.com/tengge1/shadoweditor/context"
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server"
 	"github.com/tengge1/shadoweditor/server/category"
@@ -16,11 +15,11 @@ import (
 
 func init() {
 	particle := Particle{}
-	context.Mux.UsingContext().Handle(http.MethodGet, "/api/Particle/List", particle.List)
-	context.Mux.UsingContext().Handle(http.MethodGet, "/api/Particle/Get", particle.Get)
-	context.Mux.UsingContext().Handle(http.MethodPost, "/api/Particle/Edit", particle.Edit)
-	context.Mux.UsingContext().Handle(http.MethodPost, "/api/Particle/Save", particle.Save)
-	context.Mux.UsingContext().Handle(http.MethodPost, "/api/Particle/Delete", particle.Delete)
+	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Particle/List", particle.List)
+	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Particle/Get", particle.Get)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Particle/Edit", particle.Edit)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Particle/Save", particle.Save)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Particle/Delete", particle.Delete)
 }
 
 // Particle 材质控制器
@@ -31,7 +30,7 @@ type Particle struct {
 func (Particle) List(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
-	db, err := context.Mongo()
+	db, err := server.Mongo()
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
@@ -55,8 +54,8 @@ func (Particle) List(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 
-	if context.Config.Authority.Enabled {
-		user, _ := context.GetCurrentUser(r)
+	if server.Config.Authority.Enabled {
+		user, _ := server.GetCurrentUser(r)
 
 		if user != nil {
 			filter1 := bson.M{

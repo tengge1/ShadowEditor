@@ -7,12 +7,12 @@ import (
 	"net/url"
 	"testing"
 
-	"github.com/tengge1/shadoweditor/context"
+	"github.com/tengge1/shadoweditor/server"
 )
 
 func TestDepartmentList(t *testing.T) {
-	context.Create("../../config.toml")
-	context.Config.Authority.Enabled = true
+	server.Create("../../config.toml")
+	server.Config.Authority.Enabled = true
 
 	department := Department{}
 
@@ -36,8 +36,8 @@ func TestDepartmentList(t *testing.T) {
 }
 
 func TestDepartmentAdd(t *testing.T) {
-	context.Create("../../config.toml")
-	context.Config.Authority.Enabled = true
+	server.Create("../../config.toml")
+	server.Config.Authority.Enabled = true
 
 	department := Department{}
 
@@ -65,8 +65,8 @@ func TestDepartmentAdd(t *testing.T) {
 }
 
 func TestDepartmentEdit(t *testing.T) {
-	context.Create("../../config.toml")
-	context.Config.Authority.Enabled = true
+	server.Create("../../config.toml")
+	server.Config.Authority.Enabled = true
 
 	department := Department{}
 
@@ -95,8 +95,8 @@ func TestDepartmentEdit(t *testing.T) {
 }
 
 func TestDepartmentDelete(t *testing.T) {
-	context.Create("../../config.toml")
-	context.Config.Authority.Enabled = true
+	server.Create("../../config.toml")
+	server.Config.Authority.Enabled = true
 
 	department := Department{}
 

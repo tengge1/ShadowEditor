@@ -7,15 +7,14 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 
 	shadow "github.com/tengge1/shadoweditor"
-	"github.com/tengge1/shadoweditor/context"
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server"
 )
 
 func init() {
 	category := Category{}
-	context.Mux.UsingContext().Handle(http.MethodGet, "/api/Category/List", category.List)
-	context.Mux.UsingContext().Handle(http.MethodPost, "/api/Category/Save", category.Save)
+	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Category/List", category.List)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Category/Save", category.Save)
 }
 
 // Category 类别控制器
@@ -27,7 +26,7 @@ func (Category) List(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	typ := strings.TrimSpace(r.FormValue("type"))
 
-	db, err := context.Mongo()
+	db, err := server.Mongo()
 	if err != nil {
 		helper.WriteJSON(w, err.Error())
 		return
@@ -35,8 +34,8 @@ func (Category) List(w http.ResponseWriter, r *http.Request) {
 
 	docs := []Model{}
 
-	if context.Config.Authority.Enabled {
-		user, _ := context.GetCurrentUser(r)
+	if server.Config.Authority.Enabled {
+		user, _ := server.GetCurrentUser(r)
 
 		if user != nil {
 			filter1 := bson.M{

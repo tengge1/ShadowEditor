@@ -8,12 +8,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/tengge1/shadoweditor/context"
 	"github.com/tengge1/shadoweditor/helper"
+	"github.com/tengge1/shadoweditor/server"
 )
 
 func TestAnimationList(t *testing.T) {
-	context.Create("../config.toml")
+	server.Create("../config.toml")
 
 	animation := Animation{}
 
@@ -37,7 +37,7 @@ func TestAnimationList(t *testing.T) {
 }
 
 func TestAnimationAdd(t *testing.T) {
-	context.Create("../config.toml")
+	server.Create("../config.toml")
 
 	animation := Animation{}
 
@@ -66,7 +66,7 @@ func TestAnimationAdd(t *testing.T) {
 }
 
 func TestAnimationEdit(t *testing.T) {
-	context.Create("../config.toml")
+	server.Create("../config.toml")
 
 	animation := Animation{}
 
@@ -96,7 +96,7 @@ func TestAnimationEdit(t *testing.T) {
 }
 
 func TestAnimationDelete(t *testing.T) {
-	context.Create("../config.toml")
+	server.Create("../config.toml")
 
 	animation := Animation{}
 

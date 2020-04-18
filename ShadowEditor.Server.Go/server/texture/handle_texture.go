@@ -16,7 +16,6 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 
 	shadow "github.com/tengge1/shadoweditor"
-	"github.com/tengge1/shadoweditor/context"
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server"
 	"github.com/tengge1/shadoweditor/server/category"
@@ -24,10 +23,10 @@ import (
 
 func init() {
 	texture := Texture{}
-	context.Mux.UsingContext().Handle(http.MethodGet, "/api/Map/List", texture.List)
-	context.Mux.UsingContext().Handle(http.MethodPost, "/api/Map/Add", texture.Add)
-	context.Mux.UsingContext().Handle(http.MethodPost, "/api/Map/Edit", texture.Edit)
-	context.Mux.UsingContext().Handle(http.MethodPost, "/api/Map/Delete", texture.Delete)
+	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Map/List", texture.List)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Map/Add", texture.Add)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Map/Edit", texture.Edit)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Map/Delete", texture.Delete)
 }
 
 // Texture 贴图控制器
@@ -38,7 +37,7 @@ type Texture struct {
 func (Texture) List(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
-	db, err := context.Mongo()
+	db, err := server.Mongo()
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
@@ -62,8 +61,8 @@ func (Texture) List(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 
-	if context.Config.Authority.Enabled {
-		user, _ := context.GetCurrentUser(r)
+	if server.Config.Authority.Enabled {
+		user, _ := server.GetCurrentUser(r)
 
 		if user != nil {
 			filter1 := bson.M{
@@ -146,7 +145,7 @@ func (Texture) List(w http.ResponseWriter, r *http.Request) {
 
 // Add 添加
 func (Texture) Add(w http.ResponseWriter, r *http.Request) {
-	r.ParseMultipartForm(context.Config.Upload.MaxSize)
+	r.ParseMultipartForm(server.Config.Upload.MaxSize)
 	files := r.MultipartForm.File
 
 	// 校验上传文件
@@ -224,7 +223,7 @@ func (Texture) Add(w http.ResponseWriter, r *http.Request) {
 
 	pinyin := helper.ConvertToPinYin(fileNameWithoutExt)
 
-	db, err := context.Mongo()
+	db, err := server.Mongo()
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
@@ -282,8 +281,8 @@ func (Texture) Add(w http.ResponseWriter, r *http.Request) {
 	doc["CreateTime"] = now
 	doc["UpdateTime"] = now
 
-	if context.Config.Authority.Enabled {
-		user, err := context.GetCurrentUser(r)
+	if server.Config.Authority.Enabled {
+		user, err := server.GetCurrentUser(r)
 
 		if err != nil && user != nil {
 			doc["UserID"] = user.ID
@@ -322,7 +321,7 @@ func (Texture) Edit(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	db, err := context.Mongo()
+	db, err := server.Mongo()
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
@@ -375,7 +374,7 @@ func (Texture) Delete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	db, err := context.Mongo()
+	db, err := server.Mongo()
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,

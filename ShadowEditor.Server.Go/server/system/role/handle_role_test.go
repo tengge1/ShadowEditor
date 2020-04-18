@@ -9,13 +9,12 @@ import (
 	"time"
 
 	"github.com/tengge1/shadoweditor/helper"
-
-	"github.com/tengge1/shadoweditor/context"
+	"github.com/tengge1/shadoweditor/server"
 )
 
 func TestRoleList(t *testing.T) {
-	context.Create("../../config.toml")
-	context.Config.Authority.Enabled = true
+	server.Create("../../config.toml")
+	server.Config.Authority.Enabled = true
 
 	role := Role{}
 
@@ -39,8 +38,8 @@ func TestRoleList(t *testing.T) {
 }
 
 func TestRoleAdd(t *testing.T) {
-	context.Create("../../config.toml")
-	context.Config.Authority.Enabled = true
+	server.Create("../../config.toml")
+	server.Config.Authority.Enabled = true
 
 	role := Role{}
 
@@ -69,8 +68,8 @@ func TestRoleAdd(t *testing.T) {
 }
 
 func TestRoleEdit(t *testing.T) {
-	context.Create("../../config.toml")
-	context.Config.Authority.Enabled = true
+	server.Create("../../config.toml")
+	server.Config.Authority.Enabled = true
 
 	role := Role{}
 
@@ -100,8 +99,8 @@ func TestRoleEdit(t *testing.T) {
 }
 
 func TestRoleDelete(t *testing.T) {
-	context.Create("../../config.toml")
-	context.Config.Authority.Enabled = true
+	server.Create("../../config.toml")
+	server.Config.Authority.Enabled = true
 
 	role := Role{}
 

@@ -10,13 +10,11 @@ import (
 	"github.com/tengge1/shadoweditor/server"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
-
-	"github.com/tengge1/shadoweditor/context"
 )
 
 func init() {
 	register := Register{}
-	context.Mux.UsingContext().Handle(http.MethodPost, "/api/Register/Register", register.Register)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Register/Register", register.Register)
 }
 
 // Register 注册控制器
@@ -71,7 +69,7 @@ func (Register) Register(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	db, err := context.Mongo()
+	db, err := server.Mongo()
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,

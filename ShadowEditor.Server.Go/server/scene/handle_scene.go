@@ -8,7 +8,6 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 
 	shadow "github.com/tengge1/shadoweditor"
-	"github.com/tengge1/shadoweditor/context"
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server"
 	"github.com/tengge1/shadoweditor/server/category"
@@ -16,12 +15,12 @@ import (
 
 func init() {
 	scene := Scene{}
-	context.Mux.UsingContext().Handle(http.MethodGet, "/api/Scene/List", scene.List)
-	context.Mux.UsingContext().Handle(http.MethodGet, "/api/Scene/HistoryList", scene.HistoryList)
-	context.Mux.UsingContext().Handle(http.MethodGet, "/api/Scene/Load", scene.Load)
-	context.Mux.UsingContext().Handle(http.MethodPost, "/api/Scene/Edit", scene.Edit)
-	context.Mux.UsingContext().Handle(http.MethodPost, "/api/Scene/Save", scene.Save)
-	context.Mux.UsingContext().Handle(http.MethodPost, "/api/Scene/Delete", scene.Delete)
+	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Scene/List", scene.List)
+	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Scene/HistoryList", scene.HistoryList)
+	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Scene/Load", scene.Load)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Scene/Edit", scene.Edit)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Scene/Save", scene.Save)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Scene/Delete", scene.Delete)
 }
 
 // Scene 场景控制器
@@ -30,7 +29,7 @@ type Scene struct {
 
 // List 获取列表
 func (Scene) List(w http.ResponseWriter, r *http.Request) {
-	db, err := context.Mongo()
+	db, err := server.Mongo()
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
@@ -50,8 +49,8 @@ func (Scene) List(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 
-	if context.Config.Authority.Enabled {
-		user, _ := context.GetCurrentUser(r)
+	if server.Config.Authority.Enabled {
+		user, _ := server.GetCurrentUser(r)
 
 		if user != nil {
 			filter1 := bson.M{

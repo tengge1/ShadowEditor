@@ -7,12 +7,12 @@ import (
 	"net/url"
 	"testing"
 
-	"github.com/tengge1/shadoweditor/context"
+	"github.com/tengge1/shadoweditor/server"
 )
 
 func TestLogin(t *testing.T) {
-	context.Create("../../config.toml")
-	context.Config.Authority.Enabled = true
+	server.Create("../../config.toml")
+	server.Config.Authority.Enabled = true
 
 	login := Login{}
 
@@ -39,8 +39,8 @@ func TestLogin(t *testing.T) {
 }
 
 func TestLogout(t *testing.T) {
-	context.Create("../../config.toml")
-	context.Config.Authority.Enabled = true
+	server.Create("../../config.toml")
+	server.Config.Authority.Enabled = true
 
 	login := Login{}
 

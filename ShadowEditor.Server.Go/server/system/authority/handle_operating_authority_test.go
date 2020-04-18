@@ -7,12 +7,12 @@ import (
 	"net/url"
 	"testing"
 
-	"github.com/tengge1/shadoweditor/context"
+	"github.com/tengge1/shadoweditor/server"
 )
 
 func TestOperatingAuthorityGet(t *testing.T) {
-	context.Create("../../config.toml")
-	context.Config.Authority.Enabled = true
+	server.Create("../../config.toml")
+	server.Config.Authority.Enabled = true
 
 	authority := OperatingAuthority{}
 
@@ -38,8 +38,8 @@ func TestOperatingAuthorityGet(t *testing.T) {
 }
 
 func TestOperatingAuthoritySave(t *testing.T) {
-	context.Create("../../config.toml")
-	context.Config.Authority.Enabled = true
+	server.Create("../../config.toml")
+	server.Config.Authority.Enabled = true
 
 	authority := OperatingAuthority{}
 

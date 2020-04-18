@@ -10,7 +10,6 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 
 	shadow "github.com/tengge1/shadoweditor"
-	"github.com/tengge1/shadoweditor/context"
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server"
 	"github.com/tengge1/shadoweditor/server/category"
@@ -18,10 +17,10 @@ import (
 
 func init() {
 	screenshot := Screenshot{}
-	context.Mux.UsingContext().Handle(http.MethodGet, "/api/Screenshot/List", screenshot.List)
-	context.Mux.UsingContext().Handle(http.MethodPost, "/api/Screenshot/Add", screenshot.Add)
-	context.Mux.UsingContext().Handle(http.MethodPost, "/api/Screenshot/Edit", screenshot.Edit)
-	context.Mux.UsingContext().Handle(http.MethodPost, "/api/Screenshot/Delete", screenshot.Delete)
+	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Screenshot/List", screenshot.List)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Screenshot/Add", screenshot.Add)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Screenshot/Edit", screenshot.Edit)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Screenshot/Delete", screenshot.Delete)
 }
 
 // Screenshot 截图控制器
@@ -32,7 +31,7 @@ type Screenshot struct {
 func (Screenshot) List(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
-	db, err := context.Mongo()
+	db, err := server.Mongo()
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
@@ -56,8 +55,8 @@ func (Screenshot) List(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 
-	if context.Config.Authority.Enabled {
-		user, _ := context.GetCurrentUser(r)
+	if server.Config.Authority.Enabled {
+		user, _ := server.GetCurrentUser(r)
 
 		if user != nil {
 			filter1 := bson.M{
@@ -150,7 +149,7 @@ func (Screenshot) Edit(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	db, err := context.Mongo()
+	db, err := server.Mongo()
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
@@ -213,7 +212,7 @@ func (Screenshot) Delete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	db, err := context.Mongo()
+	db, err := server.Mongo()
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,

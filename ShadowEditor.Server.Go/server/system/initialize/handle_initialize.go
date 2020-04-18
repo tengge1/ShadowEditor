@@ -7,7 +7,6 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 
 	shadow "github.com/tengge1/shadoweditor"
-	"github.com/tengge1/shadoweditor/context"
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server"
 	"go.mongodb.org/mongo-driver/bson"
@@ -15,8 +14,8 @@ import (
 
 func init() {
 	initialize := Initialize{}
-	context.Mux.UsingContext().Handle(http.MethodPost, "/api/Initialize/Initialize", initialize.Initialize)
-	context.Mux.UsingContext().Handle(http.MethodPost, "/api/Initialize/Reset", initialize.Reset)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Initialize/Initialize", initialize.Initialize)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Initialize/Reset", initialize.Reset)
 }
 
 // Initialize 初始化控制器
@@ -26,7 +25,7 @@ type Initialize struct {
 // Initialize 初始化
 func (Initialize) Initialize(w http.ResponseWriter, r *http.Request) {
 	// 判断权限是否开启
-	enableAuthority := context.Config.Authority.Enabled
+	enableAuthority := server.Config.Authority.Enabled
 
 	if enableAuthority != true {
 		helper.WriteJSON(w, server.Result{
@@ -37,7 +36,7 @@ func (Initialize) Initialize(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// 判断是否已经初始化
-	db, err := context.Mongo()
+	db, err := server.Mongo()
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
@@ -164,7 +163,7 @@ func (Initialize) Initialize(w http.ResponseWriter, r *http.Request) {
 
 // Reset 重置系统
 func (Initialize) Reset(w http.ResponseWriter, r *http.Request) {
-	db, err := context.Mongo()
+	db, err := server.Mongo()
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,

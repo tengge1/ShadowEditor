@@ -10,14 +10,12 @@ import (
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server"
 	"go.mongodb.org/mongo-driver/bson"
-
-	"github.com/tengge1/shadoweditor/context"
 )
 
 func init() {
 	login := Login{}
-	context.Mux.UsingContext().Handle(http.MethodPost, "/api/Login/Login", login.Login)
-	context.Mux.UsingContext().Handle(http.MethodPost, "/api/Login/Logout", login.Logout)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Login/Login", login.Login)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Login/Logout", login.Logout)
 }
 
 // Login 登录控制器
@@ -47,7 +45,7 @@ func (Login) Login(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// 获取Salt
-	db, err := context.Mongo()
+	db, err := server.Mongo()
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,

@@ -11,7 +11,6 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 
 	shadow "github.com/tengge1/shadoweditor"
-	"github.com/tengge1/shadoweditor/context"
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server"
 	"github.com/tengge1/shadoweditor/server/system/model"
@@ -20,12 +19,12 @@ import (
 
 func init() {
 	user := User{}
-	context.Mux.UsingContext().Handle(http.MethodGet, "/api/User/List", user.List)
-	context.Mux.UsingContext().Handle(http.MethodPost, "/api/User/Add", user.Add)
-	context.Mux.UsingContext().Handle(http.MethodPost, "/api/User/Edit", user.Edit)
-	context.Mux.UsingContext().Handle(http.MethodPost, "/api/User/Delete", user.Delete)
-	context.Mux.UsingContext().Handle(http.MethodPost, "/api/User/ChangePassword", user.ChangePassword)
-	context.Mux.UsingContext().Handle(http.MethodPost, "/api/User/ResetPassword", user.ResetPassword)
+	server.Mux.UsingContext().Handle(http.MethodGet, "/api/User/List", user.List)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/User/Add", user.Add)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/User/Edit", user.Edit)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/User/Delete", user.Delete)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/User/ChangePassword", user.ChangePassword)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/User/ResetPassword", user.ResetPassword)
 }
 
 // User 用户控制器
@@ -45,7 +44,7 @@ func (User) List(w http.ResponseWriter, r *http.Request) {
 	}
 	keyword := strings.TrimSpace(r.FormValue("keyword"))
 
-	db, err := context.Mongo()
+	db, err := server.Mongo()
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
@@ -218,7 +217,7 @@ func (User) Add(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	db, err := context.Mongo()
+	db, err := server.Mongo()
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
@@ -325,7 +324,7 @@ func (User) Edit(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	db, err := context.Mongo()
+	db, err := server.Mongo()
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
@@ -418,7 +417,7 @@ func (User) Delete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	db, err := context.Mongo()
+	db, err := server.Mongo()
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
@@ -472,7 +471,7 @@ func (User) ChangePassword(w http.ResponseWriter, r *http.Request) {
 	newPassword := strings.TrimSpace(r.FormValue("NewPassword"))
 	confirmPassword := strings.TrimSpace(r.FormValue("ConfirmPassword"))
 
-	user, err := context.GetCurrentUser(r)
+	user, err := server.GetCurrentUser(r)
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
@@ -549,7 +548,7 @@ func (User) ChangePassword(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 
-	db, err := context.Mongo()
+	db, err := server.Mongo()
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
@@ -605,7 +604,7 @@ func (User) ResetPassword(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// 判断用户是否存在
-	db, err := context.Mongo()
+	db, err := server.Mongo()
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,

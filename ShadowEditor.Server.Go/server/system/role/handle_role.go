@@ -11,7 +11,6 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 
 	shadow "github.com/tengge1/shadoweditor"
-	"github.com/tengge1/shadoweditor/context"
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server"
 	"github.com/tengge1/shadoweditor/server/system/model"
@@ -20,10 +19,10 @@ import (
 
 func init() {
 	role := Role{}
-	context.Mux.UsingContext().Handle(http.MethodGet, "/api/Role/List", role.List)
-	context.Mux.UsingContext().Handle(http.MethodPost, "/api/Role/Add", role.Add)
-	context.Mux.UsingContext().Handle(http.MethodPost, "/api/Role/Edit", role.Edit)
-	context.Mux.UsingContext().Handle(http.MethodPost, "/api/Role/Delete", role.Delete)
+	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Role/List", role.List)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Role/Add", role.Add)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Role/Edit", role.Edit)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Role/Delete", role.Delete)
 }
 
 // Role 角色控制器
@@ -43,7 +42,7 @@ func (Role) List(w http.ResponseWriter, r *http.Request) {
 	}
 	keyword := strings.TrimSpace(r.FormValue("keyword"))
 
-	db, err := context.Mongo()
+	db, err := server.Mongo()
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
@@ -133,7 +132,7 @@ func (Role) Add(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	db, err := context.Mongo()
+	db, err := server.Mongo()
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
@@ -196,7 +195,7 @@ func (Role) Edit(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	db, err := context.Mongo()
+	db, err := server.Mongo()
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
@@ -259,7 +258,7 @@ func (Role) Delete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	db, err := context.Mongo()
+	db, err := server.Mongo()
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,

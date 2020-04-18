@@ -7,12 +7,12 @@ import (
 	"os"
 	"testing"
 
-	"github.com/tengge1/shadoweditor/context"
+	"github.com/tengge1/shadoweditor/server"
 )
 
 func TestHandleConfigNoAuthority(t *testing.T) {
-	context.Create("../../config.toml")
-	context.Config.Authority.Enabled = false
+	server.Create("../../config.toml")
+	server.Config.Authority.Enabled = false
 
 	config := Config{}
 
@@ -29,8 +29,8 @@ func TestHandleConfigNoAuthority(t *testing.T) {
 }
 
 func TestHandleConfigNotLogin(t *testing.T) {
-	context.Create("../../config.toml")
-	context.Config.Authority.Enabled = true
+	server.Create("../../config.toml")
+	server.Config.Authority.Enabled = true
 
 	config := Config{}
 
@@ -47,8 +47,8 @@ func TestHandleConfigNotLogin(t *testing.T) {
 }
 
 func TestHandleConfigLoginAdmin(t *testing.T) {
-	context.Create("../../config.toml")
-	context.Config.Authority.Enabled = true
+	server.Create("../../config.toml")
+	server.Config.Authority.Enabled = true
 
 	config := Config{}
 

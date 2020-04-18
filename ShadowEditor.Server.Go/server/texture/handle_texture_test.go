@@ -12,11 +12,11 @@ import (
 	"testing"
 
 	"github.com/prometheus/common/log"
-	"github.com/tengge1/shadoweditor/context"
+	"github.com/tengge1/shadoweditor/server"
 )
 
 func TestTextureList(t *testing.T) {
-	context.Create("../config.toml")
+	server.Create("../config.toml")
 
 	texture := Texture{}
 
@@ -40,7 +40,7 @@ func TestTextureList(t *testing.T) {
 }
 
 func TestTextureAdd(t *testing.T) {
-	context.Create("../config.toml")
+	server.Create("../config.toml")
 
 	texture := Texture{}
 
@@ -88,7 +88,7 @@ func TestTextureAdd(t *testing.T) {
 }
 
 func TestTextureEdit(t *testing.T) {
-	context.Create("../config.toml")
+	server.Create("../config.toml")
 
 	texture := Texture{}
 
@@ -116,7 +116,7 @@ func TestTextureEdit(t *testing.T) {
 }
 
 func TestTextureDelete(t *testing.T) {
-	context.Create("../config.toml")
+	server.Create("../config.toml")
 
 	texture := Texture{}
 

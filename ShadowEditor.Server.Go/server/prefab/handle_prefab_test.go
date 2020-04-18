@@ -6,11 +6,11 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/tengge1/shadoweditor/context"
+	"github.com/tengge1/shadoweditor/server"
 )
 
 func TestPrefabList(t *testing.T) {
-	context.Create("../config.toml")
+	server.Create("../config.toml")
 
 	prefab := Prefab{}
 

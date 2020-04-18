@@ -7,12 +7,12 @@ import (
 	"net/url"
 	"testing"
 
-	"github.com/tengge1/shadoweditor/context"
+	"github.com/tengge1/shadoweditor/server"
 )
 
 func TestInitialize(t *testing.T) {
-	context.Create("../../config.toml")
-	context.Config.Authority.Enabled = true
+	server.Create("../../config.toml")
+	server.Config.Authority.Enabled = true
 
 	initialize := Initialize{}
 
@@ -36,8 +36,8 @@ func TestInitialize(t *testing.T) {
 }
 
 func TestReset(t *testing.T) {
-	context.Create("../../config.toml")
-	context.Config.Authority.Enabled = true
+	server.Create("../../config.toml")
+	server.Config.Authority.Enabled = true
 
 	initialize := Initialize{}
 

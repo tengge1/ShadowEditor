@@ -8,7 +8,6 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 
 	shadow "github.com/tengge1/shadoweditor"
-	"github.com/tengge1/shadoweditor/context"
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server"
 	"github.com/tengge1/shadoweditor/server/category"
@@ -16,11 +15,11 @@ import (
 
 func init() {
 	mesh := Mesh{}
-	context.Mux.UsingContext().Handle(http.MethodGet, "/api/Mesh/List", mesh.List)
-	context.Mux.UsingContext().Handle(http.MethodPost, "/api/Mesh/Add", mesh.Add)
-	context.Mux.UsingContext().Handle(http.MethodPost, "/api/Mesh/Edit", mesh.Edit)
-	context.Mux.UsingContext().Handle(http.MethodPost, "/api/Mesh/Delete", mesh.Delete)
-	context.Mux.UsingContext().Handle(http.MethodGet, "/api/Mesh/Download", mesh.Download)
+	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Mesh/List", mesh.List)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Mesh/Add", mesh.Add)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Mesh/Edit", mesh.Edit)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Mesh/Delete", mesh.Delete)
+	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Mesh/Download", mesh.Download)
 }
 
 // Mesh 网格控制器
@@ -31,7 +30,7 @@ type Mesh struct {
 func (Mesh) List(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
-	db, err := context.Mongo()
+	db, err := server.Mongo()
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
@@ -55,8 +54,8 @@ func (Mesh) List(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 
-	if context.Config.Authority.Enabled {
-		user, _ := context.GetCurrentUser(r)
+	if server.Config.Authority.Enabled {
+		user, _ := server.GetCurrentUser(r)
 
 		if user != nil {
 			filter1 := bson.M{

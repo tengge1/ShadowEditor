@@ -7,7 +7,6 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 
 	shadow "github.com/tengge1/shadoweditor"
-	"github.com/tengge1/shadoweditor/context"
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server"
 	"github.com/tengge1/shadoweditor/server/system/model"
@@ -15,7 +14,7 @@ import (
 
 func init() {
 	config := Config{}
-	context.Mux.UsingContext().Handle(http.MethodGet, "/api/Config/Get", config.Get)
+	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Config/Get", config.Get)
 }
 
 // Config 配置控制器
@@ -24,7 +23,7 @@ type Config struct {
 
 // Get 获取配置信息
 func (Config) Get(w http.ResponseWriter, r *http.Request) {
-	db, err := context.Mongo()
+	db, err := server.Mongo()
 	if err != nil {
 		helper.Write(w, err.Error())
 		return
@@ -52,7 +51,7 @@ func (Config) Get(w http.ResponseWriter, r *http.Request) {
 
 	result := ConfigResult{
 		ID:                   config.ID,
-		EnableAuthority:      context.Config.Authority.Enabled,
+		EnableAuthority:      server.Config.Authority.Enabled,
 		Initialized:          config.Initialized,
 		DefaultRegisterRole:  config.DefaultRegisterRole,
 		IsLogin:              false,
@@ -63,11 +62,11 @@ func (Config) Get(w http.ResponseWriter, r *http.Request) {
 		DeptID:               "",
 		DeptName:             "",
 		OperatingAuthorities: []string{},
-		EnableRemoteEdit:     context.Config.Remote.Enabled,
-		WebSocketServerPort:  context.Config.Remote.WebSocketPort,
+		EnableRemoteEdit:     server.Config.Remote.Enabled,
+		WebSocketServerPort:  server.Config.Remote.WebSocketPort,
 	}
 
-	user, err := context.GetCurrentUser(r)
+	user, err := server.GetCurrentUser(r)
 	if err != nil {
 		helper.Write(w, err.Error())
 		return

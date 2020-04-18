@@ -5,7 +5,6 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
-	"github.com/tengge1/shadoweditor/context"
 	"github.com/tengge1/shadoweditor/server"
 
 	_ "github.com/tengge1/shadoweditor/server/animation"  // animation api
@@ -39,7 +38,7 @@ var serveCmd = &cobra.Command{
 			return
 		}
 
-		err = context.Create(cfgFile)
+		err = server.Create(cfgFile)
 		if err != nil {
 			log.Fatal(err)
 			return

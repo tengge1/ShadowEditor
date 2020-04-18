@@ -10,13 +10,12 @@ import (
 	"time"
 
 	"github.com/tengge1/shadoweditor/helper"
-
-	"github.com/tengge1/shadoweditor/context"
+	"github.com/tengge1/shadoweditor/server"
 )
 
 func TestUserList(t *testing.T) {
-	context.Create("../../config.toml")
-	context.Config.Authority.Enabled = true
+	server.Create("../../config.toml")
+	server.Config.Authority.Enabled = true
 
 	user := User{}
 
@@ -40,8 +39,8 @@ func TestUserList(t *testing.T) {
 }
 
 func TestUserAdd(t *testing.T) {
-	context.Create("../../config.toml")
-	context.Config.Authority.Enabled = true
+	server.Create("../../config.toml")
+	server.Config.Authority.Enabled = true
 
 	user := User{}
 
@@ -73,8 +72,8 @@ func TestUserAdd(t *testing.T) {
 }
 
 func TestUserEdit(t *testing.T) {
-	context.Create("../../config.toml")
-	context.Config.Authority.Enabled = true
+	server.Create("../../config.toml")
+	server.Config.Authority.Enabled = true
 
 	user := User{}
 
@@ -104,8 +103,8 @@ func TestUserEdit(t *testing.T) {
 }
 
 func TestUserDelete(t *testing.T) {
-	context.Create("../../config.toml")
-	context.Config.Authority.Enabled = true
+	server.Create("../../config.toml")
+	server.Config.Authority.Enabled = true
 
 	user := User{}
 
@@ -131,8 +130,8 @@ func TestUserDelete(t *testing.T) {
 }
 
 func TestUserChangePassword(t *testing.T) {
-	context.Create("../../config.toml")
-	context.Config.Authority.Enabled = true
+	server.Create("../../config.toml")
+	server.Config.Authority.Enabled = true
 
 	user := User{}
 
@@ -174,8 +173,8 @@ func TestUserChangePassword(t *testing.T) {
 }
 
 func TestUserResetPassword(t *testing.T) {
-	context.Create("../../config.toml")
-	context.Config.Authority.Enabled = true
+	server.Create("../../config.toml")
+	server.Config.Authority.Enabled = true
 
 	user := User{}
 

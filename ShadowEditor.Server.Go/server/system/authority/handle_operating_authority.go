@@ -8,15 +8,14 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 
 	shadow "github.com/tengge1/shadoweditor"
-	"github.com/tengge1/shadoweditor/context"
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server"
 )
 
 func init() {
 	authority := OperatingAuthority{}
-	context.Mux.UsingContext().Handle(http.MethodGet, "/api/OperatingAuthority/Get", authority.Get)
-	context.Mux.UsingContext().Handle(http.MethodPost, "/api/OperatingAuthority/Save", authority.Save)
+	server.Mux.UsingContext().Handle(http.MethodGet, "/api/OperatingAuthority/Get", authority.Get)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/OperatingAuthority/Save", authority.Save)
 }
 
 // OperatingAuthority 操作权限管理
@@ -37,7 +36,7 @@ func (OperatingAuthority) Get(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	db, err := context.Mongo()
+	db, err := server.Mongo()
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
@@ -130,7 +129,7 @@ func (OperatingAuthority) Save(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	db, err := context.Mongo()
+	db, err := server.Mongo()
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
