@@ -10,7 +10,6 @@ import (
 	"github.com/tengge1/shadoweditor/context"
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/model"
-	"github.com/tengge1/shadoweditor/model/category"
 )
 
 func init() {
@@ -34,7 +33,7 @@ func (Category) List(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	docs := []category.Model{}
+	docs := []Model{}
 
 	if context.Config.Authority.Enabled {
 		user, _ := context.GetCurrentUser(r)
