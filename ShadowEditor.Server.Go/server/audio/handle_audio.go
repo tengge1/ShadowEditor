@@ -11,7 +11,6 @@ import (
 	"github.com/tengge1/shadoweditor/context"
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/model"
-	"github.com/tengge1/shadoweditor/model/audio"
 	"github.com/tengge1/shadoweditor/server/category"
 )
 
@@ -82,7 +81,7 @@ func (Audio) List(w http.ResponseWriter, r *http.Request) {
 		db.FindAll(shadow.AudioCollectionName, &docs, &opts)
 	}
 
-	list := []audio.Model{}
+	list := []Model{}
 	for _, i := range docs {
 		doc := i.(primitive.D).Map()
 		categoryID := ""
@@ -98,7 +97,7 @@ func (Audio) List(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 
-		info := audio.Model{
+		info := Model{
 			ID:           doc["_id"].(primitive.ObjectID).Hex(),
 			Name:         doc["Name"].(string),
 			CategoryID:   categoryID,

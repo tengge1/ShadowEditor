@@ -1,13 +1,13 @@
 package audio
 
 // Type 音频类型
-type Type int
+type Type string
 
 const (
 	// Unknown 未知类型
-	Unknown Type = iota
+	Unknown Type = "unknown"
 	// Ambient 背景音乐
-	Ambient
+	Ambient Type = "ambient"
 	// Effect 音效
-	Effect
+	Effect Type = "effect"
 )
