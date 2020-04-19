@@ -187,3 +187,8 @@ func (m Mongo) DeleteMany(collectionName string, filter interface{}) (*mongo.Del
 	}
 	return collection.DeleteMany(context.TODO(), filter)
 }
+
+// DeleteAll delete all documents
+func (m Mongo) DeleteAll(collectionName string) (*mongo.DeleteResult, error) {
+	return m.DeleteMany(collectionName, bson.M{})
+}
