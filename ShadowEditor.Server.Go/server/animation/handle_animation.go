@@ -353,36 +353,25 @@ func (Animation) Delete(w http.ResponseWriter, r *http.Request) {
 	}
 
 	filter := bson.M{
-		"ID": id,
+		"_id": id,
 	}
 
 	doc := bson.M{}
-	find, _ := db.FindOne(server.RoleCollectionName, filter, &doc)
+	find, _ := db.FindOne(server.AnimationCollectionName, filter, &doc)
 
 	if !find {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
-			Msg:  "The role is not existed.",
+			Msg:  "The asset is not existed!",
 		})
 		return
 	}
 
-	roleName := doc["Name"].(string)
+	path := doc["SavePath"].(string)
+	physicalPath := helper.MapPath(path)
+	os.RemoveAll(physicalPath)
 
-	if roleName == "Administrator" || roleName == "User" || roleName == "Guest" {
-		helper.WriteJSON(w, server.Result{
-			Code: 300,
-			Msg:  "It is not allowed to delete system built-in roles.",
-		})
-	}
-
-	update := bson.M{
-		"$set": bson.M{
-			"Status": -1,
-		},
-	}
-
-	db.UpdateOne(server.RoleCollectionName, filter, update)
+	db.DeleteOne(server.AnimationCollectionName, filter)
 
 	helper.WriteJSON(w, server.Result{
 		Code: 200,
