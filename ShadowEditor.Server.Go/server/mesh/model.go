@@ -19,7 +19,7 @@ type Model struct {
 	// 模型类型
 	Type string
 	// 下载地址
-	URL string
+	URL string `json:"Url"`
 	// 上传文件名称
 	FileName string
 	// 文件大小

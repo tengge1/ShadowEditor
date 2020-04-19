@@ -19,7 +19,7 @@ type Model struct {
 	// 首字母拼音
 	FirstPinYin string
 	// 下载地址
-	URL string
+	URL string `json:"Url"`
 	// 创建时间
 	CreateTime time.Time
 	// 最后更新时间

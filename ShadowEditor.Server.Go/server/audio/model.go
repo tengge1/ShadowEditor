@@ -19,7 +19,7 @@ type Model struct {
 	// 类型
 	Type string
 	// 下载地址
-	URL string
+	URL string `json:"Url"`
 	// 版本号
 	Version int
 	// 创建时间
