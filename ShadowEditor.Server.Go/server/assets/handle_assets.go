@@ -78,7 +78,7 @@ func (Assets) List(w http.ResponseWriter, r *http.Request) {
 		videoCount, _ = db.Count(server.VideoCollectionName, filter)
 	}
 
-	result := AssetsResult{
+	result := Result{
 		SceneCount:      sceneCount,
 		MeshCount:       meshCount,
 		MapCount:        mapCount,
@@ -97,8 +97,8 @@ func (Assets) List(w http.ResponseWriter, r *http.Request) {
 	helper.WriteJSON(w, result)
 }
 
-// AssetsResult a result contains assets nums
-type AssetsResult struct {
+// Result is a result contains assets nums.
+type Result struct {
 	server.Result
 	SceneCount      int64 `json:"sceneCount"`
 	MeshCount       int64 `json:"meshCount"`

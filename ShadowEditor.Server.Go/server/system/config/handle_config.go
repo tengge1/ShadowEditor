@@ -48,7 +48,7 @@ func (Config) Get(w http.ResponseWriter, r *http.Request) {
 		db.FindOne(server.ConfigCollectionName, bson.M{}, &config)
 	}
 
-	result := ConfigResult{
+	result := Result{
 		ID:                   config.ID,
 		EnableAuthority:      server.Config.Authority.Enabled,
 		Initialized:          config.Initialized,
@@ -88,8 +88,8 @@ func (Config) Get(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-// ConfigResult config to front end
-type ConfigResult struct {
+// Result config to front end
+type Result struct {
 	ID                   string
 	EnableAuthority      bool
 	Initialized          bool
