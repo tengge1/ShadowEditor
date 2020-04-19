@@ -488,7 +488,7 @@ func (Mesh) Edit(w http.ResponseWriter, r *http.Request) {
 		set["Category"] = category
 	}
 
-	db.UpdateOne(server.AnimationCollectionName, filter, update)
+	db.UpdateOne(server.MeshCollectionName, filter, update)
 
 	helper.WriteJSON(w, server.Result{
 		Code: 200,
