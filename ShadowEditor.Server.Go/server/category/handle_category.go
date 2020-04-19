@@ -5,15 +5,17 @@ import (
 	"strings"
 
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server"
 )
 
 func init() {
-	category := Category{}
-	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Category/List", category.List)
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Category/Save", category.Save)
+	handler := Category{}
+	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Category/List", handler.List)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Category/Save", handler.Save)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Category/Delete", handler.Delete)
 }
 
 // Category 类别控制器
@@ -96,4 +98,98 @@ func (Category) List(w http.ResponseWriter, r *http.Request) {
 
 // Save 保存
 func (Category) Save(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	id := strings.TrimSpace(r.FormValue("ID"))
+
+	name := strings.TrimSpace(r.FormValue("Name"))
+	if name == "" {
+		helper.WriteJSON(w, server.Result{
+			Code: 300,
+			Msg:  "Name is not allowed to be empty.",
+		})
+		return
+	}
+
+	typ := strings.TrimSpace(r.FormValue("Type"))
+	if typ == "" {
+		helper.WriteJSON(w, server.Result{
+			Code: 300,
+			Msg:  "Type is not allowed to be empty!",
+		})
+		return
+	}
+
+	// update mongo
+	db, err := server.Mongo()
+	if err != nil {
+		helper.WriteJSON(w, server.Result{
+			Code: 300,
+			Msg:  err.Error(),
+		})
+		return
+	}
+
+	if id == "" {
+		doc := bson.M{
+			"Name": name,
+			"Type": typ,
+		}
+		if server.Config.Authority.Enabled {
+			user, err := server.GetCurrentUser(r)
+
+			if err != nil && user != nil {
+				doc["UserID"] = user.ID
+			}
+		}
+		db.InsertOne(server.CategoryCollectionName, doc)
+	} else {
+		filter := bson.M{
+			"_id": id,
+		}
+		update := bson.M{
+			"$set": bson.M{
+				"Name": name,
+				"Type": typ,
+			},
+		}
+		db.UpdateOne(server.CategoryCollectionName, filter, update)
+	}
+
+	helper.WriteJSON(w, server.Result{
+		Code: 200,
+		Msg:  "Saved successfully!",
+	})
+}
+
+// Delete 删除
+func (Category) Delete(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	id, err := primitive.ObjectIDFromHex(r.FormValue("ID"))
+	if err != nil {
+		helper.WriteJSON(w, server.Result{
+			Code: 300,
+			Msg:  "ID is not allowed.",
+		})
+		return
+	}
+
+	db, err := server.Mongo()
+	if err != nil {
+		helper.WriteJSON(w, server.Result{
+			Code: 300,
+			Msg:  err.Error(),
+		})
+		return
+	}
+
+	filter := bson.M{
+		"_id": id,
+	}
+
+	db.DeleteOne(server.AnimationCollectionName, filter)
+
+	helper.WriteJSON(w, server.Result{
+		Code: 200,
+		Msg:  "Delete successfully!",
+	})
 }

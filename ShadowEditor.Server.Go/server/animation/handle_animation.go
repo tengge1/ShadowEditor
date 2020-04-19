@@ -334,7 +334,7 @@ func (Animation) Edit(w http.ResponseWriter, r *http.Request) {
 // Delete 删除
 func (Animation) Delete(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
-	id, err := primitive.ObjectIDFromHex(r.FormValue("_id"))
+	id, err := primitive.ObjectIDFromHex(r.FormValue("ID"))
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
