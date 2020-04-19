@@ -164,6 +164,7 @@ func (Character) Get(w http.ResponseWriter, r *http.Request) {
 		FirstPinYin: helper.PinYinToString(doc["FirstPinYin"]),
 		CreateTime:  doc["CreateTime"].(primitive.DateTime).Time(),
 		UpdateTime:  doc["UpdateTime"].(primitive.DateTime).Time(),
+		Data:        doc["Data"].(string),
 		Thumbnail:   thumbnail,
 	}
 
@@ -229,7 +230,7 @@ func (Character) Edit(w http.ResponseWriter, r *http.Request) {
 		set["Category"] = category
 	}
 
-	db.UpdateOne(server.AnimationCollectionName, filter, update)
+	db.UpdateOne(server.CharacterCollectionName, filter, update)
 
 	helper.WriteJSON(w, server.Result{
 		Code: 200,

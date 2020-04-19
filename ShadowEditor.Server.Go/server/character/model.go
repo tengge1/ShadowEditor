@@ -20,6 +20,7 @@ type Model struct {
 	CreateTime time.Time
 	// 更新时间
 	UpdateTime time.Time
+	Data       string
 	// 缩略图
 	Thumbnail string
 }
