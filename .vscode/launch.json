@@ -9,12 +9,12 @@
             "type": "go",
             "request": "launch",
             "mode": "auto",
-            "program": "${workspaceFolder}/ShadowEditor.Server.Go/cmd/main.go",
+            "program": "${workspaceFolder}/ShadowEditor.Server.Go/main.go",
             "cwd": "./",
             "env": {},
             "args": [
                 "serve",
-                "--config=../config.toml"
+                "--config=./config.toml"
             ]
         }
     ]

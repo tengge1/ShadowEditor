@@ -7,6 +7,8 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/tengge1/shadoweditor/helper"
 )
 
 // StaticHandler is responsible for serve static contents.
@@ -19,7 +21,7 @@ func StaticHandler(w http.ResponseWriter, r *http.Request, next http.HandlerFunc
 	// TODO: 可能有安全风险。
 
 	// static contents
-	path := "../../ShadowEditor.Web/" + r.URL.Path
+	path := helper.MapPath("/") + r.URL.Path
 
 	if strings.HasSuffix(path, "/") {
 		path += "index.html"
