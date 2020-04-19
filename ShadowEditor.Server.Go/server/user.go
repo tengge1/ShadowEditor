@@ -8,7 +8,6 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 
-	shadow "github.com/tengge1/shadoweditor"
 	"github.com/tengge1/shadoweditor/server/system/model"
 )
 
@@ -90,7 +89,7 @@ func GetUser(userID string) (*model.User, error) {
 			user.OperatingAuthorities = []string{}
 
 			if role.Name == "Administrator" {
-				for _, item := range shadow.GetAllOperatingAuthorities() {
+				for _, item := range GetAllOperatingAuthorities() {
 					user.OperatingAuthorities = append(user.OperatingAuthorities, item.ID)
 				}
 			} else {

@@ -7,7 +7,6 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 
-	shadow "github.com/tengge1/shadoweditor"
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server"
 )
@@ -63,7 +62,7 @@ func (OperatingAuthority) Get(w http.ResponseWriter, r *http.Request) {
 	roleName := doc["Name"].(string)
 
 	// 获取权限信息
-	authorities := shadow.GetAllOperatingAuthorities()
+	authorities := server.GetAllOperatingAuthorities()
 	filter = bson.M{
 		"RoleID": roleID,
 	}

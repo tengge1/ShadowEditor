@@ -1,4 +1,4 @@
-package shadoweditor
+package server
 
 // GetAllOperatingAuthorities returns all operatingAuthorities.
 func GetAllOperatingAuthorities() []OperatingAuthority {
