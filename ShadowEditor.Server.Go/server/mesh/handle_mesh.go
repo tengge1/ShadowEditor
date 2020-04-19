@@ -546,5 +546,58 @@ func (Mesh) Delete(w http.ResponseWriter, r *http.Request) {
 
 // Download 下载
 func (Mesh) Download(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	id, err := primitive.ObjectIDFromHex(r.FormValue("ID"))
+	if err != nil {
+		helper.WriteJSON(w, server.Result{
+			Code: 300,
+			Msg:  "ID is not allowed.",
+		})
+		return
+	}
 
+	db, err := server.Mongo()
+	if err != nil {
+		helper.WriteJSON(w, server.Result{
+			Code: 300,
+			Msg:  err.Error(),
+		})
+		return
+	}
+
+	filter := bson.M{
+		"_id": id,
+	}
+
+	doc := bson.M{}
+	find, _ := db.FindOne(server.MeshCollectionName, filter, &doc)
+
+	if !find {
+		helper.WriteJSON(w, server.Result{
+			Code: 300,
+			Msg:  "The asset is not existed!",
+		})
+		return
+	}
+
+	// create zip file
+	savePath := helper.MapPath(doc["SavePath"].(string))
+
+	now := helper.TimeToString(time.Now(), "yyyyMMddHHmmssfff")
+	destFile := fmt.Sprintf("/temp/%v.zip", now)
+	descPhysicalFile := helper.MapPath(destFile)
+
+	helper.Zip(savePath, descPhysicalFile)
+
+	result := Result{}
+	result.Code = 200
+	result.Msg = "Download successfully!"
+	result.Path = destFile
+	helper.WriteJSON(w, result)
+}
+
+// Result means a download mesh result.
+type Result struct {
+	server.Result
+	Path string
 }

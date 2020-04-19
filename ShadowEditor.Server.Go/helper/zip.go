@@ -4,8 +4,52 @@ import (
 	"archive/zip"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"os"
 )
+
+// Zip create a zip file.
+func Zip(dir, path string) error {
+	file, err := os.Create(path)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	w := zip.NewWriter(file)
+	defer w.Close()
+
+	return createZipFile(w, dir)
+}
+
+func createZipFile(w *zip.Writer, path string) error {
+	stat, err := os.Stat(path)
+	if os.IsNotExist(err) {
+		return fmt.Errorf("path is not existed: %v", path)
+	}
+	if stat.IsDir() {
+		children, err := ioutil.ReadDir(path)
+		if err != nil {
+			return err
+		}
+		for _, child := range children {
+			childPath := path + child.Name()
+			return createZipFile(w, childPath)
+		}
+	} else {
+		source, err := os.Open(path)
+		if err != nil {
+			return err
+		}
+		defer source.Close()
+		target, err := w.Create(path)
+		if err != nil {
+			return err
+		}
+		io.Copy(target, source)
+	}
+	return nil
+}
 
 // UnZip unzip a .zip file.
 func UnZip(filename, path string) error {
