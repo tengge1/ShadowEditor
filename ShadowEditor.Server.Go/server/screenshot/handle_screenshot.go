@@ -1,7 +1,11 @@
 package screenshot
 
 import (
+	"fmt"
+	"io"
 	"net/http"
+	"os"
+	"path/filepath"
 	"strings"
 	"time"
 
@@ -15,11 +19,11 @@ import (
 )
 
 func init() {
-	screenshot := Screenshot{}
-	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Screenshot/List", screenshot.List)
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Screenshot/Add", screenshot.Add)
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Screenshot/Edit", screenshot.Edit)
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Screenshot/Delete", screenshot.Delete)
+	handler := Screenshot{}
+	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Screenshot/List", handler.List)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Screenshot/Add", handler.Add)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Screenshot/Edit", handler.Edit)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Screenshot/Delete", handler.Delete)
 }
 
 // Screenshot 截图控制器
@@ -124,29 +128,71 @@ func (Screenshot) List(w http.ResponseWriter, r *http.Request) {
 
 // Add 添加
 func (Screenshot) Add(w http.ResponseWriter, r *http.Request) {
+	r.ParseMultipartForm(server.Config.Upload.MaxSize)
+	files := r.MultipartForm.File
 
-}
-
-// Edit 编辑
-func (Screenshot) Edit(w http.ResponseWriter, r *http.Request) {
-	r.ParseForm()
-	id, err := primitive.ObjectIDFromHex(r.FormValue("ID"))
-	if err != nil {
+	// check upload file
+	if len(files) != 1 {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
-			Msg:  "ID is not allowed.",
-		})
-	}
-	name := strings.TrimSpace(r.FormValue("Name"))
-	description := strings.TrimSpace(r.FormValue("Description"))
-
-	if name == "" {
-		helper.WriteJSON(w, server.Result{
-			Code: 300,
-			Msg:  "Name is not allowed to be empty.",
+			Msg:  "Only one file is allowed to upload!",
 		})
 		return
 	}
+
+	file := files["file"][0]
+	fileName := file.Filename
+	fileSize := file.Size
+	fileType := file.Header.Get("Content-Type")
+	fileExt := filepath.Ext(fileName)
+	fileNameWithoutExt := strings.TrimRight(fileName, fileExt)
+
+	if strings.ToLower(fileExt) != ".jpg" &&
+		strings.ToLower(fileExt) != ".jpeg" &&
+		strings.ToLower(fileExt) != ".png" &&
+		strings.ToLower(fileExt) != ".gif" {
+		helper.WriteJSON(w, server.Result{
+			Code: 300,
+			Msg:  "Only jpg, png, gif format is allowed to upload!",
+		})
+		return
+	}
+
+	// save file
+	now := time.Now()
+
+	savePath := fmt.Sprintf("/Upload/Screenshot/%v", helper.TimeToString(now, "yyyyMMddHHmmss"))
+	physicalPath := helper.MapPath(savePath)
+
+	if _, err := os.Stat(physicalPath); os.IsNotExist(err) {
+		os.MkdirAll(physicalPath, 0755)
+	}
+
+	targetPath := fmt.Sprintf("%v/%v", physicalPath, fileName)
+	target, err := os.Create(targetPath)
+	if err != nil {
+		helper.WriteJSON(w, server.Result{
+			Code: 300,
+			Msg:  err.Error(),
+		})
+		return
+	}
+	defer target.Close()
+
+	source, err := file.Open()
+	if err != nil {
+		helper.WriteJSON(w, server.Result{
+			Code: 300,
+			Msg:  err.Error(),
+		})
+		return
+	}
+	defer source.Close()
+
+	io.Copy(target, source)
+
+	// save to mongo
+	pinyin := helper.ConvertToPinYin(fileNameWithoutExt)
 
 	db, err := server.Mongo()
 	if err != nil {
@@ -157,41 +203,93 @@ func (Screenshot) Edit(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// 判断是否是系统内置角色
+	doc := bson.M{
+		"ID":          primitive.NewObjectID(),
+		"AddTime":     now,
+		"FileName":    fileName,
+		"FileSize":    fileSize,
+		"FileType":    fileType,
+		"FirstPinYin": pinyin.FirstPinYin,
+		"TotalPinYin": pinyin.TotalPinYin,
+		"Name":        fileNameWithoutExt,
+		"SaveName":    fileName,
+		"SavePath":    savePath,
+		"Url":         savePath + fileName,
+		"Thumbnail":   savePath + fileName,
+		"CreateTime":  now,
+		"UpdateTime":  now,
+	}
+
+	if server.Config.Authority.Enabled {
+		user, err := server.GetCurrentUser(r)
+
+		if err != nil && user != nil {
+			doc["UserID"] = user.ID
+		}
+	}
+
+	db.InsertOne(server.ScreenshotCollectionName, doc)
+
+	helper.WriteJSON(w, server.Result{
+		Code: 200,
+		Msg:  "Upload successfully!",
+	})
+}
+
+// Edit 编辑
+func (Screenshot) Edit(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	id, err := primitive.ObjectIDFromHex(strings.TrimSpace(r.FormValue("ID")))
+	if err != nil {
+		helper.WriteJSON(w, server.Result{
+			Code: 300,
+			Msg:  "ID is not allowed.",
+		})
+	}
+
+	name := strings.TrimSpace(r.FormValue("Name"))
+	if name == "" {
+		helper.WriteJSON(w, server.Result{
+			Code: 300,
+			Msg:  "Name is not allowed to be empty.",
+		})
+		return
+	}
+
+	category := strings.TrimSpace(r.FormValue("Category"))
+
+	// update mongo
+	db, err := server.Mongo()
+	if err != nil {
+		helper.WriteJSON(w, server.Result{
+			Code: 300,
+			Msg:  err.Error(),
+		})
+		return
+	}
+
+	pinyin := helper.ConvertToPinYin(name)
+
 	filter := bson.M{
 		"ID": id,
 	}
-	doc := bson.M{}
-	find, _ := db.FindOne(server.RoleCollectionName, filter, &doc)
-
-	if !find {
-		helper.WriteJSON(w, server.Result{
-			Code: 300,
-			Msg:  "The role is not existed.",
-		})
-		return
+	set := bson.M{
+		"Name":        name,
+		"TotalPinYin": pinyin.TotalPinYin,
+		"FirstPinYin": pinyin.FirstPinYin,
 	}
-
-	roleName := doc["Name"].(string)
-
-	if roleName == "Administrator" || roleName == "User" || roleName == "Guest" {
-		helper.WriteJSON(w, server.Result{
-			Code: 300,
-			Msg:  "Modifying system built-in roles is not allowed.",
-		})
-		return
-	}
-
-	// 更新用户信息
 	update := bson.M{
-		"$set": bson.M{
-			"Name":        name,
-			"UpdateTime":  time.Now(),
-			"Description": description,
-		},
+		"$set": set,
+	}
+	if category == "" {
+		update["$unset"] = bson.M{
+			"Category": 1,
+		}
+	} else {
+		set["Category"] = category
 	}
 
-	db.UpdateOne(server.RoleCollectionName, filter, update)
+	db.UpdateOne(server.ScreenshotCollectionName, filter, update)
 
 	helper.WriteJSON(w, server.Result{
 		Code: 200,
@@ -221,36 +319,25 @@ func (Screenshot) Delete(w http.ResponseWriter, r *http.Request) {
 	}
 
 	filter := bson.M{
-		"ID": id,
+		"_id": id,
 	}
 
 	doc := bson.M{}
-	find, _ := db.FindOne(server.RoleCollectionName, filter, &doc)
+	find, _ := db.FindOne(server.ScreenshotCollectionName, filter, &doc)
 
 	if !find {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
-			Msg:  "The role is not existed.",
+			Msg:  "The asset is not existed!",
 		})
 		return
 	}
 
-	roleName := doc["Name"].(string)
+	path := doc["SavePath"].(string)
+	physicalPath := helper.MapPath(path)
+	os.RemoveAll(physicalPath)
 
-	if roleName == "Administrator" || roleName == "User" || roleName == "Guest" {
-		helper.WriteJSON(w, server.Result{
-			Code: 300,
-			Msg:  "It is not allowed to delete system built-in roles.",
-		})
-	}
-
-	update := bson.M{
-		"$set": bson.M{
-			"Status": -1,
-		},
-	}
-
-	db.UpdateOne(server.RoleCollectionName, filter, update)
+	db.DeleteOne(server.ScreenshotCollectionName, filter)
 
 	helper.WriteJSON(w, server.Result{
 		Code: 200,
