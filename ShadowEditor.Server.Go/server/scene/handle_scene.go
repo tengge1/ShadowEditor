@@ -243,7 +243,7 @@ func (Scene) Load(w http.ResponseWriter, r *http.Request) {
 		})
 	}
 	version := -1
-	if _version, err := strconv.Atoi(strings.TrimSpace(r.FormValue("Version"))); err != nil {
+	if _version, err := strconv.Atoi(strings.TrimSpace(r.FormValue("Version"))); err == nil {
 		version = _version
 	}
 
