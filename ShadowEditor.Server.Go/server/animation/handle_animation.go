@@ -271,16 +271,15 @@ func (Animation) Add(w http.ResponseWriter, r *http.Request) {
 // Edit 编辑
 func (Animation) Edit(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
-	id, err := primitive.ObjectIDFromHex(r.FormValue("ID"))
+	id, err := primitive.ObjectIDFromHex(strings.TrimSpace(r.FormValue("ID")))
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
 			Msg:  "ID is not allowed.",
 		})
 	}
-	name := strings.TrimSpace(r.FormValue("Name"))
-	description := strings.TrimSpace(r.FormValue("Description"))
 
+	name := strings.TrimSpace(r.FormValue("Name"))
 	if name == "" {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
@@ -289,6 +288,10 @@ func (Animation) Edit(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	image := strings.TrimSpace(r.FormValue("Image"))
+	category := strings.TrimSpace(r.FormValue("Category"))
+
+	// update mongo
 	db, err := server.Mongo()
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
@@ -298,41 +301,29 @@ func (Animation) Edit(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// 判断是否是系统内置角色
+	pinyin := helper.ConvertToPinYin(name)
+
 	filter := bson.M{
-		"ID": id,
+		"_id": id,
 	}
-	doc := bson.M{}
-	find, _ := db.FindOne(server.RoleCollectionName, filter, &doc)
-
-	if !find {
-		helper.WriteJSON(w, server.Result{
-			Code: 300,
-			Msg:  "The role is not existed.",
-		})
-		return
+	set := bson.M{
+		"Name":        name,
+		"TotalPinYin": pinyin.TotalPinYin,
+		"FirstPinYin": pinyin.FirstPinYin,
+		"Thumbnail":   image,
 	}
-
-	roleName := doc["Name"].(string)
-
-	if roleName == "Administrator" || roleName == "User" || roleName == "Guest" {
-		helper.WriteJSON(w, server.Result{
-			Code: 300,
-			Msg:  "Modifying system built-in roles is not allowed.",
-		})
-		return
-	}
-
-	// 更新用户信息
 	update := bson.M{
-		"$set": bson.M{
-			"Name":        name,
-			"UpdateTime":  time.Now(),
-			"Description": description,
-		},
+		"$set": set,
+	}
+	if category == "" {
+		update["$unset"] = bson.M{
+			"Category": 1,
+		}
+	} else {
+		set["Category"] = category
 	}
 
-	db.UpdateOne(server.RoleCollectionName, filter, update)
+	db.UpdateOne(server.AnimationCollectionName, filter, update)
 
 	helper.WriteJSON(w, server.Result{
 		Code: 200,
