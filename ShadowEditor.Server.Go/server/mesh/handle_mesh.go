@@ -522,7 +522,7 @@ func (Mesh) Delete(w http.ResponseWriter, r *http.Request) {
 	}
 
 	doc := bson.M{}
-	find, _ := db.FindOne(server.AnimationCollectionName, filter, &doc)
+	find, _ := db.FindOne(server.MeshCollectionName, filter, &doc)
 
 	if !find {
 		helper.WriteJSON(w, server.Result{
@@ -536,7 +536,7 @@ func (Mesh) Delete(w http.ResponseWriter, r *http.Request) {
 	physicalPath := helper.MapPath(path)
 	os.RemoveAll(physicalPath)
 
-	db.DeleteOne(server.AnimationCollectionName, filter)
+	db.DeleteOne(server.MeshCollectionName, filter)
 
 	helper.WriteJSON(w, server.Result{
 		Code: 200,
