@@ -5,8 +5,8 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
-	"github.com/tengge1/shadoweditor/server"
 
+	"github.com/tengge1/shadoweditor/server"
 	_ "github.com/tengge1/shadoweditor/server/animation"  // animation api
 	_ "github.com/tengge1/shadoweditor/server/assets"     // assets api
 	_ "github.com/tengge1/shadoweditor/server/audio"      // audio api
