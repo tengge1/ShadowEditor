@@ -251,7 +251,6 @@ func (Audio) Edit(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	image := strings.TrimSpace(r.FormValue("Image"))
 	category := strings.TrimSpace(r.FormValue("Category"))
 
 	// update mongo
@@ -267,13 +266,12 @@ func (Audio) Edit(w http.ResponseWriter, r *http.Request) {
 	pinyin := helper.ConvertToPinYin(name)
 
 	filter := bson.M{
-		"_id": id,
+		"ID": id,
 	}
 	set := bson.M{
 		"Name":        name,
 		"TotalPinYin": pinyin.TotalPinYin,
 		"FirstPinYin": pinyin.FirstPinYin,
-		"Thumbnail":   image,
 	}
 	update := bson.M{
 		"$set": set,
@@ -286,7 +284,7 @@ func (Audio) Edit(w http.ResponseWriter, r *http.Request) {
 		set["Category"] = category
 	}
 
-	db.UpdateOne(server.AnimationCollectionName, filter, update)
+	db.UpdateOne(server.AudioCollectionName, filter, update)
 
 	helper.WriteJSON(w, server.Result{
 		Code: 200,
@@ -320,7 +318,7 @@ func (Audio) Delete(w http.ResponseWriter, r *http.Request) {
 	}
 
 	doc := bson.M{}
-	find, _ := db.FindOne(server.AnimationCollectionName, filter, &doc)
+	find, _ := db.FindOne(server.AudioCollectionName, filter, &doc)
 
 	if !find {
 		helper.WriteJSON(w, server.Result{
@@ -334,7 +332,7 @@ func (Audio) Delete(w http.ResponseWriter, r *http.Request) {
 	physicalPath := helper.MapPath(path)
 	os.RemoveAll(physicalPath)
 
-	db.DeleteOne(server.AnimationCollectionName, filter)
+	db.DeleteOne(server.AudioCollectionName, filter)
 
 	helper.WriteJSON(w, server.Result{
 		Code: 200,
