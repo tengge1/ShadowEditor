@@ -15,8 +15,8 @@ func main() {
 		"Data": bson.A{
 			primitive.D{
 				{Key: "_id", Value: primitive.NewObjectID()},
-				{Key: "name", Value: "xiaoming"},
-				{Key: "age", Value: 18},
+				{Key: "Name", Value: "xiaoming"},
+				{Key: "Age", Value: 18},
 			},
 		},
 	}
