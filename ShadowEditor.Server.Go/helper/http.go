@@ -6,6 +6,8 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+
+	"go.mongodb.org/mongo-driver/bson"
 )
 
 // Get make a get request
@@ -62,6 +64,25 @@ func WriteJSON(w http.ResponseWriter, obj interface{}) error {
 	header.Set("Expires", "0")
 
 	bytes, err := json.Marshal(obj)
+	if err != nil {
+		return err
+	}
+
+	w.Write(bytes)
+
+	return nil
+}
+
+// WriteBSON write a bson to http response
+func WriteBSON(w http.ResponseWriter, obj interface{}) error {
+	header := w.Header()
+
+	header.Set("Content-Type", "application/json")
+	header.Set("Cache-Control", "no-cache, no-store, must-revalidate")
+	header.Set("Pragma", "no-cache")
+	header.Set("Expires", "0")
+
+	bytes, err := bson.MarshalExtJSON(obj, false, false)
 	if err != nil {
 		return err
 	}
