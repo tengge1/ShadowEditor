@@ -113,12 +113,3 @@ func (ObjectIDEncoder) EncodeValue(context bsoncodec.EncodeContext, vw bsonrw.Va
 
 	return vw.WriteString(str)
 }
-
-// StringEncoder is a custom string encoder.
-type StringEncoder struct {
-}
-
-// EncodeValue encode ObjectID to string.
-func (StringEncoder) EncodeValue(context bsoncodec.EncodeContext, vw bsonrw.ValueWriter, val reflect.Value) error {
-	return vw.WriteString(val.String())
-}
