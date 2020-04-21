@@ -25,7 +25,7 @@ type Category struct {
 // List 获取列表
 func (Category) List(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
-	typ := strings.TrimSpace(r.FormValue("type"))
+	typ := strings.TrimSpace(r.FormValue("Type"))
 
 	db, err := server.Mongo()
 	if err != nil {
@@ -99,9 +99,11 @@ func (Category) List(w http.ResponseWriter, r *http.Request) {
 // Save 保存
 func (Category) Save(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
-	id := strings.TrimSpace(r.FormValue("ID"))
 
-	name := strings.TrimSpace(r.FormValue("Name"))
+	// TODO： Uppercase `ID` and lowercase `id` are not unified.
+	id := strings.TrimSpace(r.FormValue("id"))
+
+	name := strings.TrimSpace(r.FormValue("name"))
 	if name == "" {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
@@ -110,7 +112,7 @@ func (Category) Save(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	typ := strings.TrimSpace(r.FormValue("Type"))
+	typ := strings.TrimSpace(r.FormValue("type"))
 	if typ == "" {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
@@ -143,8 +145,17 @@ func (Category) Save(w http.ResponseWriter, r *http.Request) {
 		}
 		db.InsertOne(server.CategoryCollectionName, doc)
 	} else {
+		objID, err := primitive.ObjectIDFromHex(id)
+		if err != nil {
+			helper.WriteJSON(w, server.Result{
+				Code: 300,
+				Msg:  err.Error(),
+			})
+			return
+		}
+
 		filter := bson.M{
-			"_id": id,
+			"_id": objID,
 		}
 		update := bson.M{
 			"$set": bson.M{
@@ -186,7 +197,7 @@ func (Category) Delete(w http.ResponseWriter, r *http.Request) {
 		"_id": id,
 	}
 
-	db.DeleteOne(server.AnimationCollectionName, filter)
+	db.DeleteOne(server.CategoryCollectionName, filter)
 
 	helper.WriteJSON(w, server.Result{
 		Code: 200,
