@@ -101,6 +101,8 @@ func (Upload) Upload(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	url := fmt.Sprintf("%v/%v", savePath, fileName)
+
 	doc := bson.M{
 		"AddTime":     now,
 		"FileName":    fileName,
@@ -112,7 +114,7 @@ func (Upload) Upload(w http.ResponseWriter, r *http.Request) {
 		"SavePath":    savePath,
 		"Thumbnail":   "",
 		"TotalPinYin": pinyin.TotalPinYin,
-		"Url":         savePath + fileName,
+		"Url":         url,
 	}
 
 	if server.Config.Authority.Enabled {
@@ -128,7 +130,7 @@ func (Upload) Upload(w http.ResponseWriter, r *http.Request) {
 	helper.WriteJSON(w, server.Result{
 		Code: 200,
 		Msg:  "Upload successfully!",
-		Data: FileData{fileName, fileSize, fileType, savePath + fileName},
+		Data: FileData{fileName, fileSize, fileType, url},
 	})
 }
 
