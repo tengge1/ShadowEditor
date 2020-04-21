@@ -441,7 +441,7 @@ func (Scene) Save(w http.ResponseWriter, r *http.Request) {
 	var collectionName string
 	version := -1
 
-	if doc == nil { // create scene
+	if !find { // create scene
 		collectionName = "Scene" + helper.TimeToString(now, "yyyyMMddHHmmss")
 		version = 0
 	} else { // edit scene
@@ -510,7 +510,7 @@ func (Scene) Save(w http.ResponseWriter, r *http.Request) {
 
 	// save new scene data
 	var list []interface{}
-	bson.Unmarshal([]byte(data), &list)
+	bson.UnmarshalExtJSON([]byte(data), false, &list)
 
 	docs := bson.A{}
 
