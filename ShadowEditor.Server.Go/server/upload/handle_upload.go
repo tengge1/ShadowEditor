@@ -101,7 +101,7 @@ func (Upload) Upload(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	url := fmt.Sprintf("%v/%v", savePath, fileName)
+	url := filepath.Join(savePath, fileName)
 
 	doc := bson.M{
 		"AddTime":     now,

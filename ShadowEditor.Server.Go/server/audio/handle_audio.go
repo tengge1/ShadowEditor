@@ -198,6 +198,8 @@ func (Audio) Add(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	url := filepath.Join(savePath, fileName)
+
 	doc := bson.M{
 		"ID":          primitive.NewObjectID(),
 		"AddTime":     now,
@@ -210,7 +212,7 @@ func (Audio) Add(w http.ResponseWriter, r *http.Request) {
 		"SavePath":    savePath,
 		"TotalPinYin": pinyin.TotalPinYin,
 		"Type":        Unknown,
-		"Url":         savePath + fileName,
+		"Url":         url,
 		"CreateTime":  now,
 		"UpdateTime":  now,
 	}

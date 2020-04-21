@@ -209,7 +209,7 @@ func (Animation) Add(w http.ResponseWriter, r *http.Request) {
 
 	for _, info := range infos {
 		if !info.IsDir() && strings.HasSuffix(strings.ToLower(info.Name()), ".vmd") {
-			entryFileName = savePath + info.Name()
+			entryFileName = filepath.Join(savePath, info.Name())
 			animationType = Mmd
 			break
 		}

@@ -215,135 +215,135 @@ func (Mesh) Add(w http.ResponseWriter, r *http.Request) {
 			continue
 		}
 		if strings.HasSuffix(strings.ToLower(info.Name()), ".3ds") {
-			entryFileName = savePath + info.Name()
+			entryFileName = filepath.Join(savePath, info.Name())
 			meshType = ThreeDs
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".3mf") {
-			entryFileName = savePath + info.Name()
+			entryFileName = filepath.Join(savePath, info.Name())
 			meshType = ThreeMf
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".amf") {
-			entryFileName = savePath + info.Name()
+			entryFileName = filepath.Join(savePath, info.Name())
 			meshType = Amf
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".assimp") {
-			entryFileName = savePath + info.Name()
+			entryFileName = filepath.Join(savePath, info.Name())
 			meshType = Assimp
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".bin") {
-			entryFileName = savePath + info.Name()
+			entryFileName = filepath.Join(savePath, info.Name())
 			meshType = Binary
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".json") {
-			entryFileName = savePath + info.Name()
+			entryFileName = filepath.Join(savePath, info.Name())
 			meshType = JSON
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".js") {
-			entryFileName = savePath + info.Name()
+			entryFileName = filepath.Join(savePath, info.Name())
 			meshType = Js
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".awd") {
-			entryFileName = savePath + info.Name()
+			entryFileName = filepath.Join(savePath, info.Name())
 			meshType = Awd
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".babylon") {
-			entryFileName = savePath + info.Name()
+			entryFileName = filepath.Join(savePath, info.Name())
 			meshType = Babylon
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".bvh") {
-			entryFileName = savePath + info.Name()
+			entryFileName = filepath.Join(savePath, info.Name())
 			meshType = Bvh
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".ctm") {
-			entryFileName = savePath + info.Name()
+			entryFileName = filepath.Join(savePath, info.Name())
 			meshType = Ctm
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".dae") {
-			entryFileName = savePath + info.Name()
+			entryFileName = filepath.Join(savePath, info.Name())
 			meshType = Dae
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".drc") {
-			entryFileName = savePath + info.Name()
+			entryFileName = filepath.Join(savePath, info.Name())
 			meshType = Drc
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".fbx") {
-			entryFileName = savePath + info.Name()
+			entryFileName = filepath.Join(savePath, info.Name())
 			meshType = Fbx
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".gcode") {
-			entryFileName = savePath + info.Name()
+			entryFileName = filepath.Join(savePath, info.Name())
 			meshType = Gcode
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".glb") {
-			entryFileName = savePath + info.Name()
+			entryFileName = filepath.Join(savePath, info.Name())
 			meshType = Glb
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".gltf") {
-			entryFileName = savePath + info.Name()
+			entryFileName = filepath.Join(savePath, info.Name())
 			meshType = Gltf
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".kmz") {
-			entryFileName = savePath + info.Name()
+			entryFileName = filepath.Join(savePath, info.Name())
 			meshType = Kmz
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".md2") {
-			entryFileName = savePath + info.Name()
+			entryFileName = filepath.Join(savePath, info.Name())
 			meshType = Md2
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".nrrd") {
-			entryFileName = savePath + info.Name()
+			entryFileName = filepath.Join(savePath, info.Name())
 			meshType = Nrrd
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".obj") {
-			entryFileName = savePath + info.Name()
+			entryFileName = filepath.Join(savePath, info.Name())
 			meshType = Obj
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".pcd") {
-			entryFileName = savePath + info.Name()
+			entryFileName = filepath.Join(savePath, info.Name())
 			meshType = Pcd
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".pdb") {
-			entryFileName = savePath + info.Name()
+			entryFileName = filepath.Join(savePath, info.Name())
 			meshType = Pdb
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".ply") {
-			entryFileName = savePath + info.Name()
+			entryFileName = filepath.Join(savePath, info.Name())
 			meshType = Ply
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".pmd") {
-			entryFileName = savePath + info.Name()
+			entryFileName = filepath.Join(savePath, info.Name())
 			meshType = Pmd
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".pmx") {
-			entryFileName = savePath + info.Name()
+			entryFileName = filepath.Join(savePath, info.Name())
 			meshType = Pmx
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".prwm") {
-			entryFileName = savePath + info.Name()
+			entryFileName = filepath.Join(savePath, info.Name())
 			meshType = Prwm
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".sea") {
-			entryFileName = savePath + info.Name()
+			entryFileName = filepath.Join(savePath, info.Name())
 			meshType = Sea3d
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".stl") {
-			entryFileName = savePath + info.Name()
+			entryFileName = filepath.Join(savePath, info.Name())
 			meshType = Stl
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".vrm") {
-			entryFileName = savePath + info.Name()
+			entryFileName = filepath.Join(savePath, info.Name())
 			meshType = Vrm
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".wrl") {
-			entryFileName = savePath + info.Name()
+			entryFileName = filepath.Join(savePath, info.Name())
 			meshType = Vrml
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".vtk") {
-			entryFileName = savePath + info.Name()
+			entryFileName = filepath.Join(savePath, info.Name())
 			meshType = Vtk
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".x") {
-			entryFileName = savePath + info.Name()
+			entryFileName = filepath.Join(savePath, info.Name())
 			meshType = X
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".lmesh") {
@@ -371,9 +371,9 @@ func (Mesh) Add(w http.ResponseWriter, r *http.Request) {
 				})
 				return
 			}
-			lmesh = savePath + lmesh
-			lanim = savePath + lanim
-			ltexture = savePath + ltexture
+			lmesh = filepath.Join(savePath, lmesh)
+			lanim = filepath.Join(savePath, lanim)
+			ltexture = filepath.Join(savePath, ltexture)
 			entryFileName = fmt.Sprintf("%v;%v;%v", lmesh, lanim, ltexture)
 			meshType = Lol
 			break

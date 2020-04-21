@@ -203,6 +203,8 @@ func (Screenshot) Add(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	url := filepath.Join(savePath, fileName)
+
 	doc := bson.M{
 		"ID":          primitive.NewObjectID(),
 		"AddTime":     now,
@@ -214,8 +216,8 @@ func (Screenshot) Add(w http.ResponseWriter, r *http.Request) {
 		"Name":        fileNameWithoutExt,
 		"SaveName":    fileName,
 		"SavePath":    savePath,
-		"Url":         savePath + fileName,
-		"Thumbnail":   savePath + fileName,
+		"Url":         url,
+		"Thumbnail":   url,
 		"CreateTime":  now,
 		"UpdateTime":  now,
 	}
