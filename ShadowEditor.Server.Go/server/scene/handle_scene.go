@@ -316,7 +316,7 @@ func (Scene) Edit(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	thumbnail := strings.TrimSpace(r.FormValue("Thumbnail"))
+	thumbnail := strings.TrimSpace(r.FormValue("Image"))
 	category := strings.TrimSpace(r.FormValue("Category"))
 	isPublic := strings.TrimSpace(r.FormValue("IsPublic"))
 
