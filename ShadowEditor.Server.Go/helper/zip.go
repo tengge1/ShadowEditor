@@ -6,6 +6,8 @@ import (
 	"io"
 	"io/ioutil"
 	"os"
+	"path/filepath"
+	"strings"
 )
 
 // Zip create a zip file.
@@ -19,10 +21,10 @@ func Zip(dir, path string) error {
 	w := zip.NewWriter(file)
 	defer w.Close()
 
-	return createZipFile(w, dir)
+	return createZipFile(w, dir, dir)
 }
 
-func createZipFile(w *zip.Writer, path string) error {
+func createZipFile(w *zip.Writer, path, root string) error {
 	stat, err := os.Stat(path)
 	if os.IsNotExist(err) {
 		return fmt.Errorf("path is not existed: %v", path)
@@ -33,8 +35,11 @@ func createZipFile(w *zip.Writer, path string) error {
 			return err
 		}
 		for _, child := range children {
-			childPath := path + child.Name()
-			return createZipFile(w, childPath)
+			childPath := filepath.Join(path, child.Name())
+			err = createZipFile(w, childPath, root)
+			if err != nil {
+				return err
+			}
 		}
 	} else {
 		source, err := os.Open(path)
@@ -42,7 +47,8 @@ func createZipFile(w *zip.Writer, path string) error {
 			return err
 		}
 		defer source.Close()
-		target, err := w.Create(path)
+		targetPath := strings.TrimLeft(path, root)
+		target, err := w.Create(targetPath)
 		if err != nil {
 			return err
 		}
