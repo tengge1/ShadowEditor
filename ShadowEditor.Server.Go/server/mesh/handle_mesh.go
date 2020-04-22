@@ -25,7 +25,7 @@ func init() {
 	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Mesh/Add", mesh.Add)
 	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Mesh/Edit", mesh.Edit)
 	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Mesh/Delete", mesh.Delete)
-	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Mesh/Download", mesh.Download)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Mesh/Download", mesh.Download)
 }
 
 // Mesh 网格控制器
