@@ -23,6 +23,10 @@ Go语言服务端已经开发完成，正在努力测试中，预计5月1日发�
 6. 返回数据启用了`gzip`压缩，网络数据减小10倍以上，显示和加载场景的速度大大提高。
 7. 开发不再需要安装庞大的`Visual Studio`，不再要求`Windows`，使用简单的`Visual Studio Code`即可舒适的开发前后端。
 
+修复bug：
+
+1. 修复由于`three.js`升级，导致`draco`模型无法加载bug。
+
 ## v0.4.6更新【[更新日志](docs-dev/update/UpdateLog.md)】
 
 * 发布日期：2020年4月5日

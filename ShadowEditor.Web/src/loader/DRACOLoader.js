@@ -14,10 +14,8 @@ DRACOLoader.prototype.constructor = DRACOLoader;
 DRACOLoader.prototype.load = function (url) {
     return new Promise(resolve => {
         this.require('DRACOLoader').then(() => {
-            // THREE.DRACOLoader.setDecoderPath('assets/js/libs/draco/');
-            THREE.DRACOLoader.setDecoderConfig({ type: 'js' });
-
             var loader = new THREE.DRACOLoader();
+            loader.setDecoderPath('assets/js/libs/draco/');
 
             loader.load(url, geometry => {
                 geometry.computeVertexNormals();
@@ -25,8 +23,8 @@ DRACOLoader.prototype.load = function (url) {
                 var material = new THREE.MeshStandardMaterial();
                 var mesh = new THREE.Mesh(geometry, material);
 
-                // Release decoder resources.
-                THREE.DRACOLoader.releaseDecoderModule();
+                // TODO: 取消注释不能加载模型，不知道为什么。
+                // loader.releaseDecoderModule();
 
                 resolve(mesh);
             }, undefined, () => {
