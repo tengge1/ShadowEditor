@@ -2,6 +2,7 @@ package helper
 
 import (
 	"fmt"
+	"path/filepath"
 	"strings"
 )
 
@@ -10,5 +11,6 @@ func MapPath(path string) string {
 	if !strings.HasPrefix(path, "/") {
 		path = "/" + path
 	}
+	path = strings.ReplaceAll(path, "/", string(filepath.Separator))
 	return fmt.Sprintf("../ShadowEditor.Web%v", path)
 }
