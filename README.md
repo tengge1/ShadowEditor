@@ -3,15 +3,25 @@
 Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en.md) / 日本語 / 한국어 / русский / Le français
 
 * 名称：Shadow Editor
-* 版本：v0.4.7(开发中)
+* 版本：v0.5.0(开发中)
 * 简介：基于`three.js`的场景编辑器。
 * 源码：[GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | 文档：[GitHub](https://tengge1.github.io/ShadowEditor/) [Gitee](https://tengge1.gitee.io/shadoweditor/) | 示例：[GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) | 视频：[微博](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) | 资源：[百度云](https://pan.baidu.com/s/1IxJVM6fFLoIAJG-GKHjVTA)
 * 技术栈：`html`、`css`、`javascript`、`rollup`、`react.js`、`webgl`、`three.js`、`asp.net`。
 * 如果对您有帮助，请[【捐赠】](https://gitee.com/tengge1/ShadowEditor)支持项目发展，谢谢。
 
-## v0.4.7即将更新
+## v0.5.0即将更新
 
-1. Go语言服务端。（开发中）
+Go语言服务端已经开发完成，正在努力测试中，预计5月1日发布。
+
+跟`asp.net`相比，`go语言服务端`具有非常多的好处：
+
+1. 兼容`Windows`、`Linux`、`Mac`三大操作系统。
+2. 编译型语言（类似C语言），支持`goroutine`，可以充分发挥`CPU`多核优势，性能高。
+3. 简单易学，标准库和第三方库丰富，开发效率高。
+4. 可编译成单个可执行文件，用户不需要安装`go语言开发环境`，也不需要安装`NodeJs`。
+5. 不再需要`iis`，双击即可使用，可实现`桌面版`和`Web版`的统一。
+6. 返回数据启用了`gzip`压缩，网络数据减小10倍以上，显示和加载场景的速度大大提高。
+7. 开发不再需要安装庞大的`Visual Studio`，不再要求`Windows`，使用简单的`Visual Studio Code`即可舒适的开发前端和后端。
 
 ## v0.4.6更新【[更新日志](docs-dev/update/UpdateLog.md)】
 
