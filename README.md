@@ -21,7 +21,7 @@ Go语言服务端已经开发完成，正在努力测试中，预计5月1日发�
 4. 可编译成单个可执行文件，用户不需要安装`go语言开发环境`，也不需要安装`NodeJs`。
 5. 不再需要`iis`，双击即可使用，可实现`桌面版`和`Web版`的统一。
 6. 返回数据启用了`gzip`压缩，网络数据减小10倍以上，显示和加载场景的速度大大提高。
-7. 开发不再需要安装庞大的`Visual Studio`，不再要求`Windows`，使用简单的`Visual Studio Code`即可舒适的开发前端和后端。
+7. 开发不再需要安装庞大的`Visual Studio`，不再要求`Windows`，使用简单的`Visual Studio Code`即可舒适的开发前后端。
 
 ## v0.4.6更新【[更新日志](docs-dev/update/UpdateLog.md)】
 
