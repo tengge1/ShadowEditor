@@ -351,9 +351,9 @@ func (Mesh) Add(w http.ResponseWriter, r *http.Request) {
 			lanim := ""
 			ltexture := ""
 			for _, n := range infos {
-				if strings.HasSuffix(strings.ToLower(info.Name()), ".lanim") {
+				if strings.HasSuffix(strings.ToLower(n.Name()), ".lanim") {
 					lanim = n.Name()
-				} else if strings.HasSuffix(strings.ToLower(info.Name()), ".png") {
+				} else if strings.HasSuffix(strings.ToLower(n.Name()), ".png") {
 					ltexture = n.Name()
 				}
 			}
