@@ -105,7 +105,7 @@ func (Video) List(w http.ResponseWriter, r *http.Request) {
 		thumbnail, _ := doc["Thumbnail"].(string)
 
 		info := Model{
-			ID:           doc["_id"].(primitive.ObjectID).Hex(),
+			ID:           doc["ID"].(primitive.ObjectID).Hex(),
 			Name:         doc["Name"].(string),
 			CategoryID:   categoryID,
 			CategoryName: categoryName,
@@ -166,7 +166,7 @@ func (Video) Add(w http.ResponseWriter, r *http.Request) {
 		os.MkdirAll(physicalPath, 0755)
 	}
 
-	targetPath := fmt.Sprintf("%v/%v", physicalPath, fileName)
+	targetPath := filepath.Join(physicalPath, fileName)
 	target, err := os.Create(targetPath)
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
@@ -257,6 +257,7 @@ func (Video) Edit(w http.ResponseWriter, r *http.Request) {
 	}
 
 	category := strings.TrimSpace(r.FormValue("Category"))
+	thumbnail := strings.TrimSpace(r.FormValue("Image"))
 
 	// update mongo
 	db, err := server.Mongo()
@@ -277,6 +278,7 @@ func (Video) Edit(w http.ResponseWriter, r *http.Request) {
 		"Name":        name,
 		"TotalPinYin": pinyin.TotalPinYin,
 		"FirstPinYin": pinyin.FirstPinYin,
+		"Thumbnail":   thumbnail,
 	}
 	update := bson.M{
 		"$set": set,
@@ -319,7 +321,7 @@ func (Video) Delete(w http.ResponseWriter, r *http.Request) {
 	}
 
 	filter := bson.M{
-		"_id": id,
+		"ID": id,
 	}
 
 	doc := bson.M{}
