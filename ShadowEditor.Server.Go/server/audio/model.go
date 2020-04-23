@@ -26,4 +26,6 @@ type Model struct {
 	CreateTime time.Time
 	// 最后更新时间
 	UpdateTime time.Time
+	// 缩略图
+	Thumbnail string
 }

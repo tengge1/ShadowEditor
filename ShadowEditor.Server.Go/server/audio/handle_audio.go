@@ -101,8 +101,9 @@ func (Audio) List(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 
+		thumbnail, _ := doc["Thumbnail"].(string)
 		info := Model{
-			ID:           doc["_id"].(primitive.ObjectID).Hex(),
+			ID:           doc["ID"].(primitive.ObjectID).Hex(),
 			Name:         doc["Name"].(string),
 			CategoryID:   categoryID,
 			CategoryName: categoryName,
@@ -112,6 +113,7 @@ func (Audio) List(w http.ResponseWriter, r *http.Request) {
 			URL:          doc["Url"].(string),
 			CreateTime:   doc["CreateTime"].(primitive.DateTime).Time(),
 			UpdateTime:   doc["UpdateTime"].(primitive.DateTime).Time(),
+			Thumbnail:    thumbnail,
 		}
 
 		list = append(list, info)
@@ -215,6 +217,7 @@ func (Audio) Add(w http.ResponseWriter, r *http.Request) {
 		"Url":         url,
 		"CreateTime":  now,
 		"UpdateTime":  now,
+		"Thumbnail":   "",
 	}
 
 	if server.Config.Authority.Enabled {
@@ -254,6 +257,7 @@ func (Audio) Edit(w http.ResponseWriter, r *http.Request) {
 	}
 
 	category := strings.TrimSpace(r.FormValue("Category"))
+	thumbnail := strings.TrimSpace(r.FormValue("Image"))
 
 	// update mongo
 	db, err := server.Mongo()
@@ -274,6 +278,7 @@ func (Audio) Edit(w http.ResponseWriter, r *http.Request) {
 		"Name":        name,
 		"TotalPinYin": pinyin.TotalPinYin,
 		"FirstPinYin": pinyin.FirstPinYin,
+		"Thumbnail":   thumbnail,
 	}
 	update := bson.M{
 		"$set": set,
@@ -316,7 +321,7 @@ func (Audio) Delete(w http.ResponseWriter, r *http.Request) {
 	}
 
 	filter := bson.M{
-		"_id": id,
+		"ID": id,
 	}
 
 	doc := bson.M{}
