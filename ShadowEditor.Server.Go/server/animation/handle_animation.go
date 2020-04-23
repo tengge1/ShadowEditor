@@ -161,13 +161,13 @@ func (Animation) Add(w http.ResponseWriter, r *http.Request) {
 	savePath := fmt.Sprintf("/Upload/Animation/%v", helper.TimeToString(now, "yyyyMMddHHmmss"))
 	physicalPath := helper.MapPath(savePath)
 
-	tempPath := physicalPath + "\\temp"
+	tempPath := filepath.Join(physicalPath, "temp")
 
 	if _, err := os.Stat(tempPath); os.IsNotExist(err) {
 		os.MkdirAll(tempPath, 0755)
 	}
 
-	targetPath := fmt.Sprintf("%v/%v", tempPath, fileName)
+	targetPath := filepath.Join(tempPath, fileName)
 	target, err := os.Create(targetPath)
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
