@@ -11,8 +11,8 @@ func ConvertToPinYin(text string) (model PinYinModel) {
 	pinyin := pinyin.LazyPinyin(text, args)
 
 	for _, item := range pinyin {
-		model.TotalPinYin = append(model.TotalPinYin, item)
-		model.FirstPinYin = append(model.FirstPinYin, string(item[0]))
+		model.TotalPinYin += item
+		model.FirstPinYin += string(item[0])
 	}
 
 	return
@@ -35,7 +35,7 @@ func PinYinToString(obj interface{}) string {
 // PinYinModel 返回拼音模型
 type PinYinModel struct {
 	// TotalPinYin 全拼
-	TotalPinYin []string
+	TotalPinYin string
 	// FirstPinYin 首拼
-	FirstPinYin []string
+	FirstPinYin string
 }

@@ -102,7 +102,7 @@ func (Material) List(w http.ResponseWriter, r *http.Request) {
 		thumbnail, _ := doc["Thumbnail"].(string)
 
 		info := Model{
-			ID:           doc["_id"].(primitive.ObjectID).Hex(),
+			ID:           doc["ID"].(primitive.ObjectID).Hex(),
 			Name:         doc["Name"].(string),
 			CategoryID:   categoryID,
 			CategoryName: categoryName,
@@ -147,7 +147,7 @@ func (Material) Get(w http.ResponseWriter, r *http.Request) {
 		"ID": id,
 	}
 	doc := bson.M{}
-	find, _ := db.FindOne(server.CharacterCollectionName, filter, &doc)
+	find, _ := db.FindOne(server.MaterialCollectionName, filter, &doc)
 
 	if !find {
 		helper.WriteJSON(w, server.Result{
@@ -165,6 +165,7 @@ func (Material) Get(w http.ResponseWriter, r *http.Request) {
 		FirstPinYin: helper.PinYinToString(doc["FirstPinYin"]),
 		CreateTime:  doc["CreateTime"].(primitive.DateTime).Time(),
 		UpdateTime:  doc["UpdateTime"].(primitive.DateTime).Time(),
+		Data:        doc["Data"].(bson.M),
 		Thumbnail:   thumbnail,
 	}
 
@@ -256,6 +257,7 @@ func (Material) Save(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data := strings.TrimSpace(r.FormValue("Data"))
+	thumbnail := strings.TrimSpace(r.FormValue("Thumbnail"))
 
 	db, err := server.Mongo()
 	if err != nil {
@@ -296,7 +298,7 @@ func (Material) Save(w http.ResponseWriter, r *http.Request) {
 			"CreateTime":   now,
 			"UpdateTime":   now,
 			"Data":         dataObj,
-			"Thumbnail":    "",
+			"Thumbnail":    thumbnail,
 		}
 		if server.Config.Authority.Enabled {
 			user, err := server.GetCurrentUser(r)

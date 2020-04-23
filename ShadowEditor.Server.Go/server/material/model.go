@@ -1,6 +1,10 @@
 package material
 
-import "time"
+import (
+	"time"
+
+	"go.mongodb.org/mongo-driver/bson"
+)
 
 // Model 材质模型
 type Model struct {
@@ -20,6 +24,7 @@ type Model struct {
 	CreateTime time.Time
 	// 更新时间
 	UpdateTime time.Time
+	Data       bson.M
 	// 缩略图
 	Thumbnail string
 }
