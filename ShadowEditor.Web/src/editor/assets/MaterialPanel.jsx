@@ -59,7 +59,7 @@ class MaterialPanel extends React.Component {
 
         return <div className={classNames('MaterialPanel', className)}
             style={style}
-               >
+        >
             <SearchField
                 data={categoryData}
                 placeholder={_t('Search Content')}
@@ -120,7 +120,7 @@ class MaterialPanel extends React.Component {
         Ajax.get(`${app.options.server}/api/Material/Get?ID=${data.ID}`, result => {
             var obj = JSON.parse(result);
             if (obj.Code === 200) {
-                var material = new MaterialsSerializer().fromJSON(obj.Data.Data);
+                var material = new MaterialsSerializer().fromJSON(obj.Data.Data, undefined, app.options.server);
                 app.call(`selectMaterial`, this, material);
             }
         });
