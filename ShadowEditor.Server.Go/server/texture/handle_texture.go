@@ -120,7 +120,7 @@ func (Texture) List(w http.ResponseWriter, r *http.Request) {
 		thumbnail, _ := doc["Thumbnail"].(string)
 
 		info := Model{
-			ID:           doc["_id"].(primitive.ObjectID).Hex(),
+			ID:           doc["ID"].(primitive.ObjectID).Hex(),
 			Name:         doc["Name"].(string),
 			CategoryID:   categoryID,
 			CategoryName: categoryName,
