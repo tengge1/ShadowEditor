@@ -80,8 +80,8 @@ func (Department) List(w http.ResponseWriter, r *http.Request) {
 func (Department) Add(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	parentID := r.FormValue("ParentID")
-	name := strings.Trim(r.FormValue("Name"), " ")
-	adminID := r.FormValue("AdminID")
+	name := strings.TrimSpace(r.FormValue("Name"))
+	adminID := strings.TrimSpace(r.FormValue("AdminID"))
 
 	if name == "" {
 		helper.WriteJSON(w, server.Result{
@@ -100,11 +100,13 @@ func (Department) Add(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	objAdminID, _ := primitive.ObjectIDFromHex(adminID)
+
 	doc := bson.M{
 		"ID":       primitive.NewObjectID(),
 		"ParentID": parentID,
 		"Name":     name,
-		"AdminID":  adminID,
+		"AdminID":  objAdminID,
 		"Status":   0,
 	}
 
@@ -153,23 +155,13 @@ func (Department) Edit(w http.ResponseWriter, r *http.Request) {
 	filter := bson.M{
 		"ID": objectID,
 	}
-
-	update1 := bson.M{
+	update := bson.M{
 		"$set": bson.M{
 			"ParentID": parentID,
+			"Name":     name,
+			"AdminID":  adminID,
 		},
 	}
-	update2 := bson.M{
-		"$set": bson.M{
-			"Name": name,
-		},
-	}
-	update3 := bson.M{
-		"$set": bson.M{
-			"AdminID": adminID,
-		},
-	}
-	update := bson.A{update1, update2, update3}
 
 	_, err = db.UpdateOne(server.DepartmentCollectionName, filter, update)
 	if err != nil {
