@@ -22,7 +22,7 @@ func GetCurrentUser(r *http.Request) (*model.User, error) {
 	var cookie *http.Cookie = nil
 
 	for _, item := range cookies {
-		if item.Name == ".ASPXAUTH" {
+		if item.Name == "UserID" {
 			cookie = item
 			break
 		}

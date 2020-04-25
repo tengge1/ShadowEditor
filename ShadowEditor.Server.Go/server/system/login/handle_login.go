@@ -3,6 +3,7 @@ package login
 import (
 	"net/http"
 	"strings"
+	"time"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -86,23 +87,19 @@ func (Login) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// write userID to cookie
 	id := user["ID"].(primitive.ObjectID).Hex()
-	_ = id
 
-	// // 票据数据
-	// var ticketData = new LoginTicketDataModel
-	// {
-	// 	UserID = id,
-	// };
-
-	// // 将用户信息写入cookie
-	// var cookie = FormsAuthentication.GetAuthCookie(model.Username, false);
-	// var ticket = FormsAuthentication.Decrypt(cookie.Value);
-
-	// var newTicket = new FormsAuthenticationTicket(ticket.Version, ticket.Name, ticket.IssueDate, ticket.Expiration, ticket.IsPersistent, JsonConvert.SerializeObject(ticketData)); // 将用户ID写入ticket
-	// cookie.Value = FormsAuthentication.Encrypt(newTicket);
-	// cookie.Expires = DateTime.Now.AddMinutes(ConfigHelper.Expires);
-	// HttpContext.Current.Response.Cookies.Add(cookie);
+	expire := time.Now().AddDate(0, 0, 1)
+	cookie := http.Cookie{
+		Name:     "UserID",
+		Value:    id,
+		Expires:  expire,
+		HttpOnly: true,
+		Path:     "/",
+		SameSite: http.SameSiteDefaultMode,
+	}
+	http.SetCookie(w, &cookie)
 
 	helper.WriteJSON(w, server.Result{
 		Code: 200,
@@ -116,14 +113,19 @@ func (Login) Login(w http.ResponseWriter, r *http.Request) {
 
 // Logout 注销
 func (Login) Logout(w http.ResponseWriter, r *http.Request) {
-	// var cookie = HttpContext.Current.Request.Cookies.Get(FormsAuthentication.FormsCookieName);
-
-	// if (cookie != null)
-	// {
-	// 	cookie.SameSite = SameSiteMode.Lax;
-	// 	cookie.Expires = DateTime.Now.AddDays(-1);
-	// 	HttpContext.Current.Response.Cookies.Add(cookie);
-	// }
+	cookie, err := r.Cookie("UserID")
+	if err != nil {
+		helper.WriteJSON(w, server.Result{
+			Code: 300,
+			Msg:  err.Error(),
+		})
+		return
+	}
+	cookie.Expires = time.Now().AddDate(0, 0, -1)
+	cookie.HttpOnly = true
+	cookie.Path = "/"
+	cookie.SameSite = http.SameSiteDefaultMode
+	http.SetCookie(w, cookie)
 
 	helper.WriteJSON(w, server.Result{
 		Code: 200,

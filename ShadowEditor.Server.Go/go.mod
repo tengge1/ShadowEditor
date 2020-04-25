@@ -53,7 +53,6 @@ require (
 	github.com/urfave/negroni v1.0.0
 	github.com/uudashr/gopkgs/v2 v2.1.2 // indirect
 	github.com/willf/bitset v1.1.10 // indirect
-	github.com/yanyiwu/gojieba v1.1.2 // indirect
 	github.com/zmb3/gogetdoc v0.0.0-20190228002656-b37376c5da6a // indirect
 	go.mongodb.org/mongo-driver v1.3.1
 	go.starlark.net v0.0.0-20200330013621-be5394c419b6 // indirect

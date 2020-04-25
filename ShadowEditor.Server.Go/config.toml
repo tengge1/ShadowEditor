@@ -9,7 +9,7 @@ connection = "mongodb://127.0.0.1:27017"    # mongo connection string
 database = "ShadowEditor"                   # mongo database name
 
 [authority]
-enabled = false                             # enable authority
+enabled = true                             # enable authority
 expires = 120                               # login time, minutes, only support integer 
 
 [upload]
