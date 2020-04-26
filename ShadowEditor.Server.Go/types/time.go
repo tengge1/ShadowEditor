@@ -12,6 +12,7 @@ type Time time.Time
 // MarshalJSON marshal time to json bytes.
 func (t Time) MarshalJSON() ([]byte, error) {
 	tt := time.Time(t)
+
 	year := strconv.Itoa(tt.Year())
 	month := strconv.Itoa(int(tt.Month()))
 	day := strconv.Itoa(tt.Day())
@@ -40,5 +41,5 @@ func (t Time) MarshalJSON() ([]byte, error) {
 		second = "0" + second
 	}
 
-	return []byte(fmt.Sprintf("%v-%v-%v %v:%v:%v", year, month, day, hour, minute, second)), nil
+	return []byte(fmt.Sprintf("\"%v-%v-%v %v:%v:%v\"", year, month, day, hour, minute, second)), nil
 }
