@@ -5,11 +5,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"reflect"
-
-	"go.mongodb.org/mongo-driver/bson/primitive"
-
-	"go.mongodb.org/mongo-driver/bson"
 )
 
 // Get make a get request
@@ -84,10 +79,7 @@ func WriteBSON(w http.ResponseWriter, obj interface{}) error {
 	header.Set("Pragma", "no-cache")
 	header.Set("Expires", "0")
 
-	builder := bson.NewRegistryBuilder()
-	builder.RegisterEncoder(reflect.TypeOf(primitive.NilObjectID), ObjectIDEncoder{})
-
-	bytes, err := bson.MarshalExtJSONWithRegistry(builder.Build(), obj, false, false)
+	bytes, err := ToJSON(obj)
 	if err != nil {
 		return err
 	}
