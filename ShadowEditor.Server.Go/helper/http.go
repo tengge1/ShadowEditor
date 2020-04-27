@@ -1,7 +1,6 @@
 package helper
 
 import (
-	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -68,7 +67,7 @@ func WriteJSON(w http.ResponseWriter, obj interface{}) error {
 	header.Set("Pragma", "no-cache")
 	header.Set("Expires", "0")
 
-	bytes, err := json.Marshal(obj)
+	bytes, err := ToJSON(obj)
 	if err != nil {
 		return err
 	}
