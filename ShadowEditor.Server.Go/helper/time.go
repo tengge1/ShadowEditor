@@ -11,6 +11,9 @@ func TimeToString(time time.Time, format string) string {
 	year := strconv.Itoa(time.Year())
 	month := strconv.Itoa(int(time.Month()))
 	day := strconv.Itoa(time.Day())
+	hour := strconv.Itoa(time.Hour())
+	minute := strconv.Itoa(time.Minute())
+	second := strconv.Itoa(time.Second())
 
 	if len(month) < 2 {
 		month = "0" + month
@@ -18,19 +21,12 @@ func TimeToString(time time.Time, format string) string {
 	if len(day) < 2 {
 		day = "0" + day
 	}
-
-	hour := strconv.Itoa(time.Hour())
-	minute := strconv.Itoa(time.Minute())
-	second := strconv.Itoa(time.Second())
-
 	if len(hour) < 2 {
 		hour = "0" + hour
 	}
-
 	if len(minute) < 2 {
 		minute = "0" + minute
 	}
-
 	if len(second) < 2 {
 		second = "0" + second
 	}
