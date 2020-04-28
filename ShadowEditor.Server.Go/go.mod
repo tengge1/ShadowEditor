@@ -8,6 +8,7 @@ require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/dimfeld/httptreemux v5.0.1+incompatible
 	github.com/google/go-cmp v0.4.0 // indirect
+	github.com/json-iterator/go v1.1.9
 	github.com/klauspost/compress v1.10.3 // indirect
 	github.com/mozillazg/go-pinyin v0.16.0
 	github.com/pkg/errors v0.9.1 // indirect
@@ -16,6 +17,7 @@ require (
 	github.com/spf13/cobra v1.0.0
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/stretchr/testify v1.5.1 // indirect
+	github.com/tidwall/pretty v1.0.1 // indirect
 	github.com/urfave/negroni v1.0.0
 	go.mongodb.org/mongo-driver v1.3.1
 	golang.org/x/crypto v0.0.0-20200403201458-baeed622b8d8 // indirect
