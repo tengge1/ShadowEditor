@@ -1,36 +1,25 @@
 package helper
 
 import (
-	"reflect"
-	"time"
+	jsoniter "github.com/json-iterator/go"
 
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/bson/primitive"
-
-	coder "github.com/tengge1/shadoweditor/helper/json"
+	"github.com/tengge1/shadoweditor/helper/json"
 )
+
+func init() {
+	jsoniter.RegisterTypeEncoder("time.Time", json.TimeEncoder{})
+	jsoniter.RegisterTypeEncoder(
+		"go.mongodb.org/mongo-driver/bson/primitive.ObjectID",
+		json.ObjectIDEncoder{},
+	)
+}
 
 // ToJSON convert interface{} to json bytes.
 func ToJSON(obj interface{}) ([]byte, error) {
-	builder := bson.NewRegistryBuilder()
-
-	builder.RegisterEncoder(reflect.TypeOf(time.Now()), coder.TimeEncoder{})
-	builder.RegisterEncoder(reflect.TypeOf(primitive.NilObjectID), coder.ObjectIDEncoder{})
-
-	bytes, err := bson.MarshalExtJSONWithRegistry(builder.Build(), obj, false, false)
-	if err != nil {
-		return nil, err
-	}
-
-	return bytes, nil
+	return jsoniter.Marshal(obj)
 }
 
 // FromJSON convert json bytes to interface{}.
 func FromJSON(bytes []byte, result interface{}) error {
-	builder := bson.NewRegistryBuilder()
-
-	builder.RegisterDecoder(reflect.TypeOf(time.Now()), coder.TimeDecoder{})
-	//builder.RegisterDecoder(reflect.TypeOf(primitive.NilObjectID()), coder.TimeDecoder{})
-
-	return bson.UnmarshalExtJSONWithRegistry(builder.Build(), bytes, false, result)
+	return jsoniter.Unmarshal(bytes, result)
 }

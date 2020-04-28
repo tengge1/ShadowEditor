@@ -2,50 +2,50 @@ package json
 
 import (
 	"fmt"
-	"reflect"
 	"strconv"
+	"time"
+	"unsafe"
 
-	"go.mongodb.org/mongo-driver/bson/bsoncodec"
-	"go.mongodb.org/mongo-driver/bson/bsonrw"
+	jsoniter "github.com/json-iterator/go"
 )
 
 // TimeEncoder is a custom time.Time encoder.
 type TimeEncoder struct {
 }
 
-// EncodeValue encode time.Time to `yyyy-MM-dd HH:mm:ss` format.
-func (TimeEncoder) EncodeValue(context bsoncodec.EncodeContext, vw bsonrw.ValueWriter, val reflect.Value) error {
-	year := val.MethodByName("Year").Call([]reflect.Value{})[0].Int()
-	month := val.MethodByName("Month").Call([]reflect.Value{})[0].Int()
-	day := val.MethodByName("Day").Call([]reflect.Value{})[0].Int()
-	hour := val.MethodByName("Hour").Call([]reflect.Value{})[0].Int()
-	minute := val.MethodByName("Minute").Call([]reflect.Value{})[0].Int()
-	second := val.MethodByName("Second").Call([]reflect.Value{})[0].Int()
+// Encode encode time.Time to `yyyy-MM-dd HH:mm:ss` format.
+func (TimeEncoder) Encode(ptr unsafe.Pointer, stream *jsoniter.Stream) {
+	val := (*time.Time)(ptr)
 
-	syear := strconv.FormatInt(year, 10)
-	smonth := strconv.FormatInt(month, 10)
-	sday := strconv.FormatInt(day, 10)
-	shour := strconv.FormatInt(hour, 10)
-	sminute := strconv.FormatInt(minute, 10)
-	ssecond := strconv.FormatInt(second, 10)
+	year := strconv.Itoa(val.Year())
+	month := strconv.Itoa(int(val.Month()))
+	day := strconv.Itoa(val.Day())
+	hour := strconv.Itoa(val.Hour())
+	minute := strconv.Itoa(val.Minute())
+	second := strconv.Itoa(val.Second())
 
-	if len(smonth) < 2 {
-		smonth = "0" + smonth
+	if len(month) < 2 {
+		month = "0" + month
 	}
-	if len(sday) < 2 {
-		sday = "0" + sday
+	if len(day) < 2 {
+		day = "0" + day
 	}
-	if len(shour) < 2 {
-		shour = "0" + shour
+	if len(hour) < 2 {
+		hour = "0" + hour
 	}
-	if len(sminute) < 2 {
-		sminute = "0" + sminute
+	if len(minute) < 2 {
+		minute = "0" + minute
 	}
-	if len(ssecond) < 2 {
-		ssecond = "0" + ssecond
+	if len(second) < 2 {
+		second = "0" + second
 	}
 
-	str := fmt.Sprintf("%v-%v-%v %v:%v:%v", syear, smonth, sday, shour, sminute, ssecond)
+	str := fmt.Sprintf("%v-%v-%v %v:%v:%v", year, month, day, hour, minute, second)
 
-	return vw.WriteString(str)
+	stream.WriteString(str)
+}
+
+// IsEmpty detect whether time.Time is empty.
+func (TimeEncoder) IsEmpty(ptr unsafe.Pointer) bool {
+	return false
 }

@@ -13,6 +13,7 @@ import (
 )
 
 func TestJsonIter(t *testing.T) {
+	// marshal
 	data := map[string]interface{}{
 		"foo": 1, // float64
 		"bar": []interface{}{
@@ -25,13 +26,31 @@ func TestJsonIter(t *testing.T) {
 
 	jsoniter.RegisterTypeEncoder("time.Time", timeEncoder{})
 
-	json := jsoniter.ConfigCompatibleWithStandardLibrary
-	bytes, err := json.Marshal(&data)
+	bytes, err := jsoniter.Marshal(&data)
 	if err != nil {
 		panic(err)
 	}
 
 	fmt.Println(string(bytes))
+
+	// unmarshal
+	result := jsoniter.ParseBytes(jsoniter.ConfigDefault, bytes)
+
+	tm := time.Time{}
+	result.ReadVal(&tm)
+
+	year := strconv.Itoa(tm.Year())
+	month := strconv.Itoa(int(tm.Month()))
+	day := strconv.Itoa(tm.Day())
+	hour := strconv.Itoa(tm.Hour())
+	minute := strconv.Itoa(tm.Minute())
+	second := strconv.Itoa(tm.Second())
+
+	str := fmt.Sprintf("%v-%v-%v %v:%v:%v", year, month, day, hour, minute, second)
+
+	if str != "2020-4-27 20:34:10" {
+		t.Errorf("expected `2020-4-27 20:34:10`, got `%v`", str)
+	}
 }
 
 type timeEncoder struct {

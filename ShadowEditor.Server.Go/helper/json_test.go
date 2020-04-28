@@ -3,9 +3,13 @@ package helper
 import (
 	"testing"
 	"time"
+
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 func TestJSON(t *testing.T) {
+	id, _ := primitive.ObjectIDFromHex("5ea82000e8cbe4f02f0259ab")
+
 	obj := map[string]interface{}{
 		"foo": 1, // float64
 		"bar": []interface{}{
@@ -13,6 +17,7 @@ func TestJSON(t *testing.T) {
 			123, // float64
 		},
 		"time": time.Date(2020, 4, 27, 20, 34, 10, 0, time.Local),
+		"id":   id,
 	}
 
 	bytes, err := ToJSON(obj)

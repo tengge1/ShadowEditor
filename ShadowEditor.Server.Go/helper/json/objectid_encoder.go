@@ -1,22 +1,24 @@
 package json
 
 import (
-	"reflect"
+	"unsafe"
 
-	"go.mongodb.org/mongo-driver/bson/bsoncodec"
-	"go.mongodb.org/mongo-driver/bson/bsonrw"
+	jsoniter "github.com/json-iterator/go"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-// ObjectIDEncoder is a custom ObjectID encoder.
+// ObjectIDEncoder is a custom primitive.ObjectID encoder.
 type ObjectIDEncoder struct {
 }
 
-// EncodeValue encode ObjectID to string.
-func (ObjectIDEncoder) EncodeValue(context bsoncodec.EncodeContext, vw bsonrw.ValueWriter, val reflect.Value) error {
-	hex := val.MethodByName("Hex")
-	result := hex.Call([]reflect.Value{})
+// Encode encode ObjectID to string.
+func (ObjectIDEncoder) Encode(ptr unsafe.Pointer, stream *jsoniter.Stream) {
+	val := (*primitive.ObjectID)(ptr)
+	stream.WriteString(val.Hex())
+}
 
-	str := result[0].String()
-
-	return vw.WriteString(str)
+// IsEmpty detect whether primitive.ObjectID is empty.
+func (ObjectIDEncoder) IsEmpty(ptr unsafe.Pointer) bool {
+	val := (*primitive.ObjectID)(ptr)
+	return val.IsZero()
 }
