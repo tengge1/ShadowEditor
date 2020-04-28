@@ -282,7 +282,7 @@ func (Scene) Load(w http.ResponseWriter, r *http.Request) {
 		db.FindMany(collectionName+server.HistorySuffix, filter, &docs)
 	}
 
-	helper.WriteBSON(w, server.Result{
+	helper.WriteJSON(w, server.Result{
 		Code: 200,
 		Msg:  "Get Successfully!",
 		Data: docs,

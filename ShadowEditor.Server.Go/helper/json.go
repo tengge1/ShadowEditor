@@ -3,14 +3,14 @@ package helper
 import (
 	jsoniter "github.com/json-iterator/go"
 
-	"github.com/tengge1/shadoweditor/helper/json"
+	"github.com/tengge1/shadoweditor/helper/encoder"
 )
 
 func init() {
-	jsoniter.RegisterTypeEncoder("time.Time", json.TimeEncoder{})
+	jsoniter.RegisterTypeEncoder("time.Time", encoder.TimeEncoder{})
 	jsoniter.RegisterTypeEncoder(
 		"go.mongodb.org/mongo-driver/bson/primitive.ObjectID",
-		json.ObjectIDEncoder{},
+		encoder.ObjectIDEncoder{},
 	)
 }
 
