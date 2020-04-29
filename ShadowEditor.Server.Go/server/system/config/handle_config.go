@@ -14,6 +14,7 @@ import (
 func init() {
 	config := Config{}
 	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Config/Get", config.Get)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Config/Save", config.Save)
 }
 
 // Config 配置控制器
@@ -81,6 +82,48 @@ func (Config) Get(w http.ResponseWriter, r *http.Request) {
 		Code: 200,
 		Msg:  "Get Successfully!",
 		Data: result,
+	})
+}
+
+// Save save system config.
+func (Config) Save(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	defaultRegisterRole := r.FormValue("DefaultRegisterRole")
+
+	db, err := server.Mongo()
+	if err != nil {
+		helper.WriteJSON(w, server.Result{
+			Code: 300,
+			Msg:  err.Error(),
+		})
+		return
+	}
+
+	var doc bson.M
+	find, _ := db.FindOne(server.ConfigCollectionName, bson.M{}, &doc)
+
+	if !find {
+		doc = bson.M{
+			"ID":                  primitive.NewObjectID(),
+			"Initialized":         false,
+			"DefaultRegisterRole": defaultRegisterRole,
+		}
+		db.InsertOne(server.ConfigCollectionName, doc)
+	} else {
+		update := bson.M{
+			"$set": bson.M{
+				"DefaultRegisterRole": defaultRegisterRole,
+			},
+		}
+		db.UpdateOne(server.ConfigCollectionName, bson.M{}, update)
+	}
+
+	helper.WriteJSON(w, server.Result{
+		Code: 200,
+		Msg:  "Save Successfully.",
+		Data: bson.M{
+			"DefaultRegisterRole": defaultRegisterRole,
+		},
 	})
 }
 
