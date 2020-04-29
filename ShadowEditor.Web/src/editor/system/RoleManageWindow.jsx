@@ -198,6 +198,7 @@ class RoleManageWindow extends React.Component {
                     app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
+                this.handleRefresh();
                 app.toast(_t(obj.Msg), 'success');
             });
         });
