@@ -81,16 +81,11 @@ func (Initialize) Initialize(w http.ResponseWriter, r *http.Request) {
 		}
 		update11 := bson.M{
 			"$set": bson.M{
-				"Initialized": true,
-			},
-		}
-		update12 := bson.M{
-			"$set": bson.M{
+				"Initialized":         true,
 				"DefaultRegisterRole": defaultRegisterRoleID,
 			},
 		}
-		update13 := bson.A{update11, update12}
-		db.UpdateOne(server.ConfigCollectionName, filter11, update13)
+		db.UpdateOne(server.ConfigCollectionName, filter11, update11)
 	}
 
 	// 初始化角色
