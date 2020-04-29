@@ -54,8 +54,8 @@ func (Department) List(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	for _, dept := range list {
-		adminID := dept.AdminID
+	for key := range list {
+		adminID := list[key].AdminID
 		var admin model.User
 
 		for _, user := range users {
@@ -65,8 +65,8 @@ func (Department) List(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 
-		dept.AdminID = adminID
-		dept.AdminName = admin.Name
+		list[key].AdminID = adminID
+		list[key].AdminName = admin.Name
 	}
 
 	helper.WriteJSON(w, server.Result{
