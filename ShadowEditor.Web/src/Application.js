@@ -213,7 +213,7 @@ Application.prototype.confirm = function (options = {}) {
     };
 
     let handleCancel = () => {
-        if (onCancel && onCancel() !== false) {
+        if (onCancel && onCancel() !== false || !onCancel) {
             close();
         }
     };
