@@ -65,11 +65,7 @@ func (Config) Get(w http.ResponseWriter, r *http.Request) {
 		WebSocketServerPort:  server.Config.Remote.WebSocketPort,
 	}
 
-	user, err := server.GetCurrentUser(r)
-	if err != nil {
-		helper.Write(w, err.Error())
-		return
-	}
+	user, _ := server.GetCurrentUser(r)
 
 	if user != nil {
 		result.IsLogin = true
