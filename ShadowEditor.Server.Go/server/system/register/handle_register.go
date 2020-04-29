@@ -27,7 +27,7 @@ func (Register) Register(w http.ResponseWriter, r *http.Request) {
 	username := strings.TrimSpace(r.FormValue("Username"))
 	password := strings.TrimSpace(r.FormValue("Password"))
 	confirmPassword := strings.TrimSpace(r.FormValue("ConfirmPassword"))
-	name := strings.TrimSpace(r.FormValue("Name"))
+	name := strings.TrimSpace(r.FormValue("name")) // TODO:
 
 	if username == "" {
 		helper.WriteJSON(w, server.Result{
