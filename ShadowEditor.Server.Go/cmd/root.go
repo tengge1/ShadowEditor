@@ -15,7 +15,7 @@ This application uses mongodb to store data.`,
 	}
 )
 
-// Execute executes the root command.
+// Execute executes the root command. It shows useful information, and register all other commands.
 func Execute() error {
 	return rootCmd.Execute()
 }

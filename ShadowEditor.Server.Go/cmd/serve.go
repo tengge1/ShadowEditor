@@ -7,6 +7,8 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/tengge1/shadoweditor/server"
+
+	// TODO: Is it better to move the imports to the file `../main.go`?
 	_ "github.com/tengge1/shadoweditor/server/animation"  // animation api
 	_ "github.com/tengge1/shadoweditor/server/assets"     // assets api
 	_ "github.com/tengge1/shadoweditor/server/audio"      // audio api
@@ -26,6 +28,7 @@ import (
 	_ "github.com/tengge1/shadoweditor/server/video"      // video api
 )
 
+// serveCmd run the shadow editor server.
 var serveCmd = &cobra.Command{
 	Use:     "serve",
 	Short:   "Start shadoweditor server",
