@@ -1,78 +1,69 @@
 package server
 
-// GetAllOperatingAuthorities returns all operatingAuthorities.
+// GetAllOperatingAuthorities returns all operating authorities.
 func GetAllOperatingAuthorities() []OperatingAuthority {
-	authorities := []OperatingAuthority{}
+	list := []OperatingAuthority{}
 
-	for key, value := range OperatingAuthorities {
-		authorities = append(authorities, OperatingAuthority{
-			ID:   key,
-			Name: value,
+	for _, val := range authorities {
+		list = append(list, OperatingAuthority{
+			ID:   val[0],
+			Name: val[1],
 		})
 	}
 
-	return authorities
+	return list
 }
 
-// OperatingAuthority 操作权限模型
-type OperatingAuthority struct {
-	// 权限ID
-	ID string
-	// 权限名称
-	Name string
-}
-
-// OperatingAuthorities all operating authorities
-var OperatingAuthorities = map[string]string{
-	"ADMINISTRATOR":     Administrator,
-	"LOGIN":             Login,
-	"LIST_ANIMATION":    ListAnimation,
-	"ADD_ANIMATION":     AddAnimation,
-	"EDIT_ANIMATION":    EditAnimation,
-	"DELETE_ANIMATION":  DeleteAnimation,
-	"LIST_AUDIO":        ListAudio,
-	"ADD_AUDIO":         AddAudio,
-	"EDIT_AUDIO":        EditAudio,
-	"DELETE_AUDIO":      DeleteAudio,
-	"LIST_CATEGORY":     ListCategory,
-	"SAVE_CATEGORY":     SaveCategory,
-	"DELETE_CATEGORY":   DeleteCategory,
-	"LIST_CHARACTER":    ListCharacter,
-	"EDIT_CHARACTER":    EditCharacter,
-	"SAVE_CHARACTER":    SaveCharacter,
-	"DELETE_CHARACTER":  DeleteCharacter,
-	"LIST_MAP":          ListMap,
-	"ADD_MAP":           AddMap,
-	"EDIT_MAP":          EditMap,
-	"DELETE_MAP":        DeleteMap,
-	"LIST_MATERIAL":     ListMaterial,
-	"EDIT_MATERIAL":     EditMaterial,
-	"SAVE_MATERIAL":     SaveMaterial,
-	"DELETE_MATERIAL":   DeleteMaterial,
-	"LIST_MESH":         ListMesh,
-	"ADD_MESH":          AddMesh,
-	"EDIT_MESH":         EditMesh,
-	"DELETE_MESH":       DeleteMesh,
-	"LIST_PARTICLE":     ListParticle,
-	"EDIT_PARTICLE":     EditParticle,
-	"SAVE_PARTICLE":     SaveParticle,
-	"DELETE_PARTICLE":   DeleteParticle,
-	"LIST_PREFAB":       ListPrefab,
-	"EDIT_PREFAB":       EditPrefab,
-	"SAVE_PREFAB":       SavePrefab,
-	"DELETE_PREFAB":     DeletePrefab,
-	"EDIT_SCENE":        EditScene,
-	"SAVE_SCENE":        SaveScene,
-	"PUBLISH_SCENE":     PublishScene,
-	"DELETE_SCENE":      DeleteScene,
-	"LIST_SCREENSHOT":   ListScreenshot,
-	"ADD_SCREENSHOT":    AddScreenshot,
-	"EDIT_SCREENSHOT":   EditScreenshot,
-	"DELETE_SCREENSHOT": DeleteScreenshot,
-	"LIST_VIDEO":        ListVideo,
-	"ADD_VIDEO":         AddVideo,
-	"EDIT_VIDEO":        EditVideo,
-	"DELETE_VIDEO":      DeleteVideo,
+var authorities = [][]string{
+	{"ADMINISTRATOR", Administrator},
+	{"LOGIN", Login},
+	{"LIST_ANIMATION", ListAnimation},
+	{"ADD_ANIMATION", AddAnimation},
+	{"EDIT_ANIMATION", EditAnimation},
+	{"DELETE_ANIMATION", DeleteAnimation},
+	{"LIST_AUDIO", ListAudio},
+	{"ADD_AUDIO", AddAudio},
+	{"EDIT_AUDIO", EditAudio},
+	{"DELETE_AUDIO", DeleteAudio},
+	{"LIST_CATEGORY", ListCategory},
+	{"SAVE_CATEGORY", SaveCategory},
+	{"DELETE_CATEGORY", DeleteCategory},
+	{"LIST_CHARACTER", ListCharacter},
+	{"EDIT_CHARACTER", EditCharacter},
+	{"SAVE_CHARACTER", SaveCharacter},
+	{"DELETE_CHARACTER", DeleteCharacter},
+	{"LIST_MAP", ListMap},
+	{"ADD_MAP", AddMap},
+	{"EDIT_MAP", EditMap},
+	{"DELETE_MAP", DeleteMap},
+	{"LIST_MATERIAL", ListMaterial},
+	{"EDIT_MATERIAL", EditMaterial},
+	{"SAVE_MATERIAL", SaveMaterial},
+	{"DELETE_MATERIAL", DeleteMaterial},
+	{"LIST_MESH", ListMesh},
+	{"ADD_MESH", AddMesh},
+	{"EDIT_MESH", EditMesh},
+	{"DELETE_MESH", DeleteMesh},
+	{"LIST_PARTICLE", ListParticle},
+	{"EDIT_PARTICLE", EditParticle},
+	{"SAVE_PARTICLE", SaveParticle},
+	{"DELETE_PARTICLE", DeleteParticle},
+	{"LIST_PREFAB", ListPrefab},
+	{"EDIT_PREFAB", EditPrefab},
+	{"SAVE_PREFAB", SavePrefab},
+	{"DELETE_PREFAB", DeletePrefab},
+	{"EDIT_SCENE", EditScene},
+	{"SAVE_SCENE", SaveScene},
+	{"PUBLISH_SCENE", PublishScene},
+	{"DELETE_SCENE", DeleteScene},
+	{"LIST_SCREENSHOT", ListScreenshot},
+	{"ADD_SCREENSHOT", AddScreenshot},
+	{"EDIT_SCREENSHOT", EditScreenshot},
+	{"DELETE_SCREENSHOT", DeleteScreenshot},
+	{"LIST_VIDEO", ListVideo},
+	{"ADD_VIDEO", AddVideo},
+	{"EDIT_VIDEO", EditVideo},
+	{"DELETE_VIDEO", DeleteVideo},
 }
 
 const (
@@ -175,3 +166,11 @@ const (
 	// DeleteVideo 删除视频
 	DeleteVideo string = "Delete Video"
 )
+
+// OperatingAuthority is operating authority model.
+type OperatingAuthority struct {
+	// ID is authority ID.
+	ID string
+	// Name is authority name.
+	Name string
+}
