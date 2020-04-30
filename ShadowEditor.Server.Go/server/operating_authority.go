@@ -67,103 +67,103 @@ var authorities = [][]string{
 }
 
 const (
-	// Administrator 管理员权限
+	// Administrator means the user has all the authorities.
 	Administrator string = "Administrator"
-	// Login 只有登录用户才能具有的权限
+	// Login means the user has logined in.
 	Login string = "Login"
-	// ListAnimation 获取动画列表（不具备该权限无法查看动画列表）
+	// ListAnimation means the user can get the animation list.
 	ListAnimation string = "List Animation"
-	// AddAnimation 添加动画
+	// AddAnimation means the user can upload animation.
 	AddAnimation string = "Add Animation"
-	// EditAnimation 编辑动画
+	// EditAnimation means the user can edit the animation name and thumbnail he uploaded.
 	EditAnimation string = "Edit Animation"
-	// DeleteAnimation 删除动画
+	// DeleteAnimation means the user can delete the animation he uploaded.
 	DeleteAnimation string = "Delete Animation"
-	// ListAudio 获取音频列表（不具备该权限无法查看音频列表）
+	// ListAudio means the user can get the audio list.
 	ListAudio string = "List Audio"
-	// AddAudio 添加音频
+	// AddAudio means the user can upload audio.
 	AddAudio string = "Add Audio"
-	// EditAudio 编辑音频
+	// EditAudio means the user can edit audio name and thumbnail he uploaded.
 	EditAudio string = "Edit Audio"
-	// DeleteAudio 删除音频
+	// DeleteAudio means the user can delete audio he uploaded.
 	DeleteAudio string = "Delete Audio"
-	// ListCategory 获取分类列表（不具有该权限无法进入分类窗口）
+	// ListCategory means the user can get his category list.
 	ListCategory string = "List Category"
-	// SaveCategory 保存分类
+	// SaveCategory means the user can add new category.
 	SaveCategory string = "Save Category"
-	// DeleteCategory 删除分类
+	// DeleteCategory means the user can delete his category.
 	DeleteCategory string = "Delete Category"
-	// ListCharacter 获取人物列表（不具备该权限无法进入人物列表）
+	// ListCharacter means the user can get the character list.
 	ListCharacter string = "List Character"
-	// EditCharacter 编辑人物
+	// EditCharacter means the user can edit character name and thumbnail he uploaded.
 	EditCharacter string = "Edit Character"
-	// SaveCharacter 保存人物
+	// SaveCharacter means the user can save new character he created.
 	SaveCharacter string = "Save Character"
-	// DeleteCharacter 删除人物
+	// DeleteCharacter means the user can delete character he created.
 	DeleteCharacter string = "Delete Character"
-	// ListMap 获取贴图列表（不具有该权限无法查看贴图列表）
+	// ListMap means the user can get the texture list.
 	ListMap string = "List Map"
-	// AddMap 添加贴图
+	// AddMap means the user can add new texture.
 	AddMap string = "Add Map"
-	// EditMap 编辑贴图
+	// EditMap means the user can edit texture name and thumbnail he uploaded.
 	EditMap string = "Edit Map"
-	// DeleteMap 删除贴图
+	// DeleteMap means the user can delete the texture he uploaded.
 	DeleteMap string = "Delete Map"
-	// ListMaterial 获取材质列表（不具有该权限无法查看材质列表）
+	// ListMaterial means the user can get the material list.
 	ListMaterial string = "List Material"
-	// EditMaterial 编辑材质
+	// EditMaterial means the user can edit material name and thumbnail he saved.
 	EditMaterial string = "Edit Material"
-	// SaveMaterial 保存材质
+	// SaveMaterial means the user can save a new material.
 	SaveMaterial string = "Save Material"
-	// DeleteMaterial 删除材质
+	// DeleteMaterial means the user can delete the material he saved.
 	DeleteMaterial string = "Delete Material"
-	// ListMesh 获取模型列表（不具有该权限无法查看模型列表）
+	// ListMesh means the user can get the mesh list.
 	ListMesh string = "List Mesh"
-	// AddMesh 添加模型
+	// AddMesh means the user can upload new mesh.
 	AddMesh string = "Add Mesh"
-	// EditMesh 编辑模型
+	// EditMesh means the user can edit mesh name and thumbnail he uploaded.
 	EditMesh string = "Edit Mesh"
-	// DeleteMesh 删除模型
+	// DeleteMesh means the user can delete mesh he uploaded.
 	DeleteMesh string = "Delete Mesh"
-	// ListParticle 获取粒子列表（不具有该权限无法查看粒子列表）
+	// ListParticle means the user can get the particle list.
 	ListParticle string = "List Particle"
-	// EditParticle 编辑粒子
+	// EditParticle means the user can edit particle name and thumbnail he saved.
 	EditParticle string = "Edit Particle"
-	// SaveParticle 保存粒子
+	// SaveParticle means the user can save new particle.
 	SaveParticle string = "Save Particle"
-	// DeleteParticle 删除粒子
+	// DeleteParticle means the user can delete particle he saved.
 	DeleteParticle string = "Delete Particle"
-	// ListPrefab 获取预设体列表（不具有该权限无法查看预设体列表）
+	// ListPrefab means the user can get prefab list.
 	ListPrefab string = "List Prefab"
-	// EditPrefab 编辑预设体
+	// EditPrefab means the user can edit prefab name and thumbnail.
 	EditPrefab string = "Edit Prefab"
-	// SavePrefab 保存预设体
+	// SavePrefab means the user can save new prefab.
 	SavePrefab string = "SavePrefab"
-	// DeletePrefab 删除预设体
+	// DeletePrefab means the user can delete prefab.
 	DeletePrefab string = "Delete Prefab"
-	// EditScene 编辑场景
+	// EditScene means the user can edit scene name and thumbnail he saved.
 	EditScene string = "Edit Scene"
-	// SaveScene 保存场景
+	// SaveScene means the user can save new scene.
 	SaveScene string = "Save Scene"
-	// PublishScene 发布场景
+	// PublishScene means the user can publish new scene to static content.
 	PublishScene string = "Publish Scene"
-	// DeleteScene 删除场景
+	// DeleteScene means the user can delete scenes he saved.
 	DeleteScene string = "Delete Scene"
-	// ListScreenshot 获取截图列表（不具有该权限无法查看截图列表）
+	// ListScreenshot means the user can get the screenshot list.
 	ListScreenshot string = "List Screenshot"
-	// AddScreenshot 添加截图
+	// AddScreenshot means the user can save new screenshot.
 	AddScreenshot string = "Add Screenshot"
-	// EditScreenshot 编辑截图
+	// EditScreenshot means the user can edit screenshot name and thumbnail he saved.
 	EditScreenshot string = "Edit Screenshot"
-	// DeleteScreenshot 删除截图
+	// DeleteScreenshot means the user can delete screenshot he saved.
 	DeleteScreenshot string = "Delete Screenshot"
-	// ListVideo 获取视频列表（不具有该权限无法查看视频列表）
+	// ListVideo means the user can get the video list he saved.
 	ListVideo string = "List Video"
-	// AddVideo 添加视频
+	// AddVideo means the user can record new video and upload.
 	AddVideo string = "Add Video"
-	// EditVideo 编辑视频
+	// EditVideo means the user can edit video name and thumbnail he saved.
 	EditVideo string = "Edit Video"
-	// DeleteVideo 删除视频
+	// DeleteVideo means the user can delete video he uploaded.
 	DeleteVideo string = "Delete Video"
 )
 
