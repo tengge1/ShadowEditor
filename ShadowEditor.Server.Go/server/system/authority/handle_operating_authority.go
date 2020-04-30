@@ -108,7 +108,7 @@ func (OperatingAuthority) Get(w http.ResponseWriter, r *http.Request) {
 func (OperatingAuthority) Save(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	roleID := strings.TrimSpace(r.FormValue("RoleID"))
-	authorities := r.Form["Authorities"]
+	authorities := r.Form["Authorities[]"]
 
 	if roleID == "" {
 		helper.WriteJSON(w, server.Result{
