@@ -69,3 +69,4 @@ logs/
 server/shadoweditor
 server/shadoweditor.exe
 Upload/
+debug.test

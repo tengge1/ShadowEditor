@@ -17,7 +17,11 @@ func init() {
 	jsoniter.RegisterTypeEncoder("time.Time", encoder.TimeEncoder{})
 	jsoniter.RegisterTypeEncoder(
 		"go.mongodb.org/mongo-driver/bson/primitive.ObjectID",
-		encoder.ObjectIDEncoder{},
+		encoder.PrimitiveObjectIDEncoder{},
+	)
+	jsoniter.RegisterTypeEncoder(
+		"go.mongodb.org/mongo-driver/bson/primitive.D",
+		encoder.PrimitiveDEncoder{},
 	)
 }
 
