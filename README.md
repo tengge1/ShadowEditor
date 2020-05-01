@@ -2,6 +2,8 @@
 
 Supported Languages: 中文 / [繁體中文](README-tw.md) / [English](README-en.md) / 日本語 / 한국어 / русский / Le français
 
+> [点击此处](tree/v0.4.6-csharp/)切换到C#分支。
+
 * 名称：Shadow Editor
 * 版本：v0.5.0(开发中)
 * 简介：基于`three.js`的场景编辑器。
