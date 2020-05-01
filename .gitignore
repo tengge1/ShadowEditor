@@ -65,7 +65,7 @@ typings/
 
 # custom files
 build/
+logs/
 server/shadoweditor
 server/shadoweditor.exe
-web/build
-Upload
+Upload/
