@@ -67,4 +67,4 @@ typings/
 server/shadoweditor
 server/shadoweditor.exe
 web/build
-web/Upload
+Upload
