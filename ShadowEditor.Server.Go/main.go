@@ -1,4 +1,4 @@
-// Copyright 2017-2020. All rights reserved.
+// Copyright 2017-2020 The ShadowEditor Authors. All rights reserved.
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 //
@@ -10,7 +10,9 @@ package main
 import "github.com/tengge1/shadoweditor/cmd"
 
 // Here we just import and execute the root command. Keep this file tidy.
-// We can run `go build` in this folder to create the shadow editor binary.
+//
+// First, run `go install` to install third-party dependencies.
+// Then, run `go build` in this folder to create the binary file.
 func main() {
 	cmd.Execute()
 }
