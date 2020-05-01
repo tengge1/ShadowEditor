@@ -61,6 +61,3 @@ call npm run build
 :: Restore current dir.
 echo "restore current work directory"
 popd
-
-:: Pause to see if there are some errors.
-pause

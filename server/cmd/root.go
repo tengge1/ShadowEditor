@@ -8,6 +8,7 @@
 package cmd
 
 import (
+	"github.com/inconshreveable/mousetrap"
 	"github.com/spf13/cobra"
 )
 
@@ -23,8 +24,16 @@ This application uses mongodb to store data.`,
 )
 
 // Execute executes the root command. It shows useful information, and register all other commands.
-func Execute() error {
-	return rootCmd.Execute()
+//
+// When you double click ShadowEditor.exe in the explorer, run `serve` command.
+func Execute() {
+	if mousetrap.StartedByExplorer() {
+		// double click in windows explorer
+		runServe()
+	} else {
+		// use command line
+		rootCmd.Execute()
+	}
 }
 
 func init() {

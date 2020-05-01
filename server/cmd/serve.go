@@ -42,18 +42,22 @@ var serveCmd = &cobra.Command{
 	Aliases: []string{"server"},
 	Long:    `Use shadoweditor server to provider scene and model data.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		_, err := os.Stat(cfgFile)
-		if os.IsNotExist(err) {
-			log.Fatalf("cannot find config file: %v", cfgFile)
-			return
-		}
-
-		err = server.Create(cfgFile)
-		if err != nil {
-			log.Fatal(err)
-			return
-		}
-
-		server.Start()
+		runServe()
 	},
+}
+
+func runServe() {
+	_, err := os.Stat(cfgFile)
+	if os.IsNotExist(err) {
+		log.Fatalf("cannot find config file: %v", cfgFile)
+		return
+	}
+
+	err = server.Create(cfgFile)
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+
+	server.Start()
 }

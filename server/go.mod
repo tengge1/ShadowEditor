@@ -19,6 +19,7 @@ require (
 	github.com/google/go-cmp v0.4.0 // indirect
 	github.com/hashicorp/golang-lru v0.5.4 // indirect
 	github.com/haya14busa/goplay v1.0.0 // indirect
+	github.com/inconshreveable/mousetrap v1.0.0
 	github.com/josharian/impl v0.0.0-20191119165012-6b9658ad00c7 // indirect
 	github.com/json-iterator/go v1.1.9
 	github.com/karrick/godirwalk v1.15.6 // indirect
