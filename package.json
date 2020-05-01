@@ -29,11 +29,11 @@
     },
     "scripts": {
         "install-server": "",
-        "build": "rollup -c ShadowEditor.Web/rollup.config.js",
-        "dev": "rollup -c ShadowEditor.Web/rollup.config.js --watch",
-        "eslint": "eslint ShadowEditor.Web/src --fix",
+        "build": "rollup -c rollup.config.js",
+        "dev": "rollup -c rollup.config.js --watch",
+        "eslint": "eslint src --fix",
         "docs": "gitbook build docs-dev",
-        "test": "rollup -c ShadowEditor.Web/test/unit/rollup.config.js",
+        "test": "rollup -c test/unit/rollup.config.js",
         "clear": "npm prune"
     },
     "repository": {

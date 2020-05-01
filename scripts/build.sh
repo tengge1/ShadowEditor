@@ -14,4 +14,4 @@ go env -w GO111MODULE=on
 go install ../server/
 
 # install the nodejs dependencies.
-npm install ../web/
+npm install ../

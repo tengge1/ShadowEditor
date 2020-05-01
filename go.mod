@@ -9,6 +9,7 @@ require (
 	github.com/dimfeld/httptreemux v5.0.1+incompatible
 	github.com/google/go-cmp v0.4.0 // indirect
 	github.com/json-iterator/go v1.1.9
+	github.com/karrick/godirwalk v1.15.6 // indirect
 	github.com/klauspost/compress v1.10.3 // indirect
 	github.com/mozillazg/go-pinyin v0.16.0
 	github.com/pkg/errors v0.9.1 // indirect
@@ -19,6 +20,7 @@ require (
 	github.com/stretchr/testify v1.5.1 // indirect
 	github.com/tidwall/pretty v1.0.1 // indirect
 	github.com/urfave/negroni v1.0.0
+	github.com/uudashr/gopkgs/v2 v2.1.2 // indirect
 	go.mongodb.org/mongo-driver v1.3.1
 	golang.org/x/crypto v0.0.0-20200403201458-baeed622b8d8 // indirect
 	golang.org/x/sync v0.0.0-20200317015054-43a5402ce75a // indirect
