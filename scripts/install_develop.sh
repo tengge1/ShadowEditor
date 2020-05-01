@@ -16,6 +16,25 @@
 #
 # You are ready to go, and can experience the power of golang now.
 
+# The current dir that you run this bash file.
+CURRENT_DIR=$(pwd)
+# The root dir that contains `README.md`.
+ROOT_DIR=$(cd "$(dirname "$0")";cd "..";pwd)
+# The golang server dir.
+SERVER_DIR=$ROOT_DIR/server
+# The web dir.
+WEB_DIR=$ROOT_DIR/web
+
+# Print the dir information.
+echo "current dir:" $CURRENT_DIR
+echo "root dir:" $ROOT_DIR
+echo "server dir:" $SERVER_DIR
+echo "web dir:" $WEB_DIR
+
+# install the golang development dependencies.
+echo "enter" $SERVER_DIR
+cd $SERVER_DIR
+
 go env -w GO111MODULE=on
 
 go get -u golang.org/x/tools/cmd/guru
@@ -41,3 +60,7 @@ go get -u -v github.com/sqs/goreturns
 go get -u -v github.com/tylerb/gotype-live
 go get -u -v github.com/sourcegraph/go-langserver
 go get -u -v github.com/stamblerre/gocode
+
+# Back to the current dir.
+echo 'leave' $SERVER_DIR
+cd $CURRENT_DIR
