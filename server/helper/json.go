@@ -10,7 +10,7 @@ package helper
 import (
 	jsoniter "github.com/json-iterator/go"
 
-	"github.com/tengge1/shadoweditor/helper/encoder"
+	"github.com/tengge1/shadoweditor/server/helper/encoder"
 )
 
 func init() {

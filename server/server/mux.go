@@ -12,7 +12,7 @@ import (
 
 	"github.com/dimfeld/httptreemux"
 
-	"github.com/tengge1/shadoweditor/helper"
+	"github.com/tengge1/shadoweditor/server/helper"
 )
 
 var (

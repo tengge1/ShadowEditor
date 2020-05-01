@@ -19,7 +19,7 @@ import (
 	"testing"
 
 	"github.com/prometheus/common/log"
-	"github.com/tengge1/shadoweditor/server"
+	"github.com/tengge1/shadoweditor/server/server"
 )
 
 func TestTextureList(t *testing.T) {

@@ -10,7 +10,7 @@ package middleware
 import (
 	"net/http"
 
-	"github.com/tengge1/shadoweditor/helper"
+	"github.com/tengge1/shadoweditor/server/helper"
 )
 
 // CrossOriginHandler is responsible for cross origin.
