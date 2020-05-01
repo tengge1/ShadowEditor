@@ -19,5 +19,5 @@ func MapPath(path string) string {
 		path = "/" + path
 	}
 	path = strings.ReplaceAll(path, "/", string(filepath.Separator))
-	return fmt.Sprintf("../ShadowEditor.Web%v", path)
+	return fmt.Sprintf("./%v", path)
 }

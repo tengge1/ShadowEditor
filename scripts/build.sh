@@ -54,6 +54,7 @@ cp -r ./assets ../build/public/assets
 cp -r ./locales ../build/public/locales
 cp ./favicon.ico ../build/public/favicon.ico
 cp ./index.html ../build/public/index.html
+cp ./manifest.json ../build/public/manifest.json
 cp ./sw.js ../build/public/sw.js
 cp ./view.html ../build/public/view.html
 echo 'leave' $WEB_DIR

@@ -31,7 +31,7 @@ export default {
         indent: '\t',
         format: 'umd',
         name: 'Shadow',
-        file: '../build/public/ShadowEditor.js'
+        file: '../build/public/build/ShadowEditor.js'
     },
     treeshake: true,
     external: [],

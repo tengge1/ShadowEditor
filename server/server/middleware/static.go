@@ -8,6 +8,7 @@
 package middleware
 
 import (
+	"fmt"
 	"io/ioutil"
 	"mime"
 	"net/http"
@@ -25,14 +26,16 @@ func StaticHandler(w http.ResponseWriter, r *http.Request, next http.HandlerFunc
 		return
 	}
 
-	// TODO: 可能有安全风险。
+	// TODO: May have security risk.
 
 	// static contents
-	path := helper.MapPath("/") + r.URL.Path
+	path := helper.MapPath("/public/") + r.URL.Path
 
 	if strings.HasSuffix(path, "/") {
 		path += "index.html"
 	}
+
+	fmt.Println(path)
 
 	_, err := os.Stat(path)
 	if os.IsNotExist(err) {
