@@ -20,4 +20,4 @@ enabled = false                             # enable remote edit
 web_socket_port = 5000                      # web socket server port
 
 [log]
-file = "../logs/ShadowServer.txt"
+file = "./logs/ShadowServer.txt"
