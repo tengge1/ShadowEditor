@@ -64,6 +64,7 @@ typings/
 /packages
 
 # custom files
+build/
 server/shadoweditor
 server/shadoweditor.exe
 web/build

@@ -28,7 +28,6 @@
         "rollup-plugin-replace": "^2.2.0"
     },
     "scripts": {
-        "install-server": "",
         "build": "rollup -c rollup.config.js",
         "dev": "rollup -c rollup.config.js --watch",
         "eslint": "eslint src --fix",

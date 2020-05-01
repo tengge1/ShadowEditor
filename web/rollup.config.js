@@ -26,12 +26,12 @@ function glsl() {
 }
 
 export default {
-    input: 'ShadowEditor.Web/src/index.js',
+    input: 'src/index.js',
     output: {
         indent: '\t',
         format: 'umd',
         name: 'Shadow',
-        file: 'ShadowEditor.Web/build/ShadowEditor.js'
+        file: '../build/public/ShadowEditor.js'
     },
     treeshake: true,
     external: [],
@@ -40,7 +40,7 @@ export default {
         resolve(),
         commonjs({
             exclude: [
-                'ShadowEditor.Web/assets/**'
+                'assets/**'
             ]
         }),
         replace({
