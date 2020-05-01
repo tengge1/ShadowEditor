@@ -5,8 +5,8 @@
 :: For more information, please visit: https://github.com/tengge1/ShadowEditor
 :: You can also visit: https://gitee.com/tengge1/ShadowEditor
 ::
-:: For some well-known reasons, we can not visit golang.org in china; and github.com
-:: is extremely slow.
+:: For some well-known reasons, we can not install packages from golang.org in china;
+:: and install packages from github.com is extremely slow
 ::
 :: So, we can set a proxy to make it faster to install third-party dependencies.
 

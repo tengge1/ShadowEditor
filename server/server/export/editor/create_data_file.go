@@ -11,7 +11,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/tengge1/shadoweditor/server/server/export/editor/data"
+	"github.com/tengge1/shadoweditor/server/export/editor/data"
 )
 
 // CreateDataFile create data files to the export scene.

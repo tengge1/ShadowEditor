@@ -7,7 +7,7 @@
 
 package editor
 
-import "github.com/tengge1/shadoweditor/server/server"
+import "github.com/tengge1/shadoweditor/server"
 
 // Result is export editor result.
 type Result struct {

@@ -44,7 +44,9 @@
         "shadoweditor",
         "3d",
         "editor",
-        "three.js"
+        "three.js",
+        "golang",
+        "mongodb"
     ],
     "author": "tengge",
     "license": "MIT",

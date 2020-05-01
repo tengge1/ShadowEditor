@@ -7,7 +7,7 @@
 # For more information, please visit: https://github.com/tengge1/ShadowEditor
 # You can also visit: https://gitee.com/tengge1/ShadowEditor
 #
-# For some well-known reasons, it is slow to visit https://www.npmjs.com/ in china.
+# For some well-known reasons, it is slow to install packages from https://www.npmjs.com/ in china.
 # So, we can set a proxy to make it faster to install third-party dependencies.
 
 npm config set registry https://registry.npm.taobao.org/

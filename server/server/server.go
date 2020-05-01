@@ -13,7 +13,7 @@ import (
 
 	"github.com/urfave/negroni"
 
-	"github.com/tengge1/shadoweditor/server/server/middleware"
+	"github.com/tengge1/shadoweditor/server/middleware"
 )
 
 // Start start the server

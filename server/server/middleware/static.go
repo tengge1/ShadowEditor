@@ -15,7 +15,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/tengge1/shadoweditor/server/helper"
+	"github.com/tengge1/shadoweditor/helper"
 )
 
 // StaticHandler is responsible for serve static contents.

@@ -15,7 +15,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 
-	"github.com/tengge1/shadoweditor/server/server/system/model"
+	"github.com/tengge1/shadoweditor/server/system/model"
 )
 
 // GetCurrentUser get the current login user

@@ -13,7 +13,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/tengge1/shadoweditor/server/helper"
+	"github.com/tengge1/shadoweditor/helper"
 )
 
 // CopyAssets copy the assets needed to the exported scene.
