@@ -7,7 +7,7 @@
 
 package main
 
-import "github.com/tengge1/shadoweditor/server/cmd"
+import "github.com/tengge1/shadoweditor/server/server/cmd"
 
 // Here we just import and execute the root command. Keep this file tidy.
 //

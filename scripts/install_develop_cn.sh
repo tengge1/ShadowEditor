@@ -7,7 +7,7 @@
 # For more information, please visit: https://github.com/tengge1/ShadowEditor
 # You can also visit: https://gitee.com/tengge1/ShadowEditor
 #
-# download and install the third-party development dependencies. These are only
+# Download and install the third-party development dependencies. These are only
 # needed when you want to develop the golang server.
 #
 # First, you should install `VSCode`. You can download from: https://code.visualstudio.com/

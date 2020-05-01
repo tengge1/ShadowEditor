@@ -2,7 +2,7 @@
 :: Use of this source code is governed by a MIT-style
 :: license that can be found in the LICENSE file.
 ::
-:: download and install the third-party development dependencies. These are only
+:: Download and install the third-party development dependencies. These are only
 :: needed when you want to develop the golang server.
 ::
 :: First, you should install `VSCode`. You can download from: https://code.visualstudio.com/
