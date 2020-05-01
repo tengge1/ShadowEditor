@@ -8,19 +8,24 @@
 package helper
 
 import (
+	"reflect"
+	"time"
+
+	"go.mongodb.org/mongo-driver/bson/primitive"
+
 	jsoniter "github.com/json-iterator/go"
 
 	"github.com/tengge1/shadoweditor/helper/encoder"
 )
 
 func init() {
-	jsoniter.RegisterTypeEncoder("time.Time", encoder.TimeEncoder{})
+	jsoniter.RegisterTypeEncoder(reflect.TypeOf(time.Now()).String(), encoder.TimeEncoder{})
 	jsoniter.RegisterTypeEncoder(
-		"go.mongodb.org/mongo-driver/bson/primitive.ObjectID",
+		reflect.TypeOf(primitive.NewObjectID()).String(),
 		encoder.PrimitiveObjectIDEncoder{},
 	)
 	jsoniter.RegisterTypeEncoder(
-		"go.mongodb.org/mongo-driver/bson/primitive.D",
+		reflect.TypeOf(primitive.D{}).String(),
 		encoder.PrimitiveDEncoder{},
 	)
 }
