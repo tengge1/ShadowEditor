@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"reflect"
 	"unsafe"
 
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -15,7 +16,7 @@ func main() {
 		{Key: "hello", Value: "world"},
 	}
 
-	jsoniter.RegisterTypeEncoder("go.mongodb.org/mongo-driver/bson/primitive.D", PrimitiveDEncoder{})
+	jsoniter.RegisterTypeEncoder(reflect.TypeOf(primitive.D{}).String(), PrimitiveDEncoder{})
 
 	bytes, err := jsoniter.Marshal(data)
 	if err != nil {
