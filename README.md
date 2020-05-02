@@ -1,15 +1,15 @@
 # Shadow Editor
 
-Supported Languages: [中文](README_zh.md) / English / 日本語 / 한국어 / русский / Le français
+Supported Languages: English / [中文](README_zh.md) / 日本語 / 한국어 / русский / Le français
 
-> [Click Here](../../tree/v0.4.6-csharp/) to switch to `C#` branch.
+> [Click Here](../../tree/v0.4.6-csharp/) to switch to `C#` branch, which is no longer maintained.
 
 * Name: Shadow Editor
 * Version: v0.5.0 (under development)
 * Description: 3D scene editor based on `three.js`、`golang` and `mongoDB`.
-* Source Code: [GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | Document: [GitHub](https://tengge1.github.io/ShadowEditor/) [Gitee](https://tengge1.gitee.io/shadoweditor/) | Demo: [GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) | Video: [Weibo](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) | Resources: [Baidu Cloud](https://pan.baidu.com/s/1IxJVM6fFLoIAJG-GKHjVTA)
-* Technology Stack: `html`, ` css`, `javascript`, `rollup`, `react.js`, `webgl`, `three.js`, `golang`, `mongoDB`.
-* If it is helpful to you, please [donate](https://gitee.com/tengge1/ShadowEditor) to support the development, thank you.
+* Source Code: [GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | Document: [GitHub](https://tengge1.github.io/ShadowEditor/) [Gitee](https://tengge1.gitee.io/shadoweditor/) | Demo: [GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) | Video: [Weibo](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) | Assets: [Baidu Cloud](https://pan.baidu.com/s/1IxJVM6fFLoIAJG-GKHjVTA)
+* Technology Stack: `html`, `css`, `javascript`, `rollup`, `react.js`, `webgl`, `three.js`, `golang`, `mongoDB`.
+* If helpful to you, please [DOnate](https://gitee.com/tengge1/ShadowEditor) to support us, thank you.
 
 ## Screenshot
 
@@ -19,8 +19,8 @@ Supported Languages: [中文](README_zh.md) / English / 日本語 / 한국어 / 
 
 Compared with `asp.net`, `golang` has many advantages:
 
-1. Compatible with both `Windows`, `Linux` and `Mac`.
-2. Compiled language (similar to C language), supporting `goroutine`, which can take advantages of `CPU` multi-core and high performance.
+1. Support both `Windows`, `Linux` and `Mac`.
+2. Similar to C language. support `goroutine`, which take great advantages of multi-core, and have high performance.
 3. Easy to learn. Huge standard libraries and third-party libraries, and high development efficiency.
 4. Can be compiled into a single executable file, it is essential for users to install `golang` nor `NodeJs`.
 5. No longer need `iis`, you can use it by double-clicking, and you can build both desktop and web version.
