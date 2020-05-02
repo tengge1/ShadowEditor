@@ -29,7 +29,7 @@ echo "web dir:" %WEB_DIR%
 :: run the golang server.
 echo "enter" %BUILD_DIR%
 cd %BUILD_DIR%
-.\ShadowEditor.exe serve --config=.\config.toml
+.\ShadowEditor.exe serve --config .\config.toml
 
 :: Restore current dir.
 echo "restore current work directory"

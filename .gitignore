@@ -70,3 +70,4 @@ server/shadoweditor
 server/shadoweditor.exe
 Upload/
 debug.test
+__debug_bin

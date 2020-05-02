@@ -5,7 +5,20 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch file",
+            "name": "Launch Server",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/server/main.go",
+            "env": {},
+            "args": [
+                "serve",
+                "--config",
+                "./config-server.toml"
+            ]
+        },
+        {
+            "name": "Launch File",
             "type": "go",
             "request": "launch",
             "mode": "auto",
@@ -17,15 +30,6 @@
             "request": "launch",
             "mode": "debug",
             "program": "${fileDirname}"
-        },
-        {
-            "name": "Launch Server",
-            "type": "go",
-            "request": "launch",
-            "mode": "auto",
-            "program": "${fileDirname}",
-            "env": {},
-            "args": []
         }
     ]
 }

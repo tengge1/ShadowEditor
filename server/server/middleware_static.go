@@ -27,11 +27,7 @@ func StaticHandler(w http.ResponseWriter, r *http.Request, next http.HandlerFunc
 	// TODO: May have security risk.
 
 	// static contents
-	path := MapPath("/public/") + r.URL.Path
-
-	if strings.HasSuffix(path, "/") {
-		path += "index.html"
-	}
+	path := MapPath(r.URL.Path)
 
 	fmt.Println(path)
 

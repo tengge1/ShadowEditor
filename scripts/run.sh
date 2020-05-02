@@ -25,6 +25,6 @@ echo "build dir:" $BUILD_DIR
 echo 'enter' $BUILD_DIR
 cd $BUILD_DIR
 cd $ROOT_DIR/build
-$ROOT_DIR/build/ShadowEditor serve --config=./config.toml
+$ROOT_DIR/build/ShadowEditor serve --config ./config.toml
 echo 'leave' $BUILD_DIR
 cd $CURRENT_DIR
