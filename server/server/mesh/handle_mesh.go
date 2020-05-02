@@ -169,7 +169,7 @@ func (Mesh) Add(w http.ResponseWriter, r *http.Request) {
 	now := time.Now()
 
 	savePath := fmt.Sprintf("/Upload/Model/%v", helper.TimeToString(now, "yyyyMMddHHmmss"))
-	physicalPath := helper.MapPath(savePath)
+	physicalPath := server.MapPath(savePath)
 
 	tempPath := filepath.Join(physicalPath, "temp")
 
@@ -540,7 +540,7 @@ func (Mesh) Delete(w http.ResponseWriter, r *http.Request) {
 	}
 
 	path := doc["SavePath"].(string)
-	physicalPath := helper.MapPath(path)
+	physicalPath := server.MapPath(path)
 	os.RemoveAll(physicalPath)
 
 	db.DeleteOne(server.MeshCollectionName, filter)
@@ -588,11 +588,11 @@ func (Mesh) Download(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// create zip file
-	savePath := helper.MapPath(doc["SavePath"].(string))
+	savePath := server.MapPath(doc["SavePath"].(string))
 
 	now := helper.TimeToString(time.Now(), "yyyyMMddHHmmssfff")
 	destFile := fmt.Sprintf("/temp/%v.zip", now)
-	descPhysicalFile := helper.MapPath(destFile)
+	descPhysicalFile := server.MapPath(destFile)
 
 	helper.Zip(savePath, descPhysicalFile)
 

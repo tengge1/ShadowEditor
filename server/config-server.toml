@@ -1,0 +1,23 @@
+# Shadow Editor Server Configuration
+
+[server]
+port = ":2020"                              # server address
+
+[database]
+type = "mongo"                              # only support mongo
+connection = "mongodb://127.0.0.1:27017"    # mongo connection string
+database = "ShadowEditor"                   # mongo database name
+
+[authority]
+enabled = true                             # enable authority
+expires = 120                               # login time, minutes, only support integer 
+
+[upload]
+max_size = 1000000000                       # max upload file size
+
+[remote]
+enabled = false                             # enable remote edit
+web_socket_port = 5000                      # web socket server port
+
+[log]
+file = "../logs/ShadowServer.txt"

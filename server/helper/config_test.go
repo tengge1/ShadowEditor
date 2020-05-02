@@ -29,5 +29,8 @@ func TestConfig(t *testing.T) {
 	t.Logf("remote.enabled: %v", config.Remote.Enabled)
 	t.Logf("remote.web_socket_port: %v", config.Remote.WebSocketPort)
 
+	t.Logf("path.public_dir: %v", config.Path.PublicDir)
+	t.Logf("path.log_dir: %v", config.Path.LogDir)
+
 	t.Logf("log.file: %v", config.Log.File)
 }

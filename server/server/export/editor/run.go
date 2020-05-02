@@ -26,7 +26,7 @@ func init() {
 func Run(w http.ResponseWriter, r *http.Request) {
 	now := time.Now()
 
-	path := helper.MapPath(fmt.Sprintf("/temp/%v", helper.TimeToString(now, "yyyyMMddHHmmss")))
+	path := server.MapPath(fmt.Sprintf("/temp/%v", helper.TimeToString(now, "yyyyMMddHHmmss")))
 
 	if _, err := os.Stat(path); os.IsNotExist(err) {
 		os.MkdirAll(path, 0755)
