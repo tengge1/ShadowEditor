@@ -36,7 +36,6 @@ func GetConfig(path string) (config *ConfigModel, err error) {
 	// In windows system, path separator "/" should be replace with "\\".
 	if strings.HasPrefix(runtime.GOOS, "windows") {
 		config.Path.PublicDir = strings.ReplaceAll(config.Path.PublicDir, "/", "\\")
-		config.Path.UploadDir = strings.ReplaceAll(config.Path.UploadDir, "/", "\\")
 		config.Path.LogDir = strings.ReplaceAll(config.Path.LogDir, "/", "\\")
 	}
 
@@ -89,7 +88,6 @@ type RemoteConfigModel struct {
 // PathConfigModel is the authority path section in `config.toml`;
 type PathConfigModel struct {
 	PublicDir string `toml:"public_dir"`
-	UploadDir string `toml:"upload_dir"`
 	LogDir    string `toml:"log_dir"`
 }
 

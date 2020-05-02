@@ -183,7 +183,7 @@ func (Texture) Add(w http.ResponseWriter, r *http.Request) {
 	now := time.Now()
 
 	savePath := fmt.Sprintf("/Upload/Texture/%v", helper.TimeToString(now, "yyyyMMddHHmmss"))
-	physicalPath := helper.MapPath(savePath)
+	physicalPath := server.MapPath(savePath)
 
 	if _, err := os.Stat(physicalPath); os.IsNotExist(err) {
 		os.MkdirAll(physicalPath, 0755)
@@ -406,7 +406,7 @@ func (Texture) Delete(w http.ResponseWriter, r *http.Request) {
 
 	// 删除纹理所在目录
 	path := doc["SavePath"].(string)
-	physicalPath := helper.MapPath(path)
+	physicalPath := server.MapPath(path)
 
 	err = os.RemoveAll(physicalPath)
 	if err != nil {

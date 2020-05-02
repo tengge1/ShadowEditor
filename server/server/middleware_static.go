@@ -5,7 +5,7 @@
 // For more information, please visit: https://github.com/tengge1/ShadowEditor
 // You can also visit: https://gitee.com/tengge1/ShadowEditor
 
-package middleware
+package server
 
 import (
 	"fmt"
@@ -15,8 +15,6 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-
-	"github.com/tengge1/shadoweditor/helper"
 )
 
 // StaticHandler is responsible for serve static contents.
@@ -29,7 +27,7 @@ func StaticHandler(w http.ResponseWriter, r *http.Request, next http.HandlerFunc
 	// TODO: May have security risk.
 
 	// static contents
-	path := helper.MapPath("/public/") + r.URL.Path
+	path := MapPath("/public/") + r.URL.Path
 
 	if strings.HasSuffix(path, "/") {
 		path += "index.html"

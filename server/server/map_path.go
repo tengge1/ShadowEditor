@@ -5,16 +5,19 @@
 // For more information, please visit: https://github.com/tengge1/ShadowEditor
 // You can also visit: https://gitee.com/tengge1/ShadowEditor
 
-package middleware
+package server
 
 import (
-	"net/http"
-
-	"github.com/tengge1/shadoweditor/helper"
+	"fmt"
+	"path/filepath"
+	"strings"
 )
 
-// CrossOriginHandler is responsible for cross origin.
-func CrossOriginHandler(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
-	helper.EnableCrossDomain(w, r)
-	next.ServeHTTP(w, r)
+// MapPath convert a root relative path to physical absolute path.
+func MapPath(path string) string {
+	if !strings.HasPrefix(path, "/") {
+		path = "/" + path
+	}
+	path = strings.ReplaceAll(path, "/", string(filepath.Separator))
+	return fmt.Sprintf("./%v", path)
 }

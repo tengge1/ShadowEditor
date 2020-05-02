@@ -67,7 +67,7 @@ func (Upload) Upload(w http.ResponseWriter, r *http.Request) {
 	now := time.Now()
 
 	savePath := fmt.Sprintf("/Upload/File/%v", helper.TimeToString(now, "yyyyMMddHHmmss"))
-	physicalPath := helper.MapPath(savePath)
+	physicalPath := server.MapPath(savePath)
 
 	if _, err := os.Stat(physicalPath); os.IsNotExist(err) {
 		os.MkdirAll(physicalPath, 0755)

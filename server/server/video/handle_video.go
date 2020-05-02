@@ -167,7 +167,7 @@ func (Video) Add(w http.ResponseWriter, r *http.Request) {
 	now := time.Now()
 
 	savePath := fmt.Sprintf("/Upload/Video/%v", helper.TimeToString(now, "yyyyMMddHHmmss"))
-	physicalPath := helper.MapPath(savePath)
+	physicalPath := server.MapPath(savePath)
 
 	if _, err := os.Stat(physicalPath); os.IsNotExist(err) {
 		os.MkdirAll(physicalPath, 0755)
@@ -343,7 +343,7 @@ func (Video) Delete(w http.ResponseWriter, r *http.Request) {
 	}
 
 	path := doc["SavePath"].(string)
-	physicalPath := helper.MapPath(path)
+	physicalPath := server.MapPath(path)
 	os.RemoveAll(physicalPath)
 
 	db.DeleteOne(server.VideoCollectionName, filter)

@@ -30,7 +30,6 @@ func TestConfig(t *testing.T) {
 	t.Logf("remote.web_socket_port: %v", config.Remote.WebSocketPort)
 
 	t.Logf("path.public_dir: %v", config.Path.PublicDir)
-	t.Logf("path.upload_dir: %v", config.Path.UploadDir)
 	t.Logf("path.log_dir: %v", config.Path.LogDir)
 
 	t.Logf("log.file: %v", config.Log.File)

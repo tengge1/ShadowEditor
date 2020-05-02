@@ -166,7 +166,7 @@ func (Animation) Add(w http.ResponseWriter, r *http.Request) {
 	now := time.Now()
 
 	savePath := fmt.Sprintf("/Upload/Animation/%v", helper.TimeToString(now, "yyyyMMddHHmmss"))
-	physicalPath := helper.MapPath(savePath)
+	physicalPath := server.MapPath(savePath)
 
 	tempPath := filepath.Join(physicalPath, "temp")
 
@@ -375,7 +375,7 @@ func (Animation) Delete(w http.ResponseWriter, r *http.Request) {
 	}
 
 	path := doc["SavePath"].(string)
-	physicalPath := helper.MapPath(path)
+	physicalPath := server.MapPath(path)
 	os.RemoveAll(physicalPath)
 
 	db.DeleteOne(server.AnimationCollectionName, filter)
