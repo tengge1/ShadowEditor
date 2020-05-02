@@ -8,6 +8,7 @@
 package helper
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/BurntSushi/toml"
@@ -27,6 +28,8 @@ func GetConfig(path string) (config *ConfigModel, err error) {
 		return nil, err
 	}
 
+	config.Database.Connection = fmt.Sprintf("mongodb://%v:%v", config.Database.Host, config.Database.Port)
+
 	return
 }
 
@@ -37,6 +40,7 @@ type ConfigModel struct {
 	Authority AuthorityConfigModel `toml:"authority"`
 	Upload    UploadConfigModel    `toml:"upload"`
 	Remote    RemoteConfigModel    `toml:"remote"`
+	Path      PathConfigModel      `toml:"path"`
 	Log       LogConfigModel       `toml:"log"`
 }
 
@@ -47,8 +51,11 @@ type ServerConfigModel struct {
 
 // DatabaseConfigModel database config
 type DatabaseConfigModel struct {
-	Type       string `toml:"type"`
-	Connection string `toml:"connection"`
+	Type string `toml:"type"`
+	Host string `toml:"host"`
+	Port int    `toml:"port"`
+	// Connection should not read from config.toml.
+	Connection string
 	Database   string `toml:"database"`
 }
 
@@ -67,6 +74,13 @@ type UploadConfigModel struct {
 type RemoteConfigModel struct {
 	Enabled       bool `toml:"enabled"`
 	WebSocketPort int  `toml:"web_socket_port"`
+}
+
+// PathConfigModel is the path config.
+type PathConfigModel struct {
+	PublicDir string `toml:"public_dir"`
+	UploadDir string `toml:"upload_dir"`
+	LogDir    string `toml:"log_dir"`
 }
 
 // LogConfigModel  log config

@@ -5,11 +5,12 @@ port = ":2020"                              # server address
 
 [database]
 type = "mongo"                              # only support mongo
-connection = "mongodb://127.0.0.1:27017"    # mongo connection string
-database = "ShadowEditor"                   # mongo database name
+host = "127.0.0.1"                          # mongoDB host
+port = 27017                                # mongoDB port
+database = "ShadowEditor"                   # mongoDB database name
 
 [authority]
-enabled = true                             # enable authority
+enabled = true                              # enable authority
 expires = 120                               # login time, minutes, only support integer 
 
 [upload]
@@ -18,6 +19,11 @@ max_size = 1000000000                       # max upload file size
 [remote]
 enabled = false                             # enable remote edit
 web_socket_port = 5000                      # web socket server port
+
+[path]
+public_dir = "./public"                     # The directory that contains index.html.
+upload_dir = "./public/Upload"              # The directory that user upload mesh, texture, etc. Need write authority.
+log_dir = "./logs"                          # The directory that contains log files. Need write authority.
 
 [log]
 file = "./logs/ShadowServer.txt"
