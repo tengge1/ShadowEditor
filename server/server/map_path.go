@@ -18,6 +18,6 @@ func MapPath(path string) string {
 	if !strings.HasPrefix(path, "/") {
 		path = "/" + path
 	}
-	path = strings.ReplaceAll(path, "/", string(filepath.Separator))
-	return fmt.Sprintf("./%v", path)
+	path = fmt.Sprintf("%v%v", Config.Path.PublicDir, path)
+	return strings.ReplaceAll(path, "/", string(filepath.Separator))
 }
