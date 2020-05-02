@@ -7,11 +7,15 @@ Supported Languages: [中文](README_zh.md) / English / 日本語 / 한국어 / 
 * Name: Shadow Editor
 * Version: v0.5.0 (under development)
 * Description: 3D scene editor based on `three.js`、`golang` and `mongoDB`.
-* Source Code: [GitHub] (https://github.com/tengge1/ShadowEditor) [Gitee] (https://gitee.com/tengge1/ShadowEditor) | Document: [GitHub] (https://tengge1.github.io/ShadowEditor/) [Gitee](https://tengge1.gitee.io/shadoweditor/) | Demo: [GitHub] (https://tengge1.github.io/ShadowEditor-examples/) [Gitee] (http://tengge1.gitee.io/shadoweditor-examples/) | Video: [Weibo](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili] (https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) | Resources: [Baidu Cloud](https://pan.baidu.com/s/1IxJVM6fFLoIAJG-GKHjVTA)
+* Source Code: [GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | Document: [GitHub](https://tengge1.github.io/ShadowEditor/) [Gitee](https://tengge1.gitee.io/shadoweditor/) | Demo: [GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) | Video: [Weibo](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) | Resources: [Baidu Cloud](https://pan.baidu.com/s/1IxJVM6fFLoIAJG-GKHjVTA)
 * Technology Stack: `html`, ` css`, `javascript`, `rollup`, `react.js`, `webgl`, `three.js`, `golang`, `mongoDB`.
 * If it is helpful to you, please [donate](https://gitee.com/tengge1/ShadowEditor) to support the development, thank you.
 
-## v0.5.0 is coming soon
+## Screenshot
+
+![image](images/scene20200301.jpg)
+
+## v0.5.0 is Coming Soon
 
 Compared with `asp.net`, `golang` has many advantages:
 
@@ -23,7 +27,7 @@ Compared with `asp.net`, `golang` has many advantages:
 6. The returned data is enabled with `gzip` compression, the network data is reduced by more than 10 times, and the speed of displaying and loading scenes is greatly improved.
 7. Development no longer requires the installation of a huge `Visual Studio`, no longer requires` Windows`, and a simple `Visual Studio Code` can be used to comfortably develop the front and back ends.
 
-**Update log:**
+**Update Log:**
 
 1. Fixed the bug that the `draco` model could not be loaded due to the upgrade of `three.js`.
 2. Models in `.json` format are no longer supported.
@@ -35,23 +39,19 @@ Compared with `asp.net`, `golang` has many advantages:
 8. Fixed the bug that the confirmation dialog could not be cancelled and closed.
 9. Fixed the bug that the role is deleted and the list is not refreshed.
 
-## v0.4.6 Has Updated
+## v0.4.6 has Released
 
-* Release date: April 5, 2020
-* Update log:
+* Release Date: April 5, 2020
+* Update Log:
 
-1. Fixed the bug that the confirmation dialog of loading auto save scene could not be cancelled, the button of `Cancel` was changed to` Empty`.
+1. Fixed the bug that the confirmation dialog of loading auto save scene could not be cancelled, the button of `Cancel` was changed to `Empty`.
 2. Fix the error of saving the sample scene report "ID is invalid". Now the sample scene can be saved normally.
 3. Fix the bug of adding "background music" component as soon as you open the page.
 4. Fixed the bug that the music file was not exported when the background music component was released.
 5. Fixed the bug that the video address is incorrect after the scene of `Video Sticker` is released.
 6. Fix the bug of obtaining server configuration and unused server address.
-7. Go language server. (In development)
-8. Fix the bug that calling `clock.getDelta` and` clock.getElapsedTime` multiple times in the script causes abnormal animation. Now these two functions can be called multiple times in the script.
-
-## Screenshot
-
-![image](images/scene20200301.jpg)
+7. Go language server. (Under development)
+8. Fix the bug that calling `clock.getDelta` and `clock.getElapsedTime` multiple times in the script causes abnormal animation. Now these functions can be called multiple times in the scripts.
 
 ## Features
 
