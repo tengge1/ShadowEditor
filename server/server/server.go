@@ -8,8 +8,11 @@
 package server
 
 import (
+	"context"
 	"log"
 	"net/http"
+	"os"
+	"os/signal"
 
 	"github.com/urfave/negroni"
 )
@@ -24,13 +27,26 @@ func Start() {
 	handler.Use(negroni.HandlerFunc(StaticHandler))
 	handler.UseHandler(Mux)
 
-	err := http.ListenAndServe(Config.Server.Port, handler)
-	if err != nil {
-		switch err {
-		case http.ErrServerClosed:
-			log.Panicln("http server closed")
-		default:
-			log.Fatal(err)
+	srv := http.Server{Addr: Config.Server.Port, Handler: handler}
+	idleConnsClosed := make(chan struct{})
+
+	go func() {
+		sigint := make(chan os.Signal, 1)
+		signal.Notify(sigint, os.Interrupt)
+		<-sigint
+
+		// We received an interrupt signal, shut down.
+		if err := srv.Shutdown(context.Background()); err != nil {
+			// Error from closing listeners, or context timeout.
+			log.Printf("HTTP server Shutdown: %v", err)
 		}
+		close(idleConnsClosed)
+	}()
+
+	if err := srv.ListenAndServe(); err != http.ErrServerClosed {
+		// Error starting or closing listener:
+		log.Fatalf("HTTP server ListenAndServe: %v", err)
 	}
+
+	<-idleConnsClosed
 }

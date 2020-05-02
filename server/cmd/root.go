@@ -17,18 +17,18 @@ var (
 
 	rootCmd = &cobra.Command{
 		Use:   "ShadowEditor",
-		Short: "3D scene editor based on three.js",
-		Long: `ShadowEditor is a 3D scene editor based on three.js.
+		Short: "3D scene editor based on three.js golang and mongodb",
+		Long: `ShadowEditor is a 3D scene editor based on three.js, golang and mongodb.
 This application uses mongodb to store data.`,
 	}
 )
 
-// Execute executes the root command. It shows useful information, and register all other commands.
+// Execute executes the root command. It displays useful information, and register all other commands.
 //
-// When you double click ShadowEditor.exe in the explorer, run `serve` command.
+// When you double click ShadowEditor.exe in the windows explorer, run `serve` command.
 func Execute() {
 	if mousetrap.StartedByExplorer() {
-		// double click in windows explorer
+		// double click in the explorer of the windows system
 		runServe()
 	} else {
 		// use command line

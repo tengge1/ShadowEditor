@@ -15,7 +15,7 @@ import (
 
 	"github.com/tengge1/shadoweditor/server"
 
-	// TODO: Is it better to move the imports to the file `../main.go`?
+	// TODO: Is it better to move the imports to `../main.go`?
 	_ "github.com/tengge1/shadoweditor/server/animation"  // animation api
 	_ "github.com/tengge1/shadoweditor/server/assets"     // assets api
 	_ "github.com/tengge1/shadoweditor/server/audio"      // audio api
@@ -38,22 +38,21 @@ import (
 // serveCmd run the shadow editor server.
 var serveCmd = &cobra.Command{
 	Use:     "serve",
-	Short:   "Start shadoweditor server",
+	Short:   "Start shadow editor server",
 	Aliases: []string{"server"},
-	Long:    `Use shadoweditor server to provider scene and model data.`,
+	Long:    `Use shadow editor server to provider scene and model data.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		runServe()
 	},
 }
 
 func runServe() {
-	_, err := os.Stat(cfgFile)
-	if os.IsNotExist(err) {
+	if _, err := os.Stat(cfgFile); os.IsNotExist(err) {
 		log.Fatalf("cannot find config file: %v", cfgFile)
 		return
 	}
 
-	err = server.Create(cfgFile)
+	err := server.Create(cfgFile)
 	if err != nil {
 		log.Fatal(err)
 		return
