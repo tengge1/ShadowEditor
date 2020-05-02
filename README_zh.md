@@ -2,18 +2,16 @@
 
 Supported Languages: 中文 / [English](README.md) / 日本語 / 한국어 / русский / Le français
 
-> [点击此处](../../tree/v0.4.6-csharp/)切换到C#分支。
+> [点击此处](../../tree/v0.4.6-csharp/)切换到`C#`分支。
 
 * 名称：Shadow Editor
 * 版本：v0.5.0(开发中)
 * 简介：基于`three.js`的场景编辑器。
 * 源码：[GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | 文档：[GitHub](https://tengge1.github.io/ShadowEditor/) [Gitee](https://tengge1.gitee.io/shadoweditor/) | 示例：[GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) | 视频：[微博](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) | 资源：[百度云](https://pan.baidu.com/s/1IxJVM6fFLoIAJG-GKHjVTA)
-* 技术栈：`html`、`css`、`javascript`、`rollup`、`react.js`、`webgl`、`three.js`、`asp.net`。
+* 技术栈：`html`、`css`、`javascript`、`rollup`、`react.js`、`webgl`、`three.js`、`golang`。
 * 如果对您有帮助，请[【捐赠】](https://gitee.com/tengge1/ShadowEditor)支持项目发展，谢谢。
 
 ## v0.5.0即将更新
-
-Go语言服务端已经开发完成，正在努力测试中，预计5月1日发布。
 
 跟`asp.net`相比，`go语言服务端`具有非常多的好处：
 
@@ -86,65 +84,136 @@ Go语言服务端已经开发完成，正在努力测试中，预计5月1日发�
 27. 自带字体管理器、转换器工具，可以将ttf字体文件转换为json文件，便于创建三维文字。
 28. 支持设置选中颜色和边框粗细、鼠标高亮颜色，阴影类型，各种帮助器显示隐藏，滤镜效果，天气效果。
 
-## 使用指南
+## 开发需求
 
-**该项目仅支持Windows系统，电脑上需要安装.Net Framework 4.7.2及更新版本。**
+**这些要求仅在开发编译时需要，运行环境不需要除了MongoDB和浏览器以外的其他软件。**
 
-**兼容火狐和谷歌浏览器，推荐使用最新版谷歌浏览器。**
+1. Windows, Linux, Mac, 或者任意支持`golang`和`nodejs`的系统。
+2. Golang 1.14.2+
+3. NodeJS 14.1+
+4. gcc 9.3.0+ (windows上需要安装`MinGW`并添加环境变量，保证`gcc`可以通过命令行访问)。
+5. git 2.25.1+
+6. MongoDB v3.6.8+
+7. VSCode 1.44.2+
+8. Chrome 81.0+ 或者 Firefox 75.0+
 
-1. 安装`NodeJs`，在最外层目录（有`README.md`文件的那个文件），执行以下命令。
+说明：低版本也可能支持，仅供参考。请在编译前安装好这些开发环境。
 
-```bash
-npm install
-npm run build
-```
+## 下载和编译
 
-2. 下载`MongoDB`，安装并启动MongoDB服务。MongoDB服务的默认端口为27017。
-
-MongoDB下载地址:https://www.mongodb.com/download-center/community
-
-可以下载zip版本，然后在MongoDB的bin文件夹执行以下命令安装服务，注意修改路径。
-
-```bash
-mongod --dbpath=D:\mongodb\db --logpath=D:\mongodb\log\mongoDB.log --install --serviceName MongoDB
-net start MongoDB
-```
-
-3. 编辑文件`ShadowEditor.Web/Web.config`，将`27017`修改为你电脑上MongoDB服务的端口。
-
-```xml
-<add key="mongo_connection" value="mongodb://127.0.0.1:27017" />
-```
-
-4. 使用`Visual Studio 2017`打开项目，生成`ShadowEditor.Web`项目。
-
-5. 将`ShadowEditor.Web`部署在iis上即可在浏览器中访问。
-
-注意：发布网站部署，Web目录外面需要多加一层文件夹，用于存放日志、数据库备份等不能公开的资源。
-
-6. 编译文档，请安装gitbook。
+1. 下载代码。
 
 ```bash
-npm install -g gitbook-cli
+git clone https://github.com/tengge1/ShadowEditor.git
 ```
 
-然后切换到`docs-dev`目录，安装gitbook插件。
+由于国内`github`比较慢，可以使用gitee。
 
 ```bash
-gitbook install
+git clone https://gitee.com/tengge1/ShadowEditor.git
 ```
 
-然后切换到上级目录，执行以下命令生成文档。
+如果你需要`C#`版本，可以切换到`C#`分支，但是该版本不再维护。
 
 ```bash
-npm run docs
+git checkout -b csharp origin/v0.4.6-csharp
 ```
+
+2. 下载安装`VSCode`，并安装`Go`扩展。
+
+推荐安装以下扩展，但不是必须的。
+
+`Shader languages support for VS Code`, `C/C++`, `ESLint`, `Go`, `TOML Language Support`.
+
+3. 国内用户设置`golang`和`nodejs`代理。
+
+在国内，由于`golang.org`无法访问，`github.com`和`npmjs.com`特别慢，推荐设置代码。
+
+Windows系统执行
+
+```bash
+.\scripts\set_go_proxy.bat
+.\scripts\set_npm_proxy.bat
+```
+
+Linux系统执行
+
+```bash
+./scripts/set_go_proxy.sh
+./scripts/set_npm_proxy.sh
+```
+
+4. 安装`golang`开发常用的工具，具有智能提示、转到定义等功能。
+
+Windows系统执行
+
+```bash
+.\scripts\install_develop.bat
+```
+
+Linux系统执行
+
+```bash
+./scripts/install_develop.sh
+```
+
+5. 安装`golang`和`nodejs`所需的第三方依赖。
+
+Windows系统执行
+
+```bash
+.\scripts\install.bat
+```
+
+Linux系统执行
+
+```bash
+./scripts/install.sh
+```
+
+6. 编译`golang`和`nodejs`。
+
+Windows系统执行
+
+```bash
+.\scripts\build.bat
+```
+
+Linux系统执行
+
+```bash
+./scripts/build.sh
+```
+
+编译的代码位于`build`文件夹中。发布时，只需要发布该文件夹即可。
+
+7. 启动程序。
+
+Windows系统执行
+
+```bash
+.\scripts\run.bat
+```
+
+Linux系统执行
+
+```bash
+./scripts/run.sh
+```
+
+命令行输出
+
+```
+2020/05/02 09:57:20 starting shadoweditor server on port :2020
+```
+
+这时，就可以在浏览器中访问了：http://localhost:2020
 
 ## 常见问题
 
 1. 上传模型时为什么都是上传失败？
 
-需要把模型贴图等资源压缩成一个zip包，而且入口文件不能嵌套文件夹。服务端会解压上传的zip包放到`~/Upload/Model`文件下，并在MongoDB `_Mesh`表里添加一条数据。
+需要把模型贴图等资源压缩成一个zip包，而且入口文件不能嵌套文件夹。服务端会解压上传的zip包放到`./public/Upload/Model`文件下，并在MongoDB `_Mesh`表里添加一条数据。
 
 2. 如何将多个模型组合在一起？
 
@@ -152,42 +221,12 @@ npm run docs
 
 3. 如何开启权限系统？
 
-打开`ShadowEditor.Web/Web.config`文件，将`EnableAuthority`设置为`true`。默认管理员用户名是`admin`，密码是`123456`。
+打开`config.toml`文件，将`authority.enabled`设置为`true`。默认管理员用户名是`admin`，密码是`123456`。
 
 4. 前端报`asm.js 已被禁用，因为脚本调试程序已连接。请断开调试程序的连接，以启用 asm.js。`的错误。
 
 **完整错误**：asm.js 已被禁用，因为脚本调试程序已连接。请断开调试程序的连接，以启用 asm.js。 ammo.js (1,1) SCRIPT1028: SCRIPT1028: Expected identifier, string or number ShadowEditor.js (3948,8) SCRIPT5009: 'Shadow' is not defined。  
 **解决方法**：腾讯浏览器不支持使用`Emscripten`编译的`ammo.js`（WebAssembly），建议换成谷歌浏览器。  
-
-5. 前端报`404.0 - Not Found您要找的资源已被删除、已更名或暂时不可用。`的错误。
-
-可能原因1：**iis没有开启asp.net支持。**
-
-解决方法：  
-1、打开控制面板、程序和功能、启用或关闭Windows功能。  
-2、把`.NET Framework`勾选上。  
-3、把Internet Information Services、万维网服务、应用程序开发功能，下面的`.NET Extensibility`、`ASP.NET`、`ISAPI扩展`、`ISAPI筛选器`、`应用程序初始化`勾选上，确定。  
-
-可能原因2：**服务端没有编译。**
-
-解决方法：
-使用`Visual Studio 2017`打开项目，在解决方案管理器`ShadowEditor.Web`项目上右键，选择重新生成。
-
-6. 上传模型报`对路径“C:\inetpub\wwwroot\Upload\Model\20200208192356\temp”的访问被拒绝。`的错误。
-
-原因：`Upload`文件夹没有写入权限。  
-解决方法：  
-右键`Upload`文件夹，点击属性。安全选项卡，点高级，添加。选择主体，填写Everyone，基本权限，选择`完全控制`就好了。
-
-7. 发布场景后没反应。
-
-1、看一下谷歌浏览器地址栏右侧，弹出窗口是不是被拦截了。  
-2、打开开发者工具，看一下`Console`或`Network`选项卡，是不是报错了。  
-3、发布的场景在`ShadowEditor.Web\temp`目录下，看一下有没有。
-
-8. 将.net framework升级到4.7.2报错：未能找到文件`E:\github\ShadowEditor\ShadowEditor.Web\bin\roslyn\csc.exe`。
-
-解决方法：清理解决方案，重新生成解决方案即可。
 
 ## 相关链接
 
