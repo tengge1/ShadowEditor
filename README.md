@@ -2,7 +2,7 @@
 
 Supported Languages: [中文](README_zh.md) / English / 日本語 / 한국어 / русский / Le français
 
-> [Click Here] (../../tree/v0.4.6-csharp/) to switch to `C#` branch.
+> [Click Here](../../tree/v0.4.6-csharp/) to switch to `C#` branch.
 
 * Name: Shadow Editor
 * Version: v0.5.0 (under development)
@@ -35,7 +35,7 @@ Compared with `asp.net`, `golang` has many advantages:
 8. Fixed the bug that the confirmation dialog could not be cancelled and closed.
 9. Fixed the bug that the role is deleted and the list is not refreshed.
 
-## v0.4.6Update 【[Update Logs](docs-dev/update/UpdateLog.md)】
+## v0.4.6 Has Updated
 
 * Release date: April 5, 2020
 * Update log:

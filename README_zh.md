@@ -35,7 +35,7 @@ Supported Languages: 中文 / [English](README.md) / 日本語 / 한국어 / р�
 8. 修复确认对话框无法取消和关闭bug。
 9. 修复删除角色，列表不刷新bug。
 
-## v0.4.6更新【[更新日志](docs-dev/update/UpdateLog.md)】
+## v0.4.6更新
 
 * 发布日期：2020年4月5日
 * 更新日志：
