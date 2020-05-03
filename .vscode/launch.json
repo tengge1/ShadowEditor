@@ -11,10 +11,11 @@
             "mode": "auto",
             "program": "${workspaceFolder}/server/main.go",
             "env": {},
+            "cwd": "${workspaceFolder}/build",
             "args": [
                 "serve",
                 "--config",
-                "./config-server.toml"
+                "${workspaceFolder}/server/config-server.toml"
             ]
         },
         {
