@@ -24,7 +24,6 @@ func Start() {
 	handler := negroni.Classic()
 	handler.Use(negroni.HandlerFunc(CrossOriginHandler))
 	handler.Use(negroni.HandlerFunc(GZipHandler))
-	handler.Use(negroni.HandlerFunc(StaticHandler))
 	handler.UseHandler(Mux)
 
 	srv := http.Server{Addr: Config.Server.Port, Handler: handler}
