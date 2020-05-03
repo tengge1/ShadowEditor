@@ -101,115 +101,47 @@ Compared with `asp.net`, `golang` has many advantages:
 
 ## Download and Compile
 
-1. Clone the source code.
+You can use git to download the source code.
 
 ```bash
 git clone https://github.com/tengge1/ShadowEditor.git
 ```
 
-In **China**, `github` is terribly slow, you can use `gitee` instead.
+In **China**, `github` is really slow, you can use `gitee` instead.
 
 ```bash
 git clone https://gitee.com/tengge1/ShadowEditor.git
 ```
 
-If you need a `C#` version, you can checkout the `C#` branch. But it is no longer maintained.
+If you need a csharp version, you can checkout the `v0.4.6-csharp` branch which is no longer maintained. 
+[Click](../../tree/v0.4.6-csharp/) to see the install guide.
 
 ```bash
 git checkout -b csharp origin/v0.4.6-csharp
 ```
 
-2. Download and install `VSCode` and `Go` extension.
+### Build on Ubuntu
 
-It is recommended to install the following extensions, but they are not essential.
+You can use `make` to build this application on ubuntu. If you have no `make`, 
+run `sudo apt install make` first.
 
-`Shader languages ​​support for VS Code`, `C/C++`, `ESLint`, `Go`, `TOML Language Support`.
+1. If you are in `China`, run `make proxy` to set golang and nodejs proxy.
+2. Run `make` in the root folder to build all this application.
+3. Open `build/config.toml`, and set the database host and port.
+4. Run `make run` to launch the server. You can now visit: `http://localhost:2020`.
 
-3. **Chinese** users can set `golang` and `nodejs` proxy.
+### Build on Windows
 
-In China, since `golang.org` is inaccessible, `github.com` and `npmjs.com` are rather slow, it is recommended to set golang and nodejs proxy.
+1. If you are in `China`, run `.\scripts\set_go_proxy.bat` and `.\scripts\set_npm_proxy.bat`
+to set golang and nodejs proxy.
+2. Run `.\scripts\install_develop.bat` to install golang development tools;
+3. Run `.\scripts\install.bat` to install golang and nodejs dependencies.
+4. Run `.\scripts\build.bat` to build both server and web client.
+5. Run `.\scripts\run.bat` to launch the server. You can now visit: `http://localhost:2020`.
 
-Windows:
+## License
 
-```bash
-.\scripts\set_go_proxy.bat
-.\scripts\set_npm_proxy.bat
-```
-
-Linux:
-
-```bash
-./scripts/set_go_proxy.sh
-./scripts/set_npm_proxy.sh
-```
-
-4. Install the development tools for `golang`, and they are helpful for development, such as intelligence.
-
-Windows:
-
-```bash
-.\scripts\install_develop.bat
-```
-
-Linux:
-
-```bash
-./scripts/install_develop.sh
-```
-
-5. Install the third-party dependencies.
-
-Windows:
-
-```bash
-.\scripts\install.bat
-```
-
-Linux:
-
-```bash
-./scripts/install.sh
-```
-
-6. Compile the source.
-
-Windows:
-
-```bash
-.\scripts\build.bat
-```
-
-Linux:
-
-```bash
-./scripts/build.sh
-```
-
-The distribution is in the `build` folder. When publish,  just copy this folder.
-
-7. Launch the program.
-
-Windows:
-
-```bash
-.\scripts\run.bat
-```
-
-*You can also double-click build/ShadowEditor.exe in the explorer*
-
-Linux:
-
-```bash
-./scripts/run.sh
-```
-
-Here is the output:
-
-```
-2020/05/02 09:57:20 starting shadoweditor server on port: 2020
-```
-
-Now, you can visit in browser: http://localhost:2020
+MIT License
 
 ## Questions & Answers
 
@@ -230,10 +162,6 @@ Open `config.toml` and set `authority.enabled` to `true`. The default administra
 **Complete error**: asm.js has been disabled because the script debugger is connected. Please disconnect the debugger to enable asm.js. ammo.js (1,1) SCRIPT1028: SCRIPT1028: Expected identifier, string or number ShadowEditor.js (3948,8) SCRIPT5009: 'Shadow' is not defined.
 
 **Solution**: Tencent browser does not support `ammo.js` (WebAssembly) compiled with `Emscripten`, it is recommended to use `Chrome` or `Firebox` instead.
-
-## License
-
-MIT License
 
 ## Related Links
 
