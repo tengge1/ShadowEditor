@@ -83,6 +83,7 @@ func (Config) Get(w http.ResponseWriter, r *http.Request) {
 		result.RoleName = user.RoleName
 		result.DeptID = user.DeptID
 		result.DeptName = user.DeptName
+		result.OperatingAuthorities = user.OperatingAuthorities
 	}
 
 	helper.WriteJSON(w, server.Result{
