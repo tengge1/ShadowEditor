@@ -5,9 +5,28 @@
 # For more information, please visit: https://github.com/tengge1/ShadowEditor
 # You can also visit: https://gitee.com/tengge1/ShadowEditor
 
+# You can use `make` to build this application on ubuntu.
+#
+# 1. Assume you have installed MongoDB, and now it's working correctly.
+# 2. Run `sudo apt install make` to install the make tool.
+# 3. If you are in China, run `make proxy` to set golang and nodejs proxy.
+# 4. Run `make` in the folder that contains `Makefile` to build all this application.
+# 5. Open `build/config.toml`, to set the database host and port.
+# 6. Run `make run` to launch the application. You can visit in `http://localhost:2020`.
+#
+# `make` does the following things for you:
+# 1. Install golang and nodejs development tools.
+# 2. Install golang and nodejs dependencies.
+# 3. Build golang server.
+# 4. Build web client.
+# You will see all the builds in the `build` folder.
+
 # Build both server and web.
 all: FORCE
+	./scripts/install_develop.sh
+	./scripts/install.sh
 	./scripts/build.sh
+	echo "Now you can run `make run` to launch the application."
 
 # Install golang and nodejs dependencies.
 install: FORCE
@@ -32,6 +51,11 @@ web-dev: FORCE
 # Run server.
 run: FORCE
 	./scripts/run.sh
+
+# Set golang and npm proxy. (Only for Chinese)
+proxy: FORCE
+	./scripts/set_go_proxy.sh
+	./scripts/set_npm_proxy.sh
 
 # Remove all files in the build folder except the uploaded assets.
 clean: FORCE
