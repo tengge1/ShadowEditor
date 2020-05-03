@@ -23,13 +23,14 @@ require (
 	github.com/josharian/impl v0.0.0-20191119165012-6b9658ad00c7 // indirect
 	github.com/json-iterator/go v1.1.9
 	github.com/karrick/godirwalk v1.15.6 // indirect
-	github.com/klauspost/compress v1.10.3 // indirect
+	github.com/klauspost/compress v1.10.5 // indirect
 	github.com/konsorten/go-windows-terminal-sequences v1.0.3 // indirect
 	github.com/mattn/go-colorable v0.1.6 // indirect
 	github.com/mattn/go-runewidth v0.0.9 // indirect
-	github.com/mozillazg/go-pinyin v0.16.0
+	github.com/mozillazg/go-pinyin v0.17.0
 	github.com/neelance/parallel v0.0.0-20160708114440-4de9ce63d14c // indirect
 	github.com/opentracing/basictracer-go v1.1.0 // indirect
+	github.com/otiai10/copy v1.1.1
 	github.com/peterh/liner v1.2.0 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/prometheus/client_golang v1.6.0 // indirect
@@ -52,11 +53,12 @@ require (
 	github.com/urfave/negroni v1.0.0
 	github.com/uudashr/gopkgs/v2 v2.1.2 // indirect
 	github.com/willf/bitset v1.1.10 // indirect
+	github.com/yanyiwu/gojieba v1.1.2 // indirect
 	github.com/zmb3/gogetdoc v0.0.0-20190228002656-b37376c5da6a // indirect
-	go.mongodb.org/mongo-driver v1.3.1
+	go.mongodb.org/mongo-driver v1.3.2
 	go.starlark.net v0.0.0-20200330013621-be5394c419b6 // indirect
 	golang.org/x/arch v0.0.0-20200312215426-ff8b605520f4 // indirect
-	golang.org/x/crypto v0.0.0-20200403201458-baeed622b8d8 // indirect
+	golang.org/x/crypto v0.0.0-20200429183012-4b2356b1ed79 // indirect
 	golang.org/x/lint v0.0.0-20200302205851-738671d3881b // indirect
 	golang.org/x/net v0.0.0-20200501053045-e0ff5e5a1de5 // indirect
 	golang.org/x/sync v0.0.0-20200317015054-43a5402ce75a // indirect

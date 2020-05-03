@@ -8,54 +8,10 @@
 package helper
 
 import (
-	"fmt"
-	"io"
-	"io/ioutil"
-	"os"
-	"path"
+	"github.com/otiai10/copy"
 )
 
 // CopyDirectory copy one directory and its content to another
 func CopyDirectory(sourceDirName, destDirName string) error {
-	stat, err := os.Stat(sourceDirName)
-	if os.IsNotExist(err) {
-		return fmt.Errorf("sourceDirName (%v) is not existed", sourceDirName)
-	} else if err != nil {
-		return err
-	}
-	if !stat.IsDir() {
-		return fmt.Errorf("sourceDirName (%v) is not a directory", sourceDirName)
-	}
-
-	stat, err = os.Stat(destDirName)
-	if err == nil && !stat.IsDir() {
-		return fmt.Errorf("destDirName (%v) is a file", destDirName)
-	}
-
-	infos, err := ioutil.ReadDir(sourceDirName)
-	if err != nil {
-		return nil
-	}
-
-	for _, info := range infos {
-		source := path.Join(sourceDirName, info.Name())
-		dest := path.Join(destDirName, info.Name())
-		if info.IsDir() {
-			os.MkdirAll(dest, 0755)
-		} else {
-			sourceFile, err := os.Open(source)
-			if err != nil {
-				return err
-			}
-			defer sourceFile.Close()
-			destFile, err := os.Create(dest)
-			if err != nil {
-				return err
-			}
-			defer destFile.Close()
-			io.Copy(sourceFile, destFile)
-		}
-	}
-
-	return nil
+	return copy.Copy(sourceDirName, destDirName)
 }

@@ -180,7 +180,7 @@ func Scene(w http.ResponseWriter, r *http.Request) {
 		}
 
 		// 复制资源
-		file, err := os.OpenFile(path, os.O_CREATE, 0755)
+		file, err := os.OpenFile(path, os.O_CREATE|os.O_WRONLY, 0755)
 		if err != nil {
 			helper.WriteJSON(w, server.Result{
 				Code: 300,
