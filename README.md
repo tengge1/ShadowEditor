@@ -13,7 +13,7 @@ Supported Languages: English / [中文](README_zh.md) / 日本語 / 한국어 / 
 
 ## Screenshot
 
-![image](images/scene20200301.jpg)
+![image](images/scene20200503_en.jpg)
 
 ## v0.5.0 is Coming
 
