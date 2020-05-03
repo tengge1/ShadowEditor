@@ -203,7 +203,7 @@ func Scene(w http.ResponseWriter, r *http.Request) {
 	}
 
 	for _, url := range urls {
-		if strings.HasPrefix(url, "/") { // 可能是base64地址
+		if !strings.HasPrefix(url, "/") { // 可能是base64地址
 			continue
 		}
 
@@ -215,7 +215,7 @@ func Scene(w http.ResponseWriter, r *http.Request) {
 				continue
 			}
 
-			sourceDirName := filepath.Dir(server.MapPath(url))
+			sourceDirName := filepath.Dir(server.MapPath(_url))
 			targetDirName := filepath.Dir(strings.ReplaceAll(path+_url, "/", string(os.PathSeparator)))
 
 			helper.CopyDirectory(sourceDirName, targetDirName)
@@ -267,7 +267,10 @@ func getURLInMaterial(material bson.M, urls *[]string) {
 
 	for _, material := range materials {
 		image := material["image"].(primitive.D).Map()
-		*urls = append(*urls, image["src"].(string))
+		src := image["src"].(string)
+		if strings.HasPrefix(src, "/") {
+			*urls = append(*urls, src)
+		}
 	}
 }
 
