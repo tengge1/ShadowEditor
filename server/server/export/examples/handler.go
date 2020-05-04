@@ -87,16 +87,21 @@ func createDataFile(path string) {
 		os.MkdirAll(dirName, 0755)
 	}
 
-	exportAssets(path)
 	exportAnimation(path)
+	exportAssets(path)
 	exportAudio(path)
 	exportCategory(path)
+	exportCharacter(path)
 	exportMap(path)
 	exportMaterial(path)
 	exportMesh(path)
+	exportParticle(path)
+	exportPrefab(path)
 	exportScene(path)
+	exportScreenshot(path)
 	exportTools(path)
 	exportUpload(path)
+	exportVideo(path)
 }
 
 // Result is export examples result.
