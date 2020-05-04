@@ -5,7 +5,7 @@
 // For more information, please visit: https://github.com/tengge1/ShadowEditor
 // You can also visit: https://gitee.com/tengge1/ShadowEditor
 
-package data
+package examples
 
 import (
 	"io/ioutil"
@@ -15,8 +15,7 @@ import (
 	"github.com/tengge1/shadoweditor/helper"
 )
 
-// CreateAnimationDataFile 复制动画数据文件
-func CreateAnimationDataFile(path string) {
+func exportAnimation(path string) {
 	dirName := filepath.Join(path, "api", "Animation")
 
 	if _, err := os.Stat(dirName); os.IsNotExist(err) {

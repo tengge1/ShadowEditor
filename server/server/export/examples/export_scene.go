@@ -7,10 +7,6 @@
 
 package examples
 
-import "github.com/tengge1/shadoweditor/server"
+func exportScene(path string) {
 
-// Result is export editor result.
-type Result struct {
-	server.Result
-	URL string `json:"Url"`
 }

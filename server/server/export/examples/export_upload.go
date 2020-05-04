@@ -5,8 +5,8 @@
 // For more information, please visit: https://github.com/tengge1/ShadowEditor
 // You can also visit: https://gitee.com/tengge1/ShadowEditor
 
-package data
+package examples
 
-func CreateMapDataFile(path string) {
+func exportUpload(path string) {
 
 }

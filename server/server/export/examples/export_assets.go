@@ -5,7 +5,7 @@
 // For more information, please visit: https://github.com/tengge1/ShadowEditor
 // You can also visit: https://gitee.com/tengge1/ShadowEditor
 
-package data
+package examples
 
 import (
 	"io/ioutil"
@@ -15,8 +15,7 @@ import (
 	"github.com/tengge1/shadoweditor/helper"
 )
 
-// CreateAssetsDataFile 复制资源数据文件
-func CreateAssetsDataFile(path string) {
+func exportAssets(path string) {
 	dirName := filepath.Join(path, "api", "Assets")
 
 	if _, err := os.Stat(dirName); os.IsNotExist(err) {
