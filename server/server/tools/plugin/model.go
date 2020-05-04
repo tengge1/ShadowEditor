@@ -5,12 +5,12 @@
 // For more information, please visit: https://github.com/tengge1/ShadowEditor
 // You can also visit: https://gitee.com/tengge1/ShadowEditor
 
-package tools
+package plugin
 
 import "time"
 
-// PluginModel 插件模型
-type PluginModel struct {
+// Model 插件模型
+type Model struct {
 	// 编号
 	ID string
 	// 名称
