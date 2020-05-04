@@ -16,23 +16,12 @@ import (
 	"github.com/tengge1/shadoweditor/server"
 
 	// TODO: Is it better to move the imports to `../main.go`?
-	_ "github.com/tengge1/shadoweditor/server/animation"  // animation api
-	_ "github.com/tengge1/shadoweditor/server/assets"     // assets api
-	_ "github.com/tengge1/shadoweditor/server/audio"      // audio api
-	_ "github.com/tengge1/shadoweditor/server/category"   // category api
-	_ "github.com/tengge1/shadoweditor/server/character"  // character api
-	_ "github.com/tengge1/shadoweditor/server/export"     // export api
-	_ "github.com/tengge1/shadoweditor/server/material"   // material api
-	_ "github.com/tengge1/shadoweditor/server/mesh"       // mesh api
-	_ "github.com/tengge1/shadoweditor/server/particle"   // particle api
-	_ "github.com/tengge1/shadoweditor/server/prefab"     // prefab api
-	_ "github.com/tengge1/shadoweditor/server/scene"      // scene api
-	_ "github.com/tengge1/shadoweditor/server/screenshot" // screenshot api
-	_ "github.com/tengge1/shadoweditor/server/system"     // system api
-	_ "github.com/tengge1/shadoweditor/server/texture"    // texture api
-	_ "github.com/tengge1/shadoweditor/server/tools"      // tools api
-	_ "github.com/tengge1/shadoweditor/server/upload"     // upload api
-	_ "github.com/tengge1/shadoweditor/server/video"      // video api
+	_ "github.com/tengge1/shadoweditor/server/assets"   // assets api
+	_ "github.com/tengge1/shadoweditor/server/category" // category api
+	_ "github.com/tengge1/shadoweditor/server/export"   // export api
+	_ "github.com/tengge1/shadoweditor/server/system"   // system api
+	_ "github.com/tengge1/shadoweditor/server/tools"    // tools api
+	_ "github.com/tengge1/shadoweditor/server/upload"   // upload api
 )
 
 // serveCmd run the shadow editor server.
