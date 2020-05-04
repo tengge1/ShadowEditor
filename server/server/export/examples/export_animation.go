@@ -8,28 +8,29 @@
 package examples
 
 import (
+	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
+
+	"github.com/tengge1/shadoweditor/server"
 
 	"github.com/tengge1/shadoweditor/helper"
 )
 
 func exportAnimation(path string) {
-	dirName := filepath.Join(path, "api", "Animation")
+	port := server.Config.Server.Port
 
+	result, _ := helper.Get(fmt.Sprintf("http://%v/api/Animation/List", port))
+
+	dirName := filepath.Join(path, "api", "Animation")
 	if _, err := os.Stat(dirName); os.IsNotExist(err) {
 		os.MkdirAll(dirName, 0755)
 	}
 
 	// 获取列表
 	fileName := filepath.Join(path, "api", "Animation", "List")
-	data, _ := helper.ToJSON(map[string]interface{}{
-		"Code": 200,
-		"Msg":  "获取成功！",
-		"Data": []string{},
-	})
-	ioutil.WriteFile(fileName, []byte(data), 0755)
+	ioutil.WriteFile(fileName, []byte(result), 0755)
 
 	// 其他接口
 	apiList := []string{
@@ -38,9 +39,9 @@ func exportAnimation(path string) {
 		"/api/Animation/Delete",
 	}
 
-	data, _ = helper.ToJSON(map[string]interface{}{
-		"Code": 300,
-		"Msg":  "演示程序，操作失败！",
+	data, _ := helper.ToJSON(map[string]interface{}{
+		"Code": 200,
+		"Msg":  "Execute successfully!",
 	})
 
 	for _, i := range apiList {

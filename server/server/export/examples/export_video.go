@@ -7,6 +7,44 @@
 
 package examples
 
-func exportVideo(path string) {
+import (
+	"fmt"
+	"io/ioutil"
+	"os"
+	"path/filepath"
 
+	"github.com/tengge1/shadoweditor/helper"
+	"github.com/tengge1/shadoweditor/server"
+)
+
+func exportVideo(path string) {
+	port := server.Config.Server.Port
+
+	result, _ := helper.Get(fmt.Sprintf("http://%v/api/Video/List", port))
+
+	dirName := filepath.Join(path, "api", "Video")
+	if _, err := os.Stat(dirName); os.IsNotExist(err) {
+		os.MkdirAll(dirName, 0755)
+	}
+
+	// 获取列表
+	fileName := filepath.Join(path, "api", "Video", "List")
+	ioutil.WriteFile(fileName, []byte(result), 0755)
+
+	// 其他接口
+	apiList := []string{
+		"/api/Video/Add",
+		"/api/Video/Edit",
+		"/api/Video/Delete",
+	}
+
+	data, _ := helper.ToJSON(map[string]interface{}{
+		"Code": 200,
+		"Msg":  "Execute successfully!",
+	})
+
+	for _, i := range apiList {
+		fileName = filepath.Join(path, i)
+		ioutil.WriteFile(fileName, []byte(data), 0755)
+	}
 }

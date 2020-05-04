@@ -7,6 +7,56 @@
 
 package examples
 
-func exportCharacter(path string) {
+import (
+	"fmt"
+	"io/ioutil"
+	"os"
+	"path/filepath"
 
+	"github.com/tengge1/shadoweditor/helper"
+	"github.com/tengge1/shadoweditor/server"
+)
+
+func exportCharacter(path string) {
+	port := server.Config.Server.Port
+
+	result, _ := helper.Get(fmt.Sprintf("http://%v/api/Character/List", port))
+
+	dirName := filepath.Join(path, "api", "Character")
+	if _, err := os.Stat(dirName); os.IsNotExist(err) {
+		os.MkdirAll(dirName, 0755)
+	}
+
+	// 获取列表
+	fileName := filepath.Join(path, "api", "Character", "List")
+	ioutil.WriteFile(fileName, []byte(result), 0755)
+
+	// export scenes
+	var obj map[string]interface{}
+	helper.FromJSON([]byte(result), &obj)
+	array := obj["Data"].([]map[string]interface{})
+
+	for _, i := range array {
+		id := i["ID"].(string)
+		result, _ = helper.Get(fmt.Sprintf("http://%v/api/Character/Get?ID=%v", port, id))
+		fileName = fmt.Sprintf("%v/api/Character/Character_%v", path, id)
+		ioutil.WriteFile(fileName, []byte(result), 0755)
+	}
+
+	// 其他接口
+	apiList := []string{
+		"/api/Character/Edit",
+		"/api/Character/Save",
+		"/api/Animation/Delete",
+	}
+
+	data, _ := helper.ToJSON(map[string]interface{}{
+		"Code": 200,
+		"Msg":  "Execute successfully!",
+	})
+
+	for _, i := range apiList {
+		fileName = filepath.Join(path, i)
+		ioutil.WriteFile(fileName, []byte(data), 0755)
+	}
 }

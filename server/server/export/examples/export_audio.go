@@ -8,14 +8,20 @@
 package examples
 
 import (
+	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 
 	"github.com/tengge1/shadoweditor/helper"
+	"github.com/tengge1/shadoweditor/server"
 )
 
 func exportAudio(path string) {
+	port := server.Config.Server.Port
+
+	result, _ := helper.Get(fmt.Sprintf("http://%v/api/Audio/List", port))
+
 	dirName := filepath.Join(path, "api", "Audio")
 
 	if _, err := os.Stat(dirName); os.IsNotExist(err) {
@@ -24,12 +30,7 @@ func exportAudio(path string) {
 
 	// 获取列表
 	fileName := filepath.Join(path, "api", "Audio", "List")
-	data, _ := helper.ToJSON(map[string]interface{}{
-		"Code": 200,
-		"Msg":  "获取成功！",
-		"Data": []string{},
-	})
-	ioutil.WriteFile(fileName, []byte(data), 0755)
+	ioutil.WriteFile(fileName, []byte(result), 0755)
 
 	// 其他接口
 	apiList := []string{
@@ -38,9 +39,9 @@ func exportAudio(path string) {
 		"/api/Audio/Delete",
 	}
 
-	data, _ = helper.ToJSON(map[string]interface{}{
+	data, _ := helper.ToJSON(map[string]interface{}{
 		"Code": 300,
-		"Msg":  "演示程序，操作失败！",
+		"Msg":  "Execute sucessfully!",
 	})
 
 	for _, i := range apiList {

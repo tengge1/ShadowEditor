@@ -7,6 +7,56 @@
 
 package examples
 
-func exportParticle(path string) {
+import (
+	"fmt"
+	"io/ioutil"
+	"os"
+	"path/filepath"
 
+	"github.com/tengge1/shadoweditor/helper"
+	"github.com/tengge1/shadoweditor/server"
+)
+
+func exportParticle(path string) {
+	port := server.Config.Server.Port
+
+	result, _ := helper.Get(fmt.Sprintf("http://%v/api/Particle/List", port))
+
+	dirName := filepath.Join(path, "api", "Particle")
+	if _, err := os.Stat(dirName); os.IsNotExist(err) {
+		os.MkdirAll(dirName, 0755)
+	}
+
+	// 获取列表
+	fileName := filepath.Join(path, "api", "Particle", "List")
+	ioutil.WriteFile(fileName, []byte(result), 0755)
+
+	// export scenes
+	var obj map[string]interface{}
+	helper.FromJSON([]byte(result), &obj)
+	array := obj["Data"].([]map[string]interface{})
+
+	for _, i := range array {
+		id := i["ID"].(string)
+		result, _ = helper.Get(fmt.Sprintf("http://%v/api/Particle/Get?ID=%v", port, id))
+		fileName = fmt.Sprintf("%v/api/Particle/Particle_%v", path, id)
+		ioutil.WriteFile(fileName, []byte(result), 0755)
+	}
+
+	// 其他接口
+	apiList := []string{
+		"/api/Particle/Edit",
+		"/api/Particle/Save",
+		"/api/Particle/Delete",
+	}
+
+	data, _ := helper.ToJSON(map[string]interface{}{
+		"Code": 200,
+		"Msg":  "Execute successfully!",
+	})
+
+	for _, i := range apiList {
+		fileName = filepath.Join(path, i)
+		ioutil.WriteFile(fileName, []byte(data), 0755)
+	}
 }
