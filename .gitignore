@@ -65,6 +65,7 @@ typings/
 
 # custom files
 build/
+dump/
 logs/
 server/shadoweditor
 server/shadoweditor.exe
