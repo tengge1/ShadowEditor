@@ -20,7 +20,6 @@ class ToolMenu extends React.Component {
         this.handleCleanUpScenes = this.handleCleanUpScenes.bind(this);
         this.commitCleanUpScenes = this.commitCleanUpScenes.bind(this);
         this.handlePlugins = this.handlePlugins.bind(this);
-        this.handleExportEditor = this.handleExportEditor.bind(this);
         this.handleExportExamples = this.handleExportExamples.bind(this);
     }
 
@@ -45,9 +44,6 @@ class ToolMenu extends React.Component {
             <MenuItemSeparator />
             <MenuItem title={_t('Plugins')}
                 onClick={this.handlePlugins}
-            />
-            <MenuItem title={_t('Export Editor')}
-                onClick={this.handleExportEditor}
             />
             <MenuItem title={_t('Export Examples')}
                 onClick={this.handleExportExamples}
@@ -115,29 +111,6 @@ class ToolMenu extends React.Component {
     handlePlugins() {
         const win = app.createElement(PluginsWindow);
         app.addElement(win);
-    }
-
-    handleExportEditor() {
-        app.confirm({
-            title: _t('Query'),
-            content: _t('Are you sure to export the editor?'),
-            onOK: () => {
-                fetch(`${app.options.server}/api/ExportEditor/Run`, {
-                    method: 'POST'
-                }).then(response => {
-                    if (response.ok) {
-                        response.json().then(obj => {
-                            if (obj.Code !== 200) {
-                                app.toast(_t(obj.Msg), 'warn');
-                                return;
-                            }
-                            app.toast(_t(obj.Msg), 'success');
-                            window.open(`${app.options.server}${obj.Url}`, 'export');
-                        });
-                    }
-                });
-            }
-        });
     }
 
     handleExportExamples() {

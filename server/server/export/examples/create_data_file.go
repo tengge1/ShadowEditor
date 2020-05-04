@@ -5,13 +5,13 @@
 // For more information, please visit: https://github.com/tengge1/ShadowEditor
 // You can also visit: https://gitee.com/tengge1/ShadowEditor
 
-package editor
+package examples
 
 import (
 	"os"
 	"path/filepath"
 
-	"github.com/tengge1/shadoweditor/server/export/editor/data"
+	"github.com/tengge1/shadoweditor/server/export/examples/data"
 )
 
 // CreateDataFile create data files to the export scene.

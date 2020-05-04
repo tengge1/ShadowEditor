@@ -8,8 +8,6 @@
 package export
 
 import (
-	_ "github.com/tengge1/shadoweditor/server/export/editor"     // editor api
-	_ "github.com/tengge1/shadoweditor/server/export/examples"   // examples api
-	_ "github.com/tengge1/shadoweditor/server/export/scene"      // scene api
-	_ "github.com/tengge1/shadoweditor/server/export/scene_list" // scene_list api
+	_ "github.com/tengge1/shadoweditor/server/export/examples" // examples api
+	_ "github.com/tengge1/shadoweditor/server/export/scene"    // scene api
 )

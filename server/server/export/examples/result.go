@@ -5,4 +5,12 @@
 // For more information, please visit: https://github.com/tengge1/ShadowEditor
 // You can also visit: https://gitee.com/tengge1/ShadowEditor
 
-package scenelist
+package examples
+
+import "github.com/tengge1/shadoweditor/server"
+
+// Result is export editor result.
+type Result struct {
+	server.Result
+	URL string `json:"Url"`
+}
