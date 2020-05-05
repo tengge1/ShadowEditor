@@ -12,7 +12,8 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-// ConvertToPinYin 汉字转拼音
+// ConvertToPinYin convert Chinese character to Chinese pinyin which
+// is convenient to search using keywords.
 func ConvertToPinYin(text string) (model PinYinModel) {
 	args := pinyin.NewArgs()
 	pinyin := pinyin.LazyPinyin(text, args)
@@ -25,7 +26,9 @@ func ConvertToPinYin(text string) (model PinYinModel) {
 	return
 }
 
-// PinYinToString convert pinyin to string.
+// PinYinToString convert pinyin (string or array) to string.
+//
+// TODO: Just for compatible, and will removed in the future.
 func PinYinToString(obj interface{}) string {
 	result := ""
 	switch elem := obj.(type) {
@@ -39,10 +42,10 @@ func PinYinToString(obj interface{}) string {
 	return result
 }
 
-// PinYinModel 返回拼音模型
+// PinYinModel is the returned pinyin model.
 type PinYinModel struct {
-	// TotalPinYin 全拼
+	// TotalPinYin is the total pinyin.
 	TotalPinYin string
-	// FirstPinYin 首拼
+	// FirstPinYin is the first letter of pinyin.
 	FirstPinYin string
 }

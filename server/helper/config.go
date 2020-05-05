@@ -16,7 +16,7 @@ import (
 	"github.com/BurntSushi/toml"
 )
 
-// GetConfig get server config from `config.toml`
+// GetConfig read `config.toml` and parse `ConfigModel`.
 func GetConfig(path string) (config *ConfigModel, err error) {
 	file, err := os.Open(path)
 	if err != nil {

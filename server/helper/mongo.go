@@ -17,7 +17,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-// NewMongo create a mongo client from connectionString and databaseName
+// NewMongo create a mongo client using connectionString and databaseName.
 func NewMongo(connectionString, databaseName string) (*Mongo, error) {
 	m := Mongo{connectionString, databaseName, nil, nil}
 
@@ -43,7 +43,7 @@ func NewMongo(connectionString, databaseName string) (*Mongo, error) {
 	return &m, nil
 }
 
-// Mongo represent a mongo client
+// Mongo represent a mongo client.
 type Mongo struct {
 	ConnectionString string
 	DatabaseName     string
@@ -51,7 +51,7 @@ type Mongo struct {
 	Database         *mongo.Database
 }
 
-// ListCollectionNames list collectionNames of database
+// ListCollectionNames list collectionNames of database.
 func (m Mongo) ListCollectionNames() (collectionNames []string, err error) {
 	if m.Database == nil {
 		return nil, fmt.Errorf("mongo client is not created")
@@ -61,7 +61,7 @@ func (m Mongo) ListCollectionNames() (collectionNames []string, err error) {
 	return m.Database.ListCollectionNames(context.TODO(), bson.M{}, &listOptions)
 }
 
-// GetCollection get a collection from collectionName
+// GetCollection get a collection from collectionName.
 func (m Mongo) GetCollection(name string) (collection *mongo.Collection, err error) {
 	if m.Database == nil {
 		return nil, fmt.Errorf("mongo client is not created")
@@ -69,7 +69,7 @@ func (m Mongo) GetCollection(name string) (collection *mongo.Collection, err err
 	return m.Database.Collection(name), nil
 }
 
-// RunCommand run a mongo command
+// RunCommand run a mongo command.
 func (m Mongo) RunCommand(command interface{}) (result *mongo.SingleResult, err error) {
 	if m.Database == nil {
 		return nil, fmt.Errorf("mongo client is not created")
@@ -77,7 +77,7 @@ func (m Mongo) RunCommand(command interface{}) (result *mongo.SingleResult, err 
 	return m.Database.RunCommand(context.TODO(), command), nil
 }
 
-// DropCollection drop a collection
+// DropCollection drop a collection.
 func (m Mongo) DropCollection(name string) error {
 	if m.Database == nil {
 		return fmt.Errorf("mongo client is not created")
@@ -85,7 +85,7 @@ func (m Mongo) DropCollection(name string) error {
 	return m.Database.Collection(name).Drop(context.TODO())
 }
 
-// InsertOne insert one document to a collection
+// InsertOne insert one document to a collection.
 func (m Mongo) InsertOne(collectionName string, document interface{}) (*mongo.InsertOneResult, error) {
 	collection, err := m.GetCollection(collectionName)
 	if err != nil {
@@ -94,7 +94,7 @@ func (m Mongo) InsertOne(collectionName string, document interface{}) (*mongo.In
 	return collection.InsertOne(context.TODO(), document)
 }
 
-// InsertMany insert many documents to a collection
+// InsertMany insert many documents to a collection.
 func (m Mongo) InsertMany(collectionName string, documents []interface{}) (*mongo.InsertManyResult, error) {
 	collection, err := m.GetCollection(collectionName)
 	if err != nil {
@@ -103,7 +103,7 @@ func (m Mongo) InsertMany(collectionName string, documents []interface{}) (*mong
 	return collection.InsertMany(context.TODO(), documents)
 }
 
-// Count get documents count of a collection
+// Count get documents count of a collection.
 func (m Mongo) Count(collectionName string, filter interface{}) (int64, error) {
 	collection, err := m.GetCollection(collectionName)
 	if err != nil {
@@ -112,7 +112,7 @@ func (m Mongo) Count(collectionName string, filter interface{}) (int64, error) {
 	return collection.CountDocuments(context.TODO(), filter)
 }
 
-// FindOne find one document from a collection
+// FindOne find one document from a collection.
 func (m Mongo) FindOne(collectionName string, filter interface{}, result interface{}, opts ...*options.FindOneOptions) (find bool, err error) {
 	collection, err := m.GetCollection(collectionName)
 	if err != nil {
@@ -126,7 +126,7 @@ func (m Mongo) FindOne(collectionName string, filter interface{}, result interfa
 	return true, nil
 }
 
-// Find find a cursor from a collection
+// Find find a cursor from a collection.
 func (m Mongo) Find(collectionName string, filter interface{}, opts ...*options.FindOptions) (*mongo.Cursor, error) {
 	collection, err := m.GetCollection(collectionName)
 	if err != nil {
@@ -135,7 +135,7 @@ func (m Mongo) Find(collectionName string, filter interface{}, opts ...*options.
 	return collection.Find(context.TODO(), filter, opts...)
 }
 
-// FindMany find many documents of a collection
+// FindMany find many documents of a collection.
 func (m Mongo) FindMany(collectionName string, filter interface{}, results interface{}, opts ...*options.FindOptions) (err error) {
 	collection, err := m.GetCollection(collectionName)
 	if err != nil {
@@ -154,12 +154,12 @@ func (m Mongo) FindMany(collectionName string, filter interface{}, results inter
 	return nil
 }
 
-// FindAll find many documents of a collection
+// FindAll find many documents of a collection.
 func (m Mongo) FindAll(collectionName string, results interface{}, opts ...*options.FindOptions) (err error) {
 	return m.FindMany(collectionName, bson.M{}, results, opts...)
 }
 
-// UpdateOne update one document
+// UpdateOne update one document.
 func (m Mongo) UpdateOne(collectionName string, filter interface{}, update interface{}) (*mongo.UpdateResult, error) {
 	collection, err := m.GetCollection(collectionName)
 	if err != nil {
@@ -168,7 +168,7 @@ func (m Mongo) UpdateOne(collectionName string, filter interface{}, update inter
 	return collection.UpdateOne(context.TODO(), filter, update)
 }
 
-// UpdateMany update many documents
+// UpdateMany update many documents.
 func (m Mongo) UpdateMany(collectionName string, filter interface{}, update interface{}) (*mongo.UpdateResult, error) {
 	collection, err := m.GetCollection(collectionName)
 	if err != nil {
@@ -177,7 +177,7 @@ func (m Mongo) UpdateMany(collectionName string, filter interface{}, update inte
 	return collection.UpdateMany(context.TODO(), filter, update)
 }
 
-// DeleteOne delete one document
+// DeleteOne delete one document.
 func (m Mongo) DeleteOne(collectionName string, filter interface{}) (*mongo.DeleteResult, error) {
 	collection, err := m.GetCollection(collectionName)
 	if err != nil {
@@ -186,7 +186,7 @@ func (m Mongo) DeleteOne(collectionName string, filter interface{}) (*mongo.Dele
 	return collection.DeleteOne(context.TODO(), filter)
 }
 
-// DeleteMany delete many documents
+// DeleteMany delete many documents.
 func (m Mongo) DeleteMany(collectionName string, filter interface{}) (*mongo.DeleteResult, error) {
 	collection, err := m.GetCollection(collectionName)
 	if err != nil {
@@ -195,7 +195,7 @@ func (m Mongo) DeleteMany(collectionName string, filter interface{}) (*mongo.Del
 	return collection.DeleteMany(context.TODO(), filter)
 }
 
-// DeleteAll delete all documents
+// DeleteAll delete all documents.
 func (m Mongo) DeleteAll(collectionName string) (*mongo.DeleteResult, error) {
 	return m.DeleteMany(collectionName, bson.M{})
 }

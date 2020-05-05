@@ -15,7 +15,7 @@ import (
 
 	"github.com/tengge1/shadoweditor/server"
 
-	// TODO: Is it better to move the imports to `../main.go`?
+	// Register the server sub packages.
 	_ "github.com/tengge1/shadoweditor/server/assets"   // assets api
 	_ "github.com/tengge1/shadoweditor/server/category" // category api
 	_ "github.com/tengge1/shadoweditor/server/export"   // export api
@@ -24,7 +24,7 @@ import (
 	_ "github.com/tengge1/shadoweditor/server/upload"   // upload api
 )
 
-// serveCmd run the shadow editor server.
+// serveCmd launch the shadow editor server.
 var serveCmd = &cobra.Command{
 	Use:     "serve",
 	Short:   "Start shadow editor server",

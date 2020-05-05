@@ -17,7 +17,7 @@ import (
 	"strings"
 )
 
-// Zip create a zip file.
+// Zip create a zip file to the path.
 func Zip(dir, path string) error {
 	file, err := os.Create(path)
 	if err != nil {
@@ -64,7 +64,7 @@ func createZipFile(w *zip.Writer, path, root string) error {
 	return nil
 }
 
-// UnZip unzip a .zip file.
+// UnZip unzip filename to the path given.
 func UnZip(filename, path string) error {
 	r, err := zip.OpenReader(filename)
 	if err != nil {

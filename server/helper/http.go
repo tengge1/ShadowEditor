@@ -14,7 +14,7 @@ import (
 	"net/url"
 )
 
-// Get make a get request
+// Get create a get request to the server.
 func Get(url string) ([]byte, error) {
 	resp, err := http.Get(url)
 	if err != nil {
@@ -24,7 +24,7 @@ func Get(url string) ([]byte, error) {
 	return ioutil.ReadAll(resp.Body)
 }
 
-// Post make a post request
+// Post create a post request to the server.
 func Post(url string, data url.Values) ([]byte, error) {
 	resp, err := http.PostForm(url, data)
 	if err != nil {
@@ -34,7 +34,7 @@ func Post(url string, data url.Values) ([]byte, error) {
 	return ioutil.ReadAll(resp.Body)
 }
 
-// Write write a string to http response
+// Write write a string response to the web client.
 func Write(w http.ResponseWriter, args ...interface{}) {
 	header := w.Header()
 
@@ -46,7 +46,7 @@ func Write(w http.ResponseWriter, args ...interface{}) {
 	w.Write([]byte(fmt.Sprint(args...)))
 }
 
-// Writef write a string to http response
+// Writef write a string response to the web client with format string.
 func Writef(w http.ResponseWriter, format string, args ...interface{}) {
 	header := w.Header()
 
@@ -58,27 +58,8 @@ func Writef(w http.ResponseWriter, format string, args ...interface{}) {
 	w.Write([]byte(fmt.Sprint(args...)))
 }
 
-// WriteJSON write a json to http response
+// WriteJSON write a json response to the web client.
 func WriteJSON(w http.ResponseWriter, obj interface{}) error {
-	header := w.Header()
-
-	header.Set("Content-Type", "application/json")
-	header.Set("Cache-Control", "no-cache, no-store, must-revalidate")
-	header.Set("Pragma", "no-cache")
-	header.Set("Expires", "0")
-
-	bytes, err := ToJSON(obj)
-	if err != nil {
-		return err
-	}
-
-	w.Write(bytes)
-
-	return nil
-}
-
-// WriteBSON write a bson to http response
-func WriteBSON(w http.ResponseWriter, obj interface{}) error {
 	header := w.Header()
 
 	header.Set("Content-Type", "application/json")

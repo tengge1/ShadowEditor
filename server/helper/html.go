@@ -11,7 +11,11 @@ import (
 	"net/http"
 )
 
-// EnableCrossDomain enable cross domain
+// EnableCrossDomain enables cross domain.
+// It set the `Access-Control-Allow-Methods` header and the
+// `Access-Control-Allow-Origin` header.
+//
+// TODO: We should restrict the origin, and may config in `config.toml`.
 func EnableCrossDomain(w http.ResponseWriter, r *http.Request) {
 	origin := r.Header.Get("Origin")
 

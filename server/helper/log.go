@@ -15,7 +15,7 @@ import (
 	"runtime"
 )
 
-// NewLogger create a new logger
+// NewLogger create a new logger to generate logs.
 func NewLogger(path string) (*Logger, error) {
 	dir := filepath.Dir(path)
 	_, err := os.Stat(dir)
@@ -31,62 +31,72 @@ func NewLogger(path string) (*Logger, error) {
 	return &Logger{logger}, nil
 }
 
-// Logger a logger
+// Logger a logger that can record messages.
 type Logger struct {
 	logger *log.Logger
 }
 
-// Debug output a debug log
+type logLevel string
+
+const (
+	debug logLevel = "Debug"
+	info  logLevel = "Info"
+	warn  logLevel = "Warn"
+	erro  logLevel = "Error"
+	fatal logLevel = "Fatal"
+)
+
+// Debug write a debug log.
 func (l Logger) Debug(msg string) {
-	l.outputf("Debug", "%v", msg)
+	l.outputf(debug, "%v", msg)
 }
 
-// Debugf output a debug log
+// Debugf write a debug log.
 func (l Logger) Debugf(format string, v ...interface{}) {
-	l.outputf("Debug", format, v...)
+	l.outputf(debug, format, v...)
 }
 
-// Info output an info log
+// Info write an info log.
 func (l Logger) Info(msg string) {
-	l.outputf("Info", "%v", msg)
+	l.outputf(info, "%v", msg)
 }
 
-// Infof output an info log
+// Infof write an info log.
 func (l Logger) Infof(format string, v ...interface{}) {
-	l.outputf("Info", format, v...)
+	l.outputf(info, format, v...)
 }
 
-// Warn output a warn log
+// Warn write a warn log.
 func (l Logger) Warn(msg string) {
-	l.outputf("Warn", "%v", msg)
+	l.outputf(warn, "%v", msg)
 }
 
-// Warnf output a warn log
+// Warnf write a warn log.
 func (l Logger) Warnf(format string, v ...interface{}) {
-	l.outputf("Warn", format, v...)
+	l.outputf(warn, format, v...)
 }
 
-// Error output an error log
+// Error write an error log.
 func (l Logger) Error(msg string) {
-	l.outputf("Error", "%v", msg)
+	l.outputf(erro, "%v", msg)
 }
 
-// Errorf output an error log
+// Errorf write an error log.
 func (l Logger) Errorf(format string, v ...interface{}) {
-	l.outputf("Error", format, v...)
+	l.outputf(erro, format, v...)
 }
 
-// Fatal output a fatal log
+// Fatal write a fatal log.
 func (l Logger) Fatal(msg string) {
-	l.outputf("Fatal", "%v", msg)
+	l.outputf(fatal, "%v", msg)
 }
 
-// Fatalf output a fatal log
+// Fatalf write a fatal log.
 func (l Logger) Fatalf(format string, v ...interface{}) {
-	l.outputf("Fatal", format, v...)
+	l.outputf(fatal, format, v...)
 }
 
-func (l Logger) outputf(typ, format string, v ...interface{}) {
+func (l Logger) outputf(typ logLevel, format string, v ...interface{}) {
 	_, file, line, ok := runtime.Caller(2)
 	if !ok {
 		file = "???"

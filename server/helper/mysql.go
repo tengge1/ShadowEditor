@@ -16,7 +16,7 @@ import (
 	_ "github.com/go-sql-driver/mysql" // mysql driver
 )
 
-// NewMySQL create a new MySQL client
+// NewMySQL create a new MySQL client.
 func NewMySQL(host string, port uint16, username, password, database string) (*MySQL, error) {
 	db, err := sql.Open("mysql", fmt.Sprintf("%v:%v@tcp(%v:%v)/%v", username, password, host, port, database))
 	if err != nil {
@@ -31,7 +31,7 @@ func NewMySQL(host string, port uint16, username, password, database string) (*M
 	return &MySQL{db}, nil
 }
 
-// MySQL a new MySQL client
+// MySQL represent a new MySQL client.
 type MySQL struct {
 	DB *sql.DB
 }

@@ -13,7 +13,9 @@ import (
 	"time"
 )
 
-// TimeToString convert a time to string.
+// TimeToString convert a time to string using specific format.
+//
+// `yyyy-MM-dd HH:mm:ss` => 2020-05-05 20:35:12
 func TimeToString(time time.Time, format string) string {
 	year := strconv.Itoa(time.Year())
 	month := strconv.Itoa(int(time.Month()))

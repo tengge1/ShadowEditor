@@ -13,7 +13,7 @@ import (
 	"os"
 )
 
-// CopyFile copy file from source path to dest path.
+// CopyFile copy one file from source path to dest path.
 func CopyFile(sourcePath, destPath string) error {
 	stat, err := os.Stat(sourcePath)
 	if os.IsNotExist(err) {

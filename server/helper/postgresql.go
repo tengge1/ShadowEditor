@@ -17,7 +17,9 @@ import (
 	"github.com/jackc/pgx/v4"
 )
 
-// NewPostgreSQL create a new postgreSQL connection
+// NewPostgreSQL create a new postgreSQL connection.
+//
+// TODO: PostgreSQL and PostGIS is useful in GIS. We may add GIS feature in the feature.
 func NewPostgreSQL(host string, port uint16, user, password, database string) (*PostgreSQL, error) {
 	connConfig, err := pgx.ParseConfig("")
 	if err != nil {
@@ -42,12 +44,12 @@ func NewPostgreSQL(host string, port uint16, user, password, database string) (*
 	return &PostgreSQL{conn}, nil
 }
 
-// PostgreSQL postgreSQL connection
+// PostgreSQL postgreSQL connection.
 type PostgreSQL struct {
 	Connection *pgx.Conn
 }
 
-// Query query records with sql string
+// Query query records with sql string.
 func (p PostgreSQL) Query(sql string, args ...interface{}) (pgx.Rows, error) {
 	if p.Connection == nil {
 		return nil, fmt.Errorf("connection is not created")
@@ -56,7 +58,7 @@ func (p PostgreSQL) Query(sql string, args ...interface{}) (pgx.Rows, error) {
 	return p.Connection.Query(context.Background(), sql, args...)
 }
 
-// Exec execute a sql
+// Exec execute a sql.
 func (p PostgreSQL) Exec(sql string, args ...interface{}) (pgconn.CommandTag, error) {
 	if p.Connection == nil {
 		return nil, fmt.Errorf("connection is not created")
@@ -65,7 +67,7 @@ func (p PostgreSQL) Exec(sql string, args ...interface{}) (pgconn.CommandTag, er
 	return p.Connection.Exec(context.TODO(), sql, args...)
 }
 
-// Close close connection
+// Close close connection.
 func (p PostgreSQL) Close() error {
 	if p.Connection == nil {
 		return fmt.Errorf("connection is not created")

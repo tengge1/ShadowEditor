@@ -11,7 +11,7 @@ import (
 	"github.com/otiai10/copy"
 )
 
-// CopyDirectory copy one directory and its content to another
+// CopyDirectory copy the contents in one directory to another.
 func CopyDirectory(sourceDirName, destDirName string) error {
 	return copy.Copy(sourceDirName, destDirName)
 }

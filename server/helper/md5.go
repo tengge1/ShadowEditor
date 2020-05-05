@@ -12,7 +12,7 @@ import (
 	"encoding/hex"
 )
 
-// MD5 convert some string to md5
+// MD5 convert a string to md5 encrypt string.
 func MD5(str string) string {
 	h := md5.New()
 	h.Write([]byte(str))

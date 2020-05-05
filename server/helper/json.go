@@ -18,6 +18,7 @@ import (
 	"github.com/tengge1/shadoweditor/helper/encoder"
 )
 
+// We register custom type encoder here.
 func init() {
 	jsoniter.RegisterTypeEncoder(reflect.TypeOf(time.Now()).String(), encoder.TimeEncoder{})
 	jsoniter.RegisterTypeEncoder(
