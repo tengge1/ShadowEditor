@@ -40,7 +40,7 @@ Compared with `asp.net`, `golang` has many advantages:
 Upgrade from C# version:
 
 The data structure and web client is not changed, just copy `./ShadowEditor.Web/Upload/` folder to
-`build/public/Upload/`;
+`build/public/Upload/`.
 
 ## Features
 
