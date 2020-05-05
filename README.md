@@ -1,57 +1,41 @@
 # Shadow Editor
 
-Supported Languages: English / [中文](README_zh.md) / 日本語 / 한국어 / русский / Le français
+English / [中文](README_zh.md)
 
 > [Click](../../tree/v0.4.6-csharp/) to switch to `C#` branch, which is no longer maintained.
 
 * Name: Shadow Editor
 * Version: v0.5.0 (coming soon)
-* Description: 3D scene editor based on `three.js`、`golang` and `mongoDB`.
-* Source Code: [GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | Document: [GitHub](https://tengge1.github.io/ShadowEditor/) [Gitee](https://tengge1.gitee.io/shadoweditor/) | Demo: [GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) | Video: [Weibo](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) | Assets: [BaiduCloud](https://pan.baidu.com/s/1IxJVM6fFLoIAJG-GKHjVTA)
-* Technology Stack: `html`, `css`, `javascript`, `rollup`, `react.js`, `webgl`, `three.js`, `golang`, `mongoDB`.
+* Description: 3D scene editor based on three.js, golang and mongodb.
+* Source: [GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | Document: [GitHub](https://tengge1.github.io/ShadowEditor/) [Gitee](https://tengge1.gitee.io/shadoweditor/) | Demo: [GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) | Video: [Weibo](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) | Assets: [BaiduNetdisk](https://pan.baidu.com/s/1IxJVM6fFLoIAJG-GKHjVTA)
+* Technology Stack: html, css, javascript, rollup, react.js, webgl, three.js, golang, mongodb.
 * If helpful to you, please [DOnate](https://gitee.com/tengge1/ShadowEditor) to support us. thank you!
-
-## Screenshot
 
 ![image](images/scene20200503_en.jpg)
 
 ## v0.5.0 is Coming
+
+* Release Date: May 5, 2020
+* Update Logs:
+
+1. Rewrite the server using golang.
+2. Fix a bug that `draco` models cannot be loaded due to the upgrade of `three.js`.
+2. Models in `.json` format are no longer supported.
+3. Fix a bug that the bottom row of the category list window is blocked by the button.
+4. Fix a bug that the texture cannot be loaded when the texture is attached to a geometry.
+5. Fix a bug that thumbnails cannot be set for audio, screenshot and video resources.
+6. Fix a bug that confirmation dialog cannot be closed with cancel and close button.
+9. Fix a bug that the role list will not refresh after deleting a role.
 
 Compared with `asp.net`, `golang` has many advantages:
 
 1. Support both `Windows`, `Linux` and `Mac`.
 2. Similar to C language. support `goroutine`, which take great advantages of multi-core, and have high performance.
 3. Easy to learn. Huge standard libraries and third-party libraries, and high development efficiency.
-4. Can compiled to a single executable file, it is not necessary to install `golang` nor `NodeJs`.
+4. Can compiled into a single file, and when publish, no need to install `golang` nor `nodejs`.
 5. No `iis` required, and can build both desktop and web version.
-6. Data is compressed with `gzip`, and the speed of displaying and scene loading is extremely fast.
-7. No `Visual Studio` required. You can develop with `Visual Studio Code` both for the front and back ends.
-
-**Update Logs:**
-
-1. Fixed that the `draco` model cannot be loaded due to the upgrade of `three.js`.
-2. Models in `.json` format are no longer supported.
-3. Fix that the bottom row of the category list window is blocked by the button.
-4. Fix that the texture cannot be loaded when the texture is attached.
-5. Fix that the audio cannot set thumbnails.
-6. Fix that the thumbnail cannot be set in the screenshot.
-7. Fix that the thumbnail cannot be set in the video.
-8. Fix that the confirmation dialog cannot be cancelled and closed.
-9. Fix that the role list is not refreshed after deleted.
-
-## v0.4.6 has Released
-
-* Release Date: April 5, 2020
-* Update Logs:
-
-1. Fixed that the confirmation dialog of loading auto save scene cannot be cancelled, the button `Cancel` is changed to `Empty`.
-2. Fix that saving the sample scene report "ID is invalid". Now the sample scenes can be saved.
-3. Adding "Background Music" component now works.
-4. Fixed that the music file was not exported when the background music component was released.
-5. Fixed that the video address is incorrect.
-6. Fix that obtaining server configuration and unused server address.
-7. Golang server. (Under development)
-8. Fix that calling `clock.getDelta` and `clock.getElapsedTime` multiple times in the scripts may cause abnormal animation. Now these functions can be called multiple times in the scripts.
+6. Network data is compressed with `gzip`, and the speed of displaying and scene loading is really fast.
+7. No `Visual Studio` required. You can develop with `Visual Studio Code` for both the server and web.
 
 ## Features
 
