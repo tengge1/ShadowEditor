@@ -106,7 +106,106 @@ run `sudo apt install make` first.
 1. If you are in `China`, run `.\scripts\set_proxy.bat` to set golang and nodejs proxy.
 2. Run `.\scripts\build_all.bat` to build the server and web.
 3. Edit `build/config.toml`, and modify the database host and port.
-4. Run `.\scripts\run.bat` to launch the server. You can now visit: `http://localhost:2020`.
+4. Run `.\scripts\run.bat` to launch the server. You can also double-click `ShadowEditor.exe`
+in the explorer. You can now visit: `http://localhost:2020`.
+
+### Build using Command Line
+
+1. If you are in `China`, set golang and nodejs proxy.
+
+```bash
+go env -w GO111MODULE=on
+go env -w GOPROXY=https://goproxy.cn
+npm config set registry https://registry.npm.taobao.org/
+```
+
+2. Install go dependencies, build the server, and copy config file.
+
+Ubuntu:
+
+```bash
+cd server
+go env -w GO111MODULE=on
+go install
+go build -o ../build/ShadowEditor
+cp config.toml ../build
+cd ../
+```
+
+Windows:
+
+```bash
+cd server
+go env -w GO111MODULE=on
+go install
+go build -o ../build/ShadowEditor.exe
+copy .\config.toml ..\build
+cd ../
+```
+
+3. Install nodejs dependencies, build the web client, and copy assets.
+
+Ubuntu:
+
+```bash
+cd web
+npm install
+npm run build
+cp -r ./assets ../build/public/assets
+cp -r ./locales ../build/public/locales
+cp ./favicon.ico ../build/public/favicon.ico
+cp ./index.html ../build/public/index.html
+cp ./manifest.json ../build/public/manifest.json
+cp ./sw.js ../build/public/sw.js
+cp ./view.html ../build/public/view.html
+cd ../
+```
+
+Windows:
+
+```bash
+cd web
+npm install
+npm run build
+xcopy /e /q /y assets ..\build\public\assets\
+xcopy /e /q /y locales ..\build\public\locales\
+copy favicon.ico ..\build\public\favicon.ico
+copy index.html ..\build\public\index.html
+copy manifest.json ..\build\public\manifest.json
+copy sw.js ..\build\public\sw.js
+copy view.html ..\build\public\view.html
+cd ../
+```
+
+4. Edit `build/config.toml`, and modify the database host and port.
+
+5. Launch the server.
+
+Ubuntu: 
+
+```bash
+cd build
+./ShadowEditor serve --config ./config.toml
+```
+
+Windows:
+
+```bash
+cd build
+.\ShadowEditor.exe serve --config .\config.toml
+```
+
+Now, you see the output and can visit in browser: `http://localhost:2020`
+
+```
+2020/05/05 17:06:57 starting shadoweditor server on port :2020
+[negroni] 2020-05-05T17:07:10+08:00 | 304 | 	 64.607µs | localhost:2020 | GET /
+[negroni] 2020-05-05T17:07:10+08:00 | 304 | 	 71.204µs | localhost:2020 | GET /build/ShadowEditor.css
+[negroni] 2020-05-05T17:07:10+08:00 | 304 | 	 70.964µs | localhost:2020 | GET /assets/js/libs/react.js
+[negroni] 2020-05-05T17:07:10+08:00 | 304 | 	 36.198µs | localhost:2020 | GET /assets/js/libs/gunzip.min.js
+[negroni] 2020-05-05T17:07:10+08:00 | 304 | 	 35.328µs | localhost:2020 | GET /assets/js/libs/ammo.js
+[negroni] 2020-05-05T17:07:10+08:00 | 304 | 	 47.253µs | localhost:2020 | GET /assets/js/three.js
+```
 
 ## Frequently Asked Questions
 
