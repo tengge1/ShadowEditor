@@ -13,7 +13,7 @@ English / [中文](README_zh.md)
 
 ![image](images/scene20200503_en.jpg)
 
-## v0.5.1 is Coming soon
+## v0.5.1 is Coming Soon
 
 ## v0.5.0 has Released
 
