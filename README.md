@@ -22,7 +22,7 @@ English / [中文](README_zh.md)
 2. Fix a bug that `draco` models cannot be loaded due to the upgrade of `three.js`.
 3. Models in `.json` format are no longer supported.
 4. Fix a bug that the bottom row of the category list window is blocked by the button.
-5. Fix a bug that the texture cannot be loaded when the texture is attached to a geometry.
+5. Fix a bug that the diffuse map cannot be loaded when it attaches to a geometry.
 6. Fix a bug that thumbnails cannot be set for audio, screenshot and video resources.
 7. Fix a bug that confirmation dialog cannot be closed with cancel and close button.
 8. Fix a bug that the role list will not refresh after deleting a role.
@@ -32,8 +32,8 @@ Compared with `asp.net`, `golang` has many advantages:
 1. Support both `Windows`, `Linux` and `Mac`.
 2. Similar to C language. support `goroutine`, which take great advantages of multi-core, and have high performance.
 3. Easy to learn. Huge standard libraries and third-party libraries, and high development efficiency.
-4. Can compiled into a single file, and when publish, no need to install `golang` nor `nodejs`.
-5. No `iis` required, and can build both desktop and web version.
+4. Can compiled into a single file, and when publish, no need to install `golang` nor `nodejs` when publishing.
+5. No `iis` required.
 6. Network data is compressed with `gzip`, and the speed of displaying and scene loading is really fast.
 7. No `Visual Studio` required. You can develop with `Visual Studio Code` for both the server and web.
 
@@ -49,8 +49,8 @@ Compared with `asp.net`, `golang` has many advantages:
 8. Live player can play animations in the scene.
 9. Exporting `gltf`, `obj`, `ply`, `stl`, `Collada`, `DRACO` models.
 10. Publish scene as static resources, and can be embedded in `iframe`.
-11. Support languages: `English`, `Chinese`, `Traditional Chinese`, `日本语`, `한국어`, `русский`, `Le français`.
-12. Scene version management, history and logs, undo and redo, auto saving.
+11. Support languages: `English`, `中文`, `繁體中文`, `日本語`, `한국어`, `русский`, `Le français`.
+12. Scene version management: supporting history and logs, undo and redo, auto saving.
 13. Authority management: organization, user, role, authority, registration, login, and password modification.
 14. Resource management: scene, mesh, texture, material, audio, animation, screenshot, video, typeface.
 
