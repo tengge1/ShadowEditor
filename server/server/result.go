@@ -7,7 +7,7 @@
 
 package server
 
-// Result present a handle result
+// Result present a server handler result.
 type Result struct {
 	// 200 - ok; 300 -error
 	Code int         `json:"Code" bson:"Code"`

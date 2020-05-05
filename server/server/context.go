@@ -13,14 +13,16 @@ import (
 	"github.com/tengge1/shadoweditor/helper"
 )
 
+// We cache the shared data used by the server, such as `Config` and `Logger`.
+
 var (
-	// Config config cache
+	// Config is the config cache.
 	Config *helper.ConfigModel
-	// Logger create logs
+	// Logger is the server logger.
 	Logger *helper.Logger
 )
 
-// Create create a context
+// Create create the server context.
 func Create(path string) error {
 	// config
 	config, err := helper.GetConfig(path)
@@ -39,7 +41,7 @@ func Create(path string) error {
 	return nil
 }
 
-// Mongo get a new mongo client
+// Mongo create a new mongo client.
 func Mongo() (*helper.Mongo, error) {
 	if Config == nil {
 		return nil, fmt.Errorf("config is not initialized")

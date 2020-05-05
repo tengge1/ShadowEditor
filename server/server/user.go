@@ -18,7 +18,8 @@ import (
 	"github.com/tengge1/shadoweditor/server/system/model"
 )
 
-// GetCurrentUser get the current login user
+// GetCurrentUser get the current login user.
+// It gets userID from the cookie.
 func GetCurrentUser(r *http.Request) (*model.User, error) {
 	cookies := r.Cookies()
 

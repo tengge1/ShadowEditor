@@ -17,7 +17,12 @@ import (
 	"github.com/urfave/negroni"
 )
 
-// Start start the server
+// Start start the web server.
+//
+// Negroni is an idiomatic HTTP Middleware for Golang. `negroni.Classic` add three
+// middleware: Recovery, Logger, Static. We add two: CrossOriginHandler, GZipHandler.
+//
+// Then, we use `httptreemux` to map route to the handler.
 func Start() {
 	log.Printf("starting shadoweditor server on port %v", Config.Server.Port)
 

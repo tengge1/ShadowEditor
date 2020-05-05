@@ -7,6 +7,10 @@
 
 package server
 
+// Collection name is the table name we store data in mongo.
+// History suffix is the suffix we add to a scene collection to store history scene data.
+// Version field is the field we add to a scene record, and it is the scene version number.
+
 const (
 	// CategoryCollectionName category collection name
 	CategoryCollectionName string = "_Category"

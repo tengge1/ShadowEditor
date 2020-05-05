@@ -13,7 +13,7 @@ import (
 	"strings"
 )
 
-// MapPath convert a root relative path to physical absolute path.
+// MapPath convert a relative path to physical absolute path.
 func MapPath(path string) string {
 	if !strings.HasPrefix(path, "/") {
 		path = "/" + path

@@ -13,7 +13,9 @@ import (
 	"github.com/tengge1/shadoweditor/helper"
 )
 
-// CrossOriginHandler is responsible for cross origin.
+// CrossOriginHandler add cross-origin header to the response.
+//
+// TODO: It may be dangerous not checking the origin.
 func CrossOriginHandler(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
 	helper.EnableCrossDomain(w, r)
 	next.ServeHTTP(w, r)
