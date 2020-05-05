@@ -202,7 +202,7 @@ Now, you see the output and can visit in browser: `http://localhost:2020`
 [negroni] 2020-05-05T17:07:10+08:00 | 304 | 	 64.607µs | localhost:2020 | GET /
 [negroni] 2020-05-05T17:07:10+08:00 | 304 | 	 71.204µs | localhost:2020 | GET /build/ShadowEditor.css
 [negroni] 2020-05-05T17:07:10+08:00 | 304 | 	 70.964µs | localhost:2020 | GET /assets/js/libs/react.js
-[negroni] 2020-05-05T17:07:10+08:00 | 304 | 	 36.198µs | localhost:2020 | GET /assets/js/libs/gunzip.min.js
+[negroni] 2020-05-05T17:07:10+08:00 | 304 | 	 36.198µs | localhost:2020 | GET /assets/js/libs/gunzip.js
 [negroni] 2020-05-05T17:07:10+08:00 | 304 | 	 35.328µs | localhost:2020 | GET /assets/js/libs/ammo.js
 [negroni] 2020-05-05T17:07:10+08:00 | 304 | 	 47.253µs | localhost:2020 | GET /assets/js/three.js
 ```
