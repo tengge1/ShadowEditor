@@ -5,7 +5,7 @@ English / [中文](README_zh.md)
 > [Click](../../tree/v0.4.6-csharp/) to switch to `C#` branch, which is no longer maintained.
 
 * Name: Shadow Editor
-* Version: v0.5.0 (coming soon)
+* Version: v0.5.0
 * Description: Cross-platform 3D scene editor based on three.js, golang and mongodb.
 * Source: [GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | Document: [GitHub](https://tengge1.github.io/ShadowEditor/) [Gitee](https://tengge1.gitee.io/shadoweditor/) | Demo: [GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) | Video: [Weibo](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) | Assets: [BaiduNetdisk](https://pan.baidu.com/s/1IxJVM6fFLoIAJG-GKHjVTA)
 * Technology Stack: html, css, javascript, rollup, react.js, webgl, three.js, golang, mongodb.
@@ -13,7 +13,7 @@ English / [中文](README_zh.md)
 
 ![image](images/scene20200503_en.jpg)
 
-## v0.5.0 is Coming
+## v0.5.0 has Released
 
 * Release Date: May 5, 2020
 * Update Logs:
