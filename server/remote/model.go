@@ -7,20 +7,23 @@
 
 package script
 
-// Model 脚本模型
+// Model is a script data in the scene. We store scripts in a tree.
+// This will help to edit scene scripts using a desktop editor.
+// Set `remote.enabled` to true, we use websocket to transform scene scripts
+// to some folder.
 type Model struct {
-	// MongoDB _id
+	// mongo _id
 	ID string
-	// 父要素ID
+	// parent script id
 	PID string
-	// 名称
+	// script name
 	Name string
-	// 类型
+	// script type
 	Type string
-	// 源码
+	// script source
 	Source string
 	// THREE.js UUID
 	UUID string
-	// 排序
+	// script order
 	Sort int
 }
