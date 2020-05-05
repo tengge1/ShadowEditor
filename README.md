@@ -37,6 +37,11 @@ Compared with `asp.net`, `golang` has many advantages:
 6. Network data is compressed with `gzip`, and the speed of displaying and scene loading is really fast.
 7. No `Visual Studio` required. You can develop with `Visual Studio Code` for both the server and web.
 
+Upgrade from C# version:
+
+The data structure and web client is not changed, just copy `./ShadowEditor.Web/Upload/` folder to
+`build/public/Upload/`;
+
 ## Features
 
 1. Cross-platform: `Windows`, `Linux`, `Mac`; and supports desktop and web versions.

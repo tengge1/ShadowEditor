@@ -37,6 +37,10 @@
 6. 网络数据启用了`gzip`压缩，显示和场景加载速度大大提高。
 7. 不需要`Visual Studio`，使用`Visual Studio Code`即可舒适的开发服务端和Web端。
 
+从C#版本升级：
+
+数据结构和Web客户端均未发生变化，只需要把`./ShadowEditor.Web/Upload/`文件夹复制到`build/public/Upload/`即可。
+
 ## 功能特点
 
 1. 跨平台：支持`Windows`、`Linux`和`Mac`；支持桌面版和Web版。
