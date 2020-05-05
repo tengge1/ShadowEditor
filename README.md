@@ -98,14 +98,14 @@ run `sudo apt install make` first.
 
 1. If you are in `China`, run `make proxy` to set golang and nodejs proxy.
 2. Run `make` to build the server and web.
-3. Edit `build/config.toml`, and set the database host and port.
+3. Edit `build/config.toml`, and modify the database host and port.
 4. Run `make run` to launch the server. You can now visit: `http://localhost:2020`.
 
 ### Build on Windows
 
 1. If you are in `China`, run `.\scripts\set_proxy.bat` to set golang and nodejs proxy.
 2. Run `.\scripts\build_all.bat` to build the server and web.
-3. Edit `build/config.toml`, and set the database host and port.
+3. Edit `build/config.toml`, and modify the database host and port.
 4. Run `.\scripts\run.bat` to launch the server. You can now visit: `http://localhost:2020`.
 
 ## Frequently Asked Questions
