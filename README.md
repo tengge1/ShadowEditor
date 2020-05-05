@@ -39,7 +39,7 @@ Compared with `asp.net`, `golang` has many advantages:
 
 ## Features
 
-1. Cross-platform: `windows`, `linux`, `mac`; `desktop` and `web`.
+1. Cross-platform: `Windows`, `Linux`, `Mac`; and supports desktop and web versions.
 2. It supports many 3D formats: `3ds`, `3mf`, `amf`, `assimp`(anim), `awd`, `babylon`, `binary`, `bvh`(anim), `collada`, `ctm`, `draco` , `fbx`(anim), `gcode`, `gltf`(`gltf` and `glb`, anim), `js`(anim), `kmz`, `lmesh`(anim), `md2`, `mmd`(`pmd` and `pmx`, anim), `nrrd`, `obj`, `pcd`, `pdb`, `ply`, `prwm`, `sea3d`(anim), `stl`, `vrm`, `vrml`, `vtk`, `X`. (anim) means it supports animation.
 3. Built-in objects: group; plane, cube, circle, cylinder, sphere, icosahedron, torus, torus knot, teapot, lathe; unscaled text, 3D text; line segments, CatmullRom curve, quadratic Bezier curve, cubic Bezier curve, ellipse curve; point marks; arrow helper, axes helper; sprite.
 4. Built-in lights: ambient light, directional light, point light, spotlight, hemispherical light, rect area light.
