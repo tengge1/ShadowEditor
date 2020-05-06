@@ -19,9 +19,7 @@ import (
 func TestSceneList(t *testing.T) {
 	server.Create("../config.toml")
 
-	scene := Scene{}
-
-	ts := httptest.NewServer(http.HandlerFunc(scene.List))
+	ts := httptest.NewServer(http.HandlerFunc(List))
 	defer ts.Close()
 
 	res, err := http.Get(ts.URL)
