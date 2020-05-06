@@ -19,9 +19,7 @@ import (
 func TestMeshList(t *testing.T) {
 	server.Create("../config.toml")
 
-	mesh := Mesh{}
-
-	ts := httptest.NewServer(http.HandlerFunc(mesh.List))
+	ts := httptest.NewServer(http.HandlerFunc(List))
 	defer ts.Close()
 
 	res, err := http.Get(ts.URL)

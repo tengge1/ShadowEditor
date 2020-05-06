@@ -9,36 +9,36 @@ package mesh
 
 import "time"
 
-// Model 模型信息
+// Model is mesh model.
 type Model struct {
 	// ID
 	ID string
-	// 名称
+	// Name
 	Name string
-	// 类别ID
+	// Category ID
 	CategoryID string
-	// 类别名称
+	// Category Name
 	CategoryName string
-	// 全拼
+	// Total PinYin
 	TotalPinYin string
-	// 首字母拼音
+	// The First Letters of Total PinYin
 	FirstPinYin string
-	// 模型类型
+	// Mesh Type
 	Type string
-	// 下载地址
+	// Download URL
 	URL string `json:"Url"`
-	// 上传文件名称
+	// File Name
 	FileName string
-	// 文件大小
+	// File Size
 	FileSize string
-	// 文件类型
+	// File Type
 	FileType string
-	// 保存文件名称
+	// Save Name
 	SaveName string
-	// 保存路径
+	// Save Path
 	SavePath string
-	// 上传时间
+	// Upload Time
 	AddTime time.Time
-	// 缩略图
+	// Thumbnail
 	Thumbnail string
 }

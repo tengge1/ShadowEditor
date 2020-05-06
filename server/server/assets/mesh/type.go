@@ -7,11 +7,11 @@
 
 package mesh
 
-// Type 模型类型
+// Type is mesh type
 type Type string
 
 const (
-	// Unknown 未知类型
+	// Unknown unknown mesh type
 	Unknown Type = "unknown"
 	// ThreeDs .3ds
 	ThreeDs Type = "_3ds"
