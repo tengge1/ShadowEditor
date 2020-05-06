@@ -7,14 +7,14 @@
 
 package particle
 
-// Type 粒子类型
+// Type is particle type.
 type Type string
 
 const (
-	// Light light
+	// Light light type
 	Light Type = "light"
-	// Fire fire
+	// Fire fire type
 	Fire Type = "fire"
-	// Water water
+	// Water water type
 	Water Type = "water"
 )

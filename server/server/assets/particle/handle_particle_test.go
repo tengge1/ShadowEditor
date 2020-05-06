@@ -19,9 +19,7 @@ import (
 func TestParticleList(t *testing.T) {
 	server.Create("../config.toml")
 
-	particle := Particle{}
-
-	ts := httptest.NewServer(http.HandlerFunc(particle.List))
+	ts := httptest.NewServer(http.HandlerFunc(List))
 	defer ts.Close()
 
 	res, err := http.Get(ts.URL)
