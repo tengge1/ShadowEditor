@@ -7,14 +7,14 @@
 
 package animation
 
-// Type 动画类型
+// Type animation type
 type Type string
 
 const (
-	// Unknown 未知类型
+	// Unknown unknown type
 	Unknown Type = "unknown"
-	// Mmd mmd模型动画
+	// Mmd mmd animation
 	Mmd Type = "mmd"
-	// MmdCamera mmd相机动画
+	// MmdCamera mmd camera animation
 	MmdCamera Type = "mmdCamera"
 )

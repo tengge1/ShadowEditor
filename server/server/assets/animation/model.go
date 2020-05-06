@@ -9,36 +9,36 @@ package animation
 
 import "time"
 
-// Model 动画模型
+// Model animation model
 type Model struct {
 	// ID
 	ID string
-	// 名称
+	// Name
 	Name string
-	// 类别ID
+	// Category ID
 	CategoryID string
-	// 类别名称
+	// Category name
 	CategoryName string
-	// 全拼
+	// Total PinYin
 	TotalPinYin string
-	// 首字母拼音
+	// The first letter of total PinYin
 	FirstPinYin string
-	// 类型
+	// Animation type
 	Type string
-	// 下载地址
+	// Download url
 	URL string `json:"Url"`
-	// 上传文件名称
+	// File name
 	FileName string
-	// 文件大小
+	// File size
 	FileSize int
-	// 文件类型
+	// File type
 	FileType string
-	// 保存文件名称
+	// Save file name
 	SaveName string
-	// 保存路径
+	// Save path
 	SavePath string
-	// 上传时间
+	// Upload time
 	AddTime time.Time
-	// 缩略图
+	// Thumbnail
 	Thumbnail string
 }
