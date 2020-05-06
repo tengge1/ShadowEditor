@@ -19,9 +19,7 @@ import (
 func TestCharacterList(t *testing.T) {
 	server.Create("../config.toml")
 
-	character := Character{}
-
-	ts := httptest.NewServer(http.HandlerFunc(character.List))
+	ts := httptest.NewServer(http.HandlerFunc(List))
 	defer ts.Close()
 
 	res, err := http.Get(ts.URL)

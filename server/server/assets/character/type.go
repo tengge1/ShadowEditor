@@ -7,10 +7,10 @@
 
 package character
 
-// Type 角色类型
+// Type Character Type
 type Type string
 
 const (
-	// Mesh 角色类型
+	// Mesh Mesh Character Type
 	Mesh Type = "Mesh"
 )
