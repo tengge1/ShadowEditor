@@ -7,40 +7,40 @@
 
 package texture
 
-// Type 贴图类型
+// Type is texture type.
 type Type string
 
 const (
-	// Unknown 未知类型
+	// Unknown unknown type.
 	Unknown Type = "unknown"
-	// AlphaMap 透明度贴图
+	// AlphaMap alpha map
 	AlphaMap Type = "alphaMap"
-	// AoMap 环境遮挡贴图
+	// AoMap ao map
 	AoMap Type = "aoMap"
-	// BumpMap 凹凸贴图
+	// BumpMap bump map
 	BumpMap Type = "bumpMap"
-	// DiffuseMap 漫反射贴图
+	// DiffuseMap diffuse map
 	DiffuseMap Type = "diffuseMap"
-	// DisplacementMap 置换贴图
+	// DisplacementMap displacement map
 	DisplacementMap Type = "displacementMap"
-	// EmissiveMap 发光贴图
+	// EmissiveMap emissive map
 	EmissiveMap Type = "emissiveMap"
-	// EnvMap 环境贴图
+	// EnvMap env map
 	EnvMap Type = "envMap"
-	// LightMap 光照贴图
+	// LightMap light map
 	LightMap Type = "lightMap"
-	// Map 颜色贴图
+	// Map color map
 	Map Type = "map"
-	// MetalnessMap 金属度贴图
+	// MetalnessMap metalness map
 	MetalnessMap Type = "metalnessMap"
-	// NormalMap 法线贴图
+	// NormalMap normal map
 	NormalMap Type = "normalMap"
-	// RoughnessMap 粗糙度贴图
+	// RoughnessMap roughness map
 	RoughnessMap Type = "roughnessMap"
-	// Cube 立体贴图
+	// Cube cute map
 	Cube Type = "cube"
-	// Video 视频贴图
+	// Video video map
 	Video Type = "video"
-	// SkyBall 天空球贴图
+	// SkyBall sky ball
 	SkyBall Type = "skyBall"
 )

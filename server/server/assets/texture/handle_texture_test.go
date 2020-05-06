@@ -25,9 +25,7 @@ import (
 func TestTextureList(t *testing.T) {
 	server.Create("../config.toml")
 
-	texture := Texture{}
-
-	ts := httptest.NewServer(http.HandlerFunc(texture.List))
+	ts := httptest.NewServer(http.HandlerFunc(List))
 	defer ts.Close()
 
 	res, err := http.Get(ts.URL)
@@ -49,9 +47,7 @@ func TestTextureList(t *testing.T) {
 func TestTextureAdd(t *testing.T) {
 	server.Create("../config.toml")
 
-	texture := Texture{}
-
-	ts := httptest.NewServer(http.HandlerFunc(texture.Add))
+	ts := httptest.NewServer(http.HandlerFunc(Add))
 	defer ts.Close()
 
 	bodyBuffer := &bytes.Buffer{}
@@ -97,9 +93,7 @@ func TestTextureAdd(t *testing.T) {
 func TestTextureEdit(t *testing.T) {
 	server.Create("../config.toml")
 
-	texture := Texture{}
-
-	ts := httptest.NewServer(http.HandlerFunc(texture.Edit))
+	ts := httptest.NewServer(http.HandlerFunc(Edit))
 	defer ts.Close()
 
 	res, err := http.PostForm(ts.URL, url.Values{
@@ -125,9 +119,7 @@ func TestTextureEdit(t *testing.T) {
 func TestTextureDelete(t *testing.T) {
 	server.Create("../config.toml")
 
-	texture := Texture{}
-
-	ts := httptest.NewServer(http.HandlerFunc(texture.Delete))
+	ts := httptest.NewServer(http.HandlerFunc(Delete))
 	defer ts.Close()
 
 	res, err := http.PostForm(ts.URL, url.Values{
