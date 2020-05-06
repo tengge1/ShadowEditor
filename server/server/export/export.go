@@ -7,6 +7,7 @@
 
 package export
 
+// Register handlers in `github.com/tengge1/shadoweditor/server/export` here.
 import (
 	_ "github.com/tengge1/shadoweditor/server/export/examples" // examples api
 	_ "github.com/tengge1/shadoweditor/server/export/scene"    // scene api

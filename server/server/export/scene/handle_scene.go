@@ -69,21 +69,21 @@ func Scene(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// 获取场景数据
+	// get scene data
 	collectionName := doc["CollectionName"].(string)
 
 	var docs bson.A
 
-	if version == -1 { // 最新版本
+	if version == -1 { // lastest version
 		db.FindAll(collectionName, &docs)
-	} else { // 特定版本
+	} else { // specific version
 		filter = bson.M{
 			server.VersionField: version,
 		}
 		db.FindMany(fmt.Sprintf("%v%v", collectionName, server.HistorySuffix), filter, &docs)
 	}
 
-	// 创建临时目录
+	// create temp dir
 	now := time.Now()
 
 	path := server.MapPath(fmt.Sprintf("/temp/%v", helper.TimeToString(now, "yyyyMMddHHmmss")))
@@ -92,7 +92,7 @@ func Scene(w http.ResponseWriter, r *http.Request) {
 		os.MkdirAll(path, 0755)
 	}
 
-	// 拷贝静态资源
+	// copy static contents
 	viewPath := server.MapPath("/view.html")
 
 	bytes, err := ioutil.ReadFile(viewPath)
@@ -105,8 +105,12 @@ func Scene(w http.ResponseWriter, r *http.Request) {
 	}
 	viewFileData := string(bytes)
 
-	viewFileData = strings.ReplaceAll(viewFileData, "location.origin", "'.'") // 替换server地址，以便部署到Git Pages上
-	viewFileData = strings.ReplaceAll(viewFileData, "<%SceneID%>", id.Hex())  // 发布场景自动把`<%SceneID%>`替换成真实场景ID，不再需要加`SceneID`或`SceneFile`参数
+	// replace server url in order to publish to `Git Pages`
+	viewFileData = strings.ReplaceAll(viewFileData, "location.origin", "'.'")
+
+	// replace `<%SceneID%>` with real scene id, so it is not necessary to add `SceneID` or `SceneFile` params
+	viewFileData = strings.ReplaceAll(viewFileData, "<%SceneID%>", id.Hex())
+
 	ioutil.WriteFile(filepath.Join(path, "view.html"), []byte(viewFileData), 0755)
 
 	faviconPath := server.MapPath("/favicon.ico")
@@ -121,7 +125,7 @@ func Scene(w http.ResponseWriter, r *http.Request) {
 	buildPath := server.MapPath("/build")
 	helper.CopyDirectory(buildPath, filepath.Join(path, "build"))
 
-	// 分析场景，拷贝使用的资源
+	// analysis scene, and copy necessary assets
 	data := bson.A{}
 
 	urls := []string{}
@@ -130,32 +134,32 @@ func Scene(w http.ResponseWriter, r *http.Request) {
 		doc := i.(primitive.D).Map()
 		generator := doc["metadata"].(primitive.D).Map()["generator"].(string)
 
-		if generator == "ServerObject" { // 服务端模型
+		if generator == "ServerObject" { // server model
 			userData := doc["userData"].(primitive.D).Map()
-			urls = append(urls, userData["Url"].(string)) // 模型文件
+			urls = append(urls, userData["Url"].(string)) // model files
 
-			if val, ok := userData["Animation"].(primitive.D); ok { // MMD模型动画
+			if val, ok := userData["Animation"].(primitive.D); ok { // MMD animation
 				urls = append(urls, val.Map()["Url"].(string))
 			}
-			if val, ok := userData["CameraAnimation"].(primitive.D); ok { // MMD相机动画
+			if val, ok := userData["CameraAnimation"].(primitive.D); ok { // MMD camara animation
 				urls = append(urls, val.Map()["Url"].(string))
 			}
-			if val, ok := userData["Audio"].(primitive.D); ok { // MMD音频
+			if val, ok := userData["Audio"].(primitive.D); ok { // MMD audio
 				urls = append(urls, val.Map()["Url"].(string))
 			}
-		} else if generator == "SceneSerializer" { // 场景
-			if val, ok := doc["background"].(primitive.D); ok { // 贴图或立方体纹理
+		} else if generator == "SceneSerializer" { // scene
+			if val, ok := doc["background"].(primitive.D); ok { // texture or cube texture
 				background := val.Map()
-				if background["metadata"].(primitive.D).Map()["generator"].(string) == "CubeTextureSerializer" { // 立方体纹理
+				if background["metadata"].(primitive.D).Map()["generator"].(string) == "CubeTextureSerializer" { // cube texture
 					array := background["image"].(bson.A)
 					for _, j := range array {
 						urls = append(urls, j.(primitive.D).Map()["src"].(string))
 					}
-				} else { // 普通纹理
+				} else { // other texture
 					urls = append(urls, background["image"].(primitive.D).Map()["src"].(string))
 				}
 			}
-		} else if generator == "MeshSerializer" || generator == "SpriteSerializer" { // 模型
+		} else if generator == "MeshSerializer" || generator == "SpriteSerializer" { // mesh
 			if val, ok := doc["material"].(bson.A); ok {
 				for _, material := range val {
 					getURLInMaterial(material.(primitive.D).Map(), &urls)
@@ -171,7 +175,7 @@ func Scene(w http.ResponseWriter, r *http.Request) {
 		data = append(data, doc)
 	}
 
-	// 将场景写入文件
+	// write scene data to files
 	{
 		path := filepath.Join(path, "Scene", id.Hex()+".txt")
 		dir := filepath.Dir(path)
@@ -179,7 +183,7 @@ func Scene(w http.ResponseWriter, r *http.Request) {
 			os.MkdirAll(dir, 0755)
 		}
 
-		// 复制资源
+		// copy assets
 		file, err := os.OpenFile(path, os.O_CREATE|os.O_WRONLY, 0755)
 		if err != nil {
 			helper.WriteJSON(w, server.Result{
@@ -203,11 +207,11 @@ func Scene(w http.ResponseWriter, r *http.Request) {
 	}
 
 	for _, url := range urls {
-		if !strings.HasPrefix(url, "/") { // 可能是base64地址
+		if !strings.HasPrefix(url, "/") { // maybe base64 url
 			continue
 		}
 
-		// LOL模型存在多个url，两个url之间用分号分隔
+		// LOL has multiple urls, and they are split by `;`
 		_urls := strings.Split(url, ";")
 
 		for _, _url := range _urls {
