@@ -27,7 +27,7 @@ func exportPrefab(path string) {
 		os.MkdirAll(dirName, 0755)
 	}
 
-	// 获取列表
+	// get list
 	fileName := filepath.Join(path, "api", "Prefab", "List")
 	ioutil.WriteFile(fileName, []byte(result), 0755)
 
@@ -43,7 +43,7 @@ func exportPrefab(path string) {
 		ioutil.WriteFile(fileName, []byte(result), 0755)
 	}
 
-	// 其他接口
+	// other apis
 	apiList := []string{
 		"/api/Prefab/Edit",
 		"/api/Prefab/Save",

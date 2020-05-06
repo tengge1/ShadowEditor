@@ -21,7 +21,7 @@ func exportUpload(path string) {
 		os.MkdirAll(dirName, 0755)
 	}
 
-	// 其他接口
+	// other apis
 	apiList := []string{
 		"/api/Upload/Upload",
 	}

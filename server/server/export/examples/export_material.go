@@ -27,11 +27,11 @@ func exportMaterial(path string) {
 		os.MkdirAll(dirName, 0755)
 	}
 
-	// 获取列表
+	// get list
 	fileName := filepath.Join(path, "api", "Material", "List")
 	ioutil.WriteFile(fileName, []byte(result), 0755)
 
-	// 其他接口
+	// other apis
 	apiList := []string{
 		"/api/Material/Add",
 		"/api/Material/Edit",

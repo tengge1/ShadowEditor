@@ -28,7 +28,7 @@ func exportAssets(path string) {
 		os.MkdirAll(dirName, 0755)
 	}
 
-	// 获取列表
+	// get list
 	fileName := filepath.Join(path, "api", "Assets", "List")
 	ioutil.WriteFile(fileName, []byte(result), 0755)
 }

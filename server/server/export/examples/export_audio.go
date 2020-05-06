@@ -28,11 +28,11 @@ func exportAudio(path string) {
 		os.MkdirAll(dirName, 0755)
 	}
 
-	// 获取列表
+	// get list
 	fileName := filepath.Join(path, "api", "Audio", "List")
 	ioutil.WriteFile(fileName, []byte(result), 0755)
 
-	// 其他接口
+	// other apis
 	apiList := []string{
 		"/api/Audio/Add",
 		"/api/Audio/Edit",
