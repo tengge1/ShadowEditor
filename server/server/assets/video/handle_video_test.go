@@ -19,9 +19,7 @@ import (
 func TestVideoList(t *testing.T) {
 	server.Create("../config.toml")
 
-	video := Video{}
-
-	ts := httptest.NewServer(http.HandlerFunc(video.List))
+	ts := httptest.NewServer(http.HandlerFunc(List))
 	defer ts.Close()
 
 	res, err := http.Get(ts.URL)
