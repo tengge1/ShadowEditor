@@ -19,9 +19,7 @@ import (
 func TestCategoryList(t *testing.T) {
 	server.Create("../config.toml")
 
-	category := Category{}
-
-	ts := httptest.NewServer(http.HandlerFunc(category.List))
+	ts := httptest.NewServer(http.HandlerFunc(List))
 	defer ts.Close()
 
 	res, err := http.Get(ts.URL)
