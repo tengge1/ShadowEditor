@@ -7,14 +7,14 @@
 
 package audio
 
-// Type 音频类型
+// Type the audio type
 type Type string
 
 const (
-	// Unknown 未知类型
+	// Unknown unknown type
 	Unknown Type = "unknown"
-	// Ambient 背景音乐
+	// Ambient ambient audio type
 	Ambient Type = "ambient"
-	// Effect 音效
+	// Effect audio effect type
 	Effect Type = "effect"
 )

@@ -17,27 +17,27 @@ type Model struct {
 	Name string
 	// Category ID
 	CategoryID string
-	// Category name
+	// Category Name
 	CategoryName string
 	// Total PinYin
 	TotalPinYin string
-	// The first letter of total PinYin
+	// The First Letters of Total PinYin
 	FirstPinYin string
-	// Animation type
+	// Animation Type
 	Type string
-	// Download url
+	// Download URL
 	URL string `json:"Url"`
-	// File name
+	// File Name
 	FileName string
-	// File size
+	// File Size
 	FileSize int
-	// File type
+	// File Type
 	FileType string
-	// Save file name
+	// Save File Name
 	SaveName string
-	// Save path
+	// Save Path
 	SavePath string
-	// Upload time
+	// Upload Time
 	AddTime time.Time
 	// Thumbnail
 	Thumbnail string

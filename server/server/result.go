@@ -9,10 +9,10 @@ package server
 
 // Result present a server handler result.
 type Result struct {
-	// 200 - ok; 300 -error
+	// The Response Code 200 - ok; 300 -error
 	Code int `json:"Code" bson:"Code"`
-	// The message to the web client
+	// The Response Message
 	Msg string `json:"Msg" bson:"Msg"`
-	// The data to the web client
+	// The Response Data
 	Data interface{} `json:"Data,omitempty" bson:"Data,omitempty"`
 }
