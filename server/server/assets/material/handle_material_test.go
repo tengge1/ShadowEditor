@@ -19,9 +19,7 @@ import (
 func TestMaterialList(t *testing.T) {
 	server.Create("../config.toml")
 
-	material := Material{}
-
-	ts := httptest.NewServer(http.HandlerFunc(material.List))
+	ts := httptest.NewServer(http.HandlerFunc(List))
 	defer ts.Close()
 
 	res, err := http.Get(ts.URL)

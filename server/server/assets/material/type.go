@@ -7,34 +7,34 @@
 
 package material
 
-// Type 材质类型
+// Type is material type.
 type Type string
 
 const (
-	// LineBasicMaterial 线条材质
+	// LineBasicMaterial is LineBasicMaterial.
 	LineBasicMaterial Type = "LineBasicMaterial"
-	// LineDashedMaterial 虚线材质
+	// LineDashedMaterial is LineDashedMaterial.
 	LineDashedMaterial Type = "LineDashedMaterial"
-	// MeshBasicMaterial 基本材质
+	// MeshBasicMaterial is MeshBasicMaterial.
 	MeshBasicMaterial Type = "MeshBasicMaterial"
-	// MeshDepthMaterial 深度材质
+	// MeshDepthMaterial is MeshDepthMaterial.
 	MeshDepthMaterial Type = "MeshDepthMaterial"
-	// MeshNormalMaterial 法向量材质
+	// MeshNormalMaterial is MeshNormalMaterial.
 	MeshNormalMaterial Type = "MeshNormalMaterial"
-	// MeshLambertMaterial 兰伯特材质
+	// MeshLambertMaterial is MeshLambertMaterial.
 	MeshLambertMaterial Type = "MeshLambertMaterial"
-	// MeshPhongMaterial 冯氏材质
+	// MeshPhongMaterial is MeshPhongMaterial.
 	MeshPhongMaterial Type = "MeshPhongMaterial"
-	// PointCloudMaterial 点云材质
+	// PointCloudMaterial is PointCloudMaterial.
 	PointCloudMaterial Type = "PointCloudMaterial"
-	// MeshStandardMaterial 标准材质
+	// MeshStandardMaterial is MeshStandardMaterial.
 	MeshStandardMaterial Type = "MeshStandardMaterial"
-	// MeshPhysicalMaterial 物理材质
+	// MeshPhysicalMaterial is MeshPhysicalMaterial.
 	MeshPhysicalMaterial Type = "MeshPhysicalMaterial"
-	// SpriteMaterial 精灵材质
+	// SpriteMaterial is SpriteMaterial.
 	SpriteMaterial Type = "SpriteMaterial"
-	// ShaderMaterial 着色器材质
+	// ShaderMaterial is ShaderMaterial.
 	ShaderMaterial Type = "ShaderMaterial"
-	// RawShaderMaterial 原始着色器材质
+	// RawShaderMaterial is RawShaderMaterial.
 	RawShaderMaterial Type = "RawShaderMaterial"
 )
