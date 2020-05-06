@@ -19,9 +19,7 @@ import (
 func TestAudioList(t *testing.T) {
 	server.Create("../config.toml")
 
-	audio := Audio{}
-
-	ts := httptest.NewServer(http.HandlerFunc(audio.List))
+	ts := httptest.NewServer(http.HandlerFunc(List))
 	defer ts.Close()
 
 	res, err := http.Get(ts.URL)
