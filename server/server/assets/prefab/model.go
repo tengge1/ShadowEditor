@@ -11,26 +11,26 @@ import (
 	"time"
 )
 
-// Model 预设体模型
+// Model is prefab model.
 type Model struct {
 	// ID
 	ID string
-	// 名称
+	// Name
 	Name string
-	// 类别ID
+	// Category ID
 	CategoryID string
-	// 类别名称
+	// Category Name
 	CategoryName string
-	// 全拼
+	// Total PinYin
 	TotalPinYin string
-	// 首字母拼音
+	// The First Letters of Total PinYin
 	FirstPinYin string
-	// 创建时间
+	// Create Time
 	CreateTime time.Time
-	// 更新时间
+	// Update Time
 	UpdateTime time.Time
-	// Data
+	// Prefab Data
 	Data string
-	// 缩略图
+	// Thumbnail
 	Thumbnail string
 }

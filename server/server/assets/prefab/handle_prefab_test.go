@@ -19,9 +19,7 @@ import (
 func TestPrefabList(t *testing.T) {
 	server.Create("../config.toml")
 
-	prefab := Prefab{}
-
-	ts := httptest.NewServer(http.HandlerFunc(prefab.List))
+	ts := httptest.NewServer(http.HandlerFunc(List))
 	defer ts.Close()
 
 	res, err := http.Get(ts.URL)

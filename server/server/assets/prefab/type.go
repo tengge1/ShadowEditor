@@ -7,7 +7,7 @@
 
 package prefab
 
-// Type 预设体类型
+// Type is prefab type.
 type Type string
 
 const (
