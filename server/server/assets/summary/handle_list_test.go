@@ -16,12 +16,10 @@ import (
 	"github.com/tengge1/shadoweditor/server"
 )
 
-func TestAssetsList(t *testing.T) {
+func TestList(t *testing.T) {
 	server.Create("../config.toml")
 
-	assets := Assets{}
-
-	ts := httptest.NewServer(http.HandlerFunc(assets.List))
+	ts := httptest.NewServer(http.HandlerFunc(List))
 	defer ts.Close()
 
 	res, err := http.Get(ts.URL)

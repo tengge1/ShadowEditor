@@ -17,16 +17,11 @@ import (
 )
 
 func init() {
-	assets := Assets{}
-	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Assets/List", assets.List)
+	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Assets/List", List)
 }
 
-// Assets (所有)资源控制器
-type Assets struct {
-}
-
-// List 获取信息列表
-func (Assets) List(w http.ResponseWriter, r *http.Request) {
+// List returns the assets info list.
+func List(w http.ResponseWriter, r *http.Request) {
 	db, err := server.Mongo()
 	if err != nil {
 		helper.Write(w, err.Error())
