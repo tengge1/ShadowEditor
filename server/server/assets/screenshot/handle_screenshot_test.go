@@ -19,9 +19,7 @@ import (
 func TestScreenshotList(t *testing.T) {
 	server.Create("../config.toml")
 
-	screenshot := Screenshot{}
-
-	ts := httptest.NewServer(http.HandlerFunc(screenshot.List))
+	ts := httptest.NewServer(http.HandlerFunc(List))
 	defer ts.Close()
 
 	res, err := http.Get(ts.URL)
