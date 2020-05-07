@@ -7,18 +7,18 @@
 
 package model
 
-// Department 组织机构模型
+// Department is user department model.
 type Department struct {
-	// 编号
+	// ID
 	ID string
-	// 父组织机构名称
+	// Parent Department ID
 	ParentID string
-	// 名称
+	// Name
 	Name string
-	// 管理员用户ID
+	// Administrator ID
 	AdminID string
-	// 管理员名称（不存数据库）
+	// Administrator Name (won't store in db)
 	AdminName string
-	// 状态（0-正常，-1-删除）
+	// Status( 0: normal, -1: deleted)
 	Status int
 }

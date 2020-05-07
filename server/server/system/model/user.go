@@ -9,40 +9,40 @@ package model
 
 import "time"
 
-// User 用户模型
+// User is a user's model.
 type User struct {
-	// 编号
+	// ID
 	ID string
-	// 用户名
+	// Username
 	Username string
-	// 密码（md5+盐）
+	// Password (md5 + Salt)
 	Password string
-	// 姓名
+	// Name
 	Name string
-	// 角色ID
+	// Role ID
 	RoleID string
-	// 角色名称（不存数据库）
+	// Role Name (won't store in the db)
 	RoleName string
-	// 组织机构ID
+	// Department ID
 	DeptID string
-	// 组织机构名称（不存数据库）
+	// Department Name (won't store in the db)
 	DeptName string
-	// 性别：0-未设置，1-男，2-女
+	// Gender: 0-unset, 1-male, 2-female
 	Gender int
-	// 手机号
+	// Phone Number
 	Phone string
-	// 电子邮件
+	// Emal
 	Email string
-	// QQ号
+	// QQ
 	QQ string
-	// 创建时间
+	// Create Time
 	CreateTime time.Time
-	// 最后更新时间
+	// Update Time
 	UpdateTime time.Time
-	// 盐
+	// Password Salt
 	Salt string
-	// 状态（0-正常，-1删除）
+	// Status(0: normal, -1: deleted)
 	Status int
-	// 所有操作权限（不存数据库）
+	// all operating authorities (won't store in the db)
 	OperatingAuthorities []string
 }

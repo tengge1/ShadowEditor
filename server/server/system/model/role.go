@@ -9,18 +9,18 @@ package model
 
 import "time"
 
-// Role 角色模型
+// Role is a role's model.
 type Role struct {
-	// 编号
+	// ID
 	ID string
-	// 名称
+	// Name
 	Name string
-	// 创建时间
+	// Create Time
 	CreateTime time.Time
-	// 最后更新时间
+	// Update Time
 	UpdateTime time.Time
-	// 简介
+	// Description.
 	Description string
-	// 状态（0-正常，-1删除）
+	// Status(0: normal, -1: deleted)
 	Status int
 }
