@@ -24,9 +24,7 @@ func TestUserList(t *testing.T) {
 	server.Create("../../config.toml")
 	server.Config.Authority.Enabled = true
 
-	user := User{}
-
-	ts := httptest.NewServer(http.HandlerFunc(user.List))
+	ts := httptest.NewServer(http.HandlerFunc(List))
 	defer ts.Close()
 
 	res, err := http.Get(ts.URL + "?keyword=ad")
@@ -49,9 +47,7 @@ func TestUserAdd(t *testing.T) {
 	server.Create("../../config.toml")
 	server.Config.Authority.Enabled = true
 
-	user := User{}
-
-	ts := httptest.NewServer(http.HandlerFunc(user.Add))
+	ts := httptest.NewServer(http.HandlerFunc(Add))
 	defer ts.Close()
 
 	userName := helper.TimeToString(time.Now(), "mmss")
@@ -82,9 +78,7 @@ func TestUserEdit(t *testing.T) {
 	server.Create("../../config.toml")
 	server.Config.Authority.Enabled = true
 
-	user := User{}
-
-	ts := httptest.NewServer(http.HandlerFunc(user.Edit))
+	ts := httptest.NewServer(http.HandlerFunc(Edit))
 	defer ts.Close()
 
 	res, err := http.PostForm(ts.URL, url.Values{
@@ -113,9 +107,7 @@ func TestUserDelete(t *testing.T) {
 	server.Create("../../config.toml")
 	server.Config.Authority.Enabled = true
 
-	user := User{}
-
-	ts := httptest.NewServer(http.HandlerFunc(user.Delete))
+	ts := httptest.NewServer(http.HandlerFunc(Delete))
 	defer ts.Close()
 
 	res, err := http.PostForm(ts.URL, url.Values{
@@ -140,9 +132,7 @@ func TestUserChangePassword(t *testing.T) {
 	server.Create("../../config.toml")
 	server.Config.Authority.Enabled = true
 
-	user := User{}
-
-	ts := httptest.NewServer(http.HandlerFunc(user.ChangePassword))
+	ts := httptest.NewServer(http.HandlerFunc(ChangePassword))
 	defer ts.Close()
 
 	params := url.Values{
@@ -183,9 +173,7 @@ func TestUserResetPassword(t *testing.T) {
 	server.Create("../../config.toml")
 	server.Config.Authority.Enabled = true
 
-	user := User{}
-
-	ts := httptest.NewServer(http.HandlerFunc(user.ResetPassword))
+	ts := httptest.NewServer(http.HandlerFunc(ResetPassword))
 	defer ts.Close()
 
 	res, err := http.PostForm(ts.URL, url.Values{
