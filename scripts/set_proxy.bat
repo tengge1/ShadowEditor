@@ -11,11 +11,13 @@
 :: and install packages from github.com is extremely slow
 
 echo set go proxy
-go env -w GO111MODULE=on
-go env -w GOPROXY=https://goproxy.cn
+call go env -w GO111MODULE=on
+call go env -w GOPROXY=https://goproxy.cn
 
 :: For some well-known reasons, it is slow to install packages from https://www.npmjs.com/ in china.
 :: So, we can set a proxy to make it faster to install third-party dependencies.
 
-echo set nodejs proxy
-npm config set registry https://registry.npm.taobao.org/
+call echo set nodejs proxy
+call npm config set registry https://registry.npm.taobao.org/
+
+pause
