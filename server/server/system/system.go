@@ -7,6 +7,7 @@
 
 package system
 
+// Register handlers in `github.com/tengge1/shadoweditor/server/system` here.
 import (
 	_ "github.com/tengge1/shadoweditor/server/system/authority"  // authority api
 	_ "github.com/tengge1/shadoweditor/server/system/config"     // config api

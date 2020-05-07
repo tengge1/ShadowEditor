@@ -23,20 +23,15 @@ import (
 )
 
 func init() {
-	handler := Upload{}
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Upload/Upload", handler.Upload)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Upload/Upload", Upload)
 }
 
-// Upload 上传控制器
-type Upload struct {
-}
-
-// Upload 上传文件
-func (Upload) Upload(w http.ResponseWriter, r *http.Request) {
+// Upload upload a file to the server, such as a thumbnail.
+func Upload(w http.ResponseWriter, r *http.Request) {
 	r.ParseMultipartForm(server.Config.Upload.MaxSize)
 	files := r.MultipartForm.File
 
-	// check upload file
+	// check uploaded file
 	if len(files) != 1 {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
@@ -141,7 +136,7 @@ func (Upload) Upload(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-// FileData means upload file data result.
+// FileData means upload file result.
 type FileData struct {
 	FileName string `json:"fileName"`
 	FileSize int64  `json:"fileSize"`

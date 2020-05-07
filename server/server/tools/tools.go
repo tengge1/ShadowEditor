@@ -7,6 +7,7 @@
 
 package system
 
+// Register handlers in `github.com/tengge1/shadoweditor/server/tools` here.
 import (
 	_ "github.com/tengge1/shadoweditor/server/tools/backup_database" // backup_database api
 	_ "github.com/tengge1/shadoweditor/server/tools/clean_scenes"    // clean_scenes api
