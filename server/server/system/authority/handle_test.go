@@ -21,9 +21,7 @@ func TestOperatingAuthorityGet(t *testing.T) {
 	server.Create("../../config.toml")
 	server.Config.Authority.Enabled = true
 
-	authority := OperatingAuthority{}
-
-	ts := httptest.NewServer(http.HandlerFunc(authority.Get))
+	ts := httptest.NewServer(http.HandlerFunc(Get))
 	defer ts.Close()
 
 	res, err := http.PostForm(ts.URL, url.Values{
@@ -48,9 +46,7 @@ func TestOperatingAuthoritySave(t *testing.T) {
 	server.Create("../../config.toml")
 	server.Config.Authority.Enabled = true
 
-	authority := OperatingAuthority{}
-
-	ts := httptest.NewServer(http.HandlerFunc(authority.Save))
+	ts := httptest.NewServer(http.HandlerFunc(Save))
 	defer ts.Close()
 
 	res, err := http.PostForm(ts.URL, url.Values{
