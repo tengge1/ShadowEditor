@@ -20,17 +20,11 @@ import (
 )
 
 func init() {
-	login := Login{}
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Login/Login", login.Login)
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Login/Logout", login.Logout)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Login/Login", Login)
 }
 
-// Login 登录控制器
-type Login struct {
-}
-
-// Login 登录
-func (Login) Login(w http.ResponseWriter, r *http.Request) {
+// Login log in the system.
+func Login(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	username := strings.TrimSpace(r.FormValue("Username"))
 	password := strings.TrimSpace(r.FormValue("Password"))
@@ -51,7 +45,7 @@ func (Login) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// 获取Salt
+	// get salt
 	db, err := server.Mongo()
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
@@ -77,7 +71,7 @@ func (Login) Login(w http.ResponseWriter, r *http.Request) {
 
 	salt := user["Salt"].(string)
 
-	// 验证账号密码
+	// verity password
 	filter1 := bson.M{
 		"Password": helper.MD5(password + salt),
 	}
@@ -115,27 +109,5 @@ func (Login) Login(w http.ResponseWriter, r *http.Request) {
 			"Username": user["Username"].(string),
 			"Name":     user["Name"].(string),
 		},
-	})
-}
-
-// Logout 注销
-func (Login) Logout(w http.ResponseWriter, r *http.Request) {
-	cookie, err := r.Cookie("UserID")
-	if err != nil {
-		helper.WriteJSON(w, server.Result{
-			Code: 300,
-			Msg:  err.Error(),
-		})
-		return
-	}
-	cookie.Expires = time.Now().AddDate(0, 0, -1)
-	cookie.HttpOnly = true
-	cookie.Path = "/"
-	cookie.SameSite = http.SameSiteDefaultMode
-	http.SetCookie(w, cookie)
-
-	helper.WriteJSON(w, server.Result{
-		Code: 200,
-		Msg:  "Logout Successfully!",
 	})
 }

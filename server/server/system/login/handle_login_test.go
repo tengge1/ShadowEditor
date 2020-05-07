@@ -21,9 +21,7 @@ func TestLogin(t *testing.T) {
 	server.Create("../../config.toml")
 	server.Config.Authority.Enabled = true
 
-	login := Login{}
-
-	ts := httptest.NewServer(http.HandlerFunc(login.Login))
+	ts := httptest.NewServer(http.HandlerFunc(Login))
 	defer ts.Close()
 
 	res, err := http.PostForm(ts.URL, url.Values{
@@ -49,9 +47,7 @@ func TestLogout(t *testing.T) {
 	server.Create("../../config.toml")
 	server.Config.Authority.Enabled = true
 
-	login := Login{}
-
-	ts := httptest.NewServer(http.HandlerFunc(login.Logout))
+	ts := httptest.NewServer(http.HandlerFunc(Logout))
 	defer ts.Close()
 
 	res, err := http.PostForm(ts.URL, url.Values{})
