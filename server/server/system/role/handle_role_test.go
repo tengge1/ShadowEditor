@@ -23,9 +23,7 @@ func TestRoleList(t *testing.T) {
 	server.Create("../../config.toml")
 	server.Config.Authority.Enabled = true
 
-	role := Role{}
-
-	ts := httptest.NewServer(http.HandlerFunc(role.List))
+	ts := httptest.NewServer(http.HandlerFunc(List))
 	defer ts.Close()
 
 	res, err := http.Get(ts.URL + "?keyword=us")
@@ -48,9 +46,7 @@ func TestRoleAdd(t *testing.T) {
 	server.Create("../../config.toml")
 	server.Config.Authority.Enabled = true
 
-	role := Role{}
-
-	ts := httptest.NewServer(http.HandlerFunc(role.Add))
+	ts := httptest.NewServer(http.HandlerFunc(Add))
 	defer ts.Close()
 
 	roleName := helper.TimeToString(time.Now(), "mmss")
@@ -78,9 +74,7 @@ func TestRoleEdit(t *testing.T) {
 	server.Create("../../config.toml")
 	server.Config.Authority.Enabled = true
 
-	role := Role{}
-
-	ts := httptest.NewServer(http.HandlerFunc(role.Edit))
+	ts := httptest.NewServer(http.HandlerFunc(Edit))
 	defer ts.Close()
 
 	roleName := helper.TimeToString(time.Now(), "mmss")
@@ -109,9 +103,7 @@ func TestRoleDelete(t *testing.T) {
 	server.Create("../../config.toml")
 	server.Config.Authority.Enabled = true
 
-	role := Role{}
-
-	ts := httptest.NewServer(http.HandlerFunc(role.Delete))
+	ts := httptest.NewServer(http.HandlerFunc(Delete))
 	defer ts.Close()
 
 	res, err := http.PostForm(ts.URL, url.Values{
