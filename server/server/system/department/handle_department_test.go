@@ -21,9 +21,7 @@ func TestDepartmentList(t *testing.T) {
 	server.Create("../../config.toml")
 	server.Config.Authority.Enabled = true
 
-	department := Department{}
-
-	ts := httptest.NewServer(http.HandlerFunc(department.List))
+	ts := httptest.NewServer(http.HandlerFunc(List))
 	defer ts.Close()
 
 	res, err := http.Get(ts.URL)
@@ -46,9 +44,7 @@ func TestDepartmentAdd(t *testing.T) {
 	server.Create("../../config.toml")
 	server.Config.Authority.Enabled = true
 
-	department := Department{}
-
-	ts := httptest.NewServer(http.HandlerFunc(department.Add))
+	ts := httptest.NewServer(http.HandlerFunc(Add))
 	defer ts.Close()
 
 	res, err := http.PostForm(ts.URL, url.Values{
@@ -75,9 +71,7 @@ func TestDepartmentEdit(t *testing.T) {
 	server.Create("../../config.toml")
 	server.Config.Authority.Enabled = true
 
-	department := Department{}
-
-	ts := httptest.NewServer(http.HandlerFunc(department.Edit))
+	ts := httptest.NewServer(http.HandlerFunc(Edit))
 	defer ts.Close()
 
 	res, err := http.PostForm(ts.URL, url.Values{
@@ -105,9 +99,7 @@ func TestDepartmentDelete(t *testing.T) {
 	server.Create("../../config.toml")
 	server.Config.Authority.Enabled = true
 
-	department := Department{}
-
-	ts := httptest.NewServer(http.HandlerFunc(department.Delete))
+	ts := httptest.NewServer(http.HandlerFunc(Delete))
 	defer ts.Close()
 
 	res, err := http.PostForm(ts.URL, url.Values{
