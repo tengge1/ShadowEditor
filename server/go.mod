@@ -16,7 +16,6 @@ require (
 	github.com/fatih/structtag v1.2.0 // indirect
 	github.com/go-delve/delve v1.4.0 // indirect
 	github.com/godoctor/godoctor v0.0.0-20181123222458-69df17f3a6f6 // indirect
-	github.com/google/go-cmp v0.4.0 // indirect
 	github.com/hashicorp/golang-lru v0.5.4 // indirect
 	github.com/haya14busa/goplay v1.0.0 // indirect
 	github.com/inconshreveable/mousetrap v1.0.0
@@ -24,7 +23,6 @@ require (
 	github.com/json-iterator/go v1.1.9
 	github.com/karrick/godirwalk v1.15.6 // indirect
 	github.com/klauspost/compress v1.10.5 // indirect
-	github.com/konsorten/go-windows-terminal-sequences v1.0.3 // indirect
 	github.com/mattn/go-colorable v0.1.6 // indirect
 	github.com/mattn/go-runewidth v0.0.9 // indirect
 	github.com/mozillazg/go-pinyin v0.17.0
@@ -47,7 +45,6 @@ require (
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/sqs/goreturns v0.0.0-20181028201513-538ac6014518 // indirect
 	github.com/stamblerre/gocode v1.0.0 // indirect
-	github.com/stretchr/testify v1.5.1 // indirect
 	github.com/tidwall/pretty v1.0.1 // indirect
 	github.com/tylerb/gotype-live v0.0.0-20200426224044-fc0b594a8b09 // indirect
 	github.com/urfave/negroni v1.0.0
@@ -59,13 +56,11 @@ require (
 	go.starlark.net v0.0.0-20200330013621-be5394c419b6 // indirect
 	golang.org/x/arch v0.0.0-20200312215426-ff8b605520f4 // indirect
 	golang.org/x/crypto v0.0.0-20200429183012-4b2356b1ed79 // indirect
-	golang.org/x/lint v0.0.0-20200302205851-738671d3881b // indirect
 	golang.org/x/net v0.0.0-20200501053045-e0ff5e5a1de5 // indirect
 	golang.org/x/sync v0.0.0-20200317015054-43a5402ce75a // indirect
 	golang.org/x/sys v0.0.0-20200501145240-bc7a7d42d5c3 // indirect
 	golang.org/x/tools v0.0.0-20200502202811-ed308ab3e770 // indirect
 	golang.org/x/tools/gopls v0.4.0 // indirect
-	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 	gopkg.in/yaml.v2 v2.2.8 // indirect
 	mvdan.cc/xurls/v2 v2.2.0 // indirect
 )
