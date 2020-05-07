@@ -18,66 +18,17 @@ import (
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
-	"go.mongodb.org/mongo-driver/mongo/options"
 
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server"
 )
 
 func init() {
-	handler := Typeface{}
-	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Typeface/List", handler.List)
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Typeface/Add", handler.Add)
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Typeface/Delete", handler.Delete)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Typeface/Add", Add)
 }
 
-// Typeface 字体控制器
-type Typeface struct {
-}
-
-// List 获取列表
-func (Typeface) List(w http.ResponseWriter, r *http.Request) {
-	db, err := server.Mongo()
-	if err != nil {
-		helper.WriteJSON(w, server.Result{
-			Code: 300,
-			Msg:  err.Error(),
-		})
-		return
-	}
-
-	opts := options.FindOptions{
-		Sort: bson.M{
-			"Name": 1,
-		},
-	}
-
-	var docs bson.A
-	db.FindAll(server.PluginCollectionName, &docs, &opts)
-
-	list := []Model{}
-
-	for _, i := range docs {
-		doc := i.(primitive.D).Map()
-		model := Model{
-			ID:          doc["ID"].(primitive.ObjectID).Hex(),
-			Name:        doc["Name"].(string),
-			TotalPinYin: doc["TotalPinYin"].(string),
-			FirstPinYin: doc["FirstPinYin"].(string),
-			CreateTime:  doc["CreateTime"].(primitive.DateTime).Time(),
-		}
-		list = append(list, model)
-	}
-
-	helper.WriteJSON(w, server.Result{
-		Code: 200,
-		Msg:  "Get Successfully!",
-		Data: list,
-	})
-}
-
-// Add 添加
-func (Typeface) Add(w http.ResponseWriter, r *http.Request) {
+// Add upload a typeface.
+func Add(w http.ResponseWriter, r *http.Request) {
 	r.ParseMultipartForm(server.Config.Upload.MaxSize)
 
 	files := r.MultipartForm.File
@@ -153,63 +104,5 @@ func (Typeface) Add(w http.ResponseWriter, r *http.Request) {
 	helper.WriteJSON(w, server.Result{
 		Code: 200,
 		Msg:  "Saved successfully!",
-	})
-}
-
-// Delete 删除
-func (Typeface) Delete(w http.ResponseWriter, r *http.Request) {
-	r.ParseForm()
-	id, err := primitive.ObjectIDFromHex(strings.TrimSpace(r.FormValue("ID")))
-	if err != nil {
-		helper.WriteJSON(w, server.Result{
-			Code: 300,
-			Msg:  "ID is not allowed.",
-		})
-		return
-	}
-
-	db, err := server.Mongo()
-	if err != nil {
-		helper.WriteJSON(w, server.Result{
-			Code: 300,
-			Msg:  err.Error(),
-		})
-		return
-	}
-
-	filter := bson.M{
-		"ID": id,
-	}
-
-	doc := bson.M{}
-	find, _ := db.FindOne(server.TypefaceCollectionName, filter, &doc)
-
-	if !find {
-		helper.WriteJSON(w, server.Result{
-			Code: 300,
-			Msg:  "The asset is not existed!",
-		})
-		return
-	}
-
-	// delete file dir
-	url := doc["Url"].(string)
-	physicalPath := server.MapPath(url)
-	dir := filepath.Dir(physicalPath)
-
-	err = os.RemoveAll(dir)
-	if err != nil {
-		helper.WriteJSON(w, server.Result{
-			Code: 300,
-			Msg:  err.Error(),
-		})
-		return
-	}
-
-	db.DeleteOne(server.TypefaceCollectionName, filter)
-
-	helper.WriteJSON(w, server.Result{
-		Code: 200,
-		Msg:  "Delete successfully!",
 	})
 }

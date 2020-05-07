@@ -9,18 +9,18 @@ package typeface
 
 import "time"
 
-// Model 字体模型
+// Model is a typeface model.
 type Model struct {
 	// ID
 	ID string
-	// 名称
+	// Name
 	Name string
-	// 全拼
+	// Total PinYin.
 	TotalPinYin string
-	// 首字母拼音
+	// The First Letters of Total PinYin.
 	FirstPinYin string
-	// 下载地址
+	// Downloaded URL
 	URL string
-	// 创建时间
+	// Create Time
 	CreateTime time.Time
 }
