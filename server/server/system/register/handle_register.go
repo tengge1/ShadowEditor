@@ -20,16 +20,11 @@ import (
 )
 
 func init() {
-	register := Register{}
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Register/Register", register.Register)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Register/Register", Register)
 }
 
-// Register 注册控制器
-type Register struct {
-}
-
-// Register 注册
-func (Register) Register(w http.ResponseWriter, r *http.Request) {
+// Register register a user.
+func Register(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	username := strings.TrimSpace(r.FormValue("Username"))
 	password := strings.TrimSpace(r.FormValue("Password"))
@@ -99,7 +94,7 @@ func (Register) Register(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// 获取默认注册角色
+	// get default register role
 	defaultRegisterRole := ""
 
 	config := bson.M{}
@@ -125,7 +120,7 @@ func (Register) Register(w http.ResponseWriter, r *http.Request) {
 		defaultRegisterRole = role["ID"].(primitive.ObjectID).Hex()
 	}
 
-	// 添加用户
+	// add user
 	now := time.Now()
 
 	salt := helper.TimeToString(now, "yyyyMMddHHmmss")

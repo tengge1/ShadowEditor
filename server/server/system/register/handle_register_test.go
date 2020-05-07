@@ -23,9 +23,7 @@ func TestRegister(t *testing.T) {
 	server.Create("../../config.toml")
 	server.Config.Authority.Enabled = true
 
-	register := Register{}
-
-	ts := httptest.NewServer(http.HandlerFunc(register.Register))
+	ts := httptest.NewServer(http.HandlerFunc(Register))
 	defer ts.Close()
 
 	now := helper.TimeToString(time.Now(), "mmss")
