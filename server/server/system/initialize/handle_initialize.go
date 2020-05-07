@@ -19,18 +19,12 @@ import (
 )
 
 func init() {
-	initialize := Initialize{}
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Initialize/Initialize", initialize.Initialize)
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Initialize/Reset", initialize.Reset)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Initialize/Initialize", Initialize)
 }
 
-// Initialize 初始化控制器
-type Initialize struct {
-}
-
-// Initialize 初始化
-func (Initialize) Initialize(w http.ResponseWriter, r *http.Request) {
-	// 判断权限是否开启
+// Initialize initialize the authority system.
+func Initialize(w http.ResponseWriter, r *http.Request) {
+	// check whether the authority is enabled.
 	enableAuthority := server.Config.Authority.Enabled
 
 	if enableAuthority != true {
@@ -41,7 +35,7 @@ func (Initialize) Initialize(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// 判断是否已经初始化
+	// check whether is initialized
 	db, err := server.Mongo()
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
@@ -95,7 +89,7 @@ func (Initialize) Initialize(w http.ResponseWriter, r *http.Request) {
 		db.UpdateOne(server.ConfigCollectionName, filter11, update11)
 	}
 
-	// 初始化角色
+	// init roles
 	now := time.Now()
 
 	filter1 := bson.M{
@@ -112,7 +106,7 @@ func (Initialize) Initialize(w http.ResponseWriter, r *http.Request) {
 	}
 	db.DeleteMany(server.RoleCollectionName, filter)
 
-	adminRoleID := primitive.NewObjectID() // 管理员RoleID
+	adminRoleID := primitive.NewObjectID() // Administrator Role ID
 
 	role1 := bson.M{
 		"ID":          adminRoleID,
@@ -134,7 +128,7 @@ func (Initialize) Initialize(w http.ResponseWriter, r *http.Request) {
 
 	db.InsertMany(server.RoleCollectionName, bson.A{role1, role2})
 
-	// 初始化用户
+	// init users
 	password := "123456"
 	salt := helper.TimeToString(time.Now(), "yyyyMMddHHmmss")
 
@@ -159,67 +153,5 @@ func (Initialize) Initialize(w http.ResponseWriter, r *http.Request) {
 	helper.WriteJSON(w, server.Result{
 		Code: 200,
 		Msg:  "Initialize successfully!",
-	})
-}
-
-// Reset 重置系统
-func (Initialize) Reset(w http.ResponseWriter, r *http.Request) {
-	db, err := server.Mongo()
-	if err != nil {
-		helper.WriteJSON(w, server.Result{
-			Code: 300,
-			Msg:  err.Error(),
-		})
-		return
-	}
-
-	now := helper.TimeToString(time.Now(), "yyyyMMddHHmmss")
-
-	// 备份数据表
-	docs := bson.A{}
-	db.FindMany(server.ConfigCollectionName, bson.M{}, &docs)
-	if len(docs) > 0 {
-		db.InsertMany(server.ConfigCollectionName+now, docs)
-	}
-
-	db.FindMany(server.RoleCollectionName, bson.M{}, &docs)
-	if len(docs) > 0 {
-		db.InsertMany(server.RoleCollectionName+now, docs)
-	}
-
-	db.FindMany(server.UserCollectionName, bson.M{}, &docs)
-	if len(docs) > 0 {
-		db.InsertMany(server.UserCollectionName+now, docs)
-	}
-
-	db.FindMany(server.DepartmentCollectionName, bson.M{}, &docs)
-	if len(docs) > 2 {
-		db.InsertMany(server.DepartmentCollectionName+now, docs)
-	}
-
-	db.FindMany(server.OperatingAuthorityCollectionName, bson.M{}, &docs)
-	if len(docs) > 0 {
-		db.InsertMany(server.OperatingAuthorityCollectionName+now, docs)
-	}
-
-	// 清除数据表
-	db.DropCollection(server.ConfigCollectionName)
-	db.DropCollection(server.RoleCollectionName)
-	db.DropCollection(server.UserCollectionName)
-	db.DropCollection(server.DepartmentCollectionName)
-	db.DropCollection(server.OperatingAuthorityCollectionName)
-
-	// 注销登录
-	// cookie := HttpContext.Current.Request.Cookies.Get(FormsAuthentication.FormsCookieName);
-
-	// if (cookie != null)
-	// {
-	// 	cookie.Expires = DateTime.Now.AddDays(-1);
-	// 	HttpContext.Current.Response.Cookies.Add(cookie);
-	// }
-
-	helper.WriteJSON(w, server.Result{
-		Code: 200,
-		Msg:  "Reset successfully!",
 	})
 }
