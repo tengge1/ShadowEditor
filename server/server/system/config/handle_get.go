@@ -19,17 +19,11 @@ import (
 )
 
 func init() {
-	config := Config{}
-	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Config/Get", config.Get)
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Config/Save", config.Save)
+	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Config/Get", Get)
 }
 
-// Config 配置控制器
-type Config struct {
-}
-
-// Get 获取配置信息
-func (Config) Get(w http.ResponseWriter, r *http.Request) {
+// Get get the server config of the current user.
+func Get(w http.ResponseWriter, r *http.Request) {
 	db, err := server.Mongo()
 	if err != nil {
 		helper.Write(w, err.Error())
@@ -93,62 +87,34 @@ func (Config) Get(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-// Save save system config.
-func (Config) Save(w http.ResponseWriter, r *http.Request) {
-	r.ParseForm()
-	defaultRegisterRole := r.FormValue("DefaultRegisterRole")
-
-	db, err := server.Mongo()
-	if err != nil {
-		helper.WriteJSON(w, server.Result{
-			Code: 300,
-			Msg:  err.Error(),
-		})
-		return
-	}
-
-	var doc bson.M
-	find, _ := db.FindOne(server.ConfigCollectionName, bson.M{}, &doc)
-
-	if !find {
-		doc = bson.M{
-			"ID":                  primitive.NewObjectID(),
-			"Initialized":         false,
-			"DefaultRegisterRole": defaultRegisterRole,
-		}
-		db.InsertOne(server.ConfigCollectionName, doc)
-	} else {
-		update := bson.M{
-			"$set": bson.M{
-				"DefaultRegisterRole": defaultRegisterRole,
-			},
-		}
-		db.UpdateOne(server.ConfigCollectionName, bson.M{}, update)
-	}
-
-	helper.WriteJSON(w, server.Result{
-		Code: 200,
-		Msg:  "Save Successfully.",
-		Data: bson.M{
-			"DefaultRegisterRole": defaultRegisterRole,
-		},
-	})
-}
-
 // Result config to front end
 type Result struct {
-	ID                   string
-	EnableAuthority      bool
-	Initialized          bool
-	DefaultRegisterRole  string
-	IsLogin              bool
-	Username             string
-	Name                 string
-	RoleID               string
-	RoleName             string
-	DeptID               string
-	DeptName             string
+	// ID
+	ID string
+	// Enable Authority
+	EnableAuthority bool
+	// Has Initialized
+	Initialized bool
+	// Default Register Role
+	DefaultRegisterRole string
+	// Is Login
+	IsLogin bool
+	// Username
+	Username string
+	// Name
+	Name string
+	// Role ID
+	RoleID string
+	// Role Name
+	RoleName string
+	// Department ID
+	DeptID string
+	// Department Name
+	DeptName string
+	// Operating Authorities
 	OperatingAuthorities []string
-	EnableRemoteEdit     bool
-	WebSocketServerPort  int
+	// Enable Remote Edit
+	EnableRemoteEdit bool
+	// Web Socket Server Port
+	WebSocketServerPort int
 }
