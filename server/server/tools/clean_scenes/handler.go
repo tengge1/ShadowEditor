@@ -18,10 +18,11 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/CleanUpScenes/Run", handle)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/CleanUpScenes/Run", Handle)
 }
 
-func handle(w http.ResponseWriter, r *http.Request) {
+// Handle clean up history scenes and deleted scenes in the mongo.
+func Handle(w http.ResponseWriter, r *http.Request) {
 	db, err := server.Mongo()
 	if err != nil {
 		helper.WriteJSON(w, server.Result{

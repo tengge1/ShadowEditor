@@ -9,20 +9,20 @@ package plugin
 
 import "time"
 
-// Model 插件模型
+// Model is a plugin model.
 type Model struct {
-	// 编号
+	// ID
 	ID string
-	// 名称
+	// Name
 	Name string
-	// 源码
+	// Source
 	Source string
-	// 创建时间
+	// Create Time
 	CreateTime time.Time
-	// 最后更新时间
+	// Update Time
 	UpdateTime time.Time
-	// 简介
+	// Description
 	Description string
-	// 状态（0-正常，1-禁用，-1删除）
+	// Status (1: enabled, 0: disabled, -1: deleted)
 	Status int
 }

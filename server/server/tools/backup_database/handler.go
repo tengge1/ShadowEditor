@@ -21,10 +21,11 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/BackupDatabase/Run", handle)
+	server.Mux.UsingContext().Handle(http.MethodPost, "/api/BackupDatabase/Run", Handle)
 }
 
-func handle(w http.ResponseWriter, r *http.Request) {
+// Handle backup collections to a directory.
+func Handle(w http.ResponseWriter, r *http.Request) {
 	db, err := server.Mongo()
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
