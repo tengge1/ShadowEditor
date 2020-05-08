@@ -89,7 +89,7 @@ class ModelPanel extends React.Component {
     }
 
     update() {
-        fetch(`${app.options.server}/api/Category/List?type=Mesh`).then(response => {
+        fetch(`${app.options.server}/api/Category/List?Type=Mesh`).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
                     app.toast(_t(obj.Msg), 'warn');

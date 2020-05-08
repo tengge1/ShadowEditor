@@ -84,7 +84,7 @@ class CharacterPanel extends React.Component {
     }
 
     update() {
-        fetch(`${app.options.server}/api/Category/List?type=Character`).then(response => {
+        fetch(`${app.options.server}/api/Category/List?Type=Character`).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
                     app.toast(_t(obj.Msg), 'warn');
