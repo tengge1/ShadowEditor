@@ -305,6 +305,7 @@ Converter.prototype.fromJson = function (jsons, options) {
     let rendererJson = jsons.filter(n => n.metadata && n.metadata.generator.indexOf('WebGLRendererSerializer') > -1)[0];
     if (rendererJson) {
         obj.renderer = new WebGLRendererSerializer().fromJSON(rendererJson);
+        obj.renderer.setDrawingBufferSize(obj.domWidth, obj.domHeight, window.devicePixelRatio);
     } else {
         console.warn(`Converter: No renderer info in the scene.`);
     }

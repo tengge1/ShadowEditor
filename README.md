@@ -15,6 +15,9 @@ English / [中文](README_zh.md)
 
 ## v0.5.1 is Coming Soon
 
+1. Fix a bug that an error occurs when the scene plays which contains a smoke comopnent.
+2. Fix the bug of renderer size error. (It causes smoke shrink when the scene plays which contains a smoke component)
+
 ## v0.5.0 has Released
 
 * Release Date: May 5, 2020

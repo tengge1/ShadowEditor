@@ -5,13 +5,18 @@
 > [点击此处](../../tree/v0.4.6-csharp/)切换到`C#`分支， 该分支不再维护。
 
 * 名称：Shadow Editor
-* 版本：v0.5.0
+* 版本：v0.5.1（开发中）
 * 简介：基于Three.js、Go语言和MongoDB的跨平台的3D场景编辑器。
 * 源码：[GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | 文档：[GitHub](https://tengge1.github.io/ShadowEditor/) [Gitee](https://tengge1.gitee.io/shadoweditor/) | 示例：[GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) | 视频：[微博](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) | 资源：[百度网盘](https://pan.baidu.com/s/1IxJVM6fFLoIAJG-GKHjVTA)
 * 技术栈：html、css、javascript、rollup、react.js、webgl、three.js、golang、MongoDB。
 * 如果对您有帮助，请[【捐赠】](https://gitee.com/tengge1/ShadowEditor)支持项目发展。谢谢！
 
 ![image](images/scene20200301.jpg)
+
+## v0.5.1即将更新
+
+1. 修复烟组件播放报错的bug。
+2. 修复播放时渲染器尺寸错误。（导致烟组件播放时变小）
 
 ## v0.5.0更新
 
