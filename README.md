@@ -17,6 +17,7 @@ English / [中文](README_zh.md)
 
 1. Fix a bug that an error occurs when the scene plays which contains a smoke comopnent.
 2. Fix the bug of renderer size error. (It causes smoke shrink when the scene plays which contains a smoke component)
+3. Fix the bug of water component error, due to the upgrade of three.js.
 
 ## v0.5.0 has Released
 

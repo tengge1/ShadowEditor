@@ -32,7 +32,7 @@ void main() {
 	#include <skinbase_vertex>
 	#include <skinnormal_vertex>
 	#include <defaultnormal_vertex>
-#ifndef FLAT_SHADED // Normal computed with derivatives when FLAT_SHADED
+#ifndef FLAT_SHADED 
 	vNormal = normalize( transformedNormal );
 #endif
 	//# include <begin_vertex>
