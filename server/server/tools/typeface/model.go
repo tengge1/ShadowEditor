@@ -20,7 +20,9 @@ type Model struct {
 	// The First Letters of Total PinYin.
 	FirstPinYin string
 	// Downloaded URL
-	URL string
+	URL string `json:"Url"`
 	// Create Time
 	CreateTime time.Time
+	// Update Time
+	UpdateTime time.Time
 }

@@ -51,7 +51,9 @@ func List(w http.ResponseWriter, r *http.Request) {
 			Name:        doc["Name"].(string),
 			TotalPinYin: doc["TotalPinYin"].(string),
 			FirstPinYin: doc["FirstPinYin"].(string),
+			URL:         doc["Url"].(string),
 			CreateTime:  doc["CreateTime"].(primitive.DateTime).Time(),
+			UpdateTime:  doc["UpdateTime"].(primitive.DateTime).Time(),
 		}
 		list = append(list, model)
 	}
