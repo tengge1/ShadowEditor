@@ -40,7 +40,7 @@ func List(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var docs bson.A
-	db.FindAll(server.PluginCollectionName, &docs, &opts)
+	db.FindAll(server.TypefaceCollectionName, &docs, &opts)
 
 	list := []Model{}
 
