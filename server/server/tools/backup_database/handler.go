@@ -8,13 +8,16 @@
 package backupdatabase
 
 import (
-	"fmt"
 	"net/http"
 	"net/url"
 	"os"
 	"os/exec"
 	"path/filepath"
+	"runtime"
+	"strings"
 	"time"
+
+	"go.mongodb.org/mongo-driver/bson"
 
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server"
@@ -36,7 +39,11 @@ func Handle(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Get `mongodump` path.
-	sr, err := db.RunCommand("{ serverStatus: 1, asserts: 0, repl: 0, metrics: 0, locks: 0 }")
+	cmd := bson.M{
+		"serverStatus": 1,
+	}
+
+	sr, err := db.RunCommand(cmd)
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
@@ -45,38 +52,59 @@ func Handle(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var status []map[string]interface{}
-	sr.Decode(&status)
-
-	path := status[0]["process"].(string)
-	dir := filepath.Dir(path)
-	dump := filepath.Join(dir, "mongodump.exe")
-
-	if _, err := os.Stat(dump); os.IsNotExist(err) {
+	var doc bson.D
+	err = sr.Decode(&doc)
+	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
-			Msg:  "mongodump.exe is not existed.",
+			Msg:  err.Error(),
 		})
 		return
+	}
+	status := doc.Map()
+
+	path := status["process"].(string)
+	dir := filepath.Dir(path)
+
+	var dump string
+	if strings.HasPrefix(runtime.GOOS, "windows") {
+		dump = filepath.Join(dir, "mongodump.exe")
+
+		if _, err := os.Stat(dump); os.IsNotExist(err) {
+			helper.WriteJSON(w, server.Result{
+				Code: 300,
+				Msg:  "mongodump is not existed.",
+			})
+			return
+		}
+	} else {
+		dump = filepath.Join(dir, "mongodump")
 	}
 
 	// Get mongodb information.
 	uri, _ := url.Parse(db.ConnectionString)
-	host := uri.Host
+	host := uri.Hostname()
 	port := uri.Port()
 	dbName := db.DatabaseName
 	now := time.Now()
 
-	backupDir := server.MapPath("/backup/database/dump" + helper.TimeToString(now, "yyyyMMddHHmmss"))
+	backupDir := server.MapPath("../backup/database/dump" + helper.TimeToString(now, "yyyyMMddHHmmss"))
 
 	if _, err := os.Stat(backupDir); os.IsNotExist(err) {
 		os.MkdirAll(backupDir, 0755)
 	}
 
 	// Start a process to backup MongoDB.
-	cmd := fmt.Sprintf("--host %v --port %v --db %v --out %v", host, port, dbName, backupDir)
-	process := exec.Command(dump, cmd)
-	process.Start()
+	process := exec.Command(dump, "--host", host, "--port", port, "--db", dbName, "--out", backupDir)
+
+	err = process.Run()
+	if err != nil {
+		helper.WriteJSON(w, server.Result{
+			Code: 300,
+			Msg:  err.Error(),
+		})
+		return
+	}
 
 	result := backupResult{}
 	result.Code = 200

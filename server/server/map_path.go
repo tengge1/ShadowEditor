@@ -8,7 +8,6 @@
 package server
 
 import (
-	"fmt"
 	"path/filepath"
 	"strings"
 )
@@ -21,6 +20,6 @@ func MapPath(path string) string {
 	if path == "/" {
 		path = "/index.html"
 	}
-	path = fmt.Sprintf("%v%v", Config.Path.PublicDir, path)
+	path = filepath.Join(Config.Path.PublicDir, path)
 	return strings.ReplaceAll(path, "/", string(filepath.Separator))
 }

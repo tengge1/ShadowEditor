@@ -20,6 +20,7 @@ English / [中文](README_zh.md)
 3. Fix the bug of water component error, due to the upgrade of three.js.
 4. Fix a bug that the category filter on the assets panel lists all the categories on Ubuntu.
 5. Fix bugs of listing fonts, uploading fonts and creating 3D text.
+6. Fix the bug of backing up mongodb.
 
 ## v0.5.0 has Released
 
