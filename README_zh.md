@@ -76,7 +76,7 @@
 
 1. Golang 1.14.2+
 2. NodeJS 14.1+
-3. gcc 9.3.0+ （Windows上需要`MinGW`。请保证`gcc`可以通过命令行访问）
+3. gcc 9.3.0+ （Windows上需要安装`tdm-gcc`、`MinGW-w64`或`MinGW`。请保证`gcc`可以通过命令行访问）
 4. git 2.25.1+
 5. VSCode 1.44.2+
 6. make 4.2.1+ (仅在Linux上需要)

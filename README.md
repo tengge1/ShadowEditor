@@ -77,7 +77,7 @@ The following only required when you want to build from the source.
 
 1. Golang 1.14.2+
 2. NodeJS 14.1+
-3. gcc 9.3.0+ (`MinGW` on Windows, and make sure `gcc` can be accessed through the command line)
+3. gcc 9.3.0+ (`tdm-gcc`, `MinGW-w64` or `MinGW` on Windows, and make sure `gcc` can be accessed through the command line)
 4. git 2.25.1+
 5. VSCode 1.44.2+
 6. make 4.2.1+ (Linux only)
