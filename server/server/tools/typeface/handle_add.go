@@ -45,14 +45,16 @@ func Add(w http.ResponseWriter, r *http.Request) {
 
 	// save file
 	now := time.Now()
-	savePath := fmt.Sprintf("/Upload/Font/%v", helper.TimeToString(now, "yyyyMMddHHmmss"))
+	savePath := fmt.Sprintf("/Upload/Font/%v/%v", helper.TimeToString(now, "yyyyMMddHHmmss"), fileName)
 
 	physicalPath := server.MapPath(savePath)
-	if _, err := os.Stat(physicalPath); os.IsNotExist(err) {
-		os.MkdirAll(physicalPath, 0755)
+	physicalDir := filepath.Dir(physicalPath)
+
+	if _, err := os.Stat(physicalDir); os.IsNotExist(err) {
+		os.MkdirAll(physicalDir, 0755)
 	}
 
-	if _, err := os.Stat(filepath.Join(physicalPath, fileName)); os.IsNotExist(err) {
+	if _, err := os.Stat(physicalPath); err == nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
 			Msg:  "The file is already existed.",
@@ -61,6 +63,8 @@ func Add(w http.ResponseWriter, r *http.Request) {
 	}
 
 	source, _ := file.Open()
+	defer source.Close()
+
 	dest, err := os.Create(physicalPath)
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
@@ -73,8 +77,6 @@ func Add(w http.ResponseWriter, r *http.Request) {
 	io.Copy(dest, source)
 
 	// save to mongo
-	// fileSize := file.Size
-	// fileType := file.Header.Get("Content-Type")
 	fileNameWithoutExt := strings.TrimRight(fileName, filepath.Ext(fileName))
 
 	pinyin := helper.ConvertToPinYin(fileNameWithoutExt)
@@ -93,7 +95,7 @@ func Add(w http.ResponseWriter, r *http.Request) {
 		"Name":        fileNameWithoutExt,
 		"TotalPinYin": pinyin.TotalPinYin,
 		"FirstPinYin": pinyin.FirstPinYin,
-		"Url":         filepath.Join(savePath, fileName),
+		"Url":         savePath,
 		"CreateTime":  now,
 		"UpdateTime":  now,
 		"Status":      0,
