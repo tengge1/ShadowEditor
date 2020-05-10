@@ -75,14 +75,13 @@ The data structure and web client is not changed, just copy `./ShadowEditor.Web/
 1. MongoDB v3.6.8+
 2. Chrome 81.0+ or ​​Firefox 75.0+
 
-The following only required when you want to build from the source.
+The following is only required when you want to build from source.
 
 1. Golang 1.14.2+
 2. NodeJS 14.1+
 3. gcc 9.3.0+ (`tdm-gcc`, `MinGW-w64` or `MinGW` on Windows, and make sure `gcc` can be accessed through the command line)
 4. git 2.25.1+
-5. VSCode 1.44.2+
-6. make 4.2.1+ (Linux only)
+5. make 4.2.1+ (Linux only)
 
 **Note:** The version number is for reference only.
 

@@ -72,7 +72,7 @@
 ## 需求
 
 1. MongoDB v3.6.8+
-2. Chrome 81.0+ or ​​Firefox 75.0+
+2. Chrome 81.0+ 或者 ​​Firefox 75.0+
 
 下面的软件仅在从源码编译时才需要。
 
@@ -80,8 +80,7 @@
 2. NodeJS 14.1+
 3. gcc 9.3.0+ （Windows上需要安装`tdm-gcc`、`MinGW-w64`或`MinGW`。请保证`gcc`可以通过命令行访问）
 4. git 2.25.1+
-5. VSCode 1.44.2+
-6. make 4.2.1+ (仅在Linux上需要)
+5. make 4.2.1+ (仅在Linux上需要)
 
 **注意** 版本号仅供参考。
 
