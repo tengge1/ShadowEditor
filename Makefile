@@ -52,10 +52,13 @@ web-dev: FORCE
 run: FORCE
 	./scripts/run.sh
 
-# Set golang and npm proxy. (Only for Chinese)
+# Set golang and nodejs proxy. (Only for Chinese)
 proxy: FORCE
-	./scripts/set_go_proxy.sh
-	./scripts/set_npm_proxy.sh
+	./scripts/set_proxy.sh
+
+# Unset golang and nodejs proxy.
+unproxy: FORCE
+	./scripts/unset_proxy.sh
 
 # Remove all files in the build folder except the uploaded assets.
 clean: FORCE

@@ -12,7 +12,7 @@
 
 :: For some well-known reasons, we can not install packages from golang.org in china;
 :: and installing packages from github.com is extremely slow.
-:: So, we can set a proxy to make it faster.
+:: So, we can set a proxy to make it faster to install third-party dependencies.
 
 echo set go proxy
 call go env -w GO111MODULE=on

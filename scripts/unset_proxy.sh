@@ -6,11 +6,18 @@
 #
 # For more information, please visit: https://github.com/tengge1/ShadowEditor
 # You can also visit: https://gitee.com/tengge1/ShadowEditor
-#
-# For some well-known reasons, we can not install packages from golang.org in china;
-# and install packages from github.com is extremely slow.
-#
-# So, we can set a proxy to make it faster to install third-party dependencies.
 
-go env -w GO111MODULE=on
-go env -w GOPROXY=https://goproxy.cn
+# unset go proxy
+
+echo unset go proxy
+go env -u GOPROXY
+
+# unset nodejs proxy
+
+echo unset nodejs proxy
+npm config set registry https://registry.npmjs.org/
+
+# Output the current `go proxy` and `nodejs proxy`.
+
+echo current go proxy: $(go env GOPROXY)
+echo current nodejs proxy: $(npm config get registry)
