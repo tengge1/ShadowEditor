@@ -37,7 +37,7 @@ var serveCmd = &cobra.Command{
 
 func runServe() {
 	if _, err := os.Stat(cfgFile); os.IsNotExist(err) {
-		log.Fatalf("cannot find config file: %v", cfgFile)
+		log.Printf("cannot find config file: %v", cfgFile)
 		return
 	}
 
