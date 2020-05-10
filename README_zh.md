@@ -120,6 +120,13 @@ git checkout -b csharp origin/v0.4.6-csharp
 3. 编辑`build`文件夹中的`config.toml`，修改数据库host和port配置。
 4. 双击`build`文件夹中的`ShadowEditor.exe`。现在你可以访问：`http://localhost:2020`。
 
+### 安装为Ubuntu服务
+
+1. 编辑`./scripts/service_linux/shadoweditor.service`，设置正确的路径。
+2. 执行`make service`安装`shadoweditor`服务。
+3. 执行`sudo systemctl start shadoweditor`启动服务。
+4. 执行`sudo systemctl enable shadoweditor`设置开机自启动。
+
 ### 安装为Windows服务
 
 1. 以管理员身份运行`scripts/service_win`文件夹中的`install.bat`。

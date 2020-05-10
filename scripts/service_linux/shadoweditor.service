@@ -1,0 +1,9 @@
+[Unit]
+Description=Shadow Editor Server
+ 
+[Service]
+ExecStart=/home/liteng/github/ShadowEditor/build/ShadowEditor serve --config config.toml
+WorkingDirectory=/home/liteng/github/ShadowEditor/build
+ 
+[Install]
+WantedBy=multi-user.target

@@ -51,5 +51,16 @@ clean: FORCE
 	build/public/index.html build/public/manifest.json build/public/sw.js \
 	build/public/view.html build/config.toml build/ShadowEditor
 
+# Install as linux service, for ubuntu only.
+service: FORCE
+	sudo cp ./scripts/service_linux/shadoweditor.service /etc/systemd/system/
+	sudo systemctl daemon-reload
+
+
+# Uninstall linux service, for ubuntu only.
+uninstall-service: FORCE
+	sudo rm /etc/systemd/system/shadoweditor.service
+	sudo systemctl daemon-reload
+
 .PHONY: FORCE
 FORCE:

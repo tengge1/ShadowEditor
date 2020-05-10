@@ -122,6 +122,13 @@ git checkout -b csharp origin/v0.4.6-csharp
 3. Edit `config.toml` in the `build` folder, and modify the database host and port.
 4. Double click `ShadowEditor.exe` in the `build` folder. You can now visit: `http://localhost:2020`.
 
+### Install as Ubuntu Service
+
+1. Edit `./scripts/service_linux/shadoweditor.service`, set the right path.
+2. Run `make service` to install service.
+3. Run `sudo systemctl start shadoweditor` to start service.
+4. Run `sudo systemctl enable shadoweditor` to auto start service.
+
 ### Install as Windows Service
 
 1. Run `install.bat` in the `scripts/service_win` folder as administrator.
