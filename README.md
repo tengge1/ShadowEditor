@@ -2,8 +2,6 @@
 
 English / [中文](README_zh.md)
 
-> [Click](../../tree/v0.4.6-csharp/) to switch to `C#` branch, which is no longer maintained.
-
 * Name: Shadow Editor
 * Version: v0.5.1 (coming soon)
 * Description: Cross-platform 3D scene editor based on three.js, golang and mongodb.
@@ -24,6 +22,7 @@ English / [中文](README_zh.md)
 7. Update Windows build guide. [See Detail](#build-on-windows)
 8. Install as Windows service. [See Detail](#install-as-windows-service)
 9. When the ports conflict or `config.toml` is missing, the program will not crash immediately.
+10. Install as Ubuntu service. [See Detail](#build-on-ubuntu)
 
 ## v0.5.0 has Released
 

@@ -2,8 +2,6 @@
 
 [English](README.md) / 中文
 
-> [点击此处](../../tree/v0.4.6-csharp/)切换到`C#`分支， 该分支不再维护。
-
 * 名称：Shadow Editor
 * 版本：v0.5.1（开发中）
 * 简介：基于Three.js、Go语言和MongoDB的跨平台的3D场景编辑器。
@@ -24,6 +22,7 @@
 7. 更新Windows构建指南。[详情](#在windows上构建)
 8. 安装为Windows服务。[详情](#安装为windows服务)
 9. 当端口冲突或`config.toml`丢失时，程序不会再闪退。
+10. 安装为Ubuntu服务。[详情](#安装为ubuntu服务)
 
 ## v0.5.0更新
 
