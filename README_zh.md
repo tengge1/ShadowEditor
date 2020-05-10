@@ -23,7 +23,7 @@
 6. 修复备份mongodb的bug。
 7. 更新Windows构建指南。[详情](#在windows上构建)
 8. 安装为Windows服务。[详情](#安装为windows服务)
-9. 当端口冲突时，程序不会再闪退。
+9. 当端口冲突或`config.toml`丢失时，程序不会再闪退。
 
 ## v0.5.0更新
 

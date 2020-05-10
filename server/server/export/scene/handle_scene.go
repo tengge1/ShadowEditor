@@ -119,7 +119,8 @@ func Scene(w http.ResponseWriter, r *http.Request) {
 	assetsPath := server.MapPath("/assets")
 	err = helper.CopyDirectory(assetsPath, filepath.Join(path, "assets"))
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err.Error())
+		return
 	}
 
 	buildPath := server.MapPath("/build")

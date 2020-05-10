@@ -23,7 +23,7 @@ English / [中文](README_zh.md)
 6. Fix the bug of backing up mongodb.
 7. Update Windows build guide. [See Detail](#build-on-windows)
 8. Install as Windows service. [See Detail](#install-as-windows-service)
-9. When the ports conflict, the program will not crash immediately.
+9. When the ports conflict or `config.toml` is missing, the program will not crash immediately.
 
 ## v0.5.0 has Released
 

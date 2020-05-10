@@ -8,9 +8,11 @@
 package cmd
 
 import (
+	"bufio"
 	"log"
 	"os"
 
+	"github.com/inconshreveable/mousetrap"
 	"github.com/spf13/cobra"
 
 	"github.com/tengge1/shadoweditor/server"
@@ -38,14 +40,26 @@ var serveCmd = &cobra.Command{
 func runServe() {
 	if _, err := os.Stat(cfgFile); os.IsNotExist(err) {
 		log.Printf("cannot find config file: %v", cfgFile)
+		wait()
 		return
 	}
 
 	err := server.Create(cfgFile)
 	if err != nil {
-		log.Fatal(err)
+		log.Printf(err.Error())
+		wait()
 		return
 	}
 
 	server.Start()
+	wait()
+}
+
+func wait() {
+	// When you double click ShadowEditor.exe in the Windows explorer,
+	// wait to see errors in order not to crash immediately.
+	if mousetrap.StartedByExplorer() {
+		reader := bufio.NewReader(os.Stdin)
+		reader.ReadString('\n')
+	}
 }
