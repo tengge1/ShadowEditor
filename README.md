@@ -110,9 +110,6 @@ git checkout -b csharp origin/v0.4.6-csharp
 
 ### Build on Ubuntu
 
-You can use `make` to build this application on ubuntu. If you have no `make`, 
-run `sudo apt install make` first.
-
 1. If you are in `China`, run `make proxy` to set golang and nodejs proxy.
 2. Run `make` to build the server and web.
 3. Edit `build/config.toml`, and modify the database host and port.

@@ -7,30 +7,14 @@
 
 # You can use `make` to build this application on ubuntu.
 #
-# 1. Assume you have installed MongoDB, and now it's working correctly.
-# 2. Run `sudo apt install make` to install the make tool.
-# 3. If you are in China, run `make proxy` to set golang and nodejs proxy.
-# 4. Run `make` in the folder that contains `Makefile` to build all this application.
-# 5. Open `build/config.toml`, to set the database host and port.
-# 6. Run `make run` to launch the application. You can visit in `http://localhost:2020`.
-#
-# `make` does the following things for you:
-# 1. Install golang and nodejs development tools.
-# 2. Install golang and nodejs dependencies.
-# 3. Build golang server.
-# 4. Build web client.
-# You will see all the builds in the `build` folder.
+# 1. If you are in `China`, run `make proxy` to set golang and nodejs proxy.
+# 2. Run `make` to build the server and web.
+# 3. Edit `build/config.toml`, and modify the database host and port.
+# 4. Run `make run` to launch the server. You can now visit: `http://localhost:2020`.
 
 # Build both server and web.
 all: FORCE
-	./scripts/install_develop.sh
-	./scripts/install.sh
 	./scripts/build.sh
-	echo "Now you can run `make run` to launch the application."
-
-# Install golang and nodejs dependencies.
-install: FORCE
-	./scripts/install.sh
 
 # Install develop tools for golang.
 install-develop: FORCE

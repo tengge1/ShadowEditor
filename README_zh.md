@@ -108,8 +108,6 @@ git checkout -b csharp origin/v0.4.6-csharp
 ```
 ### 在Ubuntu上构建
 
-你可以使用`make`在Ubuntu上构建这个程序。如果你没有`make`，可以执行`sudo apt install make`来安装它。
-
 1. 如果你在国内， 执行`make proxy`设置go语言和nodejs代理。
 2. 执行`make`构建服务端和Web端。
 3. 编辑`build/config.toml`，修改数据库host和port设置。

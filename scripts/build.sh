@@ -24,6 +24,21 @@ echo "root dir:" $ROOT_DIR
 echo "server dir:" $SERVER_DIR
 echo "web dir:" $WEB_DIR
 
+# install the golang dependencies.
+echo "enter" $SERVER_DIR
+cd $SERVER_DIR
+go env -w GO111MODULE=on
+go install
+echo 'leave' $SERVER_DIR
+cd $CURRENT_DIR
+
+# install the nodejs dependencies.
+echo 'enter' $WEB_DIR
+cd $WEB_DIR
+npm install
+echo 'leave' $WEB_DIR
+cd $CURRENT_DIR
+
 # Create build dir if it does not exist.
 if [ ! -d build  ];then
   cd $ROOT_DIR
@@ -59,3 +74,6 @@ cp ./sw.js ../build/public/sw.js
 cp ./view.html ../build/public/view.html
 echo 'leave' $WEB_DIR
 cd $CURRENT_DIR
+
+# Output run information.
+echo "Now you can run \`make run\` to launch the application."
