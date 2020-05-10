@@ -14,6 +14,8 @@
 ::
 :: You are ready to go, and can experience the power of golang now.
 
+@echo off
+
 go env -w GO111MODULE=on
 
 go get -u golang.org/x/tools/cmd/guru
@@ -39,3 +41,5 @@ go get -u -v github.com/sqs/goreturns
 go get -u -v github.com/tylerb/gotype-live
 go get -u -v github.com/sourcegraph/go-langserver
 go get -u -v github.com/stamblerre/gocode
+
+echo done
