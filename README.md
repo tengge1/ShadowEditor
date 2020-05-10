@@ -22,6 +22,7 @@ English / [中文](README_zh.md)
 5. Fix bugs of listing fonts, uploading fonts and creating 3D text.
 6. Fix the bug of backing up mongodb.
 7. Update Windows build guide. [See Detail](#build-on-windows)
+8. Install as Windows service.
 
 ## v0.5.0 has Released
 
@@ -122,6 +123,13 @@ run `sudo apt install make` first.
 2. Double click `build.bat` in the `scripts` folder.
 3. Edit `config.toml` in the `build` folder, and modify the database host and port.
 4. Double click `ShadowEditor.exe` in the `build` folder. You can now visit: `http://localhost:2020`.
+
+## Install as Windows Service
+
+1. Run `install.bat` in the `scripts/service_win` folder as administrator.
+2. Edit `service.reg` in the `scripts/service_win` folder, set `AppDirectory` to the absolute path of the `build` folder.
+3. Double click `service.reg` in the `scripts/service_win` folder.
+4. Open `Windows Services Manager`, start `ShadowEditor` service.
 
 ## Frequently Asked Questions
 

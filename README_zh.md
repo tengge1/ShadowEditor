@@ -22,6 +22,7 @@
 5. 修复列出字体、上传字体和创建3D文字的bug。
 6. 修复备份mongodb的bug。
 7. 更新Windows构建指南。[详情](#在windows上构建)
+8. 安装为Windows服务。
 
 ## v0.5.0更新
 
@@ -119,6 +120,13 @@ git checkout -b csharp origin/v0.4.6-csharp
 2. 双击`scripts`文件夹中的`build.bat`。
 3. 编辑`build`文件夹中的`config.toml`，修改数据库host和port配置。
 4. 双击`build`文件夹中的`ShadowEditor.exe`。现在你可以访问：`http://localhost:2020`。
+
+### 安装为Windows服务
+
+1. 以管理员身份运行`scripts/service_win`文件夹中的`install.bat`。
+2. 编辑`scripts/service_win`文件夹中的`service.reg`，设置`AppDirectory`为`build`文件夹的绝对路径。
+3. 双击`scripts/service_win`文件夹中的`service.reg`。
+4. 打开`Windows服务管理器`，启动`ShadowEditor`服务。
 
 ## 常见问题
 
