@@ -23,6 +23,7 @@
 6. 修复备份mongodb的bug。
 7. 更新Windows构建指南。[详情](#在windows上构建)
 8. 安装为Windows服务。[详情](#安装为windows服务)
+9. 当端口冲突时，程序不会再闪退。
 
 ## v0.5.0更新
 
@@ -113,7 +114,6 @@ git checkout -b csharp origin/v0.4.6-csharp
 2. 执行`make`构建服务端和Web端。
 3. 编辑`build/config.toml`，修改数据库host和port设置。
 4. 执行`make run`启动服务端。现在你可以访问：`http://localhost:2020`。
-5. 当端口冲突时，程序不会再闪退。
 
 ### 在Windows上构建
 
