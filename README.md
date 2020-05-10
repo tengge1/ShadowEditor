@@ -21,6 +21,7 @@ English / [中文](README_zh.md)
 4. Fix a bug that the category filter on the assets panel lists all the categories on Ubuntu.
 5. Fix bugs of listing fonts, uploading fonts and creating 3D text.
 6. Fix the bug of backing up mongodb.
+7. Update Windows build guide.
 
 ## v0.5.0 has Released
 
@@ -117,11 +118,10 @@ run `sudo apt install make` first.
 
 ### Build on Windows
 
-1. If you are in `China`, run `.\scripts\set_proxy.bat` to set golang and nodejs proxy.
-2. Run `.\scripts\build_all.bat` to build the server and web.
-3. Edit `build/config.toml`, and modify the database host and port.
-4. Run `.\scripts\run.bat` to launch the server. You can also double-click `ShadowEditor.exe`
-in the explorer. You can now visit: `http://localhost:2020`.
+1. If you are in `China`, double click `set_proxy.bat` in the `scripts` folder.
+2. Double click `build.bat` in the `scripts` folder.
+3. Edit `config.toml` in the `build` folder, and modify the database host and port.
+4. Double click `ShadowEditor.exe` in the `build` folder. You can now visit: `http://localhost:2020`.
 
 ### Build using Command Line
 

@@ -21,6 +21,7 @@
 4. 修复Ubuntu上资源类型过滤器，列出了所有类型的bug。
 5. 修复列出字体、上传字体和创建3D文字的bug。
 6. 修复备份mongodb的bug。
+7. 更新Windows构建指南。
 
 ## v0.5.0更新
 
@@ -114,11 +115,10 @@ git checkout -b csharp origin/v0.4.6-csharp
 
 ### 在Windows上构建
 
-1. 如果你在国内， 执行`.\scripts\set_proxy.bat`设置go语言和nodejs代理。
-2. 执行`.\scripts\build_all.bat`构建服务端和Web端。
-3. 编辑`build/config.toml`，修改数据库host和port设置。
-4. 执行`.\scripts\run.bat`启动服务端。也可以在资源管理器中双击`ShadowEditor.exe`。
-现在你可以访问：`http://localhost:2020`。
+1. 如果你在国内，双击`scripts`文件夹中的`set_proxy.bat`。
+2. 双击`scripts`文件夹中的`build.bat`。
+3. 编辑`build`文件夹中的`config.toml`，修改数据库host和port配置。
+4. 双击`build`文件夹中的`ShadowEditor.exe`。现在你可以访问：`http://localhost:2020`。
 
 ### 使用命令行构建
 
