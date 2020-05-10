@@ -124,7 +124,7 @@ run `sudo apt install make` first.
 3. Edit `config.toml` in the `build` folder, and modify the database host and port.
 4. Double click `ShadowEditor.exe` in the `build` folder. You can now visit: `http://localhost:2020`.
 
-## Install as Windows Service
+### Install as Windows Service
 
 1. Run `install.bat` in the `scripts/service_win` folder as administrator.
 2. Edit `service.reg` in the `scripts/service_win` folder, set `AppDirectory` to the absolute path of the `build` folder.
