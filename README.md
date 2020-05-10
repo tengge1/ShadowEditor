@@ -22,7 +22,7 @@ English / [中文](README_zh.md)
 5. Fix bugs of listing fonts, uploading fonts and creating 3D text.
 6. Fix the bug of backing up mongodb.
 7. Update Windows build guide. [See Detail](#build-on-windows)
-8. Install as Windows service.
+8. Install as Windows service. [See Detail](#install-as-windows-service)
 
 ## v0.5.0 has Released
 

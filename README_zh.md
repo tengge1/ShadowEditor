@@ -22,7 +22,7 @@
 5. 修复列出字体、上传字体和创建3D文字的bug。
 6. 修复备份mongodb的bug。
 7. 更新Windows构建指南。[详情](#在windows上构建)
-8. 安装为Windows服务。
+8. 安装为Windows服务。[详情](#安装为windows服务)
 
 ## v0.5.0更新
 
