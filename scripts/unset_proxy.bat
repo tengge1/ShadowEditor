@@ -24,8 +24,8 @@ call npm config set registry https://registry.npmjs.org/
 for /F %%i in ('go env GOPROXY') do ( set go_proxy=%%i)
 for /F %%i in ('npm config get registry') do ( set node_proxy=%%i)
 echo current go proxy: %go_proxy%
-echo current node proxy: %node_proxy%
+echo current nodejs proxy: %node_proxy%
 
-:: Stop to let user see the execution result.
+:: Pause to let user see the execution result.
 echo done
 pause

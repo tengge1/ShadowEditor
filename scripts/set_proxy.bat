@@ -21,7 +21,7 @@ call go env -w GOPROXY=https://goproxy.cn
 :: For some well-known reasons, it is slow to install packages from https://www.npmjs.com/ in china.
 :: So, we can set a proxy to make it faster to install third-party dependencies.
 
-call echo set nodejs proxy
+echo set nodejs proxy
 call npm config set registry https://registry.npm.taobao.org/
 
 :: Output the current `go_proxy` and `node_proxy`.
@@ -29,8 +29,8 @@ call npm config set registry https://registry.npm.taobao.org/
 for /F %%i in ('go env GOPROXY') do ( set go_proxy=%%i)
 for /F %%i in ('npm config get registry') do ( set node_proxy=%%i)
 echo current go proxy: %go_proxy%
-echo current node proxy: %node_proxy%
+echo current nodejs proxy: %node_proxy%
 
-:: Stop to let user see the execution result.
+:: Pause to let user see the execution result.
 echo done
 pause
