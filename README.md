@@ -21,7 +21,7 @@ English / [中文](README_zh.md)
 4. Fix a bug that the category filter on the assets panel lists all the categories on Ubuntu.
 5. Fix bugs of listing fonts, uploading fonts and creating 3D text.
 6. Fix the bug of backing up mongodb.
-7. Update Windows build guide.
+7. Update Windows build guide. [See Detail](#build-on-windows)
 
 ## v0.5.0 has Released
 
