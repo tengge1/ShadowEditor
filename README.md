@@ -23,6 +23,8 @@ English / [中文](README_zh.md)
 8. Install as Windows service. [See Detail](#install-as-windows-service)
 9. When the ports conflict or `config.toml` is missing, the program will not crash immediately.
 10. Install as Ubuntu service. [See Detail](#build-on-ubuntu)
+11. Fix the total num of assets displayed incorrectly when authority is enabled.
+12. Fix the bug of saving config.
 
 ## v0.5.0 has Released
 
