@@ -10,7 +10,7 @@ port = 27017                                # mongoDB port
 database = "ShadowEditor"                   # mongoDB database name
 
 [authority]
-enabled = false                              # enable authority
+enabled = true                              # enable authority
 expires = 120                               # login time, minutes, only support integer 
 
 [upload]

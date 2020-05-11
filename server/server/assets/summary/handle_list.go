@@ -38,16 +38,14 @@ func List(w http.ResponseWriter, r *http.Request) {
 				"UserID": user.ID,
 			}
 			if user.RoleName == "Administrator" {
-				filter1 := bson.M{
-					"$exist": "UserID",
-				}
-				filter2 := bson.M{
-					"$not": filter1,
-				}
 				filter = bson.M{
 					"$or": bson.A{
-						filter1,
-						filter2,
+						filter,
+						bson.M{
+							"UserID": bson.M{
+								"$exists": 0,
+							},
+						},
 					},
 				}
 			}
