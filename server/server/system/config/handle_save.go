@@ -24,7 +24,15 @@ func init() {
 // Save save system config.
 func Save(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
-	defaultRegisterRole := r.FormValue("DefaultRegisterRole")
+	defaultRegisterRole, err := primitive.ObjectIDFromHex(r.FormValue("DefaultRegisterRole"))
+
+	if err != nil {
+		helper.WriteJSON(w, server.Result{
+			Code: 300,
+			Msg:  err.Error(),
+		})
+		return
+	}
 
 	db, err := server.Mongo()
 	if err != nil {
