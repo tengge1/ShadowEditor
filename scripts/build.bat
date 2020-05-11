@@ -32,9 +32,7 @@ echo enter %SERVER_DIR%
 cd %SERVER_DIR%
 call go env -w GO111MODULE=on
 echo go install
-
-:: call go install won't show details
-go install
+call go install
 
 :: install the nodejs dependencies.
 echo enter %WEB_DIR%
