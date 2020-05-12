@@ -17,7 +17,7 @@ import (
 	"github.com/tengge1/shadoweditor/server"
 )
 
-func exportAssets(path string) {
+func exportSummary(path string) {
 	port := server.Config.Server.Port
 
 	result, _ := helper.Get(fmt.Sprintf("http://%v/api/Assets/List", port))

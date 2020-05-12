@@ -13,29 +13,28 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server"
+
+	"github.com/tengge1/shadoweditor/helper"
 )
 
-func exportMap(path string) {
+func exportConfig(path string) {
 	port := server.Config.Server.Port
 
-	result, _ := helper.Get(fmt.Sprintf("http://%v/api/Map/List", port))
+	result, _ := helper.Get(fmt.Sprintf("http://%v/api/Config/Get", port))
 
-	dirName := filepath.Join(path, "api", "Map")
+	dirName := filepath.Join(path, "api", "Config")
 	if _, err := os.Stat(dirName); os.IsNotExist(err) {
 		os.MkdirAll(dirName, 0755)
 	}
 
 	// get list
-	fileName := filepath.Join(path, "api", "Map", "List")
+	fileName := filepath.Join(path, "api", "Config", "Get")
 	ioutil.WriteFile(fileName, []byte(result), 0755)
 
 	// other apis
 	apiList := []string{
-		"/api/Map/Add",
-		"/api/Map/Edit",
-		"/api/Map/Delete",
+		"/api/Config/Save",
 	}
 
 	data, _ := helper.ToJSON(map[string]interface{}{
