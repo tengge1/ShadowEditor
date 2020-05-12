@@ -25,6 +25,7 @@ English / [中文](README_zh.md)
 10. Install as Ubuntu service. [See Detail](#build-on-ubuntu)
 11. Fix the total num of assets displayed incorrectly when authority is enabled.
 12. Fix the bug of saving config.
+13. Fix the bug of exporting examples.
 
 ## v0.5.0 has Released
 
