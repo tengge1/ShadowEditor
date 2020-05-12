@@ -47,18 +47,20 @@ func Run(w http.ResponseWriter, r *http.Request) {
 
 func copyStaticAssets(path string) error {
 	list := []string{
-		"favicon.ico",
-		"index.html",
-		"view.html",
 		"assets",
 		"build",
 		"locales",
+		"favicon.ico",
+		"index.html",
+		"manifest.json",
+		"sw.js",
+		"view.html",
 	}
 
 	for _, i := range list {
 		source := server.MapPath("/" + i)
 		dest := filepath.Join(path, i)
-		if stat, err := os.Stat(source); err != nil && stat.IsDir() {
+		if stat, err := os.Stat(source); err == nil && stat.IsDir() {
 			helper.CopyDirectory(source, dest)
 		} else if err == nil {
 			helper.CopyFile(source, dest)

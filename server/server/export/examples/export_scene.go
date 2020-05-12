@@ -34,13 +34,14 @@ func exportScene(path string) {
 	// export scenes
 	var obj map[string]interface{}
 	helper.FromJSON([]byte(result), &obj)
-	array := obj["Data"].([]map[string]interface{})
 
-	for _, i := range array {
-		id := i["ID"].(string)
-		result, _ = helper.Get(fmt.Sprintf("http://%v/api/Scene/Load?ID=%v", port, id))
-		fileName = fmt.Sprintf("%v/api/Scene/Scene_%v", path, id)
-		ioutil.WriteFile(fileName, []byte(result), 0755)
+	if array, ok := obj["Data"].([]interface{}); ok {
+		for _, i := range array {
+			id := i.(map[string]interface{})["ID"].(string)
+			result, _ = helper.Get(fmt.Sprintf("http://%v/api/Scene/Load?ID=%v", port, id))
+			fileName = fmt.Sprintf("%v/api/Scene/Scene_%v", path, id)
+			ioutil.WriteFile(fileName, []byte(result), 0755)
+		}
 	}
 
 	// other apis

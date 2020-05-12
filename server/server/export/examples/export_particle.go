@@ -31,16 +31,17 @@ func exportParticle(path string) {
 	fileName := filepath.Join(path, "api", "Particle", "List")
 	ioutil.WriteFile(fileName, []byte(result), 0755)
 
-	// export scenes
+	// export particles
 	var obj map[string]interface{}
 	helper.FromJSON([]byte(result), &obj)
-	array := obj["Data"].([]map[string]interface{})
 
-	for _, i := range array {
-		id := i["ID"].(string)
-		result, _ = helper.Get(fmt.Sprintf("http://%v/api/Particle/Get?ID=%v", port, id))
-		fileName = fmt.Sprintf("%v/api/Particle/Particle_%v", path, id)
-		ioutil.WriteFile(fileName, []byte(result), 0755)
+	if array, ok := obj["Data"].([]interface{}); ok {
+		for _, i := range array {
+			id := i.(map[string]interface{})["ID"].(string)
+			result, _ = helper.Get(fmt.Sprintf("http://%v/api/Particle/Get?ID=%v", port, id))
+			fileName = fmt.Sprintf("%v/api/Particle/Particle_%v", path, id)
+			ioutil.WriteFile(fileName, []byte(result), 0755)
+		}
 	}
 
 	// other apis
