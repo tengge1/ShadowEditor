@@ -9,7 +9,7 @@ package helper
 
 import (
 	"fmt"
-	"io"
+	"io/ioutil"
 	"os"
 )
 
@@ -26,17 +26,11 @@ func CopyFile(sourcePath, destPath string) error {
 	if err == nil && stat.IsDir() {
 		return fmt.Errorf("destPath is dir")
 	}
-	source, err := os.Open(sourcePath)
-	if err != nil {
-		return err
-	}
-	defer source.Close()
 
-	dest, err := os.Create(destPath)
+	bytes, err := ioutil.ReadFile(sourcePath)
 	if err != nil {
 		return err
 	}
 
-	_, err = io.Copy(source, dest)
-	return err
+	return ioutil.WriteFile(destPath, bytes, 0755)
 }

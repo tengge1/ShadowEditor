@@ -60,7 +60,7 @@ func copyStaticAssets(path string) error {
 		dest := filepath.Join(path, i)
 		if stat, err := os.Stat(source); err != nil && stat.IsDir() {
 			helper.CopyDirectory(source, dest)
-		} else if err != nil {
+		} else if err == nil {
 			helper.CopyFile(source, dest)
 			if i == "index.html" || i == "view.html" {
 				bytes, err := ioutil.ReadFile(dest)
