@@ -50,6 +50,7 @@ func copyStaticAssets(path string) error {
 		"assets",
 		"build",
 		"locales",
+		"Upload",
 		"favicon.ico",
 		"index.html",
 		"manifest.json",
