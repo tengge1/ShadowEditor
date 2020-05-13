@@ -26,7 +26,11 @@ import (
 func Start() {
 	log.Printf("starting shadoweditor server on port %v", Config.Server.Port)
 
-	handler := negroni.Classic()
+	recovery := negroni.NewRecovery()
+	logger := negroni.NewLogger()
+	static := negroni.NewStatic(http.Dir("public"))
+
+	handler := negroni.New(recovery, logger, static)
 	handler.Use(negroni.HandlerFunc(CrossOriginHandler))
 	handler.Use(negroni.HandlerFunc(GZipHandler))
 	handler.UseHandler(Mux)
