@@ -1,22 +1,27 @@
 package panic
 
 import (
+	"errors"
 	"fmt"
 	"testing"
 )
 
 func TestPanic2Err(t *testing.T) {
-	CatchFunc()
+	err := CatchFunc()
+	if err != nil {
+		fmt.Print(err)
+	}
 }
 
-func CatchFunc() {
+func CatchFunc() (err error) {
 	defer func() {
 		if r := recover(); r != nil {
-			fmt.Print(r)
+			err = errors.New(r.(string))
 		}
 	}()
 
 	PanicFunc()
+	return nil
 }
 
 func PanicFunc() {
