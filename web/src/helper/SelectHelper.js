@@ -36,13 +36,14 @@ SelectHelper.prototype.onObjectSelected = function (obj) {
         return;
     }
 
-    // 进制选中场景和相机
+    // 禁止选中场景和相机
     if (obj === app.editor.scene || obj === app.editor.camera) {
         return;
     }
 
     // 不允许选中文字
-    if (obj.userData && obj.userData.type === 'text') {
+    if (obj.userData && (obj.userData.type === 'text' || obj.userData.type === 'pointMarker')) {
+        this.unselect();
         return;
     }
 
