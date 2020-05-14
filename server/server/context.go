@@ -8,6 +8,9 @@
 package server
 
 import (
+	"os"
+
+	"github.com/sirupsen/logrus"
 	"github.com/tengge1/shadoweditor/helper"
 )
 
@@ -17,7 +20,7 @@ var (
 	// Config is the config cache.
 	Config *helper.ConfigModel
 	// Logger is the server logger.
-	Logger *helper.Logger
+	Logger *logrus.Logger
 )
 
 // Create create the server context.
@@ -30,10 +33,18 @@ func Create(path string) error {
 	Config = config
 
 	// logger
-	logger, err := helper.NewLogger(config.Log.File)
+	writer, err := os.OpenFile(config.Log.File, os.O_CREATE|os.O_APPEND, 0755)
 	if err != nil {
-		return err
+		panic(err.Error())
 	}
+
+	logger := &logrus.Logger{
+		Out:       writer,
+		Formatter: new(logrus.JSONFormatter),
+		Hooks:     make(logrus.LevelHooks),
+		Level:     logrus.DebugLevel,
+	}
+
 	Logger = logger
 
 	return nil
