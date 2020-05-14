@@ -18,7 +18,7 @@ import (
 // First, run `go install` to install third-party dependencies.
 // Then, run `go build` in this folder to create the binary file.
 func main() {
-	// Print exceptions for better user experience.
+	// Print all the exceptions for better user experience.
 	defer func() {
 		if r := recover(); r != nil {
 			fmt.Println(r)
