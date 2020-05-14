@@ -7,12 +7,23 @@
 
 package main
 
-import "github.com/tengge1/shadoweditor/cmd"
+import (
+	"fmt"
+
+	"github.com/tengge1/shadoweditor/cmd"
+)
 
 // Here we just import and execute the root command. Keep this file tidy.
 //
 // First, run `go install` to install third-party dependencies.
 // Then, run `go build` in this folder to create the binary file.
 func main() {
+	// Print exceptions for better user experience.
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Println(r)
+		}
+	}()
+
 	cmd.Execute()
 }
