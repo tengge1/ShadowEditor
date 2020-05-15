@@ -14,7 +14,7 @@ import (
 
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server"
-	"github.com/tengge1/shadoweditor/server/system/model"
+	"github.com/tengge1/shadoweditor/server/system"
 )
 
 func init() {
@@ -30,7 +30,7 @@ func List(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// get all the users
-	users := []model.User{}
+	users := []system.User{}
 
 	err = db.FindMany(server.UserCollectionName, bson.M{}, &users)
 	if err != nil {
@@ -43,7 +43,7 @@ func List(w http.ResponseWriter, r *http.Request) {
 		"Status": 0,
 	}
 
-	list := []model.Department{}
+	list := []system.Department{}
 
 	err = db.FindMany(server.DepartmentCollectionName, filter, &list)
 	if err != nil {
@@ -53,7 +53,7 @@ func List(w http.ResponseWriter, r *http.Request) {
 
 	for key := range list {
 		adminID := list[key].AdminID
-		var admin model.User
+		var admin system.User
 
 		for _, user := range users {
 			if user.ID == adminID {

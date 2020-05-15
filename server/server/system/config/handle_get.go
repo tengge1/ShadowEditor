@@ -15,7 +15,7 @@ import (
 
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server"
-	"github.com/tengge1/shadoweditor/server/system/model"
+	"github.com/tengge1/shadoweditor/server/system"
 )
 
 func init() {
@@ -30,7 +30,7 @@ func Get(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	config := model.Config{}
+	config := system.Config{}
 	find, err := db.FindOne(server.ConfigCollectionName, bson.M{}, &config)
 	if err != nil {
 		helper.WriteJSON(w, server.Result{

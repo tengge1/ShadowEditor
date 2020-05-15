@@ -18,7 +18,7 @@ import (
 
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server"
-	"github.com/tengge1/shadoweditor/server/system/model"
+	"github.com/tengge1/shadoweditor/server/system"
 )
 
 func init() {
@@ -48,11 +48,11 @@ func List(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// get all roles
-	roles := []model.Role{}
+	roles := []system.Role{}
 	db.FindAll(server.RoleCollectionName, &roles)
 
 	// get all departments
-	depts := []model.Department{}
+	depts := []system.Department{}
 	db.FindAll(server.DepartmentCollectionName, &depts)
 
 	// get users
@@ -104,7 +104,7 @@ func List(w http.ResponseWriter, r *http.Request) {
 	docs := bson.A{}
 	db.FindMany(server.UserCollectionName, filter, &docs, &opts)
 
-	rows := []model.User{}
+	rows := []system.User{}
 
 	for _, doc := range docs {
 		data := doc.(primitive.D).Map()
@@ -133,7 +133,7 @@ func List(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 
-		rows = append(rows, model.User{
+		rows = append(rows, system.User{
 			ID:         data["ID"].(primitive.ObjectID).Hex(),
 			Username:   data["Username"].(string),
 			Password:   "",

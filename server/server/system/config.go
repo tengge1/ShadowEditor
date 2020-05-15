@@ -5,12 +5,11 @@
 // For more information, please visit: https://github.com/tengge1/ShadowEditor
 // You can also visit: https://gitee.com/tengge1/ShadowEditor
 
-package model
+package system
 
-// RoleAuthority presents a role's one authority.
-type RoleAuthority struct {
-	// RoleID is a role's _id.
-	RoleID string
-	// AuthorityID is an authority ID.
-	AuthorityID string
+// Config is mongodb config collection model.
+type Config struct {
+	ID                  string
+	Initialized         bool
+	DefaultRegisterRole string
 }

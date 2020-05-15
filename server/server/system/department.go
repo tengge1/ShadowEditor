@@ -5,22 +5,20 @@
 // For more information, please visit: https://github.com/tengge1/ShadowEditor
 // You can also visit: https://gitee.com/tengge1/ShadowEditor
 
-package model
+package system
 
-import "time"
-
-// Role is a role's model.
-type Role struct {
+// Department is user department model.
+type Department struct {
 	// ID
 	ID string
+	// Parent Department ID
+	ParentID string
 	// Name
 	Name string
-	// Create Time
-	CreateTime time.Time
-	// Update Time
-	UpdateTime time.Time
-	// Description.
-	Description string
-	// Status(0: normal, -1: deleted)
+	// Administrator ID
+	AdminID string
+	// Administrator Name (won't store in db)
+	AdminName string
+	// Status( 0: normal, -1: deleted)
 	Status int
 }

@@ -18,7 +18,7 @@ import (
 
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server"
-	"github.com/tengge1/shadoweditor/server/system/model"
+	"github.com/tengge1/shadoweditor/server/system"
 )
 
 func init() {
@@ -90,11 +90,11 @@ func List(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	rows := []model.Role{}
+	rows := []system.Role{}
 
 	for _, doc := range docs {
 		data := doc.(primitive.D).Map()
-		rows = append(rows, model.Role{
+		rows = append(rows, system.Role{
 			ID:          data["ID"].(primitive.ObjectID).Hex(),
 			Name:        data["Name"].(string),
 			CreateTime:  data["CreateTime"].(primitive.DateTime).Time(),
