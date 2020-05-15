@@ -9,6 +9,7 @@ package server
 
 import (
 	"os"
+	"path/filepath"
 
 	"github.com/sirupsen/logrus"
 	"github.com/tengge1/shadoweditor/helper"
@@ -33,7 +34,12 @@ func Create(path string) error {
 	Config = config
 
 	// logger
-	writer, err := os.OpenFile(config.Log.File, os.O_CREATE|os.O_APPEND, 0755)
+	dir := filepath.Dir(config.Log.File)
+	if _, err = os.Stat(dir); os.IsNotExist(err) {
+		os.MkdirAll(dir, 0755)
+	}
+
+	writer, err := os.OpenFile(config.Log.File, os.O_RDONLY|os.O_CREATE|os.O_APPEND, 0755)
 	if err != nil {
 		panic(err.Error())
 	}
