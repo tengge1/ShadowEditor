@@ -12,6 +12,8 @@ import (
 )
 
 // CopyDirectory copy the contents in one directory to another.
-func CopyDirectory(sourceDirName, destDirName string) error {
-	return copy.Copy(sourceDirName, destDirName)
+func CopyDirectory(sourceDirName, destDirName string) {
+	if err := copy.Copy(sourceDirName, destDirName); err != nil {
+		panic(err)
+	}
 }

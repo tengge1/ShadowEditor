@@ -8,29 +8,30 @@
 package helper
 
 import (
-	"fmt"
 	"io/ioutil"
 	"os"
 )
 
 // CopyFile copy one file from source path to dest path.
-func CopyFile(sourcePath, destPath string) error {
+func CopyFile(sourcePath, destPath string) {
 	stat, err := os.Stat(sourcePath)
 	if os.IsNotExist(err) {
-		return fmt.Errorf("sourcePath is not existed")
+		panic("sourcePath is not existed")
 	}
 	if stat.IsDir() {
-		return fmt.Errorf("sourcePath is dir, not file")
+		panic("sourcePath is dir, not file")
 	}
 	stat, err = os.Stat(destPath)
 	if err == nil && stat.IsDir() {
-		return fmt.Errorf("destPath is dir")
+		panic("destPath is dir")
 	}
 
 	bytes, err := ioutil.ReadFile(sourcePath)
 	if err != nil {
-		return err
+		panic(err)
 	}
 
-	return ioutil.WriteFile(destPath, bytes, 0755)
+	if err = ioutil.WriteFile(destPath, bytes, 0755); err != nil {
+		panic(err)
+	}
 }

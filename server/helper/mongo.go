@@ -9,7 +9,6 @@ package helper
 
 import (
 	"context"
-	"fmt"
 	"time"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -18,29 +17,29 @@ import (
 )
 
 // NewMongo create a mongo client using connectionString and databaseName.
-func NewMongo(connectionString, databaseName string) (*Mongo, error) {
+func NewMongo(connectionString, databaseName string) *Mongo {
 	m := Mongo{connectionString, databaseName, nil, nil}
 
 	clientOptions := options.Client().ApplyURI(connectionString)
 
 	client, err := mongo.NewClient(clientOptions)
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
 	defer cancel()
 
-	err = client.Connect(ctx)
-	if err != nil {
-		return nil, err
+	if err = client.Connect(ctx); err != nil {
+		panic(err)
 	}
 
 	db := client.Database(databaseName)
 
 	m.Client = client
 	m.Database = db
-	return &m, nil
+
+	return &m
 }
 
 // Mongo represent a mongo client.
@@ -51,56 +50,69 @@ type Mongo struct {
 	Database         *mongo.Database
 }
 
-// ListCollectionNames list collectionNames of database.
-func (m Mongo) ListCollectionNames() (collectionNames []string, err error) {
+// checkDatabase check if database really created.
+func (m Mongo) checkDatabase() {
 	if m.Database == nil {
-		return nil, fmt.Errorf("mongo client is not created")
+		panic("mongo client is not created")
 	}
+}
+
+// ListCollectionNames list collectionNames of database.
+func (m Mongo) ListCollectionNames() (collectionNames []string) {
+	m.checkDatabase()
+
 	nameOnly := true
 	listOptions := options.ListCollectionsOptions{NameOnly: &nameOnly}
-	return m.Database.ListCollectionNames(context.TODO(), bson.M{}, &listOptions)
+	collectionNames, err := m.Database.ListCollectionNames(context.TODO(), bson.M{}, &listOptions)
+	if err != nil {
+		panic(err)
+	}
+
+	return collectionNames
 }
 
 // GetCollection get a collection from collectionName.
-func (m Mongo) GetCollection(name string) (collection *mongo.Collection, err error) {
-	if m.Database == nil {
-		return nil, fmt.Errorf("mongo client is not created")
-	}
-	return m.Database.Collection(name), nil
+func (m Mongo) GetCollection(name string) (collection *mongo.Collection) {
+	m.checkDatabase()
+
+	return m.Database.Collection(name)
 }
 
 // RunCommand run a mongo command.
-func (m Mongo) RunCommand(command interface{}) (result *mongo.SingleResult, err error) {
-	if m.Database == nil {
-		return nil, fmt.Errorf("mongo client is not created")
-	}
-	return m.Database.RunCommand(context.TODO(), command), nil
+func (m Mongo) RunCommand(command interface{}) (result *mongo.SingleResult) {
+	m.checkDatabase()
+
+	return m.Database.RunCommand(context.TODO(), command)
 }
 
 // DropCollection drop a collection.
 func (m Mongo) DropCollection(name string) error {
-	if m.Database == nil {
-		return fmt.Errorf("mongo client is not created")
-	}
+	m.checkDatabase()
+
 	return m.Database.Collection(name).Drop(context.TODO())
 }
 
 // InsertOne insert one document to a collection.
-func (m Mongo) InsertOne(collectionName string, document interface{}) (*mongo.InsertOneResult, error) {
-	collection, err := m.GetCollection(collectionName)
+func (m Mongo) InsertOne(collectionName string, document interface{}) (result *mongo.InsertOneResult) {
+	m.checkDatabase()
+
+	collection := m.GetCollection(collectionName)
+
+	result, err := collection.InsertOne(context.TODO(), document)
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
-	return collection.InsertOne(context.TODO(), document)
+
+	return
 }
 
 // InsertMany insert many documents to a collection.
-func (m Mongo) InsertMany(collectionName string, documents []interface{}) (*mongo.InsertManyResult, error) {
-	collection, err := m.GetCollection(collectionName)
+func (m Mongo) InsertMany(collectionName string, documents []interface{}) (result *mongo.InsertManyResult) {
+	collection := m.GetCollection(collectionName)
+	result, err := collection.InsertMany(context.TODO(), documents)
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
-	return collection.InsertMany(context.TODO(), documents)
 }
 
 // Count get documents count of a collection.

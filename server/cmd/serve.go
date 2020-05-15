@@ -42,7 +42,11 @@ func runServe() {
 	// Print all the exceptions for better user experience.
 	defer func() {
 		if r := recover(); r != nil {
-			fmt.Println(r)
+			if err, ok := r.(error); ok {
+				fmt.Println(err.Error())
+			} else {
+				fmt.Println(r)
+			}
 			wait()
 		}
 	}()

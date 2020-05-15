@@ -15,23 +15,33 @@ import (
 )
 
 // Get create a get request to the server.
-func Get(url string) ([]byte, error) {
+func Get(url string) []byte {
 	resp, err := http.Get(url)
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
 	defer resp.Body.Close()
-	return ioutil.ReadAll(resp.Body)
+	bytes, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		panic(err)
+	}
+	return bytes
 }
 
 // Post create a post request to the server.
-func Post(url string, data url.Values) ([]byte, error) {
+func Post(url string, data url.Values) []byte {
 	resp, err := http.PostForm(url, data)
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
 	defer resp.Body.Close()
-	return ioutil.ReadAll(resp.Body)
+
+	bytes, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		panic(err)
+	}
+
+	return bytes
 }
 
 // Write write a string response to the web client.
@@ -59,7 +69,7 @@ func Writef(w http.ResponseWriter, format string, args ...interface{}) {
 }
 
 // WriteJSON write a json response to the web client.
-func WriteJSON(w http.ResponseWriter, obj interface{}) error {
+func WriteJSON(w http.ResponseWriter, obj interface{}) {
 	header := w.Header()
 
 	header.Set("Content-Type", "application/json")
@@ -67,12 +77,7 @@ func WriteJSON(w http.ResponseWriter, obj interface{}) error {
 	header.Set("Pragma", "no-cache")
 	header.Set("Expires", "0")
 
-	bytes, err := ToJSON(obj)
-	if err != nil {
-		return err
-	}
+	bytes := ToJSON(obj)
 
 	w.Write(bytes)
-
-	return nil
 }

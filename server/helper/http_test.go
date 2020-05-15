@@ -17,20 +17,12 @@ import (
 )
 
 func TestGet(t *testing.T) {
-	bytes, err := Get("http://www.baidu.com")
-	if err != nil {
-		t.Error(err)
-		return
-	}
+	bytes := Get("http://www.baidu.com")
 	t.Log(string(bytes))
 }
 
 func TestPost(t *testing.T) {
-	bytes, err := Post("https://passport.baidu.com/v2/api/?login", url.Values{"username": {"foo"}, "password": {"bar"}})
-	if err != nil {
-		t.Error(err)
-		return
-	}
+	bytes := Post("https://passport.baidu.com/v2/api/?login", url.Values{"username": {"foo"}, "password": {"bar"}})
 	t.Log(string(bytes))
 }
 

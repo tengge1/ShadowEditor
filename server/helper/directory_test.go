@@ -67,11 +67,7 @@ func TestCopyDirectory(t *testing.T) {
 	}
 	t.Logf("destDirName: %v", destDirName)
 
-	err = CopyDirectory(sourceDirName, destDirName)
-	if err != nil {
-		t.Error(err)
-		return
-	}
+	CopyDirectory(sourceDirName, destDirName)
 }
 
 func prepareTestTree(root string) error {

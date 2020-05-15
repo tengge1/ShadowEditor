@@ -15,16 +15,21 @@ require (
 	github.com/fatih/gomodifytags v1.4.0 // indirect
 	github.com/fatih/structtag v1.2.0 // indirect
 	github.com/go-delve/delve v1.4.0 // indirect
+	github.com/go-redis/redis v6.15.7+incompatible
+	github.com/go-sql-driver/mysql v1.5.0
 	github.com/godoctor/godoctor v0.0.0-20181123222458-69df17f3a6f6 // indirect
 	github.com/hashicorp/golang-lru v0.5.4 // indirect
 	github.com/haya14busa/goplay v1.0.0 // indirect
 	github.com/inconshreveable/mousetrap v1.0.0
+	github.com/jackc/pgconn v1.5.0
+	github.com/jackc/pgx/v4 v4.6.0
 	github.com/josharian/impl v0.0.0-20191119165012-6b9658ad00c7 // indirect
 	github.com/json-iterator/go v1.1.9
 	github.com/karrick/godirwalk v1.15.6 // indirect
 	github.com/klauspost/compress v1.10.5 // indirect
 	github.com/mattn/go-colorable v0.1.6 // indirect
 	github.com/mattn/go-runewidth v0.0.9 // indirect
+	github.com/mattn/go-sqlite3 v2.0.3+incompatible
 	github.com/mozillazg/go-pinyin v0.17.0
 	github.com/neelance/parallel v0.0.0-20160708114440-4de9ce63d14c // indirect
 	github.com/opentracing/basictracer-go v1.1.0 // indirect
