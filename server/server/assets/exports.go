@@ -5,10 +5,7 @@
 // For more information, please visit: https://github.com/tengge1/ShadowEditor
 // You can also visit: https://gitee.com/tengge1/ShadowEditor
 
-package export
+package system
 
-// Register handlers in `github.com/tengge1/shadoweditor/server/export` here.
-import (
-	_ "github.com/tengge1/shadoweditor/server/export/examples" // examples api
-	_ "github.com/tengge1/shadoweditor/server/export/scene"    // scene api
-)
+// IMPORTANT: You should not register sub packages here, register in the file
+// `github.com/tengge1/shadoweditor/cmd/imports.go` instead.
