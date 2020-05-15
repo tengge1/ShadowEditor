@@ -9,6 +9,7 @@ package cmd
 
 import (
 	"bufio"
+	"fmt"
 	"log"
 	"os"
 
@@ -16,14 +17,6 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/tengge1/shadoweditor/server"
-
-	// Register the server sub packages.
-	_ "github.com/tengge1/shadoweditor/server/assets"   // assets api
-	_ "github.com/tengge1/shadoweditor/server/category" // category api
-	_ "github.com/tengge1/shadoweditor/server/export"   // export api
-	_ "github.com/tengge1/shadoweditor/server/system"   // system api
-	_ "github.com/tengge1/shadoweditor/server/tools"    // tools api
-	_ "github.com/tengge1/shadoweditor/server/upload"   // upload api
 )
 
 // serveCmd launch the shadow editor server.
@@ -37,12 +30,22 @@ var serveCmd = &cobra.Command{
 	},
 }
 
+// runServe check the config file, and start the server.
 func runServe() {
+	// Read config file `./config.toml`.
 	if _, err := os.Stat(cfgFile); os.IsNotExist(err) {
 		log.Printf("cannot find config file: %v", cfgFile)
 		wait()
 		return
 	}
+
+	// Print all the exceptions for better user experience.
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Println(r)
+			wait()
+		}
+	}()
 
 	err := server.Create(cfgFile)
 	if err != nil {
