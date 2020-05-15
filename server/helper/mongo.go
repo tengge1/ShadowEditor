@@ -63,12 +63,13 @@ func (m Mongo) ListCollectionNames() (collectionNames []string) {
 
 	nameOnly := true
 	listOptions := options.ListCollectionsOptions{NameOnly: &nameOnly}
+
 	collectionNames, err := m.Database.ListCollectionNames(context.TODO(), bson.M{}, &listOptions)
 	if err != nil {
 		panic(err)
 	}
 
-	return collectionNames
+	return
 }
 
 // GetCollection get a collection from collectionName.
@@ -86,10 +87,12 @@ func (m Mongo) RunCommand(command interface{}) (result *mongo.SingleResult) {
 }
 
 // DropCollection drop a collection.
-func (m Mongo) DropCollection(name string) error {
+func (m Mongo) DropCollection(name string) {
 	m.checkDatabase()
 
-	return m.Database.Collection(name).Drop(context.TODO())
+	if err := m.Database.Collection(name).Drop(context.TODO()); err != nil {
+		panic(err)
+	}
 }
 
 // InsertOne insert one document to a collection.
@@ -108,106 +111,144 @@ func (m Mongo) InsertOne(collectionName string, document interface{}) (result *m
 
 // InsertMany insert many documents to a collection.
 func (m Mongo) InsertMany(collectionName string, documents []interface{}) (result *mongo.InsertManyResult) {
+	m.checkDatabase()
+
 	collection := m.GetCollection(collectionName)
+
 	result, err := collection.InsertMany(context.TODO(), documents)
 	if err != nil {
 		panic(err)
 	}
+
+	return
 }
 
 // Count get documents count of a collection.
-func (m Mongo) Count(collectionName string, filter interface{}) (int64, error) {
-	collection, err := m.GetCollection(collectionName)
+func (m Mongo) Count(collectionName string, filter interface{}) (count int64) {
+	m.checkDatabase()
+
+	collection := m.GetCollection(collectionName)
+
+	count, err := collection.CountDocuments(context.TODO(), filter)
 	if err != nil {
-		return 0, err
+		panic(err)
 	}
-	return collection.CountDocuments(context.TODO(), filter)
+
+	return
 }
 
 // FindOne find one document from a collection.
-func (m Mongo) FindOne(collectionName string, filter interface{}, result interface{}, opts ...*options.FindOneOptions) (find bool, err error) {
-	collection, err := m.GetCollection(collectionName)
-	if err != nil {
-		return false, err
-	}
+func (m Mongo) FindOne(collectionName string, filter interface{}, result interface{}, opts ...*options.FindOneOptions) (find bool) {
+	m.checkDatabase()
+
+	collection := m.GetCollection(collectionName)
+
 	cursor := collection.FindOne(context.TODO(), filter, opts...)
 	if cursor.Err() == mongo.ErrNoDocuments {
-		return false, nil
+		return false
 	}
-	cursor.Decode(result)
-	return true, nil
+
+	if err := cursor.Decode(result); err != nil {
+		panic(err)
+	}
+
+	return true
 }
 
 // Find find a cursor from a collection.
-func (m Mongo) Find(collectionName string, filter interface{}, opts ...*options.FindOptions) (*mongo.Cursor, error) {
-	collection, err := m.GetCollection(collectionName)
+func (m Mongo) Find(collectionName string, filter interface{}, opts ...*options.FindOptions) (cursor *mongo.Cursor) {
+	m.checkDatabase()
+
+	collection := m.GetCollection(collectionName)
+
+	cursor, err := collection.Find(context.TODO(), filter, opts...)
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
-	return collection.Find(context.TODO(), filter, opts...)
+
+	return
 }
 
 // FindMany find many documents of a collection.
-func (m Mongo) FindMany(collectionName string, filter interface{}, results interface{}, opts ...*options.FindOptions) (err error) {
-	collection, err := m.GetCollection(collectionName)
-	if err != nil {
-		return err
-	}
+func (m Mongo) FindMany(collectionName string, filter interface{}, results interface{}, opts ...*options.FindOptions) {
+	m.checkDatabase()
+
+	collection := m.GetCollection(collectionName)
+
 	cursor, err := collection.Find(context.TODO(), filter, opts...)
 	if err != nil {
-		return err
+		panic(err)
 	}
 	defer cursor.Close(context.TODO())
 
 	err = cursor.All(context.TODO(), results)
 	if err != nil {
-		return err
+		panic(err)
 	}
-	return nil
 }
 
 // FindAll find many documents of a collection.
-func (m Mongo) FindAll(collectionName string, results interface{}, opts ...*options.FindOptions) (err error) {
-	return m.FindMany(collectionName, bson.M{}, results, opts...)
+func (m Mongo) FindAll(collectionName string, results interface{}, opts ...*options.FindOptions) {
+	m.FindMany(collectionName, bson.M{}, results, opts...)
 }
 
 // UpdateOne update one document.
-func (m Mongo) UpdateOne(collectionName string, filter interface{}, update interface{}) (*mongo.UpdateResult, error) {
-	collection, err := m.GetCollection(collectionName)
+func (m Mongo) UpdateOne(collectionName string, filter interface{}, update interface{}) (result *mongo.UpdateResult) {
+	m.checkDatabase()
+
+	collection := m.GetCollection(collectionName)
+
+	result, err := collection.UpdateOne(context.TODO(), filter, update)
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
-	return collection.UpdateOne(context.TODO(), filter, update)
+
+	return
 }
 
 // UpdateMany update many documents.
-func (m Mongo) UpdateMany(collectionName string, filter interface{}, update interface{}) (*mongo.UpdateResult, error) {
-	collection, err := m.GetCollection(collectionName)
+func (m Mongo) UpdateMany(collectionName string, filter interface{}, update interface{}) (result *mongo.UpdateResult) {
+	m.checkDatabase()
+
+	collection := m.GetCollection(collectionName)
+
+	result, err := collection.UpdateMany(context.TODO(), filter, update)
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
-	return collection.UpdateMany(context.TODO(), filter, update)
+
+	return
 }
 
 // DeleteOne delete one document.
-func (m Mongo) DeleteOne(collectionName string, filter interface{}) (*mongo.DeleteResult, error) {
-	collection, err := m.GetCollection(collectionName)
+func (m Mongo) DeleteOne(collectionName string, filter interface{}) (result *mongo.DeleteResult) {
+	m.checkDatabase()
+
+	collection := m.GetCollection(collectionName)
+
+	result, err := collection.DeleteOne(context.TODO(), filter)
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
-	return collection.DeleteOne(context.TODO(), filter)
+
+	return
 }
 
 // DeleteMany delete many documents.
-func (m Mongo) DeleteMany(collectionName string, filter interface{}) (*mongo.DeleteResult, error) {
-	collection, err := m.GetCollection(collectionName)
+func (m Mongo) DeleteMany(collectionName string, filter interface{}) (result *mongo.DeleteResult) {
+	m.checkDatabase()
+
+	collection := m.GetCollection(collectionName)
+
+	result, err := collection.DeleteMany(context.TODO(), filter)
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
-	return collection.DeleteMany(context.TODO(), filter)
+
+	return
 }
 
 // DeleteAll delete all documents.
-func (m Mongo) DeleteAll(collectionName string) (*mongo.DeleteResult, error) {
+func (m Mongo) DeleteAll(collectionName string) (result *mongo.DeleteResult) {
 	return m.DeleteMany(collectionName, bson.M{})
 }

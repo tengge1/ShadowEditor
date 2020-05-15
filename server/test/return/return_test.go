@@ -11,7 +11,8 @@ func TestReturn(t *testing.T) {
 }
 
 func returnFunc() (result int) {
-	if result, num := 5, 6; result > 3 {
+	result, num := 5, 6
+	if result > 3 {
 		fmt.Println(num)
 	}
 	return
