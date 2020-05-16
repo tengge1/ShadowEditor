@@ -3,7 +3,7 @@
 [English](README.md) / 中文
 
 * 名称：Shadow Editor
-* 版本：v0.5.1（开发中）
+* 版本：v0.5.1
 * 简介：基于Three.js、Go语言和MongoDB的跨平台的3D场景编辑器。
 * 源码：[GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | 文档：[GitHub](https://tengge1.github.io/ShadowEditor/) [Gitee](https://tengge1.gitee.io/shadoweditor/) | 示例：[GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) | 视频：[微博](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) | 资源：[百度网盘](https://pan.baidu.com/s/1IxJVM6fFLoIAJG-GKHjVTA)
 * 技术栈：html、css、javascript、rollup、react.js、webgl、three.js、golang、MongoDB。
@@ -11,7 +11,10 @@
 
 ![image](images/scene20200301.jpg)
 
-## v0.5.1即将更新
+## v0.5.1更新
+
+* 发布日期：2020年5月17日
+* 更新日志：
 
 1. 修复烟组件播放报错的bug。
 2. 修复播放时渲染器尺寸错误。（导致烟组件播放时变小）
@@ -27,34 +30,6 @@
 12. 修复保存系统设置错误。
 13. 修复导出所有示例的bug。
 14. 修复点标注选中高亮区域错误bug。
-
-## v0.5.0更新
-
-* 发布日期：2020年5月5日
-* 更新日志：
-
-1. 使用Go语言重写服务端。
-2. 修复由于`three.js`升级，导致`draco`模型无法加载的bug。
-3. 不再支持`.json`格式的模型。
-4. 修复类别列表窗口最下面一行被按钮遮挡的bug。
-5. 修复几何体带漫反射贴图时，无法加载贴图的bug。
-6. 修复音频、截图、录制视频资源无法设置缩略图的bug。
-7. 修复无法使用取消和关闭按钮关闭确认对话框的bug。
-8. 修复删除角色，列表不刷新的bug。
-
-跟`asp.net`相比，`go语言`具有非常多的优势：
-
-1. 兼容`Windows`、`Linux`、`Mac`三大操作系统。
-2. 类似C语言。支持`goroutine`，充分发挥`CPU`多核优势，性能高。
-3. 简单易学，标准库和第三方库丰富，开发效率高。
-4. 可编译成单个文件，发布时不需要安装`go语言`和`NodeJs`。
-5. 不需要`iis`。
-6. 网络数据启用了`gzip`压缩，显示和场景加载速度极大提高。
-7. 不需要`Visual Studio`，使用`Visual Studio Code`即可舒适的开发服务端和Web端。
-
-从C#版本升级：
-
-数据结构和Web客户端均未发生变化，只需要把`./ShadowEditor.Web/Upload/`文件夹复制到`build/public/Upload/`即可。
 
 ## 功能特点
 
@@ -154,6 +129,10 @@ git checkout -b csharp origin/v0.4.6-csharp
 
 **完整错误**：asm.js 已被禁用，因为脚本调试程序已连接。请断开调试程序的连接，以启用 asm.js。 ammo.js (1,1) SCRIPT1028: SCRIPT1028: Expected identifier, string or number ShadowEditor.js (3948,8) SCRIPT5009: 'Shadow' is not defined。  
 **解决方法**：腾讯浏览器不支持使用`Emscripten`编译的`ammo.js`（WebAssembly），建议换成谷歌浏览器或火狐浏览器。
+
+5. 怎么从C#版本升级到golang版本？
+
+数据结构和客户端都没变，只需要把文件夹`./ShadowEditor.Web/Upload/`复制到`build/public/Upload/`即可。
 
 ## 相关链接
 

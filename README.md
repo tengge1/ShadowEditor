@@ -3,7 +3,7 @@
 English / [中文](README_zh.md)
 
 * Name: Shadow Editor
-* Version: v0.5.1 (coming soon)
+* Version: v0.5.1
 * Description: Cross-platform 3D scene editor based on three.js, golang and mongodb.
 * Source: [GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | Document: [GitHub](https://tengge1.github.io/ShadowEditor/) [Gitee](https://tengge1.gitee.io/shadoweditor/) | Demo: [GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) | Video: [Weibo](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) | Assets: [BaiduNetdisk](https://pan.baidu.com/s/1IxJVM6fFLoIAJG-GKHjVTA)
 * Technology Stack: html, css, javascript, rollup, react.js, webgl, three.js, golang, mongodb.
@@ -11,7 +11,10 @@ English / [中文](README_zh.md)
 
 ![image](images/scene20200503_en.jpg)
 
-## v0.5.1 is Coming Soon
+## v0.5.1 has Released
+
+* Release Date: May 17, 2020
+* Update Logs:
 
 1. Fix a bug that an error occurs when the scene plays which contains a smoke comopnent.
 2. Fix the bug of renderer size error. (It causes smoke shrink when the scene plays which contains a smoke component)
@@ -27,35 +30,6 @@ English / [中文](README_zh.md)
 12. Fix the bug of saving config.
 13. Fix the bug of exporting examples.
 14. Fix the bug of the wrong area of point marker when selected.
-
-## v0.5.0 has Released
-
-* Release Date: May 5, 2020
-* Update Logs:
-
-1. Rewrite the server using golang.
-2. Fix a bug that `draco` models cannot be loaded due to the upgrade of `three.js`.
-3. Models in `.json` format are no longer supported.
-4. Fix a bug that the bottom row of the category list window is blocked by the button.
-5. Fix a bug that the diffuse map cannot be loaded when it attaches to a geometry.
-6. Fix a bug that thumbnails cannot be set for audio, screenshot and video resources.
-7. Fix a bug that confirmation dialog cannot be closed with cancel and close button.
-8. Fix a bug that the role list will not refresh after deleting a role.
-
-Compared with `asp.net`, `golang` has many advantages:
-
-1. Support both `Windows`, `Linux` and `Mac`.
-2. Similar to C language. support `goroutine`, which take great advantages of multi-core, and have high performance.
-3. Easy to learn. Huge standard libraries and third-party libraries, and high development efficiency.
-4. Can compiled into a single file, and when publish, no need to install `golang` nor `nodejs` when publishing.
-5. No `iis` required.
-6. Network data is compressed with `gzip`, and the speed of displaying and scene loading is really fast.
-7. No `Visual Studio` required. You can develop with `Visual Studio Code` for both the server and web.
-
-Upgrade from C# version:
-
-The data structure and web client is not changed, just copy `./ShadowEditor.Web/Upload/` folder to
-`build/public/Upload/`.
 
 ## Features
 
@@ -157,6 +131,11 @@ Edit `config.toml` and set `authority.enabled` to `true`. The default administra
 **Complete error**: asm.js has been disabled because the script debugger is connected. Please disconnect the debugger to enable asm.js. ammo.js (1,1) SCRIPT1028: SCRIPT1028: Expected identifier, string or number ShadowEditor.js (3948,8) SCRIPT5009: 'Shadow' is not defined.
 
 **Solution**: Tencent browser does not support `ammo.js` (WebAssembly) compiled with `Emscripten`, it is recommended to use `Chrome` or `Firebox` instead.
+
+5. How can I upgrade from C# to golang version?
+
+The data structure and web client is not changed, just copy `./ShadowEditor.Web/Upload/` folder to
+`build/public/Upload/`.
 
 ## License
 
