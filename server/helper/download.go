@@ -16,7 +16,7 @@ import (
 	"strconv"
 )
 
-// Download write a file stream to the webbrowser.
+// Download write a file stream to the response.
 func Download(w http.ResponseWriter, path, name string) {
 	_, err := os.Stat(path)
 	if os.IsNotExist(err) {

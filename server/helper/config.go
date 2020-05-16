@@ -19,7 +19,7 @@ import (
 // GetConfig read `config.toml` and parse `ConfigModel`.
 func GetConfig(path string) (config *ConfigModel) {
 	file, err := os.Open(path)
-	if err != nil {
+	if err != nil { // `config.toml` is missing
 		panic(err)
 	}
 	defer file.Close()
