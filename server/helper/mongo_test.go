@@ -14,9 +14,17 @@ import (
 )
 
 func TestMongo(t *testing.T) {
-	config := GetConfig("../config.toml")
-	db := NewMongo(config.Database.Connection, "test")
+	config, err := GetConfig("../config.toml")
+	if err != nil {
+		t.Error(err)
+		return
+	}
 
+	db, err := NewMongo(config.Database.Connection, "test")
+	if err != nil {
+		t.Error(err)
+		return
+	}
 	collectionName := "PersonTest"
 	persons := []interface{}{
 		Person{"xiaoming", 10},
@@ -24,17 +32,28 @@ func TestMongo(t *testing.T) {
 	}
 
 	// insert
-	db.InsertMany(collectionName, persons)
+	_, err = db.InsertMany(collectionName, persons)
+	if err != nil {
+		t.Error(err)
+		return
+	}
 
 	// find
 	results := []Person{}
-	db.FindMany(collectionName, bson.M{}, &results)
+	err = db.FindMany(collectionName, bson.M{}, &results)
+	if err != nil {
+		t.Error(err)
+		return
+	}
 	t.Log(results)
 
 	// single find
 	var result Person
-	find := db.FindOne(collectionName, bson.M{}, &result)
-
+	find, err := db.FindOne(collectionName, bson.M{}, &result)
+	if err != nil {
+		t.Error(err)
+		return
+	}
 	if find {
 		t.Log(result)
 	} else {
@@ -42,8 +61,11 @@ func TestMongo(t *testing.T) {
 	}
 
 	// single not find
-	find = db.FindOne(collectionName, bson.M{"foo": "bar"}, &result)
-
+	find, err = db.FindOne(collectionName, bson.M{"foo": "bar"}, &result)
+	if err != nil {
+		t.Error(err)
+		return
+	}
 	if find {
 		t.Log(result)
 	} else {
@@ -51,18 +73,32 @@ func TestMongo(t *testing.T) {
 	}
 
 	// listCollectionNames
-	collectionNames := db.ListCollectionNames()
+	collectionNames, err := db.ListCollectionNames()
+	if err != nil {
+		t.Error(err)
+		return
+	}
 	t.Log(collectionNames)
 
 	// drop
-	db.DropCollection(collectionName)
+	err = db.DropCollection(collectionName)
+	if err != nil {
+		t.Error(err)
+	}
 }
 
 func TestDecode(t *testing.T) {
-	config := GetConfig("../config.toml")
+	config, err := GetConfig("../config.toml")
+	if err != nil {
+		t.Error(err)
+		return
+	}
 
-	db := NewMongo(config.Database.Connection, "test")
-
+	db, err := NewMongo(config.Database.Connection, "test")
+	if err != nil {
+		t.Error(err)
+		return
+	}
 	collectionName := "PersonTest"
 	persons := []interface{}{
 		Person{"xiaoming", 10},
@@ -70,13 +106,19 @@ func TestDecode(t *testing.T) {
 	}
 
 	// insert
-	db.InsertMany(collectionName, persons)
+	_, err = db.InsertMany(collectionName, persons)
+	if err != nil {
+		t.Error(err)
+		return
+	}
 
 	// single find
 	var result Person
-
-	find := db.FindOne(collectionName, bson.M{}, &result)
-
+	find, err := db.FindOne(collectionName, bson.M{}, &result)
+	if err != nil {
+		t.Error(err)
+		return
+	}
 	if find {
 		t.Log(result)
 	} else {

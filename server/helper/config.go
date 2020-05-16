@@ -17,16 +17,17 @@ import (
 )
 
 // GetConfig read `config.toml` and parse `ConfigModel`.
-func GetConfig(path string) (config *ConfigModel) {
+func GetConfig(path string) (config *ConfigModel, err error) {
 	file, err := os.Open(path)
-	if err != nil { // `config.toml` is missing
-		panic(err)
+	if err != nil {
+		return nil, err
 	}
+
 	defer file.Close()
 
 	_, err = toml.DecodeReader(file, &config)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 
 	// parse mongoDB connection string.

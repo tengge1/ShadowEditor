@@ -32,7 +32,11 @@ func TestJSON(t *testing.T) {
 		"d":    primitiveD,
 	}
 
-	bytes := ToJSON(obj)
+	bytes, err := ToJSON(obj)
+	if err != nil {
+		t.Error(err)
+		return
+	}
 
 	t.Log(string(bytes))
 }

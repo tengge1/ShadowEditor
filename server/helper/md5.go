@@ -15,9 +15,6 @@ import (
 // MD5 convert a string to md5 encrypt string.
 func MD5(str string) string {
 	h := md5.New()
-	if _, err := h.Write([]byte(str)); err != nil {
-		panic(err)
-	}
-
+	h.Write([]byte(str))
 	return hex.EncodeToString(h.Sum(nil))
 }

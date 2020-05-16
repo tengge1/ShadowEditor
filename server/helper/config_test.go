@@ -10,8 +10,11 @@ package helper
 import "testing"
 
 func TestConfig(t *testing.T) {
-	config := GetConfig("../config.toml")
-
+	config, err := GetConfig("../config.toml")
+	if err != nil {
+		t.Error(err)
+		return
+	}
 	t.Logf("server.port: %v", config.Server.Port)
 
 	t.Logf("database.type: %v", config.Database.Type)

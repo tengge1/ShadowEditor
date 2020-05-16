@@ -9,6 +9,7 @@ package helper
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -17,29 +18,29 @@ import (
 )
 
 // NewMongo create a mongo client using connectionString and databaseName.
-func NewMongo(connectionString, databaseName string) *Mongo {
+func NewMongo(connectionString, databaseName string) (*Mongo, error) {
 	m := Mongo{connectionString, databaseName, nil, nil}
 
 	clientOptions := options.Client().ApplyURI(connectionString)
 
 	client, err := mongo.NewClient(clientOptions)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
 	defer cancel()
 
-	if err = client.Connect(ctx); err != nil {
-		panic(err)
+	err = client.Connect(ctx)
+	if err != nil {
+		return nil, err
 	}
 
 	db := client.Database(databaseName)
 
 	m.Client = client
 	m.Database = db
-
-	return &m
+	return &m, nil
 }
 
 // Mongo represent a mongo client.
@@ -50,205 +51,151 @@ type Mongo struct {
 	Database         *mongo.Database
 }
 
-// checkDatabase check if database really created.
-func (m Mongo) checkDatabase() {
-	if m.Database == nil {
-		panic("mongo client is not created")
-	}
-}
-
 // ListCollectionNames list collectionNames of database.
-func (m Mongo) ListCollectionNames() (collectionNames []string) {
-	m.checkDatabase()
-
+func (m Mongo) ListCollectionNames() (collectionNames []string, err error) {
+	if m.Database == nil {
+		return nil, fmt.Errorf("mongo client is not created")
+	}
 	nameOnly := true
 	listOptions := options.ListCollectionsOptions{NameOnly: &nameOnly}
-
-	collectionNames, err := m.Database.ListCollectionNames(context.TODO(), bson.M{}, &listOptions)
-	if err != nil {
-		panic(err)
-	}
-
-	return
+	return m.Database.ListCollectionNames(context.TODO(), bson.M{}, &listOptions)
 }
 
 // GetCollection get a collection from collectionName.
-func (m Mongo) GetCollection(name string) (collection *mongo.Collection) {
-	m.checkDatabase()
-
-	return m.Database.Collection(name)
+func (m Mongo) GetCollection(name string) (collection *mongo.Collection, err error) {
+	if m.Database == nil {
+		return nil, fmt.Errorf("mongo client is not created")
+	}
+	return m.Database.Collection(name), nil
 }
 
 // RunCommand run a mongo command.
-func (m Mongo) RunCommand(command interface{}) (result *mongo.SingleResult) {
-	m.checkDatabase()
-
-	return m.Database.RunCommand(context.TODO(), command)
+func (m Mongo) RunCommand(command interface{}) (result *mongo.SingleResult, err error) {
+	if m.Database == nil {
+		return nil, fmt.Errorf("mongo client is not created")
+	}
+	return m.Database.RunCommand(context.TODO(), command), nil
 }
 
 // DropCollection drop a collection.
-func (m Mongo) DropCollection(name string) {
-	m.checkDatabase()
-
-	if err := m.Database.Collection(name).Drop(context.TODO()); err != nil {
-		panic(err)
+func (m Mongo) DropCollection(name string) error {
+	if m.Database == nil {
+		return fmt.Errorf("mongo client is not created")
 	}
+	return m.Database.Collection(name).Drop(context.TODO())
 }
 
 // InsertOne insert one document to a collection.
-func (m Mongo) InsertOne(collectionName string, document interface{}) (result *mongo.InsertOneResult) {
-	m.checkDatabase()
-
-	collection := m.GetCollection(collectionName)
-
-	result, err := collection.InsertOne(context.TODO(), document)
+func (m Mongo) InsertOne(collectionName string, document interface{}) (*mongo.InsertOneResult, error) {
+	collection, err := m.GetCollection(collectionName)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
-
-	return
+	return collection.InsertOne(context.TODO(), document)
 }
 
 // InsertMany insert many documents to a collection.
-func (m Mongo) InsertMany(collectionName string, documents []interface{}) (result *mongo.InsertManyResult) {
-	m.checkDatabase()
-
-	collection := m.GetCollection(collectionName)
-
-	result, err := collection.InsertMany(context.TODO(), documents)
+func (m Mongo) InsertMany(collectionName string, documents []interface{}) (*mongo.InsertManyResult, error) {
+	collection, err := m.GetCollection(collectionName)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
-
-	return
+	return collection.InsertMany(context.TODO(), documents)
 }
 
 // Count get documents count of a collection.
-func (m Mongo) Count(collectionName string, filter interface{}) (count int64) {
-	m.checkDatabase()
-
-	collection := m.GetCollection(collectionName)
-
-	count, err := collection.CountDocuments(context.TODO(), filter)
+func (m Mongo) Count(collectionName string, filter interface{}) (int64, error) {
+	collection, err := m.GetCollection(collectionName)
 	if err != nil {
-		panic(err)
+		return 0, err
 	}
-
-	return
+	return collection.CountDocuments(context.TODO(), filter)
 }
 
 // FindOne find one document from a collection.
-func (m Mongo) FindOne(collectionName string, filter interface{}, result interface{}, opts ...*options.FindOneOptions) (find bool) {
-	m.checkDatabase()
-
-	collection := m.GetCollection(collectionName)
-
+func (m Mongo) FindOne(collectionName string, filter interface{}, result interface{}, opts ...*options.FindOneOptions) (find bool, err error) {
+	collection, err := m.GetCollection(collectionName)
+	if err != nil {
+		return false, err
+	}
 	cursor := collection.FindOne(context.TODO(), filter, opts...)
 	if cursor.Err() == mongo.ErrNoDocuments {
-		return false
+		return false, nil
 	}
-
-	if err := cursor.Decode(result); err != nil {
-		panic(err)
-	}
-
-	return true
+	cursor.Decode(result)
+	return true, nil
 }
 
 // Find find a cursor from a collection.
-func (m Mongo) Find(collectionName string, filter interface{}, opts ...*options.FindOptions) (cursor *mongo.Cursor) {
-	m.checkDatabase()
-
-	collection := m.GetCollection(collectionName)
-
-	cursor, err := collection.Find(context.TODO(), filter, opts...)
+func (m Mongo) Find(collectionName string, filter interface{}, opts ...*options.FindOptions) (*mongo.Cursor, error) {
+	collection, err := m.GetCollection(collectionName)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
-
-	return
+	return collection.Find(context.TODO(), filter, opts...)
 }
 
 // FindMany find many documents of a collection.
-func (m Mongo) FindMany(collectionName string, filter interface{}, results interface{}, opts ...*options.FindOptions) {
-	m.checkDatabase()
-
-	collection := m.GetCollection(collectionName)
-
+func (m Mongo) FindMany(collectionName string, filter interface{}, results interface{}, opts ...*options.FindOptions) (err error) {
+	collection, err := m.GetCollection(collectionName)
+	if err != nil {
+		return err
+	}
 	cursor, err := collection.Find(context.TODO(), filter, opts...)
 	if err != nil {
-		panic(err)
+		return err
 	}
 	defer cursor.Close(context.TODO())
 
 	err = cursor.All(context.TODO(), results)
 	if err != nil {
-		panic(err)
+		return err
 	}
+	return nil
 }
 
 // FindAll find many documents of a collection.
-func (m Mongo) FindAll(collectionName string, results interface{}, opts ...*options.FindOptions) {
-	m.FindMany(collectionName, bson.M{}, results, opts...)
+func (m Mongo) FindAll(collectionName string, results interface{}, opts ...*options.FindOptions) (err error) {
+	return m.FindMany(collectionName, bson.M{}, results, opts...)
 }
 
 // UpdateOne update one document.
-func (m Mongo) UpdateOne(collectionName string, filter interface{}, update interface{}) (result *mongo.UpdateResult) {
-	m.checkDatabase()
-
-	collection := m.GetCollection(collectionName)
-
-	result, err := collection.UpdateOne(context.TODO(), filter, update)
+func (m Mongo) UpdateOne(collectionName string, filter interface{}, update interface{}) (*mongo.UpdateResult, error) {
+	collection, err := m.GetCollection(collectionName)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
-
-	return
+	return collection.UpdateOne(context.TODO(), filter, update)
 }
 
 // UpdateMany update many documents.
-func (m Mongo) UpdateMany(collectionName string, filter interface{}, update interface{}) (result *mongo.UpdateResult) {
-	m.checkDatabase()
-
-	collection := m.GetCollection(collectionName)
-
-	result, err := collection.UpdateMany(context.TODO(), filter, update)
+func (m Mongo) UpdateMany(collectionName string, filter interface{}, update interface{}) (*mongo.UpdateResult, error) {
+	collection, err := m.GetCollection(collectionName)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
-
-	return
+	return collection.UpdateMany(context.TODO(), filter, update)
 }
 
 // DeleteOne delete one document.
-func (m Mongo) DeleteOne(collectionName string, filter interface{}) (result *mongo.DeleteResult) {
-	m.checkDatabase()
-
-	collection := m.GetCollection(collectionName)
-
-	result, err := collection.DeleteOne(context.TODO(), filter)
+func (m Mongo) DeleteOne(collectionName string, filter interface{}) (*mongo.DeleteResult, error) {
+	collection, err := m.GetCollection(collectionName)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
-
-	return
+	return collection.DeleteOne(context.TODO(), filter)
 }
 
 // DeleteMany delete many documents.
-func (m Mongo) DeleteMany(collectionName string, filter interface{}) (result *mongo.DeleteResult) {
-	m.checkDatabase()
-
-	collection := m.GetCollection(collectionName)
-
-	result, err := collection.DeleteMany(context.TODO(), filter)
+func (m Mongo) DeleteMany(collectionName string, filter interface{}) (*mongo.DeleteResult, error) {
+	collection, err := m.GetCollection(collectionName)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
-
-	return
+	return collection.DeleteMany(context.TODO(), filter)
 }
 
 // DeleteAll delete all documents.
-func (m Mongo) DeleteAll(collectionName string) (result *mongo.DeleteResult) {
+func (m Mongo) DeleteAll(collectionName string) (*mongo.DeleteResult, error) {
 	return m.DeleteMany(collectionName, bson.M{})
 }

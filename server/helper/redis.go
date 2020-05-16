@@ -1,3 +1,5 @@
+// +build ignore
+
 // Copyright 2017-2020 The ShadowEditor Authors. All rights reserved.
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
@@ -21,7 +23,7 @@ type Redis struct {
 }
 
 // Create create a new redis client.
-func (r Redis) Create(addr string, dbName int) *Redis {
+func (r Redis) Create(addr string, dbName int) (*Redis, error) {
 	client := redis.NewClient(&redis.Options{
 		Addr: addr,
 		DB:   dbName,
@@ -29,45 +31,40 @@ func (r Redis) Create(addr string, dbName int) *Redis {
 
 	pong, err := client.Ping().Result()
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 
 	if pong != "PONG" {
-		panic(fmt.Errorf("redis did not respond with 'PONG', '%s'", pong))
+		return nil, fmt.Errorf("redis did not respond with 'PONG', '%s'", pong)
 	}
 
 	r.Client = client
 
-	return &r
+	return &r, nil
 }
 
 // Set set redis key value.
-func (r *Redis) Set(key string, val []byte) {
-	err := r.Client.
+func (r *Redis) Set(key string, val []byte) error {
+	return r.Client.
 		Set(key, val, 0).
 		Err()
-	if err != nil {
-		panic(err)
-	}
 }
 
 // Get get a redis value through a key.
-func (r *Redis) Get(key string) (val []byte, hit bool) {
-	val, err := r.Client.Get(key).Bytes()
+func (r *Redis) Get(key string) (val []byte, hit bool, err error) {
+	val, err = r.Client.Get(key).Bytes()
 
 	switch err {
 	case nil: // cache hit
-		return val, true
+		return val, true, nil
 	case redis.Nil: // cache miss
-		return val, false
+		return val, false, nil
 	default: // error
-		panic(err)
+		return val, false, err
 	}
 }
 
 // Del deleta a redis key.
-func (r *Redis) Del(key string) {
-	if err := r.Client.Del(key).Err(); err != nil {
-		panic(err)
-	}
+func (r *Redis) Del(key string) (err error) {
+	return r.Client.Del(key).Err()
 }

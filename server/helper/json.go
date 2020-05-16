@@ -32,18 +32,11 @@ func init() {
 }
 
 // ToJSON convert interface{} to json bytes.
-func ToJSON(obj interface{}) []byte {
-	bytes, err := jsoniter.Marshal(obj)
-	if err != nil {
-		panic(err)
-	}
-
-	return bytes
+func ToJSON(obj interface{}) ([]byte, error) {
+	return jsoniter.Marshal(obj)
 }
 
 // FromJSON convert json bytes to interface{}.
-func FromJSON(bytes []byte, result interface{}) {
-	if err := jsoniter.Unmarshal(bytes, result); err != nil {
-		panic(err)
-	}
+func FromJSON(bytes []byte, result interface{}) error {
+	return jsoniter.Unmarshal(bytes, result)
 }

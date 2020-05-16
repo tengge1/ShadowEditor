@@ -1,3 +1,5 @@
+// +build ignore
+
 // Copyright 2017-2020 The ShadowEditor Authors. All rights reserved.
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
@@ -12,14 +14,30 @@ import (
 )
 
 func TestSQLite(t *testing.T) {
-	client := NewSQLite("./test.db")
+	client, err := NewSQLite("./test.db")
+	if err != nil {
+		t.Error(err)
+		return
+	}
 	defer client.Close()
 
-	client.Exec("create table test (name text, age int)")
+	_, err = client.Exec("create table test (name text, age int)")
+	if err != nil {
+		t.Error(err)
+		return
+	}
 
-	client.Exec("insert into test (name, age) values ('xiaoming', 12)")
+	_, err = client.Exec("insert into test (name, age) values ('xiaoming', 12)")
+	if err != nil {
+		t.Error(err)
+		return
+	}
 
-	rows := client.Query("select * from test where name='xiaoming'")
+	rows, err := client.Query("select * from test where name='xiaoming'")
+	if err != nil {
+		t.Error(err)
+		return
+	}
 
 	for rows.Next() {
 		var name string
@@ -32,5 +50,9 @@ func TestSQLite(t *testing.T) {
 		t.Logf("name: %v, age: %v", name, age)
 	}
 
-	client.Exec("drop table test")
+	_, err = client.Exec("drop table test")
+	if err != nil {
+		t.Error(err)
+		return
+	}
 }

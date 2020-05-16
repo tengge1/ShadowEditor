@@ -1,3 +1,5 @@
+// +build ignore
+
 // Copyright 2017-2020 The ShadowEditor Authors. All rights reserved.
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
@@ -12,14 +14,30 @@ import (
 )
 
 func TestPostgreSQL(t *testing.T) {
-	post := NewPostgreSQL("localhost", 5432, "postgres", "123", "postgres")
+	post, err := NewPostgreSQL("localhost", 5432, "postgres", "123", "postgres")
+	if err != nil {
+		t.Error(err)
+		return
+	}
 	defer post.Close()
 
-	post.Exec("create table test (name text, age int)")
+	_, err = post.Exec("create table test (name text, age int)")
+	if err != nil {
+		t.Error(err)
+		return
+	}
 
-	post.Exec("insert into test (name, age) values ('xiaoming', 12)")
+	_, err = post.Exec("insert into test (name, age) values ('xiaoming', 12)")
+	if err != nil {
+		t.Error(err)
+		return
+	}
 
-	rows := post.Query("select * from test where name='xiaoming'")
+	rows, err := post.Query("select * from test where name='xiaoming'")
+	if err != nil {
+		t.Error(err)
+		return
+	}
 
 	for rows.Next() {
 		cols, err := rows.Values()
@@ -30,5 +48,9 @@ func TestPostgreSQL(t *testing.T) {
 		t.Log(cols)
 	}
 
-	post.Exec("drop table test")
+	_, err = post.Exec("drop table test")
+	if err != nil {
+		t.Error(err)
+		return
+	}
 }
