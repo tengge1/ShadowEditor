@@ -25,23 +25,20 @@ var (
 )
 
 // Create create the server context.
-func Create(path string) error {
+func Create(path string) {
 	// config
-	config, err := helper.GetConfig(path)
-	if err != nil {
-		return err
-	}
+	config := helper.GetConfig(path)
 	Config = config
 
 	// logger
 	dir := filepath.Dir(config.Log.File)
-	if _, err = os.Stat(dir); os.IsNotExist(err) {
+	if _, err := os.Stat(dir); os.IsNotExist(err) {
 		os.MkdirAll(dir, 0755)
 	}
 
 	writer, err := os.OpenFile(config.Log.File, os.O_RDONLY|os.O_CREATE|os.O_APPEND, 0755)
 	if err != nil {
-		panic(err.Error())
+		panic(err)
 	}
 
 	logger := &logrus.Logger{
@@ -52,6 +49,4 @@ func Create(path string) error {
 	}
 
 	Logger = logger
-
-	return nil
 }

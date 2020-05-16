@@ -20,11 +20,11 @@ import (
 
 // GetCurrentUser get the current login user.
 // It gets userID from the cookie.
-func GetCurrentUser(r *http.Request) (*system.User, error) {
+func GetCurrentUser(r *http.Request) *system.User {
 	cookies := r.Cookies()
 
 	if len(cookies) == 0 {
-		return nil, nil
+		return nil
 	}
 
 	var cookie *http.Cookie = nil
@@ -37,7 +37,7 @@ func GetCurrentUser(r *http.Request) (*system.User, error) {
 	}
 
 	if cookie == nil {
-		return nil, nil
+		return nil
 	}
 
 	user, err := GetUser(cookie.Value)
@@ -49,16 +49,13 @@ func GetCurrentUser(r *http.Request) (*system.User, error) {
 }
 
 // GetUser get a user from userID.
-func GetUser(userID string) (*system.User, error) {
+func GetUser(userID string) *system.User {
 	objectID, err := primitive.ObjectIDFromHex(userID)
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
 
-	mongo, err := Mongo()
-	if err != nil {
-		return nil, err
-	}
+	mongo := Mongo()
 
 	filter := bson.M{
 		"ID": objectID,
@@ -66,12 +63,9 @@ func GetUser(userID string) (*system.User, error) {
 
 	user := system.User{}
 
-	find, err := mongo.FindOne(UserCollectionName, filter, &user)
-	if err != nil {
-		return nil, err
-	}
+	find := mongo.FindOne(UserCollectionName, filter, &user)
 	if !find {
-		return nil, fmt.Errorf("user (%v) is not found", userID)
+		panic(fmt.Errorf("user (%v) is not found", userID))
 	}
 
 	// get roles and authorities

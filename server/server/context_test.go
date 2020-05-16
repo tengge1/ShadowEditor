@@ -10,11 +10,7 @@ package server
 import "testing"
 
 func TestCreate(t *testing.T) {
-	err := Create("../config.toml")
-	if err != nil {
-		t.Error(err)
-		return
-	}
+	Create("../config.toml")
 	t.Log(Config)
 	Logger.Info("Some info from context_test.go")
 
@@ -24,11 +20,7 @@ func TestCreate(t *testing.T) {
 		return
 	}
 
-	collectionNames, err := mong.ListCollectionNames()
-	if err != nil {
-		t.Error(err)
-		return
-	}
+	collectionNames := mong.ListCollectionNames()
 
 	for _, collectionName := range collectionNames {
 		t.Log(collectionName)

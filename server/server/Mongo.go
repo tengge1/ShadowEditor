@@ -8,15 +8,14 @@
 package server
 
 import (
-	"fmt"
-
 	"github.com/tengge1/shadoweditor/helper"
 )
 
 // Mongo create a new mongo client.
-func Mongo() (*helper.Mongo, error) {
+func Mongo() *helper.Mongo {
 	if Config == nil {
-		return nil, fmt.Errorf("config is not initialized")
+		panic("config is not initialized")
 	}
+
 	return helper.NewMongo(Config.Database.Connection, Config.Database.Database)
 }
