@@ -13,6 +13,8 @@ English / [中文](README_zh.md)
 
 ## v0.5.2 is Coming Soon
 
+1. MongoDB user and password configuration.
+
 ## v0.5.1 has Released
 
 * Release Date: May 17, 2020

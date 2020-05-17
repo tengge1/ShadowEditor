@@ -31,7 +31,13 @@ func GetConfig(path string) (config *ConfigModel, err error) {
 	}
 
 	// parse mongoDB connection string.
-	config.Database.Connection = fmt.Sprintf("mongodb://%v:%v", config.Database.Host, config.Database.Port)
+	config.Database.Connection = fmt.Sprintf(
+		"mongodb://%v:%v@%v:%v",
+		config.Database.User,
+		config.Database.Password,
+		config.Database.Host,
+		config.Database.Port,
+	)
 
 	// In windows system, path separator "/" should be replace with "\\".
 	if strings.HasPrefix(runtime.GOOS, "windows") {
@@ -60,12 +66,15 @@ type ServerConfigModel struct {
 
 // DatabaseConfigModel is the database config section in `config.toml`;
 type DatabaseConfigModel struct {
-	Type string `toml:"type"`
-	Host string `toml:"host"`
-	Port int    `toml:"port"`
+	Type     string `toml:"type"`
+	Host     string `toml:"host"`
+	Port     int    `toml:"port"`
+	Database string `toml:"database"`
+	User     string `toml:"user"`
+	Password string `toml:"password"`
+
 	// Connection should not read from config.toml.
 	Connection string
-	Database   string `toml:"database"`
 }
 
 // AuthorityConfigModel is the authority config section in `config.toml`;

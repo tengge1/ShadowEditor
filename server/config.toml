@@ -5,10 +5,11 @@ port = ":2020"                              # server address
 
 [database]
 type = "mongo"                              # only support mongo
-host = "127.0.0.1"                          # mongoDB host
-port = 27017                                # mongoDB port
-database = "ShadowEditor"                   # mongoDB database name
-                                            # TODO: It's very dangerous to use mongo without a password.
+host = "127.0.0.1"                          # mongo ip
+port = 27017                                # mongo port
+user = "admin"                              # mongo username
+password = "admin"                          # mongo password
+database = "ShadowEditor"                   # mongo database name
 
 [authority]
 enabled = false                             # enable authority
