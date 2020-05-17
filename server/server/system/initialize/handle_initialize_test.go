@@ -14,7 +14,7 @@ import (
 	"net/url"
 	"testing"
 
-	"github.com/tengge1/shadoweditor/server"
+	"github.com/tengge1/shadoweditor/server/server"
 )
 
 func TestInitialize(t *testing.T) {

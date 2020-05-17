@@ -12,7 +12,7 @@ import (
 	"path/filepath"
 
 	"github.com/sirupsen/logrus"
-	"github.com/tengge1/shadoweditor/helper"
+	"github.com/tengge1/shadoweditor/server/helper"
 )
 
 // We cache the shared data used by the server, such as `Config` and `Logger`.

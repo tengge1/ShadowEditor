@@ -16,7 +16,7 @@ import (
 	"github.com/inconshreveable/mousetrap"
 	"github.com/spf13/cobra"
 
-	"github.com/tengge1/shadoweditor/server"
+	"github.com/tengge1/shadoweditor/server/server"
 )
 
 // serveCmd launch the shadow editor server.

@@ -16,8 +16,8 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 
-	"github.com/tengge1/shadoweditor/helper"
-	"github.com/tengge1/shadoweditor/server"
+	"github.com/tengge1/shadoweditor/server/helper"
+	"github.com/tengge1/shadoweditor/server/server"
 )
 
 func init() {

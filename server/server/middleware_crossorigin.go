@@ -10,7 +10,7 @@ package server
 import (
 	"net/http"
 
-	"github.com/tengge1/shadoweditor/helper"
+	"github.com/tengge1/shadoweditor/server/helper"
 )
 
 // CrossOriginHandler add cross-origin header to the response.
