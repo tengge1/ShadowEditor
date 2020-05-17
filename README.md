@@ -14,6 +14,7 @@ English / [中文](README_zh.md)
 ## v0.5.2 is Coming Soon
 
 1. MongoDB user and password configuration.
+2. Documentation changed from gitbook to gitee wiki.
 
 ## v0.5.1 has Released
 

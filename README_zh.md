@@ -14,6 +14,7 @@
 ## v0.5.2即将发布
 
 1. MongoDB用户名和密码设置。
+2. 文档由gitbook改为gitee wiki。
 
 ## v0.5.1更新
 
