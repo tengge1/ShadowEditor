@@ -31,8 +31,9 @@ func Start() {
 	static := negroni.NewStatic(http.Dir("public"))
 
 	handler := negroni.New(recovery, logger, static)
-	handler.Use(negroni.HandlerFunc(CrossOriginHandler))
-	handler.Use(negroni.HandlerFunc(GZipHandler))
+	handler.Use(negroni.HandlerFunc(CrossOriginMiddleware))
+	handler.Use(negroni.HandlerFunc(GZipMiddleware))
+	handler.Use(negroni.HandlerFunc(ValidateTokenMiddleware))
 	handler.UseHandler(Mux)
 
 	srv := http.Server{Addr: Config.Server.Port, Handler: handler}

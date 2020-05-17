@@ -14,9 +14,9 @@ import (
 	"strings"
 )
 
-// GZipHandler is used for determining if the incoming request should be served gzipped data.
+// GZipMiddleware is used for determining if the incoming request should be served gzipped data.
 // When the request `Content-Encoding` contains `gzip`, we write a gzipped response.
-func GZipHandler(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
+func GZipMiddleware(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
 	encoding := r.Header.Get("Accept-Encoding")
 	if encoding == "" {
 		next.ServeHTTP(w, r)
