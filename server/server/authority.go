@@ -121,6 +121,131 @@ type AuthorityModel struct {
 	Name string
 }
 
+// APIAuthority means you should have the authority to request the api.
+var APIAuthority = map[string]string{
+	// assets
+	"/api/Animation/Add":    "",
+	"/api/Animation/Delete": "",
+	"/api/Animation/Edit":   "",
+	"/api/Animation/List":   "",
+
+	"/api/Audio/Add":    "",
+	"/api/Audio/Delete": "",
+	"/api/Audio/Edit":   "",
+	"/api/Audio/List":   "",
+
+	"/api/Character/Delete": "",
+	"/api/Character/Edit":   "",
+	"/api/Character/Get":    "",
+	"/api/Character/List":   "",
+	"/api/Character/Save":   "",
+
+	"/api/Material/Delete": "",
+	"/api/Material/Edit":   "",
+	"/api/Material/Get":    "",
+	"/api/Material/List":   "",
+	"/api/Material/Save":   "",
+
+	"/api/Mesh/Add":      "",
+	"/api/Mesh/Delete":   "",
+	"/api/Mesh/Download": "",
+	"/api/Mesh/Edit":     "",
+	"/api/Mesh/List":     "",
+
+	"/api/Particle/Delete": "",
+	"/api/Particle/Edit":   "",
+	"/api/Particle/Get":    "",
+	"/api/Particle/List":   "",
+	"/api/Particle/Save":   "",
+
+	"/api/Prefab/Delete": "",
+	"/api/Prefab/Edit":   "",
+	"/api/Prefab/Get":    "",
+	"/api/Prefab/List":   "",
+	"/api/Prefab/Save":   "",
+
+	"/api/Scene/Delete":      "",
+	"/api/Scene/Edit":        "",
+	"/api/Scene/HistoryList": "",
+	"/api/Scene/List":        "",
+	"/api/Scene/Load":        "",
+	"/api/Scene/Save":        "",
+
+	"/api/Screenshot/Add":    "",
+	"/api/Screenshot/Delete": "",
+	"/api/Screenshot/Edit":   "",
+	"/api/Screenshot/List":   "",
+
+	"/api/Assets/List": "",
+
+	"/api/Map/Add":    "",
+	"/api/Map/Delete": "",
+	"/api/Map/Edit":   "",
+	"/api/Map/List":   "",
+
+	"/api/Video/Add":    "",
+	"/api/Video/Delete": "",
+	"/api/Video/Edit":   "",
+	"/api/Video/List":   "",
+
+	// category
+	"/api/Category/Delete": "",
+	"/api/Category/List":   "",
+	"/api/Category/Save":   "",
+
+	// export
+	"/api/ExportExamples/Run": "",
+	"/api/ExportScene/Run":    "",
+
+	// system
+	"/api/OperatingAuthority/Get":  "",
+	"/api/OperatingAuthority/Save": "",
+
+	"/api/Config/Get":  "",
+	"/api/Config/Save": "",
+
+	"/api/Department/Add":    "",
+	"/api/Department/Delete": "",
+	"/api/Department/Edit":   "",
+	"/api/Department/List":   "",
+
+	"/api/Initialize/Initialize": "",
+	"/api/Initialize/Reset":      "",
+
+	"/api/Login/Login":  "",
+	"/api/Login/Logout": "",
+
+	"/api/Register/Register": "",
+
+	"/api/Role/Add":    "",
+	"/api/Role/Delete": "",
+	"/api/Role/Edit":   "",
+	"/api/Role/List":   "",
+
+	"/api/User/Add":            "",
+	"/api/User/ChangePassword": "",
+	"/api/User/Delete":         "",
+	"/api/User/Edit":           "",
+	"/api/User/List":           "",
+	"/api/User/ResetPassword":  "",
+
+	// tools
+	"/api/BackupDatabase/Run": "",
+	"/api/CleanUpScenes/Run":  "",
+
+	"/api/Plugin/Add":    "",
+	"/api/Plugin/Delete": "",
+	"/api/Plugin/Edit":   "",
+	"/api/Plugin/List":   "",
+
+	"/api/Typeface/Add":    "",
+	"/api/Typeface/Delete": "",
+	"/api/Typeface/List":   "",
+
+	// upload
+	"/api/Upload/Upload": "",
+}
+
 // Authority means an authority.
 type Authority string
 
