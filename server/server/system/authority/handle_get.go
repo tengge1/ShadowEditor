@@ -62,7 +62,7 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	roleName := doc["Name"].(string)
 
 	// get authorities
-	authorities := server.GetAllOperatingAuthorities()
+	authorities := server.GetAllAuthorities()
 	filter = bson.M{
 		"RoleID": roleID,
 	}
