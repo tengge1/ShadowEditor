@@ -13,9 +13,9 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/tengge1/shadoweditor/server/server"
+	"github.com/tengge1/shadoweditor/server"
 
-	"github.com/tengge1/shadoweditor/server/helper"
+	"github.com/tengge1/shadoweditor/helper"
 )
 
 func exportAnimation(path string) {

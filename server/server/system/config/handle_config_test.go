@@ -14,7 +14,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/tengge1/shadoweditor/server/server"
+	"github.com/tengge1/shadoweditor/server"
 )
 
 func TestHandleConfigNoAuthority(t *testing.T) {

@@ -10,7 +10,7 @@ package server
 import (
 	"fmt"
 
-	"github.com/tengge1/shadoweditor/server/helper"
+	"github.com/tengge1/shadoweditor/helper"
 )
 
 // Mongo create a new mongo client.

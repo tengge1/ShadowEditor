@@ -12,7 +12,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/tengge1/shadoweditor/server/helper"
+	"github.com/tengge1/shadoweditor/helper"
 )
 
 func exportUpload(path string) {

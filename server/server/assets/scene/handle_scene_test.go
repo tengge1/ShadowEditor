@@ -13,7 +13,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/tengge1/shadoweditor/server/server"
+	"github.com/tengge1/shadoweditor/server"
 )
 
 func TestSceneList(t *testing.T) {

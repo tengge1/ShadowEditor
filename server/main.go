@@ -8,7 +8,7 @@
 package main
 
 import (
-	"github.com/tengge1/shadoweditor/server/cmd"
+	"github.com/tengge1/shadoweditor/cmd"
 )
 
 // Here we just import and execute the root command. Keep this file tidy.

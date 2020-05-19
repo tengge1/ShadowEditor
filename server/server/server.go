@@ -15,7 +15,7 @@ import (
 	"os/signal"
 
 	"github.com/dimfeld/httptreemux"
-	"github.com/tengge1/shadoweditor/server/helper"
+	"github.com/tengge1/shadoweditor/helper"
 	"github.com/urfave/negroni"
 )
 
@@ -24,7 +24,7 @@ var (
 	// In the sub packages, we import the server package and can register route like:
 	//
 	// ```
-	// import "github.com/tengge1/shadoweditor/server/server"
+	// import "github.com/tengge1/shadoweditor/server"
 	//
 	// func init() {
 	//     server.Mux.UsingContext().Handle(http.MethodGet, "/api/Controller/Method", SomeFunc)

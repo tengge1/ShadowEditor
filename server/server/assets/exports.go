@@ -8,4 +8,4 @@
 package system
 
 // IMPORTANT: You should not register sub packages here, register in the file
-// `github.com/tengge1/shadoweditor/server/cmd/imports.go` instead.
+// `github.com/tengge1/shadoweditor/cmd/imports.go` instead.
