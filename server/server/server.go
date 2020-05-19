@@ -20,20 +20,6 @@ import (
 )
 
 var (
-	// Mux is used to register new route.
-	// In the sub packages, we import the server package and can register route like:
-	//
-	// ```
-	// import "github.com/tengge1/shadoweditor/server"
-	//
-	// func init() {
-	//     server.Mux.UsingContext().Handle(http.MethodGet, "/api/Controller/Method", SomeFunc)
-	// }
-	//
-	// func SomeFunc(w http.ResponseWriter, r *http.Request) {
-	//     w.Write([]byte("Hello, world."))
-	// }
-	// ```
 	mux *httptreemux.TreeMux
 )
 
