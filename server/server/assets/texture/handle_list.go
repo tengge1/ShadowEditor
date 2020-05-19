@@ -22,7 +22,7 @@ import (
 )
 
 func init() {
-	server.Handle(http.MethodGet, "/api/Map/List", List, server.ListMap)
+	server.Handle(http.MethodGet, "/api/Map/List", List, server.ListTexture)
 }
 
 // List returns the texture list.

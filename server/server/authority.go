@@ -252,6 +252,8 @@ type Authority string
 const (
 	// None means the api required no authority.
 	None Authority = "None"
+	// NotInitialized means the api can execute when it is not initialized.
+	NotInitialized Authority = "NotInitialized"
 	// Administrator means the user has all the authorities.
 	Administrator Authority = "Administrator"
 	// Login means the user has to log in.
@@ -287,14 +289,14 @@ const (
 	SaveCharacter Authority = "Save Character"
 	// DeleteCharacter means the user can delete character who created.
 	DeleteCharacter Authority = "Delete Character"
-	// ListMap means the user can get the texture list.
-	ListMap Authority = "List Map"
-	// AddMap means the user can add new texture.
-	AddMap Authority = "Add Map"
-	// EditMap means the user can edit texture name and thumbnail who uploaded.
-	EditMap Authority = "Edit Map"
-	// DeleteMap means the user can delete the texture who uploaded.
-	DeleteMap Authority = "Delete Map"
+	// ListTexture means the user can get the texture list.
+	ListTexture Authority = "List Map"
+	// AddTexture means the user can add new texture.
+	AddTexture Authority = "Add Map"
+	// EditTexture means the user can edit texture name and thumbnail who uploaded.
+	EditTexture Authority = "Edit Map"
+	// DeleteTexture means the user can delete the texture who uploaded.
+	DeleteTexture Authority = "Delete Map"
 	// ListMaterial means the user can get the material list.
 	ListMaterial Authority = "List Material"
 	// EditMaterial means the user can edit material name and thumbnail who saved.

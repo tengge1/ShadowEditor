@@ -25,7 +25,7 @@ import (
 )
 
 func init() {
-	server.Handle(http.MethodPost, "/api/Map/Add", Add, server.AddMap)
+	server.Handle(http.MethodPost, "/api/Map/Add", Add, server.AddTexture)
 }
 
 // Add upload a texture.

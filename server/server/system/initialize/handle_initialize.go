@@ -19,7 +19,7 @@ import (
 )
 
 func init() {
-	server.Handle(http.MethodPost, "/api/Initialize/Initialize", Initialize, server.Administrator)
+	server.Handle(http.MethodPost, "/api/Initialize/Initialize", Initialize, server.NotInitialized)
 }
 
 // Initialize initialize the authority system.

@@ -20,7 +20,7 @@ import (
 )
 
 func init() {
-	server.Handle(http.MethodPost, "/api/Map/Delete", Delete, server.DeleteMap)
+	server.Handle(http.MethodPost, "/api/Map/Delete", Delete, server.DeleteTexture)
 }
 
 // Delete delete a texture

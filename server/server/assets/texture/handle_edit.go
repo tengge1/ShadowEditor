@@ -19,7 +19,7 @@ import (
 )
 
 func init() {
-	server.Handle(http.MethodPost, "/api/Map/Edit", Edit, server.EditMap)
+	server.Handle(http.MethodPost, "/api/Map/Edit", Edit, server.EditTexture)
 }
 
 // Edit change the name, category and thumbnail of a texture.
