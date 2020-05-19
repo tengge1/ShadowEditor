@@ -19,7 +19,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Audio/Edit", Edit)
+	server.Handle(http.MethodPost, "/api/Audio/Edit", Edit, server.EditAudio)
 }
 
 // Edit change the name, category and thumbnail of an audio.

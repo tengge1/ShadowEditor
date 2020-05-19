@@ -20,7 +20,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Scene/List", List)
+	server.Handle(http.MethodGet, "/api/Scene/List", List, server.None)
 }
 
 // List returns scene list.

@@ -25,7 +25,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Animation/Add", Add)
+	server.Handle(http.MethodPost, "/api/Animation/Add", Add, server.AddAnimation)
 }
 
 // Add upload an animation.

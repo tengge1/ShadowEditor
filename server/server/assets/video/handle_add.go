@@ -24,7 +24,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Video/Add", Add)
+	server.Handle(http.MethodPost, "/api/Video/Add", Add, server.AddVideo)
 }
 
 // Add upload a video.

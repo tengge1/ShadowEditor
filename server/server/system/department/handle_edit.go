@@ -19,7 +19,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Department/Edit", Edit)
+	server.Handle(http.MethodPost, "/api/Department/Edit", Edit, server.Administrator)
 }
 
 // Edit edit the name of a department.

@@ -250,10 +250,13 @@ var APIAuthority = map[string]string{
 type Authority string
 
 const (
+	// None means the api required no authority.
+	None Authority = "None"
 	// Administrator means the user has all the authorities.
 	Administrator Authority = "Administrator"
 	// Login means the user has to log in.
 	Login Authority = "Login"
+
 	// ListAnimation means the user can get the animation list.
 	ListAnimation Authority = "List Animation"
 	// AddAnimation means the user can upload animation.

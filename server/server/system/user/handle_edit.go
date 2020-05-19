@@ -20,7 +20,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/User/Edit", Edit)
+	server.Handle(http.MethodPost, "/api/User/Edit", Edit, server.Administrator)
 }
 
 // Edit change a user's name, department and role.

@@ -20,7 +20,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Scene/Save", Save)
+	server.Handle(http.MethodPost, "/api/Scene/Save", Save, server.SaveScene)
 }
 
 // Save save a scene.

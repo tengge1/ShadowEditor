@@ -18,7 +18,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Prefab/Delete", Delete)
+	server.Handle(http.MethodPost, "/api/Prefab/Delete", Delete, server.DeletePrefab)
 }
 
 // Delete delete a prefab.

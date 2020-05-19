@@ -19,7 +19,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Video/Delete", Delete)
+	server.Handle(http.MethodPost, "/api/Video/Delete", Delete, server.DeleteVideo)
 }
 
 // Delete delete a video.

@@ -21,7 +21,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Typeface/Delete", Delete)
+	server.Handle(http.MethodPost, "/api/Typeface/Delete", Delete, server.Administrator)
 }
 
 // Delete delete a typeface.

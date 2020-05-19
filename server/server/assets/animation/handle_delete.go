@@ -19,7 +19,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Animation/Delete", Delete)
+	server.Handle(http.MethodPost, "/api/Animation/Delete", Delete, server.DeleteAnimation)
 }
 
 // Delete delete an animation.

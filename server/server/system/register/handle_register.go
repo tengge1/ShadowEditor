@@ -20,7 +20,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Register/Register", Register)
+	server.Handle(http.MethodPost, "/api/Register/Register", Register, server.None)
 }
 
 // Register register a user.

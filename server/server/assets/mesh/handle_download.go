@@ -20,7 +20,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Mesh/Download", Download)
+	server.Handle(http.MethodPost, "/api/Mesh/Download", Download, server.ListMesh)
 }
 
 // Download download a mesh.

@@ -19,7 +19,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Config/Get", Get)
+	server.Handle(http.MethodGet, "/api/Config/Get", Get, server.None)
 }
 
 // Get get the server config of the current user.

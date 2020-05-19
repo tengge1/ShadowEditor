@@ -19,7 +19,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/OperatingAuthority/Save", Save)
+	server.Handle(http.MethodPost, "/api/OperatingAuthority/Save", Save, server.Administrator)
 }
 
 // Save update a user's authorities.

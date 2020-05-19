@@ -22,7 +22,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodGet, "/api/User/List", List)
+	server.Handle(http.MethodGet, "/api/User/List", List, server.Administrator)
 }
 
 // List returns the user list.

@@ -19,7 +19,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Particle/Edit", Edit)
+	server.Handle(http.MethodPost, "/api/Particle/Edit", Edit, server.EditParticle)
 }
 
 // Edit change the name, category and thumbnail of a particle.

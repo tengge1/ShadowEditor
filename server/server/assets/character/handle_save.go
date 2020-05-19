@@ -20,7 +20,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Character/Save", Save)
+	server.Handle(http.MethodPost, "/api/Character/Save", Save, server.SaveCharacter)
 }
 
 // Save save a character.

@@ -19,7 +19,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Scene/Edit", Edit)
+	server.Handle(http.MethodPost, "/api/Scene/Edit", Edit, server.EditScene)
 }
 
 // Edit change name, category and thumbnail of a scene.

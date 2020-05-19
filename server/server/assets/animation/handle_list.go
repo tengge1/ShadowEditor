@@ -20,7 +20,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Animation/List", List)
+	server.Handle(http.MethodGet, "/api/Animation/List", List, server.ListAnimation)
 }
 
 // List returns the animation list.

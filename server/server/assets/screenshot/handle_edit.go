@@ -19,7 +19,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Screenshot/Edit", Edit)
+	server.Handle(http.MethodPost, "/api/Screenshot/Edit", Edit, server.EditScreenshot)
 }
 
 // Edit change the name, category and thumbnail of a screenshot.

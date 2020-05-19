@@ -20,7 +20,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Plugin/Edit", Edit)
+	server.Handle(http.MethodPost, "/api/Plugin/Edit", Edit, server.Administrator)
 }
 
 // Edit edit the name and source of a plugin.

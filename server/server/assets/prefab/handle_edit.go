@@ -19,7 +19,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Prefab/Edit", Edit)
+	server.Handle(http.MethodPost, "/api/Prefab/Edit", Edit, server.EditPrefab)
 }
 
 // Edit edit the name, category and thumbnail of a prefab.

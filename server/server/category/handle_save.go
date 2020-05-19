@@ -19,7 +19,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Category/Save", Save)
+	server.Handle(http.MethodPost, "/api/Category/Save", Save, server.SaveCategory)
 }
 
 // Save save a category

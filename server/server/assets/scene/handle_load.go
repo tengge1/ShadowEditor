@@ -20,7 +20,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Scene/Load", Load)
+	server.Handle(http.MethodGet, "/api/Scene/Load", Load, server.None)
 }
 
 // Load load scene data.

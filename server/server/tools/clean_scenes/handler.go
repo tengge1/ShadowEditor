@@ -18,7 +18,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/CleanUpScenes/Run", Handle)
+	server.Handle(http.MethodPost, "/api/CleanUpScenes/Run", Handle, server.Administrator)
 }
 
 // Handle clean up history scenes and deleted scenes in the mongo.

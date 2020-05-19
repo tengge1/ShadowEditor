@@ -20,7 +20,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Prefab/List", List)
+	server.Handle(http.MethodGet, "/api/Prefab/List", List, server.ListPrefab)
 }
 
 // List returns the prefab list

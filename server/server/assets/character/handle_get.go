@@ -19,7 +19,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Character/Get", Get)
+	server.Handle(http.MethodGet, "/api/Character/Get", Get, server.ListCharacter)
 }
 
 // Get get a character by ID.

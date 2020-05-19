@@ -19,7 +19,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Initialize/Initialize", Initialize)
+	server.Handle(http.MethodPost, "/api/Initialize/Initialize", Initialize, server.Administrator)
 }
 
 // Initialize initialize the authority system.

@@ -18,7 +18,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodGet, "/api/OperatingAuthority/Get", Get)
+	server.Handle(http.MethodGet, "/api/OperatingAuthority/Get", Get, server.Administrator)
 }
 
 // Get get authorities by the role ID.

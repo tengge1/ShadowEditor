@@ -17,7 +17,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Assets/List", List)
+	server.Handle(http.MethodGet, "/api/Assets/List", List, server.None)
 }
 
 // List returns the assets info list.

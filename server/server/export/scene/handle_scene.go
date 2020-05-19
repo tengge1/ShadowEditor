@@ -26,7 +26,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/ExportScene/Run", Scene)
+	server.Handle(http.MethodPost, "/api/ExportScene/Run", Scene, server.Administrator)
 }
 
 // Scene publish scene to static contents.

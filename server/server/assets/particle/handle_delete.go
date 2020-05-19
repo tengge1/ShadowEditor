@@ -18,7 +18,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Particle/Delete", Delete)
+	server.Handle(http.MethodPost, "/api/Particle/Delete", Delete, server.DeleteParticle)
 }
 
 // Delete delete a particle.

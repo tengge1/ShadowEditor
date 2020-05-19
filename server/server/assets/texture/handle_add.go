@@ -25,7 +25,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Map/Add", Add)
+	server.Handle(http.MethodPost, "/api/Map/Add", Add, server.AddMap)
 }
 
 // Add upload a texture.

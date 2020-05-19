@@ -20,7 +20,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Video/List", List)
+	server.Handle(http.MethodGet, "/api/Video/List", List, server.ListVideo)
 }
 
 // List returns the video list.

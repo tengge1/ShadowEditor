@@ -16,7 +16,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Login/Logout", Logout)
+	server.Handle(http.MethodPost, "/api/Login/Logout", Logout, server.Login)
 }
 
 // Logout log out the system.

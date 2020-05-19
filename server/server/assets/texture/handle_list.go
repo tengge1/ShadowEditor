@@ -22,7 +22,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Map/List", List)
+	server.Handle(http.MethodGet, "/api/Map/List", List, server.ListMap)
 }
 
 // List returns the texture list.

@@ -22,7 +22,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Role/List", List)
+	server.Handle(http.MethodGet, "/api/Role/List", List, server.Administrator)
 }
 
 // List return the role list.

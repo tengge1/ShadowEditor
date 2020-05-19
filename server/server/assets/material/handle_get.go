@@ -19,7 +19,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Material/Get", Get)
+	server.Handle(http.MethodGet, "/api/Material/Get", Get, server.ListMaterial)
 }
 
 // Get get the date of a material.

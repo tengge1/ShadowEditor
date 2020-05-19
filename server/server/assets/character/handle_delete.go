@@ -18,7 +18,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Character/Delete", Delete)
+	server.Handle(http.MethodPost, "/api/Character/Delete", Delete, server.DeleteCategory)
 }
 
 // Delete delete a character.

@@ -20,7 +20,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Material/List", List)
+	server.Handle(http.MethodGet, "/api/Material/List", List, server.ListMaterial)
 }
 
 // List returns the material list.

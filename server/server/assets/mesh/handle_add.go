@@ -25,7 +25,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Mesh/Add", Add)
+	server.Handle(http.MethodPost, "/api/Mesh/Add", Add, server.AddMesh)
 }
 
 // Add upload a mesh.

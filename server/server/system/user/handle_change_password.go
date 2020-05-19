@@ -20,7 +20,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/User/ChangePassword", ChangePassword)
+	server.Handle(http.MethodPost, "/api/User/ChangePassword", ChangePassword, server.Administrator)
 }
 
 // ChangePassword change a user's password

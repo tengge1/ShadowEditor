@@ -20,7 +20,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Audio/List", List)
+	server.Handle(http.MethodGet, "/api/Audio/List", List, server.ListAudio)
 }
 
 // List return the audio list.

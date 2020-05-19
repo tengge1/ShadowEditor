@@ -18,7 +18,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Config/Save", Save)
+	server.Handle(http.MethodPost, "/api/Config/Save", Save, server.Administrator)
 }
 
 // Save save system config.

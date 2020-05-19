@@ -20,7 +20,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Login/Login", Login)
+	server.Handle(http.MethodPost, "/api/Login/Login", Login, server.None)
 }
 
 // Login log in the system.

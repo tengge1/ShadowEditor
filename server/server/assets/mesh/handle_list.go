@@ -20,7 +20,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Mesh/List", List)
+	server.Handle(http.MethodGet, "/api/Mesh/List", List, server.ListMesh)
 }
 
 // List returns the mesh list.

@@ -18,7 +18,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Scene/Delete", Delete)
+	server.Handle(http.MethodPost, "/api/Scene/Delete", Delete, server.DeleteScene)
 }
 
 // Delete delete a scene.

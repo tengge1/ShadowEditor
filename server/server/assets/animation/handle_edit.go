@@ -19,7 +19,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Animation/Edit", Edit)
+	server.Handle(http.MethodPost, "/api/Animation/Edit", Edit, server.EditAnimation)
 }
 
 // Edit change the name, category and thumbnail of an animation.

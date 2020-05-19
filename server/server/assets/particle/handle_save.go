@@ -20,7 +20,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Particle/Save", Save)
+	server.Handle(http.MethodPost, "/api/Particle/Save", Save, server.SaveParticle)
 }
 
 // Save save a particle.

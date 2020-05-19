@@ -19,7 +19,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Screenshot/Delete", Delete)
+	server.Handle(http.MethodPost, "/api/Screenshot/Delete", Delete, server.DeleteScreenshot)
 }
 
 // Delete delete a screenshot.

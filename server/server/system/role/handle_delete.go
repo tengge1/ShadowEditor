@@ -18,7 +18,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Role/Delete", Delete)
+	server.Handle(http.MethodPost, "/api/Role/Delete", Delete, server.Administrator)
 }
 
 // Delete delete a role.

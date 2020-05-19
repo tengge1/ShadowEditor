@@ -19,7 +19,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Particle/Get", Get)
+	server.Handle(http.MethodGet, "/api/Particle/Get", Get, server.ListParticle)
 }
 
 // Get get a particle data.

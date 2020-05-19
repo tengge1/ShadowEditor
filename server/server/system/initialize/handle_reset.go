@@ -18,7 +18,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Initialize/Reset", Reset)
+	server.Handle(http.MethodPost, "/api/Initialize/Reset", Reset, server.Administrator)
 }
 
 // Reset reset the system, delete all the configs, roles, users, departments and authorities.

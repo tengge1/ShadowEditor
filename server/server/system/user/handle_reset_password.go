@@ -20,7 +20,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/User/ResetPassword", ResetPassword)
+	server.Handle(http.MethodPost, "/api/User/ResetPassword", ResetPassword, server.Administrator)
 }
 
 // ResetPassword reset a user's password.

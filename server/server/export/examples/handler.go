@@ -21,7 +21,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/ExportExamples/Run", Run)
+	server.Handle(http.MethodPost, "/api/ExportExamples/Run", Run, server.Administrator)
 }
 
 // Run export editor and examples to static contents, especially for demo.

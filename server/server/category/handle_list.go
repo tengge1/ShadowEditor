@@ -18,7 +18,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Category/List", List)
+	server.Handle(http.MethodGet, "/api/Category/List", List, server.ListCategory)
 }
 
 // List returns category list.

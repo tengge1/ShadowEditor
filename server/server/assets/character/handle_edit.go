@@ -19,7 +19,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Character/Edit", Edit)
+	server.Handle(http.MethodPost, "/api/Character/Edit", Edit, server.EditCharacter)
 }
 
 // Edit change the name, category and thumbnail of a character.

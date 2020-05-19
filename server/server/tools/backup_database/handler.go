@@ -24,7 +24,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/BackupDatabase/Run", Handle)
+	server.Handle(http.MethodPost, "/api/BackupDatabase/Run", Handle, server.Administrator)
 }
 
 // Handle backup collections to a directory.

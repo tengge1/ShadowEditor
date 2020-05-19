@@ -19,7 +19,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Mesh/Edit", Edit)
+	server.Handle(http.MethodPost, "/api/Mesh/Edit", Edit, server.EditMesh)
 }
 
 // Edit edit the name, category and thumbnail of a mesh.

@@ -19,7 +19,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Typeface/List", List)
+	server.Handle(http.MethodGet, "/api/Typeface/List", List, server.Administrator)
 }
 
 // List returns the typeface list.

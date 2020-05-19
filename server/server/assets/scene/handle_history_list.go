@@ -22,7 +22,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Scene/HistoryList", HistoryList)
+	server.Handle(http.MethodGet, "/api/Scene/HistoryList", HistoryList, server.None)
 }
 
 // HistoryList returns scene history list.

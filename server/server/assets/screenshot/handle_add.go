@@ -24,7 +24,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Screenshot/Add", Add)
+	server.Handle(http.MethodPost, "/api/Screenshot/Add", Add, server.AddScreenshot)
 }
 
 // Add upload a screenshot.

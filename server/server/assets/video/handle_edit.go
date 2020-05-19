@@ -19,7 +19,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Video/Edit", Edit)
+	server.Handle(http.MethodPost, "/api/Video/Edit", Edit, server.EditVideo)
 }
 
 // Edit change the name, category and thumbnail of a video.

@@ -20,7 +20,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Prefab/Save", Save)
+	server.Handle(http.MethodPost, "/api/Prefab/Save", Save, server.SavePrefab)
 }
 
 // Save save a prefab.

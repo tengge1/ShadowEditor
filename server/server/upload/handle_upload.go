@@ -23,7 +23,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Upload/Upload", Upload)
+	server.Handle(http.MethodPost, "/api/Upload/Upload", Upload, server.Login)
 }
 
 // Upload upload a file to the server, such as a thumbnail.

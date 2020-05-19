@@ -20,7 +20,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodGet, "/api/Screenshot/List", List)
+	server.Handle(http.MethodGet, "/api/Screenshot/List", List, server.ListScreenshot)
 }
 
 // List returns all the screenshot list.

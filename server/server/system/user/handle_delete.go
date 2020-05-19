@@ -18,7 +18,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/User/Delete", Delete)
+	server.Handle(http.MethodPost, "/api/User/Delete", Delete, server.Administrator)
 }
 
 // Delete delete a user.

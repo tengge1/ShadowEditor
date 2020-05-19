@@ -24,7 +24,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Audio/Add", Add)
+	server.Handle(http.MethodPost, "/api/Audio/Add", Add, server.AddAudio)
 }
 
 // Add upload an audio.

@@ -14,8 +14,33 @@ import (
 	"os"
 	"os/signal"
 
+	"github.com/dimfeld/httptreemux"
+	"github.com/tengge1/shadoweditor/server/helper"
 	"github.com/urfave/negroni"
 )
+
+var (
+	// Mux is used to register new route.
+	// In the sub packages, we import the server package and can register route like:
+	//
+	// ```
+	// import "github.com/tengge1/shadoweditor/server/server"
+	//
+	// func init() {
+	//     server.Mux.UsingContext().Handle(http.MethodGet, "/api/Controller/Method", SomeFunc)
+	// }
+	//
+	// func SomeFunc(w http.ResponseWriter, r *http.Request) {
+	//     w.Write([]byte("Hello, world."))
+	// }
+	// ```
+	mux *httptreemux.TreeMux
+)
+
+func init() {
+	mux = httptreemux.New()
+	mux.OptionsHandler = corsHandler
+}
 
 // Start start the web server.
 //
@@ -34,7 +59,7 @@ func Start() {
 	handler.Use(negroni.HandlerFunc(CrossOriginMiddleware))
 	handler.Use(negroni.HandlerFunc(GZipMiddleware))
 	handler.Use(negroni.HandlerFunc(ValidateTokenMiddleware))
-	handler.UseHandler(Mux)
+	handler.UseHandler(mux)
 
 	srv := http.Server{Addr: Config.Server.Port, Handler: handler}
 	idleConnsClosed := make(chan struct{})
@@ -58,4 +83,15 @@ func Start() {
 	}
 
 	<-idleConnsClosed
+}
+
+// Handle allows handling HTTP requests via an http.HandlerFunc. Authority means the required
+// authority to request this api. No authority is needed when authority is nil.
+func Handle(method, path string, handler http.HandlerFunc, authority Authority) {
+	mux.UsingContext().Handle(method, path, handler)
+}
+
+// corsHandler handles OPTIONS request when cross origin.
+func corsHandler(w http.ResponseWriter, r *http.Request, params map[string]string) {
+	helper.EnableCrossDomain(w, r)
 }

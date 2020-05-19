@@ -24,7 +24,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Typeface/Add", Add)
+	server.Handle(http.MethodPost, "/api/Typeface/Add", Add, server.Administrator)
 }
 
 // Add upload a typeface.

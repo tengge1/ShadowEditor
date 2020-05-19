@@ -21,7 +21,7 @@ import (
 )
 
 func init() {
-	server.Mux.UsingContext().Handle(http.MethodPost, "/api/Material/Save", Save)
+	server.Handle(http.MethodPost, "/api/Material/Save", Save, server.SaveMaterial)
 }
 
 // Save save a new material.
