@@ -26,7 +26,7 @@ import (
 )
 
 func init() {
-	server.Handle(http.MethodPost, "/api/ExportScene/Run", Scene, server.Administrator)
+	server.Handle(http.MethodPost, "/api/ExportScene/Run", Scene, server.PublishScene)
 }
 
 // Scene publish scene to static contents.
