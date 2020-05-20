@@ -9,6 +9,7 @@ package server
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -20,7 +21,10 @@ import (
 )
 
 var (
+	// mux maps request url to handler.
 	mux *httptreemux.TreeMux
+	// apiAuthorities means the authority that api requires.
+	apiAuthorities = map[string]Authority{}
 )
 
 func init() {
@@ -74,6 +78,10 @@ func Start() {
 // Handle allows handling HTTP requests via an http.HandlerFunc. Authority means the required
 // authority to request this api. No authority is needed when authority is nil.
 func Handle(method, path string, handler http.HandlerFunc, authority Authority) {
+	if _, ok := apiAuthorities[path]; ok {
+		panic(fmt.Errorf("path (%v) has already been handled", path))
+	}
+	apiAuthorities[path] = authority
 	mux.UsingContext().Handle(method, path, handler)
 }
 
