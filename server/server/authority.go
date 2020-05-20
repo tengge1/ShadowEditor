@@ -19,6 +19,14 @@ func GetAllAuthorities() []AuthorityModel {
 	return result
 }
 
+// AuthorityModel is operating authority model.
+type AuthorityModel struct {
+	// ID is authority ID.
+	ID string
+	// Name is authority name.
+	Name string
+}
+
 var authorities = []Authority{
 	None,
 	NotInitialized,
@@ -71,14 +79,6 @@ var authorities = []Authority{
 	AddVideo,
 	EditVideo,
 	DeleteVideo,
-}
-
-// AuthorityModel is operating authority model.
-type AuthorityModel struct {
-	// ID is authority ID.
-	ID string
-	// Name is authority name.
-	Name string
 }
 
 // Authority means an authority.
