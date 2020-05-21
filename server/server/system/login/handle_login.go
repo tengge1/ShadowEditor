@@ -12,6 +12,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/dgrijalva/jwt-go"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 
@@ -91,10 +92,32 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	// write userID to cookie
 	id := user["ID"].(primitive.ObjectID).Hex()
 
+	token := jwt.New(jwt.SigningMethodHS256)
+	claims := make(jwt.MapClaims)
+	claims["exp"] = time.Now().Add(time.Hour * time.Duration(1)).Unix()
+	claims["iat"] = time.Now().Unix()
+	claims["userID"] = id
+	token.Claims = claims
+
+	// if err != nil {
+	// 	w.WriteHeader(http.StatusInternalServerError)
+	// 	fmt.Fprintln(w, "Error extracting the key")
+	// 	fatal(err)
+	// }
+
+	tokenString, err := token.SignedString([]byte(server.Config.Authority.SecretKey))
+	if !find {
+		helper.WriteJSON(w, server.Result{
+			Code: 300,
+			Msg:  "Error while signing the token.",
+		})
+		return
+	}
+
 	expire := time.Now().AddDate(0, 0, 1)
 	cookie := http.Cookie{
-		Name:     "UserID",
-		Value:    id,
+		Name:     "token",
+		Value:    tokenString,
 		Expires:  expire,
 		HttpOnly: true,
 		Path:     "/",
