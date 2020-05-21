@@ -18,7 +18,7 @@ import (
 )
 
 func init() {
-	server.Handle(http.MethodGet, "/api/Category/List", List, server.ListCategory)
+	server.Handle(http.MethodGet, "/api/Category/List", List, server.None)
 }
 
 // List returns category list.
