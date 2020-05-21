@@ -24,6 +24,11 @@ const (
 
 // ValidateTokenMiddleware is used to validate user's credentials.
 func ValidateTokenMiddleware(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
+	if !Config.Authority.Enabled { // authority is not enabled
+		next(w, r)
+		return
+	}
+
 	path := r.URL.Path
 	auth := apiAuthorities[path]
 
