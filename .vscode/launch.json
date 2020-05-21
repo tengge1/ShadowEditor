@@ -15,7 +15,7 @@
             "args": [
                 "serve",
                 "--config",
-                "${workspaceFolder}/server/config-server.toml"
+                "${workspaceFolder}/server/config-dev.toml"
             ]
         },
         {

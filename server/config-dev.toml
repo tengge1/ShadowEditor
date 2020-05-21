@@ -1,4 +1,4 @@
-# Shadow Editor Server Configuration
+# Shadow Editor Server Configuration for development
 
 [server]
 port = ":2020"                              # server address
