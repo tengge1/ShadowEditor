@@ -23,6 +23,7 @@ func TestConfig(t *testing.T) {
 
 	t.Logf("authority.enabled: %v", config.Authority.Enabled)
 	t.Logf("authority.expires: %v", config.Authority.Expires)
+	t.Logf("authority.secret_key: %v", config.Authority.SecretKey)
 
 	t.Logf("upload.max_size: %v", config.Upload.MaxSize)
 

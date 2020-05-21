@@ -13,7 +13,8 @@ database = "ShadowEditor"                   # mongo database name
 
 [authority]
 enabled = false                              # enable authority
-expires = 120                               # login time, minutes, only support integer 
+expires = 120                               # login time, minutes, only support integer
+secret_key = "Welcome ---------"            # secret_key is used to encrypte credentials
 
 [upload]
 max_size = 1000000000                       # max upload file size

@@ -15,13 +15,6 @@ import (
 	"github.com/dgrijalva/jwt-go/request"
 )
 
-// https://blog.csdn.net/qq_30505673/article/details/88750279
-
-const (
-	// SecretKey is used to encrypte credentials.
-	SecretKey = "Welcome ---------"
-)
-
 // ValidateTokenMiddleware is used to validate user's credentials.
 func ValidateTokenMiddleware(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
 	if !Config.Authority.Enabled { // authority is not enabled
@@ -39,7 +32,7 @@ func ValidateTokenMiddleware(w http.ResponseWriter, r *http.Request, next http.H
 
 	token, err := request.ParseFromRequest(r, request.AuthorizationHeaderExtractor,
 		func(token *jwt.Token) (interface{}, error) {
-			return []byte(SecretKey), nil
+			return []byte(Config.Authority.SecretKey), nil
 		})
 
 	if err == nil {

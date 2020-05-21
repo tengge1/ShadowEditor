@@ -79,8 +79,9 @@ type DatabaseConfigModel struct {
 
 // AuthorityConfigModel is the authority config section in `config.toml`;
 type AuthorityConfigModel struct {
-	Enabled bool `toml:"enabled"`
-	Expires int  `toml:"expires"`
+	Enabled   bool   `toml:"enabled"`
+	Expires   int    `toml:"expires"`
+	SecretKey string `toml:"secret_key"`
 }
 
 // UploadConfigModel is the upload config section in `config.toml`;
