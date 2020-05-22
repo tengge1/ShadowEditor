@@ -15,6 +15,7 @@ English / [中文](README_zh.md)
 
 1. MongoDB user and password configuration.
 2. Documentation changed from gitbook to gitee wiki.
+3. Use JSON web tokens (JWT) for user authentication. 
 
 ## v0.5.1 has Released
 

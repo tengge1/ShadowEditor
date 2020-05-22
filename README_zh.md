@@ -15,6 +15,7 @@
 
 1. MongoDB用户名和密码设置。
 2. 文档由gitbook改为gitee wiki。
+3. 使用JSON Web令牌（JWT）进行用户身份验证。
 
 ## v0.5.1更新
 
