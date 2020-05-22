@@ -117,6 +117,7 @@ const (
 	DeleteAudio Authority = "DELETE_AUDIO"
 	// ListCategory means the user can get his category list.
 	// ListCategory Authority = "LIST_CATEGORY"
+
 	// SaveCategory means the user can add new category.
 	SaveCategory Authority = "SAVE_CATEGORY"
 	// DeleteCategory means the user can delete the category who created.
