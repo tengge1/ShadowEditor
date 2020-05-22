@@ -8,11 +8,9 @@
 package server
 
 import (
-	"fmt"
 	"net/http"
 
-	"github.com/dgrijalva/jwt-go"
-	"github.com/dgrijalva/jwt-go/request"
+	"github.com/tengge1/shadoweditor/helper"
 )
 
 // ValidateTokenMiddleware is used to validate user's credentials.
@@ -22,27 +20,35 @@ func ValidateTokenMiddleware(w http.ResponseWriter, r *http.Request, next http.H
 		return
 	}
 
-	path := r.URL.Path
-	auth := apiAuthorities[path]
+	auth := apiAuthorities[r.URL.Path]
+	user, _ := GetCurrentUser(r)
 
-	if auth == None { // no authority is needed
+	// api needs no authority
+	if user == nil && auth == None {
 		next(w, r)
 		return
 	}
 
-	token, err := request.ParseFromRequest(r, request.AuthorizationHeaderExtractor,
-		func(token *jwt.Token) (interface{}, error) {
-			return []byte(Config.Authority.SecretKey), nil
-		})
-
-	if err == nil {
-		if token.Valid {
-			next(w, r)
-		} else {
-			w.WriteHeader(http.StatusUnauthorized)
-			fmt.Fprint(w, "Token is not valid")
+	// user has the authority required
+	has := false
+	for _, item := range user.OperatingAuthorities {
+		if item == string(auth) {
+			has = true
+			break
 		}
-	} else {
-		w.WriteHeader(http.StatusUnauthorized)
 	}
+
+	if has {
+		next(w, r)
+		return
+	}
+
+	// user has no authority
+	result := Result{
+		Code: 301,
+		Msg:  "Not allowed.",
+	}
+
+	json, _ := helper.ToJSON(result)
+	w.Write(json)
 }

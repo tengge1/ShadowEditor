@@ -12,37 +12,37 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/dgrijalva/jwt-go"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 
 	"github.com/tengge1/shadoweditor/server/system"
 )
 
-// GetCurrentUser get the current login user.
-// It gets userID from the cookie.
+// GetCurrentUser get the current login user. It returns nil if there is something wrong.
 func GetCurrentUser(r *http.Request) (*system.User, error) {
-	cookies := r.Cookies()
-
-	if len(cookies) == 0 {
-		return nil, nil
-	}
-
 	var cookie *http.Cookie = nil
-
-	for _, item := range cookies {
-		if item.Name == "UserID" {
+	for _, item := range r.Cookies() {
+		if item.Name == "token" {
 			cookie = item
 			break
 		}
 	}
 
-	if cookie == nil {
-		return nil, nil
-	}
-
-	user, err := GetUser(cookie.Value)
-	if err != nil {
-		return nil, err
+	// get current user
+	var user *system.User = nil
+	if cookie != nil {
+		token, err := jwt.Parse(cookie.Value, func(token *jwt.Token) (interface{}, error) {
+			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+				return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
+			}
+			return []byte(Config.Authority.SecretKey), nil
+		})
+		if claims, ok := token.Claims.(jwt.MapClaims); ok && token != nil && token.Valid {
+			user, _ = GetUser(claims["userID"].(string))
+		} else {
+			Logger.Error(err.Error())
+		}
 	}
 
 	return user, nil
