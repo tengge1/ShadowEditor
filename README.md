@@ -14,7 +14,7 @@ English / [中文](README_zh.md)
 ## v0.5.2 is Coming Soon
 
 1. MongoDB user and password configuration.
-2. Documentation changed from gitbook to gitee wiki.
+2. Documentation changed from gitbook to gitee wiki. [See Detail](https://gitee.com/tengge1/ShadowEditor/wikis/pages)
 3. Use JSON web tokens (JWT) for user authentication. 
 
 ## v0.5.1 has Released
