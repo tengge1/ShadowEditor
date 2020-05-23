@@ -25,8 +25,7 @@ func GetConfig(path string) (config *ConfigModel, err error) {
 
 	defer file.Close()
 
-	_, err = toml.DecodeReader(file, &config)
-	if err != nil {
+	if _, err = toml.DecodeReader(file, &config); err != nil {
 		return nil, err
 	}
 
@@ -68,49 +67,49 @@ type ConfigModel struct {
 	Log       LogConfigModel       `toml:"log"`
 }
 
-// ServerConfigModel is the server config section in `config.toml`;
+// ServerConfigModel is the server config section in `config.toml`.
 type ServerConfigModel struct {
 	Port string `toml:"port"`
 }
 
-// DatabaseConfigModel is the database config section in `config.toml`;
+// DatabaseConfigModel is the database config section in `config.toml`.
 type DatabaseConfigModel struct {
 	Type     string `toml:"type"`
 	Host     string `toml:"host"`
 	Port     int    `toml:"port"`
-	Database string `toml:"database"`
 	User     string `toml:"user"`
 	Password string `toml:"password"`
+	Database string `toml:"database"`
 
 	// Connection should not read from config.toml.
 	Connection string
 }
 
-// AuthorityConfigModel is the authority config section in `config.toml`;
+// AuthorityConfigModel is the authority config section in `config.toml`.
 type AuthorityConfigModel struct {
 	Enabled   bool   `toml:"enabled"`
 	Expires   int    `toml:"expires"`
 	SecretKey string `toml:"secret_key"`
 }
 
-// UploadConfigModel is the upload config section in `config.toml`;
+// UploadConfigModel is the upload config section in `config.toml`.
 type UploadConfigModel struct {
 	MaxSize int64 `toml:"max_size"`
 }
 
-// RemoteConfigModel is the remote config section in `config.toml`;
+// RemoteConfigModel is the remote config section in `config.toml`.
 type RemoteConfigModel struct {
 	Enabled       bool `toml:"enabled"`
 	WebSocketPort int  `toml:"web_socket_port"`
 }
 
-// PathConfigModel is the authority path section in `config.toml`;
+// PathConfigModel is the authority path section in `config.toml`.
 type PathConfigModel struct {
 	PublicDir string `toml:"public_dir"`
 	LogDir    string `toml:"log_dir"`
 }
 
-// LogConfigModel is the log config section in `config.toml`;
+// LogConfigModel is the log config section in `config.toml`.
 type LogConfigModel struct {
 	File string `toml:"file"`
 }
