@@ -31,13 +31,22 @@ func GetConfig(path string) (config *ConfigModel, err error) {
 	}
 
 	// parse mongoDB connection string.
-	config.Database.Connection = fmt.Sprintf(
-		"mongodb://%v:%v@%v:%v",
-		config.Database.User,
-		config.Database.Password,
-		config.Database.Host,
-		config.Database.Port,
-	)
+	if config.Database.User != "" && config.Database.Password != "" {
+		// If user is empty, this will cause `error parsing uri: authsource without username is invalid` error.
+		config.Database.Connection = fmt.Sprintf(
+			"mongodb://%v:%v@%v:%v",
+			config.Database.User,
+			config.Database.Password,
+			config.Database.Host,
+			config.Database.Port,
+		)
+	} else {
+		config.Database.Connection = fmt.Sprintf(
+			"mongodb://%v:%v",
+			config.Database.Host,
+			config.Database.Port,
+		)
+	}
 
 	// In windows system, path separator "/" should be replace with "\\".
 	if strings.HasPrefix(runtime.GOOS, "windows") {

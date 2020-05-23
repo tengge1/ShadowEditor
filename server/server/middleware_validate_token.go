@@ -94,5 +94,5 @@ func logAPI(path string, auth Authority, username string, success bool) {
 		result = "Success"
 	}
 
-	Logger.Infof("%v\t%v\t%v\t%v", path, string(auth), username, result)
+	Logger.Infof("%v %v %v %v", path, string(auth), username, result)
 }

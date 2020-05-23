@@ -46,7 +46,7 @@ func Create(path string) error {
 
 	logger := &logrus.Logger{
 		Out:       writer,
-		Formatter: new(logrus.JSONFormatter),
+		Formatter: new(logrus.TextFormatter),
 		Hooks:     make(logrus.LevelHooks),
 		Level:     logrus.DebugLevel,
 	}
