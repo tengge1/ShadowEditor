@@ -64,7 +64,7 @@ func runServe() {
 
 func wait() {
 	// When you double click ShadowEditor.exe in the Windows explorer,
-	// wait to see errors in order not to crash immediately.
+	// wait in order not to crash immediately.
 	if mousetrap.StartedByExplorer() {
 		reader := bufio.NewReader(os.Stdin)
 		reader.ReadString('\n')

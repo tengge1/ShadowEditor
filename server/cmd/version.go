@@ -15,7 +15,7 @@ import (
 
 // versionCmd displays the version number.
 //
-// TODO: move the version number tegother with the front-end,
+// TODO: Move the version number tegother with the front-end,
 // then it is easy to modify when we publish new version.
 var versionCmd = &cobra.Command{
 	Use:   "version",

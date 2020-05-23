@@ -28,7 +28,7 @@ This application uses mongodb to store data.`,
 // When you double click ShadowEditor.exe in the Windows explorer, run `serve` command.
 func Execute() {
 	if mousetrap.StartedByExplorer() {
-		// double click in the explorer of the Windows system
+		// double click on the Windows system
 		runServe()
 	} else {
 		// use command line
