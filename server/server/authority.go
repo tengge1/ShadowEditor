@@ -28,8 +28,6 @@ type AuthorityModel struct {
 }
 
 var authorityMaps = []authorityMap{
-	{None, "None"},
-	{NotInitialized, "Not Initialized"},
 	{Administrator, "Administrator"},
 	{Login, "Login"},
 	{ListAnimation, "List Animation"},
@@ -40,7 +38,6 @@ var authorityMaps = []authorityMap{
 	{AddAudio, "Add Audio"},
 	{EditAudio, "Edit Audio"},
 	{DeleteAudio, "Delete Audio"},
-	// {ListCategory, "List Category"},
 	{SaveCategory, "Save Category"},
 	{DeleteCategory, "Delete Category"},
 	{ListCharacter, "List Character"},
@@ -115,9 +112,6 @@ const (
 	EditAudio Authority = "EDIT_AUDIO"
 	// DeleteAudio means the user can delete audio who uploaded.
 	DeleteAudio Authority = "DELETE_AUDIO"
-	// ListCategory means the user can get his category list.
-	// ListCategory Authority = "LIST_CATEGORY"
-
 	// SaveCategory means the user can add new category.
 	SaveCategory Authority = "SAVE_CATEGORY"
 	// DeleteCategory means the user can delete the category who created.
