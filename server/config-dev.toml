@@ -7,8 +7,8 @@ port = ":2020"                              # server address
 type = "mongo"                              # only support mongo
 host = "127.0.0.1"                          # mongoDB host
 port = 27017                                # mongoDB port
-user = "admin"                              # mongo username
-password = "admin"                          # mongo password
+user = ""                                   # mongo username
+password = ""                               # mongo password
 database = "ShadowEditor"                   # mongo database name
 
 [authority]
