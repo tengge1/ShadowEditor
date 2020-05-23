@@ -8,6 +8,7 @@
 package server
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 
@@ -22,6 +23,8 @@ var (
 	Config *helper.ConfigModel
 	// Logger is the server logger.
 	Logger *logrus.Logger
+	// defaultTimeFormat is the default formater to format time in the logs.
+	defaultTimeFormat = "2006-01-02T15:04:05Z07:00"
 )
 
 // Create create the server context.
@@ -46,7 +49,7 @@ func Create(path string) error {
 
 	logger := &logrus.Logger{
 		Out:       writer,
-		Formatter: new(logrus.TextFormatter),
+		Formatter: new(logFormatter),
 		Hooks:     make(logrus.LevelHooks),
 		Level:     logrus.DebugLevel,
 	}
@@ -54,4 +57,13 @@ func Create(path string) error {
 	Logger = logger
 
 	return nil
+}
+
+// logFormatter is a custom formatter to output logs to a file.
+type logFormatter struct {
+}
+
+func (l logFormatter) Format(e *logrus.Entry) ([]byte, error) {
+	str := fmt.Sprintf("%v [%v] %v\n", e.Time.Format(defaultTimeFormat), e.Level, e.Message)
+	return []byte(str), nil
 }
