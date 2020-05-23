@@ -11,6 +11,8 @@ import (
 	"net/http"
 
 	"github.com/tengge1/shadoweditor/helper"
+	"github.com/tengge1/shadoweditor/server/system"
+	"go.mongodb.org/mongo-driver/bson"
 )
 
 // ValidateTokenMiddleware is used to validate user's credentials.
@@ -31,20 +33,22 @@ func ValidateTokenMiddleware(w http.ResponseWriter, r *http.Request, next http.H
 	// check whether user has the authority required
 	user, _ := GetCurrentUser(r)
 
-	has := false
-	for _, item := range user.OperatingAuthorities {
-		if item == string(auth) {
-			has = true
-			break
+	if user != nil {
+		for _, item := range user.OperatingAuthorities {
+			if item == string(auth) {
+				next(w, r)
+				return
+			}
 		}
 	}
 
-	if has {
+	// check whether can initialize the system
+	if auth == Initialize && canInitialize() {
 		next(w, r)
 		return
 	}
 
-	// user has no authority
+	// user doesn't has the authority required
 	result := Result{
 		Code: 301,
 		Msg:  "Not allowed.",
@@ -52,4 +56,21 @@ func ValidateTokenMiddleware(w http.ResponseWriter, r *http.Request, next http.H
 
 	json, _ := helper.ToJSON(result)
 	w.Write(json)
+}
+
+// canInitialize means if we can initialize the system. Return true when
+// the system is not initialized.
+func canInitialize() bool {
+	db, err := Mongo()
+	if err != nil {
+		return false
+	}
+
+	config := system.Config{}
+	find, err := db.FindOne(ConfigCollectionName, bson.M{}, &config)
+	if err != nil {
+		return false
+	}
+
+	return !find || !config.Initialized
 }

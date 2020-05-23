@@ -90,8 +90,8 @@ type Authority string
 const (
 	// None means the api required no authority.
 	None Authority = "NONE"
-	// NotInitialized means the api can execute when it is not initialized.
-	NotInitialized Authority = "NOT_INITIALIZED"
+	// Initialize means the api can initialize the system.
+	Initialize Authority = "INITIALIZE"
 	// Administrator means the user has all the authorities.
 	Administrator Authority = "ADMINISTRATOR"
 	// Login means the user has to log in.
