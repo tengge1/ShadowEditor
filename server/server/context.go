@@ -39,7 +39,7 @@ func Create(path string) error {
 		os.MkdirAll(dir, 0755)
 	}
 
-	writer, err := os.OpenFile(config.Log.File, os.O_RDONLY|os.O_CREATE|os.O_APPEND, 0755)
+	writer, err := os.OpenFile(config.Log.File, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0755)
 	if err != nil {
 		panic(err.Error())
 	}

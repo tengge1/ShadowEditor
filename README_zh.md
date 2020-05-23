@@ -16,6 +16,7 @@
 1. MongoDB用户名和密码设置。
 2. 文档由gitbook改为gitee wiki。[详情](https://gitee.com/tengge1/ShadowEditor/wikis/pages)
 3. 使用JSON Web令牌（JWT）进行用户身份验证。
+4. 默认禁用自动保存。
 
 ## v0.5.1更新
 
