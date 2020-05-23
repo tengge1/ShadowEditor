@@ -21,19 +21,19 @@ func TestTimeFormat(t *testing.T) {
 	full := now.Format(time.RFC3339)
 
 	if date != "2020-05-23" {
-		t.Errorf("expected 2020-05-23, got %v", date)
+		t.Errorf("expecte 2020-05-23, got %v", date)
 	}
 
 	if tim != "21:30:12" {
-		t.Errorf("expected 21:30:12, got %v", tim)
+		t.Errorf("expecte 21:30:12, got %v", tim)
 	}
 
 	if datetime != "2020-05-23 21:30:12" {
-		t.Errorf("expected 2020-05-23 21:30:12, got %v", datetime)
+		t.Errorf("expecte 2020-05-23 21:30:12, got %v", datetime)
 	}
 
 	if full != "2020-05-23T21:30:12+08:00" {
-		t.Errorf("expected 2020-05-23T21:30:12+08:00, got %v", full)
+		t.Errorf("expecte 2020-05-23T21:30:12+08:00, got %v", full)
 	}
 }
 
@@ -45,14 +45,14 @@ func TestTimeToString(t *testing.T) {
 	datetime := TimeToString(now, "yyyy-MM-dd HH:mm:ss")
 
 	if date != "2020-05-23" {
-		t.Errorf("expected 2020-05-23, got %v", date)
+		t.Errorf("expecte 2020-05-23, got %v", date)
 	}
 
 	if tim != "21:30:12" {
-		t.Errorf("expected 21:30:12, got %v", tim)
+		t.Errorf("expecte 21:30:12, got %v", tim)
 	}
 
 	if datetime != "2020-05-23 21:30:12" {
-		t.Errorf("expected 2020-05-23 21:30:12, got %v", datetime)
+		t.Errorf("expecte 2020-05-23 21:30:12, got %v", datetime)
 	}
 }

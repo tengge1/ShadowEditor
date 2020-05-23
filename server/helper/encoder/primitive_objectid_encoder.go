@@ -15,10 +15,12 @@ import (
 )
 
 // PrimitiveObjectIDEncoder is a custom primitive.ObjectID encoder.
+//
+// See: github.com/tengge1/shadoweditor/helper/json.go
 type PrimitiveObjectIDEncoder struct {
 }
 
-// Encode encode ObjectID to string.
+// Encode encode primitive.ObjectID to string.
 func (PrimitiveObjectIDEncoder) Encode(ptr unsafe.Pointer, stream *jsoniter.Stream) {
 	val := (*primitive.ObjectID)(ptr)
 	stream.WriteString(val.Hex())

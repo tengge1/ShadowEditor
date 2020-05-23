@@ -15,6 +15,8 @@ import (
 )
 
 // PrimitiveDEncoder is a custom primitive.D encoder.
+//
+// See: github.com/tengge1/shadoweditor/helper/json.go
 type PrimitiveDEncoder struct {
 }
 
