@@ -5,8 +5,8 @@ port = ":2020"                              # server address
 
 [database]
 type = "mongo"                              # only support mongo
-host = "127.0.0.1"                          # mongoDB host
-port = 27017                                # mongoDB port
+host = "127.0.0.1"                          # mongo ip
+port = 27017                                # mongo port
 user = ""                                   # mongo username
 password = ""                               # mongo password
 database = "ShadowEditor"                   # mongo database name
@@ -14,7 +14,7 @@ database = "ShadowEditor"                   # mongo database name
 [authority]
 enabled = true                              # enable authority
 expires = 120                               # login time, minutes, only support integer
-secret_key = "Welcome ---------"            # secret_key is used to encrypte credentials
+secret_key = "Welcome ---------"            # secret_key is used to encrypt credentials
 
 [upload]
 max_size = 1000000000                       # max upload file size
