@@ -24,7 +24,7 @@ func ValidateTokenMiddleware(w http.ResponseWriter, r *http.Request, next http.H
 	user, _ := GetCurrentUser(r)
 
 	// api needs no authority
-	if user == nil && auth == None {
+	if user == nil || auth == None {
 		next(w, r)
 		return
 	}
