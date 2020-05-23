@@ -21,15 +21,16 @@ func ValidateTokenMiddleware(w http.ResponseWriter, r *http.Request, next http.H
 	}
 
 	auth := apiAuthorities[r.URL.Path]
-	user, _ := GetCurrentUser(r)
 
 	// api needs no authority
-	if user == nil || auth == None {
+	if auth == None {
 		next(w, r)
 		return
 	}
 
-	// user has the authority required
+	// check whether user has the authority required
+	user, _ := GetCurrentUser(r)
+
 	has := false
 	for _, item := range user.OperatingAuthorities {
 		if item == string(auth) {
