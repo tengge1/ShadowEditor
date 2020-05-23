@@ -13,9 +13,31 @@ import (
 	"time"
 )
 
-// TimeToString convert a time to string using specific format.
+// This defines some layout to help to format time to string.
 //
-// `yyyy-MM-dd HH:mm:ss` => 2020-05-05 20:35:12
+// For example:
+//
+// now := time.Date(2020, 5, 23, 21, 30, 12, 0, time.Local)
+//
+// now.Format(DateFormat) 		=>		2020-05-23
+// now.Format(TimeFormat) 		=>		21:30:12
+// now.Format(DateTimeFormat) 	=>		2020-05-23 21:30:12
+// now.Format(time.RFC3339)		=>  	2020-05-23T21:30:12+08:00
+//
+const (
+	// DateFormat convert time.Time to `yyyy-MM-dd` format.
+	DateFormat = "2006-01-02"
+	// TimeFormat convert time.Time to `HH:mm:ss` format.
+	TimeFormat = "15:04:05"
+	// DateTimeFormat convert time.Time to `yyyy-MM-dd HH:mm:ss` format.
+	DateTimeFormat = "2006-01-02 15:04:05"
+)
+
+// TimeToString convert a time to string using traditional format.
+//
+// yyyy-MM-dd			=>	2020-05-23
+// HH:mm:ss				=>	21:30:12
+// yyyy-MM-dd HH:mm:ss	=>	2020-05-23 21:30:12
 func TimeToString(time time.Time, format string) string {
 	year := strconv.Itoa(time.Year())
 	month := strconv.Itoa(int(time.Month()))
