@@ -26,16 +26,20 @@ func ValidateTokenMiddleware(w http.ResponseWriter, r *http.Request, next http.H
 
 	// api needs no authority
 	if auth == None {
+		logAPI(r.URL.Path, auth, "", true)
 		next(w, r)
 		return
 	}
 
 	// check whether user has the authority required
 	user, _ := GetCurrentUser(r)
+	username := ""
 
 	if user != nil {
+		username = user.Username
 		for _, item := range user.OperatingAuthorities {
 			if item == string(auth) {
+				logAPI(r.URL.Path, auth, user.Username, true)
 				next(w, r)
 				return
 			}
@@ -44,6 +48,7 @@ func ValidateTokenMiddleware(w http.ResponseWriter, r *http.Request, next http.H
 
 	// check whether can initialize the system
 	if auth == Initialize && canInitialize() {
+		logAPI(r.URL.Path, auth, username, true)
 		next(w, r)
 		return
 	}
@@ -53,6 +58,8 @@ func ValidateTokenMiddleware(w http.ResponseWriter, r *http.Request, next http.H
 		Code: 301,
 		Msg:  "Not allowed.",
 	}
+
+	logAPI(r.URL.Path, auth, username, false)
 
 	json, _ := helper.ToJSON(result)
 	w.Write(json)
@@ -73,4 +80,19 @@ func canInitialize() bool {
 	}
 
 	return !find || !config.Initialized
+}
+
+// logAPI logs the request path and the execute result.
+func logAPI(path string, auth Authority, username string, success bool) {
+	if username == "" {
+		// Guest means the user who is not logged in.
+		username = "Guest"
+	}
+
+	result := "Fail"
+	if success {
+		result = "Success"
+	}
+
+	Logger.Infof("%v\t%v\t%v\t%v", path, string(auth), username, result)
 }
