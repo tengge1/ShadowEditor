@@ -5,7 +5,7 @@ English / [中文](README_zh.md)
 * Name: Shadow Editor
 * Version: v0.5.2 (coming soon)
 * Description: Cross-platform 3D scene editor based on three.js, golang and mongodb.
-* Source: [GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | Document: [GitHub](https://tengge1.github.io/ShadowEditor/) [Gitee](https://tengge1.gitee.io/shadoweditor/) | Demo: [GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) | Video: [Weibo](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) | Assets: [BaiduNetdisk](https://pan.baidu.com/s/1IxJVM6fFLoIAJG-GKHjVTA)
+* Source: [GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | Document: [Gitee](https://gitee.com/tengge1/ShadowEditor/wikis/pages) | Demo: [GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) | Video: [Weibo](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) | Assets: [BaiduNetdisk](https://pan.baidu.com/s/1IxJVM6fFLoIAJG-GKHjVTA)
 * Technology Stack: html, css, javascript, rollup, react.js, webgl, three.js, golang, mongodb.
 * If helpful to you, please [DOnate](https://gitee.com/tengge1/ShadowEditor) to support us. thank you!
 
@@ -14,7 +14,7 @@ English / [中文](README_zh.md)
 ## v0.5.2 is Coming Soon
 
 1. MongoDB user and password configuration.
-2. Documentation changed from gitbook to gitee wiki. [See Detail](https://gitee.com/tengge1/ShadowEditor/wikis/pages)
+2. Documentation has moved to gitee wiki. [See Detail](https://gitee.com/tengge1/ShadowEditor/wikis/pages)
 3. Use JSON web tokens (JWT) for user authentication. 
 4. Automatic saving is disabled by default.
 
