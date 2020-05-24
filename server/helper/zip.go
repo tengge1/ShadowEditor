@@ -17,14 +17,25 @@ import (
 	"strings"
 )
 
-// Zip create a zip file to the path.
+// Zip reads all the files in the directory and creates a new compressed file.
 func Zip(dir, path string) error {
+	// check dir
+	stat, err := os.Stat(dir)
+	if os.IsNotExist(err) {
+		return fmt.Errorf("%v is not exist", dir)
+	}
+	if !stat.IsDir() {
+		return fmt.Errorf("%v is not a dir", dir)
+	}
+
+	// check path
 	file, err := os.Create(path)
 	if err != nil {
 		return err
 	}
 	defer file.Close()
 
+	// create zip file
 	w := zip.NewWriter(file)
 	defer w.Close()
 
@@ -34,21 +45,20 @@ func Zip(dir, path string) error {
 func createZipFile(w *zip.Writer, path, root string) error {
 	stat, err := os.Stat(path)
 	if os.IsNotExist(err) {
-		return fmt.Errorf("path is not existed: %v", path)
+		return fmt.Errorf("%v is not exist", path)
 	}
-	if stat.IsDir() {
+	if stat.IsDir() { // dir
 		children, err := ioutil.ReadDir(path)
 		if err != nil {
 			return err
 		}
 		for _, child := range children {
 			childPath := filepath.Join(path, child.Name())
-			err = createZipFile(w, childPath, root)
-			if err != nil {
+			if err = createZipFile(w, childPath, root); err != nil {
 				return err
 			}
 		}
-	} else {
+	} else { // file
 		source, err := os.Open(path)
 		if err != nil {
 			return err
@@ -64,8 +74,8 @@ func createZipFile(w *zip.Writer, path, root string) error {
 	return nil
 }
 
-// UnZip unzip filename to the path given.
-func UnZip(filename, path string) error {
+// UnZip decompresses all files to a directory.
+func UnZip(filename, dir string) error {
 	r, err := zip.OpenReader(filename)
 	if err != nil {
 		return err
@@ -74,25 +84,30 @@ func UnZip(filename, path string) error {
 
 	for _, f := range r.File {
 		name := f.Name
-		target := fmt.Sprintf("%v/%v", path, name)
-		if f.FileInfo().IsDir() {
-			_, err := os.Stat(target)
-			if os.IsNotExist(err) {
-				os.MkdirAll(target, 0755)
+		info := f.FileInfo()
+		targetPath := filepath.Join(dir, name)
+		if info.IsDir() { // dir
+			if _, err := os.Stat(targetPath); os.IsNotExist(err) {
+				if err := os.MkdirAll(targetPath, info.Mode()); err != nil {
+					return err
+				}
 			}
-		} else {
+		} else { // file
 			reader, err := f.Open()
 			if err != nil {
 				return err
 			}
 			defer reader.Close()
-			writer, err := os.Create(target)
+			writer, err := os.Create(targetPath)
 			if err != nil {
 				return err
 			}
 			defer writer.Close()
-			io.Copy(writer, reader)
+			if _, err := io.Copy(writer, reader); err != nil {
+				return err
+			}
 		}
 	}
+
 	return nil
 }
