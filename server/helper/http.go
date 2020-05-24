@@ -12,6 +12,8 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"os"
+	"strconv"
 )
 
 // Get create a get request to the server.
@@ -75,4 +77,26 @@ func WriteJSON(w http.ResponseWriter, obj interface{}) error {
 	w.Write(bytes)
 
 	return nil
+}
+
+// Download write a file stream to the webbrowser.
+func Download(w http.ResponseWriter, path, name string) {
+	_, err := os.Stat(path)
+	if os.IsNotExist(err) {
+		w.WriteHeader(http.StatusNotFound)
+		return
+	}
+
+	bytes, err := ioutil.ReadFile(path)
+	if err != nil {
+		w.WriteHeader(http.StatusForbidden)
+		w.Write([]byte(err.Error()))
+		return
+	}
+
+	header := w.Header()
+	header.Set("Content-Disposition", fmt.Sprintf(`attachment; filename="%v"`, url.QueryEscape(name)))
+	header.Set("Content-Length", strconv.Itoa(len(bytes)))
+	header.Set("Content-Type", "application/octet-stream; charset=GB2312")
+	w.Write(bytes)
 }
