@@ -39,38 +39,41 @@ func Zip(dir, path string) error {
 	w := zip.NewWriter(file)
 	defer w.Close()
 
-	return createZipFile(w, dir, dir)
-}
-
-func createZipFile(w *zip.Writer, path, root string) error {
-	stat, err := os.Stat(path)
-	if os.IsNotExist(err) {
-		return fmt.Errorf("%v is not exist", path)
-	}
-	if stat.IsDir() { // dir
-		children, err := ioutil.ReadDir(path)
+	// func to create zip file
+	walkFunc := func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
 		}
-		for _, child := range children {
-			childPath := filepath.Join(path, child.Name())
-			if err = createZipFile(w, childPath, root); err != nil {
+		if path == dir { // The first path of filepath.Walk is always the root.
+			return nil
+		}
+		targetPath := strings.TrimLeft(path, dir)
+		if info.IsDir() { // dir
+			if _, err := w.Create(targetPath + "/"); err != nil {
+				return err
+			}
+		} else { // file
+			bytes, err := ioutil.ReadFile(path)
+			if err != nil {
+				return err
+			}
+			target, err := w.Create(targetPath)
+			if err != nil {
+				return err
+			}
+			if _, err := target.Write(bytes); err != nil {
 				return err
 			}
 		}
-	} else { // file
-		source, err := os.Open(path)
-		if err != nil {
-			return err
-		}
-		defer source.Close()
-		targetPath := strings.TrimLeft(path, root)
-		target, err := w.Create(targetPath)
-		if err != nil {
-			return err
-		}
-		io.Copy(target, source)
+
+		return nil
 	}
+
+	// walk all the directories and files in the dir
+	if err := filepath.Walk(dir, walkFunc); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -88,7 +91,9 @@ func UnZip(filename, dir string) error {
 		targetPath := filepath.Join(dir, name)
 		if info.IsDir() { // dir
 			if _, err := os.Stat(targetPath); os.IsNotExist(err) {
-				if err := os.MkdirAll(targetPath, info.Mode()); err != nil {
+				// IMPORTANT: info.Mode() return wrong mode when f is a dir.
+				// So, DO NOT use info.Mode() to os.MkdirAll.
+				if err := os.MkdirAll(targetPath, 0755); err != nil {
 					return err
 				}
 			}
@@ -98,7 +103,7 @@ func UnZip(filename, dir string) error {
 				return err
 			}
 			defer reader.Close()
-			writer, err := os.Create(targetPath)
+			writer, err := os.OpenFile(targetPath, os.O_CREATE|os.O_RDWR|os.O_TRUNC, info.Mode())
 			if err != nil {
 				return err
 			}
