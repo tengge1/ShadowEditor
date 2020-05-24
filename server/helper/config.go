@@ -16,7 +16,9 @@ import (
 	"github.com/BurntSushi/toml"
 )
 
-// GetConfig read `config.toml` and parse `ConfigModel`.
+// GetConfig read toml format file `config.toml`, and parse ConfigModel.
+//
+// See: https://github.com/toml-lang/toml
 func GetConfig(path string) (config *ConfigModel, err error) {
 	file, err := os.Open(path)
 	if err != nil {
