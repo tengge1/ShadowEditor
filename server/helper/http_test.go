@@ -15,12 +15,15 @@ import (
 	"net/url"
 	"os"
 	"strconv"
+	"strings"
 	"testing"
 )
 
 func TestEnableCrossDomain(t *testing.T) {
+	origin := "http://192.168.0.2"
+
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		r.Header.Set("Origin", "http://192.168.0.2") // just test
+		r.Header.Set("Origin", origin) // Header is case insensitive, `Origin` or `origin` is ok.
 		EnableCrossDomain(w, r)
 	}))
 	defer ts.Close()
@@ -28,11 +31,21 @@ func TestEnableCrossDomain(t *testing.T) {
 	res, err := http.Get(ts.URL)
 	if err != nil {
 		t.Error(err)
-		return
 	}
 
-	t.Logf("Access-Control-Allow-Methods: %v", res.Header.Get("Access-Control-Allow-Methods"))
-	t.Logf("Access-Control-Allow-Origin: %v", res.Header.Get("Access-Control-Allow-Origin"))
+	methodsHeader := res.Header.Get("Access-Control-Allow-Methods")
+	originHeader := res.Header.Get("Access-Control-Allow-Origin")
+
+	if methodsHeader == "" ||
+		!strings.Contains(methodsHeader, "OPTIONS") ||
+		!strings.Contains(methodsHeader, "POST") ||
+		!strings.Contains(methodsHeader, "GET") {
+		t.Errorf("Access-Control-Allow-Methods is not set properly, got %v", methodsHeader)
+	}
+
+	if originHeader != origin {
+		t.Errorf("Access-Control-Allow-Origin is not set properly, got %v", originHeader)
+	}
 }
 
 func TestGet(t *testing.T) {
