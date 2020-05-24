@@ -16,6 +16,24 @@ import (
 	"strconv"
 )
 
+// EnableCrossDomain enables cross domain.
+// It set the `Access-Control-Allow-Methods` header and the
+// `Access-Control-Allow-Origin` header.
+//
+// TODO: We should restrict the origin, and may config in `config.toml`.
+func EnableCrossDomain(w http.ResponseWriter, r *http.Request) {
+	origin := r.Header.Get("Origin")
+
+	header := w.Header()
+	header.Set("Access-Control-Allow-Methods", "OPTIONS,POST,GET")
+
+	if origin == "" { // not cross origin
+		header.Set("Access-Control-Allow-Origin", "*")
+	} else {
+		header.Set("Access-Control-Allow-Origin", origin)
+	}
+}
+
 // Get create a get request to the server.
 func Get(url string) ([]byte, error) {
 	resp, err := http.Get(url)
