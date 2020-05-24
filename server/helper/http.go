@@ -52,7 +52,7 @@ func Post(url string, data url.Values) ([]byte, error) {
 }
 
 // Write write a string response to the web client.
-func Write(w http.ResponseWriter, args ...interface{}) {
+func Write(w http.ResponseWriter, args ...interface{}) (int, error) {
 	header := w.Header()
 
 	header.Set("Content-Type", "text/plain")
@@ -60,11 +60,11 @@ func Write(w http.ResponseWriter, args ...interface{}) {
 	header.Set("Pragma", "no-cache")
 	header.Set("Expires", "0")
 
-	w.Write([]byte(fmt.Sprint(args...)))
+	return w.Write([]byte(fmt.Sprint(args...)))
 }
 
 // Writef write a string response to the web client with format string.
-func Writef(w http.ResponseWriter, format string, args ...interface{}) {
+func Writef(w http.ResponseWriter, format string, args ...interface{}) (int, error) {
 	header := w.Header()
 
 	header.Set("Content-Type", "text/plain")
@@ -72,11 +72,11 @@ func Writef(w http.ResponseWriter, format string, args ...interface{}) {
 	header.Set("Pragma", "no-cache")
 	header.Set("Expires", "0")
 
-	w.Write([]byte(fmt.Sprint(args...)))
+	return w.Write([]byte(fmt.Sprint(args...)))
 }
 
 // WriteJSON write a json response to the web client.
-func WriteJSON(w http.ResponseWriter, obj interface{}) error {
+func WriteJSON(w http.ResponseWriter, obj interface{}) (int, error) {
 	header := w.Header()
 
 	header.Set("Content-Type", "application/json")
@@ -86,12 +86,10 @@ func WriteJSON(w http.ResponseWriter, obj interface{}) error {
 
 	bytes, err := ToJSON(obj)
 	if err != nil {
-		return err
+		return 0, err
 	}
 
-	w.Write(bytes)
-
-	return nil
+	return w.Write(bytes)
 }
 
 // Download write a file stream to the webbrowser.

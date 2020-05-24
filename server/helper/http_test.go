@@ -9,7 +9,6 @@ package helper
 
 import (
 	"encoding/json"
-	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
@@ -67,49 +66,37 @@ func TestPost(t *testing.T) {
 
 func TestWrite(t *testing.T) {
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		Write(w, "hello")
+		if _, err := Write(w, "hello"); err != nil {
+			t.Error(err)
+		}
 	}))
 	defer ts.Close()
 
-	res, err := http.Get(ts.URL)
+	bytes, err := Get(ts.URL)
 	if err != nil {
 		t.Error(err)
-		return
-	}
-	defer res.Body.Close()
-
-	bytes, err := ioutil.ReadAll(res.Body)
-	if err != nil {
-		t.Error(err)
-		return
 	}
 
 	if string(bytes) != "hello" {
-		t.Errorf("expect `hello`, get `%v`", string(bytes))
+		t.Errorf("expect hello, got %v", string(bytes))
 	}
 }
 
 func TestWritef(t *testing.T) {
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		Writef(w, "%v", "hello")
+		if _, err := Writef(w, "%v", "hello"); err != nil {
+			t.Error(err)
+		}
 	}))
 	defer ts.Close()
 
-	res, err := http.Get(ts.URL)
+	bytes, err := Get(ts.URL)
 	if err != nil {
 		t.Error(err)
-		return
-	}
-	defer res.Body.Close()
-
-	bytes, err := ioutil.ReadAll(res.Body)
-	if err != nil {
-		t.Error(err)
-		return
 	}
 
 	if string(bytes) != "hello" {
-		t.Errorf("expect `hello`, get `%v`", string(bytes))
+		t.Errorf("expect hello, got %v", string(bytes))
 	}
 }
 
@@ -117,31 +104,29 @@ func TestWriteJSON(t *testing.T) {
 	person := Person{"xiaoming", 20}
 
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		WriteJSON(w, person)
+		if _, err := WriteJSON(w, person); err != nil {
+			t.Error(err)
+		}
 	}))
 	defer ts.Close()
 
 	res, err := http.Get(ts.URL)
 	if err != nil {
 		t.Error(err)
-		return
 	}
 	defer res.Body.Close()
 
 	result := Person{}
 
 	decoder := json.NewDecoder(res.Body)
-	err = decoder.Decode(&result)
-	if err != nil {
+	if err = decoder.Decode(&result); err != nil {
 		t.Error("json decode failed")
-		return
 	}
-
 	if result.Name != "xiaoming" {
-		t.Errorf("write: expect `xiaoming`, get `%v`", result.Name)
+		t.Errorf("write: expect xiaoming, got %v", result.Name)
 	}
 	if result.Age != 20 {
-		t.Errorf("write: expect `20`, get `%v`", result.Age)
+		t.Errorf("write: expect 20, got %v", result.Age)
 	}
 }
 
