@@ -9,6 +9,9 @@ package helper
 
 import (
 	"testing"
+	"time"
+
+	"go.mongodb.org/mongo-driver/mongo/options"
 
 	"go.mongodb.org/mongo-driver/bson"
 )
@@ -17,114 +20,95 @@ func TestMongo(t *testing.T) {
 	config, err := GetConfig("../config.toml")
 	if err != nil {
 		t.Error(err)
-		return
 	}
 
-	db, err := NewMongo(config.Database.Connection, "test")
-	if err != nil {
-		t.Error(err)
-		return
-	}
+	// test data
+	dbName := "Test" + time.Now().Format(TimeFormat)
 	collectionName := "PersonTest"
+	person := Person{"xiaoqiang", 30}
 	persons := []interface{}{
 		Person{"xiaoming", 10},
 		Person{"xiaoli", 20},
 	}
 
-	// insert
-	_, err = db.InsertMany(collectionName, persons)
+	// NewMongo
+	db, err := NewMongo(config.Database.Connection, dbName)
 	if err != nil {
 		t.Error(err)
-		return
 	}
 
-	// find
+	// InsertOne
+	if _, err := db.InsertOne(collectionName, person); err != nil {
+		t.Error(err)
+	}
+
+	// InsertMany
+	if _, err = db.InsertMany(collectionName, persons); err != nil {
+		t.Error(err)
+	}
+
+	// FindOne
+	filter := bson.M{
+		"name": "xiaoqiang",
+	}
+	result := Person{}
+	find, err := db.FindOne(collectionName, filter, &result)
+	if err != nil {
+		t.Error(err)
+	}
+	if !find {
+		t.Errorf("expect true, got %v", find)
+	}
+	if result.Name != "xiaoqiang" {
+		t.Errorf("expect xiaoqiang, got %v", result.Name)
+	}
+	if result.Age != 30 {
+		t.Errorf("expect 30, got %v", result.Age)
+	}
+
+	// FindMany
 	results := []Person{}
-	err = db.FindMany(collectionName, bson.M{}, &results)
-	if err != nil {
+	opts := options.FindOptions{
+		Sort: bson.M{
+			"age": 1,
+		},
+	}
+	if err = db.FindMany(collectionName, bson.M{}, &results, &opts); err != nil {
 		t.Error(err)
-		return
 	}
-	t.Log(results)
-
-	// single find
-	var result Person
-	find, err := db.FindOne(collectionName, bson.M{}, &result)
-	if err != nil {
-		t.Error(err)
-		return
+	if len(results) != 3 {
+		t.Errorf("expect 3, got %v", len(results))
 	}
-	if find {
-		t.Log(result)
-	} else {
-		t.Log("not find")
+	first := results[0]
+	if first.Name != "xiaoming" {
+		t.Errorf("expect xiaoming, got %v", first.Name)
+	}
+	if first.Age != 10 {
+		t.Errorf("expect 10, got %v", first.Age)
 	}
 
-	// single not find
+	// FindOne not found
 	find, err = db.FindOne(collectionName, bson.M{"foo": "bar"}, &result)
 	if err != nil {
 		t.Error(err)
-		return
 	}
 	if find {
-		t.Log(result)
-	} else {
-		t.Log("not find")
+		t.Errorf("expect false, got %v", find)
 	}
 
-	// listCollectionNames
+	// ListCollectionNames
 	collectionNames, err := db.ListCollectionNames()
 	if err != nil {
 		t.Error(err)
-		return
 	}
-	t.Log(collectionNames)
+	if len(collectionNames) != 1 {
+		t.Errorf("expect 1, got %v", len(collectionNames))
+	}
 
-	// drop
-	err = db.DropCollection(collectionName)
-	if err != nil {
+	// DropCollection
+	if err = db.DropCollection(collectionName); err != nil {
 		t.Error(err)
 	}
-}
-
-func TestDecode(t *testing.T) {
-	config, err := GetConfig("../config.toml")
-	if err != nil {
-		t.Error(err)
-		return
-	}
-
-	db, err := NewMongo(config.Database.Connection, "test")
-	if err != nil {
-		t.Error(err)
-		return
-	}
-	collectionName := "PersonTest"
-	persons := []interface{}{
-		Person{"xiaoming", 10},
-		Person{"xiaoli", 20},
-	}
-
-	// insert
-	_, err = db.InsertMany(collectionName, persons)
-	if err != nil {
-		t.Error(err)
-		return
-	}
-
-	// single find
-	var result Person
-	find, err := db.FindOne(collectionName, bson.M{}, &result)
-	if err != nil {
-		t.Error(err)
-		return
-	}
-	if find {
-		t.Log(result)
-	} else {
-		t.Log("not find")
-	}
-
 }
 
 type Person struct {
