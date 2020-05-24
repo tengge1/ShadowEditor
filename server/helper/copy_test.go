@@ -72,6 +72,37 @@ func TestCopyDirectory(t *testing.T) {
 	checkTestTree(destDirName, t)
 }
 
+func TestCopyFile(t *testing.T) {
+	str := "hello, world!"
+
+	// source file
+	sourceFile, err := ioutil.TempFile(os.TempDir(), "*.txt")
+	if err != nil {
+		t.Error(err)
+	}
+	defer sourceFile.Close()
+
+	if _, err := sourceFile.Write([]byte(str)); err != nil {
+		t.Error(err)
+	}
+
+	// dest file
+	destPath := os.TempDir() + "/foo/bar.txt"
+
+	if err := CopyFile(sourceFile.Name(), destPath); err != nil {
+		t.Error(err)
+	}
+
+	bytes, err := ioutil.ReadFile(destPath)
+	if err != nil {
+		t.Error(err)
+	}
+
+	if string(bytes) != str {
+		t.Errorf("expect %v, got %v", str, string(bytes))
+	}
+}
+
 // prepareTestTree create directories and files descibe by `Tree`.
 func prepareTestTree(root string) error {
 	if _, err := os.Stat(root); os.IsNotExist(err) {
