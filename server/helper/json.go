@@ -11,14 +11,13 @@ import (
 	"reflect"
 	"time"
 
-	"go.mongodb.org/mongo-driver/bson/primitive"
-
 	jsoniter "github.com/json-iterator/go"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 
 	"github.com/tengge1/shadoweditor/helper/encoder"
 )
 
-// We register custom type encoder here.
+// Register custom type encoder here.
 func init() {
 	jsoniter.RegisterTypeEncoder(reflect.TypeOf(time.Now()).String(), encoder.TimeEncoder{})
 	jsoniter.RegisterTypeEncoder(
