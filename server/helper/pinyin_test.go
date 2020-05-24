@@ -7,21 +7,40 @@
 
 package helper
 
-import "testing"
+import (
+	"testing"
+
+	"go.mongodb.org/mongo-driver/bson/primitive"
+)
 
 func TestConvertToPinYin(t *testing.T) {
 	text := "中国人"
 	pinyin := ConvertToPinYin(text)
 
 	if pinyin.FirstPinYin != "zgr" {
-		t.Errorf("first pinyin should be `zgr`, get `%v`", pinyin.FirstPinYin)
-		return
+		t.Errorf("expect zgr, got %v", pinyin.FirstPinYin)
 	}
 
 	if pinyin.TotalPinYin != "zhongguoren" {
-		t.Errorf("first pinyin should be `zhongguoren`, get `%v`", pinyin.TotalPinYin)
-		return
+		t.Errorf("expect zhongguoren, got %v", pinyin.TotalPinYin)
+	}
+}
+
+func TestPinYinToString(t *testing.T) {
+	var pinyin1 interface{} = primitive.A{
+		"zhong",
+		"guo",
+		"ren",
+	}
+	pinyin2 := "zhongguoren"
+
+	pinyin := PinYinToString(pinyin1)
+	if pinyin != "zhongguoren" {
+		t.Errorf("expect zhongguoren, got %v", pinyin)
 	}
 
-	t.Log(pinyin)
+	pinyin = PinYinToString(pinyin2)
+	if pinyin != "zhongguoren" {
+		t.Errorf("expect zhongguoren, got %v", pinyin)
+	}
 }

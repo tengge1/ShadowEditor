@@ -46,6 +46,6 @@ func PinYinToString(obj interface{}) string {
 type PinYinModel struct {
 	// TotalPinYin is the total pinyin.
 	TotalPinYin string
-	// FirstPinYin is the first letter of pinyin.
+	// FirstPinYin is the first letters of TotalPinYin.
 	FirstPinYin string
 }
