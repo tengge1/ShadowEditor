@@ -52,7 +52,6 @@ func TestGet(t *testing.T) {
 	bytes, err := Get("http://www.baidu.com")
 	if err != nil {
 		t.Error(err)
-		return
 	}
 	t.Log(string(bytes))
 }
