@@ -92,24 +92,30 @@ func WriteJSON(w http.ResponseWriter, obj interface{}) (int, error) {
 	return w.Write(bytes)
 }
 
-// Download write a file stream to the webbrowser.
-func Download(w http.ResponseWriter, path, name string) {
-	_, err := os.Stat(path)
+// WriteFile write a file stream to the webbrowser.
+func WriteFile(w http.ResponseWriter, path, name string) (int, error) {
+	stat, err := os.Stat(path)
 	if os.IsNotExist(err) {
 		w.WriteHeader(http.StatusNotFound)
-		return
+		return 0, err
+	}
+
+	if stat.IsDir() {
+		w.WriteHeader(http.StatusNotFound)
+		return 0, fmt.Errorf("%v is not a file", path)
 	}
 
 	bytes, err := ioutil.ReadFile(path)
 	if err != nil {
-		w.WriteHeader(http.StatusForbidden)
-		w.Write([]byte(err.Error()))
-		return
+		w.WriteHeader(http.StatusNotFound)
+		return 0, err
 	}
 
 	header := w.Header()
+
 	header.Set("Content-Disposition", fmt.Sprintf(`attachment; filename="%v"`, url.QueryEscape(name)))
 	header.Set("Content-Length", strconv.Itoa(len(bytes)))
 	header.Set("Content-Type", "application/octet-stream; charset=GB2312")
-	w.Write(bytes)
+
+	return w.Write(bytes)
 }

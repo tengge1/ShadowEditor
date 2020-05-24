@@ -9,6 +9,7 @@ package helper
 
 import (
 	"encoding/json"
+	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
@@ -130,33 +131,46 @@ func TestWriteJSON(t *testing.T) {
 	}
 }
 
-func TestDownload(t *testing.T) {
+func TestWriteFile(t *testing.T) {
+	str := "hello, world!"
+
+	// create a temp file
+	file, err := ioutil.TempFile(os.TempDir(), "*.txt")
+	if err != nil {
+		t.Error(err)
+	}
+	file.Write([]byte(str))
+	file.Close()
+
+	// download file
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		Download(w, "./download.go", "下载")
+		if _, err := WriteFile(w, file.Name(), "test.txt"); err != nil {
+			t.Error(err)
+		}
 	}))
 	defer ts.Close()
 
 	res, err := http.Get(ts.URL)
 	if err != nil {
 		t.Error(err)
-		return
-	}
-	strlen := res.Header.Get("Content-Length")
-
-	t.Logf("Content-Disposition: %v", res.Header.Get("Content-Disposition"))
-	t.Logf("Content-Length: %v", strlen)
-	t.Logf("Content-Type: %v", res.Header.Get("Content-Type"))
-
-	stat, err := os.Stat("./download.go")
-	if err != nil {
-		t.Error(err)
-		return
 	}
 
-	size := int(stat.Size())
-	length, _ := strconv.Atoi(strlen)
+	disposition := res.Header.Get("Content-Disposition")
+	length := res.Header.Get("Content-Length")
+	typ := res.Header.Get("Content-Type")
 
-	if size != length {
-		t.Errorf("size should be %v, get %v", size, length)
+	expected := `attachment; filename="test.txt"`
+	if disposition != expected {
+		t.Errorf("expect %v, got %v", expected, disposition)
+	}
+
+	expected = strconv.Itoa(len(str))
+	if length != expected {
+		t.Errorf("expect %v, got %v", expected, length)
+	}
+
+	expected = "application/octet-stream; charset=GB2312"
+	if typ != expected {
+		t.Errorf("expect %v, got %v", expected, typ)
 	}
 }
