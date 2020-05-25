@@ -7,56 +7,50 @@
 
 package server
 
-// Collection name is the table name we store data in mongo.
-// History suffix is the suffix we add to a scene collection to store history scene data.
-// Version field is the field we add to a scene record, and it is the scene version number.
-
 const (
-	// CategoryCollectionName category collection name
+	// CategoryCollectionName is the collection name that we store categories in mongo.
 	CategoryCollectionName string = "_Category"
-	// SceneCollectionName scene collection name
+	// SceneCollectionName is the collection name that we store scenes in mongo.
 	SceneCollectionName string = "_Scene"
-	// MeshCollectionName mesh collection name
+	// MeshCollectionName is the collection name that we store meshes in mongo.
 	MeshCollectionName string = "_Mesh"
-	// MapCollectionName map collection name
+	// MapCollectionName is the collection name that we store textures in mongo.
 	MapCollectionName string = "_Map"
-	// MaterialCollectionName material collection name
+	// MaterialCollectionName is the collection name that we store materials in mongo.
 	MaterialCollectionName string = "_Material"
-	// AudioCollectionName audio collection name
+	// AudioCollectionName is the collection name that we store audios in mongo.
 	AudioCollectionName string = "_Audio"
-	// AnimationCollectionName animation collection name
+	// AnimationCollectionName is the collection name that we store animations in mongo.
 	AnimationCollectionName string = "_Animation"
-	// ParticleCollectionName particle collection name
+	// ParticleCollectionName is the collection name that we store particles in mongo.
 	ParticleCollectionName string = "_Particle"
-	// PrefabCollectionName prefab collection name
+	// PrefabCollectionName is the collection name that we store prefabs in mongo.
 	PrefabCollectionName string = "_Prefab"
-	// CharacterCollectionName character collection name
+	// CharacterCollectionName is the collection name that we store characters in mongo.
 	CharacterCollectionName string = "_Character"
-	// ScreenshotCollectionName screenshot collection name
+	// ScreenshotCollectionName is the collection name that we store screenshots in mongo.
 	ScreenshotCollectionName string = "_Screenshot"
-	// VideoCollectionName video collection name
+	// VideoCollectionName is the collection name that we store videos in mongo.
 	VideoCollectionName string = "_Video"
-	// FileCollectionName file collection name
+	// FileCollectionName is the collection name that we store files in mongo.
 	FileCollectionName string = "_File"
-	// ConfigCollectionName config collection name
+	// ConfigCollectionName is the collection name that we store system configs in mongo.
 	ConfigCollectionName string = "_Config"
-	// RoleCollectionName role collection name
+	// RoleCollectionName is the collection name that we store roles in mongo.
 	RoleCollectionName string = "_Role"
-	// UserCollectionName user collection name
+	// UserCollectionName is the collection name that we store users in mongo.
 	UserCollectionName string = "_User"
-	// OperatingAuthorityCollectionName operating authority collectionname
+	// OperatingAuthorityCollectionName is the collection name that we store roles' authorities in mongo.
 	OperatingAuthorityCollectionName string = "_OperatingAuthority"
-	// DepartmentCollectionName department collection name
+	// DepartmentCollectionName is the collection name that we store departments in mongo.
 	DepartmentCollectionName string = "_Department"
-	// PluginCollectionName plugin collection name
+	// PluginCollectionName is the collection name that we store plugins in mongo.
 	PluginCollectionName string = "_Plugin"
-	// TypefaceCollectionName typeface collection name
+	// TypefaceCollectionName is the collection name that we store typefaces in mongo.
 	TypefaceCollectionName string = "_Typeface"
-	// ExportSceneListCollectionName export scene list collection name
-	ExportSceneListCollectionName string = "_ExportSceneList"
-	// HistorySuffix history suffix
+	// HistorySuffix is the suffix we add to a scene collection to store history data.
 	HistorySuffix string = "_history"
-	// VersionField version field
+	// VersionField is the field we add to scene history records, and it is the scene version number.
 	VersionField string = "_version"
 )
 
