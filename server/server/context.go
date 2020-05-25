@@ -21,6 +21,9 @@ var (
 	// Config caches all the setting information we get from config.toml.
 	Config *helper.ConfigModel
 	// Logger saves the running information of the server to a log file.
+	//
+	// IMPORTANT: DO NOT use Logger.Fatal or Logger.Panic, it may cause the
+	// programs exit.
 	Logger *logrus.Logger
 )
 
