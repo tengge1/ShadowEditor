@@ -54,7 +54,7 @@ const (
 	VersionField string = "_version"
 )
 
-// GetAllAuthorities returns all operating authorities.
+// GetAllAuthorities returns all authority ids and names.
 func GetAllAuthorities() []AuthorityModel {
 	result := []AuthorityModel{}
 	for _, auth := range authorityMaps {
@@ -66,7 +66,7 @@ func GetAllAuthorities() []AuthorityModel {
 	return result
 }
 
-// AuthorityModel is operating authority model.
+// AuthorityModel is authority model that store authority id and name.
 type AuthorityModel struct {
 	// ID is authority ID.
 	ID string
@@ -125,23 +125,24 @@ var authorityMaps = []authorityMap{
 	{DeleteVideo, "Delete Video"},
 }
 
-// authorityMap maps authority name to text.
+// authorityMap maps authority id to name.
 type authorityMap struct {
 	id   Authority
 	name string
 }
 
-// Authority means an authority.
+// Authority means the authority to query web api.
 type Authority string
 
 const (
 	// None means the api required no authority.
 	None Authority = "NONE"
-	// Initialize means the api can initialize the system.
+	// Initialize means that can initialize the system. Everyone has Initialize
+	// authority when the system is not initialized.
 	Initialize Authority = "INITIALIZE"
-	// Administrator means the user has all the authorities.
+	// Administrator means the user has all the authorities but Initialize.
 	Administrator Authority = "ADMINISTRATOR"
-	// Login means the user has to log in.
+	// Login means the user who has to log in.
 	Login Authority = "LOGIN"
 	// ListAnimation means the user can get the animation list.
 	ListAnimation Authority = "LIST_ANIMATION"
