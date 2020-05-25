@@ -88,3 +88,8 @@ func TestMongo(t *testing.T) {
 		t.Error(err)
 	}
 }
+
+func TestMapPath(t *testing.T) {
+	path := MapPath("/Upload/texture/test.jpg")
+	t.Log(path)
+}

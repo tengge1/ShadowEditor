@@ -11,6 +11,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 	"time"
 
 	"github.com/sirupsen/logrus"
@@ -69,6 +70,18 @@ func Mongo() (*helper.Mongo, error) {
 		Logger.Error(err)
 	}
 	return mong, err
+}
+
+// MapPath convert a relative path to physical absolute path.
+func MapPath(path string) string {
+	if !strings.HasPrefix(path, "/") {
+		path = "/" + path
+	}
+	if path == "/" {
+		path = "/index.html"
+	}
+	path = filepath.Join(Config.Path.PublicDir, path)
+	return strings.ReplaceAll(path, "/", string(filepath.Separator))
 }
 
 // logFormatter is a custom formatter to output logs to a file.
