@@ -11,6 +11,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"time"
 
 	"github.com/sirupsen/logrus"
 	"github.com/tengge1/shadoweditor/helper"
@@ -23,8 +24,6 @@ var (
 	Config *helper.ConfigModel
 	// Logger is the server logger.
 	Logger *logrus.Logger
-	// defaultTimeFormat is the default formater to format time in the logs.
-	defaultTimeFormat = "2006-01-02T15:04:05Z07:00"
 )
 
 // Create create the server context.
@@ -64,6 +63,6 @@ type logFormatter struct {
 }
 
 func (l logFormatter) Format(e *logrus.Entry) ([]byte, error) {
-	str := fmt.Sprintf("%v [%v] %v\n", e.Time.Format(defaultTimeFormat), e.Level, e.Message)
+	str := fmt.Sprintf("%v [%v] %v\n", e.Time.Format(time.RFC3339), e.Level, e.Message)
 	return []byte(str), nil
 }
