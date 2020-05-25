@@ -77,22 +77,14 @@ func TestMongo(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	t.Log(Config)
-	Logger.Info("Some info from context_test.go")
 
 	mong, err := Mongo()
 	if err != nil {
 		t.Error(err)
-		return
 	}
 
-	collectionNames, err := mong.ListCollectionNames()
+	_, err = mong.ListCollectionNames()
 	if err != nil {
 		t.Error(err)
-		return
-	}
-
-	for _, collectionName := range collectionNames {
-		t.Log(collectionName)
 	}
 }
