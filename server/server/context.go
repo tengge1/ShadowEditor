@@ -58,6 +58,14 @@ func Create(path string) error {
 	return nil
 }
 
+// Mongo create a new mongo client.
+func Mongo() (*helper.Mongo, error) {
+	if Config == nil {
+		return nil, fmt.Errorf("config is not initialized")
+	}
+	return helper.NewMongo(Config.Database.Connection, Config.Database.Database)
+}
+
 // logFormatter is a custom formatter to output logs to a file.
 type logFormatter struct {
 }
