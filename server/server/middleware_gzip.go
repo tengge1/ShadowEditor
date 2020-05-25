@@ -42,8 +42,7 @@ func GZipMiddleware(w http.ResponseWriter, r *http.Request, next http.HandlerFun
 	next.ServeHTTP(gzipResponseWriter{resp: w}, r)
 }
 
-// gzipResponseWriter is responsible for compressing responses
-// when the http status code == 200.
+// gzipResponseWriter is a fake ResponseWriter that is responsible for compressing responses.
 type gzipResponseWriter struct {
 	status int
 	resp   http.ResponseWriter
