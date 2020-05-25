@@ -24,16 +24,16 @@ var (
 	Logger *logrus.Logger
 )
 
-// Create create the server context.
+// Create create the server context, such as Config and Logger.
 func Create(path string) error {
-	// config
+	// parse ConfigModel
 	config, err := helper.GetConfig(path)
 	if err != nil {
 		return err
 	}
 	Config = config
 
-	// logger
+	// create context Logger
 	dir := filepath.Dir(config.Log.File)
 	if _, err = os.Stat(dir); os.IsNotExist(err) {
 		os.MkdirAll(dir, 0755)
@@ -41,7 +41,7 @@ func Create(path string) error {
 
 	writer, err := os.OpenFile(config.Log.File, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0755)
 	if err != nil {
-		panic(err.Error())
+		return err
 	}
 
 	logger := &logrus.Logger{
@@ -61,7 +61,11 @@ func Mongo() (*helper.Mongo, error) {
 	if Config == nil {
 		return nil, fmt.Errorf("config is not initialized")
 	}
-	return helper.NewMongo(Config.Database.Connection, Config.Database.Database)
+	mong, err := helper.NewMongo(Config.Database.Connection, Config.Database.Database)
+	if err != nil && Logger != nil {
+		Logger.Error(err)
+	}
+	return mong, err
 }
 
 // logFormatter is a custom formatter to output logs to a file.
