@@ -17,12 +17,10 @@ import (
 	"github.com/tengge1/shadoweditor/helper"
 )
 
-// We cache the shared data used by the server, such as `Config` and `Logger`.
-
 var (
-	// Config is the config cache.
+	// Config caches all the setting information we get from config.toml.
 	Config *helper.ConfigModel
-	// Logger is the server logger.
+	// Logger saves the running information of the server to a log file.
 	Logger *logrus.Logger
 )
 
