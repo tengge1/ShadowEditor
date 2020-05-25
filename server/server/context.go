@@ -72,13 +72,11 @@ func Mongo() (*helper.Mongo, error) {
 	return mong, err
 }
 
-// MapPath convert a relative path to physical absolute path.
+// MapPath maps a relative path to a physical absolute path. The root path `/` means
+// the public_dir in config.toml. Empty path is equal to the root path.
 func MapPath(path string) string {
 	if !strings.HasPrefix(path, "/") {
 		path = "/" + path
-	}
-	if path == "/" {
-		path = "/index.html"
 	}
 	path = filepath.Join(Config.Path.PublicDir, path)
 	return strings.ReplaceAll(path, "/", string(filepath.Separator))

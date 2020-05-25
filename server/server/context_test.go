@@ -10,6 +10,7 @@ package server
 import (
 	"io/ioutil"
 	"os"
+	"path/filepath"
 	"strings"
 	"testing"
 )
@@ -72,6 +73,20 @@ func TestLogger(t *testing.T) {
 	}
 }
 
+func TestMapPath(t *testing.T) {
+	err := Create("../config.toml")
+	if err != nil {
+		t.Error(err)
+	}
+	url := "/Upload/texture/test.jpg"
+	path := MapPath(url)
+	expected := filepath.Join(Config.Path.PublicDir, url)
+	expected = strings.ReplaceAll(expected, "/", string(filepath.Separator))
+	if expected != path {
+		t.Errorf("expect %v, got %v", expected, path)
+	}
+}
+
 func TestMongo(t *testing.T) {
 	err := Create("../config.toml")
 	if err != nil {
@@ -87,9 +102,4 @@ func TestMongo(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-}
-
-func TestMapPath(t *testing.T) {
-	path := MapPath("/Upload/texture/test.jpg")
-	t.Log(path)
 }
