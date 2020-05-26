@@ -1,7 +1,6 @@
 package server
 
 import (
-	"bytes"
 	"compress/gzip"
 	"io/ioutil"
 	"net/http"
@@ -21,7 +20,13 @@ func TestGZipMiddleware(t *testing.T) {
 	}))
 	defer ts.Close()
 	// get response
-	resp, err := http.Get(ts.URL)
+	tr := &http.Transport{
+		// IMPORTANT: You should set DisableCompression to true, or http.Get will
+		// decompress the response automatically.
+		DisableCompression: true,
+	}
+	client := &http.Client{Transport: tr}
+	resp, err := client.Get(ts.URL)
 	if err != nil {
 		t.Error(err)
 	}
@@ -34,21 +39,16 @@ func TestGZipMiddleware(t *testing.T) {
 	}
 
 	// check body
-	byts, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		t.Error(err)
-	}
-
-	reader, err := gzip.NewReader(bytes.NewReader(byts))
+	reader, err := gzip.NewReader(resp.Body)
 	if err != nil {
 		t.Error(err)
 	}
 	defer reader.Close()
-	byts, err = ioutil.ReadAll(reader)
+	bytes, err := ioutil.ReadAll(reader)
 	if err != nil {
 		t.Error(err)
 	}
-	str := string(byts)
+	str := string(bytes)
 	if str != hello {
 		t.Errorf("expect %v, got %v", hello, str)
 	}
