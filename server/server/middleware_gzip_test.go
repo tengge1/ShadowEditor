@@ -1,6 +1,7 @@
 package server
 
 import (
+	"bytes"
 	"compress/gzip"
 	"io/ioutil"
 	"net/http"
@@ -26,22 +27,28 @@ func TestGZipMiddleware(t *testing.T) {
 	}
 	defer resp.Body.Close()
 	// check header
-	acceptEncodingHeader := resp.Header.Get("Accept-Encoding")
+	acceptEncodingHeader := resp.Header.Get("Content-Encoding")
 
 	if acceptEncodingHeader != "gzip" {
-		t.Errorf("Accept-Encoding is not set properly, got %v", acceptEncodingHeader)
+		t.Errorf("Content-Encoding is not set properly, got %v", acceptEncodingHeader)
 	}
+
 	// check body
-	reader, err := gzip.NewReader(resp.Body)
+	byts, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		t.Error(err)
+	}
+
+	reader, err := gzip.NewReader(bytes.NewReader(byts))
 	if err != nil {
 		t.Error(err)
 	}
 	defer reader.Close()
-	bytes, err := ioutil.ReadAll(reader)
+	byts, err = ioutil.ReadAll(reader)
 	if err != nil {
 		t.Error(err)
 	}
-	str := string(bytes)
+	str := string(byts)
 	if str != hello {
 		t.Errorf("expect %v, got %v", hello, str)
 	}
