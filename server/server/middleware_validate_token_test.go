@@ -5,6 +5,9 @@ import (
 	"os"
 	"strings"
 	"testing"
+
+	"github.com/tengge1/shadoweditor/server/system"
+	"go.mongodb.org/mongo-driver/bson"
 )
 
 func TestValidateTokenMiddleware(t *testing.T) {
@@ -16,15 +19,69 @@ func TestCanInitialize(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-
 	mong, err := Mongo()
 	if err != nil {
 		t.Error(err)
 	}
-
 	_, err = mong.ListCollectionNames()
 	if err != nil {
 		t.Error(err)
+	}
+	// save old config
+	oldInitialized := false
+	config := system.Config{}
+	find, err := mong.FindOne(ConfigCollectionName, bson.M{}, &config)
+	if err != nil {
+		t.Error(err)
+	}
+	if find {
+		oldInitialized = config.Initialized
+	}
+	// set Initialized to false
+	if find {
+		update := bson.M{
+			"$set": bson.M{
+				"Initialized": false,
+			},
+		}
+		if _, err = mong.UpdateOne(ConfigCollectionName, bson.M{}, update); err != nil {
+			t.Error(err)
+		}
+	} else {
+		config.Initialized = false
+		if _, err = mong.InsertOne(ConfigCollectionName, config); err != nil {
+			t.Error(err)
+		}
+	}
+	if canInitialize() != true {
+		t.Errorf("expect true, got false")
+	}
+	// set Initialized to true
+	update := bson.M{
+		"$set": bson.M{
+			"Initialized": true,
+		},
+	}
+	if _, err = mong.UpdateOne(ConfigCollectionName, bson.M{}, update); err != nil {
+		t.Error(err)
+	}
+	if canInitialize() != false {
+		t.Errorf("expect false, got true")
+	}
+	// restore initial record
+	if find {
+		update := bson.M{
+			"$set": bson.M{
+				"Initialized": oldInitialized,
+			},
+		}
+		if _, err = mong.UpdateOne(ConfigCollectionName, bson.M{}, update); err != nil {
+			t.Error(err)
+		}
+	} else {
+		if _, err = mong.DeleteAll(ConfigCollectionName); err != nil {
+			t.Error(err)
+		}
 	}
 }
 
