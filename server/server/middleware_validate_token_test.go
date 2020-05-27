@@ -26,6 +26,29 @@ func TestValidateTokenMiddleware(t *testing.T) {
 	handler := func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(hello))
 	}
+
+	notAllowed := `{"Code":301,"Msg":"Not allowed."}`
+
+	// 1. Authority is not enabled.
+	Config.Authority.Enabled = false
+	checkAuthority(t, handler, hello)
+
+	// 2. Path is not registered.
+	Config.Authority.Enabled = true
+	checkAuthority(t, handler, notAllowed)
+
+	// 3. Authority is `None`.
+	apiAuthorities["/"] = None
+	checkAuthority(t, handler, hello)
+
+	// 4. User has no authority.
+	apiAuthorities["/"] = SaveScene
+	checkAuthority(t, handler, notAllowed)
+
+	// 5. User has the specific authority.
+}
+
+func checkAuthority(t *testing.T, handler http.HandlerFunc, expect string) {
 	// test server
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		ValidateTokenMiddleware(w, r, handler)
@@ -37,6 +60,14 @@ func TestValidateTokenMiddleware(t *testing.T) {
 		t.Error(err)
 	}
 	defer resp.Body.Close()
+	byts, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		t.Error(err)
+	}
+	str := string(byts)
+	if str != expect {
+		t.Errorf("expect %v, got %v", expect, str)
+	}
 }
 
 func TestCanInitialize(t *testing.T) {

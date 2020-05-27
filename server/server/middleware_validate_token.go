@@ -22,7 +22,13 @@ func ValidateTokenMiddleware(w http.ResponseWriter, r *http.Request, next http.H
 		return
 	}
 
-	auth := apiAuthorities[r.URL.Path]
+	auth, ok := apiAuthorities[r.URL.Path]
+	if !ok {
+		// path is not registered.
+		Logger.Errorf("%v is not registered", r.URL.Path)
+		writeNotAllowed(w)
+		return
+	}
 
 	// api needs no authority
 	if auth == None {
@@ -54,13 +60,16 @@ func ValidateTokenMiddleware(w http.ResponseWriter, r *http.Request, next http.H
 	}
 
 	// user doesn't has the authority required
+	logAPI(r.URL.Path, auth, username, false)
+	writeNotAllowed(w)
+}
+
+// writeNotAllowed write a not allowed response to the client.
+func writeNotAllowed(w http.ResponseWriter) {
 	result := Result{
 		Code: 301,
 		Msg:  "Not allowed.",
 	}
-
-	logAPI(r.URL.Path, auth, username, false)
-
 	json, _ := helper.ToJSON(result)
 	w.Write(json)
 }
