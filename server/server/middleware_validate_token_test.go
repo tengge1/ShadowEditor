@@ -2,6 +2,8 @@ package server
 
 import (
 	"io/ioutil"
+	"net/http"
+	"net/http/httptest"
 	"os"
 	"strings"
 	"testing"
@@ -11,7 +13,30 @@ import (
 )
 
 func TestValidateTokenMiddleware(t *testing.T) {
-
+	// read config
+	err := Create("../config.toml")
+	if err != nil {
+		t.Error(err)
+	}
+	if Config == nil {
+		t.Errorf("config is nil")
+	}
+	// test handler
+	hello := "Hello, world!"
+	handler := func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte(hello))
+	}
+	// test server
+	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		ValidateTokenMiddleware(w, r, handler)
+	}))
+	defer ts.Close()
+	// get response
+	resp, err := http.Get(ts.URL)
+	if err != nil {
+		t.Error(err)
+	}
+	defer resp.Body.Close()
 }
 
 func TestCanInitialize(t *testing.T) {
