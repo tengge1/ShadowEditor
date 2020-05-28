@@ -9,6 +9,10 @@ package server
 
 import "testing"
 
+func TestGetCurrentUser(t *testing.T) {
+
+}
+
 func TestGetUser(t *testing.T) {
 	err := Create("../config.toml")
 	if err != nil {
