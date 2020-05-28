@@ -11,8 +11,20 @@ import (
 	"testing"
 )
 
+func TestMux(t *testing.T) {
+
+}
+
 func TestStart(t *testing.T) {
 	Create("../config.toml")
 	// port := Config.Server.Port
 	go Start()
+}
+
+func TestHandle(t *testing.T) {
+
+}
+
+func TestCORSHandler(t *testing.T) {
+
 }
