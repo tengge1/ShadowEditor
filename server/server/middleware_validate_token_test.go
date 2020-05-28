@@ -3,13 +3,19 @@ package server
 import (
 	"io/ioutil"
 	"net/http"
+	"net/http/cookiejar"
 	"net/http/httptest"
+	"net/url"
 	"os"
 	"strings"
 	"testing"
+	"time"
+
+	"github.com/dgrijalva/jwt-go"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 
 	"github.com/tengge1/shadoweditor/server/system"
-	"go.mongodb.org/mongo-driver/bson"
 )
 
 func TestValidateTokenMiddleware(t *testing.T) {
@@ -31,31 +37,116 @@ func TestValidateTokenMiddleware(t *testing.T) {
 
 	// 1. Authority is not enabled.
 	Config.Authority.Enabled = false
-	checkAuthority(t, handler, hello)
+	checkAuthority(t, handler, hello, "")
 
 	// 2. Path is not registered.
 	Config.Authority.Enabled = true
-	checkAuthority(t, handler, notAllowed)
+	checkAuthority(t, handler, notAllowed, "")
 
 	// 3. Authority is `None`.
 	apiAuthorities["/"] = None
-	checkAuthority(t, handler, hello)
+	checkAuthority(t, handler, hello, "")
 
 	// 4. User has no authority.
 	apiAuthorities["/"] = SaveScene
-	checkAuthority(t, handler, notAllowed)
+	checkAuthority(t, handler, notAllowed, "")
 
 	// 5. User has the specific authority.
+	mong, err := Mongo()
+	if err != nil {
+		t.Error(err)
+	}
+	// add test role and user
+	roleID := primitive.NewObjectID()
+	role := bson.M{
+		"ID":     roleID,
+		"Status": 0,
+	}
+	if _, err := mong.InsertOne(RoleCollectionName, role); err != nil {
+		t.Error(err)
+	}
+	userID := primitive.NewObjectID()
+	user := bson.M{
+		"ID":     userID,
+		"RoleID": roleID.Hex(),
+		"Status": 0,
+	}
+	if _, err := mong.InsertOne(UserCollectionName, user); err != nil {
+		t.Error(err)
+	}
+	// user has the authority
+	apiAuthorities["/"] = SaveScene
+	auth := bson.M{
+		"RoleID":      roleID.Hex(),
+		"AuthorityID": SaveScene,
+	}
+	if _, err := mong.InsertOne(OperatingAuthorityCollectionName, auth); err != nil {
+		t.Error(err)
+	}
+	token := getToken(userID.Hex(), t)
+	checkAuthority(t, handler, hello, token)
+	// user has no authority
+	filter := bson.M{
+		"RoleID": roleID.Hex(),
+	}
+	if _, err := mong.DeleteOne(OperatingAuthorityCollectionName, filter); err != nil {
+		t.Error(err)
+	}
+	checkAuthority(t, handler, notAllowed, "")
+	// delete user and role
+	filter = bson.M{
+		"ID": roleID,
+	}
+	if _, err := mong.DeleteOne(RoleCollectionName, filter); err != nil {
+		t.Error(err)
+	}
+	filter = bson.M{
+		"ID": userID,
+	}
+	if _, err := mong.DeleteOne(UserCollectionName, filter); err != nil {
+		t.Error(err)
+	}
 }
 
-func checkAuthority(t *testing.T, handler http.HandlerFunc, expect string) {
+func getToken(userID string, t *testing.T) string {
+	token := jwt.New(jwt.SigningMethodHS256)
+	claims := make(jwt.MapClaims)
+	claims["exp"] = time.Now().Add(time.Hour * time.Duration(1)).Unix()
+	claims["iat"] = time.Now().Unix()
+	claims["userID"] = userID
+	token.Claims = claims
+
+	tokenString, err := token.SignedString([]byte(Config.Authority.SecretKey))
+	if err != nil {
+		t.Error(err)
+	}
+	return tokenString
+}
+
+func checkAuthority(t *testing.T, handler http.HandlerFunc, expect, token string) {
 	// test server
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		ValidateTokenMiddleware(w, r, handler)
 	}))
 	defer ts.Close()
 	// get response
-	resp, err := http.Get(ts.URL)
+	client := http.Client{}
+	if token != "" {
+		cookies := []*http.Cookie{
+			&http.Cookie{Name: "token", Value: token},
+		}
+		jar, err := cookiejar.New(nil)
+		if err != nil {
+			t.Error(err)
+		}
+		ur, err := url.Parse(ts.URL)
+		if err != nil {
+			t.Error(err)
+		}
+		jar.SetCookies(ur, cookies)
+		client.Jar = jar
+	}
+	resp, err := client.Get(ts.URL)
 	if err != nil {
 		t.Error(err)
 	}
