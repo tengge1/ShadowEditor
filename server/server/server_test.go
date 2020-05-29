@@ -8,6 +8,9 @@
 package server
 
 import (
+	"net/http"
+	"net/http/httptest"
+	"strings"
 	"testing"
 )
 
@@ -26,5 +29,30 @@ func TestHandle(t *testing.T) {
 }
 
 func TestCORSHandler(t *testing.T) {
+	origin := "http://192.168.0.2"
 
+	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		r.Header.Set("Origin", origin) // Header is case insensitive, `Origin` or `origin` is ok.
+		corsHandler(w, r, map[string]string{})
+	}))
+	defer ts.Close()
+
+	res, err := http.Get(ts.URL)
+	if err != nil {
+		t.Error(err)
+	}
+
+	methodsHeader := res.Header.Get("Access-Control-Allow-Methods")
+	originHeader := res.Header.Get("Access-Control-Allow-Origin")
+
+	if methodsHeader == "" ||
+		!strings.Contains(methodsHeader, "OPTIONS") ||
+		!strings.Contains(methodsHeader, "POST") ||
+		!strings.Contains(methodsHeader, "GET") {
+		t.Errorf("Access-Control-Allow-Methods is not set properly, got %v", methodsHeader)
+	}
+
+	if originHeader != origin {
+		t.Errorf("Access-Control-Allow-Origin is not set properly, got %v", originHeader)
+	}
 }
