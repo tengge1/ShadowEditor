@@ -8,6 +8,8 @@
 package server
 
 import (
+	"fmt"
+	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -25,7 +27,39 @@ func TestStart(t *testing.T) {
 }
 
 func TestHandle(t *testing.T) {
+	hello := "Hello, world!"
+	path := "/hello"
+	handler := func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte(hello))
+	}
+	Handle(http.MethodGet, path, handler, SaveScene)
 
+	auth, ok := apiAuthorities[path]
+	if !ok {
+		t.Error(fmt.Errorf("%v is not registered", path))
+	}
+	if auth != SaveScene {
+		t.Errorf("expect %v, got %v", SaveScene, auth)
+	}
+
+	ts := httptest.NewServer(mux)
+	defer ts.Close()
+
+	res, err := http.Get(ts.URL + path)
+	if err != nil {
+		t.Error(err)
+	}
+	defer res.Body.Close()
+
+	byts, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		t.Error(err)
+	}
+
+	str := string(byts)
+	if str != hello {
+		t.Errorf("expect %v, got %v", hello, str)
+	}
 }
 
 func TestCORSHandler(t *testing.T) {
