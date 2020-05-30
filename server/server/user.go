@@ -50,73 +50,83 @@ func GetCurrentUser(r *http.Request) (*system.User, error) {
 
 // GetUser get a user from userID.
 func GetUser(userID string) (*system.User, error) {
-	objectID, err := primitive.ObjectIDFromHex(userID)
+	// parse ObjectID
+	userObjectID, err := primitive.ObjectIDFromHex(userID)
 	if err != nil {
 		return nil, err
 	}
 
+	// create mongo client
 	mongo, err := Mongo()
 	if err != nil {
 		return nil, err
 	}
 
+	// get user from mongo
 	filter := bson.M{
-		"ID": objectID,
+		"ID": userObjectID,
 	}
-
 	user := system.User{}
-
 	find, err := mongo.FindOne(UserCollectionName, filter, &user)
 	if err != nil {
 		return nil, err
 	}
-	if !find {
-		return nil, fmt.Errorf("user (%v) is not found", userID)
+	if !find { // user is not found
+		return nil, nil
+	}
+
+	// user's RoleID is empty
+	if user.RoleID == "" {
+		return &user, nil
 	}
 
 	// get roles and authorities
-	if user.RoleID != "" {
-		objectID, err := primitive.ObjectIDFromHex(user.RoleID)
+	roleObjectID, err := primitive.ObjectIDFromHex(user.RoleID)
+	if err != nil {
+		return nil, err
+	}
+
+	filter = bson.M{
+		"ID": roleObjectID,
+	}
+
+	role := system.Role{}
+	find, err = mongo.FindOne(RoleCollectionName, filter, &role)
+	if err != nil {
+		return nil, err
+	}
+
+	// role is not found
+	if !find {
+		return &user, nil
+	}
+
+	// find role
+	user.RoleID = role.ID
+	user.RoleName = role.Name
+	user.OperatingAuthorities = []string{}
+
+	if role.Name == "Administrator" {
+		// Administrator has all the authorities except Initialize
+		for _, item := range GetAllAuthorities() {
+			user.OperatingAuthorities = append(user.OperatingAuthorities, item.ID)
+		}
+	} else {
+		// other roles get authorities from operating authority collection
+		filter := bson.M{
+			"RoleID": role.ID,
+		}
+
+		cursor, err := mongo.Find(OperatingAuthorityCollectionName, filter)
 		if err != nil {
 			return nil, err
 		}
 
-		filter = bson.M{
-			"ID": objectID,
-		}
+		for cursor.Next(context.TODO()) {
+			authority := system.RoleAuthority{}
+			cursor.Decode(&authority)
 
-		role := system.Role{}
-		find, err = mongo.FindOne(RoleCollectionName, filter, &role)
-		if err != nil {
-			return nil, err
-		}
-
-		if find {
-			user.RoleID = role.ID
-			user.RoleName = role.Name
-			user.OperatingAuthorities = []string{}
-
-			if role.Name == "Administrator" {
-				for _, item := range GetAllAuthorities() {
-					user.OperatingAuthorities = append(user.OperatingAuthorities, item.ID)
-				}
-			} else {
-				filter := bson.M{
-					"RoleID": role.ID,
-				}
-
-				cursor, err := mongo.Find(OperatingAuthorityCollectionName, filter)
-				if err != nil {
-					return nil, err
-				}
-
-				for cursor.Next(context.TODO()) {
-					authority := system.RoleAuthority{}
-					cursor.Decode(&authority)
-
-					user.OperatingAuthorities = append(user.OperatingAuthorities, authority.AuthorityID)
-				}
-			}
+			user.OperatingAuthorities = append(user.OperatingAuthorities, authority.AuthorityID)
 		}
 	}
 

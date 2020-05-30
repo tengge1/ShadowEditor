@@ -14,10 +14,8 @@ func TestGetCurrentUser(t *testing.T) {
 }
 
 func TestGetUser(t *testing.T) {
-	err := Create("../config.toml")
-	if err != nil {
+	if err := Create("../config.toml"); err != nil {
 		t.Error(err)
-		return
 	}
 
 	admin, err := GetUser("5dd101a84859d02218efef84")
