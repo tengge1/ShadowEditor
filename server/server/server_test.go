@@ -17,7 +17,31 @@ import (
 )
 
 func TestMux(t *testing.T) {
+	hello := "Hello, world!"
+	path := "/hello"
+	handler := func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte(hello))
+	}
+	mux.UsingContext().Handle(http.MethodGet, path, handler)
 
+	ts := httptest.NewServer(mux)
+	defer ts.Close()
+
+	res, err := http.Get(ts.URL + path)
+	if err != nil {
+		t.Error(err)
+	}
+	defer res.Body.Close()
+
+	byts, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		t.Error(err)
+	}
+
+	str := string(byts)
+	if str != hello {
+		t.Errorf("expect %v, got %v", hello, str)
+	}
 }
 
 func TestStart(t *testing.T) {
