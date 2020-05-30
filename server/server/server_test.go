@@ -45,7 +45,8 @@ func TestMux(t *testing.T) {
 }
 
 func TestStart(t *testing.T) {
-	// TODO: Test Start Function
+	// TODO: We CAN NOT test Start function here, and it may need reconstruct.
+	//
 	// if err := Create("../config.toml"); err != nil {
 	// 	t.Error(err)
 	// }
