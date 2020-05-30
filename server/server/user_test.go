@@ -7,7 +7,16 @@
 
 package server
 
-import "testing"
+import (
+	"testing"
+	"time"
+
+	"go.mongodb.org/mongo-driver/bson/primitive"
+
+	"github.com/tengge1/shadoweditor/helper"
+
+	"go.mongodb.org/mongo-driver/bson"
+)
 
 func TestGetCurrentUser(t *testing.T) {
 
@@ -18,17 +27,120 @@ func TestGetUser(t *testing.T) {
 		t.Error(err)
 	}
 
-	admin, err := GetUser("5dd101a84859d02218efef84")
+	mong, err := Mongo()
 	if err != nil {
 		t.Error(err)
-		return
 	}
-	t.Log(admin)
 
-	user, err := GetUser("5dd108e64859d222181f0397")
+	// get administrator role
+	filter := bson.M{
+		"Name": "Administrator",
+	}
+	adminRole := bson.M{}
+	find, err := mong.FindOne(RoleCollectionName, filter, &adminRole)
 	if err != nil {
 		t.Error(err)
-		return
 	}
-	t.Log(user)
+	if !find {
+		t.Error("Administrator role is not found")
+	}
+	adminRoleID := adminRole["ID"].(primitive.ObjectID).Hex()
+
+	// get user role
+	filter = bson.M{
+		"Name": "User",
+	}
+	userRole := bson.M{}
+	find, err = mong.FindOne(RoleCollectionName, filter, &userRole)
+	if err != nil {
+		t.Error(err)
+	}
+	if !find {
+		t.Error("User role is not found")
+	}
+	userRoleID := userRole["ID"].(primitive.ObjectID).Hex()
+
+	// add test user who's role is Administrator
+	now := time.Now().Format(helper.TimeFormat)
+	adminUserID := primitive.NewObjectID()
+	adminUser := bson.M{
+		"ID":       adminUserID,
+		"Username": "admin" + now,
+		"RoleID":   adminRoleID,
+		"Status":   0,
+	}
+	if _, err := mong.InsertOne(UserCollectionName, adminUser); err != nil {
+		t.Error(err)
+	}
+
+	// add test user who's role is User
+	userUserID := primitive.NewObjectID()
+	userUser := bson.M{
+		"ID":       userUserID,
+		"Username": "user" + now,
+		"RoleID":   userRoleID,
+		"Status":   0,
+	}
+	if _, err := mong.InsertOne(UserCollectionName, userUser); err != nil {
+		t.Error(err)
+	}
+
+	// get user who's role is Administrator
+	user, err := GetUser(adminUserID.Hex())
+	if err != nil {
+		t.Error(err)
+	}
+	if user.RoleID != adminRoleID {
+		t.Errorf("expect %v, got %v", adminRoleID, user.RoleID)
+	}
+	if user.RoleName != "Administrator" {
+		t.Errorf("expect Administrator, got %v", user.RoleName)
+	}
+	has := false
+	for _, auth := range user.OperatingAuthorities {
+		if auth == string(Administrator) {
+			has = true
+			break
+		}
+	}
+	if !has {
+		t.Error("expect true, got false")
+	}
+
+	// get user who's role is User
+	user, err = GetUser(userUserID.Hex())
+	if err != nil {
+		t.Error(err)
+	}
+	if user.RoleID != userRoleID {
+		t.Errorf("expect %v, got %v", userRoleID, user.RoleID)
+	}
+	if user.RoleName != "User" {
+		t.Errorf("expect User, got %v", user.RoleName)
+	}
+	has = false
+	for _, auth := range user.OperatingAuthorities {
+		if auth == string(Administrator) {
+			has = true
+			break
+		}
+	}
+	if has {
+		t.Error("expect false, got true")
+	}
+
+	// remove the users added
+	filter = bson.M{
+		"$or": bson.A{
+			bson.M{
+				"ID": adminUserID,
+			},
+			bson.M{
+				"ID": userUserID,
+			},
+		},
+	}
+	if _, err = mong.DeleteMany(UserCollectionName, filter); err != nil {
+		t.Error(err)
+	}
 }
