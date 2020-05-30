@@ -21,9 +21,35 @@ func TestMux(t *testing.T) {
 }
 
 func TestStart(t *testing.T) {
-	Create("../config.toml")
-	// port := Config.Server.Port
-	go Start()
+	// TODO: Test Start Function
+	// if err := Create("../config.toml"); err != nil {
+	// 	t.Error(err)
+	// }
+
+	// hello := "Hello, world!"
+	// path := "/hello"
+	// handler := func(w http.ResponseWriter, r *http.Request) {
+	// 	w.Write([]byte(hello))
+	// }
+	// Handle(http.MethodGet, path, handler, SaveScene)
+
+	// Start()
+
+	// res, err := http.Get("http://127.0.0.1" + Config.Server.Port + path)
+	// if err != nil {
+	// 	t.Error(err)
+	// }
+	// defer res.Body.Close()
+
+	// byts, err := ioutil.ReadAll(res.Body)
+	// if err != nil {
+	// 	t.Error(err)
+	// }
+
+	// str := string(byts)
+	// if str != hello {
+	// 	t.Errorf("expect %v, got %v", hello, str)
+	// }
 }
 
 func TestHandle(t *testing.T) {
