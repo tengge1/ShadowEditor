@@ -21,6 +21,7 @@ English / [中文](README_zh.md)
 6. Fix the bug that the resource list does not load when the user does not have permission to view all resources.
 7. Fix the bug that the thumbnail cannot be set in the texture.
 8. Fix the error of adding gltf format model to the scene.
+9. Non-administrators cannot edit or delete other people's public scenes.
 
 ## v0.5.1 has Released
 

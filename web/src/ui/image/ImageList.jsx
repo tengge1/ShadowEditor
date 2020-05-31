@@ -44,14 +44,14 @@ class ImageList extends React.Component {
 
         return <div className={classNames('ImageList', className)}
             style={style}
-               >
+        >
             <div className={'content'}>
                 {current.map(n => {
                     return <div className={'item'}
                         name={n.id}
                         key={n.id}
                         onClick={this.handleClick}
-                           >
+                    >
                         {n.src ?
                             <img className={'img'}
                                 src={n.src}
@@ -62,16 +62,16 @@ class ImageList extends React.Component {
                             </div>}
                         <div className={'title'}>{n.title}</div>
                         {n.cornerText && <div className={'cornerText'}>{n.cornerText}</div>}
-                        {showEditButton && <IconButton className={'edit'}
+                        {showEditButton && n.showEditButton !== false && <IconButton className={'edit'}
                             icon={'edit'}
                             name={n.id}
                             onClick={this.handleEdit}
-                                           />}
-                        {showDeleteButton && <IconButton className={'delete'}
+                        />}
+                        {showDeleteButton && n.showDeleteButton !== false && <IconButton className={'delete'}
                             icon={'delete'}
                             name={n.id}
                             onClick={this.handleDelete}
-                                             />}
+                        />}
                     </div>;
                 })}
             </div>

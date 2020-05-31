@@ -35,4 +35,6 @@ type Model struct {
 	Thumbnail string
 	// Is Public
 	IsPublic bool
+	// The user who the scene belong to
+	Username string
 }

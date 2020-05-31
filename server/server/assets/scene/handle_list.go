@@ -17,6 +17,7 @@ import (
 	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server"
 	"github.com/tengge1/shadoweditor/server/category"
+	"github.com/tengge1/shadoweditor/server/system"
 )
 
 func init() {
@@ -83,6 +84,12 @@ func List(w http.ResponseWriter, r *http.Request) {
 		db.FindAll(server.SceneCollectionName, &docs, &opts)
 	}
 
+	users := []system.User{}
+
+	if err = db.FindAll(server.UserCollectionName, &users); err != nil {
+		server.Logger.Error(err)
+	}
+
 	list := []Model{}
 
 	for _, i := range docs {
@@ -111,6 +118,16 @@ func List(w http.ResponseWriter, r *http.Request) {
 			isPublic = doc["IsPublic"].(bool)
 		}
 
+		username := ""
+		if userID, ok := doc["UserID"]; ok {
+			for _, user := range users {
+				if user.ID == userID {
+					username = user.Username
+					break
+				}
+			}
+		}
+
 		info := Model{
 			ID:             doc["ID"].(primitive.ObjectID).Hex(),
 			Name:           doc["Name"].(string),
@@ -124,6 +141,7 @@ func List(w http.ResponseWriter, r *http.Request) {
 			UpdateTime:     doc["UpdateTime"].(primitive.DateTime).Time(),
 			Thumbnail:      thumbnail,
 			IsPublic:       isPublic,
+			Username:       username,
 		}
 		list = append(list, info)
 	}

@@ -51,13 +51,15 @@ class ScenePanel extends React.Component {
                 src: n.Thumbnail ? `${app.options.server}${n.Thumbnail}` : null,
                 title: n.Name,
                 icon: 'scenes',
-                cornerText: `v${n.Version}`
+                cornerText: `v${n.Version}`,
+                showEditButton: !enableAuthority || app.server.isAdmin || n.Username === app.server.username,
+                showDeleteButton: !enableAuthority || app.server.isAdmin || n.Username === app.server.username
             });
         });
 
         return <div className={classNames('ScenePanel', className)}
             style={style}
-               >
+        >
             <SearchField
                 data={categoryData}
                 placeholder={_t('Search Content')}
