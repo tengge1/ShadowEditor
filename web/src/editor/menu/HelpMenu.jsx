@@ -17,8 +17,7 @@ class HelpMenu extends React.Component {
         this.handleVisit3dpunk = this.handleVisit3dpunk.bind(this);
         this.handleGitHubSource = this.handleGitHubSource.bind(this);
         this.handleGiteeSource = this.handleGiteeSource.bind(this);
-        this.handleGitHubDocuments = this.handleGitHubDocuments.bind(this);
-        this.handleGiteeDocuments = this.handleGiteeDocuments.bind(this);
+        this.handleDocument = this.handleDocument.bind(this);
         this.handleGitHubExamples = this.handleGitHubExamples.bind(this);
         this.handleGiteeExamples = this.handleGiteeExamples.bind(this);
         this.handleAbout = this.handleAbout.bind(this);
@@ -50,13 +49,7 @@ class HelpMenu extends React.Component {
                     onClick={this.handleGiteeSource}
                 />
             </MenuItem>
-            <MenuItem title={_t('Documents')}>
-                <MenuItem title={_t('GitHub')}
-                    onClick={this.handleGitHubDocuments}
-                />
-                <MenuItem title={_t('Gitee')}
-                    onClick={this.handleGiteeDocuments}
-                />
+            <MenuItem title={_t('Documents')} onClick={this.handleDocument}>
             </MenuItem>
             <MenuItem title={_t('Examples')}>
                 <MenuItem title={_t('GitHub')}
@@ -98,12 +91,8 @@ class HelpMenu extends React.Component {
         window.open('https://gitee.com/tengge1/ShadowEditor', '_blank');
     }
 
-    handleGitHubDocuments() {
-        window.open('https://tengge1.github.io/ShadowEditor/', '_blank');
-    }
-
-    handleGiteeDocuments() {
-        window.open('https://tengge1.gitee.io/shadoweditor/', '_blank');
+    handleDocument() {
+        window.open('https://gitee.com/tengge1/ShadowEditor/wikis/pages', '_blank');
     }
 
     handleGitHubExamples() {
@@ -125,11 +114,11 @@ class HelpMenu extends React.Component {
                 {_t('Source')}1: <a href="https://github.com/tengge1/ShadowEditor"
                     target="_blank"
                     rel="noopener noreferrer"
-                                 >https://github.com/tengge1/ShadowEditor</a><br />
+                >https://github.com/tengge1/ShadowEditor</a><br />
                 {_t('Source')}2: <a href="https://gitee.com/tengge1/ShadowEditor"
                     target="_blank"
                     rel="noopener noreferrer"
-                                 >https://gitee.com/tengge1/ShadowEditor</a><br />
+                >https://gitee.com/tengge1/ShadowEditor</a><br />
             </>
         });
     }
