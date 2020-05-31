@@ -12,7 +12,7 @@ password = ""                               # mongo password
 database = "ShadowEditor"                   # mongo database name
 
 [authority]
-enabled = true                              # enable authority
+enabled = false                              # enable authority
 expires = 120                               # login time, minutes, only support integer
 secret_key = "Welcome ---------"            # secret_key is used to encrypt credentials
 
