@@ -169,8 +169,16 @@ func Save(w http.ResponseWriter, r *http.Request) {
 	db.DeleteAll(collectionName)
 	db.InsertMany(collectionName, docs)
 
-	helper.WriteJSON(w, server.Result{
-		Code: 200,
-		Msg:  "Saved successfully!",
-	})
+	result := saveResult{}
+	result.Code = 200
+	result.Msg = "Saved successfully!"
+	result.ID = id.Hex()
+
+	helper.WriteJSON(w, result)
+}
+
+// saveResult is the result of saving scene.
+type saveResult struct {
+	server.Result
+	ID string
 }
