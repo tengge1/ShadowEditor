@@ -20,7 +20,7 @@ import (
 )
 
 func init() {
-	server.Handle(http.MethodPost, "/api/User/ChangePassword", ChangePassword, server.Administrator)
+	server.Handle(http.MethodPost, "/api/User/ChangePassword", ChangePassword, server.Login)
 }
 
 // ChangePassword change a user's password

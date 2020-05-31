@@ -45,6 +45,11 @@ func GetCurrentUser(r *http.Request) (*system.User, error) {
 		}
 	}
 
+	// user has LOGIN auth when login
+	if user != nil && user.OperatingAuthorities != nil {
+		user.OperatingAuthorities = append(user.OperatingAuthorities, string(Login))
+	}
+
 	return user, nil
 }
 

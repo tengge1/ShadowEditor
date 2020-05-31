@@ -76,7 +76,6 @@ type AuthorityModel struct {
 
 var authorityMaps = []authorityMap{
 	{Administrator, "Administrator"},
-	{Login, "Login"},
 	{ListAnimation, "List Animation"},
 	{AddAnimation, "Add Animation"},
 	{EditAnimation, "Edit Animation"},
