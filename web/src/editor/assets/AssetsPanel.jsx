@@ -46,95 +46,97 @@ class AssetsPanel extends React.Component {
 
         const { enableAuthority, isLogin, authorities } = app.server;
 
+        let index = 0;
+
         return <AccordionLayout className={'AssetsPanel'}
             onActive={this.handleActive}
-               >
+        >
             <Accordion name={'Scene'}
                 title={`${_t('Scene')}(${sceneCount})`}
                 maximizable
             >
                 <ScenePanel className={'subPanel'}
-                    show={0 === activeIndex}
+                    show={index++ === activeIndex}
                 />
             </Accordion>
             {!enableAuthority || authorities.includes('LIST_MESH') ? <Accordion name={'Model'}
                 title={`${_t('Model')}(${meshCount})`}
                 maximizable
-                                                                     >
+            >
                 <ModelPanel className={'subPanel'}
-                    show={1 === activeIndex}
+                    show={index++ === activeIndex}
                 />
             </Accordion> : null}
             {!enableAuthority || authorities.includes('LIST_MAP') ? <Accordion name={'Map'}
                 title={`${_t('Map')}(${mapCount})`}
                 maximizable
-                                                                    >
+            >
                 <MapPanel className={'subPanel'}
-                    show={2 === activeIndex}
+                    show={index++ === activeIndex}
                 />
             </Accordion> : null}
             {!enableAuthority || authorities.includes('LIST_MATERIAL') ? <Accordion name={'Material'}
                 title={`${_t('Material')}(${materialCount})`}
                 maximizable
-                                                                         >
+            >
                 <MaterialPanel className={'subPanel'}
-                    show={3 === activeIndex}
+                    show={index++ === activeIndex}
                 />
             </Accordion> : null}
             {!enableAuthority || authorities.includes('LIST_AUDIO') ? <Accordion name={'Audio'}
                 title={`${_t('Audio')}(${audioCount})`}
                 maximizable
-                                                                      >
+            >
                 <AudioPanel className={'subPanel'}
-                    show={4 === activeIndex}
+                    show={index++ === activeIndex}
                 />
             </Accordion> : null}
             {!enableAuthority || authorities.includes('LIST_ANIMATION') ? <Accordion name={'Animation'}
                 title={`${_t('Animation')}(${animationCount})`}
                 maximizable
-                                                                          >
+            >
                 <AnimationPanel className={'subPanel'}
-                    show={5 === activeIndex}
+                    show={index++ === activeIndex}
                 />
             </Accordion> : null}
             {!enableAuthority || authorities.includes('LIST_PARTICLE') ? <Accordion name={'Particle'}
                 title={`${_t('Particle')}(${particleCount})`}
                 maximizable
-                                                                         >
+            >
                 <ParticlePanel className={'subPanel'}
-                    show={6 === activeIndex}
+                    show={index++ === activeIndex}
                 />
             </Accordion> : null}
             {!enableAuthority || authorities.includes('LIST_PREFAB') ? <Accordion name={'Prefab'}
                 title={`${_t('Prefab')}(${prefabCount})`}
                 maximizable
-                                                                       >
+            >
                 <PrefabPanel className={'subPanel'}
-                    show={7 === activeIndex}
+                    show={index++ === activeIndex}
                 />
             </Accordion> : null}
             {!enableAuthority || authorities.includes('LIST_SCREENSHOT') ? <Accordion name={'Screenshot'}
                 title={`${_t('Screenshot')}(${screenshotCount})`}
                 maximizable
-                                                                           >
+            >
                 <ScreenshotPanel className={'subPanel'}
-                    show={8 === activeIndex}
+                    show={index++ === activeIndex}
                 />
             </Accordion> : null}
             {!enableAuthority || authorities.includes('LIST_VIDEO') ? <Accordion name={'Video'}
                 title={`${_t('Video')}(${videoCount})`}
                 maximizable
-                                                                      >
+            >
                 <VideoPanel className={'subPanel'}
-                    show={9 === activeIndex}
+                    show={index++ === activeIndex}
                 />
             </Accordion> : null}
             {!enableAuthority || isLogin ? <Accordion name={'Log'}
                 title={`${_t('Logs')}`}
                 maximizable
-                                           >
+            >
                 <LogPanel className={'subPanel'}
-                    show={10 === activeIndex}
+                    show={index++ === activeIndex}
                 />
             </Accordion> : null}
         </AccordionLayout>;
