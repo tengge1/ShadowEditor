@@ -84,13 +84,6 @@ In **China**, `github` is really slow, you can use `gitee` instead.
 git clone https://gitee.com/tengge1/ShadowEditor.git
 ```
 
-If you need a C# version, you can checkout the `v0.4.6-csharp` branch which is no longer maintained. 
-[Click](../../tree/v0.4.6-csharp/) to see the install guide.
-
-```bash
-git checkout -b csharp origin/v0.4.6-csharp
-```
-
 ### Build on Ubuntu
 
 1. If you are in `China`, run `make proxy` to set golang and nodejs proxy.

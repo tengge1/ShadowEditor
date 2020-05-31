@@ -84,12 +84,6 @@ git clone https://github.com/tengge1/ShadowEditor.git
 git clone https://gitee.com/tengge1/ShadowEditor.git
 ```
 
-如果你需要C#版本，可以切换到`v0.4.6-csharp`分支，但是该版本不再维护。
-[点击此处](../../tree/v0.4.6-csharp/)查看安装指南。
-
-```bash
-git checkout -b csharp origin/v0.4.6-csharp
-```
 ### 在Ubuntu上构建
 
 1. 如果你在国内， 执行`make proxy`设置go语言和nodejs代理。
