@@ -50,10 +50,10 @@ class SceneMenu extends React.Component {
             </MenuItem> : null}
             {!enableAuthority || authorities.includes('SAVE_SCENE') ? <MenuItem title={_t('Save')}
                 onClick={this.handleSaveScene}
-                                                                      /> : null}
+            /> : null}
             {!enableAuthority || authorities.includes('SAVE_SCENE') ? <MenuItem title={_t('Save As')}
                 onClick={this.handleSaveAsScene}
-                                                                      /> : null}
+            /> : null}
             {!enableAuthority || authorities.includes('SAVE_SCENE') ? <MenuItemSeparator /> : null}
             {!enableAuthority || isLogin ? <MenuItem title={_t('Export Scene')}>
                 <MenuItem title={_t('To JSON File')}
@@ -77,7 +77,7 @@ class SceneMenu extends React.Component {
             </MenuItem> : null}
             {!enableAuthority || authorities.includes('PUBLISH_SCENE') ? <MenuItem title={_t('Publish Scene')}
                 onClick={this.handlePublishScene}
-                                                                         /> : null}
+            /> : null}
         </MenuItem>;
     }
 
@@ -219,17 +219,18 @@ class SceneMenu extends React.Component {
         Ajax.post(`${app.options.server}/api/Scene/Save`, params, result => {
             var obj = JSON.parse(result);
 
+            app.unmask();
+
             if (obj.Code === 200) {
                 editor.sceneID = obj.ID;
                 editor.sceneName = sceneName;
                 document.title = sceneName;
+
+                app.call(`sceneSaved`, this);
+                app.toast(_t(obj.Msg), 'success');
+            } else {
+                app.toast(_t(obj.Msg), 'warn');
             }
-
-            app.call(`sceneSaved`, this);
-
-            app.unmask();
-
-            app.toast(_t(obj.Msg), 'success');
         });
     }
 

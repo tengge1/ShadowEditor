@@ -52,8 +52,8 @@ class ScenePanel extends React.Component {
                 title: n.Name,
                 icon: 'scenes',
                 cornerText: `v${n.Version}`,
-                showEditButton: !enableAuthority || app.server.isAdmin || n.Username === app.server.username,
-                showDeleteButton: !enableAuthority || app.server.isAdmin || n.Username === app.server.username
+                //showEditButton: !enableAuthority || app.server.isAdmin || n.Username === app.server.username,
+                //showDeleteButton: !enableAuthority || app.server.isAdmin || n.Username === app.server.username
             });
         });
 

@@ -72,6 +72,27 @@ func Save(w http.ResponseWriter, r *http.Request) {
 		collectionName = "Scene" + helper.TimeToString(now, "yyyyMMddHHmmss")
 		version = 0
 	} else { // edit scene
+		if server.Config.Authority.Enabled {
+			user, _ := server.GetCurrentUser(r)
+			// save other people's scene
+			if doc["UserID"] != nil && doc["UserID"].(string) != user.ID {
+				helper.WriteJSON(w, server.Result{
+					Code: 300,
+					Msg:  "Permission denied.",
+				})
+				return
+			}
+
+			// not admin save scene without UserID
+			if doc["UserID"] == nil && user.RoleName != "Administrator" {
+				helper.WriteJSON(w, server.Result{
+					Code: 300,
+					Msg:  "Permission denied.",
+				})
+				return
+			}
+		}
+
 		collectionName = doc["CollectionName"].(string)
 		if doc["Version"] != nil {
 			version = int(doc["Version"].(int32))
