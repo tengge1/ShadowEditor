@@ -19,6 +19,7 @@ English / [中文](README_zh.md)
 4. Automatic saving is disabled by default.
 5. Fix the bug that the uploaded data of non-admin users is not displayed.
 6. Fix the bug that the resource list does not load when the user does not have permission to view all resources.
+7. Fix the bug that the thumbnail cannot be set in the texture.
 
 ## v0.5.1 has Released
 
