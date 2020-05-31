@@ -33,35 +33,55 @@ func List(w http.ResponseWriter, r *http.Request) {
 
 	if server.Config.Authority.Enabled {
 		user, _ := server.GetCurrentUser(r)
-		if user != nil {
-			filter := bson.M{
-				"UserID": user.ID,
+
+		filter1 := bson.M{
+			"IsPublic": true, // public scenes
+		}
+
+		var filter bson.M
+		if user != nil { // user is login
+			filter2 := bson.M{
+				"UserID": user.ID, // user's scenes
 			}
-			if user.RoleName == "Administrator" {
+			if user.RoleName == "Administrator" { // admin user
+				filter3 := bson.M{
+					"UserID": bson.M{
+						"$exists": 0, // scenes without UserID
+					},
+				}
 				filter = bson.M{
 					"$or": bson.A{
-						filter,
-						bson.M{
-							"UserID": bson.M{
-								"$exists": 0,
-							},
-						},
+						filter1,
+						filter2,
+						filter3,
+					},
+				}
+			} else { // ordinary user
+				filter = bson.M{
+					"$or": bson.A{
+						filter1,
+						filter2,
 					},
 				}
 			}
-
-			sceneCount, _ = db.Count(server.SceneCollectionName, filter)
-			meshCount, _ = db.Count(server.MeshCollectionName, filter)
-			mapCount, _ = db.Count(server.MapCollectionName, filter)
-			materialCount, _ = db.Count(server.MaterialCollectionName, filter)
-			audioCount, _ = db.Count(server.AudioCollectionName, filter)
-			animationCount, _ = db.Count(server.AnimationCollectionName, filter)
-			particleCount, _ = db.Count(server.ParticleCollectionName, filter)
-			prefabCount, _ = db.Count(server.PrefabCollectionName, filter)
-			characterCount, _ = db.Count(server.CharacterCollectionName, filter)
-			screenshotCount, _ = db.Count(server.ScreenshotCollectionName, filter)
-			videoCount, _ = db.Count(server.VideoCollectionName, filter)
+		} else { // guest
+			filter = bson.M{
+				"$or": bson.A{
+					filter1,
+				},
+			}
 		}
+		sceneCount, _ = db.Count(server.SceneCollectionName, filter)
+		meshCount, _ = db.Count(server.MeshCollectionName, filter)
+		mapCount, _ = db.Count(server.MapCollectionName, filter)
+		materialCount, _ = db.Count(server.MaterialCollectionName, filter)
+		audioCount, _ = db.Count(server.AudioCollectionName, filter)
+		animationCount, _ = db.Count(server.AnimationCollectionName, filter)
+		particleCount, _ = db.Count(server.ParticleCollectionName, filter)
+		prefabCount, _ = db.Count(server.PrefabCollectionName, filter)
+		characterCount, _ = db.Count(server.CharacterCollectionName, filter)
+		screenshotCount, _ = db.Count(server.ScreenshotCollectionName, filter)
+		videoCount, _ = db.Count(server.VideoCollectionName, filter)
 	} else {
 		filter := bson.M{}
 
