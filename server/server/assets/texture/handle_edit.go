@@ -29,6 +29,7 @@ func Edit(w http.ResponseWriter, r *http.Request) {
 	id, err := primitive.ObjectIDFromHex(strings.TrimSpace(r.FormValue("ID")))
 	name := strings.TrimSpace(r.FormValue("Name"))
 	category := strings.TrimSpace(r.FormValue("Category"))
+	thumbnail := strings.TrimSpace(r.FormValue("Image"))
 
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
@@ -65,6 +66,7 @@ func Edit(w http.ResponseWriter, r *http.Request) {
 		"Name":        name,
 		"TotalPinYin": pinyin.TotalPinYin,
 		"FirstPinYin": pinyin.FirstPinYin,
+		"Thumbnail":   thumbnail,
 	}
 
 	update := bson.M{
