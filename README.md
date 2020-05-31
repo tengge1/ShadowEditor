@@ -17,6 +17,7 @@ English / [中文](README_zh.md)
 2. Documentation has moved to gitee wiki. [See Detail](https://gitee.com/tengge1/ShadowEditor/wikis/pages)
 3. Use JSON web tokens (JWT) for user authentication. 
 4. Automatic saving is disabled by default.
+5. Fix the bug that the uploaded data of non-admin users is not displayed.
 
 ## v0.5.1 has Released
 

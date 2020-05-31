@@ -17,6 +17,7 @@
 2. 文档移动到gitee wiki。[详情](https://gitee.com/tengge1/ShadowEditor/wikis/pages)
 3. 使用JSON Web令牌（JWT）进行用户身份验证。
 4. 默认禁用自动保存。
+5. 修复非管理员用户上传数据不显示的bug。
 
 ## v0.5.1更新
 

@@ -155,9 +155,9 @@ func Add(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if server.Config.Authority.Enabled {
-		user, err := server.GetCurrentUser(r)
+		user, _ := server.GetCurrentUser(r)
 
-		if err != nil && user != nil {
+		if user != nil {
 			doc["UserID"] = user.ID
 		}
 	}
