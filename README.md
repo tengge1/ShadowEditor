@@ -22,6 +22,7 @@ English / [中文](README_zh.md)
 7. Fix the bug that the thumbnail cannot be set in the texture.
 8. Fix the error of adding gltf format model to the scene.
 9. Non-administrators cannot edit or delete other people's public scenes.
+10. Fix the bug that it will be `saved as` when save twice.
 
 ## v0.5.1 has Released
 
