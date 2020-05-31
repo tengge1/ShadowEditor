@@ -21,7 +21,7 @@ func init() {
 
 // Logout log out the system.
 func Logout(w http.ResponseWriter, r *http.Request) {
-	cookie, err := r.Cookie("UserID")
+	cookie, err := r.Cookie("token")
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
