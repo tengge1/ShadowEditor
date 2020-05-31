@@ -23,9 +23,11 @@ func init() {
 func Logout(w http.ResponseWriter, r *http.Request) {
 	cookie, err := r.Cookie("token")
 	if err != nil {
+		// token is not found, user may logout without login
+		server.Logger.Error(err)
 		helper.WriteJSON(w, server.Result{
-			Code: 300,
-			Msg:  err.Error(),
+			Code: 200,
+			Msg:  "Logout Successfully!",
 		})
 		return
 	}
