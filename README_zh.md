@@ -3,7 +3,7 @@
 [English](README.md) / 中文
 
 * 名称：Shadow Editor
-* 版本：v0.5.2（即将发布）
+* 版本：v0.5.2
 * 简介：基于Three.js、Go语言和MongoDB的跨平台的3D场景编辑器。
 * 源码：[GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | 文档：[Gitee](https://gitee.com/tengge1/ShadowEditor/wikis/pages) | 示例：[GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) | 视频：[微博](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) | 资源：[百度网盘](https://pan.baidu.com/s/1IxJVM6fFLoIAJG-GKHjVTA)
 * 技术栈：html、css、javascript、rollup、react.js、webgl、three.js、golang、MongoDB。
@@ -12,6 +12,9 @@
 ![image](images/scene20200301.jpg)
 
 ## v0.5.2即将发布
+
+* 发布日期：2020年5月31日
+* 更新日志：
 
 1. MongoDB用户名和密码设置。
 2. 文档移动到gitee wiki。[详情](https://gitee.com/tengge1/ShadowEditor/wikis/pages)
@@ -24,26 +27,6 @@
 9. 非管理员无法编辑、删除其他人的公开场景。
 10. 修复连续保存两次会变为另存为的bug。
 11. 资源和权限管理测试完成，golang服务端几乎没有bug了。
-
-## v0.5.1更新
-
-* 发布日期：2020年5月17日
-* 更新日志：
-
-1. 修复烟组件播放报错的bug。
-2. 修复播放时渲染器尺寸错误。（导致烟组件播放时变小）
-3. 修复由于three.js升级，导致水组件报错的bug。
-4. 修复Ubuntu上资源类型过滤器，列出了所有类型的bug。
-5. 修复列出字体、上传字体和创建3D文字的bug。
-6. 修复备份mongodb的bug。
-7. 更新Windows构建指南。[详情](#在windows上构建)
-8. 安装为Windows服务。[详情](#安装为windows服务)
-9. 当端口冲突或`config.toml`丢失时，程序不会再闪退。
-10. 安装为Ubuntu服务。[详情](#安装为ubuntu服务)
-11. 修复开启权限时，资源数量显示错误。
-12. 修复保存系统设置错误。
-13. 修复导出所有示例的bug。
-14. 修复点标注选中高亮区域错误bug。
 
 ## 功能特点
 

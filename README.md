@@ -3,7 +3,7 @@
 English / [中文](README_zh.md)
 
 * Name: Shadow Editor
-* Version: v0.5.2 (coming soon)
+* Version: v0.5.2
 * Description: Cross-platform 3D scene editor based on three.js, golang and mongodb.
 * Source: [GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | Document: [Gitee](https://gitee.com/tengge1/ShadowEditor/wikis/pages) | Demo: [GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) | Video: [Weibo](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) | Assets: [BaiduNetdisk](https://pan.baidu.com/s/1IxJVM6fFLoIAJG-GKHjVTA)
 * Technology Stack: html, css, javascript, rollup, react.js, webgl, three.js, golang, mongodb.
@@ -11,7 +11,10 @@ English / [中文](README_zh.md)
 
 ![image](images/scene20200503_en.jpg)
 
-## v0.5.2 is Coming Soon
+## v0.5.2 has Released
+
+* Release Date: May 31, 2020
+* Update Logs:
 
 1. MongoDB user and password configuration.
 2. Documentation has moved to gitee wiki. [See Detail](https://gitee.com/tengge1/ShadowEditor/wikis/pages)
@@ -24,26 +27,6 @@ English / [中文](README_zh.md)
 9. Non-administrators cannot edit or delete other people's public scenes.
 10. Fix the bug that it will be `saved as` when save twice.
 11. The resource and permission management tests are complete, and there are almost no bugs in the golang server.
-
-## v0.5.1 has Released
-
-* Release Date: May 17, 2020
-* Update Logs:
-
-1. Fix a bug that an error occurs when the scene plays which contains a smoke comopnent.
-2. Fix the bug of renderer size error. (It causes smoke shrink when the scene plays which contains a smoke component)
-3. Fix the bug of water component error, due to the upgrade of three.js.
-4. Fix a bug that the category filter on the assets panel lists all the categories on Ubuntu.
-5. Fix bugs of listing fonts, uploading fonts and creating 3D text.
-6. Fix the bug of backing up mongodb.
-7. Update Windows build guide. [See Detail](#build-on-windows)
-8. Install as Windows service. [See Detail](#install-as-windows-service)
-9. When the ports conflict or `config.toml` is missing, the program will not crash immediately.
-10. Install as Ubuntu service. [See Detail](#build-on-ubuntu)
-11. Fix the total num of assets displayed incorrectly when authority is enabled.
-12. Fix the bug of saving config.
-13. Fix the bug of exporting examples.
-14. Fix the bug of the wrong area of point marker when selected.
 
 ## Features
 
