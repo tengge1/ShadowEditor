@@ -18,8 +18,11 @@ GLTFLoader.prototype.load = function (url, options) {
             'GLTFLoader'
         ]).then(() => {
             var loader = new THREE.GLTFLoader();
-            // THREE.DRACOLoader.setDecoderPath('assets/js/libs/draco/gltf/');
-            loader.setDRACOLoader(new THREE.DRACOLoader());
+
+            // DRACOLoader
+            let dracoLoader = new THREE.DRACOLoader();
+            dracoLoader.setDecoderPath('assets/js/libs/draco/gltf/');
+            loader.setDRACOLoader(dracoLoader);
 
             loader.load(url, result => {
                 var obj3d = result.scene;
