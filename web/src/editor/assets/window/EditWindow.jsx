@@ -43,7 +43,7 @@ class EditWindow extends React.Component {
             style={{ width: '320px', height: '300px' }}
             mask={false}
             onClose={this.handleClose}
-               >
+        >
             <Content>
                 <Form>
                     <FormControl>
@@ -176,7 +176,7 @@ class EditWindow extends React.Component {
 }
 
 EditWindow.propTypes = {
-    type: PropTypes.oneOf(['Scene', 'Mesh', 'Map', 'Texture', 'Material', 'Audio', 'Particle', 'Screenshot', 'Video']),
+    type: PropTypes.oneOf(['Scene', 'Mesh', 'Map', 'Texture', 'Material', 'Audio', 'Animation', 'Particle', 'Screenshot', 'Video']),
     typeName: PropTypes.string,
     data: PropTypes.object,
     saveUrl: PropTypes.string,
