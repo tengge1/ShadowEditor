@@ -60,8 +60,7 @@ class EditWindow extends React.Component {
                             value={categoryID}
                             onChange={this.handleCategoryChange}
                         />
-                        <Button show={!enableAuthority || authorities.includes('LIST_CATEGORY')}
-                            onClick={this.handleEditCategoryList}
+                        <Button onClick={this.handleEditCategoryList}
                         >{_t('Edit')}</Button>
                     </FormControl>
                     <FormControl>
