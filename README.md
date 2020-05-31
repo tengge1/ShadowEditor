@@ -23,6 +23,7 @@ English / [中文](README_zh.md)
 8. Fix the error of adding gltf format model to the scene.
 9. Non-administrators cannot edit or delete other people's public scenes.
 10. Fix the bug that it will be `saved as` when save twice.
+11. The resource and permission management tests are complete, and there are almost no bugs in the golang server.
 
 ## v0.5.1 has Released
 
