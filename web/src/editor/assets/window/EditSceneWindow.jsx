@@ -1,6 +1,6 @@
 import './css/EditSceneWindow.css';
 import { PropTypes } from '../../../third_party';
-import {  Window, TabLayout, Content, Buttons, Form, FormControl, Label, Input, Select, ImageUploader, Button, CheckBox, DataGrid, Column, LinkButton } from '../../../ui/index';
+import { Window, TabLayout, Content, Buttons, Form, FormControl, Label, Input, Select, ImageUploader, Button, CheckBox, DataGrid, Column, LinkButton } from '../../../ui/index';
 import Ajax from '../../../utils/Ajax';
 import CategoryWindow from './CategoryWindow.jsx';
 
@@ -46,7 +46,6 @@ class EditSceneWindow extends React.Component {
     render() {
         const { typeName } = this.props;
         const { activeTabIndex, name, categories, categoryID, thumbnail, isPublic, histories, selectedHistory } = this.state;
-        const { enableAuthority, authorities } = app.server;
 
         return <Window
             className={'EditSceneWindow'}
@@ -54,7 +53,7 @@ class EditSceneWindow extends React.Component {
             style={{ width: '400px', height: '320px' }}
             mask={false}
             onClose={this.handleClose}
-               >
+        >
             <Content>
                 <TabLayout activeTabIndex={activeTabIndex}
                     onActiveTabChange={this.handleActiveTabChange}
@@ -74,8 +73,7 @@ class EditSceneWindow extends React.Component {
                                 value={categoryID}
                                 onChange={this.handleCategoryChange}
                             />
-                            <Button show={!enableAuthority || authorities.includes('LIST_CATEGORY')}
-                                onClick={this.handleEditCategoryList}
+                            <Button onClick={this.handleEditCategoryList}
                             >{_t('Edit')}</Button>
                         </FormControl>
                         <FormControl>
@@ -219,7 +217,7 @@ class EditSceneWindow extends React.Component {
         }
         return <LinkButton name={row.ID}
             onClick={this.handleLoadHistory}
-               >{_t('Load')}</LinkButton>;
+        >{_t('Load')}</LinkButton>;
     }
 
     handleLoadHistory(name) {

@@ -35,7 +35,6 @@ class EditWindow extends React.Component {
     render() {
         const { type, typeName } = this.props;
         const { name, categories, categoryID, thumbnail, isPublic } = this.state;
-        const { enableAuthority, authorities } = app.server;
 
         return <Window
             className={'EditWindow'}

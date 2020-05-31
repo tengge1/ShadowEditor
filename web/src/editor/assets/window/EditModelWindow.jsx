@@ -46,7 +46,6 @@ class EditModelWindow extends React.Component {
 
     render() {
         const { activeTabIndex, name, categories, categoryID, thumbnail, isPublic, histories, selectedHistory } = this.state;
-        const { enableAuthority, authorities } = app.server;
 
         return <Window
             className={'EditModelWindow'}
@@ -54,7 +53,7 @@ class EditModelWindow extends React.Component {
             style={{ width: '400px', height: '320px' }}
             mask={false}
             onClose={this.handleClose}
-               >
+        >
             <Content>
                 <TabLayout activeTabIndex={activeTabIndex}
                     onActiveTabChange={this.handleActiveTabChange}
@@ -74,8 +73,7 @@ class EditModelWindow extends React.Component {
                                 value={categoryID}
                                 onChange={this.handleCategoryChange}
                             />
-                            <Button show={!enableAuthority || authorities.includes('LIST_CATEGORY')}
-                                onClick={this.handleEditCategoryList}
+                            <Button onClick={this.handleEditCategoryList}
                             >{_t('Edit')}</Button>
                         </FormControl>
                         <FormControl>
@@ -221,7 +219,7 @@ class EditModelWindow extends React.Component {
         }
         return <LinkButton name={row.ID}
             onClick={this.handleLoadHistory}
-               >{_t('Load')}</LinkButton>;
+        >{_t('Load')}</LinkButton>;
     }
 
     handleLoadHistory(name) {
