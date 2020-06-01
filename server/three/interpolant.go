@@ -266,6 +266,3 @@ Object.assign( Interpolant.prototype, {
 	afterEnd_: Interpolant.prototype.copySampleValue_,
 
 } );
-
-
-export { Interpolant };

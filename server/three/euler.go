@@ -10,11 +10,6 @@
 
 package three
 
-import { Quaternion } from './Quaternion.js';
-import { Vector3 } from './Vector3.js';
-import { Matrix4 } from './Matrix4.js';
-import { MathUtils } from './MathUtils.js';
-
 /**
  * @author mrdoob / http://mrdoob.com/
  * @author WestLangley / http://github.com/WestLangley
@@ -364,6 +359,3 @@ Object.assign( Euler.prototype, {
 	_onChangeCallback: function () {}
 
 } );
-
-
-export { Euler };

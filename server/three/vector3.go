@@ -760,6 +760,3 @@ Object.assign( Vector3.prototype, {
 	}
 
 } );
-
-
-export { Vector3 };

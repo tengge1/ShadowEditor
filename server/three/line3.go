@@ -10,9 +10,6 @@
 
 package three
 
-import { Vector3 } from './Vector3.js';
-import { MathUtils } from './MathUtils.js';
-
 /**
  * @author bhouston / http://clara.io
  */
@@ -155,6 +152,3 @@ Object.assign( Line3.prototype, {
 	}
 
 } );
-
-
-export { Line3 };

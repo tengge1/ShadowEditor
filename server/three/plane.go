@@ -10,9 +10,6 @@
 
 package three
 
-import { Matrix3 } from './Matrix3.js';
-import { Vector3 } from './Vector3.js';
-
 /**
  * @author bhouston / http://clara.io
  */
@@ -238,6 +235,3 @@ Object.assign( Plane.prototype, {
 	}
 
 } );
-
-
-export { Plane };

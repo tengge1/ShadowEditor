@@ -17,8 +17,6 @@ package three
  * @author bhouston / http://clara.io
  */
 
- import { MathUtils } from './MathUtils.js';
-
  function Quaternion( x, y, z, w ) {
  
 	 this._x = x || 0;
@@ -680,6 +678,3 @@ package three
 	 _onChangeCallback: function () {}
  
  } );
- 
- 
- export { Quaternion };

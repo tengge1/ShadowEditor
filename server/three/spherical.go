@@ -10,8 +10,6 @@
 
 package three
 
-import { MathUtils } from './MathUtils.js';
-
 /**
  * @author bhouston / http://clara.io
  * @author WestLangley / http://github.com/WestLangley
@@ -97,6 +95,3 @@ Object.assign( Spherical.prototype, {
 	}
 
 } );
-
-
-export { Spherical };

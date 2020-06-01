@@ -10,9 +10,6 @@
 
 package three
 
-import { Box3 } from './Box3.js';
-import { Vector3 } from './Vector3.js';
-
 var _box = new Box3();
 
 /**
@@ -200,6 +197,3 @@ Object.assign( Sphere.prototype, {
 	}
 
 } );
-
-
-export { Sphere };

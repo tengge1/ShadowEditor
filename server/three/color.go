@@ -10,8 +10,6 @@
 
 package three
 
-import { MathUtils } from './MathUtils.js';
-
 /**
  * @author mrdoob / http://mrdoob.com/
  */
@@ -601,5 +599,3 @@ Object.assign( Color.prototype, {
 } );
 
 Color.NAMES = _colorKeywords;
-
-export { Color };

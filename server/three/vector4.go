@@ -677,6 +677,3 @@ Object.assign( Vector4.prototype, {
 	}
 
 } );
-
-
-export { Vector4 };

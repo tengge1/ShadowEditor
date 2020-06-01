@@ -10,8 +10,6 @@
 
 package three
 
-import { Vector3 } from './Vector3.js';
-
 var _points = [
 	new Vector3(),
 	new Vector3(),
@@ -569,5 +567,3 @@ function satForAxes( axes, v0, v1, v2, extents ) {
 	return true;
 
 }
-
-export { Box3 };

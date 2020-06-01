@@ -10,8 +10,6 @@
 
 package three
 
-import { Vector3 } from './Vector3.js';
-
 var _vector = new Vector3();
 var _segCenter = new Vector3();
 var _segDir = new Vector3();
@@ -522,6 +520,3 @@ Object.assign( Ray.prototype, {
 	}
 
 } );
-
-
-export { Ray };

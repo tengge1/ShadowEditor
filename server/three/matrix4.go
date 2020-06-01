@@ -10,8 +10,6 @@
 
 package three
 
-import { Vector3 } from './Vector3.js';
-
 var _v1 = new Vector3();
 var _m1 = new Matrix4();
 var _zero = new Vector3( 0, 0, 0 );
@@ -901,6 +899,3 @@ Object.assign( Matrix4.prototype, {
 	}
 
 } );
-
-
-export { Matrix4 };

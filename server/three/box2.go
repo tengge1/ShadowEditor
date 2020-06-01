@@ -10,13 +10,11 @@
 
 package three
 
-import { Vector2 } from './Vector2.js';
-
 /**
  * @author bhouston / http://clara.io
  */
 
-var _vector = new Vector2();
+var _vector = Vector2{}
 
 function Box2( min, max ) {
 
@@ -241,6 +239,3 @@ Object.assign( Box2.prototype, {
 	}
 
 } );
-
-
-export { Box2 };

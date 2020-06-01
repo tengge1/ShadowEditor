@@ -214,6 +214,3 @@ package three
 	 }
  
  };
- 
- 
- export { MathUtils };

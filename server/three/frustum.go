@@ -10,10 +10,6 @@
 
 package three
 
-import { Vector3 } from './Vector3.js';
-import { Sphere } from './Sphere.js';
-import { Plane } from './Plane.js';
-
 /**
  * @author mrdoob / http://mrdoob.com/
  * @author alteredq / http://alteredqualia.com/
@@ -184,6 +180,3 @@ Object.assign( Frustum.prototype, {
 	}
 
 } );
-
-
-export { Frustum };
