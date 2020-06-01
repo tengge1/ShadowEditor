@@ -10,402 +10,397 @@
 
 package three
 
+import (
+	"math"
+	"strconv"
+)
+
+// NewVector2 :
 func NewVector2(x, y float64) *Vector2 {
 	return &Vector2{x, y, true}
 }
 
+// Vector2 :
 type Vector2 struct {
-	X float64
-	Y float64
+	X         float64
+	Y         float64
 	IsVector2 bool
 }
 
+// Width :
 func (v Vector2) Width() float64 {
 	return v.X
 }
 
+// SetWidth :
 func (v Vector2) SetWidth(value float64) {
 	v.X = value
 }
 
+// Height :
 func (v Vector2) Height() float64 {
 	return v.Y
 }
 
+// SetHeight :
 func (v Vector2) SetHeight(value float64) {
 	v.Y = value
 }
 
+// Set :
 func (v Vector2) Set(x, y float64) *Vector2 {
 	v.X = x
 	v.Y = y
 	return &v
 }
 
-func(v Vector2)SetScalar(scalar float64) *Vector2 {
+// SetScalar :
+func (v Vector2) SetScalar(scalar float64) *Vector2 {
 	v.X = scalar
 	v.Y = scalar
 	return &v
 }
 
-func (v Vector2)SetX(x float64) *Vector2 {
+// SetX :
+func (v Vector2) SetX(x float64) *Vector2 {
 	v.X = x
 	return &v
 }
 
-func (v Vector2)SetY(y float64) *Vector2 {
-	v.Y = y;
+// SetY :
+func (v Vector2) SetY(y float64) *Vector2 {
+	v.Y = y
 	return &v
 }
 
-func (v Vector2)SetComponent(index int, value float64) *Vector2 {
-	switch index  {
-	    default:
-		    panic("index is out of range: " + index)
-		case 0: 
-		    v.X = value
-		case 1: 
-		    v.Y = value
-	}
-	return &v
-}
-
-func (v Vector2)GetComponent(index int) *Vector2 {
+// SetComponent :
+func (v Vector2) SetComponent(index int, value float64) *Vector2 {
 	switch index {
-		default: 
-		    panic("index is out of range: " + index)
-		case 0: 
-		    return v.X
-		case 1: 
-		    return v.Y
+	default:
+		panic("index is out of range: " + strconv.Itoa(index))
+	case 0:
+		v.X = value
+	case 1:
+		v.Y = value
+	}
+	return &v
+}
+
+// GetComponent :
+func (v Vector2) GetComponent(index int) float64 {
+	switch index {
+	default:
+		panic("index is out of range: " + strconv.Itoa(index))
+	case 0:
+		return v.X
+	case 1:
+		return v.Y
 	}
 }
 
-func (v Vector2)Clone() *Vector2 {
+// Clone :
+func (v Vector2) Clone() *Vector2 {
 	return NewVector2(v.X, v.Y)
 }
 
-func (v Vector2)Copy(w Vector2) *Vector2 {
+// Copy :
+func (v Vector2) Copy(w Vector2) *Vector2 {
 	v.X = w.X
 	v.Y = w.Y
 	return &v
 }
 
-func (v Vector2)Add(w Vector2) *Vector2 {
+// Add :
+func (v Vector2) Add(w Vector2) *Vector2 {
 	v.X += w.X
 	v.Y += w.Y
 	return &v
 }
 
-func (v Vector2)AddScalar(s float64) *Vector2 {
+// AddScalar :
+func (v Vector2) AddScalar(s float64) *Vector2 {
 	v.X += s
 	v.Y += s
 	return &v
 }
 
-func (v Vector2)AddVectors(a, b Vector2) *Vector2 {
+// AddVectors :
+func (v Vector2) AddVectors(a, b Vector2) *Vector2 {
 	v.X = a.X + b.X
 	v.Y = a.Y + b.Y
 	return &v
 }
 
-func (v Vector2)AddScaledVector(w Vector2, s float64) *Vector2 {
+// AddScaledVector :
+func (v Vector2) AddScaledVector(w Vector2, s float64) *Vector2 {
 	v.X += w.X * s
 	v.Y += w.Y * s
 	return &v
 }
 
-func (v Vector2)Sub(w Vector2) *Vector2 {
+// Sub :
+func (v Vector2) Sub(w Vector2) *Vector2 {
 	v.X -= w.X
 	v.Y -= w.Y
 	return &v
 }
 
-func (v Vector2)SubScalar(s float64) *Vector2 {
+// SubScalar :
+func (v Vector2) SubScalar(s float64) *Vector2 {
 	v.X -= s
 	v.Y -= s
 	return &v
 }
 
-func (v Vector2)SubVectors(a, b Vector2) *Vector2 {
+// SubVectors :
+func (v Vector2) SubVectors(a, b Vector2) *Vector2 {
 	v.X = a.X - b.X
 	v.Y = a.Y - b.Y
 	return &v
 }
 
-func (v Vector2)Multiply(w Vector2) {
+// Multiply :
+func (v Vector2) Multiply(w Vector2) *Vector2 {
 	v.X *= w.X
 	v.Y *= w.Y
 	return &v
 }
 
-func (v Vector2)MultiplyScalar(scalar float64) *Vector2 {
+// MultiplyScalar :
+func (v Vector2) MultiplyScalar(scalar float64) *Vector2 {
 	v.X *= scalar
 	v.Y *= scalar
 	return &v
 }
 
-func (v Vector2)Divide(w Vector2) *Vector2 {
-	v.x /= w.X
-	v.y /= w.Y
+// Divide :
+func (v Vector2) Divide(w Vector2) *Vector2 {
+	v.X /= w.X
+	v.Y /= w.Y
 	return &v
 }
 
-func (v Vector2)DivideScalar(scalar float64) *Vector2 {
+// DivideScalar :
+func (v Vector2) DivideScalar(scalar float64) *Vector2 {
 	return v.MultiplyScalar(1 / scalar)
 }
 
-func (v Vector2)ApplyMatrix3(m Matrix3) *Vector2 {
+// ApplyMatrix3 :
+func (v Vector2) ApplyMatrix3(m Matrix3) *Vector2 {
 	x, y := v.X, v.Y
 	e := m.elements
 
-	v.X = e[ 0 ] * x + e[ 3 ] * y + e[ 6 ];
-	v.Y = e[ 1 ] * x + e[ 4 ] * y + e[ 7 ];
-	
+	v.X = e[0]*x + e[3]*y + e[6]
+	v.Y = e[1]*x + e[4]*y + e[7]
+
 	return &v
 }
 
-func (v Vector2)Min(w Vector2) *Vector2 {
+// Min :
+func (v Vector2) Min(w Vector2) *Vector2 {
 	v.X = math.Min(v.X, w.X)
 	v.Y = math.Min(v.Y, w.Y)
 
 	return &v
 }
 
-max: function ( v ) {
+// Max :
+func (v Vector2) Max(w Vector2) *Vector2 {
+	v.X = math.Max(v.X, w.X)
+	v.Y = math.Max(v.Y, w.Y)
 
-	this.x = Math.max( this.x, v.x );
-	this.y = Math.max( this.y, v.y );
+	return &v
+}
 
-	return this;
-
-},
-
-clamp: function ( min, max ) {
-
+// Clamp :
+func (v Vector2) Clamp(min, max Vector2) *Vector2 {
 	// assumes min < max, componentwise
-
-	this.x = Math.max( min.x, Math.min( max.x, this.x ) );
-	this.y = Math.max( min.y, Math.min( max.y, this.y ) );
-
-	return this;
-
-},
-
-clampScalar: function ( minVal, maxVal ) {
-
-	this.x = Math.max( minVal, Math.min( maxVal, this.x ) );
-	this.y = Math.max( minVal, Math.min( maxVal, this.y ) );
-
-	return this;
-
-},
-
-clampLength: function ( min, max ) {
-
-	var length = this.length();
-
-	return this.divideScalar( length || 1 ).multiplyScalar( Math.max( min, Math.min( max, length ) ) );
-
-},
-
-floor: function () {
-
-	this.x = Math.floor( this.x );
-	this.y = Math.floor( this.y );
-
-	return this;
-
-},
-
-ceil: function () {
-
-	this.x = Math.ceil( this.x );
-	this.y = Math.ceil( this.y );
-
-	return this;
-
-},
-
-round: function () {
-
-	this.x = Math.round( this.x );
-	this.y = Math.round( this.y );
-
-	return this;
-
-},
-
-roundToZero: function () {
-
-	this.x = ( this.x < 0 ) ? Math.ceil( this.x ) : Math.floor( this.x );
-	this.y = ( this.y < 0 ) ? Math.ceil( this.y ) : Math.floor( this.y );
-
-	return this;
-
-},
-
-negate: function () {
-
-	this.x = - this.x;
-	this.y = - this.y;
-
-	return this;
-
-},
-
-dot: function ( v ) {
-
-	return this.x * v.x + this.y * v.y;
-
-},
-
-cross: function ( v ) {
-
-	return this.x * v.y - this.y * v.x;
-
-},
-
-lengthSq: function () {
-
-	return this.x * this.x + this.y * this.y;
-
-},
-
-length: function () {
-
-	return Math.sqrt( this.x * this.x + this.y * this.y );
-
-},
-
-manhattanLength: function () {
-
-	return Math.abs( this.x ) + Math.abs( this.y );
-
-},
-
-normalize: function () {
-
-	return this.divideScalar( this.length() || 1 );
-
-},
-
-angle: function () {
-
-	// computes the angle in radians with respect to the positive x-axis
-
-	var angle = Math.atan2( - this.y, - this.x ) + Math.PI;
-
-	return angle;
-
-},
-
-distanceTo: function ( v ) {
-
-	return Math.sqrt( this.distanceToSquared( v ) );
-
-},
-
-distanceToSquared: function ( v ) {
-
-	var dx = this.x - v.x, dy = this.y - v.y;
-	return dx * dx + dy * dy;
-
-},
-
-manhattanDistanceTo: function ( v ) {
-
-	return Math.abs( this.x - v.x ) + Math.abs( this.y - v.y );
-
-},
-
-setLength: function ( length ) {
-
-	return this.normalize().multiplyScalar( length );
-
-},
-
-lerp: function ( v, alpha ) {
-
-	this.x += ( v.x - this.x ) * alpha;
-	this.y += ( v.y - this.y ) * alpha;
-
-	return this;
-
-},
-
-lerpVectors: function ( v1, v2, alpha ) {
-
-	this.x = v1.x + ( v2.x - v1.x ) * alpha;
-	this.y = v1.y + ( v2.y - v1.y ) * alpha;
-
-	return this;
-
-},
-
-equals: function ( v ) {
-
-	return ( ( v.x === this.x ) && ( v.y === this.y ) );
-
-},
-
-fromArray: function ( array, offset ) {
-
-	if ( offset === undefined ) offset = 0;
-
-	this.x = array[ offset ];
-	this.y = array[ offset + 1 ];
-
-	return this;
-
-},
-
-toArray: function ( array, offset ) {
-
-	if ( array === undefined ) array = [];
-	if ( offset === undefined ) offset = 0;
-
-	array[ offset ] = this.x;
-	array[ offset + 1 ] = this.y;
-
-	return array;
-
-},
-
-fromBufferAttribute: function ( attribute, index, offset ) {
-
-	if ( offset !== undefined ) {
-
-		console.warn( 'THREE.Vector2: offset has been removed from .fromBufferAttribute().' );
-
+	v.X = math.Max(min.X, math.Min(max.X, v.X))
+	v.Y = math.Max(min.Y, math.Min(max.Y, v.Y))
+
+	return &v
+}
+
+// ClampScalar :
+func (v Vector2) ClampScalar(minVal, maxVal float64) *Vector2 {
+	v.X = math.Max(minVal, math.Min(maxVal, v.X))
+	v.Y = math.Max(minVal, math.Min(maxVal, v.Y))
+
+	return &v
+}
+
+// ClampLength :
+func (v Vector2) ClampLength(min, max float64) float64 {
+	length := v.Length()
+	if length == 0 {
+		length = 1
 	}
 
-	this.x = attribute.getX( index );
-	this.y = attribute.getY( index );
+	return v.DivideScalar(length).MultiplyScalar(math.Max(min, math.Min(max, length)))
+}
 
-	return this;
+// Floor :
+func (v Vector2) Floor() *Vector2 {
+	v.X = math.Floor(v.X)
+	v.Y = math.Floor(v.Y)
 
-},
+	return &v
+}
 
-rotateAround: function ( center, angle ) {
+// Ceil :
+func (v Vector2) Ceil() *Vector2 {
+	v.X = math.Ceil(v.X)
+	v.Y = math.Ceil(v.Y)
 
-	var c = Math.cos( angle ), s = Math.sin( angle );
+	return &v
+}
 
-	var x = this.x - center.x;
-	var y = this.y - center.y;
+// Round :
+func (v Vector2) Round() {
+	this.x = Math.round(this.x)
+	this.y = Math.round(this.y)
 
-	this.x = x * c - y * s + center.x;
-	this.y = x * s + y * c + center.y;
+	return this
+}
 
-	return this;
+// RoundToZero :
+func (v Vector2) RoundToZero() *Vector2 {
+	if v.X < 0 {
+		v.X = math.Ceil(this.x)
+	} else {
+		v.X = math.Floor(this.x)
+	}
 
-},
+	if v.Y < 0 {
+		v.Y = math.Ceil(this.x)
+	} else {
+		v.Y = math.Floor(this.x)
+	}
 
-random: function () {
+	return &v
+}
 
-	this.x = Math.random();
-	this.y = Math.random();
+// Negate :
+func (v Vector2) Negate() {
+	this.x = -this.x
+	this.y = -this.y
 
-	return this;
+	return this
+}
 
+// Dot :
+func (v Vector2) Dot(w Vector2) {
+	return this.x*w.x + this.y*w.y
+}
+
+// Cross :
+func (v Vector2) Cross(w Vector2) {
+	return this.x*w.y - this.y*w.x
+}
+
+// LengthSq :
+func (v Vector2) LengthSq() {
+	return this.x*this.x + this.y*this.y
+}
+
+// Length :
+func (v Vector2) Length() float64 {
+	return math.Sqrt(v.X*v.X + v.Y*v.Y)
+}
+
+// ManhattanLength :
+func (v Vector2) ManhattanLength() {
+	return Math.abs(this.x) + Math.abs(this.y)
+}
+
+// Normalize :
+func (v Vector2) Normalize() {
+	return this.divideScalar(this.length() || 1)
+}
+
+// Angle :
+func (v Vector2) Angle() {
+	// computes the angle in radians with respect to the positive x-axis
+	var angle = Math.atan2(-this.y, -this.x) + Math.PI
+
+	return angle
+}
+
+// DistanceTo :
+func (v Vector2) DistanceTo(w Vector2) {
+	return Math.sqrt(this.distanceToSquared(w))
+}
+
+// DistanceToSquared :
+func (v Vector2) DistanceToSquared(w Vector2) float64 {
+	dx, dy := v.X-w.X, v.Y-w.Y
+	return dx*dx + dy*dy
+}
+
+// ManhattanDistanceTo :
+func (v Vector2) ManhattanDistanceTo(w Vector2) {
+	return Math.abs(this.x-w.x) + Math.abs(this.y-w.y)
+}
+
+// SetLength :
+func (v Vector2) SetLength(length float64) {
+	return this.normalize().multiplyScalar(length)
+}
+
+// Lerp :
+func (v Vector2) Lerp(w Vector2, alpha float64) {
+	this.x += (w.x - this.x) * alpha
+	this.y += (w.y - this.y) * alpha
+
+	return this
+}
+
+// LerpVectors :
+func (v Vector2) LerpVectors(v1, v2 Vector2, alpha float64) {
+	this.x = v1.x + (v2.x-v1.x)*alpha
+	this.y = v1.y + (v2.y-v1.y)*alpha
+
+	return this
+}
+
+// Equals :
+func (v Vector2) Equals(w Vector2) {
+	return ((w.x == this.x) && (w.y == this.y))
+}
+
+// FromArray :
+func (v Vector2) FromArray(array []float64, offset int) {
+	this.x = array[offset]
+	this.y = array[offset+1]
+
+	return this
+}
+
+// ToArray :
+func (v Vector2) ToArray(array []float64, offset int) []float64 {
+	array[offset] = this.x
+	array[offset+1] = this.y
+
+	return array
+}
+
+// RotateAround :
+func (v Vector2) RotateAround(center Vector2, angle float64) {
+	c, s := math.Cos(angle), math.Sin(angle)
+
+	var x = this.x - center.x
+	var y = this.y - center.y
+
+	this.x = x*c - y*s + center.x
+	this.y = x*s + y*c + center.y
+
+	return this
+}
+
+// Random :
+func (v Vector2) Random() *Vector2 {
+	v.X = math.Random()
+	v.Y = math.Random()
+
+	return &v
 }
