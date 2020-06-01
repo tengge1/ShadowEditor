@@ -36,172 +36,141 @@ func (v Vector2) SetHeight(value float64) {
 	v.Y = value
 }
 
-func (v Vector2) Set( x, y float64) *Vector2 {
+func (v Vector2) Set(x, y float64) *Vector2 {
 	v.X = x
 	v.Y = y
 	return &v
 }
 
-func(v Vector2)SetScalar( scalar float64) *Vector2  {
+func(v Vector2)SetScalar(scalar float64) *Vector2 {
 	v.X = scalar
 	v.Y = scalar
 	return &v
 }
 
-func (v Vector2)SetX( x float64) *Vector2  {
+func (v Vector2)SetX(x float64) *Vector2 {
 	v.X = x
 	return &v
 }
 
-func (v Vector2)SetY( y float64) *Vector2  {
-	this.y = y;
+func (v Vector2)SetY(y float64) *Vector2 {
+	v.Y = y;
 	return &v
 }
 
-func (v Vector2)SetComponent( index int, value float64) *Vector2  {
+func (v Vector2)SetComponent(index int, value float64) *Vector2 {
 	switch index  {
-	default:
-		 panic( "index is out of range: " + index )
+	    default:
+		    panic("index is out of range: " + index)
 		case 0: 
-		v.x = value
+		    v.X = value
 		case 1: 
-		v.y = value
+		    v.Y = value
 	}
 	return &v
 }
 
-func (v Vector2)GetComponent( index ) *Vector2 {
+func (v Vector2)GetComponent(index int) *Vector2 {
 	switch index {
 		default: 
-		panic( "index is out of range: " + index )
+		    panic("index is out of range: " + index)
 		case 0: 
-		return v.X
+		    return v.X
 		case 1: 
-		return v.Y
+		    return v.Y
 	}
 }
 
 func (v Vector2)Clone() *Vector2 {
-	return NewVector2( v.X, v.Y )
+	return NewVector2(v.X, v.Y)
 }
 
-func (v Vector2)Copy( w Vector2) *Vector2 {
+func (v Vector2)Copy(w Vector2) *Vector2 {
 	v.X = w.X
 	v.Y = w.Y
 	return &v
 }
 
-func (v Vector2)Add( w Vector2) *Vector2 {
+func (v Vector2)Add(w Vector2) *Vector2 {
 	v.X += w.X
 	v.Y += w.Y
 	return &v
 }
 
-func (v Vector2)AddScalar( s float64) *Vector2 {
+func (v Vector2)AddScalar(s float64) *Vector2 {
 	v.X += s
 	v.Y += s
 	return &v
 }
 
-func (v Vector2)AddVectors( a, b Vector2) *Vector2 {
+func (v Vector2)AddVectors(a, b Vector2) *Vector2 {
 	v.X = a.X + b.X
 	v.Y = a.Y + b.Y
 	return &v
 }
 
-func (v *Vector2)AddScaledVector(w Vector2, s float64) *Vector2 {
+func (v Vector2)AddScaledVector(w Vector2, s float64) *Vector2 {
 	v.X += w.X * s
 	v.Y += w.Y * s
 	return &v
 }
 
-sub: function ( v, w ) {
+func (v Vector2)Sub(w Vector2) *Vector2 {
+	v.X -= w.X
+	v.Y -= w.Y
+	return &v
+}
 
-	if ( w !== undefined ) {
+func (v Vector2)SubScalar(s float64) *Vector2 {
+	v.X -= s
+	v.Y -= s
+	return &v
+}
 
-		console.warn( 'THREE.Vector2: .sub() now only accepts one argument. Use .subVectors( a, b ) instead.' );
-		return this.subVectors( v, w );
+func (v Vector2)SubVectors(a, b Vector2) *Vector2 {
+	v.X = a.X - b.X
+	v.Y = a.Y - b.Y
+	return &v
+}
 
-	}
+func (v Vector2)Multiply(w Vector2) {
+	v.X *= w.X
+	v.Y *= w.Y
+	return &v
+}
 
-	this.x -= v.x;
-	this.y -= v.y;
+func (v Vector2)MultiplyScalar(scalar float64) *Vector2 {
+	v.X *= scalar
+	v.Y *= scalar
+	return &v
+}
 
-	return this;
+func (v Vector2)Divide(w Vector2) *Vector2 {
+	v.x /= w.X
+	v.y /= w.Y
+	return &v
+}
 
-},
+func (v Vector2)DivideScalar(scalar float64) *Vector2 {
+	return v.MultiplyScalar(1 / scalar)
+}
 
-subScalar: function ( s ) {
+func (v Vector2)ApplyMatrix3(m Matrix3) *Vector2 {
+	x, y := v.X, v.Y
+	e := m.elements
 
-	this.x -= s;
-	this.y -= s;
+	v.X = e[ 0 ] * x + e[ 3 ] * y + e[ 6 ];
+	v.Y = e[ 1 ] * x + e[ 4 ] * y + e[ 7 ];
+	
+	return &v
+}
 
-	return this;
+func (v Vector2)Min(w Vector2) *Vector2 {
+	v.X = math.Min(v.X, w.X)
+	v.Y = math.Min(v.Y, w.Y)
 
-},
-
-subVectors: function ( a, b ) {
-
-	this.x = a.x - b.x;
-	this.y = a.y - b.y;
-
-	return this;
-
-},
-
-multiply: function ( v ) {
-
-	this.x *= v.x;
-	this.y *= v.y;
-
-	return this;
-
-},
-
-multiplyScalar: function ( scalar ) {
-
-	this.x *= scalar;
-	this.y *= scalar;
-
-	return this;
-
-},
-
-divide: function ( v ) {
-
-	this.x /= v.x;
-	this.y /= v.y;
-
-	return this;
-
-},
-
-divideScalar: function ( scalar ) {
-
-	return this.multiplyScalar( 1 / scalar );
-
-},
-
-applyMatrix3: function ( m ) {
-
-	var x = this.x, y = this.y;
-	var e = m.elements;
-
-	this.x = e[ 0 ] * x + e[ 3 ] * y + e[ 6 ];
-	this.y = e[ 1 ] * x + e[ 4 ] * y + e[ 7 ];
-
-	return this;
-
-},
-
-min: function ( v ) {
-
-	this.x = Math.min( this.x, v.x );
-	this.y = Math.min( this.y, v.y );
-
-	return this;
-
-},
+	return &v
+}
 
 max: function ( v ) {
 
