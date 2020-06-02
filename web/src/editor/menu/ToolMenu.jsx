@@ -144,7 +144,7 @@ class ToolMenu extends React.Component {
     }
 
     handleTest() {
-        debugger
+        
     }
 }
 
