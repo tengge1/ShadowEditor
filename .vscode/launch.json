@@ -31,6 +31,13 @@
             "request": "launch",
             "mode": "debug",
             "program": "${fileDirname}"
+        },
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal"
         }
     ]
 }
