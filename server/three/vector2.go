@@ -12,6 +12,7 @@ package three
 
 import (
 	"math"
+	"math/rand"
 	"strconv"
 )
 
@@ -230,7 +231,7 @@ func (v Vector2) ClampScalar(minVal, maxVal float64) *Vector2 {
 }
 
 // ClampLength :
-func (v Vector2) ClampLength(min, max float64) float64 {
+func (v Vector2) ClampLength(min, max float64) *Vector2 {
 	length := v.Length()
 	if length == 0 {
 		length = 1
@@ -256,51 +257,51 @@ func (v Vector2) Ceil() *Vector2 {
 }
 
 // Round :
-func (v Vector2) Round() {
-	this.x = Math.round(this.x)
-	this.y = Math.round(this.y)
+func (v Vector2) Round() *Vector2 {
+	v.X = math.Round(v.X)
+	v.Y = math.Round(v.Y)
 
-	return this
+	return &v
 }
 
 // RoundToZero :
 func (v Vector2) RoundToZero() *Vector2 {
 	if v.X < 0 {
-		v.X = math.Ceil(this.x)
+		v.X = math.Ceil(v.X)
 	} else {
-		v.X = math.Floor(this.x)
+		v.X = math.Floor(v.X)
 	}
 
 	if v.Y < 0 {
-		v.Y = math.Ceil(this.x)
+		v.Y = math.Ceil(v.X)
 	} else {
-		v.Y = math.Floor(this.x)
+		v.Y = math.Floor(v.X)
 	}
 
 	return &v
 }
 
 // Negate :
-func (v Vector2) Negate() {
-	this.x = -this.x
-	this.y = -this.y
+func (v Vector2) Negate() *Vector2 {
+	v.X = -v.X
+	v.Y = -v.Y
 
-	return this
+	return &v
 }
 
 // Dot :
-func (v Vector2) Dot(w Vector2) {
-	return this.x*w.x + this.y*w.y
+func (v Vector2) Dot(w Vector2) float64 {
+	return v.X*w.X + v.Y*w.Y
 }
 
 // Cross :
-func (v Vector2) Cross(w Vector2) {
-	return this.x*w.y - this.y*w.x
+func (v Vector2) Cross(w Vector2) float64 {
+	return v.X*w.Y - v.Y*w.X
 }
 
 // LengthSq :
-func (v Vector2) LengthSq() {
-	return this.x*this.x + this.y*this.y
+func (v Vector2) LengthSq() float64 {
+	return v.X*v.X + v.Y*v.Y
 }
 
 // Length :
@@ -309,26 +310,30 @@ func (v Vector2) Length() float64 {
 }
 
 // ManhattanLength :
-func (v Vector2) ManhattanLength() {
-	return Math.abs(this.x) + Math.abs(this.y)
+func (v Vector2) ManhattanLength() float64 {
+	return math.Abs(v.X) + math.Abs(v.Y)
 }
 
 // Normalize :
-func (v Vector2) Normalize() {
-	return this.divideScalar(this.length() || 1)
+func (v Vector2) Normalize() *Vector2 {
+	length := v.Length()
+	if length == 0 {
+		length = 1
+	}
+	return v.DivideScalar(length)
 }
 
 // Angle :
-func (v Vector2) Angle() {
+func (v Vector2) Angle() float64 {
 	// computes the angle in radians with respect to the positive x-axis
-	var angle = Math.atan2(-this.y, -this.x) + Math.PI
+	var angle = math.Atan2(-v.Y, -v.X) + math.Pi
 
 	return angle
 }
 
 // DistanceTo :
-func (v Vector2) DistanceTo(w Vector2) {
-	return Math.sqrt(this.distanceToSquared(w))
+func (v Vector2) DistanceTo(w Vector2) float64 {
+	return math.Sqrt(v.DistanceToSquared(w))
 }
 
 // DistanceToSquared :
@@ -338,69 +343,69 @@ func (v Vector2) DistanceToSquared(w Vector2) float64 {
 }
 
 // ManhattanDistanceTo :
-func (v Vector2) ManhattanDistanceTo(w Vector2) {
-	return Math.abs(this.x-w.x) + Math.abs(this.y-w.y)
+func (v Vector2) ManhattanDistanceTo(w Vector2) float64 {
+	return math.Abs(v.X-w.X) + math.Abs(v.Y-w.Y)
 }
 
 // SetLength :
-func (v Vector2) SetLength(length float64) {
-	return this.normalize().multiplyScalar(length)
+func (v Vector2) SetLength(length float64) *Vector2 {
+	return v.Normalize().MultiplyScalar(length)
 }
 
 // Lerp :
-func (v Vector2) Lerp(w Vector2, alpha float64) {
-	this.x += (w.x - this.x) * alpha
-	this.y += (w.y - this.y) * alpha
+func (v Vector2) Lerp(w Vector2, alpha float64) *Vector2 {
+	v.X += (w.X - v.X) * alpha
+	v.Y += (w.Y - v.Y) * alpha
 
-	return this
+	return &v
 }
 
 // LerpVectors :
-func (v Vector2) LerpVectors(v1, v2 Vector2, alpha float64) {
-	this.x = v1.x + (v2.x-v1.x)*alpha
-	this.y = v1.y + (v2.y-v1.y)*alpha
+func (v Vector2) LerpVectors(v1, v2 Vector2, alpha float64) *Vector2 {
+	v.X = v1.X + (v2.X-v1.X)*alpha
+	v.Y = v1.Y + (v2.Y-v1.Y)*alpha
 
-	return this
+	return &v
 }
 
 // Equals :
-func (v Vector2) Equals(w Vector2) {
-	return ((w.x == this.x) && (w.y == this.y))
+func (v Vector2) Equals(w Vector2) bool {
+	return ((w.X == v.X) && (w.Y == v.Y))
 }
 
 // FromArray :
-func (v Vector2) FromArray(array []float64, offset int) {
-	this.x = array[offset]
-	this.y = array[offset+1]
+func (v Vector2) FromArray(array []float64, offset int) *Vector2 {
+	v.X = array[offset]
+	v.Y = array[offset+1]
 
-	return this
+	return &v
 }
 
 // ToArray :
 func (v Vector2) ToArray(array []float64, offset int) []float64 {
-	array[offset] = this.x
-	array[offset+1] = this.y
+	array[offset] = v.X
+	array[offset+1] = v.Y
 
 	return array
 }
 
 // RotateAround :
-func (v Vector2) RotateAround(center Vector2, angle float64) {
+func (v Vector2) RotateAround(center Vector2, angle float64) *Vector2 {
 	c, s := math.Cos(angle), math.Sin(angle)
 
-	var x = this.x - center.x
-	var y = this.y - center.y
+	var x = v.X - center.X
+	var y = v.Y - center.Y
 
-	this.x = x*c - y*s + center.x
-	this.y = x*s + y*c + center.y
+	v.X = x*c - y*s + center.X
+	v.Y = x*s + y*c + center.Y
 
-	return this
+	return &v
 }
 
 // Random :
 func (v Vector2) Random() *Vector2 {
-	v.X = math.Random()
-	v.Y = math.Random()
+	v.X = rand.Float64()
+	v.Y = rand.Float64()
 
 	return &v
 }
