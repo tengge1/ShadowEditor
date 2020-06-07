@@ -12,6 +12,11 @@ package three
 
 import "math"
 
+const (
+	// EPSILON is a small number
+	EPSILON = 2.220446049250313e-16
+)
+
 type onChangeCallback func()
 
 // NewQuaternion :
@@ -53,19 +58,21 @@ func (q Quaternion) SlerpFlat(
 	if w0 != w1 || x0 != x1 || y0 != y1 || z0 != z1 {
 		s := 1 - t
 		cos := x0*x1 + y0*y1 + z0*z1 + w0*w1
-		dir := -1
+		dir := -1.0
 		if cos >= 0 {
-			dir = 1
+			dir = 1.0
 		}
-		sqrSin = 1 - cos*cos
+		sqrSin := 1 - cos*cos
 
 		// Skip the Slerp for tiny steps to avoid numeric problems:
-		if sqrSin > Number.EPSILON {
-			var sin = Math.sqrt(sqrSin)
-			len = Math.atan2(sin, cos*dir)
+		// Number.EPSILON :2.220446049250313e-16
+		// math.Nextafter(0, 1) 5e-324
+		if sqrSin > EPSILON {
+			sin := math.Sqrt(sqrSin)
+			len := math.Atan2(sin, cos*dir)
 
-			s = Math.sin(s*len) / sin
-			t = Math.sin(t*len) / sin
+			s := math.Sin(s*len) / sin
+			t := math.Sin(t*len) / sin
 		}
 
 		tDir := t * dir
@@ -77,7 +84,7 @@ func (q Quaternion) SlerpFlat(
 
 		// Normalize in case we just did a lerp:
 		if s == 1-t {
-			var f = 1 / Math.sqrt(x0*x0+y0*y0+z0*z0+w0*w0)
+			var f = 1 / math.Sqrt(x0*x0+y0*y0+z0*z0+w0*w0)
 
 			x0 *= f
 			y0 *= f
@@ -172,20 +179,20 @@ func (q Quaternion) Set(x, y, z, w float64) *Quaternion {
 }
 
 // Clone :
-func (q Quaternion) Clone() {
+func (q Quaternion) Clone() *Quaternion {
 	return NewQuaternion(q._x, q._y, q._z, q._w)
 }
 
 // Copy :
-func (q Quaternion) Copy(quaternion Quaternion) {
-	q._x = quaternion.x
-	q._y = quaternion.y
-	q._z = quaternion.z
-	q._w = quaternion.w
+func (q Quaternion) Copy(quaternion Quaternion) *Quaternion {
+	q._x = quaternion.X()
+	q._y = quaternion.Y()
+	q._z = quaternion.Z()
+	q._w = quaternion.W()
 
 	q._onChangeCallback()
 
-	return q
+	return &q
 }
 
 // SetFromEuler :
@@ -195,8 +202,8 @@ func (q Quaternion) SetFromEuler(euler Euler, update bool) *Quaternion {
 	// http://www.mathworks.com/matlabcentral/fileexchange/
 	// 	20696-function-to-convert-between-dcm-euler-angles-quaternions-and-euler-vectors/
 	//	content/SpinCalc.m
-	cos := Math.cos
-	sin := Math.sin
+	cos := math.Cos
+	sin := math.Sin
 
 	c1 := cos(x / 2)
 	c2 := cos(y / 2)
@@ -281,28 +288,28 @@ func (q Quaternion) SetFromRotationMatrix(m Matrix4) *Quaternion {
 	var s float64
 
 	if trace > 0 {
-		s = 0.5 / Math.sqrt(trace+1.0)
+		s = 0.5 / math.Sqrt(trace+1.0)
 
 		q._w = 0.25 / s
 		q._x = (m32 - m23) * s
 		q._y = (m13 - m31) * s
 		q._z = (m21 - m12) * s
 	} else if m11 > m22 && m11 > m33 {
-		s = 2.0 * Math.sqrt(1.0+m11-m22-m33)
+		s = 2.0 * math.Sqrt(1.0+m11-m22-m33)
 
 		q._w = (m32 - m23) / s
 		q._x = 0.25 * s
 		q._y = (m12 + m21) / s
 		q._z = (m13 + m31) / s
 	} else if m22 > m33 {
-		s = 2.0 * Math.sqrt(1.0+m22-m11-m33)
+		s = 2.0 * math.Sqrt(1.0+m22-m11-m33)
 
 		q._w = (m13 - m31) / s
 		q._x = (m12 + m21) / s
 		q._y = 0.25 * s
 		q._z = (m23 + m32) / s
 	} else {
-		s = 2.0 * Math.sqrt(1.0+m33-m11-m22)
+		s = 2.0 * math.Sqrt(1.0+m33-m11-m22)
 
 		q._w = (m21 - m12) / s
 		q._x = (m13 + m31) / s
@@ -316,7 +323,7 @@ func (q Quaternion) SetFromRotationMatrix(m Matrix4) *Quaternion {
 }
 
 // SetFromUnitVectors :
-func (q Quaternion) SetFromUnitVectors(vFrom, vTo Vector3) {
+func (q Quaternion) SetFromUnitVectors(vFrom, vTo Vector3) *Quaternion {
 	// assumes direction vectors vFrom and vTo are normalized
 
 	EPS := 0.000001
@@ -333,8 +340,8 @@ func (q Quaternion) SetFromUnitVectors(vFrom, vTo Vector3) {
 			q._w = r
 		} else {
 			q._x = 0
-			q._y = -vFrom.z
-			q._z = vFrom.y
+			q._y = -vFrom.Z
+			q._z = vFrom.Y
 			q._w = r
 		}
 	} else {
@@ -358,7 +365,7 @@ func (q Quaternion) RotateTowards(q1 Quaternion, step float64) *Quaternion {
 	angle := q.AngleTo(q1)
 
 	if angle == 0 {
-		return q
+		return &q
 	}
 
 	t := math.Min(1, step/angle)
@@ -386,7 +393,7 @@ func (q Quaternion) Conjugate() *Quaternion {
 }
 
 // Dot :
-func (q Quaternion) Dot(v Vector3) float64 {
+func (q Quaternion) Dot(v Quaternion) float64 {
 	return q._x*v._x + q._y*v._y + q._z*v._z + q._w*v._w
 }
 
@@ -402,7 +409,7 @@ func (q Quaternion) Length() float64 {
 
 // Normalize :
 func (q Quaternion) Normalize() *Quaternion {
-	l := q.length()
+	l := q.Length()
 
 	if l == 0 {
 		q._x = 0
@@ -472,7 +479,7 @@ func (q Quaternion) Slerp(qb Quaternion, t float64) *Quaternion {
 
 		cosHalfTheta = -cosHalfTheta
 	} else {
-		q.copy(qb)
+		q.Copy(qb)
 	}
 
 	if cosHalfTheta >= 1.0 {
@@ -486,14 +493,14 @@ func (q Quaternion) Slerp(qb Quaternion, t float64) *Quaternion {
 
 	sqrSinHalfTheta := 1.0 - cosHalfTheta*cosHalfTheta
 
-	if sqrSinHalfTheta <= Number.EPSILON {
+	if sqrSinHalfTheta <= EPSILON {
 		var s = 1 - t
 		q._w = s*w + t*q._w
 		q._x = s*x + t*q._x
 		q._y = s*y + t*q._y
 		q._z = s*z + t*q._z
 
-		q.normalize()
+		q.Normalize()
 		q._onChangeCallback()
 
 		return &q
