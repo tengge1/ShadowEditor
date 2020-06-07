@@ -1,5 +1,3 @@
-// +build ignore
-
 // Copyright 2017-2020 The ShadowEditor Authors. All rights reserved.
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
@@ -19,17 +17,15 @@ package three
  * @author thezwap
  */
 
- var _lut = [];
+ var _lut = []float64{}
 
- for ( var i = 0; i < 256; i ++ ) {
- 
-	 _lut[ i ] = ( i < 16 ? '0' : '' ) + ( i ).toString( 16 );
- 
+ func init() {
+	for i := 0; i < 256; i++ {
+		_lut[ i ] = ( i < 16 ? '0' : '' ) + ( i ).toString( 16 ); 
+	}
  }
- 
- var MathUtils = {
- 
-	 DEG2RAD: Math.PI / 180,
+
+ DEG2RAD: Math.PI / 180,
 	 RAD2DEG: 180 / Math.PI,
  
 	 generateUUID: function () {
@@ -215,4 +211,5 @@ package three
  
 	 }
  
- };
+var MathUtils = {
+}
