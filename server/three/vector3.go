@@ -13,6 +13,7 @@ package three
 import (
 	"math"
 	"math/rand"
+	"strconv"
 )
 
 // NewVector3 :
@@ -28,7 +29,7 @@ type Vector3 struct {
 	IsVector3 bool
 }
 
-// var _vector = NewVector3(0, 0, 0)
+var _vector3 = NewVector3(0, 0, 0)
 var _quaternion = NewQuaternion(0, 0, 0, 1)
 
 // Set :
@@ -74,7 +75,7 @@ func (v Vector3) SetZ(z float64) *Vector3 {
 func (v Vector3) SetComponent(index int, value float64) *Vector3 {
 	switch index {
 	default:
-		panic("index is out of range: " + index)
+		panic("index is out of range: " + strconv.Itoa(index))
 	case 0:
 		v.X = value
 	case 1:
@@ -90,7 +91,7 @@ func (v Vector3) SetComponent(index int, value float64) *Vector3 {
 func (v Vector3) GetComponent(index int) float64 {
 	switch index {
 	default:
-		panic("index is out of range: " + index)
+		panic("index is out of range: " + strconv.Itoa(index))
 	case 0:
 		return v.X
 	case 1:
@@ -211,17 +212,17 @@ func (v Vector3) ApplyEuler(euler Euler) *Vector3 {
 
 // ApplyAxisAngle :
 func (v Vector3) ApplyAxisAngle(axis Vector3, angle float64) *Vector3 {
-	return v.ApplyQuaternion(_quaternion.setFromAxisAngle(axis, angle))
+	return v.ApplyQuaternion(*_quaternion.SetFromAxisAngle(axis, angle))
 }
 
 // ApplyMatrix3 :
 func (v Vector3) ApplyMatrix3(m Matrix3) *Vector3 {
 	x, y, z := v.X, v.Y, v.Z
-	e := m.elements
+	me := m.Elements
 
-	v.X = e[0]*x + e[3]*y + e[6]*z
-	v.Y = e[1]*x + e[4]*y + e[7]*z
-	v.Z = e[2]*x + e[5]*y + e[8]*z
+	v.X = me[0]*x + me[3]*y + me[6]*z
+	v.Y = me[1]*x + me[4]*y + me[7]*z
+	v.Z = me[2]*x + me[5]*y + me[8]*z
 
 	return &v
 }
@@ -233,8 +234,8 @@ func (v Vector3) ApplyNormalMatrix(m Matrix3) *Vector3 {
 
 // ApplyMatrix4 :
 func (v Vector3) ApplyMatrix4(m Matrix4) *Vector3 {
-	x, y, z := v.X, x.Y, v.Z
-	e := m.elements
+	x, y, z := v.X, v.Y, v.Z
+	e := m.Elements
 
 	w := 1 / (e[3]*x + e[7]*y + e[11]*z + e[15])
 
@@ -248,7 +249,7 @@ func (v Vector3) ApplyMatrix4(m Matrix4) *Vector3 {
 // ApplyQuaternion :
 func (v Vector3) ApplyQuaternion(q Quaternion) *Vector3 {
 	x, y, z := v.X, v.Y, v.Z
-	qx, qy, qz, qw := q.X, q.Y, q.Z, q.W
+	qx, qy, qz, qw := q.X(), q.Y(), q.Z(), q.W()
 
 	// calculate quat * vector
 
@@ -267,8 +268,8 @@ func (v Vector3) ApplyQuaternion(q Quaternion) *Vector3 {
 }
 
 // Project :
-func (v Vector3) Project(matrixWorldInverse, projectionMatrix Matrix4) {
-	return v.ApplyMatrix4(matrixWorldInverse).applyMatrix4(projectionMatrix)
+func (v Vector3) Project(matrixWorldInverse, projectionMatrix Matrix4) *Vector3 {
+	return v.ApplyMatrix4(matrixWorldInverse).ApplyMatrix4(projectionMatrix)
 }
 
 // Unproject :
@@ -277,12 +278,12 @@ func (v Vector3) Unproject(projectionMatrixInverse, matrixWorld Matrix4) *Vector
 }
 
 // TransformDirection :
-func (v Vector3) TransformDirection(m Vector3) *Vector3 {
+func (v Vector3) TransformDirection(m Matrix4) *Vector3 {
 	// input: THREE.Matrix4 affine matrix
 	// vector interpreted as a direction
 
 	x, y, z := v.X, v.Y, v.Z
-	e := m.elements
+	e := m.Elements
 
 	v.X = e[0]*x + e[4]*y + e[8]*z
 	v.Y = e[1]*x + e[5]*y + e[9]*z
@@ -293,9 +294,9 @@ func (v Vector3) TransformDirection(m Vector3) *Vector3 {
 
 // Divide :
 func (v Vector3) Divide(w Vector3) *Vector3 {
-	v.X /= w.x
-	v.Y /= w.y
-	v.Z /= w.z
+	v.X /= w.X
+	v.Y /= w.Y
+	v.Z /= w.Z
 
 	return &v
 }
@@ -307,18 +308,18 @@ func (v Vector3) DivideScalar(scalar float64) *Vector3 {
 
 // Min :
 func (v Vector3) Min(w Vector3) *Vector3 {
-	v.X = math.Min(v.X, w.x)
-	v.Y = math.Min(v.Y, w.y)
-	v.Z = math.Min(v.Z, w.z)
+	v.X = math.Min(v.X, w.X)
+	v.Y = math.Min(v.Y, w.Y)
+	v.Z = math.Min(v.Z, w.Z)
 
 	return &v
 }
 
 // Max :
 func (v Vector3) Max(w Vector3) *Vector3 {
-	v.X = math.Max(v.X, w.x)
-	v.Y = math.Max(v.Y, w.y)
-	v.Z = math.Max(v.Z, w.z)
+	v.X = math.Max(v.X, w.X)
+	v.Y = math.Max(v.Y, w.Y)
+	v.Z = math.Max(v.Z, w.Z)
 
 	return &v
 }
@@ -336,9 +337,9 @@ func (v Vector3) Clamp(min, max Vector3) *Vector3 {
 
 // ClampScalar :
 func (v Vector3) ClampScalar(minVal, maxVal float64) *Vector3 {
-	v.X = math.Max(minVal, math.Min(maxVal, v.x))
-	v.Y = math.Max(minVal, math.Min(maxVal, v.y))
-	v.Z = math.Max(minVal, math.Min(maxVal, v.z))
+	v.X = math.Max(minVal, math.Min(maxVal, v.X))
+	v.Y = math.Max(minVal, math.Min(maxVal, v.Y))
+	v.Z = math.Max(minVal, math.Min(maxVal, v.Z))
 
 	return &v
 }
@@ -455,9 +456,9 @@ func (v Vector3) Lerp(w Vector3, alpha float64) *Vector3 {
 
 // LerpVectors :
 func (v Vector3) LerpVectors(v1, v2 Vector3, alpha float64) *Vector3 {
-	v.X = v1.x + (v2.X-v1.X)*alpha
-	v.Y = v1.y + (v2.Y-v1.Y)*alpha
-	v.Z = v1.z + (v2.Z-v1.Z)*alpha
+	v.X = v1.X + (v2.X-v1.X)*alpha
+	v.Y = v1.Y + (v2.Y-v1.Y)*alpha
+	v.Z = v1.Z + (v2.Z-v1.Z)*alpha
 
 	return &v
 }
@@ -487,16 +488,16 @@ func (v Vector3) ProjectOnVector(w Vector3) *Vector3 {
 		return v.Set(0, 0, 0)
 	}
 
-	scalar := w.dot(v) / denominator
+	scalar := w.Dot(v) / denominator
 
 	return v.Copy(w).MultiplyScalar(scalar)
 }
 
 // ProjectOnPlane :
 func (v Vector3) ProjectOnPlane(planeNormal Vector3) *Vector3 {
-	_vector.Copy(v).ProjectOnVector(planeNormal)
+	_vector3.Copy(v).ProjectOnVector(planeNormal)
 
-	return v.Sub(_vector)
+	return v.Sub(*_vector3)
 }
 
 // Reflect :
@@ -504,18 +505,18 @@ func (v Vector3) Reflect(normal Vector3) *Vector3 {
 	// reflect incident vector off plane orthogonal to normal
 	// normal is assumed to have unit length
 
-	return v.Sub(_vector.Copy(normal).MultiplyScalar(2 * v.Dot(normal)))
+	return v.Sub(*_vector3.Copy(normal).MultiplyScalar(2 * v.Dot(normal)))
 }
 
 // AngleTo :
-func (v Vector3) AngleTo(w Vector3) *Vector3 {
-	denominator := Math.sqrt(w.lengthSq() * w.lengthSq())
+func (v Vector3) AngleTo(w Vector3) float64 {
+	denominator := math.Sqrt(w.LengthSq() * w.LengthSq())
 
 	if denominator == 0 {
-		return Math.PI / 2
+		return math.Pi / 2
 	}
 
-	theta := v.dot(v) / denominator
+	theta := v.Dot(v) / denominator
 
 	// clamp, to handle numerical problems
 
@@ -524,7 +525,7 @@ func (v Vector3) AngleTo(w Vector3) *Vector3 {
 
 // DistanceTo :
 func (v Vector3) DistanceTo(w Vector3) float64 {
-	return math.Sqrt(v.distanceToSquared(w))
+	return math.Sqrt(v.DistanceToSquared(w))
 }
 
 // DistanceToSquared :
@@ -595,12 +596,22 @@ func (v Vector3) SetFromMatrixScale(m Matrix4) *Vector3 {
 
 // SetFromMatrixColumn :
 func (v Vector3) SetFromMatrixColumn(m Matrix4, index int) *Vector3 {
-	return v.FromArray(m.Elements, index*4)
+	elems := [3]float64{}
+	for i := 0; i < 3; i++ {
+		elems[i] = m.Elements[index*4+i]
+	}
+
+	return v.FromArray(elems, 0)
 }
 
 // SetFromMatrix3Column :
 func (v Vector3) SetFromMatrix3Column(m Matrix3, index int) *Vector3 {
-	return v.FromArray(m.Elements, index*3)
+	elems := [3]float64{}
+	for i := 0; i < 3; i++ {
+		elems[i] = m.Elements[index*3+i]
+	}
+
+	return v.FromArray(elems, 0)
 }
 
 // Equals :
@@ -609,7 +620,7 @@ func (v Vector3) Equals(w Vector3) bool {
 }
 
 // FromArray :
-func (v Vector3) FromArray(array []float64, offset int) *Vector3 {
+func (v Vector3) FromArray(array [3]float64, offset int) *Vector3 {
 	v.X = array[offset]
 	v.Y = array[offset+1]
 	v.Z = array[offset+2]
@@ -618,7 +629,7 @@ func (v Vector3) FromArray(array []float64, offset int) *Vector3 {
 }
 
 // ToArray :
-func (v Vector3) ToArray(array []float64, offset int) []float64 {
+func (v Vector3) ToArray(array [3]float64, offset int) [3]float64 {
 	array[offset] = v.X
 	array[offset+1] = v.Y
 	array[offset+2] = v.Z
