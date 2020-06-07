@@ -14,13 +14,6 @@ import (
 	"math"
 )
 
-/**
- * @author Mugen87 / https://github.com/Mugen87
- *
- * Ref: https://en.wikipedia.org/wiki/Cylindrical_coordinate_system
- *
- */
-
 // NewCylindrical create a new Cylindrical
 func NewCylindrical(radius, theta, y float64) *Cylindrical {
 	return &Cylindrical{radius, theta, y}

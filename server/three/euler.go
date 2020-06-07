@@ -1,363 +1,271 @@
-// +build ignore
-
 // Copyright 2017-2020 The ShadowEditor Authors. All rights reserved.
-// Use of this source code is governed by a MIT-style
+// Use of e source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 //
 // For more information, please visit: https://github.com/tengge1/ShadowEditor
 // You can also visit: https://gitee.com/tengge1/ShadowEditor
 //
-// This package is translated from three.js, visit `https://github.com/mrdoob/three.js`
+// e package is translated from three.js, visit `https://github.com/mrdoob/three.js`
 // for more information.
 
 package three
 
-/**
- * @author mrdoob / http://mrdoob.com/
- * @author WestLangley / http://github.com/WestLangley
- * @author bhouston / http://clara.io
- */
+import (
+	"math"
+)
 
-var _matrix = new Matrix4();
-var _quaternion = new Quaternion();
+const (
+	// DefaultOrder :
+	DefaultOrder = "xyz"
+)
 
-function Euler( x, y, z, order ) {
+// RotationOrders :
+var RotationOrders = []string{"XYZ", "YZX", "ZXY", "XZY", "YXZ", "ZYX"}
 
-	this._x = x || 0;
-	this._y = y || 0;
-	this._z = z || 0;
-	this._order = order || Euler.DefaultOrder;
+var _matrix = NewMatrix4()
+var _quaternion = NewQuaternion(0, 0, 0, 1)
 
+// NewEuler :
+func NewEuler(x, y, z float64, order string) *Euler {
+	if order == "" {
+		order = DefaultOrder
+	}
+	return &Euler{x, y, z, order, nil}
 }
 
-Euler.RotationOrders = [ 'XYZ', 'YZX', 'ZXY', 'XZY', 'YXZ', 'ZYX' ];
+// Euler :
+type Euler struct {
+	_x                float64
+	_y                float64
+	_z                float64
+	_order            string
+	_onChangeCallback onChangeCallback
+}
 
-Euler.DefaultOrder = 'XYZ';
+// X :
+func (e Euler) X() float64 {
+	return e._x
+}
 
-Object.defineProperties( Euler.prototype, {
+// SetX :
+func (e Euler) SetX(value float64) {
+	e._x = value
+	e._onChangeCallback()
+}
 
-	x: {
+// Y :
+func (e Euler) Y() float64 {
+	return e._y
+}
 
-		get: function () {
+// SetY :
+func (e Euler) SetY(value float64) {
+	e._y = value
+	e._onChangeCallback()
+}
 
-			return this._x;
+// Z :
+func (e Euler) Z() float64 {
+	return e._z
+}
 
-		},
+// SetZ :
+func (e Euler) SetZ(value float64) {
+	e._z = value
+	e._onChangeCallback()
+}
 
-		set: function ( value ) {
+// Order :
+func (e Euler) Order() string {
+	return e._order
+}
 
-			this._x = value;
-			this._onChangeCallback();
+// SetOrder :
+func (e Euler) SetOrder(value string) {
+	e._order = value
+	e._onChangeCallback()
+}
 
-		}
-
-	},
-
-	y: {
-
-		get: function () {
-
-			return this._y;
-
-		},
-
-		set: function ( value ) {
-
-			this._y = value;
-			this._onChangeCallback();
-
-		}
-
-	},
-
-	z: {
-
-		get: function () {
-
-			return this._z;
-
-		},
-
-		set: function ( value ) {
-
-			this._z = value;
-			this._onChangeCallback();
-
-		}
-
-	},
-
-	order: {
-
-		get: function () {
-
-			return this._order;
-
-		},
-
-		set: function ( value ) {
-
-			this._order = value;
-			this._onChangeCallback();
-
-		}
-
+// Set :
+func (e Euler) Set(x, y, z float64, order string) *Euler {
+	e._x = x
+	e._y = y
+	e._z = z
+	if order != "" {
+		e._order = order
 	}
 
-} );
-
-Object.assign( Euler.prototype, {
-
-	isEuler: true,
-
-	set: function ( x, y, z, order ) {
-
-		this._x = x;
-		this._y = y;
-		this._z = z;
-		this._order = order || this._order;
-
-		this._onChangeCallback();
-
-		return this;
-
-	},
-
-	clone: function () {
-
-		return new this.constructor( this._x, this._y, this._z, this._order );
-
-	},
-
-	copy: function ( euler ) {
-
-		this._x = euler._x;
-		this._y = euler._y;
-		this._z = euler._z;
-		this._order = euler._order;
-
-		this._onChangeCallback();
-
-		return this;
-
-	},
-
-	setFromRotationMatrix: function ( m, order, update ) {
-
-		var clamp = MathUtils.clamp;
-
-		// assumes the upper 3x3 of m is a pure rotation matrix (i.e, unscaled)
-
-		var te = m.elements;
-		var m11 = te[ 0 ], m12 = te[ 4 ], m13 = te[ 8 ];
-		var m21 = te[ 1 ], m22 = te[ 5 ], m23 = te[ 9 ];
-		var m31 = te[ 2 ], m32 = te[ 6 ], m33 = te[ 10 ];
-
-		order = order || this._order;
-
-		switch ( order ) {
-
-			case 'XYZ':
-
-				this._y = Math.asin( clamp( m13, - 1, 1 ) );
-
-				if ( Math.abs( m13 ) < 0.9999999 ) {
-
-					this._x = Math.atan2( - m23, m33 );
-					this._z = Math.atan2( - m12, m11 );
-
-				} else {
-
-					this._x = Math.atan2( m32, m22 );
-					this._z = 0;
-
-				}
-
-				break;
-
-			case 'YXZ':
-
-				this._x = Math.asin( - clamp( m23, - 1, 1 ) );
-
-				if ( Math.abs( m23 ) < 0.9999999 ) {
-
-					this._y = Math.atan2( m13, m33 );
-					this._z = Math.atan2( m21, m22 );
-
-				} else {
-
-					this._y = Math.atan2( - m31, m11 );
-					this._z = 0;
-
-				}
-
-				break;
-
-			case 'ZXY':
-
-				this._x = Math.asin( clamp( m32, - 1, 1 ) );
-
-				if ( Math.abs( m32 ) < 0.9999999 ) {
-
-					this._y = Math.atan2( - m31, m33 );
-					this._z = Math.atan2( - m12, m22 );
-
-				} else {
-
-					this._y = 0;
-					this._z = Math.atan2( m21, m11 );
-
-				}
-
-				break;
-
-			case 'ZYX':
-
-				this._y = Math.asin( - clamp( m31, - 1, 1 ) );
-
-				if ( Math.abs( m31 ) < 0.9999999 ) {
-
-					this._x = Math.atan2( m32, m33 );
-					this._z = Math.atan2( m21, m11 );
-
-				} else {
-
-					this._x = 0;
-					this._z = Math.atan2( - m12, m22 );
-
-				}
-
-				break;
-
-			case 'YZX':
-
-				this._z = Math.asin( clamp( m21, - 1, 1 ) );
-
-				if ( Math.abs( m21 ) < 0.9999999 ) {
-
-					this._x = Math.atan2( - m23, m22 );
-					this._y = Math.atan2( - m31, m11 );
-
-				} else {
-
-					this._x = 0;
-					this._y = Math.atan2( m13, m33 );
-
-				}
-
-				break;
-
-			case 'XZY':
-
-				this._z = Math.asin( - clamp( m12, - 1, 1 ) );
-
-				if ( Math.abs( m12 ) < 0.9999999 ) {
-
-					this._x = Math.atan2( m32, m22 );
-					this._y = Math.atan2( m13, m11 );
-
-				} else {
-
-					this._x = Math.atan2( - m23, m33 );
-					this._y = 0;
-
-				}
-
-				break;
-
-			default:
-
-				console.warn( 'THREE.Euler: .setFromRotationMatrix() encountered an unknown order: ' + order );
-
-		}
-
-		this._order = order;
-
-		if ( update !== false ) this._onChangeCallback();
-
-		return this;
-
-	},
-
-	setFromQuaternion: function ( q, order, update ) {
-
-		_matrix.makeRotationFromQuaternion( q );
-
-		return this.setFromRotationMatrix( _matrix, order, update );
-
-	},
-
-	setFromVector3: function ( v, order ) {
-
-		return this.set( v.x, v.y, v.z, order || this._order );
-
-	},
-
-	reorder: function ( newOrder ) {
-
-		// WARNING: this discards revolution information -bhouston
-
-		_quaternion.setFromEuler( this );
-
-		return this.setFromQuaternion( _quaternion, newOrder );
-
-	},
-
-	equals: function ( euler ) {
-
-		return ( euler._x === this._x ) && ( euler._y === this._y ) && ( euler._z === this._z ) && ( euler._order === this._order );
-
-	},
-
-	fromArray: function ( array ) {
-
-		this._x = array[ 0 ];
-		this._y = array[ 1 ];
-		this._z = array[ 2 ];
-		if ( array[ 3 ] !== undefined ) this._order = array[ 3 ];
-
-		this._onChangeCallback();
-
-		return this;
-
-	},
-
-	toArray: function ( array, offset ) {
-
-		if ( array === undefined ) array = [];
-		if ( offset === undefined ) offset = 0;
-
-		array[ offset ] = this._x;
-		array[ offset + 1 ] = this._y;
-		array[ offset + 2 ] = this._z;
-		array[ offset + 3 ] = this._order;
-
-		return array;
-
-	},
-
-	toVector3: function ( optionalResult ) {
-
-		if ( optionalResult ) {
-
-			return optionalResult.set( this._x, this._y, this._z );
-
+	e._onChangeCallback()
+
+	return &e
+}
+
+// Clone :
+func (e Euler) Clone() *Euler {
+	return NewEuler(e._x, e._y, e._z, e._order)
+}
+
+// Copy :
+func (e Euler) Copy(euler Euler) *Euler {
+	e._x = euler._x
+	e._y = euler._y
+	e._z = euler._z
+	e._order = euler._order
+
+	e._onChangeCallback()
+
+	return &e
+}
+
+// SetFromRotationMatrix :
+func (e Euler) SetFromRotationMatrix(m Matrix4, order string, update bool) *Euler {
+	clamp := Clamp
+
+	// assumes the upper 3x3 of m is a pure rotation matrix (i.e, unscaled)
+	te := m.Elements
+	m11, m12, m13 := te[0], te[4], te[8]
+	m21, m22, m23 := te[1], te[5], te[9]
+	m31, m32, m33 := te[2], te[6], te[10]
+
+	if order == "" {
+		order = e._order
+	}
+
+	switch order {
+	default:
+		panic("THREE.Euler: .setFromRotationMatrix() encountered an unknown order: " + order)
+	case "XYZ":
+		e._y = math.Asin(clamp(m13, -1, 1))
+
+		if math.Abs(m13) < 0.9999999 {
+			e._x = math.Atan2(-m23, m33)
+			e._z = math.Atan2(-m12, m11)
 		} else {
-
-			return new Vector3( this._x, this._y, this._z );
-
+			e._x = math.Atan2(m32, m22)
+			e._z = 0
 		}
+	case "YXZ":
+		e._x = math.Asin(-clamp(m23, -1, 1))
 
-	},
+		if math.Abs(m23) < 0.9999999 {
+			e._y = math.Atan2(m13, m33)
+			e._z = math.Atan2(m21, m22)
+		} else {
+			e._y = math.Atan2(-m31, m11)
+			e._z = 0
+		}
+	case "ZXY":
+		e._x = math.Asin(clamp(m32, -1, 1))
 
-	_onChange: function ( callback ) {
+		if math.Abs(m32) < 0.9999999 {
+			e._y = math.Atan2(-m31, m33)
+			e._z = math.Atan2(-m12, m22)
+		} else {
+			e._y = 0
+			e._z = math.Atan2(m21, m11)
+		}
+	case "ZYX":
+		e._y = math.Asin(-clamp(m31, -1, 1))
 
-		this._onChangeCallback = callback;
+		if math.Abs(m31) < 0.9999999 {
+			e._x = math.Atan2(m32, m33)
+			e._z = math.Atan2(m21, m11)
+		} else {
+			e._x = 0
+			e._z = math.Atan2(-m12, m22)
+		}
+	case "YZX":
+		e._z = math.Asin(clamp(m21, -1, 1))
 
-		return this;
+		if math.Abs(m21) < 0.9999999 {
+			e._x = math.Atan2(-m23, m22)
+			e._y = math.Atan2(-m31, m11)
+		} else {
+			e._x = 0
+			e._y = math.Atan2(m13, m33)
+		}
+	case "XZY":
+		e._z = math.Asin(-clamp(m12, -1, 1))
 
-	},
+		if math.Abs(m12) < 0.9999999 {
+			e._x = math.Atan2(m32, m22)
+			e._y = math.Atan2(m13, m11)
+		} else {
+			e._x = math.Atan2(-m23, m33)
+			e._y = 0
+		}
+	}
 
-	_onChangeCallback: function () {}
+	e._order = order
 
-} );
+	if update {
+		e._onChangeCallback()
+	}
+
+	return &e
+}
+
+// SetFromQuaternion :
+func (e Euler) SetFromQuaternion(q Quaternion, order string, update bool) *Euler {
+	_matrix.MakeRotationFromQuaternion(q)
+
+	return e.SetFromRotationMatrix(*_matrix, order, update)
+}
+
+// SetFromVector3 :
+func (e Euler) SetFromVector3(v Vector3, order string) *Euler {
+	if order == "" {
+		order = e._order
+	}
+	return e.Set(v.X, v.Y, v.Z, order)
+}
+
+// Reorder :
+func (e Euler) Reorder(newOrder string) *Euler {
+	// WARNING: e discards revolution information -bhouston
+	_quaternion.SetFromEuler(e, false)
+
+	return e.SetFromQuaternion(*_quaternion, newOrder, true)
+}
+
+// Equals :
+func (e Euler) Equals(euler Euler) bool {
+	return (euler._x == e._x) &&
+		(euler._y == e._y) &&
+		(euler._z == e._z) &&
+		(euler._order == e._order)
+}
+
+// FromArray :
+func (e Euler) FromArray(array [3]float64, order string) *Euler {
+	e._x = array[0]
+	e._y = array[1]
+	e._z = array[2]
+
+	if order != "" {
+		e._order = order
+	}
+
+	e._onChangeCallback()
+
+	return &e
+}
+
+// ToArray :
+func (e Euler) ToArray(array [3]float64, offset int) ([3]float64, string) {
+	array[offset] = e._x
+	array[offset+1] = e._y
+	array[offset+2] = e._z
+
+	return array, e._order
+}
+
+// ToVector3 :
+func (e Euler) ToVector3(optionalResult Vector3) *Vector3 {
+	return optionalResult.Set(e._x, e._y, e._z)
+}
+
+func (e Euler) _onChange(callback onChangeCallback) *Euler {
+	e._onChangeCallback = callback
+	return &e
+}
