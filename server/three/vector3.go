@@ -1,551 +1,636 @@
 // Copyright 2017-2020 The ShadowEditor Authors. All rights reserved.
-// Use of this source code is governed by a MIT-style
+// Use of v source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 //
 // For more information, please visit: https://github.com/tengge1/ShadowEditor
 // You can also visit: https://gitee.com/tengge1/ShadowEditor
 //
-// This package is translated from three.js, visit `https://github.com/mrdoob/three.js`
+// v package is translated from three.js, visit `https://github.com/mrdoob/three.js`
 // for more information.
 
 package three
 
+import (
+	"math"
+	"math/rand"
+)
+
+// NewVector3 :
 func NewVector3(x, y, z float64) *Vector3 {
 	return &Vector3{x, y, z, true}
 }
 
+// Vector3 :
 type Vector3 struct {
-	X float64
-	Y float64
-	Z float64
+	X         float64
+	Y         float64
+	Z         float64
 	IsVector3 bool
 }
 
-var _vector = NewVector3(0, 0, 0)
+// var _vector = NewVector3(0, 0, 0)
 var _quaternion = NewQuaternion()
 
-func Set(x, y, z ) {
-	this.x = x;
-	this.y = y;
-	this.z = z;
+// Set :
+func (v Vector3) Set(x, y, z float64) *Vector3 {
+	v.X = x
+	v.Y = y
+	v.Z = z
 
-	return this;
+	return &v
 }
 
-func SetScalar( scalar ) {
-	this.x = scalar;
-	this.y = scalar;
-	this.z = scalar;
+// SetScalar :
+func (v Vector3) SetScalar(scalar float64) *Vector3 {
+	v.X = scalar
+	v.Y = scalar
+	v.Z = scalar
 
-	return this;
+	return &v
 }
 
-func SetX( x ) {
-	this.x = x;
+// SetX :
+func (v Vector3) SetX(x float64) *Vector3 {
+	v.X = x
 
-	return this;
+	return &v
 }
 
-func SetY( y ) {
-	this.y = y;
+// SetY :
+func (v Vector3) SetY(y float64) *Vector3 {
+	v.Y = y
 
-	return this;
+	return &v
 }
 
-func SetZ( z ) {
-	this.z = z;
+// SetZ :
+func (v Vector3) SetZ(z float64) *Vector3 {
+	v.Z = z
 
-	return this;
+	return &v
 }
 
-func SetComponent( index, value ) {
+// SetComponent :
+func (v Vector3) SetComponent(index int, value float64) *Vector3 {
 	switch index {
-		default:
-			panic("index is out of range: " + index )
-		case 0:
-			this.x = value
-		case 1:
-			this.y = value
-		case 2:
-			this.z = value
+	default:
+		panic("index is out of range: " + index)
+	case 0:
+		v.X = value
+	case 1:
+		v.Y = value
+	case 2:
+		v.Z = value
 	}
 
-	return this
+	return &v
 }
 
-func GetComponent( index ) {
+// GetComponent :
+func (v Vector3) GetComponent(index int) float64 {
 	switch index {
-		default: 
-		    panic("index is out of range: " + index )
-		case 0: 
-		    return this.x;
-		case 1: 
-		    return this.y;
-		case 2: 
-		    return this.z;
+	default:
+		panic("index is out of range: " + index)
+	case 0:
+		return v.X
+	case 1:
+		return v.Y
+	case 2:
+		return v.Z
 	}
 }
 
-func Clone() {
-	return new this.constructor( this.x, this.y, this.z );
+// Clone :
+func (v Vector3) Clone() *Vector3 {
+	return NewVector3(v.X, v.Y, v.Z)
 }
 
-func Copy( v ) {
-	this.x = v.x;
-	this.y = v.y;
-	this.z = v.z;
+// Copy :
+func (v Vector3) Copy(w Vector3) *Vector3 {
+	v.X = w.X
+	v.Y = w.Y
+	v.Z = w.Z
 
-	return this;
+	return &v
 }
 
-func Add( v, w ) {
-	this.x += v.x;
-	this.y += v.y;
-	this.z += v.z;
+// Add :
+func (v Vector3) Add(w Vector3) *Vector3 {
+	v.X += w.X
+	v.Y += w.Y
+	v.Z += w.Z
 
-	return this;
+	return &v
 }
 
-func AddScalar( s ) {
-	this.x += s;
-	this.y += s;
-	this.z += s;
+// AddScalar :
+func (v Vector3) AddScalar(s float64) *Vector3 {
+	v.X += s
+	v.Y += s
+	v.Z += s
 
-	return this;
+	return &v
 }
 
-func AddVectors( a, b ) {
-	this.x = a.x + b.x;
-	this.y = a.y + b.y;
-	this.z = a.z + b.z;
+// AddVectors :
+func (v Vector3) AddVectors(a, b Vector3) *Vector3 {
+	v.X = a.X + b.X
+	v.Y = a.Y + b.Y
+	v.Z = a.Z + b.Z
 
-	return this;
+	return &v
 }
 
-func AddScaledVector( v, s ) {
-	this.x += v.x * s;
-	this.y += v.y * s;
-	this.z += v.z * s;
+// AddScaledVector :
+func (v Vector3) AddScaledVector(w Vector3, s float64) *Vector3 {
+	v.X += w.X * s
+	v.Y += w.Y * s
+	v.Z += w.Z * s
 
-	return this;
+	return &v
 }
 
-func Sub( v, w ) {
-	this.x -= v.x;
-	this.y -= v.y;
-	this.z -= v.z;
+// Sub :
+func (v Vector3) Sub(w Vector3) *Vector3 {
+	v.X -= w.X
+	v.Y -= w.Y
+	v.Z -= w.Z
 
-	return this;
+	return &v
 }
 
-func SubScalar( s ) {
+// SubScalar :
+func (v Vector3) SubScalar(s float64) *Vector3 {
+	v.X -= s
+	v.Y -= s
+	v.Z -= s
 
-	this.x -= s;
-	this.y -= s;
-	this.z -= s;
-
-	return this;
+	return &v
 }
 
-func SubVectors( a, b ) {
-	this.x = a.x - b.x;
-	this.y = a.y - b.y;
-	this.z = a.z - b.z;
+// SubVectors :
+func (v Vector3) SubVectors(a, b Vector3) *Vector3 {
+	v.X = a.X - b.X
+	v.Y = a.Y - b.Y
+	v.Z = a.Z - b.Z
 
-	return this;
+	return &v
 }
 
-func Multiply( v, w ) {
-	this.x *= v.x;
-	this.y *= v.y;
-	this.z *= v.z;
+// Multiply :
+func (v Vector3) Multiply(w Vector3) *Vector3 {
+	v.X *= w.X
+	v.Y *= w.Y
+	v.Z *= w.Z
 
-	return this;
+	return &v
 }
 
-func MultiplyScalar( scalar ) {
-	this.x *= scalar;
-	this.y *= scalar;
-	this.z *= scalar;
+// MultiplyScalar :
+func (v Vector3) MultiplyScalar(scalar float64) *Vector3 {
+	v.X *= scalar
+	v.Y *= scalar
+	v.Z *= scalar
 
-	return this;
+	return &v
 }
 
-func MultiplyVectors( a, b ) {
-	this.x = a.x * b.x;
-	this.y = a.y * b.y;
-	this.z = a.z * b.z;
+// MultiplyVectors :
+func (v Vector3) MultiplyVectors(a, b Vector3) *Vector3 {
+	v.X = a.X * b.X
+	v.Y = a.Y * b.Y
+	v.Z = a.Z * b.Z
 
-	return this;
+	return &v
 }
 
-func ApplyEuler( euler ) {
-	return this.applyQuaternion( _quaternion.setFromEuler( euler ) );
+// ApplyEuler :
+func (v Vector3) ApplyEuler(euler Euler) *Vector3 {
+	return v.ApplyQuaternion(_quaternion.SetFromEuler(euler))
 }
 
-func ApplyAxisAngle( axis, angle ) {
-	return this.applyQuaternion( _quaternion.setFromAxisAngle( axis, angle ) );
+// ApplyAxisAngle :
+func (v Vector3) ApplyAxisAngle(axis Vector3, angle float64) *Vector3 {
+	return v.ApplyQuaternion(_quaternion.setFromAxisAngle(axis, angle))
 }
 
-func ApplyMatrix3( m ) {
-	var x = this.x, y = this.y, z = this.z;
-	var e = m.elements;
+// ApplyMatrix3 :
+func (v Vector3) ApplyMatrix3(m Matrix3) *Vector3 {
+	x, y, z := v.X, v.Y, v.Z
+	e := m.elements
 
-	this.x = e[ 0 ] * x + e[ 3 ] * y + e[ 6 ] * z;
-	this.y = e[ 1 ] * x + e[ 4 ] * y + e[ 7 ] * z;
-	this.z = e[ 2 ] * x + e[ 5 ] * y + e[ 8 ] * z;
+	v.X = e[0]*x + e[3]*y + e[6]*z
+	v.Y = e[1]*x + e[4]*y + e[7]*z
+	v.Z = e[2]*x + e[5]*y + e[8]*z
 
-	return this;
+	return &v
 }
 
-func ApplyNormalMatrix( m ) {
-	return this.applyMatrix3( m ).normalize();
+// ApplyNormalMatrix :
+func (v Vector3) ApplyNormalMatrix(m Matrix3) *Vector3 {
+	return v.ApplyMatrix3(m).Normalize()
 }
 
-func ApplyMatrix4( m ) {
-	var x = this.x, y = this.y, z = this.z;
-	var e = m.elements;
+// ApplyMatrix4 :
+func (v Vector3) ApplyMatrix4(m Matrix4) *Vector3 {
+	x, y, z := v.X, x.Y, v.Z
+	e := m.elements
 
-	var w = 1 / ( e[ 3 ] * x + e[ 7 ] * y + e[ 11 ] * z + e[ 15 ] );
+	w := 1 / (e[3]*x + e[7]*y + e[11]*z + e[15])
 
-	this.x = ( e[ 0 ] * x + e[ 4 ] * y + e[ 8 ] * z + e[ 12 ] ) * w;
-	this.y = ( e[ 1 ] * x + e[ 5 ] * y + e[ 9 ] * z + e[ 13 ] ) * w;
-	this.z = ( e[ 2 ] * x + e[ 6 ] * y + e[ 10 ] * z + e[ 14 ] ) * w;
+	v.X = (e[0]*x + e[4]*y + e[8]*z + e[12]) * w
+	v.Y = (e[1]*x + e[5]*y + e[9]*z + e[13]) * w
+	v.Z = (e[2]*x + e[6]*y + e[10]*z + e[14]) * w
 
-	return this;
+	return &v
 }
 
-func ApplyQuaternion( q ) {
-	var x = this.x, y = this.y, z = this.z;
-	var qx = q.x, qy = q.y, qz = q.z, qw = q.w;
+// ApplyQuaternion :
+func (v Vector3) ApplyQuaternion(q Quaternion) *Vector3 {
+	x, y, z := v.X, v.Y, v.Z
+	qx, qy, qz, qw := q.X, q.Y, q.Z, q.W
 
 	// calculate quat * vector
 
-	var ix = qw * x + qy * z - qz * y;
-	var iy = qw * y + qz * x - qx * z;
-	var iz = qw * z + qx * y - qy * x;
-	var iw = - qx * x - qy * y - qz * z;
+	ix := qw*x + qy*z - qz*y
+	iy := qw*y + qz*x - qx*z
+	iz := qw*z + qx*y - qy*x
+	iw := -qx*x - qy*y - qz*z
 
 	// calculate result * inverse quat
 
-	this.x = ix * qw + iw * - qx + iy * - qz - iz * - qy;
-	this.y = iy * qw + iw * - qy + iz * - qx - ix * - qz;
-	this.z = iz * qw + iw * - qz + ix * - qy - iy * - qx;
+	v.X = ix*qw + iw*-qx + iy*-qz - iz*-qy
+	v.Y = iy*qw + iw*-qy + iz*-qx - ix*-qz
+	v.Z = iz*qw + iw*-qz + ix*-qy - iy*-qx
 
-	return this;
+	return &v
 }
 
-func Project( camera ) {
-	return this.applyMatrix4( camera.matrixWorldInverse ).applyMatrix4( camera.projectionMatrix );
+// Project :
+func (v Vector3) Project(matrixWorldInverse, projectionMatrix Matrix4) {
+	return v.ApplyMatrix4(matrixWorldInverse).applyMatrix4(projectionMatrix)
 }
 
-func Unproject( camera ) {
-	return this.applyMatrix4( camera.projectionMatrixInverse ).applyMatrix4( camera.matrixWorld );
+// Unproject :
+func (v Vector3) Unproject(projectionMatrixInverse, matrixWorld Matrix4) *Vector3 {
+	return v.ApplyMatrix4(projectionMatrixInverse).ApplyMatrix4(matrixWorld)
 }
 
-func TransformDirection( m ) {
+// TransformDirection :
+func (v Vector3) TransformDirection(m Vector3) *Vector3 {
 	// input: THREE.Matrix4 affine matrix
 	// vector interpreted as a direction
 
-	var x = this.x, y = this.y, z = this.z;
-	var e = m.elements;
+	x, y, z := v.X, v.Y, v.Z
+	e := m.elements
 
-	this.x = e[ 0 ] * x + e[ 4 ] * y + e[ 8 ] * z;
-	this.y = e[ 1 ] * x + e[ 5 ] * y + e[ 9 ] * z;
-	this.z = e[ 2 ] * x + e[ 6 ] * y + e[ 10 ] * z;
+	v.X = e[0]*x + e[4]*y + e[8]*z
+	v.Y = e[1]*x + e[5]*y + e[9]*z
+	v.Z = e[2]*x + e[6]*y + e[10]*z
 
-	return this.normalize();
+	return v.Normalize()
 }
 
-func Divide( v ) {
-	this.x /= v.x;
-	this.y /= v.y;
-	this.z /= v.z;
+// Divide :
+func (v Vector3) Divide(w Vector3) *Vector3 {
+	v.X /= w.x
+	v.Y /= w.y
+	v.Z /= w.z
 
-	return this;
+	return &v
 }
 
-func DivideScalar( scalar ) {
-	return this.multiplyScalar( 1 / scalar );
+// DivideScalar :
+func (v Vector3) DivideScalar(scalar float64) *Vector3 {
+	return v.MultiplyScalar(1 / scalar)
 }
 
-func Min( v ) {
-	this.x = Math.min( this.x, v.x );
-	this.y = Math.min( this.y, v.y );
-	this.z = Math.min( this.z, v.z );
+// Min :
+func (v Vector3) Min(w Vector3) *Vector3 {
+	v.X = math.Min(v.X, w.x)
+	v.Y = math.Min(v.Y, w.y)
+	v.Z = math.Min(v.Z, w.z)
 
-	return this;
+	return &v
 }
 
-func Max: function ( v ) {
-	this.x = Math.max( this.x, v.x );
-	this.y = Math.max( this.y, v.y );
-	this.z = Math.max( this.z, v.z );
+// Max :
+func (v Vector3) Max(w Vector3) *Vector3 {
+	v.X = math.Max(v.X, w.x)
+	v.Y = math.Max(v.Y, w.y)
+	v.Z = math.Max(v.Z, w.z)
 
-	return this;
+	return &v
 }
 
-func Clamp( min, max ) {
+// Clamp :
+func (v Vector3) Clamp(min, max Vector3) *Vector3 {
 	// assumes min < max, componentwise
 
-	this.x = Math.max( min.x, Math.min( max.x, this.x ) );
-	this.y = Math.max( min.y, Math.min( max.y, this.y ) );
-	this.z = Math.max( min.z, Math.min( max.z, this.z ) );
+	v.X = math.Max(min.X, math.Min(max.X, v.X))
+	v.Y = math.Max(min.Y, math.Min(max.Y, v.Y))
+	v.Z = math.Max(min.Z, math.Min(max.Z, v.Z))
 
-	return this;
+	return &v
 }
 
-func ClampScalar( minVal, maxVal ) {
-	this.x = Math.max( minVal, Math.min( maxVal, this.x ) );
-	this.y = Math.max( minVal, Math.min( maxVal, this.y ) );
-	this.z = Math.max( minVal, Math.min( maxVal, this.z ) );
+// ClampScalar :
+func (v Vector3) ClampScalar(minVal, maxVal float64) *Vector3 {
+	v.X = math.Max(minVal, math.Min(maxVal, v.x))
+	v.Y = math.Max(minVal, math.Min(maxVal, v.y))
+	v.Z = math.Max(minVal, math.Min(maxVal, v.z))
 
-	return this;
+	return &v
 }
 
-func ClampLength( min, max ) {
-	var length = this.length();
+// ClampLength :
+func (v Vector3) ClampLength(min, max float64) *Vector3 {
+	length := v.Length()
+	if length == 0 {
+		length = 1
+	}
 
-	return this.divideScalar( length || 1 ).multiplyScalar( Math.max( min, Math.min( max, length ) ) );
+	return v.DivideScalar(length).MultiplyScalar(math.Max(min, math.Min(max, length)))
 }
 
-func Floor() {
-	this.x = Math.floor( this.x );
-	this.y = Math.floor( this.y );
-	this.z = Math.floor( this.z );
+// Floor :
+func (v Vector3) Floor() *Vector3 {
+	v.X = math.Floor(v.X)
+	v.Y = math.Floor(v.Y)
+	v.Z = math.Floor(v.Z)
 
-	return this
+	return &v
 }
 
-func Ceil() {
-	this.x = Math.ceil( this.x );
-	this.y = Math.ceil( this.y );
-	this.z = Math.ceil( this.z );
+// Ceil :
+func (v Vector3) Ceil() *Vector3 {
+	v.X = math.Ceil(v.X)
+	v.Y = math.Ceil(v.Y)
+	v.Z = math.Ceil(v.Z)
 
-	return this;
+	return &v
 }
 
-func Round() {
-	this.x = Math.round( this.x );
-	this.y = Math.round( this.y );
-	this.z = Math.round( this.z );
+// Round :
+func (v Vector3) Round() *Vector3 {
+	v.X = math.Round(v.X)
+	v.Y = math.Round(v.Y)
+	v.Z = math.Round(v.Z)
 
-	return this
+	return &v
 }
 
-func RoundToZero() {
-	this.x = ( this.x < 0 ) ? Math.ceil( this.x ) : Math.floor( this.x );
-	this.y = ( this.y < 0 ) ? Math.ceil( this.y ) : Math.floor( this.y );
-	this.z = ( this.z < 0 ) ? Math.ceil( this.z ) : Math.floor( this.z );
+// RoundToZero :
+func (v Vector3) RoundToZero() *Vector3 {
+	if v.X < 0 {
+		v.X = math.Ceil(v.X)
+	} else {
+		v.X = math.Floor(v.X)
+	}
+	if v.Y < 0 {
+		v.Y = math.Ceil(v.Y)
+	} else {
+		v.Y = math.Floor(v.Y)
+	}
+	if v.Z < 0 {
+		v.Z = math.Ceil(v.Z)
+	} else {
+		v.Z = math.Floor(v.Z)
+	}
 
-	return this;
+	return &v
 }
 
-func Negate() {
-	this.x = - this.x;
-	this.y = - this.y;
-	this.z = - this.z;
+// Negate ：
+func (v Vector3) Negate() *Vector3 {
+	v.X = -v.X
+	v.Y = -v.Y
+	v.Z = -v.Z
 
-	return this;
+	return &v
 }
 
-func Dot: function ( v ) {
-	return this.x * v.x + this.y * v.y + this.z * v.z;
+// Dot ：
+func (v Vector3) Dot(w Vector3) float64 {
+	return v.X*w.X + v.Y*w.Y + v.Z*w.Z
 }
 
-func LengthSq() {
-	return this.x * this.x + this.y * this.y + this.z * this.z;
+// LengthSq ：
+func (v Vector3) LengthSq() float64 {
+	return v.X*v.X + v.Y*v.Y + v.Z*v.Z
 }
 
-func Length() {
-	return Math.sqrt( this.x * this.x + this.y * this.y + this.z * this.z );
+// Length ：
+func (v Vector3) Length() float64 {
+	return math.Sqrt(v.X*v.X + v.Y*v.Y + v.Z*v.Z)
 }
 
-func ManhattanLength() {
-	return Math.abs( this.x ) + Math.abs( this.y ) + Math.abs( this.z )
+// ManhattanLength ：
+func (v Vector3) ManhattanLength() float64 {
+	return math.Abs(v.X) + math.Abs(v.Y) + math.Abs(v.Z)
 }
 
-func Normalize() {
-	return this.divideScalar( this.length() || 1 );
+// Normalize ：
+func (v Vector3) Normalize() *Vector3 {
+	length := v.Length()
+	if length == 0 {
+		length = 1
+	}
+	return v.DivideScalar(length)
 }
 
-func SetLength( length ) {
-	return this.normalize().multiplyScalar( length );
+// SetLength ：
+func (v Vector3) SetLength(length float64) *Vector3 {
+	return v.Normalize().MultiplyScalar(length)
 }
 
-func Lerp( v, alpha ) {
-	this.x += ( v.x - this.x ) * alpha;
-	this.y += ( v.y - this.y ) * alpha;
-	this.z += ( v.z - this.z ) * alpha;
+// Lerp :
+func (v Vector3) Lerp(w Vector3, alpha float64) *Vector3 {
+	v.X += (w.X - v.X) * alpha
+	v.Y += (w.Y - v.Y) * alpha
+	v.Z += (w.Z - v.Z) * alpha
 
-	return this
+	return &v
 }
 
-func LerpVectors( v1, v2, alpha ) {
-	this.x = v1.x + ( v2.x - v1.x ) * alpha;
-	this.y = v1.y + ( v2.y - v1.y ) * alpha;
-	this.z = v1.z + ( v2.z - v1.z ) * alpha;
+// LerpVectors :
+func (v Vector3) LerpVectors(v1, v2 Vector3, alpha float64) *Vector3 {
+	v.X = v1.x + (v2.X-v1.X)*alpha
+	v.Y = v1.y + (v2.Y-v1.Y)*alpha
+	v.Z = v1.z + (v2.Z-v1.Z)*alpha
 
-	return this;
+	return &v
 }
 
-func Cross( v, w ) {
-	return this.crossVectors( this, v );
+// Cross :
+func (v Vector3) Cross(a, b Vector3) *Vector3 {
+	return v.CrossVectors(a, b)
 }
 
-func CrossVectors( a, b ) {
-	var ax = a.x, ay = a.y, az = a.z;
-	var bx = b.x, by = b.y, bz = b.z;
+// CrossVectors :
+func (v Vector3) CrossVectors(a, b Vector3) *Vector3 {
+	ax, ay, az := a.X, a.Y, a.Z
+	bx, by, bz := b.X, b.Y, b.Z
 
-	this.x = ay * bz - az * by;
-	this.y = az * bx - ax * bz;
-	this.z = ax * by - ay * bx;
+	v.X = ay*bz - az*by
+	v.Y = az*bx - ax*bz
+	v.Z = ax*by - ay*bx
 
-	return this;
+	return &v
 }
 
-func ProjectOnVector( v ) {
-	var denominator = v.lengthSq();
+// ProjectOnVector :
+func (v Vector3) ProjectOnVector(w Vector3) *Vector3 {
+	denominator := w.LengthSq()
 
-	if ( denominator === 0 ) return this.set( 0, 0, 0 );
+	if denominator == 0 {
+		return v.Set(0, 0, 0)
+	}
 
-	var scalar = v.dot( this ) / denominator;
+	scalar := w.dot(v) / denominator
 
-	return this.copy( v ).multiplyScalar( scalar );
+	return v.Copy(w).MultiplyScalar(scalar)
 }
 
-func ProjectOnPlane( planeNormal ) {
-	_vector.copy( this ).projectOnVector( planeNormal );
+// ProjectOnPlane :
+func (v Vector3) ProjectOnPlane(planeNormal Vector3) *Vector3 {
+	_vector.Copy(v).ProjectOnVector(planeNormal)
 
-	return this.sub( _vector );
+	return v.Sub(_vector)
 }
 
-func Reflect( normal ) {
+// Reflect :
+func (v Vector3) Reflect(normal Vector3) *Vector3 {
 	// reflect incident vector off plane orthogonal to normal
 	// normal is assumed to have unit length
 
-	return this.sub( _vector.copy( normal ).multiplyScalar( 2 * this.dot( normal ) ) );
+	return v.Sub(_vector.Copy(normal).MultiplyScalar(2 * v.Dot(normal)))
 }
 
-func AngleTo( v ) {
-	var denominator = Math.sqrt( this.lengthSq() * v.lengthSq() );
+// AngleTo :
+func (v Vector3) AngleTo(w Vector3) *Vector3 {
+	denominator := Math.sqrt(w.lengthSq() * w.lengthSq())
 
-	if ( denominator === 0 ) return Math.PI / 2;
+	if denominator == 0 {
+		return Math.PI / 2
+	}
 
-	var theta = this.dot( v ) / denominator;
+	theta := v.dot(v) / denominator
 
 	// clamp, to handle numerical problems
 
-	return Math.acos( Clamp( theta, - 1, 1 ) );
+	return math.Acos(Clamp(theta, -1, 1))
 }
 
-func DistanceTo( v ) {
-	return Math.sqrt( this.distanceToSquared( v ) );
+// DistanceTo :
+func (v Vector3) DistanceTo(w Vector3) float64 {
+	return math.Sqrt(v.distanceToSquared(w))
 }
 
-func DistanceToSquared( v ) {
-	var dx = this.x - v.x, dy = this.y - v.y, dz = this.z - v.z;
+// DistanceToSquared :
+func (v Vector3) DistanceToSquared(w Vector3) float64 {
+	dx, dy, dz := v.X-w.X, v.Y-w.Y, v.Z-w.Z
 
-	return dx * dx + dy * dy + dz * dz;
+	return dx*dx + dy*dy + dz*dz
 }
 
-func ManhattanDistanceTo( v ) {
-	return Math.abs( this.x - v.x ) + Math.abs( this.y - v.y ) + Math.abs( this.z - v.z );
+// ManhattanDistanceTo :
+func (v Vector3) ManhattanDistanceTo(w Vector3) float64 {
+	return math.Abs(v.X-w.X) + math.Abs(v.Y-w.Y) + math.Abs(v.Z-w.Z)
 }
 
-func SetFromSpherical( s ) {
-	return this.setFromSphericalCoords( s.radius, s.phi, s.theta );
+// SetFromSpherical :
+func (v Vector3) SetFromSpherical(s Spherical) *Vector3 {
+	return v.SetFromSphericalCoords(s.Radius, s.Phi, s.Theta)
 }
 
-func SetFromSphericalCoords( radius, phi, theta ) {
-	var sinPhiRadius = Math.sin( phi ) * radius;
+// SetFromSphericalCoords :
+func (v Vector3) SetFromSphericalCoords(radius, phi, theta float64) *Vector3 {
+	sinPhiRadius := math.Sin(phi) * radius
 
-	this.x = sinPhiRadius * Math.sin( theta );
-	this.y = Math.cos( phi ) * radius;
-	this.z = sinPhiRadius * Math.cos( theta );
+	v.X = sinPhiRadius * math.Sin(theta)
+	v.Y = math.Cos(phi) * radius
+	v.Z = sinPhiRadius * math.Cos(theta)
 
-	return this;
+	return &v
 }
 
-func SetFromCylindrical: function ( c ) {
-	return this.setFromCylindricalCoords( c.radius, c.theta, c.y );
+// SetFromCylindrical :
+func (v Vector3) SetFromCylindrical(c Cylindrical) *Vector3 {
+	return v.SetFromCylindricalCoords(c.Radius, c.Theta, c.Y)
 }
 
-func SetFromCylindricalCoords: function ( radius, theta, y ) {
-	this.x = radius * Math.sin( theta );
-	this.y = y;
-	this.z = radius * Math.cos( theta );
+// SetFromCylindricalCoords :
+func (v Vector3) SetFromCylindricalCoords(radius, theta, y float64) *Vector3 {
+	v.X = radius * math.Sin(theta)
+	v.Y = y
+	v.Z = radius * math.Cos(theta)
 
-	return this;
+	return &v
 }
 
-func SetFromMatrixPosition: function ( m ) {
-	var e = m.elements;
+// SetFromMatrixPosition :
+func (v Vector3) SetFromMatrixPosition(m Matrix4) *Vector3 {
+	e := m.Elements
 
-	this.x = e[ 12 ];
-	this.y = e[ 13 ];
-	this.z = e[ 14 ];
+	v.X = e[12]
+	v.Y = e[13]
+	v.Z = e[14]
 
-	return this;
+	return &v
 }
 
-func SetFromMatrixScale( m ) {
-	var sx = this.setFromMatrixColumn( m, 0 ).length();
-	var sy = this.setFromMatrixColumn( m, 1 ).length();
-	var sz = this.setFromMatrixColumn( m, 2 ).length();
+// SetFromMatrixScale :
+func (v Vector3) SetFromMatrixScale(m Matrix4) *Vector3 {
+	sx := v.SetFromMatrixColumn(m, 0).Length()
+	sy := v.SetFromMatrixColumn(m, 1).Length()
+	sz := v.SetFromMatrixColumn(m, 2).Length()
 
-	this.x = sx;
-	this.y = sy;
-	this.z = sz;
+	v.X = sx
+	v.Y = sy
+	v.Z = sz
 
-	return this;
+	return &v
 }
 
-func SetFromMatrixColumn( m, index ) {
-	return this.fromArray( m.elements, index * 4 );
+// SetFromMatrixColumn :
+func (v Vector3) SetFromMatrixColumn(m Matrix4, index int) *Vector3 {
+	return v.FromArray(m.Elements, index*4)
 }
 
-func SetFromMatrix3Column( m, index ) {
-	return this.fromArray( m.elements, index * 3 )
+// SetFromMatrix3Column :
+func (v Vector3) SetFromMatrix3Column(m Matrix4, index int) *Vector3 {
+	return v.FromArray(m.Elements, index*3)
 }
 
-func Equals( v ) {
-	return ( ( v.x === this.x ) && ( v.y === this.y ) && ( v.z === this.z ) );
+// Equals :
+func (v Vector3) Equals(w Vector3) bool {
+	return w.X == v.X && w.Y == v.Y && w.Z == v.Z
 }
 
-func FromArray( array, offset ) {
-	if ( offset === undefined ) offset = 0;
+// FromArray :
+func (v Vector3) FromArray(array []float64, offset int) *Vector3 {
+	v.X = array[offset]
+	v.Y = array[offset+1]
+	v.Z = array[offset+2]
 
-	this.x = array[ offset ];
-	this.y = array[ offset + 1 ];
-	this.z = array[ offset + 2 ];
-
-	return this;
+	return &v
 }
 
-func ToArray( array, offset ) {
-	if ( array === undefined ) array = [];
-	if ( offset === undefined ) offset = 0;
+// ToArray :
+func (v Vector3) ToArray(array []float64, offset int) []float64 {
+	array[offset] = v.X
+	array[offset+1] = v.Y
+	array[offset+2] = v.Z
 
-	array[ offset ] = this.x;
-	array[ offset + 1 ] = this.y;
-	array[ offset + 2 ] = this.z;
-
-	return array;
+	return array
 }
 
-func FromBufferAttribute( attribute, index, offset ) {
-	this.x = attribute.getX( index );
-	this.y = attribute.getY( index );
-	this.z = attribute.getZ( index );
+// Random :
+func (v Vector3) Random() *Vector3 {
+	v.X = rand.Float64()
+	v.Y = rand.Float64()
+	v.Z = rand.Float64()
 
-	return this;
-}
-
-func Random() {
-	this.x = Math.random();
-	this.y = Math.random();
-	this.z = Math.random();
-
-	return this;
+	return &v
 }
