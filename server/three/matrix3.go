@@ -13,8 +13,8 @@ package three
 import "math"
 
 // NewMatrix3 :
-func NewMatrix3() {
-	elements := []float64{
+func NewMatrix3() *Matrix3 {
+	elements := [9]float64{
 		1, 0, 0,
 		0, 1, 0,
 		0, 0, 1,
@@ -57,13 +57,13 @@ func (m Matrix3) Identity() *Matrix3 {
 
 // Clone :
 func (m Matrix3) Clone() *Matrix3 {
-	return NewMatrix3.FromArray(m.Elements)
+	return NewMatrix3().FromArray(m.Elements, 0)
 }
 
 // Copy :
 func (m Matrix3) Copy(n Matrix3) *Matrix3 {
-	te = m.Elements
-	me = n.Elements
+	te := m.Elements
+	me := n.Elements
 
 	te[0] = me[0]
 	te[1] = me[1]
@@ -80,18 +80,18 @@ func (m Matrix3) Copy(n Matrix3) *Matrix3 {
 
 // ExtractBasis :
 func (m Matrix3) ExtractBasis(xAxis, yAxis, zAxis Vector3) *Matrix3 {
-	xAxis.setFromMatrix3Column(m, 0)
-	yAxis.setFromMatrix3Column(m, 1)
-	zAxis.setFromMatrix3Column(m, 2)
+	xAxis.SetFromMatrix3Column(m, 0)
+	yAxis.SetFromMatrix3Column(m, 1)
+	zAxis.SetFromMatrix3Column(m, 2)
 
 	return &m
 }
 
 // SetFromMatrix4 :
-func (m Matrix3) SetFromMatrix4(n Matrix3) *Matrix3 {
+func (m Matrix3) SetFromMatrix4(n Matrix4) *Matrix3 {
 	me := n.Elements
 
-	m.set(
+	m.Set(
 		me[0], me[4], me[8],
 		me[1], me[5], me[9],
 		me[2], me[6], me[10],
@@ -106,8 +106,8 @@ func (m Matrix3) Multiply(n Matrix3) *Matrix3 {
 }
 
 // Premultiply :
-func (m Matrix3) Premultiply(n Matrix3) {
-	return m.multiplyMatrices(n, m)
+func (m Matrix3) Premultiply(n Matrix3) *Matrix3 {
+	return m.MultiplyMatrices(n, m)
 }
 
 // MultiplyMatrices :
@@ -170,7 +170,7 @@ func (m Matrix3) Determinant() float64 {
 // GetInverse :
 func (m Matrix3) GetInverse(matrix Matrix3) *Matrix3 {
 	me := matrix.Elements
-	te := m.elements
+	te := m.Elements
 
 	n11, n21, n31 := me[0], me[1], me[2]
 	n12, n22, n32 := me[3], me[4], me[5]
@@ -180,7 +180,7 @@ func (m Matrix3) GetInverse(matrix Matrix3) *Matrix3 {
 	t12 := n32*n13 - n33*n12
 	t13 := n23*n12 - n22*n13
 
-	det = n11*t11 + n21*t12 + n31*t13
+	det := n11*t11 + n21*t12 + n31*t13
 
 	if det == 0 {
 		return m.Set(0, 0, 0, 0, 0, 0, 0, 0, 0)
@@ -205,11 +205,10 @@ func (m Matrix3) GetInverse(matrix Matrix3) *Matrix3 {
 
 // Transpose :
 func (m Matrix3) Transpose() *Matrix3 {
-	var tmp float64
-	te = m.Elements
+	te := m.Elements
 
-	tmp = te[1]
-	te[1] = e[3]
+	tmp := te[1]
+	te[1] = te[3]
 	te[3] = tmp
 
 	tmp = te[2]
@@ -309,8 +308,8 @@ func (m Matrix3) Translate(tx, ty float64) *Matrix3 {
 
 // Equals :
 func (m Matrix3) Equals(matrix Matrix3) bool {
-	te := m.elements
-	me := matrix.elements
+	te := m.Elements
+	me := matrix.Elements
 
 	for i := 0; i < 9; i++ {
 		if te[i] != me[i] {
@@ -322,7 +321,7 @@ func (m Matrix3) Equals(matrix Matrix3) bool {
 }
 
 // FromArray :
-func (m Matrix3) FromArray(array []float64, offset int) *Matrix3 {
+func (m Matrix3) FromArray(array [9]float64, offset int) *Matrix3 {
 	for i := 0; i < 9; i++ {
 		m.Elements[i] = array[i+offset]
 	}
@@ -331,7 +330,7 @@ func (m Matrix3) FromArray(array []float64, offset int) *Matrix3 {
 }
 
 // ToArray :
-func (m Matrix3) ToArray(array []float64, offset int) []float64 {
+func (m Matrix3) ToArray(array [9]float64, offset int) [9]float64 {
 	te := m.Elements
 
 	array[offset] = te[0]

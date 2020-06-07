@@ -29,7 +29,7 @@ type Vector3 struct {
 }
 
 // var _vector = NewVector3(0, 0, 0)
-var _quaternion = NewQuaternion()
+var _quaternion = NewQuaternion(0, 0, 0, 1)
 
 // Set :
 func (v Vector3) Set(x, y, z float64) *Vector3 {
@@ -599,7 +599,7 @@ func (v Vector3) SetFromMatrixColumn(m Matrix4, index int) *Vector3 {
 }
 
 // SetFromMatrix3Column :
-func (v Vector3) SetFromMatrix3Column(m Matrix4, index int) *Vector3 {
+func (v Vector3) SetFromMatrix3Column(m Matrix3, index int) *Vector3 {
 	return v.FromArray(m.Elements, index*3)
 }
 
