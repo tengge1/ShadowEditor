@@ -1,5 +1,3 @@
-// +build ignore
-
 // Copyright 2017-2020 The ShadowEditor Authors. All rights reserved.
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
@@ -12,26 +10,14 @@
 
 package three
 
-var _v1 = new Vector3();
-var _m1 = new Matrix4();
-var _zero = new Vector3( 0, 0, 0 );
-var _one = new Vector3( 1, 1, 1 );
-var _x = new Vector3();
-var _y = new Vector3();
-var _z = new Vector3();
+var _v1 = NewVector3(0, 0, 0);
+var _m1 = NewMatrix4(0, 0, 0);
+var _zero = NewVector3( 0, 0, 0 );
+var _one = NewVector3( 1, 1, 1 );
+var _x = NewVector3(0, 0, 0);
+var _y = NewVector3(0, 0, 0);
+var _z = NewVector3(0, 0, 0);
 
-/**
- * @author mrdoob / http://mrdoob.com/
- * @author supereggbert / http://www.paulbrunt.co.uk/
- * @author philogb / http://blog.thejit.org/
- * @author jordi_ros / http://plattsoft.com
- * @author D1plo1d / http://github.com/D1plo1d
- * @author alteredq / http://alteredqualia.com/
- * @author mikael emtinger / http://gomo.se/
- * @author timknip / http://www.floorplanner.com/
- * @author bhouston / http://clara.io
- * @author WestLangley / http://github.com/WestLangley
- */
 
 function Matrix4() {
 
