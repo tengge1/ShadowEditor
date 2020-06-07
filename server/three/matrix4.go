@@ -22,7 +22,7 @@ var _z = NewVector3(0, 0, 0)
 
 // NewMatrix4 :
 func NewMatrix4() *Matrix4 {
-	elements := []float64{
+	elements := [16]float64{
 		1, 0, 0, 0,
 		0, 1, 0, 0,
 		0, 0, 1, 0,
@@ -62,7 +62,7 @@ func (m Matrix4) Set(n11, n12, n13, n14, n21, n22, n23, n24, n31, n32, n33, n34,
 
 // Identity :
 func (m Matrix4) Identity() *Matrix4 {
-	m.set(
+	m.Set(
 		1, 0, 0, 0,
 		0, 1, 0, 0,
 		0, 0, 1, 0,
@@ -74,7 +74,7 @@ func (m Matrix4) Identity() *Matrix4 {
 
 // Clone :
 func (m Matrix4) Clone() *Matrix4 {
-	return NewMatrix4().FromArray(m.Elements)
+	return NewMatrix4().FromArray(m.Elements, 0)
 }
 
 // Copy :
@@ -124,10 +124,10 @@ func (m Matrix4) ExtractBasis(xAxis, yAxis, zAxis Vector3) *Matrix4 {
 
 // MakeBasis :
 func (m Matrix4) MakeBasis(xAxis, yAxis, zAxis Vector3) *Matrix4 {
-	m.set(
-		xAxis.x, yAxis.x, zAxis.x, 0,
-		xAxis.y, yAxis.y, zAxis.y, 0,
-		xAxis.z, yAxis.z, zAxis.z, 0,
+	m.Set(
+		xAxis.X, yAxis.X, zAxis.X, 0,
+		xAxis.Y, yAxis.Y, zAxis.Y, 0,
+		xAxis.Z, yAxis.Z, zAxis.Z, 0,
 		0, 0, 0, 1,
 	)
 
@@ -137,8 +137,8 @@ func (m Matrix4) MakeBasis(xAxis, yAxis, zAxis Vector3) *Matrix4 {
 // ExtractRotation :
 func (m Matrix4) ExtractRotation(n Matrix4) *Matrix4 {
 	// m method does not support reflection matrices
-	te := m.elements
-	me := n.elements
+	te := m.Elements
+	me := n.Elements
 
 	scaleX := 1 / _v1.SetFromMatrixColumn(n, 0).Length()
 	scaleY := 1 / _v1.SetFromMatrixColumn(n, 1).Length()
@@ -273,12 +273,12 @@ func (m Matrix4) MakeRotationFromEuler(euler Euler) *Matrix4 {
 	te[14] = 0
 	te[15] = 1
 
-	return m
+	return &m
 }
 
 // MakeRotationFromQuaternion :
 func (m Matrix4) MakeRotationFromQuaternion(q Quaternion) *Matrix4 {
-	return m.Compose(_zero, q, _one)
+	return m.Compose(*_zero, q, *_one)
 }
 
 // LookAt :
@@ -289,36 +289,36 @@ func (m Matrix4) LookAt(eye, target, up Vector3) *Matrix4 {
 
 	if _z.LengthSq() == 0 {
 		// eye and target are in the same position
-		_z.z = 1
+		_z.Z = 1
 	}
 
 	_z.Normalize()
-	_x.CrossVectors(up, _z)
+	_x.CrossVectors(up, *_z)
 
 	if _x.LengthSq() == 0 {
 		// up and z are parallel
-		if math.Abs(up.z) == 1 {
-			_z.x += 0.0001
+		if math.Abs(up.Z) == 1 {
+			_z.X += 0.0001
 		} else {
-			_z.z += 0.0001
+			_z.Z += 0.0001
 		}
 
 		_z.Normalize()
-		_x.CrossVectors(up, _z)
+		_x.CrossVectors(up, *_z)
 	}
 
 	_x.Normalize()
-	_y.CrossVectors(_z, _x)
+	_y.CrossVectors(*_z, *_x)
 
-	te[0] = _x.x
-	te[4] = _y.x
-	te[8] = _z.x
-	te[1] = _x.y
-	te[5] = _y.y
-	te[9] = _z.y
-	te[2] = _x.z
-	te[6] = _y.z
-	te[10] = _z.z
+	te[0] = _x.X
+	te[4] = _y.X
+	te[8] = _z.X
+	te[1] = _x.Y
+	te[5] = _y.Y
+	te[9] = _z.Y
+	te[2] = _x.Z
+	te[6] = _y.Z
+	te[10] = _z.Z
 
 	return &m
 }
@@ -398,7 +398,7 @@ func (m Matrix4) MultiplyScalar(s float64) *Matrix4 {
 
 // Determinant :
 func (m Matrix4) Determinant() float64 {
-	te := m.elements
+	te := m.Elements
 
 	n11, n12, n13, n14 := te[0], te[4], te[8], te[12]
 	n21, n22, n23, n24 := te[1], te[5], te[9], te[13]
@@ -548,7 +548,7 @@ func (m Matrix4) GetMaxScaleOnAxis() float64 {
 	scaleYSq := te[4]*te[4] + te[5]*te[5] + te[6]*te[6]
 	scaleZSq := te[8]*te[8] + te[9]*te[9] + te[10]*te[10]
 
-	return math.Sqrt(math.Max(scaleXSq, scaleYSq, scaleZSq))
+	return math.Sqrt(math.Max(math.Max(scaleXSq, scaleYSq), scaleZSq))
 }
 
 // MakeTranslation :
@@ -608,8 +608,8 @@ func (m Matrix4) MakeRotationZ(theta float64) *Matrix4 {
 // MakeRotationAxis :
 func (m Matrix4) MakeRotationAxis(axis Vector3, angle float64) *Matrix4 {
 	// Based on http://www.gamedev.net/reference/articles/article1199.asp
-	c := Math.cos(angle)
-	s := Math.sin(angle)
+	c := math.Cos(angle)
+	s := math.Sin(angle)
 	t := 1 - c
 	x, y, z := axis.X, axis.Y, axis.Z
 	tx, ty := t*x, t*y
@@ -675,9 +675,9 @@ func (m Matrix4) Compose(position Vector3, quaternion Quaternion, scale Vector3)
 	te[10] = (1 - (xx + yy)) * sz
 	te[11] = 0
 
-	te[12] = position.x
-	te[13] = position.y
-	te[14] = position.z
+	te[12] = position.X
+	te[13] = position.Y
+	te[14] = position.Z
 	te[15] = 1
 
 	return &m
@@ -720,11 +720,11 @@ func (m Matrix4) Decompose(position Vector3, quaternion Quaternion, scale Vector
 	_m1.Elements[9] *= invSZ
 	_m1.Elements[10] *= invSZ
 
-	quaternion.SetFromRotationMatrix(_m1)
+	quaternion.SetFromRotationMatrix(*_m1)
 
-	scale.x = sx
-	scale.y = sy
-	scale.z = sz
+	scale.X = sx
+	scale.Y = sy
+	scale.Z = sz
 
 	return &m
 }
@@ -806,17 +806,17 @@ func (m Matrix4) Equals(matrix Matrix4) bool {
 }
 
 // FromArray :
-func (m Matrix4) FromArray(array []float64, offset int) *Matrix4 {
+func (m Matrix4) FromArray(array [16]float64, offset int) *Matrix4 {
 	for i := 0; i < 16; i++ {
-		m.elements[i] = array[i+offset]
+		m.Elements[i] = array[i+offset]
 	}
 
-	return m
+	return &m
 }
 
 // ToArray :
-func (m Matrix4) ToArray(array []float64, offset int) []float64 {
-	var te = m.elements
+func (m Matrix4) ToArray(array [16]float64, offset int) [16]float64 {
+	var te = m.Elements
 
 	array[offset] = te[0]
 	array[offset+1] = te[1]
