@@ -189,7 +189,7 @@ func (v Vector2) DivideScalar(scalar float64) *Vector2 {
 // ApplyMatrix3 :
 func (v Vector2) ApplyMatrix3(m Matrix3) *Vector2 {
 	x, y := v.X, v.Y
-	e := m.elements
+	e := m.Elements
 
 	v.X = e[0]*x + e[3]*y + e[6]
 	v.Y = e[1]*x + e[4]*y + e[7]

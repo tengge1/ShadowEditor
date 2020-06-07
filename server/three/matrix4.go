@@ -171,12 +171,12 @@ func (m Matrix4) ExtractRotation(n Matrix4) *Matrix4 {
 func (m Matrix4) MakeRotationFromEuler(euler Euler) *Matrix4 {
 	te := m.Elements
 
-	x, y, z := euler.X, euler.Y, euler.Z
+	x, y, z := euler.X(), euler.Y(), euler.Z()
 	a, b := math.Cos(x), math.Sin(x)
 	c, d := math.Cos(y), math.Sin(y)
 	e, f := math.Cos(z), math.Sin(z)
 
-	if euler.order == "XYZ" {
+	if euler._order == "XYZ" {
 		ae, af, be, bf := a*e, a*f, b*e, b*f
 
 		te[0] = c * e
@@ -190,7 +190,7 @@ func (m Matrix4) MakeRotationFromEuler(euler Euler) *Matrix4 {
 		te[2] = bf - ae*d
 		te[6] = be + af*d
 		te[10] = a * c
-	} else if euler.order == "YXZ" {
+	} else if euler._order == "YXZ" {
 		ce, cf, de, df := c*e, c*f, d*e, d*f
 
 		te[0] = ce + df*b
@@ -204,7 +204,7 @@ func (m Matrix4) MakeRotationFromEuler(euler Euler) *Matrix4 {
 		te[2] = cf*b - de
 		te[6] = df + ce*b
 		te[10] = a * c
-	} else if euler.order == "ZXY" {
+	} else if euler._order == "ZXY" {
 		ce, cf, de, df := c*e, c*f, d*e, d*f
 
 		te[0] = ce - df*b
@@ -218,7 +218,7 @@ func (m Matrix4) MakeRotationFromEuler(euler Euler) *Matrix4 {
 		te[2] = -a * d
 		te[6] = b
 		te[10] = a * c
-	} else if euler.order == "ZYX" {
+	} else if euler._order == "ZYX" {
 		ae, af, be, bf := a*e, a*f, b*e, b*f
 
 		te[0] = c * e
@@ -232,7 +232,7 @@ func (m Matrix4) MakeRotationFromEuler(euler Euler) *Matrix4 {
 		te[2] = -d
 		te[6] = b * c
 		te[10] = a * c
-	} else if euler.order == "YZX" {
+	} else if euler._order == "YZX" {
 		ac, ad, bc, bd := a*c, a*d, b*c, b*d
 
 		te[0] = c * e
@@ -246,7 +246,7 @@ func (m Matrix4) MakeRotationFromEuler(euler Euler) *Matrix4 {
 		te[2] = -d * e
 		te[6] = ad*f + bc
 		te[10] = ac - bd*f
-	} else if euler.order == "XZY" {
+	} else if euler._order == "XZY" {
 		ac, ad, bc, bd := a*c, a*d, b*c, b*d
 
 		te[0] = c * e

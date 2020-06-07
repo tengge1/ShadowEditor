@@ -197,7 +197,7 @@ func (q Quaternion) Copy(quaternion Quaternion) *Quaternion {
 
 // SetFromEuler :
 func (q Quaternion) SetFromEuler(euler Euler, update bool) *Quaternion {
-	x, y, z, order := euler._x, euler._y, euler._z, euler.order
+	x, y, z, order := euler._x, euler._y, euler._z, euler._order
 
 	// http://www.mathworks.com/matlabcentral/fileexchange/
 	// 	20696-function-to-convert-between-dcm-euler-angles-quaternions-and-euler-vectors/

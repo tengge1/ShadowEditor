@@ -30,7 +30,7 @@ type Vector3 struct {
 }
 
 var _vector3 = NewVector3(0, 0, 0)
-var _quaternion = NewQuaternion(0, 0, 0, 1)
+var _quaternionV3 = NewQuaternion(0, 0, 0, 1)
 
 // Set :
 func (v Vector3) Set(x, y, z float64) *Vector3 {
@@ -207,12 +207,12 @@ func (v Vector3) MultiplyVectors(a, b Vector3) *Vector3 {
 
 // ApplyEuler :
 func (v Vector3) ApplyEuler(euler Euler) *Vector3 {
-	return v.ApplyQuaternion(_quaternion.SetFromEuler(euler))
+	return v.ApplyQuaternion(*_quaternionV3.SetFromEuler(euler, true))
 }
 
 // ApplyAxisAngle :
 func (v Vector3) ApplyAxisAngle(axis Vector3, angle float64) *Vector3 {
-	return v.ApplyQuaternion(*_quaternion.SetFromAxisAngle(axis, angle))
+	return v.ApplyQuaternion(*_quaternionV3.SetFromAxisAngle(axis, angle))
 }
 
 // ApplyMatrix3 :
