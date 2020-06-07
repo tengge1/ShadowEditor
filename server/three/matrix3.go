@@ -24,7 +24,7 @@ func NewMatrix3() {
 
 // Matrix3 :
 type Matrix3 struct {
-	Elements []float64
+	Elements [9]float64
 }
 
 // Set :
