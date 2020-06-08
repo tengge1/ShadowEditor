@@ -114,135 +114,136 @@ func Add(w http.ResponseWriter, r *http.Request) {
 			continue
 		}
 		if strings.HasSuffix(strings.ToLower(info.Name()), ".3ds") {
-			entryFileName = filepath.Join(savePath, info.Name())
+			// Here is url, DO NOT use filepath.Join
+			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())
 			meshType = ThreeDs
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".3mf") {
-			entryFileName = filepath.Join(savePath, info.Name())
+			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())
 			meshType = ThreeMf
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".amf") {
-			entryFileName = filepath.Join(savePath, info.Name())
+			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())
 			meshType = Amf
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".assimp") {
-			entryFileName = filepath.Join(savePath, info.Name())
+			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())
 			meshType = Assimp
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".bin") {
-			entryFileName = filepath.Join(savePath, info.Name())
+			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())
 			meshType = Binary
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".json") {
-			entryFileName = filepath.Join(savePath, info.Name())
+			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())
 			meshType = JSON
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".js") {
-			entryFileName = filepath.Join(savePath, info.Name())
+			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())
 			meshType = Js
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".awd") {
-			entryFileName = filepath.Join(savePath, info.Name())
+			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())
 			meshType = Awd
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".babylon") {
-			entryFileName = filepath.Join(savePath, info.Name())
+			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())
 			meshType = Babylon
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".bvh") {
-			entryFileName = filepath.Join(savePath, info.Name())
+			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())
 			meshType = Bvh
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".ctm") {
-			entryFileName = filepath.Join(savePath, info.Name())
+			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())
 			meshType = Ctm
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".dae") {
-			entryFileName = filepath.Join(savePath, info.Name())
+			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())
 			meshType = Dae
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".drc") {
-			entryFileName = filepath.Join(savePath, info.Name())
+			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())
 			meshType = Drc
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".fbx") {
-			entryFileName = filepath.Join(savePath, info.Name())
+			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())
 			meshType = Fbx
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".gcode") {
-			entryFileName = filepath.Join(savePath, info.Name())
+			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())
 			meshType = Gcode
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".glb") {
-			entryFileName = filepath.Join(savePath, info.Name())
+			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())
 			meshType = Glb
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".gltf") {
-			entryFileName = filepath.Join(savePath, info.Name())
+			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())
 			meshType = Gltf
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".kmz") {
-			entryFileName = filepath.Join(savePath, info.Name())
+			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())
 			meshType = Kmz
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".md2") {
-			entryFileName = filepath.Join(savePath, info.Name())
+			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())
 			meshType = Md2
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".nrrd") {
-			entryFileName = filepath.Join(savePath, info.Name())
+			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())
 			meshType = Nrrd
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".obj") {
-			entryFileName = filepath.Join(savePath, info.Name())
+			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())
 			meshType = Obj
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".pcd") {
-			entryFileName = filepath.Join(savePath, info.Name())
+			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())
 			meshType = Pcd
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".pdb") {
-			entryFileName = filepath.Join(savePath, info.Name())
+			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())
 			meshType = Pdb
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".ply") {
-			entryFileName = filepath.Join(savePath, info.Name())
+			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())
 			meshType = Ply
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".pmd") {
-			entryFileName = filepath.Join(savePath, info.Name())
+			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())
 			meshType = Pmd
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".pmx") {
-			entryFileName = filepath.Join(savePath, info.Name())
+			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())
 			meshType = Pmx
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".prwm") {
-			entryFileName = filepath.Join(savePath, info.Name())
+			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())
 			meshType = Prwm
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".sea") {
-			entryFileName = filepath.Join(savePath, info.Name())
+			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())
 			meshType = Sea3d
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".stl") {
-			entryFileName = filepath.Join(savePath, info.Name())
+			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())
 			meshType = Stl
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".vrm") {
-			entryFileName = filepath.Join(savePath, info.Name())
+			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())
 			meshType = Vrm
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".wrl") {
-			entryFileName = filepath.Join(savePath, info.Name())
+			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())
 			meshType = Vrml
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".vtk") {
-			entryFileName = filepath.Join(savePath, info.Name())
+			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())
 			meshType = Vtk
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".x") {
-			entryFileName = filepath.Join(savePath, info.Name())
+			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())
 			meshType = X
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".lmesh") {
@@ -270,9 +271,9 @@ func Add(w http.ResponseWriter, r *http.Request) {
 				})
 				return
 			}
-			lmesh = filepath.Join(savePath, lmesh)
-			lanim = filepath.Join(savePath, lanim)
-			ltexture = filepath.Join(savePath, ltexture)
+			lmesh = fmt.Sprintf("%v/%v", savePath, lmesh)
+			lanim = fmt.Sprintf("%v/%v", savePath, lanim)
+			ltexture = fmt.Sprintf("%v/%v", savePath, ltexture)
 			entryFileName = fmt.Sprintf("%v;%v;%v", lmesh, lanim, ltexture)
 			meshType = Lol
 			break
