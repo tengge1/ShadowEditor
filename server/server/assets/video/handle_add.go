@@ -102,7 +102,7 @@ func Add(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	url := filepath.Join(savePath, fileName)
+	url := fmt.Sprintf("%v/%v", savePath, fileName)
 
 	doc := bson.M{
 		"ID":          primitive.NewObjectID(),
