@@ -129,12 +129,30 @@ git clone https://gitee.com/tengge1/ShadowEditor.git
 
 数据结构和客户端都没变，只需要把文件夹`./ShadowEditor.Web/Upload/`复制到`build/public/Upload/`即可。
 
-## 相关链接
+## 开源项目
 
-* Three.js： https://threejs.org/
-* Go语言： https://golang.org/
-* Go语言（国内）： https://golang.google.cn/
-* MongoDB： https://www.mongodb.com/
-* LOL模型查看器： https://github.com/tengge1/lol-model-viewer
-* 模型下载1： https://sketchfab.com/3d-models?features=downloadable
-* 模型下载2： https://www.3dpunk.com/work/index.html?category=downloadable
+**感谢以下开源项目。**
+
+* https://github.com/golang/go
+* http://github.com/BurntSushi/toml
+* http://github.com/dgrijalva/jwt-go
+* http://github.com/dimfeld/httptreemux
+* http://github.com/inconshreveable/mousetrap
+* http://github.com/json-iterator/go
+* http://github.com/mozillazg/go-pinyin
+* http://github.com/otiai10/copy
+* http://github.com/sirupsen/logrus
+* http://github.com/spf13/cobra
+* http://github.com/spf13/viper
+* http://github.com/urfave/negroni
+* http://go.mongodb.org/mongo-driver
+
+* https://github.com/mrdoob/three.js
+* https://github.com/tweenjs/tween.js
+* https://github.com/JedWatson/classnames
+* https://github.com/d3/d3-dispatch
+* https://github.com/i18next/i18next
+* https://github.com/js-cookie/js-cookie
+* https://github.com/facebook/prop-types
+* https://github.com/codemirror/CodeMirror
+* https://github.com/jquery/esprima

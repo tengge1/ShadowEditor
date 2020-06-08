@@ -135,12 +135,30 @@ The data structure and web client is not changed, just copy `./ShadowEditor.Web/
 
 MIT License
 
-## Related Links
+## Open Source Projects
 
-* Three.js: https://threejs.org/
-* Golang: https://golang.org/
-* Golang (In China): https://golang.google.cn/
-* MongoDB: https://www.mongodb.com/
-* LOL model viewer: https://github.com/tengge1/lol-model-viewer
-* Model download1: https://sketchfab.com/3d-models?features=downloadable
-* Model download2: https://www.3dpunk.com/work/index.html?category=downloadable
+**Thanks to the following open source projects.**
+
+* https://github.com/golang/go
+* http://github.com/BurntSushi/toml
+* http://github.com/dgrijalva/jwt-go
+* http://github.com/dimfeld/httptreemux
+* http://github.com/inconshreveable/mousetrap
+* http://github.com/json-iterator/go
+* http://github.com/mozillazg/go-pinyin
+* http://github.com/otiai10/copy
+* http://github.com/sirupsen/logrus
+* http://github.com/spf13/cobra
+* http://github.com/spf13/viper
+* http://github.com/urfave/negroni
+* http://go.mongodb.org/mongo-driver
+
+* https://github.com/mrdoob/three.js
+* https://github.com/tweenjs/tween.js
+* https://github.com/JedWatson/classnames
+* https://github.com/d3/d3-dispatch
+* https://github.com/i18next/i18next
+* https://github.com/js-cookie/js-cookie
+* https://github.com/facebook/prop-types
+* https://github.com/codemirror/CodeMirror
+* https://github.com/jquery/esprima
