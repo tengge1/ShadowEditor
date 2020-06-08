@@ -134,47 +134,47 @@ git clone https://gitee.com/tengge1/ShadowEditor.git
 
 **感谢以下开源项目。**
 
-* https://github.com/golang/go
-* http://github.com/BurntSushi/toml
-* http://github.com/dgrijalva/jwt-go
-* http://github.com/dimfeld/httptreemux
-* http://github.com/inconshreveable/mousetrap
-* http://github.com/json-iterator/go
-* http://github.com/mozillazg/go-pinyin
-* http://github.com/otiai10/copy
-* http://github.com/sirupsen/logrus
-* http://github.com/spf13/cobra
-* http://github.com/spf13/viper
-* http://github.com/urfave/negroni
-* http://go.mongodb.org/mongo-driver
-
-* https://github.com/facebook/react
-* https://github.com/mrdoob/three.js
-* https://github.com/rollup/rollup
-* https://github.com/babel/babel
-* https://github.com/eslint/eslint
-* https://github.com/rollup/rollup-plugin-babel
-* https://github.com/rollup/rollup-plugin-commonjs
-* https://github.com/rollup/rollup-plugin-json
-* https://github.com/rollup/rollup-plugin-node-resolve
-* https://github.com/egoist/rollup-plugin-postcss
-* https://github.com/rollup/rollup-plugin-replace
-
-* https://github.com/tweenjs/tween.js
-* https://github.com/JedWatson/classnames
-* https://github.com/d3/d3-dispatch
-* https://github.com/i18next/i18next
-* https://github.com/js-cookie/js-cookie
-* https://github.com/facebook/prop-types
-* https://github.com/codemirror/CodeMirror
-* https://github.com/jquery/esprima
-* https://github.com/tschw/glslprep.js
-* https://github.com/zaach/jsonlint
-* https://github.com/acornjs/acorn
-* https://github.com/kripken/ammo.js
-* https://github.com/dataarts/dat.gui
-* https://github.com/toji/gl-matrix
-* https://github.com/squarefeet/ShaderParticleEngine
-* https://github.com/mrdoob/stats.js
-* https://github.com/mrdoob/texgen.js
-* https://github.com/yomotsu/VolumetricFire
+https://github.com/golang/go  
+http://github.com/BurntSushi/toml  
+http://github.com/dgrijalva/jwt-go  
+http://github.com/dimfeld/httptreemux  
+http://github.com/inconshreveable/mousetrap  
+http://github.com/json-iterator/go  
+http://github.com/mozillazg/go-pinyin  
+http://github.com/otiai10/copy  
+http://github.com/sirupsen/logrus  
+http://github.com/spf13/cobra  
+http://github.com/spf13/viper  
+http://github.com/urfave/negroni  
+http://go.mongodb.org/mongo-driver  
+  
+https://github.com/facebook/react  
+https://github.com/mrdoob/three.js  
+https://github.com/rollup/rollup  
+https://github.com/babel/babel  
+https://github.com/eslint/eslint  
+https://github.com/rollup/rollup-plugin-babel  
+https://github.com/rollup/rollup-plugin-commonjs  
+https://github.com/rollup/rollup-plugin-json  
+https://github.com/rollup/rollup-plugin-node-resolve  
+https://github.com/egoist/rollup-plugin-postcss  
+https://github.com/rollup/rollup-plugin-replace  
+  
+https://github.com/tweenjs/tween.js  
+https://github.com/JedWatson/classnames  
+https://github.com/d3/d3-dispatch  
+https://github.com/i18next/i18next  
+https://github.com/js-cookie/js-cookie  
+https://github.com/facebook/prop-types  
+https://github.com/codemirror/CodeMirror  
+https://github.com/jquery/esprima  
+https://github.com/tschw/glslprep.js  
+https://github.com/zaach/jsonlint  
+https://github.com/acornjs/acorn  
+https://github.com/kripken/ammo.js  
+https://github.com/dataarts/dat.gui  
+https://github.com/toji/gl-matrix  
+https://github.com/squarefeet/ShaderParticleEngine  
+https://github.com/mrdoob/stats.js  
+https://github.com/mrdoob/texgen.js  
+https://github.com/yomotsu/VolumetricFire  
