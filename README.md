@@ -13,6 +13,8 @@ English / [中文](README_zh.md)
 
 ## v0.5.3 is Coming Soon
 
+1. Fix bugs of uploading models and publishing scenes on windows.
+
 ## v0.5.2 has Released
 
 * Release Date: May 31, 2020
