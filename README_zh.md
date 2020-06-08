@@ -14,6 +14,7 @@
 ## v0.5.3即将发布
 
 1. 修复windows上上传模型和发布场景bug。
+2. 添加开源项目链接。
 
 ## v0.5.2发布
 
@@ -147,7 +148,18 @@ git clone https://gitee.com/tengge1/ShadowEditor.git
 * http://github.com/urfave/negroni
 * http://go.mongodb.org/mongo-driver
 
+* https://github.com/facebook/react
 * https://github.com/mrdoob/three.js
+* https://github.com/rollup/rollup
+* https://github.com/babel/babel
+* https://github.com/eslint/eslint
+* https://github.com/rollup/rollup-plugin-babel
+* https://github.com/rollup/rollup-plugin-commonjs
+* https://github.com/rollup/rollup-plugin-json
+* https://github.com/rollup/rollup-plugin-node-resolve
+* https://github.com/egoist/rollup-plugin-postcss
+* https://github.com/rollup/rollup-plugin-replace
+
 * https://github.com/tweenjs/tween.js
 * https://github.com/JedWatson/classnames
 * https://github.com/d3/d3-dispatch
@@ -156,3 +168,13 @@ git clone https://gitee.com/tengge1/ShadowEditor.git
 * https://github.com/facebook/prop-types
 * https://github.com/codemirror/CodeMirror
 * https://github.com/jquery/esprima
+* https://github.com/tschw/glslprep.js
+* https://github.com/zaach/jsonlint
+* https://github.com/acornjs/acorn
+* https://github.com/kripken/ammo.js
+* https://github.com/dataarts/dat.gui
+* https://github.com/toji/gl-matrix
+* https://github.com/squarefeet/ShaderParticleEngine
+* https://github.com/mrdoob/stats.js
+* https://github.com/mrdoob/texgen.js
+* https://github.com/yomotsu/VolumetricFire

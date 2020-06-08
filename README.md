@@ -14,6 +14,7 @@ English / [中文](README_zh.md)
 ## v0.5.3 is Coming Soon
 
 1. Fix bugs of uploading models and publishing scenes on windows.
+2. Add links to open source projects.
 
 ## v0.5.2 has Released
 
@@ -153,7 +154,18 @@ MIT License
 * http://github.com/urfave/negroni
 * http://go.mongodb.org/mongo-driver
 
+* https://github.com/facebook/react
 * https://github.com/mrdoob/three.js
+* https://github.com/rollup/rollup
+* https://github.com/babel/babel
+* https://github.com/eslint/eslint
+* https://github.com/rollup/rollup-plugin-babel
+* https://github.com/rollup/rollup-plugin-commonjs
+* https://github.com/rollup/rollup-plugin-json
+* https://github.com/rollup/rollup-plugin-node-resolve
+* https://github.com/egoist/rollup-plugin-postcss
+* https://github.com/rollup/rollup-plugin-replace
+
 * https://github.com/tweenjs/tween.js
 * https://github.com/JedWatson/classnames
 * https://github.com/d3/d3-dispatch
@@ -162,3 +174,13 @@ MIT License
 * https://github.com/facebook/prop-types
 * https://github.com/codemirror/CodeMirror
 * https://github.com/jquery/esprima
+* https://github.com/tschw/glslprep.js
+* https://github.com/zaach/jsonlint
+* https://github.com/acornjs/acorn
+* https://github.com/kripken/ammo.js
+* https://github.com/dataarts/dat.gui
+* https://github.com/toji/gl-matrix
+* https://github.com/squarefeet/ShaderParticleEngine
+* https://github.com/mrdoob/stats.js
+* https://github.com/mrdoob/texgen.js
+* https://github.com/yomotsu/VolumetricFire
