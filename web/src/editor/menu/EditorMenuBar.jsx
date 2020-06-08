@@ -2,7 +2,7 @@ import { classNames } from '../../third_party';
 import { MenuBar, MenuBarFiller, MenuItemSeparator } from '../../ui/index';
 import SceneMenu from './SceneMenu.jsx';
 import EditMenu from './EditMenu.jsx';
-// import TwoDMenu from './TwoDMenu.jsx';
+import TwoDMenu from './TwoDMenu.jsx';
 import ObjectMenu from './ObjectMenu.jsx';
 import LightMenu from './LightMenu.jsx';
 import AssetsMenu from './AssetsMenu.jsx';
@@ -30,7 +30,7 @@ class EditorMenuBar extends React.Component {
         return <MenuBar className={classNames('EditorMenuBar', className)}>
             {!enableAuthority || isLogin ? <SceneMenu /> : null}
             {!enableAuthority || isLogin ? <EditMenu /> : null}
-            {/* {!enableAuthority || isLogin ? <TwoDMenu /> : null} */}
+            {!enableAuthority || isLogin ? <TwoDMenu /> : null}
             {!enableAuthority || isLogin ? <ObjectMenu /> : null}
             {!enableAuthority || isLogin ? <LightMenu /> : null}
             {!enableAuthority || isLogin ? <AssetsMenu /> : null}

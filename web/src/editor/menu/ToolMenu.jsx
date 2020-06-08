@@ -21,6 +21,7 @@ class ToolMenu extends React.Component {
         this.commitCleanUpScenes = this.commitCleanUpScenes.bind(this);
         this.handlePlugins = this.handlePlugins.bind(this);
         this.handleExportExamples = this.handleExportExamples.bind(this);
+        this.handleTest = this.handleTest.bind(this);
     }
 
     render() {
@@ -47,6 +48,10 @@ class ToolMenu extends React.Component {
             />
             <MenuItem title={_t('Export Examples')}
                 onClick={this.handleExportExamples}
+            />
+            <MenuItemSeparator />
+            <MenuItem title={_t('Test')}
+                onClick={this.handleTest}
             />
         </MenuItem>;
     }
@@ -136,6 +141,10 @@ class ToolMenu extends React.Component {
                 });
             }
         });
+    }
+
+    handleTest() {
+        
     }
 }
 
