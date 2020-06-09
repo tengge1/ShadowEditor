@@ -1,5 +1,3 @@
-// +build ignore
-
 // Copyright 2017-2020 The ShadowEditor Authors. All rights reserved.
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
@@ -12,88 +10,67 @@
 
 package three
 
-/**
- * @author bhouston / http://clara.io
- * @author WestLangley / http://github.com/WestLangley
- *
- * Ref: https://en.wikipedia.org/wiki/Spherical_coordinate_system
- *
- * The polar angle (phi) is measured from the positive y-axis. The positive y-axis is up.
- * The azimuthal angle (theta) is measured from the positive z-axis.
- */
+import "math"
 
-function Spherical( radius, phi, theta ) {
-
-	this.radius = ( radius !== undefined ) ? radius : 1.0;
-	this.phi = ( phi !== undefined ) ? phi : 0; // polar angle
-	this.theta = ( theta !== undefined ) ? theta : 0; // azimuthal angle
-
-	return this;
-
+// NewSpherical create a new Spherical.
+func NewSpherical(radius, phi, theta float64) *Spherical {
+	return &Spherical{radius, phi, theta}
 }
 
-Object.assign( Spherical.prototype, {
+// Spherical :
+// Ref: https://en.wikipedia.org/wiki/Spherical_coordinate_system
+// The polar angle (phi) is measured from the positive y-axis. The positive y-axis is up.
+// The azimuthal angle (theta) is measured from the positive z-axis.
+type Spherical struct {
+	Radius float64
+	Phi    float64
+	Theta  float64
+}
 
-	set: function ( radius, phi, theta ) {
+// Set :
+func (s Spherical) Set(radius, phi, theta float64) *Spherical {
+	s.Radius = radius
+	s.Phi = phi
+	s.Theta = theta
+	return &s
+}
 
-		this.radius = radius;
-		this.phi = phi;
-		this.theta = theta;
+// Clone :
+func (s Spherical) Clone() *Spherical {
+	return NewSpherical(0, 0, 0).Copy(s)
+}
 
-		return this;
+// Copy :
+func (s Spherical) Copy(other Spherical) *Spherical {
+	s.Radius = other.Radius
+	s.Phi = other.Phi
+	s.Theta = other.Theta
+	return &s
+}
 
-	},
+// MakeSafe restrict phi to be betwee EPS and PI-EPS
+func (s Spherical) MakeSafe() *Spherical {
+	EPS := 0.000001
+	s.Phi = math.Max(EPS, math.Min(math.Pi-EPS, s.Phi))
+	return &s
+}
 
-	clone: function () {
+// SetFromVector3 :
+func (s Spherical) SetFromVector3(v Vector3) *Spherical {
+	return s.SetFromCartesianCoords(v.X, v.Y, v.Z)
+}
 
-		return new this.constructor().copy( this );
+// SetFromCartesianCoords :
+func (s Spherical) SetFromCartesianCoords(x, y, z float64) *Spherical {
+	s.Radius = math.Sqrt(x*x + y*y + z*z)
 
-	},
-
-	copy: function ( other ) {
-
-		this.radius = other.radius;
-		this.phi = other.phi;
-		this.theta = other.theta;
-
-		return this;
-
-	},
-
-	// restrict phi to be betwee EPS and PI-EPS
-	makeSafe: function () {
-
-		var EPS = 0.000001;
-		this.phi = Math.max( EPS, Math.min( Math.PI - EPS, this.phi ) );
-
-		return this;
-
-	},
-
-	setFromVector3: function ( v ) {
-
-		return this.setFromCartesianCoords( v.x, v.y, v.z );
-
-	},
-
-	setFromCartesianCoords: function ( x, y, z ) {
-
-		this.radius = Math.sqrt( x * x + y * y + z * z );
-
-		if ( this.radius === 0 ) {
-
-			this.theta = 0;
-			this.phi = 0;
-
-		} else {
-
-			this.theta = Math.atan2( x, z );
-			this.phi = Math.acos( MathUtils.clamp( y / this.radius, - 1, 1 ) );
-
-		}
-
-		return this;
-
+	if s.Radius == 0 {
+		s.Theta = 0
+		s.Phi = 0
+	} else {
+		s.Theta = math.Atan2(x, z)
+		s.Phi = math.Acos(Clamp(y/s.Radius, -1, 1))
 	}
 
-} );
+	return &s
+}
