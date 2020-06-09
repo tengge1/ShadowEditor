@@ -71,8 +71,8 @@ func (q Quaternion) SlerpFlat(
 			sin := math.Sqrt(sqrSin)
 			len := math.Atan2(sin, cos*dir)
 
-			s := math.Sin(s*len) / sin
-			t := math.Sin(t*len) / sin
+			s = math.Sin(s*len) / sin
+			t = math.Sin(t*len) / sin
 		}
 
 		tDir := t * dir
