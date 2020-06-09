@@ -10,385 +10,401 @@
 
 package three
 
+import (
+	"math"
+)
+
 var _points = []Vector3{
-	NewVector3(0,0,0),
-	NewVector3(0,0,0),
-	NewVector3(0,0,0),
-	NewVector3(0,0,0),
-	NewVector3(0,0,0),
-	NewVector3(0,0,0),
-	NewVector3(0,0,0),
-	NewVector3(0,0,0),
-};
+	Vector3{},
+	Vector3{},
+	Vector3{},
+	Vector3{},
+	Vector3{},
+	Vector3{},
+	Vector3{},
+	Vector3{},
+}
 
-var _vector = NewVector3(0,0,0);
+var _vectorB3 = Vector3{}
 
-var _box = NewBox3(0,0,0);
+var _box = Box3{}
 
 // triangle centered vertices
 
-var _v0 = NewVector3(0,0,0);
-var _v1 = NewVector3(0,0,0);
-var _v2 = NewVector3(0,0,0);
+var _v0 = Vector3{}
+var _v1 = Vector3{}
+var _v2 = Vector3{}
 
 // triangle edge vectors
 
-var _f0 = NewVector3(0,0,0);
-var _f1 = NewVector3(0,0,0);
-var _f2 = NewVector3(0,0,0);
+var _f0 = Vector3{}
+var _f1 = Vector3{}
+var _f2 = Vector3{}
 
-var _center = NewVector3(0,0,0);
-var _extents = NewVector3(0,0,0);
-var _triangleNormal = NewVector3(0,0,0);
-var _testAxis = NewVector3(0,0,0);
+var _center = Vector3{}
+var _extents = Vector3{}
+var _triangleNormal = Vector3{}
+var _testAxis = Vector3{}
 
-func NewBox3( min, max Vector3) *Box3 {
-	return &Box{min, max}
+// NewBox3 :
+func NewBox3(min, max Vector3) *Box3 {
+	return &Box3{min, max}
 }
 
+// Box3 :
 type Box3 struct {
 	Min Vector3
 	Max Vector3
 }
 
-func Set( min, max ) {
-	b.min.copy( min );
-	b.max.copy( max );
-
-	return b;
+// Set :
+func (b Box3) Set(min, max Vector3) *Box3 {
+	b.Min.Copy(min)
+	b.Max.Copy(max)
+	return &b
 }
 
-func SetFromArray( array ) {
-	var minX = + Infinity;
-	var minY = + Infinity;
-	var minZ = + Infinity;
+// SetFromArray :
+func (b Box3) SetFromArray(array []float64) *Box3 {
+	minX := math.Inf(1)
+	minY := math.Inf(1)
+	minZ := math.Inf(1)
 
-	var maxX = - Infinity;
-	var maxY = - Infinity;
-	var maxZ = - Infinity;
+	maxX := math.Inf(-1)
+	maxY := math.Inf(-1)
+	maxZ := math.Inf(-1)
 
-	for ( var i = 0, l = array.length; i < l; i += 3 ) {
-		var x = array[ i ];
-		var y = array[ i + 1 ];
-		var z = array[ i + 2 ];
+	for i, l := 0, len(array); i < l; i += 3 {
+		x := array[i]
+		y := array[i+1]
+		z := array[i+2]
 
-		if ( x < minX ) minX = x;
-		if ( y < minY ) minY = y;
-		if ( z < minZ ) minZ = z;
-
-		if ( x > maxX ) maxX = x;
-		if ( y > maxY ) maxY = y;
-		if ( z > maxZ ) maxZ = z;
-	}
-
-	b.min.set( minX, minY, minZ );
-	b.max.set( maxX, maxY, maxZ );
-
-	return b;
-}
-
-func SetFromPoints( points ) {
-	b.makeEmpty();
-
-	for ( var i = 0, il = points.length; i < il; i ++ ) {
-		b.expandByPoint( points[ i ] );
-	}
-
-	return b;
-}
-
-func SetFromCenterAndSize( center, size ) {
-	var halfSize = _vector.copy( size ).multiplyScalar( 0.5 );
-
-	b.min.copy( center ).sub( halfSize );
-	b.max.copy( center ).add( halfSize );
-
-	return b;
-}
-
-func SetFromObject( object ) {
-	b.makeEmpty();
-
-	return b.expandByObject( object );
-}
-
-func Clone() {
-	return new b.constructor().copy( b );
-}
-
-func Copy( box ) {
-	b.min.copy( box.min );
-	b.max.copy( box.max );
-
-	return b;
-}
-
-func MakeEmpty() {
-	b.min.x = b.min.y = b.min.z = + Infinity;
-	b.max.x = b.max.y = b.max.z = - Infinity;
-
-	return b;
-}
-
-func IsEmpty() {
-	// b is a more robust check for empty than ( volume <= 0 ) because volume can get positive with two negative axes
-	return ( b.max.x < b.min.x ) || ( b.max.y < b.min.y ) || ( b.max.z < b.min.z );
-}
-
-func GetCenter( target ) {
-	return b.isEmpty() ? target.set( 0, 0, 0 ) : target.addVectors( b.min, b.max ).multiplyScalar( 0.5 );
-}
-
-func GetSize( target ) {
-	return b.isEmpty() ? target.set( 0, 0, 0 ) : target.subVectors( b.max, b.min );
-}
-
-func ExpandByPoint( point ) {
-	b.min.min( point );
-	b.max.max( point );
-
-	return b;
-}
-
-func ExpandByVector( vector ) {
-	b.min.sub( vector );
-	b.max.add( vector );
-
-	return b;
-}
-
-func ExpandByScalar( scalar ) {
-	b.min.addScalar( - scalar );
-	b.max.addScalar( scalar );
-
-	return b;
-}
-
-func ExpandByObject( object ) {
-	// Computes the world-axis-aligned bounding box of an object (including its children),
-	// accounting for both the object's, and children's, world transforms
-	object.updateWorldMatrix( false, false );
-
-	var geometry = object.geometry;
-
-	if ( geometry !== undefined ) {
-		if ( geometry.boundingBox === null ) {
-			geometry.computeBoundingBox();
+		if x < minX {
+			minX = x
+		}
+		if y < minY {
+			minY = y
+		}
+		if z < minZ {
+			minZ = z
 		}
 
-		_box.copy( geometry.boundingBox );
-		_box.applyMatrix4( object.matrixWorld );
-
-		b.union( _box );
+		if x > maxX {
+			maxX = x
+		}
+		if y > maxY {
+			maxY = y
+		}
+		if z > maxZ {
+			maxZ = z
+		}
 	}
 
-	var children = object.children;
+	b.Min.Set(minX, minY, minZ)
+	b.Max.Set(maxX, maxY, maxZ)
 
-	for ( var i = 0, l = children.length; i < l; i ++ ) {
-		b.expandByObject( children[ i ] );
+	return &b
+}
+
+// SetFromPoints :
+func (b Box3) SetFromPoints(points []Vector3) *Box3 {
+	b.MakeEmpty()
+
+	for i, il := 0, len(points); i < il; i++ {
+		b.ExpandByPoint(points[i])
 	}
 
-	return b;
+	return &b
 }
 
-func ContainsPoint( point ) {
-	return point.x < b.min.x || point.x > b.max.x ||
-		point.y < b.min.y || point.y > b.max.y ||
-		point.z < b.min.z || point.z > b.max.z ? false : true;
+// SetFromCenterAndSize :
+func (b Box3) SetFromCenterAndSize(center, size Vector3) *Box3 {
+	halfSize := _vectorB3.Copy(size).MultiplyScalar(0.5)
+
+	b.Min.Copy(center).Sub(*halfSize)
+	b.Max.Copy(center).Add(*halfSize)
+
+	return &b
 }
 
-func ContainsBox( box ) {
-	return b.min.x <= box.min.x && box.max.x <= b.max.x &&
-		b.min.y <= box.min.y && box.max.y <= b.max.y &&
-		b.min.z <= box.min.z && box.max.z <= b.max.z;
+// Clone :
+func (b Box3) Clone() *Box3 {
+	return NewBox3(Vector3{}, Vector3{}).Copy(b)
 }
 
-func GetParameter( point, target ) {
+// Copy :
+func (b Box3) Copy(box Box3) *Box3 {
+	b.Min.Copy(box.Min)
+	b.Max.Copy(box.Max)
+	return &b
+}
+
+// MakeEmpty :
+func (b Box3) MakeEmpty() *Box3 {
+	b.Min.X = math.Inf(1)
+	b.Min.Y = math.Inf(1)
+	b.Min.Z = math.Inf(1)
+
+	b.Max.X = math.Inf(-1)
+	b.Max.Y = math.Inf(-1)
+	b.Max.Z = math.Inf(-1)
+
+	return &b
+}
+
+// IsEmpty :
+func (b Box3) IsEmpty() bool {
+	// b is a more robust check for empty than ( volume <= 0 ) because volume can get positive with two negative axes
+	return (b.Max.X < b.Min.X) || (b.Max.Y < b.Min.Y) || (b.Max.Z < b.Min.Z)
+}
+
+// GetCenter :
+func (b Box3) GetCenter(target Vector3) *Vector3 {
+	if b.IsEmpty() {
+		return target.Set(0, 0, 0)
+	}
+	return target.AddVectors(b.Min, b.Max).MultiplyScalar(0.5)
+}
+
+// GetSize :
+func (b Box3) GetSize(target Vector3) *Vector3 {
+	if b.IsEmpty() {
+		return target.Set(0, 0, 0)
+	}
+	return target.SubVectors(b.Max, b.Min)
+}
+
+// ExpandByPoint :
+func (b Box3) ExpandByPoint(point Vector3) *Box3 {
+	b.Min.Min(point)
+	b.Max.Max(point)
+	return &b
+}
+
+// ExpandByVector :
+func (b Box3) ExpandByVector(vector Vector3) *Box3 {
+	b.Min.Sub(vector)
+	b.Max.Add(vector)
+	return &b
+}
+
+// ExpandByScalar :
+func (b Box3) ExpandByScalar(scalar float64) *Box3 {
+	b.Min.AddScalar(-scalar)
+	b.Max.AddScalar(scalar)
+	return &b
+}
+
+// ContainsPoint :
+func (b Box3) ContainsPoint(point Vector3) bool {
+	return !(point.X < b.Min.X || point.X > b.Max.X ||
+		point.Y < b.Min.Y || point.Y > b.Max.Y ||
+		point.Z < b.Min.Z || point.Z > b.Max.Z)
+}
+
+// ContainsBox :
+func (b Box3) ContainsBox(box Box3) bool {
+	return b.Min.X <= box.Min.X && box.Max.X <= b.Max.X &&
+		b.Min.Y <= box.Min.Y && box.Max.Y <= b.Max.Y &&
+		b.Min.Z <= box.Min.Z && box.Max.Z <= b.Max.Z
+}
+
+// GetParameter :
+func (b Box3) GetParameter(point, target Vector3) *Vector3 {
 	// b can potentially have a divide by zero if the box
 	// has a size dimension of 0.
-	return target.set(
-		( point.x - b.min.x ) / ( b.max.x - b.min.x ),
-		( point.y - b.min.y ) / ( b.max.y - b.min.y ),
-		( point.z - b.min.z ) / ( b.max.z - b.min.z )
-	);
+	return target.Set(
+		(point.X-b.Min.X)/(b.Max.X-b.Min.X),
+		(point.Y-b.Min.Y)/(b.Max.Y-b.Min.Y),
+		(point.Z-b.Min.Z)/(b.Max.Z-b.Min.Z),
+	)
 }
 
-func IntersectsBox( box ) {
+// IntersectsBox :
+func (b Box3) IntersectsBox(box Box3) bool {
 	// using 6 splitting planes to rule out intersections.
-	return box.max.x < b.min.x || box.min.x > b.max.x ||
-		box.max.y < b.min.y || box.min.y > b.max.y ||
-		box.max.z < b.min.z || box.min.z > b.max.z ? false : true;
+	return !(box.Max.X < b.Min.X || box.Min.X > b.Max.X ||
+		box.Max.Y < b.Min.Y || box.Min.Y > b.Max.Y ||
+		box.Max.Z < b.Min.Z || box.Min.Z > b.Max.Z)
 }
 
-func IntersectsSphere( sphere ) {
+// IntersectsSphere :
+func (b Box3) IntersectsSphere(sphere Sphere) float64 {
 	// Find the point on the AABB closest to the sphere center.
-	b.clampPoint( sphere.center, _vector );
+	b.ClampPoint(sphere.Center, _vectorB3)
 
 	// If that point is inside the sphere, the AABB and sphere intersect.
-	return _vector.distanceToSquared( sphere.center ) <= ( sphere.radius * sphere.radius );
+	return _vectorB3.DistanceToSquared(sphere.Center) <= (sphere.Radius * sphere.Radius)
 }
 
-func IntersectsPlane( plane ) {
+// IntersectsPlane :
+func (b Box3) IntersectsPlane(plane Plane) bool {
 	// We compute the minimum and maximum dot product values. If those values
 	// are on the same side (back or front) of the plane, then there is no intersection.
-	var min, max;
+	var min, max float64
 
-	if ( plane.normal.x > 0 ) {
-		min = plane.normal.x * b.min.x;
-		max = plane.normal.x * b.max.x;
+	if plane.Normal.X > 0 {
+		min = plane.Normal.X * b.Min.X
+		max = plane.Normal.X * b.Max.X
 	} else {
-		min = plane.normal.x * b.max.x;
-		max = plane.normal.x * b.min.x;
+		min = plane.Normal.X * b.Max.X
+		max = plane.Normal.X * b.Min.X
 	}
 
-	if ( plane.normal.y > 0 ) {
-		min += plane.normal.y * b.min.y;
-		max += plane.normal.y * b.max.y;
+	if plane.Normal.y > 0 {
+		min += plane.Normal.Y * b.Min.Y
+		max += plane.Normal.Y * b.Max.Y
 	} else {
-		min += plane.normal.y * b.max.y;
-		max += plane.normal.y * b.min.y;
+		min += plane.Normal.Y * b.Max.Y
+		max += plane.Normal.Y * b.Min.Y
 	}
 
-	if ( plane.normal.z > 0 ) {
-		min += plane.normal.z * b.min.z;
-		max += plane.normal.z * b.max.z;
+	if plane.Normal.Z > 0 {
+		min += plane.Normal.Z * b.Min.Z
+		max += plane.Normal.Z * b.Max.Z
 	} else {
-		min += plane.normal.z * b.max.z;
-		max += plane.normal.z * b.min.z;
+		min += plane.Normal.Z * b.Max.Z
+		max += plane.Normal.Z * b.Min.Z
 	}
 
-	return ( min <= - plane.constant && max >= - plane.constant );
+	return (min <= -plane.Constant && max >= -plane.Constant)
 }
 
-func IntersectsTriangle( triangle ) {
-	if ( b.isEmpty() ) {
-		return false;
+// IntersectsTriangle :
+func (b Box3) IntersectsTriangle(triangle Triangle) bool {
+	if b.IsEmpty() {
+		return false
 	}
 
 	// compute box center and extents
-	b.getCenter( _center );
-	_extents.subVectors( b.max, _center );
+	b.GetCenter(_center)
+	_extents.SubVectors(b.Max, _center)
 
 	// translate triangle to aabb origin
-	_v0.subVectors( triangle.a, _center );
-	_v1.subVectors( triangle.b, _center );
-	_v2.subVectors( triangle.c, _center );
+	_v0.SubVectors(triangle.a, _center)
+	_v1.SubVectors(triangle.b, _center)
+	_v2.SubVectors(triangle.c, _center)
 
 	// compute edge vectors for triangle
-	_f0.subVectors( _v1, _v0 );
-	_f1.subVectors( _v2, _v1 );
-	_f2.subVectors( _v0, _v2 );
+	_f0.SubVectors(_v1, _v0)
+	_f1.SubVectors(_v2, _v1)
+	_f2.SubVectors(_v0, _v2)
 
 	// test against axes that are given by cross product combinations of the edges of the triangle and the edges of the aabb
 	// make an axis testing of each of the 3 sides of the aabb against each of the 3 sides of the triangle = 9 axis of separation
 	// axis_ij = u_i x f_j (u0, u1, u2 = face normals of aabb = x,y,z axes vectors since aabb is axis aligned)
-	var axes = [
-		0, - _f0.z, _f0.y, 0, - _f1.z, _f1.y, 0, - _f2.z, _f2.y,
-		_f0.z, 0, - _f0.x, _f1.z, 0, - _f1.x, _f2.z, 0, - _f2.x,
-		- _f0.y, _f0.x, 0, - _f1.y, _f1.x, 0, - _f2.y, _f2.x, 0
-	];
-	if ( ! satForAxes( axes, _v0, _v1, _v2, _extents ) ) {
-		return false;
+	var axes = []float64{
+		0, -_f0.Z, _f0.Y, 0, -_f1.Z, _f1.Y, 0, -_f2.Z, _f2.Y,
+		_f0.Z, 0, -_f0.X, _f1.Z, 0, -_f1.X, _f2.Z, 0, -_f2.X,
+		-_f0.Y, _f0.X, 0, -_f1.Y, _f1.X, 0, -_f2.Y, _f2.X, 0,
+	}
+	if !satForAxes(axes, _v0, _v1, _v2, _extents) {
+		return false
 	}
 
 	// test 3 face normals from the aabb
-	axes = [ 1, 0, 0, 0, 1, 0, 0, 0, 1 ];
-	if ( ! satForAxes( axes, _v0, _v1, _v2, _extents ) ) {
-		return false;
+	axes = []float64{1, 0, 0, 0, 1, 0, 0, 0, 1}
+	if !satForAxes(axes, _v0, _v1, _v2, _extents) {
+		return false
 	}
 
 	// finally testing the face normal of the triangle
 	// use already existing triangle edge vectors here
-	_triangleNormal.crossVectors( _f0, _f1 );
-	axes = [ _triangleNormal.x, _triangleNormal.y, _triangleNormal.z ];
+	_triangleNormal.CrossVectors(_f0, _f1)
+	axes = []float64{_triangleNormal.X, _triangleNormal.Y, _triangleNormal.Z}
 
-	return satForAxes( axes, _v0, _v1, _v2, _extents );
+	return satForAxes(axes, _v0, _v1, _v2, _extents)
 }
 
-func ClampPoint( point, target ) {
-	return target.copy( point ).clamp( b.min, b.max );
+// ClampPoint :
+func (b Box3) ClampPoint(point Vector3, target Vector3) *Vector3 {
+	return target.Copy(point).Clamp(b.Min, b.Max)
 }
 
-func DistanceToPoint( point ) {
-	var clampedPoint = _vector.copy( point ).clamp( b.min, b.max );
-	return clampedPoint.sub( point ).length();
+// DistanceToPoint :
+func (b Box3) DistanceToPoint(point Vector3) float64 {
+	clampedPoint := _vectorB3.Copy(point).Clamp(b.Min, b.Max)
+	return clampedPoint.Sub(point).Length()
 }
 
-func GetBoundingSphere( target ) {
-	b.getCenter( target.center );
-	target.radius = b.getSize( _vector ).length() * 0.5;
-	return target;
+// GetBoundingSphere :
+func (b Box3) GetBoundingSphere(target Sphere) *Sphere {
+	b.GetCenter(target.Center)
+	target.Radius = b.GetSize(_vectorB3).Length() * 0.5
+	return &target
 }
 
-func Intersect( box ) {
-	b.min.max( box.min );
-	b.max.min( box.max );
+// Intersect :
+func (b Box3) Intersect(box Box3) *Box3 {
+	b.Min.Max(box.Min)
+	b.Max.Min(box.Max)
 
 	// ensure that if there is no overlap, the result is fully empty, not slightly empty with non-inf/+inf values that will cause subsequence intersects to erroneously return valid values.
-	if ( b.isEmpty() ) b.makeEmpty();
-
-	return b;
-}
-
-func Union( box ) {
-	b.min.min( box.min );
-	b.max.max( box.max );
-
-	return b;
-}
-
-func ApplyMatrix4( matrix ) {
-	// transform of empty box is an empty box.
-	if ( b.isEmpty() ) return b;
-
-	// NOTE: I am using a binary pattern to specify all 2^3 combinations below
-	_points[ 0 ].set( b.min.x, b.min.y, b.min.z ).applyMatrix4( matrix ); // 000
-	_points[ 1 ].set( b.min.x, b.min.y, b.max.z ).applyMatrix4( matrix ); // 001
-	_points[ 2 ].set( b.min.x, b.max.y, b.min.z ).applyMatrix4( matrix ); // 010
-	_points[ 3 ].set( b.min.x, b.max.y, b.max.z ).applyMatrix4( matrix ); // 011
-	_points[ 4 ].set( b.max.x, b.min.y, b.min.z ).applyMatrix4( matrix ); // 100
-	_points[ 5 ].set( b.max.x, b.min.y, b.max.z ).applyMatrix4( matrix ); // 101
-	_points[ 6 ].set( b.max.x, b.max.y, b.min.z ).applyMatrix4( matrix ); // 110
-	_points[ 7 ].set( b.max.x, b.max.y, b.max.z ).applyMatrix4( matrix ); // 111
-
-	b.setFromPoints( _points );
-
-	return b;
-}
-
-func Translate( offset ) {
-	b.min.add( offset );
-	b.max.add( offset );
-
-	return b;
-}
-
-func Equals( box ) {
-	return box.min.equals( b.min ) && box.max.equals( b.max );
-}
-
-func satForAxes( axes, v0, v1, v2, extents ) bool {
-	var i, j;
-
-	for ( i = 0, j = axes.length - 3; i <= j; i += 3 ) {
-
-		_testAxis.fromArray( axes, i );
-		// project the aabb onto the seperating axis
-		var r = extents.x * Math.abs( _testAxis.x ) + extents.y * Math.abs( _testAxis.y ) + extents.z * Math.abs( _testAxis.z );
-		// project all 3 vertices of the triangle onto the seperating axis
-		var p0 = v0.dot( _testAxis );
-		var p1 = v1.dot( _testAxis );
-		var p2 = v2.dot( _testAxis );
-		// actual test, basically see if either of the most extreme of the triangle points intersects r
-		if ( Math.max( - Math.max( p0, p1, p2 ), Math.min( p0, p1, p2 ) ) > r ) {
-
-			// points of the projected triangle are outside the projected half-length of the aabb
-			// the axis is seperating and we can exit
-			return false;
-
-		}
-
+	if b.IsEmpty() {
+		b.MakeEmpty()
 	}
 
-	return true;
+	return &b
+}
+
+// Union :
+func (b Box3) Union(box Box3) *Box3 {
+	b.Min.Min(box.Min)
+	b.Max.Max(box.Max)
+	return &b
+}
+
+// ApplyMatrix4 :
+func (b Box3) ApplyMatrix4(matrix Matrix4) *Box3 {
+	// transform of empty box is an empty box.
+	if b.IsEmpty() {
+		return &b
+	}
+
+	// NOTE: I am using a binary pattern to specify all 2^3 combinations below
+	_points[0].Set(b.Min.X, b.Min.Y, b.Min.Z).ApplyMatrix4(matrix) // 000
+	_points[1].Set(b.Min.X, b.Min.Y, b.Max.Z).ApplyMatrix4(matrix) // 001
+	_points[2].Set(b.Min.X, b.Max.Y, b.Min.Z).ApplyMatrix4(matrix) // 010
+	_points[3].Set(b.Min.X, b.Max.Y, b.Max.Z).ApplyMatrix4(matrix) // 011
+	_points[4].Set(b.Max.X, b.Min.Y, b.Min.Z).ApplyMatrix4(matrix) // 100
+	_points[5].Set(b.Max.X, b.Min.Y, b.Max.Z).ApplyMatrix4(matrix) // 101
+	_points[6].Set(b.Max.X, b.Max.Y, b.Min.Z).ApplyMatrix4(matrix) // 110
+	_points[7].Set(b.Max.X, b.Max.Y, b.Max.Z).ApplyMatrix4(matrix) // 111
+
+	b.SetFromPoints(_points)
+
+	return &b
+}
+
+// Translate :
+func (b Box3) Translate(offset Vector3) *Box3 {
+	b.Min.Add(offset)
+	b.Max.Add(offset)
+
+	return &b
+}
+
+// Equals :
+func (b Box3) Equals(box Box3) bool {
+	return box.Min.Equals(b.Min) && box.Max.Equals(b.Max)
+}
+
+// satForAxes :
+func satForAxes(axes []float64, v0, v1, v2, extents Vector3) bool {
+	for i, j := 0, len(axes)-3; i <= j; i += 3 {
+		_testAxis.FromArray(axes, i)
+		// project the aabb onto the seperating axis
+		r := extents.X*math.Abs(_testAxis.X) + extents.Y*math.Abs(_testAxis.Y) + extents.Z*math.Abs(_testAxis.Z)
+		// project all 3 vertices of the triangle onto the seperating axis
+		p0 := v0.Dot(_testAxis)
+		p1 := v1.Dot(_testAxis)
+		p2 := v2.Dot(_testAxis)
+		// actual test, basically see if either of the most extreme of the triangle points intersects r
+		if math.Max(-math.Max(p0, math.Max(p1, p2)), math.Min(p0, math.Min(p1, p2))) > r {
+			// points of the projected triangle are outside the projected half-length of the aabb
+			// the axis is seperating and we can exit
+			return false
+		}
+	}
+	return true
 }
