@@ -141,18 +141,18 @@ MIT License
 **Thanks to the following open source projects.**
 
 https://github.com/golang/go  
-http://github.com/BurntSushi/toml  
-http://github.com/dgrijalva/jwt-go  
-http://github.com/dimfeld/httptreemux  
-http://github.com/inconshreveable/mousetrap  
-http://github.com/json-iterator/go  
-http://github.com/mozillazg/go-pinyin  
-http://github.com/otiai10/copy  
-http://github.com/sirupsen/logrus  
-http://github.com/spf13/cobra  
-http://github.com/spf13/viper  
-http://github.com/urfave/negroni  
-http://go.mongodb.org/mongo-driver  
+https://github.com/BurntSushi/toml  
+https://github.com/dgrijalva/jwt-go  
+https://github.com/dimfeld/httptreemux  
+https://github.com/inconshreveable/mousetrap  
+https://github.com/json-iterator/go  
+https://github.com/mozillazg/go-pinyin  
+https://github.com/otiai10/copy  
+https://github.com/sirupsen/logrus  
+https://github.com/spf13/cobra  
+https://github.com/spf13/viper  
+https://github.com/urfave/negroni  
+https://go.mongodb.org/mongo-driver  
   
 https://github.com/facebook/react  
 https://github.com/mrdoob/three.js  
