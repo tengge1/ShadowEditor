@@ -1,5 +1,3 @@
-// +build ignore
-
 // Copyright 2017-2020 The ShadowEditor Authors. All rights reserved.
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
@@ -12,190 +10,132 @@
 
 package three
 
-var _box = new Box3();
+import "math"
 
-/**
- * @author bhouston / http://clara.io
- * @author mrdoob / http://mrdoob.com/
- */
-
-function Sphere( center, radius ) {
-
-	this.center = ( center !== undefined ) ? center : new Vector3();
-	this.radius = ( radius !== undefined ) ? radius : - 1;
-
+// NewSphere :
+func NewSphere(center Vector3, radius float64) *Sphere {
+	return &Sphere{center, radius}
 }
 
-Object.assign( Sphere.prototype, {
-
-	set: function ( center, radius ) {
-
-		this.center.copy( center );
-		this.radius = radius;
-
-		return this;
-
-	},
-
-	setFromPoints: function ( points, optionalCenter ) {
-
-		var center = this.center;
-
-		if ( optionalCenter !== undefined ) {
-
-			center.copy( optionalCenter );
-
-		} else {
-
-			_box.setFromPoints( points ).getCenter( center );
-
-		}
-
-		var maxRadiusSq = 0;
-
-		for ( var i = 0, il = points.length; i < il; i ++ ) {
-
-			maxRadiusSq = Math.max( maxRadiusSq, center.distanceToSquared( points[ i ] ) );
-
-		}
-
-		this.radius = Math.sqrt( maxRadiusSq );
-
-		return this;
-
-	},
-
-	clone: function () {
-
-		return new this.constructor().copy( this );
-
-	},
-
-	copy: function ( sphere ) {
-
-		this.center.copy( sphere.center );
-		this.radius = sphere.radius;
-
-		return this;
-
-	},
-
-	isEmpty: function () {
-
-		return ( this.radius < 0 );
-
-	},
-
-	makeEmpty: function () {
-
-		this.center.set( 0, 0, 0 );
-		this.radius = - 1;
-
-		return this;
-
-	},
-
-	containsPoint: function ( point ) {
-
-		return ( point.distanceToSquared( this.center ) <= ( this.radius * this.radius ) );
-
-	},
-
-	distanceToPoint: function ( point ) {
-
-		return ( point.distanceTo( this.center ) - this.radius );
-
-	},
-
-	intersectsSphere: function ( sphere ) {
-
-		var radiusSum = this.radius + sphere.radius;
-
-		return sphere.center.distanceToSquared( this.center ) <= ( radiusSum * radiusSum );
-
-	},
-
-	intersectsBox: function ( box ) {
-
-		return box.intersectsSphere( this );
-
-	},
-
-	intersectsPlane: function ( plane ) {
-
-		return Math.abs( plane.distanceToPoint( this.center ) ) <= this.radius;
-
-	},
-
-	clampPoint: function ( point, target ) {
-
-		var deltaLengthSq = this.center.distanceToSquared( point );
-
-		if ( target === undefined ) {
-
-			console.warn( 'THREE.Sphere: .clampPoint() target is now required' );
-			target = new Vector3();
-
-		}
-
-		target.copy( point );
-
-		if ( deltaLengthSq > ( this.radius * this.radius ) ) {
-
-			target.sub( this.center ).normalize();
-			target.multiplyScalar( this.radius ).add( this.center );
-
-		}
-
-		return target;
-
-	},
-
-	getBoundingBox: function ( target ) {
-
-		if ( target === undefined ) {
-
-			console.warn( 'THREE.Sphere: .getBoundingBox() target is now required' );
-			target = new Box3();
-
-		}
-
-		if ( this.isEmpty() ) {
-
-			// Empty sphere produces empty bounding box
-			target.makeEmpty();
-			return target;
-
-		}
-
-		target.set( this.center, this.center );
-		target.expandByScalar( this.radius );
-
-		return target;
-
-	},
-
-	applyMatrix4: function ( matrix ) {
-
-		this.center.applyMatrix4( matrix );
-		this.radius = this.radius * matrix.getMaxScaleOnAxis();
-
-		return this;
-
-	},
-
-	translate: function ( offset ) {
-
-		this.center.add( offset );
-
-		return this;
-
-	},
-
-	equals: function ( sphere ) {
-
-		return sphere.center.equals( this.center ) && ( sphere.radius === this.radius );
-
+// Sphere :
+type Sphere struct {
+	Center Vector3
+	Radius float64
+}
+
+// Set :
+func (s Sphere) Set(center Vector3, radius float64) *Sphere {
+	s.Center.Copy(center)
+	s.Radius = radius
+	return &s
+}
+
+// SetFromPoints :
+func (s Sphere) SetFromPoints(points []Vector3, optionalCenter Vector3) *Sphere {
+	center := s.Center
+	center.Copy(optionalCenter)
+
+	maxRadiusSq := float64(0)
+
+	for i, il := 0, len(points); i < il; i++ {
+		maxRadiusSq = math.Max(maxRadiusSq, center.DistanceToSquared(points[i]))
 	}
 
-} );
+	s.Radius = math.Sqrt(maxRadiusSq)
+	return &s
+}
+
+// Clone :
+func (s Sphere) Clone() *Sphere {
+	return NewSphere(s.Center, s.Radius).Copy(s)
+}
+
+// Copy :
+func (s Sphere) Copy(sphere Sphere) *Sphere {
+	s.Center.Copy(sphere.Center)
+	s.Radius = sphere.Radius
+	return &s
+}
+
+// IsEmpty :
+func (s Sphere) IsEmpty() bool {
+	return s.Radius < 0
+}
+
+// MakeEmpty :
+func (s Sphere) MakeEmpty() *Sphere {
+	s.Center.Set(0, 0, 0)
+	s.Radius = -1
+	return &s
+}
+
+// ContainsPoint :
+func (s Sphere) ContainsPoint(point Vector3) bool {
+	return point.DistanceToSquared(s.Center) <= s.Radius*s.Radius
+}
+
+// DistanceToPoint :
+func (s Sphere) DistanceToPoint(point Vector3) float64 {
+	return point.DistanceTo(s.Center) - s.Radius
+}
+
+// IntersectsSphere :
+func (s Sphere) IntersectsSphere(sphere Sphere) bool {
+	radiusSum := s.Radius + sphere.Radius
+	return sphere.Center.DistanceToSquared(s.Center) <= radiusSum*radiusSum
+}
+
+// IntersectsBox :
+func (s Sphere) IntersectsBox(box Box3) bool {
+	return box.IntersectsSphere(s)
+}
+
+// IntersectsPlane :
+func (s Sphere) IntersectsPlane(plane Plane) bool {
+	return math.Abs(plane.DistanceToPoint(s.Center)) <= s.Radius
+}
+
+// ClampPoint :
+func (s Sphere) ClampPoint(point, target Vector3) *Vector3 {
+	deltaLengthSq := s.Center.DistanceToSquared(point)
+	target.Copy(point)
+
+	if deltaLengthSq > s.Radius*s.Radius {
+		target.Sub(s.Center).Normalize()
+		target.MultiplyScalar(s.Radius).Add(s.Center)
+	}
+
+	return &target
+}
+
+// GetBoundingBox :
+func (s Sphere) GetBoundingBox(target Box3) *Box3 {
+	if s.IsEmpty() {
+		// Empty sphere produces empty bounding box
+		target.MakeEmpty()
+		return &target
+	}
+
+	target.Set(s.Center, s.Center)
+	target.ExpandByScalar(s.Radius)
+
+	return &target
+}
+
+// ApplyMatrix4 :
+func (s Sphere) ApplyMatrix4(matrix Matrix4) *Sphere {
+	s.Center.ApplyMatrix4(matrix)
+	s.Radius = s.Radius * matrix.GetMaxScaleOnAxis()
+	return &s
+}
+
+// Translate :
+func (s Sphere) Translate(offset Vector3) *Sphere {
+	s.Center.Add(offset)
+	return &s
+}
+
+// Equals :
+func (s Sphere) Equals(sphere Sphere) bool {
+	return sphere.Center.Equals(s.Center) && sphere.Radius == s.Radius
+}

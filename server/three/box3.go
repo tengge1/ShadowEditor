@@ -229,12 +229,12 @@ func (b Box3) IntersectsBox(box Box3) bool {
 }
 
 // IntersectsSphere :
-func (b Box3) IntersectsSphere(sphere Sphere) float64 {
+func (b Box3) IntersectsSphere(sphere Sphere) bool {
 	// Find the point on the AABB closest to the sphere center.
 	b.ClampPoint(sphere.Center, _vectorB3)
 
 	// If that point is inside the sphere, the AABB and sphere intersect.
-	return _vectorB3.DistanceToSquared(sphere.Center) <= (sphere.Radius * sphere.Radius)
+	return _vectorB3.DistanceToSquared(sphere.Center) <= sphere.Radius*sphere.Radius
 }
 
 // IntersectsPlane :
