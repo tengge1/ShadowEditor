@@ -464,8 +464,8 @@ func (v Vector3) LerpVectors(v1, v2 Vector3, alpha float64) *Vector3 {
 }
 
 // Cross :
-func (v Vector3) Cross(a, b Vector3) *Vector3 {
-	return v.CrossVectors(a, b)
+func (v Vector3) Cross(a Vector3) *Vector3 { // bug?
+	return v.CrossVectors(v, a)
 }
 
 // CrossVectors :

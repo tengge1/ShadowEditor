@@ -1,5 +1,3 @@
-// +build ignore
-
 // Copyright 2017-2020 The ShadowEditor Authors. All rights reserved.
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
@@ -12,228 +10,153 @@
 
 package three
 
-/**
- * @author bhouston / http://clara.io
- */
+var _vector1 = Vector3{}
+var _vector2 = Vector3{}
+var _normalMatrix = Matrix3{}
 
-var _vector1 = new Vector3();
-var _vector2 = new Vector3();
-var _normalMatrix = new Matrix3();
-
-function Plane( normal, constant ) {
-
+// NewPlane :
+func NewPlane(normal Vector3, constant float64) *Plane {
 	// normal is assumed to be normalized
-
-	this.normal = ( normal !== undefined ) ? normal : new Vector3( 1, 0, 0 );
-	this.constant = ( constant !== undefined ) ? constant : 0;
-
+	return &Plane{normal, constant}
 }
 
-Object.assign( Plane.prototype, {
+// Plane :
+type Plane struct {
+	Normal   Vector3
+	Constant float64
+}
 
-	isPlane: true,
+// Set :
+func (p Plane) Set(normal Vector3, constant float64) *Plane {
+	p.Normal.Copy(normal)
+	p.Constant = constant
+	return &p
+}
 
-	set: function ( normal, constant ) {
+// SetComponents :
+func (p Plane) SetComponents(x, y, z, w float64) *Plane {
+	p.Normal.Set(x, y, z)
+	p.Constant = w
+	return &p
+}
 
-		this.normal.copy( normal );
-		this.constant = constant;
+// SetFromNormalAndCoplanarPoint :
+func (p Plane) SetFromNormalAndCoplanarPoint(normal, point Vector3) *Plane {
+	p.Normal.Copy(normal)
+	p.Constant = -point.Dot(p.Normal)
+	return &p
+}
 
-		return this;
+// SetFromCoplanarPoints :
+func (p Plane) SetFromCoplanarPoints(a, b, c Vector3) *Plane {
+	normal := _vector1.SubVectors(c, b).Cross(*_vector2.SubVectors(a, b)).Normalize()
+	// Q: should an error be thrown if normal is zero (e.g. degenerate plane)?
+	p.SetFromNormalAndCoplanarPoint(*normal, a)
+	return &p
+}
 
-	},
+// Clone :
+func (p Plane) Clone() *Plane {
+	return NewPlane(p.Normal, p.Constant).Copy(p)
+}
 
-	setComponents: function ( x, y, z, w ) {
+// Copy :
+func (p Plane) Copy(plane Plane) *Plane {
+	p.Normal.Copy(plane.Normal)
+	p.Constant = plane.Constant
+	return &p
+}
 
-		this.normal.set( x, y, z );
-		this.constant = w;
+// Normalize :
+func (p Plane) Normalize() *Plane {
+	// Note: will lead to a divide by zero if the plane is invalid.
+	inverseNormalLength := 1.0 / p.Normal.Length()
+	p.Normal.MultiplyScalar(inverseNormalLength)
+	p.Constant *= inverseNormalLength
+	return &p
+}
 
-		return this;
+// Negate :
+func (p Plane) Negate() *Plane {
+	p.Constant *= -1
+	p.Normal.Negate()
+	return &p
+}
 
-	},
+// DistanceToPoint :
+func (p Plane) DistanceToPoint(point Vector3) float64 {
+	return p.Normal.Dot(point) + p.Constant
+}
 
-	setFromNormalAndCoplanarPoint: function ( normal, point ) {
+// DistanceToSphere :
+func (p Plane) DistanceToSphere(sphere Sphere) float64 {
+	return p.DistanceToPoint(sphere.Center) - sphere.Radius
+}
 
-		this.normal.copy( normal );
-		this.constant = - point.dot( this.normal );
+// ProjectPoint :
+func (p Plane) ProjectPoint(point, target Vector3) *Vector3 {
+	return target.Copy(p.Normal).MultiplyScalar(-p.DistanceToPoint(point)).Add(point)
+}
 
-		return this;
-
-	},
-
-	setFromCoplanarPoints: function ( a, b, c ) {
-
-		var normal = _vector1.subVectors( c, b ).cross( _vector2.subVectors( a, b ) ).normalize();
-
-		// Q: should an error be thrown if normal is zero (e.g. degenerate plane)?
-
-		this.setFromNormalAndCoplanarPoint( normal, a );
-
-		return this;
-
-	},
-
-	clone: function () {
-
-		return new this.constructor().copy( this );
-
-	},
-
-	copy: function ( plane ) {
-
-		this.normal.copy( plane.normal );
-		this.constant = plane.constant;
-
-		return this;
-
-	},
-
-	normalize: function () {
-
-		// Note: will lead to a divide by zero if the plane is invalid.
-
-		var inverseNormalLength = 1.0 / this.normal.length();
-		this.normal.multiplyScalar( inverseNormalLength );
-		this.constant *= inverseNormalLength;
-
-		return this;
-
-	},
-
-	negate: function () {
-
-		this.constant *= - 1;
-		this.normal.negate();
-
-		return this;
-
-	},
-
-	distanceToPoint: function ( point ) {
-
-		return this.normal.dot( point ) + this.constant;
-
-	},
-
-	distanceToSphere: function ( sphere ) {
-
-		return this.distanceToPoint( sphere.center ) - sphere.radius;
-
-	},
-
-	projectPoint: function ( point, target ) {
-
-		if ( target === undefined ) {
-
-			console.warn( 'THREE.Plane: .projectPoint() target is now required' );
-			target = new Vector3();
-
+// IntersectLine :
+func (p Plane) IntersectLine(line Line3, target Vector3) *Vector3 {
+	direction := line.Delta(_vector1)
+	denominator := p.Normal.Dot(direction)
+	if denominator == 0 {
+		// line is coplanar, return origin
+		if p.DistanceToPoint(line.Start) == 0 {
+			return target.Copy(line.Start)
 		}
-
-		return target.copy( this.normal ).multiplyScalar( - this.distanceToPoint( point ) ).add( point );
-
-	},
-
-	intersectLine: function ( line, target ) {
-
-		if ( target === undefined ) {
-
-			console.warn( 'THREE.Plane: .intersectLine() target is now required' );
-			target = new Vector3();
-
-		}
-
-		var direction = line.delta( _vector1 );
-
-		var denominator = this.normal.dot( direction );
-
-		if ( denominator === 0 ) {
-
-			// line is coplanar, return origin
-			if ( this.distanceToPoint( line.start ) === 0 ) {
-
-				return target.copy( line.start );
-
-			}
-
-			// Unsure if this is the correct method to handle this case.
-			return undefined;
-
-		}
-
-		var t = - ( line.start.dot( this.normal ) + this.constant ) / denominator;
-
-		if ( t < 0 || t > 1 ) {
-
-			return undefined;
-
-		}
-
-		return target.copy( direction ).multiplyScalar( t ).add( line.start );
-
-	},
-
-	intersectsLine: function ( line ) {
-
-		// Note: this tests if a line intersects the plane, not whether it (or its end-points) are coplanar with it.
-
-		var startSign = this.distanceToPoint( line.start );
-		var endSign = this.distanceToPoint( line.end );
-
-		return ( startSign < 0 && endSign > 0 ) || ( endSign < 0 && startSign > 0 );
-
-	},
-
-	intersectsBox: function ( box ) {
-
-		return box.intersectsPlane( this );
-
-	},
-
-	intersectsSphere: function ( sphere ) {
-
-		return sphere.intersectsPlane( this );
-
-	},
-
-	coplanarPoint: function ( target ) {
-
-		if ( target === undefined ) {
-
-			console.warn( 'THREE.Plane: .coplanarPoint() target is now required' );
-			target = new Vector3();
-
-		}
-
-		return target.copy( this.normal ).multiplyScalar( - this.constant );
-
-	},
-
-	applyMatrix4: function ( matrix, optionalNormalMatrix ) {
-
-		var normalMatrix = optionalNormalMatrix || _normalMatrix.getNormalMatrix( matrix );
-
-		var referencePoint = this.coplanarPoint( _vector1 ).applyMatrix4( matrix );
-
-		var normal = this.normal.applyMatrix3( normalMatrix ).normalize();
-
-		this.constant = - referencePoint.dot( normal );
-
-		return this;
-
-	},
-
-	translate: function ( offset ) {
-
-		this.constant -= offset.dot( this.normal );
-
-		return this;
-
-	},
-
-	equals: function ( plane ) {
-
-		return plane.normal.equals( this.normal ) && ( plane.constant === this.constant );
-
+		// Unsure if p is the correct method to handle p case.
+		return nil
 	}
 
-} );
+	t := -(line.Start.Dot(p.Normal) + p.Constant) / denominator
+	if t < 0 || t > 1 {
+		return nil
+	}
+
+	return target.Copy(direction).MultiplyScalar(t).Add(line.Start)
+}
+
+func (p Plane) IntersectsLine(line Line3) bool {
+	// Note: p tests if a line intersects the plane, not whether it (or its end-points) are coplanar with it.
+	startSign := p.DistanceToPoint(line.Start)
+	endSign := p.DistanceToPoint(line.End)
+	return startSign < 0 && endSign > 0 || endSign < 0 && startSign > 0
+}
+
+// IntersectsBox :
+func (p Plane) IntersectsBox(box Box3) bool {
+	return box.IntersectsPlane(p)
+}
+
+// IntersectsSphere :
+func (p Plane) IntersectsSphere(sphere Sphere) bool {
+	return sphere.IntersectsPlane(p)
+}
+
+// CoplanarPoint :
+func (p Plane) CoplanarPoint(target Vector3) *Vector3 {
+	return target.Copy(p.Normal).MultiplyScalar(-p.Constant)
+}
+
+// ApplyMatrix4 :
+func (p Plane) ApplyMatrix4(matrix Matrix4) *Plane {
+	normalMatrix := _normalMatrix.GetNormalMatrix(matrix)
+	referencePoint := p.CoplanarPoint(_vector1).ApplyMatrix4(matrix)
+	normal := p.Normal.ApplyMatrix3(*normalMatrix).Normalize()
+	p.Constant = -referencePoint.Dot(*normal)
+	return &p
+}
+
+// Translate :
+func (p Plane) Translate(offset Vector3) *Plane {
+	p.Constant -= offset.Dot(p.Normal)
+	return &p
+}
+
+// Equals :
+func (p Plane) Equals(plane Plane) bool {
+	return plane.Normal.Equals(p.Normal) && plane.Constant == p.Constant
+}
