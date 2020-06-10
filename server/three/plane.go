@@ -101,7 +101,7 @@ func (p Plane) ProjectPoint(point, target Vector3) *Vector3 {
 // IntersectLine :
 func (p Plane) IntersectLine(line Line3, target Vector3) *Vector3 {
 	direction := line.Delta(_vector1)
-	denominator := p.Normal.Dot(direction)
+	denominator := p.Normal.Dot(*direction)
 	if denominator == 0 {
 		// line is coplanar, return origin
 		if p.DistanceToPoint(line.Start) == 0 {
@@ -116,9 +116,10 @@ func (p Plane) IntersectLine(line Line3, target Vector3) *Vector3 {
 		return nil
 	}
 
-	return target.Copy(direction).MultiplyScalar(t).Add(line.Start)
+	return target.Copy(*direction).MultiplyScalar(t).Add(line.Start)
 }
 
+// IntersectsLine :
 func (p Plane) IntersectsLine(line Line3) bool {
 	// Note: p tests if a line intersects the plane, not whether it (or its end-points) are coplanar with it.
 	startSign := p.DistanceToPoint(line.Start)
