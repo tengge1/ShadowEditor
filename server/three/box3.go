@@ -251,7 +251,7 @@ func (b Box3) IntersectsPlane(plane Plane) bool {
 		max = plane.Normal.X * b.Min.X
 	}
 
-	if plane.Normal.y > 0 {
+	if plane.Normal.Y > 0 {
 		min += plane.Normal.Y * b.Min.Y
 		max += plane.Normal.Y * b.Max.Y
 	} else {
