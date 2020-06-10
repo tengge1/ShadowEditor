@@ -1,5 +1,3 @@
-// +build ignore
-
 // Copyright 2017-2020 The ShadowEditor Authors. All rights reserved.
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
@@ -12,145 +10,94 @@
 
 package three
 
-/**
- * @author bhouston / http://clara.io
- */
+var _startP = Vector3{}
+var _startEnd = Vector3{}
 
-var _startP = new Vector3();
-var _startEnd = new Vector3();
-
-function Line3( start, end ) {
-
-	this.start = ( start !== undefined ) ? start : new Vector3();
-	this.end = ( end !== undefined ) ? end : new Vector3();
-
+// NewLine3 :
+func NewLine3(start, end Vector3) *Line3 {
+	return &Line3{start, end}
 }
 
-Object.assign( Line3.prototype, {
+// Line3 :
+type Line3 struct {
+	Start Vector3
+	End   Vector3
+}
 
-	set: function ( start, end ) {
+// Set :
+func (l Line3) Set(start, end Vector3) *Line3 {
+	l.Start.Copy(start)
+	l.End.Copy(end)
+	return &l
+}
 
-		this.start.copy( start );
-		this.end.copy( end );
+// Clone :
+func (l Line3) Clone() *Line3 {
+	return NewLine3(l.Start, l.End).Copy(l)
+}
 
-		return this;
+// Copy :
+func (l Line3) Copy(line Line3) *Line3 {
+	l.Start.Copy(line.Start)
+	l.End.Copy(line.End)
+	return &l
+}
 
-	},
+// GetCenter :
+func (l Line3) GetCenter(target Vector3) *Vector3 {
+	return target.AddVectors(l.Start, l.End).MultiplyScalar(0.5)
+}
 
-	clone: function () {
+// Delta :
+func (l Line3) Delta(target Vector3) *Vector3 {
+	return target.SubVectors(l.End, l.Start)
+}
 
-		return new this.constructor().copy( this );
+// DistanceSq :
+func (l Line3) DistanceSq() float64 {
+	return l.Start.DistanceToSquared(l.End)
+}
 
-	},
+// Distance :
+func (l Line3) Distance() float64 {
+	return l.Start.DistanceTo(l.End)
+}
 
-	copy: function ( line ) {
+// At :
+func (l Line3) At(t float64, target Vector3) *Vector3 {
+	return l.Delta(target).MultiplyScalar(t).Add(l.Start)
+}
 
-		this.start.copy( line.start );
-		this.end.copy( line.end );
+// ClosestPointToPointParameter :
+func (l Line3) ClosestPointToPointParameter(point Vector3, clampToLine bool) float64 {
+	_startP.SubVectors(point, l.Start)
+	_startEnd.SubVectors(l.End, l.Start)
 
-		return this;
+	startEnd2 := _startEnd.Dot(_startEnd)
+	startEndStartP := _startEnd.Dot(_startP)
 
-	},
-
-	getCenter: function ( target ) {
-
-		if ( target === undefined ) {
-
-			console.warn( 'THREE.Line3: .getCenter() target is now required' );
-			target = new Vector3();
-
-		}
-
-		return target.addVectors( this.start, this.end ).multiplyScalar( 0.5 );
-
-	},
-
-	delta: function ( target ) {
-
-		if ( target === undefined ) {
-
-			console.warn( 'THREE.Line3: .delta() target is now required' );
-			target = new Vector3();
-
-		}
-
-		return target.subVectors( this.end, this.start );
-
-	},
-
-	distanceSq: function () {
-
-		return this.start.distanceToSquared( this.end );
-
-	},
-
-	distance: function () {
-
-		return this.start.distanceTo( this.end );
-
-	},
-
-	at: function ( t, target ) {
-
-		if ( target === undefined ) {
-
-			console.warn( 'THREE.Line3: .at() target is now required' );
-			target = new Vector3();
-
-		}
-
-		return this.delta( target ).multiplyScalar( t ).add( this.start );
-
-	},
-
-	closestPointToPointParameter: function ( point, clampToLine ) {
-
-		_startP.subVectors( point, this.start );
-		_startEnd.subVectors( this.end, this.start );
-
-		var startEnd2 = _startEnd.dot( _startEnd );
-		var startEnd_startP = _startEnd.dot( _startP );
-
-		var t = startEnd_startP / startEnd2;
-
-		if ( clampToLine ) {
-
-			t = MathUtils.clamp( t, 0, 1 );
-
-		}
-
-		return t;
-
-	},
-
-	closestPointToPoint: function ( point, clampToLine, target ) {
-
-		var t = this.closestPointToPointParameter( point, clampToLine );
-
-		if ( target === undefined ) {
-
-			console.warn( 'THREE.Line3: .closestPointToPoint() target is now required' );
-			target = new Vector3();
-
-		}
-
-		return this.delta( target ).multiplyScalar( t ).add( this.start );
-
-	},
-
-	applyMatrix4: function ( matrix ) {
-
-		this.start.applyMatrix4( matrix );
-		this.end.applyMatrix4( matrix );
-
-		return this;
-
-	},
-
-	equals: function ( line ) {
-
-		return line.start.equals( this.start ) && line.end.equals( this.end );
-
+	t := startEndStartP / startEnd2
+	if clampToLine {
+		t = Clamp(t, 0, 1)
 	}
 
-} );
+	return t
+}
+
+// ClosestPointToPoint :
+func (l Line3) ClosestPointToPoint(point Vector3, clampToLine bool, target Vector3) *Vector3 {
+	t := l.ClosestPointToPointParameter(point, clampToLine)
+	return l.Delta(target).MultiplyScalar(t).Add(l.Start)
+}
+
+// ApplyMatrix4 :
+func (l Line3) ApplyMatrix4(matrix Matrix4) *Line3 {
+	l.Start.ApplyMatrix4(matrix)
+	l.End.ApplyMatrix4(matrix)
+	return &l
+}
+
+// Equals :
+func (l Line3) Equals(line Line3) bool {
+	return line.Start.Equals(l.Start) && line.End.Equals(l.End)
+}
