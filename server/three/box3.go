@@ -281,9 +281,9 @@ func (b Box3) IntersectsTriangle(triangle Triangle) bool {
 	_extents.SubVectors(b.Max, _center)
 
 	// translate triangle to aabb origin
-	_v0.SubVectors(triangle.a, _center)
-	_v1.SubVectors(triangle.b, _center)
-	_v2.SubVectors(triangle.c, _center)
+	_v0.SubVectors(triangle.A, _center)
+	_v1.SubVectors(triangle.B, _center)
+	_v2.SubVectors(triangle.C, _center)
 
 	// compute edge vectors for triangle
 	_f0.SubVectors(_v1, _v0)
