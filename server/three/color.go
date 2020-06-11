@@ -1,5 +1,3 @@
-// +build ignore
-
 // Copyright 2017-2020 The ShadowEditor Authors. All rights reserved.
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
@@ -12,592 +10,394 @@
 
 package three
 
-/**
- * @author mrdoob / http://mrdoob.com/
- */
+import (
+	"math"
+	"strconv"
+)
 
-var _colorKeywords = { 'aliceblue': 0xF0F8FF, 'antiquewhite': 0xFAEBD7, 'aqua': 0x00FFFF, 'aquamarine': 0x7FFFD4, 'azure': 0xF0FFFF,
-	'beige': 0xF5F5DC, 'bisque': 0xFFE4C4, 'black': 0x000000, 'blanchedalmond': 0xFFEBCD, 'blue': 0x0000FF, 'blueviolet': 0x8A2BE2,
-	'brown': 0xA52A2A, 'burlywood': 0xDEB887, 'cadetblue': 0x5F9EA0, 'chartreuse': 0x7FFF00, 'chocolate': 0xD2691E, 'coral': 0xFF7F50,
-	'cornflowerblue': 0x6495ED, 'cornsilk': 0xFFF8DC, 'crimson': 0xDC143C, 'cyan': 0x00FFFF, 'darkblue': 0x00008B, 'darkcyan': 0x008B8B,
-	'darkgoldenrod': 0xB8860B, 'darkgray': 0xA9A9A9, 'darkgreen': 0x006400, 'darkgrey': 0xA9A9A9, 'darkkhaki': 0xBDB76B, 'darkmagenta': 0x8B008B,
-	'darkolivegreen': 0x556B2F, 'darkorange': 0xFF8C00, 'darkorchid': 0x9932CC, 'darkred': 0x8B0000, 'darksalmon': 0xE9967A, 'darkseagreen': 0x8FBC8F,
-	'darkslateblue': 0x483D8B, 'darkslategray': 0x2F4F4F, 'darkslategrey': 0x2F4F4F, 'darkturquoise': 0x00CED1, 'darkviolet': 0x9400D3,
-	'deeppink': 0xFF1493, 'deepskyblue': 0x00BFFF, 'dimgray': 0x696969, 'dimgrey': 0x696969, 'dodgerblue': 0x1E90FF, 'firebrick': 0xB22222,
-	'floralwhite': 0xFFFAF0, 'forestgreen': 0x228B22, 'fuchsia': 0xFF00FF, 'gainsboro': 0xDCDCDC, 'ghostwhite': 0xF8F8FF, 'gold': 0xFFD700,
-	'goldenrod': 0xDAA520, 'gray': 0x808080, 'green': 0x008000, 'greenyellow': 0xADFF2F, 'grey': 0x808080, 'honeydew': 0xF0FFF0, 'hotpink': 0xFF69B4,
-	'indianred': 0xCD5C5C, 'indigo': 0x4B0082, 'ivory': 0xFFFFF0, 'khaki': 0xF0E68C, 'lavender': 0xE6E6FA, 'lavenderblush': 0xFFF0F5, 'lawngreen': 0x7CFC00,
-	'lemonchiffon': 0xFFFACD, 'lightblue': 0xADD8E6, 'lightcoral': 0xF08080, 'lightcyan': 0xE0FFFF, 'lightgoldenrodyellow': 0xFAFAD2, 'lightgray': 0xD3D3D3,
-	'lightgreen': 0x90EE90, 'lightgrey': 0xD3D3D3, 'lightpink': 0xFFB6C1, 'lightsalmon': 0xFFA07A, 'lightseagreen': 0x20B2AA, 'lightskyblue': 0x87CEFA,
-	'lightslategray': 0x778899, 'lightslategrey': 0x778899, 'lightsteelblue': 0xB0C4DE, 'lightyellow': 0xFFFFE0, 'lime': 0x00FF00, 'limegreen': 0x32CD32,
-	'linen': 0xFAF0E6, 'magenta': 0xFF00FF, 'maroon': 0x800000, 'mediumaquamarine': 0x66CDAA, 'mediumblue': 0x0000CD, 'mediumorchid': 0xBA55D3,
-	'mediumpurple': 0x9370DB, 'mediumseagreen': 0x3CB371, 'mediumslateblue': 0x7B68EE, 'mediumspringgreen': 0x00FA9A, 'mediumturquoise': 0x48D1CC,
-	'mediumvioletred': 0xC71585, 'midnightblue': 0x191970, 'mintcream': 0xF5FFFA, 'mistyrose': 0xFFE4E1, 'moccasin': 0xFFE4B5, 'navajowhite': 0xFFDEAD,
-	'navy': 0x000080, 'oldlace': 0xFDF5E6, 'olive': 0x808000, 'olivedrab': 0x6B8E23, 'orange': 0xFFA500, 'orangered': 0xFF4500, 'orchid': 0xDA70D6,
-	'palegoldenrod': 0xEEE8AA, 'palegreen': 0x98FB98, 'paleturquoise': 0xAFEEEE, 'palevioletred': 0xDB7093, 'papayawhip': 0xFFEFD5, 'peachpuff': 0xFFDAB9,
-	'peru': 0xCD853F, 'pink': 0xFFC0CB, 'plum': 0xDDA0DD, 'powderblue': 0xB0E0E6, 'purple': 0x800080, 'rebeccapurple': 0x663399, 'red': 0xFF0000, 'rosybrown': 0xBC8F8F,
-	'royalblue': 0x4169E1, 'saddlebrown': 0x8B4513, 'salmon': 0xFA8072, 'sandybrown': 0xF4A460, 'seagreen': 0x2E8B57, 'seashell': 0xFFF5EE,
-	'sienna': 0xA0522D, 'silver': 0xC0C0C0, 'skyblue': 0x87CEEB, 'slateblue': 0x6A5ACD, 'slategray': 0x708090, 'slategrey': 0x708090, 'snow': 0xFFFAFA,
-	'springgreen': 0x00FF7F, 'steelblue': 0x4682B4, 'tan': 0xD2B48C, 'teal': 0x008080, 'thistle': 0xD8BFD8, 'tomato': 0xFF6347, 'turquoise': 0x40E0D0,
-	'violet': 0xEE82EE, 'wheat': 0xF5DEB3, 'white': 0xFFFFFF, 'whitesmoke': 0xF5F5F5, 'yellow': 0xFFFF00, 'yellowgreen': 0x9ACD32 };
+// ColorKeywords :
+var ColorKeywords = map[string]int{"aliceblue": 0xF0F8FF, "antiquewhite": 0xFAEBD7, "aqua": 0x00FFFF, "aquamarine": 0x7FFFD4, "azure": 0xF0FFFF,
+	"beige": 0xF5F5DC, "bisque": 0xFFE4C4, "black": 0x000000, "blanchedalmond": 0xFFEBCD, "blue": 0x0000FF, "blueviolet": 0x8A2BE2,
+	"brown": 0xA52A2A, "burlywood": 0xDEB887, "cadetblue": 0x5F9EA0, "chartreuse": 0x7FFF00, "chocolate": 0xD2691E, "coral": 0xFF7F50,
+	"cornflowerblue": 0x6495ED, "cornsilk": 0xFFF8DC, "crimson": 0xDC143C, "cyan": 0x00FFFF, "darkblue": 0x00008B, "darkcyan": 0x008B8B,
+	"darkgoldenrod": 0xB8860B, "darkgray": 0xA9A9A9, "darkgreen": 0x006400, "darkgrey": 0xA9A9A9, "darkkhaki": 0xBDB76B, "darkmagenta": 0x8B008B,
+	"darkolivegreen": 0x556B2F, "darkorange": 0xFF8C00, "darkorchid": 0x9932CC, "darkred": 0x8B0000, "darksalmon": 0xE9967A, "darkseagreen": 0x8FBC8F,
+	"darkslateblue": 0x483D8B, "darkslategray": 0x2F4F4F, "darkslategrey": 0x2F4F4F, "darkturquoise": 0x00CED1, "darkviolet": 0x9400D3,
+	"deeppink": 0xFF1493, "deepskyblue": 0x00BFFF, "dimgray": 0x696969, "dimgrey": 0x696969, "dodgerblue": 0x1E90FF, "firebrick": 0xB22222,
+	"floralwhite": 0xFFFAF0, "forestgreen": 0x228B22, "fuchsia": 0xFF00FF, "gainsboro": 0xDCDCDC, "ghostwhite": 0xF8F8FF, "gold": 0xFFD700,
+	"goldenrod": 0xDAA520, "gray": 0x808080, "green": 0x008000, "greenyellow": 0xADFF2F, "grey": 0x808080, "honeydew": 0xF0FFF0, "hotpink": 0xFF69B4,
+	"indianred": 0xCD5C5C, "indigo": 0x4B0082, "ivory": 0xFFFFF0, "khaki": 0xF0E68C, "lavender": 0xE6E6FA, "lavenderblush": 0xFFF0F5, "lawngreen": 0x7CFC00,
+	"lemonchiffon": 0xFFFACD, "lightblue": 0xADD8E6, "lightcoral": 0xF08080, "lightcyan": 0xE0FFFF, "lightgoldenrodyellow": 0xFAFAD2, "lightgray": 0xD3D3D3,
+	"lightgreen": 0x90EE90, "lightgrey": 0xD3D3D3, "lightpink": 0xFFB6C1, "lightsalmon": 0xFFA07A, "lightseagreen": 0x20B2AA, "lightskyblue": 0x87CEFA,
+	"lightslategray": 0x778899, "lightslategrey": 0x778899, "lightsteelblue": 0xB0C4DE, "lightyellow": 0xFFFFE0, "lime": 0x00FF00, "limegreen": 0x32CD32,
+	"linen": 0xFAF0E6, "magenta": 0xFF00FF, "maroon": 0x800000, "mediumaquamarine": 0x66CDAA, "mediumblue": 0x0000CD, "mediumorchid": 0xBA55D3,
+	"mediumpurple": 0x9370DB, "mediumseagreen": 0x3CB371, "mediumslateblue": 0x7B68EE, "mediumspringgreen": 0x00FA9A, "mediumturquoise": 0x48D1CC,
+	"mediumvioletred": 0xC71585, "midnightblue": 0x191970, "mintcream": 0xF5FFFA, "mistyrose": 0xFFE4E1, "moccasin": 0xFFE4B5, "navajowhite": 0xFFDEAD,
+	"navy": 0x000080, "oldlace": 0xFDF5E6, "olive": 0x808000, "olivedrab": 0x6B8E23, "orange": 0xFFA500, "orangered": 0xFF4500, "orchid": 0xDA70D6,
+	"palegoldenrod": 0xEEE8AA, "palegreen": 0x98FB98, "paleturquoise": 0xAFEEEE, "palevioletred": 0xDB7093, "papayawhip": 0xFFEFD5, "peachpuff": 0xFFDAB9,
+	"peru": 0xCD853F, "pink": 0xFFC0CB, "plum": 0xDDA0DD, "powderblue": 0xB0E0E6, "purple": 0x800080, "rebeccapurple": 0x663399, "red": 0xFF0000, "rosybrown": 0xBC8F8F,
+	"royalblue": 0x4169E1, "saddlebrown": 0x8B4513, "salmon": 0xFA8072, "sandybrown": 0xF4A460, "seagreen": 0x2E8B57, "seashell": 0xFFF5EE,
+	"sienna": 0xA0522D, "silver": 0xC0C0C0, "skyblue": 0x87CEEB, "slateblue": 0x6A5ACD, "slategray": 0x708090, "slategrey": 0x708090, "snow": 0xFFFAFA,
+	"springgreen": 0x00FF7F, "steelblue": 0x4682B4, "tan": 0xD2B48C, "teal": 0x008080, "ctle": 0xD8BFD8, "tomato": 0xFF6347, "turquoise": 0x40E0D0,
+	"violet": 0xEE82EE, "wheat": 0xF5DEB3, "white": 0xFFFFFF, "whitesmoke": 0xF5F5F5, "yellow": 0xFFFF00, "yellowgreen": 0x9ACD32}
 
-var _hslA = { h: 0, s: 0, l: 0 };
-var _hslB = { h: 0, s: 0, l: 0 };
+// HSL :
+type HSL struct {
+	H float64
+	S float64
+	L float64
+}
 
-function Color( r, g, b ) {
+var _hslA = HSL{0, 0, 0}
+var _hslB = HSL{0, 0, 0}
 
-	if ( g === undefined && b === undefined ) {
+// NewColor :
+func NewColor(r, g, b float64) *Color {
+	return &Color{r, g, b}
+}
 
-		// r is THREE.Color, hex or string
-		return this.set( r );
+// Color :
+type Color struct {
+	R float64
+	G float64
+	B float64
+}
 
+// Hue2Rgb :
+func Hue2Rgb(p, q, t float64) float64 {
+	if t < 0 {
+		t++
+	}
+	if t > 1 {
+		t--
+	}
+	if t < 1/6 {
+		return p + (q-p)*6*t
+	}
+	if t < 1/2 {
+		return q
+	}
+	if t < 2/3 {
+		return p + (q-p)*6*(2/3-t)
+	}
+	return p
+}
+
+// SRGBToLinear :
+func SRGBToLinear(d float64) float64 {
+	if d < 0.04045 {
+		return d * 0.0773993808
+	}
+	return math.Pow(d*0.9478672986+0.0521327014, 2.4)
+}
+
+// LinearToSRGB :
+func LinearToSRGB(d float64) float64 {
+	if d < 0.0031308 {
+		return d * 12.92
+	}
+	return 1.055*(math.Pow(d, 0.41666)) - 0.055
+}
+
+// Set :
+func (c Color) Set(r, g, b float64) *Color {
+	return c.SetRGB(r, g, b)
+}
+
+// SetScalar :
+func (c Color) SetScalar(scalar float64) *Color {
+	c.R = scalar
+	c.G = scalar
+	c.B = scalar
+	return &c
+}
+
+// SetHex :
+func (c Color) SetHex(hex int) *Color {
+	c.R = float64((hex >> 16 & 255) / 255)
+	c.G = float64((hex >> 8 & 255) / 255)
+	c.B = float64((hex & 255) / 255)
+	return &c
+}
+
+// SetRGB :
+func (c Color) SetRGB(r, g, b float64) *Color {
+	c.R = r
+	c.G = g
+	c.B = b
+	return &c
+}
+
+// SetHSL :
+func (c Color) SetHSL(h, s, l float64) *Color {
+	// h,s,l ranges are in 0.0 - 1.0
+	h = EuclideanModulo(h, 1)
+	s = Clamp(s, 0, 1)
+	l = Clamp(l, 0, 1)
+
+	if s == 0 {
+		c.R = 1
+		c.G = 1
+		c.B = l
+	} else {
+		p := l + s - (l * s)
+		if l <= 0.5 {
+			p = l * (1 + s)
+		}
+		q := (2 * l) - p
+		c.R = Hue2Rgb(q, p, h+1/3)
+		c.G = Hue2Rgb(q, p, h)
+		c.B = Hue2Rgb(q, p, h-1/3)
 	}
 
-	return this.setRGB( r, g, b );
-
+	return &c
 }
 
-function hue2rgb( p, q, t ) {
-
-	if ( t < 0 ) t += 1;
-	if ( t > 1 ) t -= 1;
-	if ( t < 1 / 6 ) return p + ( q - p ) * 6 * t;
-	if ( t < 1 / 2 ) return q;
-	if ( t < 2 / 3 ) return p + ( q - p ) * 6 * ( 2 / 3 - t );
-	return p;
-
+// SetColorName :
+func (c Color) SetColorName(style string) *Color {
+	// color keywords
+	if hex, ok := ColorKeywords[style]; ok {
+		c.SetHex(hex)
+	} else {
+		panic("THREE.Color: Unknown color " + style)
+	}
+	return &c
 }
 
-function SRGBToLinear( c ) {
-
-	return ( c < 0.04045 ) ? c * 0.0773993808 : Math.pow( c * 0.9478672986 + 0.0521327014, 2.4 );
-
+// Clone :
+func (c Color) Clone() *Color {
+	return NewColor(c.R, c.B, c.G)
 }
 
-function LinearToSRGB( c ) {
-
-	return ( c < 0.0031308 ) ? c * 12.92 : 1.055 * ( Math.pow( c, 0.41666 ) ) - 0.055;
-
+// Copy :
+func (c Color) Copy(color Color) *Color {
+	c.R = color.R
+	c.G = color.G
+	c.B = color.B
+	return &c
 }
 
-Object.assign( Color.prototype, {
+// CopyGammaToLinear : gammaFactor default is 2.0
+func (c Color) CopyGammaToLinear(color Color, gammaFactor float64) *Color {
+	c.R = math.Pow(color.R, gammaFactor)
+	c.G = math.Pow(color.G, gammaFactor)
+	c.B = math.Pow(color.B, gammaFactor)
+	return &c
+}
 
-	isColor: true,
+// CopyLinearToGamma : gammaFactor default is 2.0
+func (c Color) CopyLinearToGamma(color Color, gammaFactor float64) *Color {
+	safeInverse := 1.0
+	if gammaFactor > 0 {
+		gammaFactor = 1.0 / gammaFactor
+	}
+	c.R = math.Pow(color.R, safeInverse)
+	c.G = math.Pow(color.G, safeInverse)
+	c.B = math.Pow(color.B, safeInverse)
+	return &c
+}
 
-	r: 1, g: 1, b: 1,
+// ConvertGammaToLinear :
+func (c Color) ConvertGammaToLinear(gammaFactor float64) *Color {
+	c.CopyGammaToLinear(c, gammaFactor)
+	return &c
+}
 
-	set: function ( value ) {
+// ConvertLinearToGamma :
+func (c Color) ConvertLinearToGamma(gammaFactor float64) *Color {
+	c.CopyLinearToGamma(c, gammaFactor)
+	return &c
+}
 
-		if ( value && value.isColor ) {
+// CopySRGBToLinear :
+func (c Color) CopySRGBToLinear(color Color) *Color {
+	c.R = SRGBToLinear(color.R)
+	c.G = SRGBToLinear(color.G)
+	c.B = SRGBToLinear(color.B)
+	return &c
+}
 
-			this.copy( value );
+// CopyLinearToSRGB :
+func (c Color) CopyLinearToSRGB(color Color) *Color {
+	c.R = LinearToSRGB(color.R)
+	c.G = LinearToSRGB(color.G)
+	c.B = LinearToSRGB(color.B)
+	return &c
+}
 
-		} else if ( typeof value === 'number' ) {
+// ConvertSRGBToLinear :
+func (c Color) ConvertSRGBToLinear() *Color {
+	c.CopySRGBToLinear(c)
+	return &c
+}
 
-			this.setHex( value );
+// ConvertLinearToSRGB :
+func (c Color) ConvertLinearToSRGB() *Color {
+	c.CopyLinearToSRGB(c)
+	return &c
+}
 
-		} else if ( typeof value === 'string' ) {
+// GetHex :
+func (c Color) GetHex() int {
+	return (int(c.R)*255)<<16 ^ (int(c.G)*255)<<8 ^ (int(c.B)*255)<<0
+}
 
-			this.setStyle( value );
+// GetHexString :
+func (c Color) GetHexString() string {
+	str := "000000" + strconv.FormatInt(int64(c.GetHex()), 16)
+	return str[len(str)-6:]
+}
 
-		}
+// GetHSL :
+func (c Color) GetHSL(target HSL) *HSL {
+	// h,s,l ranges are in 0.0 - 1.0
+	r, g, b := c.R, c.G, c.B
+	max := math.Max(r, math.Max(g, b))
+	min := math.Min(r, math.Min(g, b))
 
-		return this;
+	var hue, saturation float64
+	lightness := (min + max) / 2.0
 
-	},
-
-	setScalar: function ( scalar ) {
-
-		this.r = scalar;
-		this.g = scalar;
-		this.b = scalar;
-
-		return this;
-
-	},
-
-	setHex: function ( hex ) {
-
-		hex = Math.floor( hex );
-
-		this.r = ( hex >> 16 & 255 ) / 255;
-		this.g = ( hex >> 8 & 255 ) / 255;
-		this.b = ( hex & 255 ) / 255;
-
-		return this;
-
-	},
-
-	setRGB: function ( r, g, b ) {
-
-		this.r = r;
-		this.g = g;
-		this.b = b;
-
-		return this;
-
-	},
-
-	setHSL: function ( h, s, l ) {
-
-		// h,s,l ranges are in 0.0 - 1.0
-		h = MathUtils.euclideanModulo( h, 1 );
-		s = MathUtils.clamp( s, 0, 1 );
-		l = MathUtils.clamp( l, 0, 1 );
-
-		if ( s === 0 ) {
-
-			this.r = this.g = this.b = l;
-
+	if min == max {
+		hue = 0
+		saturation = 0
+	} else {
+		delta := max - min
+		if lightness <= 0.5 {
+			saturation = delta / (max + min)
 		} else {
-
-			var p = l <= 0.5 ? l * ( 1 + s ) : l + s - ( l * s );
-			var q = ( 2 * l ) - p;
-
-			this.r = hue2rgb( q, p, h + 1 / 3 );
-			this.g = hue2rgb( q, p, h );
-			this.b = hue2rgb( q, p, h - 1 / 3 );
-
+			saturation = delta / (2 - max - min)
 		}
-
-		return this;
-
-	},
-
-	setStyle: function ( style ) {
-
-		function handleAlpha( string ) {
-
-			if ( string === undefined ) return;
-
-			if ( parseFloat( string ) < 1 ) {
-
-				console.warn( 'THREE.Color: Alpha component of ' + style + ' will be ignored.' );
-
+		switch max {
+		case r:
+			if g < b {
+				hue = (g-b)/delta + 6
+			} else {
+				hue = (g - b) / delta
 			}
-
+		case g:
+			hue = (b-r)/delta + 2
+		case b:
+			hue = (r-g)/delta + 4
 		}
-
-
-		var m;
-
-		if ( m = /^((?:rgb|hsl)a?)\(\s*([^\)]*)\)/.exec( style ) ) {
-
-			// rgb / hsl
-
-			var color;
-			var name = m[ 1 ];
-			var components = m[ 2 ];
-
-			switch ( name ) {
-
-				case 'rgb':
-				case 'rgba':
-
-					if ( color = /^(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(,\s*([0-9]*\.?[0-9]+)\s*)?$/.exec( components ) ) {
-
-						// rgb(255,0,0) rgba(255,0,0,0.5)
-						this.r = Math.min( 255, parseInt( color[ 1 ], 10 ) ) / 255;
-						this.g = Math.min( 255, parseInt( color[ 2 ], 10 ) ) / 255;
-						this.b = Math.min( 255, parseInt( color[ 3 ], 10 ) ) / 255;
-
-						handleAlpha( color[ 5 ] );
-
-						return this;
-
-					}
-
-					if ( color = /^(\d+)\%\s*,\s*(\d+)\%\s*,\s*(\d+)\%\s*(,\s*([0-9]*\.?[0-9]+)\s*)?$/.exec( components ) ) {
-
-						// rgb(100%,0%,0%) rgba(100%,0%,0%,0.5)
-						this.r = Math.min( 100, parseInt( color[ 1 ], 10 ) ) / 100;
-						this.g = Math.min( 100, parseInt( color[ 2 ], 10 ) ) / 100;
-						this.b = Math.min( 100, parseInt( color[ 3 ], 10 ) ) / 100;
-
-						handleAlpha( color[ 5 ] );
-
-						return this;
-
-					}
-
-					break;
-
-				case 'hsl':
-				case 'hsla':
-
-					if ( color = /^([0-9]*\.?[0-9]+)\s*,\s*(\d+)\%\s*,\s*(\d+)\%\s*(,\s*([0-9]*\.?[0-9]+)\s*)?$/.exec( components ) ) {
-
-						// hsl(120,50%,50%) hsla(120,50%,50%,0.5)
-						var h = parseFloat( color[ 1 ] ) / 360;
-						var s = parseInt( color[ 2 ], 10 ) / 100;
-						var l = parseInt( color[ 3 ], 10 ) / 100;
-
-						handleAlpha( color[ 5 ] );
-
-						return this.setHSL( h, s, l );
-
-					}
-
-					break;
-
-			}
-
-		} else if ( m = /^\#([A-Fa-f0-9]+)$/.exec( style ) ) {
-
-			// hex color
-
-			var hex = m[ 1 ];
-			var size = hex.length;
-
-			if ( size === 3 ) {
-
-				// #ff0
-				this.r = parseInt( hex.charAt( 0 ) + hex.charAt( 0 ), 16 ) / 255;
-				this.g = parseInt( hex.charAt( 1 ) + hex.charAt( 1 ), 16 ) / 255;
-				this.b = parseInt( hex.charAt( 2 ) + hex.charAt( 2 ), 16 ) / 255;
-
-				return this;
-
-			} else if ( size === 6 ) {
-
-				// #ff0000
-				this.r = parseInt( hex.charAt( 0 ) + hex.charAt( 1 ), 16 ) / 255;
-				this.g = parseInt( hex.charAt( 2 ) + hex.charAt( 3 ), 16 ) / 255;
-				this.b = parseInt( hex.charAt( 4 ) + hex.charAt( 5 ), 16 ) / 255;
-
-				return this;
-
-			}
-
-		}
-
-		if ( style && style.length > 0 ) {
-
-			return this.setColorName( style );
-
-		}
-
-		return this;
-
-	},
-
-	setColorName: function ( style ) {
-
-		// color keywords
-		var hex = _colorKeywords[ style ];
-
-		if ( hex !== undefined ) {
-
-			// red
-			this.setHex( hex );
-
-		} else {
-
-			// unknown color
-			console.warn( 'THREE.Color: Unknown color ' + style );
-
-		}
-
-		return this;
-
-	},
-
-	clone: function () {
-
-		return new this.constructor( this.r, this.g, this.b );
-
-	},
-
-	copy: function ( color ) {
-
-		this.r = color.r;
-		this.g = color.g;
-		this.b = color.b;
-
-		return this;
-
-	},
-
-	copyGammaToLinear: function ( color, gammaFactor ) {
-
-		if ( gammaFactor === undefined ) gammaFactor = 2.0;
-
-		this.r = Math.pow( color.r, gammaFactor );
-		this.g = Math.pow( color.g, gammaFactor );
-		this.b = Math.pow( color.b, gammaFactor );
-
-		return this;
-
-	},
-
-	copyLinearToGamma: function ( color, gammaFactor ) {
-
-		if ( gammaFactor === undefined ) gammaFactor = 2.0;
-
-		var safeInverse = ( gammaFactor > 0 ) ? ( 1.0 / gammaFactor ) : 1.0;
-
-		this.r = Math.pow( color.r, safeInverse );
-		this.g = Math.pow( color.g, safeInverse );
-		this.b = Math.pow( color.b, safeInverse );
-
-		return this;
-
-	},
-
-	convertGammaToLinear: function ( gammaFactor ) {
-
-		this.copyGammaToLinear( this, gammaFactor );
-
-		return this;
-
-	},
-
-	convertLinearToGamma: function ( gammaFactor ) {
-
-		this.copyLinearToGamma( this, gammaFactor );
-
-		return this;
-
-	},
-
-	copySRGBToLinear: function ( color ) {
-
-		this.r = SRGBToLinear( color.r );
-		this.g = SRGBToLinear( color.g );
-		this.b = SRGBToLinear( color.b );
-
-		return this;
-
-	},
-
-	copyLinearToSRGB: function ( color ) {
-
-		this.r = LinearToSRGB( color.r );
-		this.g = LinearToSRGB( color.g );
-		this.b = LinearToSRGB( color.b );
-
-		return this;
-
-	},
-
-	convertSRGBToLinear: function () {
-
-		this.copySRGBToLinear( this );
-
-		return this;
-
-	},
-
-	convertLinearToSRGB: function () {
-
-		this.copyLinearToSRGB( this );
-
-		return this;
-
-	},
-
-	getHex: function () {
-
-		return ( this.r * 255 ) << 16 ^ ( this.g * 255 ) << 8 ^ ( this.b * 255 ) << 0;
-
-	},
-
-	getHexString: function () {
-
-		return ( '000000' + this.getHex().toString( 16 ) ).slice( - 6 );
-
-	},
-
-	getHSL: function ( target ) {
-
-		// h,s,l ranges are in 0.0 - 1.0
-
-		if ( target === undefined ) {
-
-			console.warn( 'THREE.Color: .getHSL() target is now required' );
-			target = { h: 0, s: 0, l: 0 };
-
-		}
-
-		var r = this.r, g = this.g, b = this.b;
-
-		var max = Math.max( r, g, b );
-		var min = Math.min( r, g, b );
-
-		var hue, saturation;
-		var lightness = ( min + max ) / 2.0;
-
-		if ( min === max ) {
-
-			hue = 0;
-			saturation = 0;
-
-		} else {
-
-			var delta = max - min;
-
-			saturation = lightness <= 0.5 ? delta / ( max + min ) : delta / ( 2 - max - min );
-
-			switch ( max ) {
-
-				case r: hue = ( g - b ) / delta + ( g < b ? 6 : 0 ); break;
-				case g: hue = ( b - r ) / delta + 2; break;
-				case b: hue = ( r - g ) / delta + 4; break;
-
-			}
-
-			hue /= 6;
-
-		}
-
-		target.h = hue;
-		target.s = saturation;
-		target.l = lightness;
-
-		return target;
-
-	},
-
-	getStyle: function () {
-
-		return 'rgb(' + ( ( this.r * 255 ) | 0 ) + ',' + ( ( this.g * 255 ) | 0 ) + ',' + ( ( this.b * 255 ) | 0 ) + ')';
-
-	},
-
-	offsetHSL: function ( h, s, l ) {
-
-		this.getHSL( _hslA );
-
-		_hslA.h += h; _hslA.s += s; _hslA.l += l;
-
-		this.setHSL( _hslA.h, _hslA.s, _hslA.l );
-
-		return this;
-
-	},
-
-	add: function ( color ) {
-
-		this.r += color.r;
-		this.g += color.g;
-		this.b += color.b;
-
-		return this;
-
-	},
-
-	addColors: function ( color1, color2 ) {
-
-		this.r = color1.r + color2.r;
-		this.g = color1.g + color2.g;
-		this.b = color1.b + color2.b;
-
-		return this;
-
-	},
-
-	addScalar: function ( s ) {
-
-		this.r += s;
-		this.g += s;
-		this.b += s;
-
-		return this;
-
-	},
-
-	sub: function ( color ) {
-
-		this.r = Math.max( 0, this.r - color.r );
-		this.g = Math.max( 0, this.g - color.g );
-		this.b = Math.max( 0, this.b - color.b );
-
-		return this;
-
-	},
-
-	multiply: function ( color ) {
-
-		this.r *= color.r;
-		this.g *= color.g;
-		this.b *= color.b;
-
-		return this;
-
-	},
-
-	multiplyScalar: function ( s ) {
-
-		this.r *= s;
-		this.g *= s;
-		this.b *= s;
-
-		return this;
-
-	},
-
-	lerp: function ( color, alpha ) {
-
-		this.r += ( color.r - this.r ) * alpha;
-		this.g += ( color.g - this.g ) * alpha;
-		this.b += ( color.b - this.b ) * alpha;
-
-		return this;
-
-	},
-
-	lerpHSL: function ( color, alpha ) {
-
-		this.getHSL( _hslA );
-		color.getHSL( _hslB );
-
-		var h = MathUtils.lerp( _hslA.h, _hslB.h, alpha );
-		var s = MathUtils.lerp( _hslA.s, _hslB.s, alpha );
-		var l = MathUtils.lerp( _hslA.l, _hslB.l, alpha );
-
-		this.setHSL( h, s, l );
-
-		return this;
-
-	},
-
-	equals: function ( c ) {
-
-		return ( c.r === this.r ) && ( c.g === this.g ) && ( c.b === this.b );
-
-	},
-
-	fromArray: function ( array, offset ) {
-
-		if ( offset === undefined ) offset = 0;
-
-		this.r = array[ offset ];
-		this.g = array[ offset + 1 ];
-		this.b = array[ offset + 2 ];
-
-		return this;
-
-	},
-
-	toArray: function ( array, offset ) {
-
-		if ( array === undefined ) array = [];
-		if ( offset === undefined ) offset = 0;
-
-		array[ offset ] = this.r;
-		array[ offset + 1 ] = this.g;
-		array[ offset + 2 ] = this.b;
-
-		return array;
-
-	},
-
-	toJSON: function () {
-
-		return this.getHex();
-
+		hue /= 6
 	}
 
-} );
+	target.H = hue
+	target.S = saturation
+	target.L = lightness
 
-Color.NAMES = _colorKeywords;
+	return &target
+}
+
+// GetStyle :
+func (c Color) GetStyle() string {
+	return "rgb(" + strconv.Itoa((int(c.R)*255)|0) +
+		"," + strconv.Itoa((int(c.G)*255)|0) + "," +
+		strconv.Itoa((int(c.B)*255)|0) + ")"
+}
+
+// OffsetHSL :
+func (c Color) OffsetHSL(h, s, l float64) *Color {
+	c.GetHSL(_hslA)
+	_hslA.H += h
+	_hslA.S += s
+	_hslA.L += l
+	c.SetHSL(_hslA.H, _hslA.S, _hslA.L)
+	return &c
+}
+
+// Add :
+func (c Color) Add(color Color) *Color {
+	c.R += color.R
+	c.G += color.G
+	c.B += color.B
+	return &c
+}
+
+// AddColors :
+func (c Color) AddColors(color1, color2 Color) *Color {
+	c.R = color1.R + color2.R
+	c.G = color1.G + color2.G
+	c.B = color1.B + color2.B
+	return &c
+}
+
+// AddScalar :
+func (c Color) AddScalar(s float64) *Color {
+	c.R += s
+	c.G += s
+	c.B += s
+	return &c
+}
+
+// Sub :
+func (c Color) Sub(color Color) *Color {
+	c.R = math.Max(0, c.R-color.R)
+	c.G = math.Max(0, c.G-color.G)
+	c.B = math.Max(0, c.B-color.B)
+	return &c
+}
+
+// Multiply :
+func (c Color) Multiply(color Color) *Color {
+	c.R *= color.R
+	c.G *= color.G
+	c.B *= color.B
+	return &c
+}
+
+// MultiplyScalar :
+func (c Color) MultiplyScalar(s float64) *Color {
+	c.R *= s
+	c.G *= s
+	c.B *= s
+	return &c
+}
+
+// Lerp :
+func (c Color) Lerp(color Color, alpha float64) *Color {
+	c.R += (color.R - c.R) * alpha
+	c.G += (color.G - c.G) * alpha
+	c.B += (color.B - c.B) * alpha
+	return &c
+}
+
+// LerpHSL :
+func (c Color) LerpHSL(color Color, alpha float64) *Color {
+	c.GetHSL(_hslA)
+	color.GetHSL(_hslB)
+
+	h := Lerp(_hslA.H, _hslB.H, alpha)
+	s := Lerp(_hslA.S, _hslB.S, alpha)
+	l := Lerp(_hslA.L, _hslB.L, alpha)
+
+	c.SetHSL(h, s, l)
+	return &c
+}
+
+// Equals :
+func (c Color) Equals(d Color) bool {
+	return (d.R == c.R) && (d.G == c.G) && (d.B == c.B)
+}
+
+// FromArray :
+func (c Color) FromArray(array []float64, offset int) *Color {
+	c.R = array[offset]
+	c.G = array[offset+1]
+	c.B = array[offset+2]
+	return &c
+}
+
+// ToArray :
+func (c Color) ToArray(array []float64, offset int) []float64 {
+	array[offset] = c.R
+	array[offset+1] = c.G
+	array[offset+2] = c.B
+	return array
+}
+
+// ToJSON :
+func (c Color) ToJSON() int {
+	return c.GetHex()
+}

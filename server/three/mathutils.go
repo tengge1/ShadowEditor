@@ -60,7 +60,7 @@ func Clamp(value, min, max float64) float64 {
 // EuclideanModulo :
 // compute euclidian modulo of m % n
 // https://en.wikipedia.org/wiki/Modulo_operation
-func EuclideanModulo(n, m int) int {
+func EuclideanModulo(n, m float64) float64 {
 	return ((n % m) + m) % m
 }
 
