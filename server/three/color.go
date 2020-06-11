@@ -131,7 +131,7 @@ func (c Color) SetRGB(r, g, b float64) *Color {
 // SetHSL :
 func (c Color) SetHSL(h, s, l float64) *Color {
 	// h,s,l ranges are in 0.0 - 1.0
-	h = EuclideanModulo(h, 1)
+	h = float64(EuclideanModulo(int(h), 1))
 	s = Clamp(s, 0, 1)
 	l = Clamp(l, 0, 1)
 
