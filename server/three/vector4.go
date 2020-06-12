@@ -1,5 +1,5 @@
 // Copyright 2017-2020 The ShadowEditor Authors. All rights reserved.
-// Use of this source code is governed by a MIT-style
+// Use of v source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 //
 // For more information, please visit: https://github.com/tengge1/ShadowEditor
@@ -39,263 +39,183 @@ func (v Vector4)SetHeight(value float64) *Vector4 {
 	return &v
 }
 
-set: function ( x, y, z, w ) {
+func Set( x, y, z, w float64) {
+	v.x = x;
+	v.y = y;
+	v.z = z;
+	v.w = w;
+	return v;
+}
 
-	this.x = x;
-	this.y = y;
-	this.z = z;
-	this.w = w;
+func SetScalar( scalar ) {
+	v.x = scalar;
+	v.y = scalar;
+	v.z = scalar;
+	v.w = scalar;
+	return v;
+}
 
-	return this;
+func SetX( x ) {
+	v.x = x;
+	return v;
+}
 
-},
+func SetY( y ) {
+	v.y = y;
+	return v;
+}
 
-setScalar: function ( scalar ) {
+func SetZ( z ) {
+	v.z = z;
+	return v;
+}
 
-	this.x = scalar;
-	this.y = scalar;
-	this.z = scalar;
-	this.w = scalar;
+func SetW( w ) {
+	v.w = w;
+	return v;
+}
 
-	return this;
-
-},
-
-setX: function ( x ) {
-
-	this.x = x;
-
-	return this;
-
-},
-
-setY: function ( y ) {
-
-	this.y = y;
-
-	return this;
-
-},
-
-setZ: function ( z ) {
-
-	this.z = z;
-
-	return this;
-
-},
-
-setW: function ( w ) {
-
-	this.w = w;
-
-	return this;
-
-},
-
-setComponent: function ( index, value ) {
-
+func SetComponent( index, value ) {
 	switch ( index ) {
-
-		case 0: this.x = value; break;
-		case 1: this.y = value; break;
-		case 2: this.z = value; break;
-		case 3: this.w = value; break;
+		case 0: v.x = value; break;
+		case 1: v.y = value; break;
+		case 2: v.z = value; break;
+		case 3: v.w = value; break;
 		default: throw new Error( 'index is out of range: ' + index );
-
 	}
+	return v;
+}
 
-	return this;
-
-},
-
-getComponent: function ( index ) {
-
+func GetComponent( index ) {
 	switch ( index ) {
-
-		case 0: return this.x;
-		case 1: return this.y;
-		case 2: return this.z;
-		case 3: return this.w;
+		case 0: return v.x;
+		case 1: return v.y;
+		case 2: return v.z;
+		case 3: return v.w;
 		default: throw new Error( 'index is out of range: ' + index );
-
 	}
+}
 
-},
+func Clone() {
+	return new v.constructor( v.x, v.y, v.z, v.w );
+}
 
-clone: function () {
+func Copy( v1 ) {
+	v.x = v1.x;
+	v.y = v1.y;
+	v.z = v1.z;
+	v.w = ( v1.w !== undefined ) ? v1.w : 1;
+	return v;
+}
 
-	return new this.constructor( this.x, this.y, this.z, this.w );
-
-},
-
-copy: function ( v1 ) {
-
-	this.x = v1.x;
-	this.y = v1.y;
-	this.z = v1.z;
-	this.w = ( v1.w !== undefined ) ? v1.w : 1;
-
-	return this;
-
-},
-
-add: function ( v1, w ) {
-
+func Add( v1, w ) {
 	if ( w !== undefined ) {
-
 		console.warn( 'THREE.Vector4: .add() now only accepts one argument. Use .addVectors( a, b ) instead.' );
-		return this.addVectors( v1, w );
-
+		return v.addVectors( v1, w );
 	}
+	v.x += v1.x;
+	v.y += v1.y;
+	v.z += v1.z;
+	v.w += v1.w;
+	return v;
+}
 
-	this.x += v1.x;
-	this.y += v1.y;
-	this.z += v1.z;
-	this.w += v1.w;
+func AddScalar( s ) {
+	v.x += s;
+	v.y += s;
+	v.z += s;
+	v.w += s;
+	return v;
+}
 
-	return this;
+func AddVectors( a, b ) {
+	v.x = a.x + b.x;
+	v.y = a.y + b.y;
+	v.z = a.z + b.z;
+	v.w = a.w + b.w;
+	return v;
+}
 
-},
+func AddScaledVector( v1, s ) {
+	v.x += v1.x * s;
+	v.y += v1.y * s;
+	v.z += v1.z * s;
+	v.w += v1.w * s;
+	return v;
+}
 
-addScalar: function ( s ) {
-
-	this.x += s;
-	this.y += s;
-	this.z += s;
-	this.w += s;
-
-	return this;
-
-},
-
-addVectors: function ( a, b ) {
-
-	this.x = a.x + b.x;
-	this.y = a.y + b.y;
-	this.z = a.z + b.z;
-	this.w = a.w + b.w;
-
-	return this;
-
-},
-
-addScaledVector: function ( v1, s ) {
-
-	this.x += v1.x * s;
-	this.y += v1.y * s;
-	this.z += v1.z * s;
-	this.w += v1.w * s;
-
-	return this;
-
-},
-
-sub: function ( v1, w ) {
-
+func Sub( v1, w ) {
 	if ( w !== undefined ) {
-
 		console.warn( 'THREE.Vector4: .sub() now only accepts one argument. Use .subVectors( a, b ) instead.' );
-		return this.subVectors( v1, w );
-
+		return v.subVectors( v1, w );
 	}
+	v.x -= v1.x;
+	v.y -= v1.y;
+	v.z -= v1.z;
+	v.w -= v1.w;
+	return v;
+}
 
-	this.x -= v1.x;
-	this.y -= v1.y;
-	this.z -= v1.z;
-	this.w -= v1.w;
+func SubScalar( s ) {
+	v.x -= s;
+	v.y -= s;
+	v.z -= s;
+	v.w -= s;
+	return v;
+}
 
-	return this;
+func SubVectors( a, b ) {
+	v.x = a.x - b.x;
+	v.y = a.y - b.y;
+	v.z = a.z - b.z;
+	v.w = a.w - b.w;
+	return v;
+}
 
-},
+func MultiplyScalar( scalar ) {
+	v.x *= scalar;
+	v.y *= scalar;
+	v.z *= scalar;
+	v.w *= scalar;
+	return v;
+}
 
-subScalar: function ( s ) {
-
-	this.x -= s;
-	this.y -= s;
-	this.z -= s;
-	this.w -= s;
-
-	return this;
-
-},
-
-subVectors: function ( a, b ) {
-
-	this.x = a.x - b.x;
-	this.y = a.y - b.y;
-	this.z = a.z - b.z;
-	this.w = a.w - b.w;
-
-	return this;
-
-},
-
-multiplyScalar: function ( scalar ) {
-
-	this.x *= scalar;
-	this.y *= scalar;
-	this.z *= scalar;
-	this.w *= scalar;
-
-	return this;
-
-},
-
-applyMatrix4: function ( m ) {
-
-	var x = this.x, y = this.y, z = this.z, w = this.w;
+func ApplyMatrix4( m ) {
+	var x = v.x, y = v.y, z = v.z, w = v.w;
 	var e = m.elements;
 
-	this.x = e[ 0 ] * x + e[ 4 ] * y + e[ 8 ] * z + e[ 12 ] * w;
-	this.y = e[ 1 ] * x + e[ 5 ] * y + e[ 9 ] * z + e[ 13 ] * w;
-	this.z = e[ 2 ] * x + e[ 6 ] * y + e[ 10 ] * z + e[ 14 ] * w;
-	this.w = e[ 3 ] * x + e[ 7 ] * y + e[ 11 ] * z + e[ 15 ] * w;
+	v.x = e[ 0 ] * x + e[ 4 ] * y + e[ 8 ] * z + e[ 12 ] * w;
+	v.y = e[ 1 ] * x + e[ 5 ] * y + e[ 9 ] * z + e[ 13 ] * w;
+	v.z = e[ 2 ] * x + e[ 6 ] * y + e[ 10 ] * z + e[ 14 ] * w;
+	v.w = e[ 3 ] * x + e[ 7 ] * y + e[ 11 ] * z + e[ 15 ] * w;
 
-	return this;
+	return v;
+}
 
-},
+func DivideScalar( scalar ) {
+	return v.multiplyScalar( 1 / scalar );
+}
 
-divideScalar: function ( scalar ) {
-
-	return this.multiplyScalar( 1 / scalar );
-
-},
-
-setAxisAngleFromQuaternion: function ( q ) {
-
+func SetAxisAngleFromQuaternion( q ) {
 	// http://www.euclideanspace.com/maths/geometry/rotations/conversions/quaternionToAngle/index.htm
-
 	// q is assumed to be normalized
-
-	this.w = 2 * Math.acos( q.w );
-
+	v.w = 2 * Math.acos( q.w );
 	var s = Math.sqrt( 1 - q.w * q.w );
-
 	if ( s < 0.0001 ) {
-
-		this.x = 1;
-		this.y = 0;
-		this.z = 0;
-
+		v.x = 1;
+		v.y = 0;
+		v.z = 0;
 	} else {
-
-		this.x = q.x / s;
-		this.y = q.y / s;
-		this.z = q.z / s;
-
+		v.x = q.x / s;
+		v.y = q.y / s;
+		v.z = q.z / s;
 	}
+	return v;
+}
 
-	return this;
-
-},
-
-setAxisAngleFromRotationMatrix: function ( m ) {
-
+func SetAxisAngleFromRotationMatrix( m ) {
 	// http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToAngle/index.htm
-
 	// assumes the upper 3x3 of m is a pure rotation matrix (i.e, unscaled)
-
 	var angle, x, y, z,		// variables for result
 		epsilon = 0.01,		// margin to allow for rounding errors
 		epsilon2 = 0.1,		// margin to distinguish between 0 and 180 degrees
@@ -309,26 +229,19 @@ setAxisAngleFromRotationMatrix: function ( m ) {
 	if ( ( Math.abs( m12 - m21 ) < epsilon ) &&
 		 ( Math.abs( m13 - m31 ) < epsilon ) &&
 		 ( Math.abs( m23 - m32 ) < epsilon ) ) {
-
 		// singularity found
 		// first check for identity matrix which must have +1 for all terms
 		// in leading diagonal and zero in other terms
-
 		if ( ( Math.abs( m12 + m21 ) < epsilon2 ) &&
 			 ( Math.abs( m13 + m31 ) < epsilon2 ) &&
 			 ( Math.abs( m23 + m32 ) < epsilon2 ) &&
 			 ( Math.abs( m11 + m22 + m33 - 3 ) < epsilon2 ) ) {
 
-			// this singularity is identity matrix so angle = 0
-
-			this.set( 1, 0, 0, 0 );
-
-			return this; // zero angle, arbitrary axis
-
+			// v singularity is identity matrix so angle = 0
+			v.set( 1, 0, 0, 0 );
+			return v; // zero angle, arbitrary axis
 		}
-
-		// otherwise this singularity is angle = 180
-
+		// otherwise v singularity is angle = 180
 		angle = Math.PI;
 
 		var xx = ( m11 + 1 ) / 2;
@@ -339,311 +252,206 @@ setAxisAngleFromRotationMatrix: function ( m ) {
 		var yz = ( m23 + m32 ) / 4;
 
 		if ( ( xx > yy ) && ( xx > zz ) ) {
-
 			// m11 is the largest diagonal term
-
 			if ( xx < epsilon ) {
-
 				x = 0;
 				y = 0.707106781;
 				z = 0.707106781;
-
 			} else {
-
 				x = Math.sqrt( xx );
 				y = xy / x;
 				z = xz / x;
-
 			}
-
 		} else if ( yy > zz ) {
-
 			// m22 is the largest diagonal term
-
 			if ( yy < epsilon ) {
-
 				x = 0.707106781;
 				y = 0;
 				z = 0.707106781;
-
 			} else {
-
 				y = Math.sqrt( yy );
 				x = xy / y;
 				z = yz / y;
-
 			}
-
 		} else {
-
-			// m33 is the largest diagonal term so base result on this
-
+			// m33 is the largest diagonal term so base result on v
 			if ( zz < epsilon ) {
-
 				x = 0.707106781;
 				y = 0.707106781;
 				z = 0;
-
 			} else {
-
 				z = Math.sqrt( zz );
 				x = xz / z;
 				y = yz / z;
-
 			}
-
 		}
 
-		this.set( x, y, z, angle );
-
-		return this; // return 180 deg rotation
-
+		v.set( x, y, z, angle );
+		return v; // return 180 deg rotation
 	}
 
 	// as we have reached here there are no singularities so we can handle normally
-
 	var s = Math.sqrt( ( m32 - m23 ) * ( m32 - m23 ) +
 					   ( m13 - m31 ) * ( m13 - m31 ) +
 					   ( m21 - m12 ) * ( m21 - m12 ) ); // used to normalize
 
 	if ( Math.abs( s ) < 0.001 ) s = 1;
-
 	// prevent divide by zero, should not happen if matrix is orthogonal and should be
 	// caught by singularity test above, but I've left it in just in case
 
-	this.x = ( m32 - m23 ) / s;
-	this.y = ( m13 - m31 ) / s;
-	this.z = ( m21 - m12 ) / s;
-	this.w = Math.acos( ( m11 + m22 + m33 - 1 ) / 2 );
+	v.x = ( m32 - m23 ) / s;
+	v.y = ( m13 - m31 ) / s;
+	v.z = ( m21 - m12 ) / s;
+	v.w = Math.acos( ( m11 + m22 + m33 - 1 ) / 2 );
 
-	return this;
+	return v;
+}
 
-},
+func Min( v1 ) {
+	v.x = Math.min( v.x, v1.x );
+	v.y = Math.min( v.y, v1.y );
+	v.z = Math.min( v.z, v1.z );
+	v.w = Math.min( v.w, v1.w );
+	return v;
+}
 
-min: function ( v1 ) {
+func Max( v1 ) {
+	v.x = Math.max( v.x, v1.x );
+	v.y = Math.max( v.y, v1.y );
+	v.z = Math.max( v.z, v1.z );
+	v.w = Math.max( v.w, v1.w );
+	return v;
+}
 
-	this.x = Math.min( this.x, v1.x );
-	this.y = Math.min( this.y, v1.y );
-	this.z = Math.min( this.z, v1.z );
-	this.w = Math.min( this.w, v1.w );
-
-	return this;
-
-},
-
-max: function ( v1 ) {
-
-	this.x = Math.max( this.x, v1.x );
-	this.y = Math.max( this.y, v1.y );
-	this.z = Math.max( this.z, v1.z );
-	this.w = Math.max( this.w, v1.w );
-
-	return this;
-
-},
-
-clamp: function ( min, max ) {
-
+func Clamp( min, max ) {
 	// assumes min < max, componentwise
+	v.x = Math.max( min.x, Math.min( max.x, v.x ) );
+	v.y = Math.max( min.y, Math.min( max.y, v.y ) );
+	v.z = Math.max( min.z, Math.min( max.z, v.z ) );
+	v.w = Math.max( min.w, Math.min( max.w, v.w ) );
+	return v;
+}
 
-	this.x = Math.max( min.x, Math.min( max.x, this.x ) );
-	this.y = Math.max( min.y, Math.min( max.y, this.y ) );
-	this.z = Math.max( min.z, Math.min( max.z, this.z ) );
-	this.w = Math.max( min.w, Math.min( max.w, this.w ) );
+func ClampScalar( minVal, maxVal ) {
+	v.x = Math.max( minVal, Math.min( maxVal, v.x ) );
+	v.y = Math.max( minVal, Math.min( maxVal, v.y ) );
+	v.z = Math.max( minVal, Math.min( maxVal, v.z ) );
+	v.w = Math.max( minVal, Math.min( maxVal, v.w ) );
+	return v;
+}
 
-	return this;
+func ClampLength( min, max ) {
+	var length = v.length();
+	return v.divideScalar( length || 1 ).multiplyScalar( Math.max( min, Math.min( max, length ) ) );
+}
 
-},
+func Floor() {
+	v.x = Math.floor( v.x );
+	v.y = Math.floor( v.y );
+	v.z = Math.floor( v.z );
+	v.w = Math.floor( v.w );
+	return v;
+}
 
-clampScalar: function ( minVal, maxVal ) {
+func Ceil() {
+	v.x = Math.ceil( v.x );
+	v.y = Math.ceil( v.y );
+	v.z = Math.ceil( v.z );
+	v.w = Math.ceil( v.w );
+	return v;
+}
 
-	this.x = Math.max( minVal, Math.min( maxVal, this.x ) );
-	this.y = Math.max( minVal, Math.min( maxVal, this.y ) );
-	this.z = Math.max( minVal, Math.min( maxVal, this.z ) );
-	this.w = Math.max( minVal, Math.min( maxVal, this.w ) );
+func Round() {
+	v.x = Math.round( v.x );
+	v.y = Math.round( v.y );
+	v.z = Math.round( v.z );
+	v.w = Math.round( v.w );
+	return v;
+}
 
-	return this;
+func RoundToZero() {
+	v.x = ( v.x < 0 ) ? Math.ceil( v.x ) : Math.floor( v.x );
+	v.y = ( v.y < 0 ) ? Math.ceil( v.y ) : Math.floor( v.y );
+	v.z = ( v.z < 0 ) ? Math.ceil( v.z ) : Math.floor( v.z );
+	v.w = ( v.w < 0 ) ? Math.ceil( v.w ) : Math.floor( v.w );
+	return v;
+}
 
-},
+func Negate() {
+	v.x = - v.x;
+	v.y = - v.y;
+	v.z = - v.z;
+	v.w = - v.w;
+	return v;
+}
 
-clampLength: function ( min, max ) {
+func Dot( v1 ) {
+	return v.x * v1.x + v.y * v1.y + v.z * v1.z + v.w * v1.w;
+}
 
-	var length = this.length();
+func LengthSq() {
+	return v.x * v.x + v.y * v.y + v.z * v.z + v.w * v.w;
+}
 
-	return this.divideScalar( length || 1 ).multiplyScalar( Math.max( min, Math.min( max, length ) ) );
+func Length() {
+	return Math.sqrt( v.x * v.x + v.y * v.y + v.z * v.z + v.w * v.w );
+}
 
-},
+func ManhattanLength() {
+	return Math.abs( v.x ) + Math.abs( v.y ) + Math.abs( v.z ) + Math.abs( v.w );
+}
 
-floor: function () {
+func Normalize() {
+	return v.divideScalar( v.length() || 1 );
+}
 
-	this.x = Math.floor( this.x );
-	this.y = Math.floor( this.y );
-	this.z = Math.floor( this.z );
-	this.w = Math.floor( this.w );
+func SetLength( length ) {
+	return v.normalize().multiplyScalar( length );
+}
 
-	return this;
+func Lerp( v1, alpha ) {
+	v.x += ( v1.x - v.x ) * alpha;
+	v.y += ( v1.y - v.y ) * alpha;
+	v.z += ( v1.z - v.z ) * alpha;
+	v.w += ( v1.w - v.w ) * alpha;
+	return v;
+}
 
-},
+func LerpVectors( v1, v2, alpha ) {
+	v.x = v1.x + ( v2.x - v1.x ) * alpha;
+	v.y = v1.y + ( v2.y - v1.y ) * alpha;
+	v.z = v1.z + ( v2.z - v1.z ) * alpha;
+	v.w = v1.w + ( v2.w - v1.w ) * alpha;
+	return v;
+}
 
-ceil: function () {
+func Equals( v1 ) {
+	return ( ( v1.x === v.x ) && ( v1.y === v.y ) && ( v1.z === v.z ) && ( v1.w === v.w ) );
+}
 
-	this.x = Math.ceil( this.x );
-	this.y = Math.ceil( this.y );
-	this.z = Math.ceil( this.z );
-	this.w = Math.ceil( this.w );
-
-	return this;
-
-},
-
-round: function () {
-
-	this.x = Math.round( this.x );
-	this.y = Math.round( this.y );
-	this.z = Math.round( this.z );
-	this.w = Math.round( this.w );
-
-	return this;
-
-},
-
-roundToZero: function () {
-
-	this.x = ( this.x < 0 ) ? Math.ceil( this.x ) : Math.floor( this.x );
-	this.y = ( this.y < 0 ) ? Math.ceil( this.y ) : Math.floor( this.y );
-	this.z = ( this.z < 0 ) ? Math.ceil( this.z ) : Math.floor( this.z );
-	this.w = ( this.w < 0 ) ? Math.ceil( this.w ) : Math.floor( this.w );
-
-	return this;
-
-},
-
-negate: function () {
-
-	this.x = - this.x;
-	this.y = - this.y;
-	this.z = - this.z;
-	this.w = - this.w;
-
-	return this;
-
-},
-
-dot: function ( v1 ) {
-
-	return this.x * v1.x + this.y * v1.y + this.z * v1.z + this.w * v1.w;
-
-},
-
-lengthSq: function () {
-
-	return this.x * this.x + this.y * this.y + this.z * this.z + this.w * this.w;
-
-},
-
-length: function () {
-
-	return Math.sqrt( this.x * this.x + this.y * this.y + this.z * this.z + this.w * this.w );
-
-},
-
-manhattanLength: function () {
-
-	return Math.abs( this.x ) + Math.abs( this.y ) + Math.abs( this.z ) + Math.abs( this.w );
-
-},
-
-normalize: function () {
-
-	return this.divideScalar( this.length() || 1 );
-
-},
-
-setLength: function ( length ) {
-
-	return this.normalize().multiplyScalar( length );
-
-},
-
-lerp: function ( v1, alpha ) {
-
-	this.x += ( v1.x - this.x ) * alpha;
-	this.y += ( v1.y - this.y ) * alpha;
-	this.z += ( v1.z - this.z ) * alpha;
-	this.w += ( v1.w - this.w ) * alpha;
-
-	return this;
-
-},
-
-lerpVectors: function ( v1, v2, alpha ) {
-
-	this.x = v1.x + ( v2.x - v1.x ) * alpha;
-	this.y = v1.y + ( v2.y - v1.y ) * alpha;
-	this.z = v1.z + ( v2.z - v1.z ) * alpha;
-	this.w = v1.w + ( v2.w - v1.w ) * alpha;
-
-	return this;
-
-},
-
-equals: function ( v1 ) {
-
-	return ( ( v1.x === this.x ) && ( v1.y === this.y ) && ( v1.z === this.z ) && ( v1.w === this.w ) );
-
-},
-
-fromArray: function ( array, offset ) {
-
+func FromArray( array, offset ) {
 	if ( offset === undefined ) offset = 0;
+	v.x = array[ offset ];
+	v.y = array[ offset + 1 ];
+	v.z = array[ offset + 2 ];
+	v.w = array[ offset + 3 ];
+	return v;
+}
 
-	this.x = array[ offset ];
-	this.y = array[ offset + 1 ];
-	this.z = array[ offset + 2 ];
-	this.w = array[ offset + 3 ];
-
-	return this;
-
-},
-
-toArray: function ( array, offset ) {
-
+func ToArray( array, offset ) {
 	if ( array === undefined ) array = [];
 	if ( offset === undefined ) offset = 0;
-
-	array[ offset ] = this.x;
-	array[ offset + 1 ] = this.y;
-	array[ offset + 2 ] = this.z;
-	array[ offset + 3 ] = this.w;
-
+	array[ offset ] = v.x;
+	array[ offset + 1 ] = v.y;
+	array[ offset + 2 ] = v.z;
+	array[ offset + 3 ] = v.w;
 	return array;
+}
 
-},
-
-fromBufferAttribute: function ( attribute, index, offset ) {
-
-	if ( offset !== undefined ) {
-
-		console.warn( 'THREE.Vector4: offset has been removed from .fromBufferAttribute().' );
-
-	}
-
-	this.x = attribute.getX( index );
-	this.y = attribute.getY( index );
-	this.z = attribute.getZ( index );
-	this.w = attribute.getW( index );
-
-	return this;
-
-},
-
-random: function () {
-
-	this.x = Math.random();
-	this.y = Math.random();
-	this.z = Math.random();
-	this.w = Math.random();
-
-	return this;
-
+func Random() {
+	v.x = Math.random();
+	v.y = Math.random();
+	v.z = Math.random();
+	v.w = Math.random();
+	return v;
 }
