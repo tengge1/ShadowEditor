@@ -10,349 +10,393 @@
 
 package three
 
-var _vector = Vector3{};
-var _segCenter = Vector3{};
-var _segDir = Vector3{};
-var _diff = Vector3{};
+import (
+	"math"
+)
 
-var _edge1 = Vector3{};
-var _edge2 = Vector3{};
-var _normal = Vector3{};
+var _vector = Vector3{}
+var _segCenter = Vector3{}
+var _segDir = Vector3{}
+var _diff = Vector3{}
 
-func NewRay( origin, direction Vector3) *Ray {
+var _edge1 = Vector3{}
+var _edge2 = Vector3{}
+var _normal = Vector3{}
+
+// NewRay :
+func NewRay(origin, direction Vector3) *Ray {
 	return &Ray{origin, direction}
 }
 
+// Ray :
 type Ray struct {
-	Origin Vector3
+	Origin    Vector3
 	Direction Vector3
 }
 
-func Set( origin, direction Vector3) *Ray {
-	this.origin.copy( origin );
-	this.direction.copy( direction );
-	return this;
+// Set :
+func (r Ray) Set(origin, direction Vector3) *Ray {
+	r.Origin.Copy(origin)
+	r.Direction.Copy(direction)
+	return &r
 }
 
-func Clone() *Ray {
-	return new this.constructor().copy( this );
+// Clone :
+func (r Ray) Clone() *Ray {
+	return NewRay(r.Origin, r.Direction).Copy(r)
 }
 
-func Copy( ray ) {
-	this.origin.copy( ray.origin );
-	this.direction.copy( ray.direction );
-	return this;
+// Copy :
+func (r Ray) Copy(ray Ray) *Ray {
+	r.Origin.Copy(ray.Origin)
+	r.Direction.Copy(ray.Direction)
+	return &r
 }
 
-func At( t, target ) {
-	if ( target === undefined ) {
-		console.warn( 'THREE.Ray: .at() target is now required' );
-		target = new Vector3();
+// At :
+func (r Ray) At(t float64, target Vector3) *Vector3 {
+	return target.Copy(r.Direction).MultiplyScalar(t).Add(r.Origin)
+}
+
+// LookAt :
+func (r Ray) LookAt(v Vector3) *Ray {
+	r.Direction.Copy(v).Sub(r.Origin).Normalize()
+	return &r
+}
+
+// Recast :
+func (r Ray) Recast(t float64) *Ray {
+	r.Origin.Copy(*r.At(t, _vector))
+	return &r
+}
+
+// ClosestPointToPoint :
+func (r Ray) ClosestPointToPoint(point, target Vector3) *Vector3 {
+	target.SubVectors(point, r.Origin)
+
+	directionDistance := target.Dot(r.Direction)
+	if directionDistance < 0 {
+		return target.Copy(r.Origin)
 	}
-	return target.copy( this.direction ).multiplyScalar( t ).add( this.origin );
+	return target.Copy(r.Direction).MultiplyScalar(directionDistance).Add(r.Origin)
 }
 
-func LookAt( v ) {
-	this.direction.copy( v ).sub( this.origin ).normalize();
-	return this;
+// DistanceToPoint :
+func (r Ray) DistanceToPoint(point Vector3) float64 {
+	return math.Sqrt(r.DistanceSqToPoint(point))
 }
 
-func Recast( t ) {
-	this.origin.copy( this.at( t, _vector ) );
-	return this;
-}
-
-func ClosestPointToPoint( point, target ) {
-	if ( target === undefined ) {
-		console.warn( 'THREE.Ray: .closestPointToPoint() target is now required' );
-		target = new Vector3();
-	}
-	target.subVectors( point, this.origin );
-
-	var directionDistance = target.dot( this.direction );
-	if ( directionDistance < 0 ) {
-		return target.copy( this.origin );
-	}
-
-	return target.copy( this.direction ).multiplyScalar( directionDistance ).add( this.origin );
-}
-
-func DistanceToPoint( point ) {
-	return Math.sqrt( this.distanceSqToPoint( point ) );
-}
-
-func DistanceSqToPoint( point ) {
-	var directionDistance = _vector.subVectors( point, this.origin ).dot( this.direction );
+// DistanceSqToPoint :
+func (r Ray) DistanceSqToPoint(point Vector3) float64 {
+	directionDistance := _vector.SubVectors(point, r.Origin).Dot(r.Direction)
 	// point behind the ray
-	if ( directionDistance < 0 ) {
-		return this.origin.distanceToSquared( point );
+	if directionDistance < 0 {
+		return r.Origin.DistanceToSquared(point)
 	}
-	_vector.copy( this.direction ).multiplyScalar( directionDistance ).add( this.origin );
-	return _vector.distanceToSquared( point );
+	_vector.Copy(r.Direction).MultiplyScalar(directionDistance).Add(r.Origin)
+	return _vector.DistanceToSquared(point)
 }
 
-func DistanceSqToSegment( v0, v1, optionalPointOnRay, optionalPointOnSegment ) {
+// DistanceSqToSegment :
+func (r Ray) DistanceSqToSegment(v0, v1 Vector3, closestPointOnRay, closestPointOnSegment *Vector3) float64 {
 	// from http://www.geometrictools.com/GTEngine/Include/Mathematics/GteDistRaySegment.h
 	// It returns the min distance between the ray and the segment
 	// defined by v0 and v1
 	// It can also set two optional targets :
 	// - The closest point on the ray
 	// - The closest point on the segment
-	_segCenter.copy( v0 ).add( v1 ).multiplyScalar( 0.5 );
-	_segDir.copy( v1 ).sub( v0 ).normalize();
-	_diff.copy( this.origin ).sub( _segCenter );
+	_segCenter.Copy(v0).Add(v1).MultiplyScalar(0.5)
+	_segDir.Copy(v1).Sub(v0).Normalize()
+	_diff.Copy(r.Origin).Sub(_segCenter)
 
-	var segExtent = v0.distanceTo( v1 ) * 0.5;
-	var a01 = - this.direction.dot( _segDir );
-	var b0 = _diff.dot( this.direction );
-	var b1 = - _diff.dot( _segDir );
-	var c = _diff.lengthSq();
-	var det = Math.abs( 1 - a01 * a01 );
-	var s0, s1, sqrDist, extDet;
+	segExtent := v0.DistanceTo(v1) * 0.5
+	a01 := -r.Direction.Dot(_segDir)
+	b0 := _diff.Dot(r.Direction)
+	b1 := -_diff.Dot(_segDir)
+	c := _diff.LengthSq()
+	det := math.Abs(1 - a01*a01)
 
-	if ( det > 0 ) {
+	var s0, s1, sqrDist, extDet float64
+
+	if det > 0 {
 		// The ray and segment are not parallel.
-		s0 = a01 * b1 - b0;
-		s1 = a01 * b0 - b1;
-		extDet = segExtent * det;
+		s0 = a01*b1 - b0
+		s1 = a01*b0 - b1
+		extDet = segExtent * det
 
-		if ( s0 >= 0 ) {
-			if ( s1 >= - extDet ) {
-				if ( s1 <= extDet ) {
+		if s0 >= 0 {
+			if s1 >= -extDet {
+				if s1 <= extDet {
 					// region 0
 					// Minimum at interior points of ray and segment.
-					var invDet = 1 / det;
-					s0 *= invDet;
-					s1 *= invDet;
-					sqrDist = s0 * ( s0 + a01 * s1 + 2 * b0 ) + s1 * ( a01 * s0 + s1 + 2 * b1 ) + c;
+					var invDet = 1 / det
+					s0 *= invDet
+					s1 *= invDet
+					sqrDist = s0*(s0+a01*s1+2*b0) + s1*(a01*s0+s1+2*b1) + c
 				} else {
 					// region 1
-					s1 = segExtent;
-					s0 = Math.max( 0, - ( a01 * s1 + b0 ) );
-					sqrDist = - s0 * s0 + s1 * ( s1 + 2 * b1 ) + c;
+					s1 = segExtent
+					s0 = math.Max(0, -(a01*s1 + b0))
+					sqrDist = -s0*s0 + s1*(s1+2*b1) + c
 				}
 			} else {
 				// region 5
-				s1 = - segExtent;
-				s0 = Math.max( 0, - ( a01 * s1 + b0 ) );
-				sqrDist = - s0 * s0 + s1 * ( s1 + 2 * b1 ) + c;
+				s1 = -segExtent
+				s0 = math.Max(0, -(a01*s1 + b0))
+				sqrDist = -s0*s0 + s1*(s1+2*b1) + c
 			}
 		} else {
-			if ( s1 <= - extDet ) {
+			if s1 <= -extDet {
 				// region 4
-				s0 = Math.max( 0, - ( - a01 * segExtent + b0 ) );
-				s1 = ( s0 > 0 ) ? - segExtent : Math.min( Math.max( - segExtent, - b1 ), segExtent );
-				sqrDist = - s0 * s0 + s1 * ( s1 + 2 * b1 ) + c;
-			} else if ( s1 <= extDet ) {
+				s0 = math.Max(0, -(-a01*segExtent + b0))
+				if s0 > 0 {
+					s1 = -segExtent
+				} else {
+					s1 = math.Min(math.Max(-segExtent, -b1), segExtent)
+				}
+				sqrDist = -s0*s0 + s1*(s1+2*b1) + c
+			} else if s1 <= extDet {
 				// region 3
-				s0 = 0;
-				s1 = Math.min( Math.max( - segExtent, - b1 ), segExtent );
-				sqrDist = s1 * ( s1 + 2 * b1 ) + c;
+				s0 = 0
+				s1 = math.Min(math.Max(-segExtent, -b1), segExtent)
+				sqrDist = s1*(s1+2*b1) + c
 			} else {
 				// region 2
-				s0 = Math.max( 0, - ( a01 * segExtent + b0 ) );
-				s1 = ( s0 > 0 ) ? segExtent : Math.min( Math.max( - segExtent, - b1 ), segExtent );
-				sqrDist = - s0 * s0 + s1 * ( s1 + 2 * b1 ) + c;
+				s0 = math.Max(0, -(a01*segExtent + b0))
+				if s0 > 0 {
+					s1 = segExtent
+				} else {
+					s1 = math.Min(math.Max(-segExtent, -b1), segExtent)
+				}
+				sqrDist = -s0*s0 + s1*(s1+2*b1) + c
 			}
 		}
 	} else {
 		// Ray and segment are parallel.
-		s1 = ( a01 > 0 ) ? - segExtent : segExtent;
-		s0 = Math.max( 0, - ( a01 * s1 + b0 ) );
-		sqrDist = - s0 * s0 + s1 * ( s1 + 2 * b1 ) + c;
+		if a01 > 0 {
+			s1 = -segExtent
+		} else {
+			s1 = segExtent
+		}
+		s0 = math.Max(0, -(a01*s1 + b0))
+		sqrDist = -s0*s0 + s1*(s1+2*b1) + c
 	}
 
-	if ( optionalPointOnRay ) {
-		optionalPointOnRay.copy( this.direction ).multiplyScalar( s0 ).add( this.origin );
-	}
+	closestPointOnRay.Copy(r.Direction).MultiplyScalar(s0).Add(r.Origin)
+	closestPointOnSegment.Copy(_segDir).MultiplyScalar(s1).Add(_segCenter)
 
-	if ( optionalPointOnSegment ) {
-		optionalPointOnSegment.copy( _segDir ).multiplyScalar( s1 ).add( _segCenter );
-	}
-
-	return sqrDist;
+	return sqrDist
 }
 
-func IntersectSphere( sphere, target ) {
-	_vector.subVectors( sphere.center, this.origin );
-	var tca = _vector.dot( this.direction );
-	var d2 = _vector.dot( _vector ) - tca * tca;
-	var radius2 = sphere.radius * sphere.radius;
-	if ( d2 > radius2 ) return null;
+// IntersectSphere :
+func (r Ray) IntersectSphere(sphere Sphere, target Vector3) *Vector3 {
+	_vector.SubVectors(sphere.Center, r.Origin)
 
-	var thc = Math.sqrt( radius2 - d2 );
+	tca := _vector.Dot(r.Direction)
+	d2 := _vector.Dot(_vector) - tca*tca
+	radius2 := sphere.Radius * sphere.Radius
+	if d2 > radius2 {
+		return nil
+	}
+
+	thc := math.Sqrt(radius2 - d2)
 	// t0 = first intersect point - entrance on front of sphere
-	var t0 = tca - thc;
+	t0 := tca - thc
 	// t1 = second intersect point - exit point on back of sphere
-	var t1 = tca + thc;
+	t1 := tca + thc
 	// test to see if both t0 and t1 are behind the ray - if so, return null
-	if ( t0 < 0 && t1 < 0 ) return null;
-
+	if t0 < 0 && t1 < 0 {
+		return nil
+	}
 	// test to see if t0 is behind the ray:
 	// if it is, the ray is inside the sphere, so return the second exit point scaled by t1,
 	// in order to always return an intersect point that is in front of the ray.
-	if ( t0 < 0 ) return this.at( t1, target );
-
+	if t0 < 0 {
+		return r.At(t1, target)
+	}
 	// else t0 is in front of the ray, so return the first collision point scaled by t0
-	return this.at( t0, target );
+	return r.At(t0, target)
 }
 
-func IntersectsSphere( sphere ) {
-	return this.distanceSqToPoint( sphere.center ) <= ( sphere.radius * sphere.radius );
+// IntersectsSphere :
+func (r Ray) IntersectsSphere(sphere Sphere) bool {
+	return r.DistanceSqToPoint(sphere.Center) <= (sphere.Radius * sphere.Radius)
 }
 
-func DistanceToPlane( plane ) {
-	var denominator = plane.normal.dot( this.direction );
-
-	if ( denominator === 0 ) {
+// DistanceToPlane :
+func (r Ray) DistanceToPlane(plane Plane) float64 {
+	denominator := plane.Normal.Dot(r.Direction)
+	if denominator == 0 {
 		// line is coplanar, return origin
-		if ( plane.distanceToPoint( this.origin ) === 0 ) {
-			return 0;
+		if plane.DistanceToPoint(r.Origin) == 0 {
+			return 0
 		}
 		// Null is preferable to undefined since undefined means.... it is undefined
-		return null;
+		return math.Inf(1)
 	}
-	var t = - ( this.origin.dot( plane.normal ) + plane.constant ) / denominator;
+	t := -(r.Origin.Dot(plane.Normal) + plane.Constant) / denominator
 	// Return if the ray never intersects the plane
-	return t >= 0 ? t : null;
-}
-
-func IntersectPlane( plane, target ) {
-	var t = this.distanceToPlane( plane );
-	if ( t === null ) {
-		return null;
+	if t >= 0 {
+		return t
 	}
-	return this.at( t, target );
+	return math.Inf(1)
 }
 
-func IntersectsPlane( plane ) {
+// IntersectPlane :
+func (r Ray) IntersectPlane(plane Plane, target Vector3) *Vector3 {
+	t := r.DistanceToPlane(plane)
+	if math.IsInf(t, 1) {
+		return nil
+	}
+	return r.At(t, target)
+}
+
+// IntersectsPlane :
+func (r Ray) IntersectsPlane(plane Plane) bool {
 	// check if the ray lies on the plane first
-	var distToPoint = plane.distanceToPoint( this.origin );
-	if ( distToPoint === 0 ) {
-		return true;
+	distToPoint := plane.DistanceToPoint(r.Origin)
+	if distToPoint == 0 {
+		return true
 	}
-	var denominator = plane.normal.dot( this.direction );
-	if ( denominator * distToPoint < 0 ) {
-		return true;
+	denominator := plane.Normal.Dot(r.Direction)
+	if denominator*distToPoint < 0 {
+		return true
 	}
 	// ray origin is behind the plane (and is pointing behind it)
-	return false;
+	return false
 }
 
-func IntersectBox( box, target ) {
-	var tmin, tmax, tymin, tymax, tzmin, tzmax;
+// IntersectBox :
+func (r Ray) IntersectBox(box Box3, target Vector3) *Vector3 {
+	var tmin, tmax, tymin, tymax, tzmin, tzmax float64
 
-	var invdirx = 1 / this.direction.x,
-		invdiry = 1 / this.direction.y,
-		invdirz = 1 / this.direction.z;
+	invdirx, invdiry, invdirz := 1/r.Direction.X, 1/r.Direction.Y, 1/r.Direction.Z
 
-	var origin = this.origin;
+	origin := r.Origin
 
-	if ( invdirx >= 0 ) {
-		tmin = ( box.min.x - origin.x ) * invdirx;
-		tmax = ( box.max.x - origin.x ) * invdirx;
+	if invdirx >= 0 {
+		tmin = (box.Min.X - origin.X) * invdirx
+		tmax = (box.Max.X - origin.X) * invdirx
 	} else {
-		tmin = ( box.max.x - origin.x ) * invdirx;
-		tmax = ( box.min.x - origin.x ) * invdirx;
+		tmin = (box.Max.X - origin.X) * invdirx
+		tmax = (box.Min.X - origin.X) * invdirx
 	}
 
-	if ( invdiry >= 0 ) {
-		tymin = ( box.min.y - origin.y ) * invdiry;
-		tymax = ( box.max.y - origin.y ) * invdiry;
+	if invdiry >= 0 {
+		tymin = (box.Min.Y - origin.Y) * invdiry
+		tymax = (box.Max.Y - origin.Y) * invdiry
 	} else {
-		tymin = ( box.max.y - origin.y ) * invdiry;
-		tymax = ( box.min.y - origin.y ) * invdiry;
+		tymin = (box.Max.Y - origin.Y) * invdiry
+		tymax = (box.Min.Y - origin.Y) * invdiry
 	}
 
-	if ( ( tmin > tymax ) || ( tymin > tmax ) ) return null;
+	if (tmin > tymax) || (tymin > tmax) {
+		return nil
+	}
 	// These lines also handle the case where tmin or tmax is NaN
 	// (result of 0 * Infinity). x !== x returns true if x is NaN
-	if ( tymin > tmin || tmin !== tmin ) tmin = tymin;
-	if ( tymax < tmax || tmax !== tmax ) tmax = tymax;
-	if ( invdirz >= 0 ) {
-		tzmin = ( box.min.z - origin.z ) * invdirz;
-		tzmax = ( box.max.z - origin.z ) * invdirz;
-	} else {
-		tzmin = ( box.max.z - origin.z ) * invdirz;
-		tzmax = ( box.min.z - origin.z ) * invdirz;
+	if tymin > tmin || tmin != tmin {
+		tmin = tymin
 	}
-	if ( ( tmin > tzmax ) || ( tzmin > tmax ) ) return null;
-	if ( tzmin > tmin || tmin !== tmin ) tmin = tzmin;
-	if ( tzmax < tmax || tmax !== tmax ) tmax = tzmax;
-
+	if tymax < tmax || tmax != tmax {
+		tmax = tymax
+	}
+	if invdirz >= 0 {
+		tzmin = (box.Min.Z - origin.Z) * invdirz
+		tzmax = (box.Max.Z - origin.Z) * invdirz
+	} else {
+		tzmin = (box.Max.Z - origin.Z) * invdirz
+		tzmax = (box.Min.Z - origin.Z) * invdirz
+	}
+	if (tmin > tzmax) || (tzmin > tmax) {
+		return nil
+	}
+	if tzmin > tmin || tmin != tmin {
+		tmin = tzmin
+	}
+	if tzmax < tmax || tmax != tmax {
+		tmax = tzmax
+	}
 	//return point closest to the ray (positive side)
-	if ( tmax < 0 ) return null;
-	return this.at( tmin >= 0 ? tmin : tmax, target );
+	if tmax < 0 {
+		return nil
+	}
+	if tmin >= 0 {
+		return r.At(tmin, target)
+	}
+	return r.At(tmax, target)
 }
 
-func IntersectsBox( box ) {
-	return this.intersectBox( box, _vector ) !== null;
+// IntersectsBox :
+func (r Ray) IntersectsBox(box Box3) bool {
+	return r.IntersectBox(box, _vector) != nil
 }
 
-func IntersectTriangle( a, b, c, backfaceCulling, target ) {
+// IntersectTriangle :
+func (r Ray) IntersectTriangle(a, b, c Vector3, backfaceCulling bool, target Vector3) *Vector3 {
 	// Compute the offset origin, edges, and normal.
 	// from http://www.geometrictools.com/GTEngine/Include/Mathematics/GteIntrRay3Triangle3.h
-
-	_edge1.subVectors( b, a );
-	_edge2.subVectors( c, a );
-	_normal.crossVectors( _edge1, _edge2 );
+	_edge1.SubVectors(b, a)
+	_edge2.SubVectors(c, a)
+	_normal.CrossVectors(_edge1, _edge2)
 
 	// Solve Q + t*D = b1*E1 + b2*E2 (Q = kDiff, D = ray direction,
 	// E1 = kEdge1, E2 = kEdge2, N = Cross(E1,E2)) by
 	//   |Dot(D,N)|*b1 = sign(Dot(D,N))*Dot(D,Cross(Q,E2))
 	//   |Dot(D,N)|*b2 = sign(Dot(D,N))*Dot(D,Cross(E1,Q))
 	//   |Dot(D,N)|*t = -sign(Dot(D,N))*Dot(Q,N)
-	var DdN = this.direction.dot( _normal );
-	var sign;
+	DdN := r.Direction.Dot(_normal)
+	var sign float64
 
-	if ( DdN > 0 ) {
-		if ( backfaceCulling ) return null;
-		sign = 1;
-	} else if ( DdN < 0 ) {
-		sign = - 1;
-		DdN = - DdN;
+	if DdN > 0 {
+		if backfaceCulling {
+			return nil
+		}
+		sign = 1
+	} else if DdN < 0 {
+		sign = -1
+		DdN = -DdN
 	} else {
-		return null;
+		return nil
 	}
 
-	_diff.subVectors( this.origin, a );
-	var DdQxE2 = sign * this.direction.dot( _edge2.crossVectors( _diff, _edge2 ) );
-
+	_diff.SubVectors(r.Origin, a)
+	DdQxE2 := sign * r.Direction.Dot(*_edge2.CrossVectors(_diff, _edge2))
 	// b1 < 0, no intersection
-	if ( DdQxE2 < 0 ) {
-		return null;
+	if DdQxE2 < 0 {
+		return nil
 	}
 
-	var DdE1xQ = sign * this.direction.dot( _edge1.cross( _diff ) );
-
+	DdE1xQ := sign * r.Direction.Dot(*_edge1.Cross(_diff))
 	// b2 < 0, no intersection
-	if ( DdE1xQ < 0 ) {
-		return null;
+	if DdE1xQ < 0 {
+		return nil
 	}
 
 	// b1+b2 > 1, no intersection
-	if ( DdQxE2 + DdE1xQ > DdN ) {
-		return null;
+	if DdQxE2+DdE1xQ > DdN {
+		return nil
 	}
 
 	// Line intersects triangle, check if ray does.
-	var QdN = - sign * _diff.dot( _normal );
+	QdN := -sign * _diff.Dot(_normal)
 	// t < 0, no intersection
-	if ( QdN < 0 ) {
-		return null;
+	if QdN < 0 {
+		return nil
 	}
 
 	// Ray intersects triangle.
-	return this.at( QdN / DdN, target );
+	return r.At(QdN/DdN, target)
 }
 
-func ApplyMatrix4( matrix4 ) {
-	this.origin.applyMatrix4( matrix4 );
-	this.direction.transformDirection( matrix4 );
-
-	return this;
+// ApplyMatrix4 :
+func (r Ray) ApplyMatrix4(matrix4 Matrix4) *Ray {
+	r.Origin.ApplyMatrix4(matrix4)
+	r.Direction.TransformDirection(matrix4)
+	return &r
 }
 
-func Equals( ray ) {
-	return ray.origin.equals( this.origin ) && ray.direction.equals( this.direction );
+// Equals :
+func (r Ray) Equals(ray Ray) bool {
+	return ray.Origin.Equals(r.Origin) && ray.Direction.Equals(r.Direction)
 }
