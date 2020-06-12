@@ -39,65 +39,75 @@ func (v Vector4)SetHeight(value float64) *Vector4 {
 	return &v
 }
 
-func (v Vector4)Set( x, y, z, w float64) {
-	v.x = x;
-	v.y = y;
-	v.z = z;
-	v.w = w;
-	return v;
+func (v Vector4)Set( x, y, z, w float64) *Vector4 {
+	v.X = x;
+	v.Y = y;
+	v.Z = z;
+	v.W = w;
+	return &v;
 }
 
-func (v Vector4)SetScalar( scalar ) {
-	v.x = scalar;
-	v.y = scalar;
-	v.z = scalar;
-	v.w = scalar;
-	return v;
+func (v Vector4)SetScalar( scalar float64) *Vector4 {
+	v.X = scalar;
+	v.Y = scalar;
+	v.Z = scalar;
+	v.W = scalar;
+	return &v;
 }
 
-func (v Vector4)SetX( x ) {
-	v.x = x;
-	return v;
+func (v Vector4)SetX( x float64) *Vector4 {
+	v.X = x;
+	return &v;
 }
 
-func (v Vector4)SetY( y ) {
-	v.y = y;
-	return v;
+func (v Vector4)SetY( y float64) *Vector4 {
+	v.Y = y;
+	return &v;
 }
 
-func (v Vector4)SetZ( z ) {
-	v.z = z;
-	return v;
+func (v Vector4)SetZ( z float64) *Vector4 {
+	v.Z = z;
+	return &v;
 }
 
-func (v Vector4)SetW( w ) {
-	v.w = w;
-	return v;
+func (v Vector4)SetW( w float64) *Vector4 {
+	v.W = w;
+	return &v;
 }
 
-func (v Vector4)SetComponent( index, value ) {
+func (v Vector4)SetComponent( index int, value float64) *Vector4 {
 	switch ( index ) {
-		case 0: v.x = value; break;
-		case 1: v.y = value; break;
-		case 2: v.z = value; break;
-		case 3: v.w = value; break;
-		default: throw new Error( 'index is out of range: ' + index );
+		default: 
+		    panic( "index is out of range: " + strconv.Itoa(index) );
+		case 0: 
+		    v.X = value;
+		case 1: 
+		    v.Y = value;
+		case 2: 
+		    v.Z = value;
+		case 3: 
+		    v.W = value;
 	}
-	return v;
+	return &v;
 }
 
-func (v Vector4)GetComponent( index ) {
+func (v Vector4)GetComponent( index int) float64 {
 	switch ( index ) {
-		case 0: return v.x;
-		case 1: return v.y;
-		case 2: return v.z;
-		case 3: return v.w;
-		default: throw new Error( 'index is out of range: ' + index );
+		default: 
+		    panic( "index is out of range: " + strconv.Itoa(index) );
+		case 0: 
+		    return v.X;
+		case 1: 
+		    return v.Y;
+		case 2: 
+		    return v.Z;
+		case 3: 
+		   return v.W;
 	}
 }
 
-func (v Vector4)Clone() {
-	return new v.constructor( v.x, v.y, v.z, v.w );
+func (v Vector4)Clone() *Vector4 {
+	return NewVector4( v.X, v.Y, v.Z, v.W );
 }
 
 func (v Vector4)Copy( v1 ) {
