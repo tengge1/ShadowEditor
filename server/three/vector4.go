@@ -1,5 +1,5 @@
 // Copyright 2017-2020 The ShadowEditor Authors. All rights reserved.
-// Use of v source code is governed by a MIT-style
+// Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 //
 // For more information, please visit: https://github.com/tengge1/ShadowEditor
@@ -39,7 +39,7 @@ func (v Vector4)SetHeight(value float64) *Vector4 {
 	return &v
 }
 
-func Set( x, y, z, w float64) {
+func (v Vector4)Set( x, y, z, w float64) {
 	v.x = x;
 	v.y = y;
 	v.z = z;
@@ -47,7 +47,7 @@ func Set( x, y, z, w float64) {
 	return v;
 }
 
-func SetScalar( scalar ) {
+func (v Vector4)SetScalar( scalar ) {
 	v.x = scalar;
 	v.y = scalar;
 	v.z = scalar;
@@ -55,27 +55,27 @@ func SetScalar( scalar ) {
 	return v;
 }
 
-func SetX( x ) {
+func (v Vector4)SetX( x ) {
 	v.x = x;
 	return v;
 }
 
-func SetY( y ) {
+func (v Vector4)SetY( y ) {
 	v.y = y;
 	return v;
 }
 
-func SetZ( z ) {
+func (v Vector4)SetZ( z ) {
 	v.z = z;
 	return v;
 }
 
-func SetW( w ) {
+func (v Vector4)SetW( w ) {
 	v.w = w;
 	return v;
 }
 
-func SetComponent( index, value ) {
+func (v Vector4)SetComponent( index, value ) {
 	switch ( index ) {
 		case 0: v.x = value; break;
 		case 1: v.y = value; break;
@@ -86,7 +86,7 @@ func SetComponent( index, value ) {
 	return v;
 }
 
-func GetComponent( index ) {
+func (v Vector4)GetComponent( index ) {
 	switch ( index ) {
 		case 0: return v.x;
 		case 1: return v.y;
@@ -96,11 +96,11 @@ func GetComponent( index ) {
 	}
 }
 
-func Clone() {
+func (v Vector4)Clone() {
 	return new v.constructor( v.x, v.y, v.z, v.w );
 }
 
-func Copy( v1 ) {
+func (v Vector4)Copy( v1 ) {
 	v.x = v1.x;
 	v.y = v1.y;
 	v.z = v1.z;
@@ -108,7 +108,7 @@ func Copy( v1 ) {
 	return v;
 }
 
-func Add( v1, w ) {
+func (v Vector4)Add( v1, w ) {
 	if ( w !== undefined ) {
 		console.warn( 'THREE.Vector4: .add() now only accepts one argument. Use .addVectors( a, b ) instead.' );
 		return v.addVectors( v1, w );
@@ -120,7 +120,7 @@ func Add( v1, w ) {
 	return v;
 }
 
-func AddScalar( s ) {
+func (v Vector4)AddScalar( s ) {
 	v.x += s;
 	v.y += s;
 	v.z += s;
@@ -128,7 +128,7 @@ func AddScalar( s ) {
 	return v;
 }
 
-func AddVectors( a, b ) {
+func (v Vector4)AddVectors( a, b ) {
 	v.x = a.x + b.x;
 	v.y = a.y + b.y;
 	v.z = a.z + b.z;
@@ -136,7 +136,7 @@ func AddVectors( a, b ) {
 	return v;
 }
 
-func AddScaledVector( v1, s ) {
+func (v Vector4)AddScaledVector( v1, s ) {
 	v.x += v1.x * s;
 	v.y += v1.y * s;
 	v.z += v1.z * s;
@@ -144,7 +144,7 @@ func AddScaledVector( v1, s ) {
 	return v;
 }
 
-func Sub( v1, w ) {
+func (v Vector4)Sub( v1, w ) {
 	if ( w !== undefined ) {
 		console.warn( 'THREE.Vector4: .sub() now only accepts one argument. Use .subVectors( a, b ) instead.' );
 		return v.subVectors( v1, w );
@@ -156,7 +156,7 @@ func Sub( v1, w ) {
 	return v;
 }
 
-func SubScalar( s ) {
+func (v Vector4)SubScalar( s ) {
 	v.x -= s;
 	v.y -= s;
 	v.z -= s;
@@ -164,7 +164,7 @@ func SubScalar( s ) {
 	return v;
 }
 
-func SubVectors( a, b ) {
+func (v Vector4)SubVectors( a, b ) {
 	v.x = a.x - b.x;
 	v.y = a.y - b.y;
 	v.z = a.z - b.z;
@@ -172,7 +172,7 @@ func SubVectors( a, b ) {
 	return v;
 }
 
-func MultiplyScalar( scalar ) {
+func (v Vector4)MultiplyScalar( scalar ) {
 	v.x *= scalar;
 	v.y *= scalar;
 	v.z *= scalar;
@@ -180,7 +180,7 @@ func MultiplyScalar( scalar ) {
 	return v;
 }
 
-func ApplyMatrix4( m ) {
+func (v Vector4)ApplyMatrix4( m ) {
 	var x = v.x, y = v.y, z = v.z, w = v.w;
 	var e = m.elements;
 
@@ -192,11 +192,11 @@ func ApplyMatrix4( m ) {
 	return v;
 }
 
-func DivideScalar( scalar ) {
+func (v Vector4)DivideScalar( scalar ) {
 	return v.multiplyScalar( 1 / scalar );
 }
 
-func SetAxisAngleFromQuaternion( q ) {
+func (v Vector4)SetAxisAngleFromQuaternion( q ) {
 	// http://www.euclideanspace.com/maths/geometry/rotations/conversions/quaternionToAngle/index.htm
 	// q is assumed to be normalized
 	v.w = 2 * Math.acos( q.w );
@@ -213,7 +213,7 @@ func SetAxisAngleFromQuaternion( q ) {
 	return v;
 }
 
-func SetAxisAngleFromRotationMatrix( m ) {
+func (v Vector4)SetAxisAngleFromRotationMatrix( m ) {
 	// http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToAngle/index.htm
 	// assumes the upper 3x3 of m is a pure rotation matrix (i.e, unscaled)
 	var angle, x, y, z,		// variables for result
@@ -307,7 +307,7 @@ func SetAxisAngleFromRotationMatrix( m ) {
 	return v;
 }
 
-func Min( v1 ) {
+func (v Vector4)Min( v1 ) {
 	v.x = Math.min( v.x, v1.x );
 	v.y = Math.min( v.y, v1.y );
 	v.z = Math.min( v.z, v1.z );
@@ -315,7 +315,7 @@ func Min( v1 ) {
 	return v;
 }
 
-func Max( v1 ) {
+func (v Vector4)Max( v1 ) {
 	v.x = Math.max( v.x, v1.x );
 	v.y = Math.max( v.y, v1.y );
 	v.z = Math.max( v.z, v1.z );
@@ -323,7 +323,7 @@ func Max( v1 ) {
 	return v;
 }
 
-func Clamp( min, max ) {
+func (v Vector4)Clamp( min, max ) {
 	// assumes min < max, componentwise
 	v.x = Math.max( min.x, Math.min( max.x, v.x ) );
 	v.y = Math.max( min.y, Math.min( max.y, v.y ) );
@@ -332,7 +332,7 @@ func Clamp( min, max ) {
 	return v;
 }
 
-func ClampScalar( minVal, maxVal ) {
+func (v Vector4)ClampScalar( minVal, maxVal ) {
 	v.x = Math.max( minVal, Math.min( maxVal, v.x ) );
 	v.y = Math.max( minVal, Math.min( maxVal, v.y ) );
 	v.z = Math.max( minVal, Math.min( maxVal, v.z ) );
@@ -340,12 +340,12 @@ func ClampScalar( minVal, maxVal ) {
 	return v;
 }
 
-func ClampLength( min, max ) {
+func (v Vector4)ClampLength( min, max ) {
 	var length = v.length();
 	return v.divideScalar( length || 1 ).multiplyScalar( Math.max( min, Math.min( max, length ) ) );
 }
 
-func Floor() {
+func (v Vector4)Floor() {
 	v.x = Math.floor( v.x );
 	v.y = Math.floor( v.y );
 	v.z = Math.floor( v.z );
@@ -353,7 +353,7 @@ func Floor() {
 	return v;
 }
 
-func Ceil() {
+func (v Vector4)Ceil() {
 	v.x = Math.ceil( v.x );
 	v.y = Math.ceil( v.y );
 	v.z = Math.ceil( v.z );
@@ -361,7 +361,7 @@ func Ceil() {
 	return v;
 }
 
-func Round() {
+func (v Vector4)Round() {
 	v.x = Math.round( v.x );
 	v.y = Math.round( v.y );
 	v.z = Math.round( v.z );
@@ -369,7 +369,7 @@ func Round() {
 	return v;
 }
 
-func RoundToZero() {
+func (v Vector4)RoundToZero() {
 	v.x = ( v.x < 0 ) ? Math.ceil( v.x ) : Math.floor( v.x );
 	v.y = ( v.y < 0 ) ? Math.ceil( v.y ) : Math.floor( v.y );
 	v.z = ( v.z < 0 ) ? Math.ceil( v.z ) : Math.floor( v.z );
@@ -377,7 +377,7 @@ func RoundToZero() {
 	return v;
 }
 
-func Negate() {
+func (v Vector4)Negate() {
 	v.x = - v.x;
 	v.y = - v.y;
 	v.z = - v.z;
@@ -385,31 +385,31 @@ func Negate() {
 	return v;
 }
 
-func Dot( v1 ) {
+func (v Vector4)Dot( v1 ) {
 	return v.x * v1.x + v.y * v1.y + v.z * v1.z + v.w * v1.w;
 }
 
-func LengthSq() {
+func (v Vector4)LengthSq() {
 	return v.x * v.x + v.y * v.y + v.z * v.z + v.w * v.w;
 }
 
-func Length() {
+func (v Vector4)Length() {
 	return Math.sqrt( v.x * v.x + v.y * v.y + v.z * v.z + v.w * v.w );
 }
 
-func ManhattanLength() {
+func (v Vector4)ManhattanLength() {
 	return Math.abs( v.x ) + Math.abs( v.y ) + Math.abs( v.z ) + Math.abs( v.w );
 }
 
-func Normalize() {
+func (v Vector4)Normalize() {
 	return v.divideScalar( v.length() || 1 );
 }
 
-func SetLength( length ) {
+func (v Vector4)SetLength( length ) {
 	return v.normalize().multiplyScalar( length );
 }
 
-func Lerp( v1, alpha ) {
+func (v Vector4)Lerp( v1, alpha ) {
 	v.x += ( v1.x - v.x ) * alpha;
 	v.y += ( v1.y - v.y ) * alpha;
 	v.z += ( v1.z - v.z ) * alpha;
@@ -417,7 +417,7 @@ func Lerp( v1, alpha ) {
 	return v;
 }
 
-func LerpVectors( v1, v2, alpha ) {
+func (v Vector4)LerpVectors( v1, v2, alpha ) {
 	v.x = v1.x + ( v2.x - v1.x ) * alpha;
 	v.y = v1.y + ( v2.y - v1.y ) * alpha;
 	v.z = v1.z + ( v2.z - v1.z ) * alpha;
@@ -425,11 +425,11 @@ func LerpVectors( v1, v2, alpha ) {
 	return v;
 }
 
-func Equals( v1 ) {
+func (v Vector4)Equals( v1 ) {
 	return ( ( v1.x === v.x ) && ( v1.y === v.y ) && ( v1.z === v.z ) && ( v1.w === v.w ) );
 }
 
-func FromArray( array, offset ) {
+func (v Vector4)FromArray( array, offset ) {
 	if ( offset === undefined ) offset = 0;
 	v.x = array[ offset ];
 	v.y = array[ offset + 1 ];
@@ -438,7 +438,7 @@ func FromArray( array, offset ) {
 	return v;
 }
 
-func ToArray( array, offset ) {
+func (v Vector4)ToArray( array, offset ) {
 	if ( array === undefined ) array = [];
 	if ( offset === undefined ) offset = 0;
 	array[ offset ] = v.x;
@@ -448,7 +448,7 @@ func ToArray( array, offset ) {
 	return array;
 }
 
-func Random() {
+func (v Vector4)Random() {
 	v.x = Math.random();
 	v.y = Math.random();
 	v.z = Math.random();
