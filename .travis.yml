@@ -13,8 +13,9 @@ matrix:
     - language: node_js
       node_js:
         - 14
+      before_install:
+        - cd web
       install:
-        - npm install -g rollup
         - npm install
       before_script:
         - cd web
