@@ -1,7 +1,10 @@
 matrix:
   include:
     - language: go
-      python: 1.14.x
+      go: 
+        - 1.14.x
+      env:
+        - GO111MODULE=on
       before_script:
         - cd server
       script:
