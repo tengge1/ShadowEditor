@@ -15,6 +15,7 @@ English / [中文](README_zh.md)
 
 1. Fix bugs of uploading models and publishing scenes on windows.
 2. Add links to open source projects.
+3. THREE.js math module has translated into golang, [Click](server/three/) for detail.
 
 ## v0.5.2 has Released
 
