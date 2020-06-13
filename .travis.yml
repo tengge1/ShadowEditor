@@ -1,0 +1,18 @@
+matrix:
+  include:
+    - language: go
+      python: 1.14.x
+      before_script:
+        - cd server
+      script:
+        - go build .
+
+    - language: node_js
+      before_script:
+        - cd web
+      script:
+        - npm run build
+
+notifications:
+  email:
+    - 930372551@qq.com
