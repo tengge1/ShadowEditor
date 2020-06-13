@@ -1,6 +1,6 @@
 # Shadow Editor
 
-English / [中文](README_zh.md) ![image](https://travis-ci.org/tengge1/ShadowEditor.svg?branch=master)
+English / [中文](README_zh.md) <img src="https://travis-ci.org/tengge1/ShadowEditor.svg?branch=master" style="margin-left: 8px; vertical-align: middle;" />
 
 * Name: Shadow Editor
 * Version: v0.5.3(Coming Soon)
