@@ -11,7 +11,7 @@
 package three
 
 var _sphere = Sphere{}
-var _vector = Vector3{}
+var _vectorFrustum = Vector3{}
 
 // NewFrustum :
 func NewFrustum(p0, p1, p2, p3, p4, p5 Plane) *Frustum {
@@ -97,21 +97,21 @@ func (f Frustum) IntersectsBox(box Box3) bool {
 		var plane = planes[i]
 		// corner at max distance
 		if plane.Normal.X > 0 {
-			_vector.X = box.Max.X
+			_vectorFrustum.X = box.Max.X
 		} else {
-			_vector.X = box.Min.X
+			_vectorFrustum.X = box.Min.X
 		}
 		if plane.Normal.Y > 0 {
-			_vector.Y = box.Max.Y
+			_vectorFrustum.Y = box.Max.Y
 		} else {
-			_vector.Y = box.Min.Y
+			_vectorFrustum.Y = box.Min.Y
 		}
 		if plane.Normal.Z > 0 {
-			_vector.Z = box.Max.Z
+			_vectorFrustum.Z = box.Max.Z
 		} else {
-			_vector.Z = box.Min.Z
+			_vectorFrustum.Z = box.Min.Z
 		}
-		if plane.DistanceToPoint(_vector) < 0 {
+		if plane.DistanceToPoint(_vectorFrustum) < 0 {
 			return false
 		}
 	}

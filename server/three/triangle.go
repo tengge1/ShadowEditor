@@ -12,9 +12,9 @@ package three
 
 import "math"
 
-var _v0 = Vector3{}
-var _v1 = Vector3{}
-var _v2 = Vector3{}
+var _v0Triangle = Vector3{}
+var _v1Triangle = Vector3{}
+var _v2Triangle = Vector3{}
 var _v3 = Vector3{}
 
 var _vab = Vector3{}
@@ -39,8 +39,8 @@ type Triangle struct {
 // GetNormal :
 func GetNormal(a, b, c, target Vector3) *Vector3 {
 	target.SubVectors(c, b)
-	_v0.SubVectors(a, b)
-	target.Cross(_v0)
+	_v0Triangle.SubVectors(a, b)
+	target.Cross(_v0Triangle)
 
 	targetLengthSq := target.LengthSq()
 	if targetLengthSq > 0 {
@@ -53,15 +53,15 @@ func GetNormal(a, b, c, target Vector3) *Vector3 {
 // static/instance method to calculate barycentric coordinates
 // based on: http://www.blackpawn.com/texts/pointinpoly/default.html
 func GetBarycoord(point, a, b, c, target Vector3) *Vector3 {
-	_v0.SubVectors(c, a)
-	_v1.SubVectors(b, a)
-	_v2.SubVectors(point, a)
+	_v0Triangle.SubVectors(c, a)
+	_v1Triangle.SubVectors(b, a)
+	_v2Triangle.SubVectors(point, a)
 
-	dot00 := _v0.Dot(_v0)
-	dot01 := _v0.Dot(_v1)
-	dot02 := _v0.Dot(_v2)
-	dot11 := _v1.Dot(_v1)
-	dot12 := _v1.Dot(_v2)
+	dot00 := _v0Triangle.Dot(_v0Triangle)
+	dot01 := _v0Triangle.Dot(_v1Triangle)
+	dot02 := _v0Triangle.Dot(_v2Triangle)
+	dot11 := _v1Triangle.Dot(_v1Triangle)
+	dot12 := _v1Triangle.Dot(_v2Triangle)
 
 	denom := dot00*dot11 - dot01*dot01
 
@@ -100,11 +100,11 @@ func GetUV(point, p1, p2, p3 Vector3, uv1, uv2, uv3, target Vector2) *Vector2 {
 
 // IsFrontFacing :
 func IsFrontFacing(a, b, c, direction Vector3) bool {
-	_v0.SubVectors(c, b)
-	_v1.SubVectors(a, b)
+	_v0Triangle.SubVectors(c, b)
+	_v1Triangle.SubVectors(a, b)
 
 	// strictly front facing
-	return _v0.Cross(_v1).Dot(direction) < 0
+	return _v0Triangle.Cross(_v1Triangle).Dot(direction) < 0
 }
 
 // Set :
@@ -138,9 +138,9 @@ func (t Triangle) Copy(triangle Triangle) *Triangle {
 
 // GetArea :
 func (t Triangle) GetArea() float64 {
-	_v0.SubVectors(t.C, t.B)
-	_v1.SubVectors(t.A, t.B)
-	return _v0.Cross(_v1).Length() * 0.5
+	_v0Triangle.SubVectors(t.C, t.B)
+	_v1Triangle.SubVectors(t.A, t.B)
+	return _v0Triangle.Cross(_v1Triangle).Length() * 0.5
 }
 
 // GetMidpoint :

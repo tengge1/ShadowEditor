@@ -596,9 +596,9 @@ func (v Vector3) SetFromMatrixScale(m Matrix4) *Vector3 {
 
 // SetFromMatrixColumn :
 func (v Vector3) SetFromMatrixColumn(m Matrix4, index int) *Vector3 {
-	elems := [3]float64{}
+	elems := []float64{}
 	for i := 0; i < 3; i++ {
-		elems[i] = m.Elements[index*4+i]
+		elems = append(elems, m.Elements[index*4+i])
 	}
 
 	return v.FromArray(elems, 0)
@@ -606,9 +606,9 @@ func (v Vector3) SetFromMatrixColumn(m Matrix4, index int) *Vector3 {
 
 // SetFromMatrix3Column :
 func (v Vector3) SetFromMatrix3Column(m Matrix3, index int) *Vector3 {
-	elems := [3]float64{}
+	elems := []float64{}
 	for i := 0; i < 3; i++ {
-		elems[i] = m.Elements[index*3+i]
+		elems = append(elems, m.Elements[index*3+i])
 	}
 
 	return v.FromArray(elems, 0)
@@ -620,16 +620,21 @@ func (v Vector3) Equals(w Vector3) bool {
 }
 
 // FromArray :
-func (v Vector3) FromArray(array [3]float64, offset int) *Vector3 {
+func (v Vector3) FromArray(array []float64, offset int) *Vector3 {
+	if len(array) < offset+3 {
+		panic("array should be greater than offset+3")
+	}
 	v.X = array[offset]
 	v.Y = array[offset+1]
 	v.Z = array[offset+2]
-
 	return &v
 }
 
 // ToArray :
-func (v Vector3) ToArray(array [3]float64, offset int) [3]float64 {
+func (v Vector3) ToArray(array []float64, offset int) []float64 {
+	if len(array) < offset+3 {
+		panic("array should be greater than offset+3")
+	}
 	array[offset] = v.X
 	array[offset+1] = v.Y
 	array[offset+2] = v.Z

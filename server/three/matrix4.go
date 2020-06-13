@@ -12,7 +12,7 @@ package three
 
 import "math"
 
-var _v1 = NewVector3(0, 0, 0)
+var _v1Matrix4 = NewVector3(0, 0, 0)
 var _m1 = NewMatrix4()
 var _zero = NewVector3(0, 0, 0)
 var _one = NewVector3(1, 1, 1)
@@ -140,9 +140,9 @@ func (m Matrix4) ExtractRotation(n Matrix4) *Matrix4 {
 	te := m.Elements
 	me := n.Elements
 
-	scaleX := 1 / _v1.SetFromMatrixColumn(n, 0).Length()
-	scaleY := 1 / _v1.SetFromMatrixColumn(n, 1).Length()
-	scaleZ := 1 / _v1.SetFromMatrixColumn(n, 2).Length()
+	scaleX := 1 / _v1Matrix4.SetFromMatrixColumn(n, 0).Length()
+	scaleY := 1 / _v1Matrix4.SetFromMatrixColumn(n, 1).Length()
+	scaleZ := 1 / _v1Matrix4.SetFromMatrixColumn(n, 2).Length()
 
 	te[0] = me[0] * scaleX
 	te[1] = me[1] * scaleX
@@ -687,9 +687,9 @@ func (m Matrix4) Compose(position Vector3, quaternion Quaternion, scale Vector3)
 func (m Matrix4) Decompose(position Vector3, quaternion Quaternion, scale Vector3) *Matrix4 {
 	te := m.Elements
 
-	sx := _v1.Set(te[0], te[1], te[2]).Length()
-	sy := _v1.Set(te[4], te[5], te[6]).Length()
-	sz := _v1.Set(te[8], te[9], te[10]).Length()
+	sx := _v1Matrix4.Set(te[0], te[1], te[2]).Length()
+	sy := _v1Matrix4.Set(te[4], te[5], te[6]).Length()
+	sz := _v1Matrix4.Set(te[8], te[9], te[10]).Length()
 
 	// if determine is negative, we need to invert one scale
 	det := m.Determinant()

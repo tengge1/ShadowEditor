@@ -16,10 +16,12 @@ import (
 	"strconv"
 )
 
+// NewVector4 :
 func NewVector4(x, y, z, w float64) *Vector4 {
 	return &Vector4{x, y, z, w}
 }
 
+// Vector4 :
 type Vector4 struct {
 	X float64
 	Y float64
@@ -27,24 +29,29 @@ type Vector4 struct {
 	W float64
 }
 
+// Width :
 func (v Vector4) Width() float64 {
 	return v.Z
 }
 
+// SetWidth :
 func (v Vector4) SetWidth(value float64) *Vector4 {
 	v.Z = value
 	return &v
 }
 
+// Height :
 func (v Vector4) Height() float64 {
 	return v.W
 }
 
+// SetHeight :
 func (v Vector4) SetHeight(value float64) *Vector4 {
 	v.W = value
 	return &v
 }
 
+// Set :
 func (v Vector4) Set(x, y, z, w float64) *Vector4 {
 	v.X = x
 	v.Y = y
@@ -53,6 +60,7 @@ func (v Vector4) Set(x, y, z, w float64) *Vector4 {
 	return &v
 }
 
+// SetScalar :
 func (v Vector4) SetScalar(scalar float64) *Vector4 {
 	v.X = scalar
 	v.Y = scalar
@@ -61,26 +69,31 @@ func (v Vector4) SetScalar(scalar float64) *Vector4 {
 	return &v
 }
 
+// SetX :
 func (v Vector4) SetX(x float64) *Vector4 {
 	v.X = x
 	return &v
 }
 
+// SetY :
 func (v Vector4) SetY(y float64) *Vector4 {
 	v.Y = y
 	return &v
 }
 
+// SetZ :
 func (v Vector4) SetZ(z float64) *Vector4 {
 	v.Z = z
 	return &v
 }
 
+// SetW :
 func (v Vector4) SetW(w float64) *Vector4 {
 	v.W = w
 	return &v
 }
 
+// SetComponent :
 func (v Vector4) SetComponent(index int, value float64) *Vector4 {
 	switch index {
 	default:
@@ -97,6 +110,7 @@ func (v Vector4) SetComponent(index int, value float64) *Vector4 {
 	return &v
 }
 
+// GetComponent :
 func (v Vector4) GetComponent(index int) float64 {
 	switch index {
 	default:
@@ -112,10 +126,12 @@ func (v Vector4) GetComponent(index int) float64 {
 	}
 }
 
+// Clone :
 func (v Vector4) Clone() *Vector4 {
 	return NewVector4(v.X, v.Y, v.Z, v.W)
 }
 
+// Copy :
 func (v Vector4) Copy(v1 Vector4) *Vector4 {
 	v.X = v1.X
 	v.Y = v1.Y
@@ -124,6 +140,7 @@ func (v Vector4) Copy(v1 Vector4) *Vector4 {
 	return &v
 }
 
+// Add :
 func (v Vector4) Add(v1 Vector4) *Vector4 {
 	v.X += v1.X
 	v.Y += v1.Y
@@ -132,6 +149,7 @@ func (v Vector4) Add(v1 Vector4) *Vector4 {
 	return &v
 }
 
+// AddScalar :
 func (v Vector4) AddScalar(s float64) *Vector4 {
 	v.X += s
 	v.Y += s
@@ -140,6 +158,7 @@ func (v Vector4) AddScalar(s float64) *Vector4 {
 	return &v
 }
 
+// AddVectors :
 func (v Vector4) AddVectors(a, b Vector4) *Vector4 {
 	v.X = a.X + b.X
 	v.Y = a.Y + b.Y
@@ -148,6 +167,7 @@ func (v Vector4) AddVectors(a, b Vector4) *Vector4 {
 	return &v
 }
 
+// AddScaledVector :
 func (v Vector4) AddScaledVector(v1 Vector4, s float64) *Vector4 {
 	v.X += v1.X * s
 	v.Y += v1.Y * s
@@ -156,6 +176,7 @@ func (v Vector4) AddScaledVector(v1 Vector4, s float64) *Vector4 {
 	return &v
 }
 
+// Sub :
 func (v Vector4) Sub(v1 Vector4) *Vector4 {
 	v.X -= v1.X
 	v.Y -= v1.Y
@@ -164,6 +185,7 @@ func (v Vector4) Sub(v1 Vector4) *Vector4 {
 	return &v
 }
 
+// SubScalar :
 func (v Vector4) SubScalar(s float64) *Vector4 {
 	v.X -= s
 	v.Y -= s
@@ -172,6 +194,7 @@ func (v Vector4) SubScalar(s float64) *Vector4 {
 	return &v
 }
 
+// SubVectors :
 func (v Vector4) SubVectors(a, b Vector4) *Vector4 {
 	v.X = a.X - b.X
 	v.Y = a.Y - b.Y
@@ -180,6 +203,7 @@ func (v Vector4) SubVectors(a, b Vector4) *Vector4 {
 	return &v
 }
 
+// MultiplyScalar :
 func (v Vector4) MultiplyScalar(scalar float64) *Vector4 {
 	v.X *= scalar
 	v.Y *= scalar
@@ -188,6 +212,7 @@ func (v Vector4) MultiplyScalar(scalar float64) *Vector4 {
 	return &v
 }
 
+// ApplyMatrix4 :
 func (v Vector4) ApplyMatrix4(m Matrix4) *Vector4 {
 	x, y, z, w := v.X, v.Y, v.Z, v.W
 	e := m.Elements
@@ -199,10 +224,12 @@ func (v Vector4) ApplyMatrix4(m Matrix4) *Vector4 {
 	return &v
 }
 
+// DivideScalar :
 func (v Vector4) DivideScalar(scalar float64) *Vector4 {
 	return v.MultiplyScalar(1 / scalar)
 }
 
+// SetAxisAngleFromQuaternion :
 func (v Vector4) SetAxisAngleFromQuaternion(q Quaternion) *Vector4 {
 	// http://www.euclideanspace.com/maths/geometry/rotations/conversions/quaternionToAngle/index.htm
 	// q is assumed to be normalized
@@ -220,6 +247,7 @@ func (v Vector4) SetAxisAngleFromQuaternion(q Quaternion) *Vector4 {
 	return &v
 }
 
+// SetAxisAngleFromRotationMatrix :
 func (v Vector4) SetAxisAngleFromRotationMatrix(m Matrix4) *Vector4 {
 	// http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToAngle/index.htm
 	// assumes the upper 3x3 of m is a pure rotation matrix (i.e, unscaled)
@@ -310,6 +338,7 @@ func (v Vector4) SetAxisAngleFromRotationMatrix(m Matrix4) *Vector4 {
 	return &v
 }
 
+// Min :
 func (v Vector4) Min(v1 Vector4) *Vector4 {
 	v.X = math.Min(v.X, v1.X)
 	v.Y = math.Min(v.Y, v1.Y)
@@ -318,6 +347,7 @@ func (v Vector4) Min(v1 Vector4) *Vector4 {
 	return &v
 }
 
+// Max :
 func (v Vector4) Max(v1 Vector4) *Vector4 {
 	v.X = math.Max(v.X, v1.X)
 	v.Y = math.Max(v.Y, v1.Y)
@@ -326,6 +356,7 @@ func (v Vector4) Max(v1 Vector4) *Vector4 {
 	return &v
 }
 
+// Clamp :
 func (v Vector4) Clamp(min, max Vector4) *Vector4 {
 	// assumes min < max, componentwise
 	v.X = math.Max(min.X, math.Min(max.X, v.X))
@@ -335,6 +366,7 @@ func (v Vector4) Clamp(min, max Vector4) *Vector4 {
 	return &v
 }
 
+// ClampScalar :
 func (v Vector4) ClampScalar(minVal, maxVal float64) *Vector4 {
 	v.X = math.Max(minVal, math.Min(maxVal, v.X))
 	v.Y = math.Max(minVal, math.Min(maxVal, v.Y))
@@ -343,7 +375,8 @@ func (v Vector4) ClampScalar(minVal, maxVal float64) *Vector4 {
 	return &v
 }
 
-func (v Vector4) ClampLength(min, max Vector4) *Vector4 {
+// ClampLength :
+func (v Vector4) ClampLength(min, max float64) *Vector4 {
 	length := v.Length()
 	if length == 0 {
 		length = 1
@@ -351,6 +384,7 @@ func (v Vector4) ClampLength(min, max Vector4) *Vector4 {
 	return v.DivideScalar(length).MultiplyScalar(math.Max(min, math.Min(max, length)))
 }
 
+// Floor :
 func (v Vector4) Floor() *Vector4 {
 	v.X = math.Floor(v.X)
 	v.Y = math.Floor(v.Y)
@@ -359,6 +393,7 @@ func (v Vector4) Floor() *Vector4 {
 	return &v
 }
 
+// Ceil :
 func (v Vector4) Ceil() *Vector4 {
 	v.X = math.Ceil(v.X)
 	v.Y = math.Ceil(v.Y)
@@ -367,6 +402,7 @@ func (v Vector4) Ceil() *Vector4 {
 	return &v
 }
 
+// Round :
 func (v Vector4) Round() *Vector4 {
 	v.X = math.Round(v.X)
 	v.Y = math.Round(v.Y)
@@ -375,6 +411,7 @@ func (v Vector4) Round() *Vector4 {
 	return &v
 }
 
+// RoundToZero :
 func (v Vector4) RoundToZero() *Vector4 {
 	if v.X < 0 {
 		v.X = math.Ceil(v.X)
@@ -399,6 +436,7 @@ func (v Vector4) RoundToZero() *Vector4 {
 	return &v
 }
 
+// Negate :
 func (v Vector4) Negate() *Vector4 {
 	v.X = -v.X
 	v.Y = -v.Y
@@ -407,22 +445,27 @@ func (v Vector4) Negate() *Vector4 {
 	return &v
 }
 
+// Dot :
 func (v Vector4) Dot(v1 Vector4) float64 {
 	return v.X*v1.X + v.Y*v1.Y + v.Z*v1.Z + v.W*v1.W
 }
 
+// LengthSq :
 func (v Vector4) LengthSq() float64 {
 	return v.X*v.X + v.Y*v.Y + v.Z*v.Z + v.W*v.W
 }
 
+// Length :
 func (v Vector4) Length() float64 {
 	return math.Sqrt(v.X*v.X + v.Y*v.Y + v.Z*v.Z + v.W*v.W)
 }
 
+// ManhattanLength :
 func (v Vector4) ManhattanLength() float64 {
 	return math.Abs(v.X) + math.Abs(v.Y) + math.Abs(v.Z) + math.Abs(v.W)
 }
 
+// Normalize :
 func (v Vector4) Normalize() *Vector4 {
 	length := v.Length()
 	if length == 0 {
@@ -431,10 +474,12 @@ func (v Vector4) Normalize() *Vector4 {
 	return v.DivideScalar(length)
 }
 
+// SetLength :
 func (v Vector4) SetLength(length float64) *Vector4 {
 	return v.Normalize().MultiplyScalar(length)
 }
 
+// Lerp :
 func (v Vector4) Lerp(v1 Vector4, alpha float64) *Vector4 {
 	v.X += (v1.X - v.X) * alpha
 	v.Y += (v1.Y - v.Y) * alpha
@@ -443,6 +488,7 @@ func (v Vector4) Lerp(v1 Vector4, alpha float64) *Vector4 {
 	return &v
 }
 
+// LerpVectors :
 func (v Vector4) LerpVectors(v1, v2 Vector4, alpha float64) *Vector4 {
 	v.X = v1.X + (v2.X-v1.X)*alpha
 	v.Y = v1.Y + (v2.Y-v1.Y)*alpha
@@ -451,11 +497,16 @@ func (v Vector4) LerpVectors(v1, v2 Vector4, alpha float64) *Vector4 {
 	return &v
 }
 
+// Equals :
 func (v Vector4) Equals(v1 Vector4) bool {
 	return ((v1.X == v.X) && (v1.Y == v.Y) && (v1.Z == v.Z) && (v1.W == v.W))
 }
 
-func (v Vector4) FromArray(array Vector4, offset float64) *Vector4 {
+// FromArray :
+func (v Vector4) FromArray(array []float64, offset int) *Vector4 {
+	if len(array) < offset+4 {
+		panic("array length should be greater than offset+4")
+	}
 	v.X = array[offset]
 	v.Y = array[offset+1]
 	v.Z = array[offset+2]
@@ -463,6 +514,7 @@ func (v Vector4) FromArray(array Vector4, offset float64) *Vector4 {
 	return &v
 }
 
+// ToArray :
 func (v Vector4) ToArray(array []float64, offset int) []float64 {
 	array[offset] = v.X
 	array[offset+1] = v.Y
@@ -471,6 +523,7 @@ func (v Vector4) ToArray(array []float64, offset int) []float64 {
 	return array
 }
 
+// Random :
 func (v Vector4) Random() *Vector4 {
 	v.X = rand.Float64()
 	v.Y = rand.Float64()

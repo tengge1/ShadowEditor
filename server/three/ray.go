@@ -14,7 +14,7 @@ import (
 	"math"
 )
 
-var _vector = Vector3{}
+var _vectorRay = Vector3{}
 var _segCenter = Vector3{}
 var _segDir = Vector3{}
 var _diff = Vector3{}
@@ -66,7 +66,7 @@ func (r Ray) LookAt(v Vector3) *Ray {
 
 // Recast :
 func (r Ray) Recast(t float64) *Ray {
-	r.Origin.Copy(*r.At(t, _vector))
+	r.Origin.Copy(*r.At(t, _vectorRay))
 	return &r
 }
 
@@ -88,13 +88,13 @@ func (r Ray) DistanceToPoint(point Vector3) float64 {
 
 // DistanceSqToPoint :
 func (r Ray) DistanceSqToPoint(point Vector3) float64 {
-	directionDistance := _vector.SubVectors(point, r.Origin).Dot(r.Direction)
+	directionDistance := _vectorRay.SubVectors(point, r.Origin).Dot(r.Direction)
 	// point behind the ray
 	if directionDistance < 0 {
 		return r.Origin.DistanceToSquared(point)
 	}
-	_vector.Copy(r.Direction).MultiplyScalar(directionDistance).Add(r.Origin)
-	return _vector.DistanceToSquared(point)
+	_vectorRay.Copy(r.Direction).MultiplyScalar(directionDistance).Add(r.Origin)
+	return _vectorRay.DistanceToSquared(point)
 }
 
 // DistanceSqToSegment :
@@ -190,10 +190,10 @@ func (r Ray) DistanceSqToSegment(v0, v1 Vector3, closestPointOnRay, closestPoint
 
 // IntersectSphere :
 func (r Ray) IntersectSphere(sphere Sphere, target Vector3) *Vector3 {
-	_vector.SubVectors(sphere.Center, r.Origin)
+	_vectorRay.SubVectors(sphere.Center, r.Origin)
 
-	tca := _vector.Dot(r.Direction)
-	d2 := _vector.Dot(_vector) - tca*tca
+	tca := _vectorRay.Dot(r.Direction)
+	d2 := _vectorRay.Dot(_vectorRay) - tca*tca
 	radius2 := sphere.Radius * sphere.Radius
 	if d2 > radius2 {
 		return nil
@@ -329,7 +329,7 @@ func (r Ray) IntersectBox(box Box3, target Vector3) *Vector3 {
 
 // IntersectsBox :
 func (r Ray) IntersectsBox(box Box3) bool {
-	return r.IntersectBox(box, _vector) != nil
+	return r.IntersectBox(box, _vectorRay) != nil
 }
 
 // IntersectTriangle :

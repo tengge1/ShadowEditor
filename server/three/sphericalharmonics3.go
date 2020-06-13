@@ -141,7 +141,7 @@ func (s SphericalHarmonics3) Clone() *SphericalHarmonics3 {
 }
 
 // FromArray :
-func (s SphericalHarmonics3) FromArray(array [9]float64, offset int) *SphericalHarmonics3 {
+func (s SphericalHarmonics3) FromArray(array []float64, offset int) *SphericalHarmonics3 {
 	coefficients := s.Coefficients
 	for i := 0; i < 9; i++ {
 		coefficients[i].FromArray(array, offset+(i*3))
