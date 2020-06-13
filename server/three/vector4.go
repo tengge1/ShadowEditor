@@ -10,8 +10,14 @@
 
 package three
 
- func NewVector4( x, y, z, w float64) *Vector4 {
-	 return &Vector4{x,y,z,w}
+import (
+	"math"
+	"math/rand"
+	"strconv"
+)
+
+func NewVector4(x, y, z, w float64) *Vector4 {
+	return &Vector4{x, y, z, w}
 }
 
 type Vector4 struct {
@@ -21,447 +27,454 @@ type Vector4 struct {
 	W float64
 }
 
-func (v Vector4)Width() float64 {
+func (v Vector4) Width() float64 {
 	return v.Z
 }
 
-func (v Vector4)SetWidth(value float64) *Vector4 {
+func (v Vector4) SetWidth(value float64) *Vector4 {
 	v.Z = value
 	return &v
 }
 
-func (v Vector4)Height() float64 {
+func (v Vector4) Height() float64 {
 	return v.W
 }
 
-func (v Vector4)SetHeight(value float64) *Vector4 {
+func (v Vector4) SetHeight(value float64) *Vector4 {
 	v.W = value
 	return &v
 }
 
-func (v Vector4)Set( x, y, z, w float64) *Vector4 {
-	v.X = x;
-	v.Y = y;
-	v.Z = z;
-	v.W = w;
-	return &v;
+func (v Vector4) Set(x, y, z, w float64) *Vector4 {
+	v.X = x
+	v.Y = y
+	v.Z = z
+	v.W = w
+	return &v
 }
 
-func (v Vector4)SetScalar( scalar float64) *Vector4 {
-	v.X = scalar;
-	v.Y = scalar;
-	v.Z = scalar;
-	v.W = scalar;
-	return &v;
+func (v Vector4) SetScalar(scalar float64) *Vector4 {
+	v.X = scalar
+	v.Y = scalar
+	v.Z = scalar
+	v.W = scalar
+	return &v
 }
 
-func (v Vector4)SetX( x float64) *Vector4 {
-	v.X = x;
-	return &v;
+func (v Vector4) SetX(x float64) *Vector4 {
+	v.X = x
+	return &v
 }
 
-func (v Vector4)SetY( y float64) *Vector4 {
-	v.Y = y;
-	return &v;
+func (v Vector4) SetY(y float64) *Vector4 {
+	v.Y = y
+	return &v
 }
 
-func (v Vector4)SetZ( z float64) *Vector4 {
-	v.Z = z;
-	return &v;
+func (v Vector4) SetZ(z float64) *Vector4 {
+	v.Z = z
+	return &v
 }
 
-func (v Vector4)SetW( w float64) *Vector4 {
-	v.W = w;
-	return &v;
+func (v Vector4) SetW(w float64) *Vector4 {
+	v.W = w
+	return &v
 }
 
-func (v Vector4)SetComponent( index int, value float64) *Vector4 {
-	switch ( index ) {
-		default: 
-		    panic( "index is out of range: " + strconv.Itoa(index) );
-		case 0: 
-		    v.X = value;
-		case 1: 
-		    v.Y = value;
-		case 2: 
-		    v.Z = value;
-		case 3: 
-		    v.W = value;
+func (v Vector4) SetComponent(index int, value float64) *Vector4 {
+	switch index {
+	default:
+		panic("index is out of range: " + strconv.Itoa(index))
+	case 0:
+		v.X = value
+	case 1:
+		v.Y = value
+	case 2:
+		v.Z = value
+	case 3:
+		v.W = value
 	}
-	return &v;
+	return &v
 }
 
-func (v Vector4)GetComponent( index int) float64 {
-	switch ( index ) {
-		default: 
-		    panic( "index is out of range: " + strconv.Itoa(index) );
-		case 0: 
-		    return v.X;
-		case 1: 
-		    return v.Y;
-		case 2: 
-		    return v.Z;
-		case 3: 
-		   return v.W;
+func (v Vector4) GetComponent(index int) float64 {
+	switch index {
+	default:
+		panic("index is out of range: " + strconv.Itoa(index))
+	case 0:
+		return v.X
+	case 1:
+		return v.Y
+	case 2:
+		return v.Z
+	case 3:
+		return v.W
 	}
 }
 
-func (v Vector4)Clone() *Vector4 {
-	return NewVector4( v.X, v.Y, v.Z, v.W );
+func (v Vector4) Clone() *Vector4 {
+	return NewVector4(v.X, v.Y, v.Z, v.W)
 }
 
-func (v Vector4)Copy( v1 ) {
-	v.x = v1.x;
-	v.y = v1.y;
-	v.z = v1.z;
-	v.w = ( v1.w !== undefined ) ? v1.w : 1;
-	return v;
+func (v Vector4) Copy(v1 Vector4) *Vector4 {
+	v.X = v1.X
+	v.Y = v1.Y
+	v.Z = v1.Z
+	v.W = v1.W
+	return &v
 }
 
-func (v Vector4)Add( v1, w ) {
-	if ( w !== undefined ) {
-		console.warn( 'THREE.Vector4: .add() now only accepts one argument. Use .addVectors( a, b ) instead.' );
-		return v.addVectors( v1, w );
-	}
-	v.x += v1.x;
-	v.y += v1.y;
-	v.z += v1.z;
-	v.w += v1.w;
-	return v;
+func (v Vector4) Add(v1 Vector4) *Vector4 {
+	v.X += v1.X
+	v.Y += v1.Y
+	v.Z += v1.Z
+	v.W += v1.W
+	return &v
 }
 
-func (v Vector4)AddScalar( s ) {
-	v.x += s;
-	v.y += s;
-	v.z += s;
-	v.w += s;
-	return v;
+func (v Vector4) AddScalar(s float64) *Vector4 {
+	v.X += s
+	v.Y += s
+	v.Z += s
+	v.W += s
+	return &v
 }
 
-func (v Vector4)AddVectors( a, b ) {
-	v.x = a.x + b.x;
-	v.y = a.y + b.y;
-	v.z = a.z + b.z;
-	v.w = a.w + b.w;
-	return v;
+func (v Vector4) AddVectors(a, b Vector4) *Vector4 {
+	v.X = a.X + b.X
+	v.Y = a.Y + b.Y
+	v.Z = a.Z + b.Z
+	v.W = a.W + b.W
+	return &v
 }
 
-func (v Vector4)AddScaledVector( v1, s ) {
-	v.x += v1.x * s;
-	v.y += v1.y * s;
-	v.z += v1.z * s;
-	v.w += v1.w * s;
-	return v;
+func (v Vector4) AddScaledVector(v1 Vector4, s float64) *Vector4 {
+	v.X += v1.X * s
+	v.Y += v1.Y * s
+	v.Z += v1.Z * s
+	v.W += v1.W * s
+	return &v
 }
 
-func (v Vector4)Sub( v1, w ) {
-	if ( w !== undefined ) {
-		console.warn( 'THREE.Vector4: .sub() now only accepts one argument. Use .subVectors( a, b ) instead.' );
-		return v.subVectors( v1, w );
-	}
-	v.x -= v1.x;
-	v.y -= v1.y;
-	v.z -= v1.z;
-	v.w -= v1.w;
-	return v;
+func (v Vector4) Sub(v1 Vector4) *Vector4 {
+	v.X -= v1.X
+	v.Y -= v1.Y
+	v.Z -= v1.Z
+	v.W -= v1.W
+	return &v
 }
 
-func (v Vector4)SubScalar( s ) {
-	v.x -= s;
-	v.y -= s;
-	v.z -= s;
-	v.w -= s;
-	return v;
+func (v Vector4) SubScalar(s float64) *Vector4 {
+	v.X -= s
+	v.Y -= s
+	v.Z -= s
+	v.W -= s
+	return &v
 }
 
-func (v Vector4)SubVectors( a, b ) {
-	v.x = a.x - b.x;
-	v.y = a.y - b.y;
-	v.z = a.z - b.z;
-	v.w = a.w - b.w;
-	return v;
+func (v Vector4) SubVectors(a, b Vector4) *Vector4 {
+	v.X = a.X - b.X
+	v.Y = a.Y - b.Y
+	v.Z = a.Z - b.Z
+	v.W = a.W - b.W
+	return &v
 }
 
-func (v Vector4)MultiplyScalar( scalar ) {
-	v.x *= scalar;
-	v.y *= scalar;
-	v.z *= scalar;
-	v.w *= scalar;
-	return v;
+func (v Vector4) MultiplyScalar(scalar float64) *Vector4 {
+	v.X *= scalar
+	v.Y *= scalar
+	v.Z *= scalar
+	v.W *= scalar
+	return &v
 }
 
-func (v Vector4)ApplyMatrix4( m ) {
-	var x = v.x, y = v.y, z = v.z, w = v.w;
-	var e = m.elements;
+func (v Vector4) ApplyMatrix4(m Matrix4) *Vector4 {
+	x, y, z, w := v.X, v.Y, v.Z, v.W
+	e := m.Elements
 
-	v.x = e[ 0 ] * x + e[ 4 ] * y + e[ 8 ] * z + e[ 12 ] * w;
-	v.y = e[ 1 ] * x + e[ 5 ] * y + e[ 9 ] * z + e[ 13 ] * w;
-	v.z = e[ 2 ] * x + e[ 6 ] * y + e[ 10 ] * z + e[ 14 ] * w;
-	v.w = e[ 3 ] * x + e[ 7 ] * y + e[ 11 ] * z + e[ 15 ] * w;
-
-	return v;
+	v.X = e[0]*x + e[4]*y + e[8]*z + e[12]*w
+	v.Y = e[1]*x + e[5]*y + e[9]*z + e[13]*w
+	v.Z = e[2]*x + e[6]*y + e[10]*z + e[14]*w
+	v.W = e[3]*x + e[7]*y + e[11]*z + e[15]*w
+	return &v
 }
 
-func (v Vector4)DivideScalar( scalar ) {
-	return v.multiplyScalar( 1 / scalar );
+func (v Vector4) DivideScalar(scalar float64) *Vector4 {
+	return v.MultiplyScalar(1 / scalar)
 }
 
-func (v Vector4)SetAxisAngleFromQuaternion( q ) {
+func (v Vector4) SetAxisAngleFromQuaternion(q Quaternion) *Vector4 {
 	// http://www.euclideanspace.com/maths/geometry/rotations/conversions/quaternionToAngle/index.htm
 	// q is assumed to be normalized
-	v.w = 2 * Math.acos( q.w );
-	var s = Math.sqrt( 1 - q.w * q.w );
-	if ( s < 0.0001 ) {
-		v.x = 1;
-		v.y = 0;
-		v.z = 0;
+	v.W = 2 * math.Acos(q.W())
+	s := math.Sqrt(1 - q.W()*q.W())
+	if s < 0.0001 {
+		v.X = 1
+		v.Y = 0
+		v.Z = 0
 	} else {
-		v.x = q.x / s;
-		v.y = q.y / s;
-		v.z = q.z / s;
+		v.X = q.X() / s
+		v.Y = q.Y() / s
+		v.Z = q.Z() / s
 	}
-	return v;
+	return &v
 }
 
-func (v Vector4)SetAxisAngleFromRotationMatrix( m ) {
+func (v Vector4) SetAxisAngleFromRotationMatrix(m Matrix4) *Vector4 {
 	// http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToAngle/index.htm
 	// assumes the upper 3x3 of m is a pure rotation matrix (i.e, unscaled)
-	var angle, x, y, z,		// variables for result
-		epsilon = 0.01,		// margin to allow for rounding errors
-		epsilon2 = 0.1,		// margin to distinguish between 0 and 180 degrees
+	var angle, x, y, z float64 // variables for result
+	epsilon := 0.01            // margin to allow for rounding errors
+	epsilon2 := 0.1            // margin to distinguish between 0 and 180 degrees
+	te := m.Elements
 
-		te = m.elements,
+	m11, m12, m13 := te[0], te[4], te[8]
+	m21, m22, m23 := te[1], te[5], te[9]
+	m31, m32, m33 := te[2], te[6], te[10]
 
-		m11 = te[ 0 ], m12 = te[ 4 ], m13 = te[ 8 ],
-		m21 = te[ 1 ], m22 = te[ 5 ], m23 = te[ 9 ],
-		m31 = te[ 2 ], m32 = te[ 6 ], m33 = te[ 10 ];
-
-	if ( ( Math.abs( m12 - m21 ) < epsilon ) &&
-		 ( Math.abs( m13 - m31 ) < epsilon ) &&
-		 ( Math.abs( m23 - m32 ) < epsilon ) ) {
+	if (math.Abs(m12-m21) < epsilon) &&
+		(math.Abs(m13-m31) < epsilon) &&
+		(math.Abs(m23-m32) < epsilon) {
 		// singularity found
 		// first check for identity matrix which must have +1 for all terms
 		// in leading diagonal and zero in other terms
-		if ( ( Math.abs( m12 + m21 ) < epsilon2 ) &&
-			 ( Math.abs( m13 + m31 ) < epsilon2 ) &&
-			 ( Math.abs( m23 + m32 ) < epsilon2 ) &&
-			 ( Math.abs( m11 + m22 + m33 - 3 ) < epsilon2 ) ) {
-
+		if (math.Abs(m12+m21) < epsilon2) &&
+			(math.Abs(m13+m31) < epsilon2) &&
+			(math.Abs(m23+m32) < epsilon2) &&
+			(math.Abs(m11+m22+m33-3) < epsilon2) {
 			// v singularity is identity matrix so angle = 0
-			v.set( 1, 0, 0, 0 );
-			return v; // zero angle, arbitrary axis
+			v.Set(1, 0, 0, 0)
+			return &v // zero angle, arbitrary axis
 		}
 		// otherwise v singularity is angle = 180
-		angle = Math.PI;
-
-		var xx = ( m11 + 1 ) / 2;
-		var yy = ( m22 + 1 ) / 2;
-		var zz = ( m33 + 1 ) / 2;
-		var xy = ( m12 + m21 ) / 4;
-		var xz = ( m13 + m31 ) / 4;
-		var yz = ( m23 + m32 ) / 4;
-
-		if ( ( xx > yy ) && ( xx > zz ) ) {
+		angle = math.Pi
+		xx := (m11 + 1) / 2
+		yy := (m22 + 1) / 2
+		zz := (m33 + 1) / 2
+		xy := (m12 + m21) / 4
+		xz := (m13 + m31) / 4
+		yz := (m23 + m32) / 4
+		if (xx > yy) && (xx > zz) {
 			// m11 is the largest diagonal term
-			if ( xx < epsilon ) {
-				x = 0;
-				y = 0.707106781;
-				z = 0.707106781;
+			if xx < epsilon {
+				x = 0
+				y = 0.707106781
+				z = 0.707106781
 			} else {
-				x = Math.sqrt( xx );
-				y = xy / x;
-				z = xz / x;
+				x = math.Sqrt(xx)
+				y = xy / x
+				z = xz / x
 			}
-		} else if ( yy > zz ) {
+		} else if yy > zz {
 			// m22 is the largest diagonal term
-			if ( yy < epsilon ) {
-				x = 0.707106781;
-				y = 0;
-				z = 0.707106781;
+			if yy < epsilon {
+				x = 0.707106781
+				y = 0
+				z = 0.707106781
 			} else {
-				y = Math.sqrt( yy );
-				x = xy / y;
-				z = yz / y;
+				y = math.Sqrt(yy)
+				x = xy / y
+				z = yz / y
 			}
 		} else {
 			// m33 is the largest diagonal term so base result on v
-			if ( zz < epsilon ) {
-				x = 0.707106781;
-				y = 0.707106781;
-				z = 0;
+			if zz < epsilon {
+				x = 0.707106781
+				y = 0.707106781
+				z = 0
 			} else {
-				z = Math.sqrt( zz );
-				x = xz / z;
-				y = yz / z;
+				z = math.Sqrt(zz)
+				x = xz / z
+				y = yz / z
 			}
 		}
 
-		v.set( x, y, z, angle );
-		return v; // return 180 deg rotation
+		v.Set(x, y, z, angle)
+		return &v // return 180 deg rotation
 	}
 
 	// as we have reached here there are no singularities so we can handle normally
-	var s = Math.sqrt( ( m32 - m23 ) * ( m32 - m23 ) +
-					   ( m13 - m31 ) * ( m13 - m31 ) +
-					   ( m21 - m12 ) * ( m21 - m12 ) ); // used to normalize
+	s := math.Sqrt((m32-m23)*(m32-m23) +
+		(m13-m31)*(m13-m31) +
+		(m21-m12)*(m21-m12)) // used to normalize
 
-	if ( Math.abs( s ) < 0.001 ) s = 1;
+	if math.Abs(s) < 0.001 {
+		s = 1
+	}
 	// prevent divide by zero, should not happen if matrix is orthogonal and should be
 	// caught by singularity test above, but I've left it in just in case
-
-	v.x = ( m32 - m23 ) / s;
-	v.y = ( m13 - m31 ) / s;
-	v.z = ( m21 - m12 ) / s;
-	v.w = Math.acos( ( m11 + m22 + m33 - 1 ) / 2 );
-
-	return v;
+	v.X = (m32 - m23) / s
+	v.Y = (m13 - m31) / s
+	v.Z = (m21 - m12) / s
+	v.W = math.Acos((m11 + m22 + m33 - 1) / 2)
+	return &v
 }
 
-func (v Vector4)Min( v1 ) {
-	v.x = Math.min( v.x, v1.x );
-	v.y = Math.min( v.y, v1.y );
-	v.z = Math.min( v.z, v1.z );
-	v.w = Math.min( v.w, v1.w );
-	return v;
+func (v Vector4) Min(v1 Vector4) *Vector4 {
+	v.X = math.Min(v.X, v1.X)
+	v.Y = math.Min(v.Y, v1.Y)
+	v.Z = math.Min(v.Z, v1.Z)
+	v.W = math.Min(v.W, v1.W)
+	return &v
 }
 
-func (v Vector4)Max( v1 ) {
-	v.x = Math.max( v.x, v1.x );
-	v.y = Math.max( v.y, v1.y );
-	v.z = Math.max( v.z, v1.z );
-	v.w = Math.max( v.w, v1.w );
-	return v;
+func (v Vector4) Max(v1 Vector4) *Vector4 {
+	v.X = math.Max(v.X, v1.X)
+	v.Y = math.Max(v.Y, v1.Y)
+	v.Z = math.Max(v.Z, v1.Z)
+	v.W = math.Max(v.W, v1.W)
+	return &v
 }
 
-func (v Vector4)Clamp( min, max ) {
+func (v Vector4) Clamp(min, max Vector4) *Vector4 {
 	// assumes min < max, componentwise
-	v.x = Math.max( min.x, Math.min( max.x, v.x ) );
-	v.y = Math.max( min.y, Math.min( max.y, v.y ) );
-	v.z = Math.max( min.z, Math.min( max.z, v.z ) );
-	v.w = Math.max( min.w, Math.min( max.w, v.w ) );
-	return v;
+	v.X = math.Max(min.X, math.Min(max.X, v.X))
+	v.Y = math.Max(min.Y, math.Min(max.Y, v.Y))
+	v.Z = math.Max(min.Z, math.Min(max.Z, v.Z))
+	v.W = math.Max(min.W, math.Min(max.W, v.W))
+	return &v
 }
 
-func (v Vector4)ClampScalar( minVal, maxVal ) {
-	v.x = Math.max( minVal, Math.min( maxVal, v.x ) );
-	v.y = Math.max( minVal, Math.min( maxVal, v.y ) );
-	v.z = Math.max( minVal, Math.min( maxVal, v.z ) );
-	v.w = Math.max( minVal, Math.min( maxVal, v.w ) );
-	return v;
+func (v Vector4) ClampScalar(minVal, maxVal float64) *Vector4 {
+	v.X = math.Max(minVal, math.Min(maxVal, v.X))
+	v.Y = math.Max(minVal, math.Min(maxVal, v.Y))
+	v.Z = math.Max(minVal, math.Min(maxVal, v.Z))
+	v.W = math.Max(minVal, math.Min(maxVal, v.W))
+	return &v
 }
 
-func (v Vector4)ClampLength( min, max ) {
-	var length = v.length();
-	return v.divideScalar( length || 1 ).multiplyScalar( Math.max( min, Math.min( max, length ) ) );
+func (v Vector4) ClampLength(min, max Vector4) *Vector4 {
+	length := v.Length()
+	if length == 0 {
+		length = 1
+	}
+	return v.DivideScalar(length).MultiplyScalar(math.Max(min, math.Min(max, length)))
 }
 
-func (v Vector4)Floor() {
-	v.x = Math.floor( v.x );
-	v.y = Math.floor( v.y );
-	v.z = Math.floor( v.z );
-	v.w = Math.floor( v.w );
-	return v;
+func (v Vector4) Floor() *Vector4 {
+	v.X = math.Floor(v.X)
+	v.Y = math.Floor(v.Y)
+	v.Z = math.Floor(v.Z)
+	v.W = math.Floor(v.W)
+	return &v
 }
 
-func (v Vector4)Ceil() {
-	v.x = Math.ceil( v.x );
-	v.y = Math.ceil( v.y );
-	v.z = Math.ceil( v.z );
-	v.w = Math.ceil( v.w );
-	return v;
+func (v Vector4) Ceil() *Vector4 {
+	v.X = math.Ceil(v.X)
+	v.Y = math.Ceil(v.Y)
+	v.Z = math.Ceil(v.Z)
+	v.W = math.Ceil(v.W)
+	return &v
 }
 
-func (v Vector4)Round() {
-	v.x = Math.round( v.x );
-	v.y = Math.round( v.y );
-	v.z = Math.round( v.z );
-	v.w = Math.round( v.w );
-	return v;
+func (v Vector4) Round() *Vector4 {
+	v.X = math.Round(v.X)
+	v.Y = math.Round(v.Y)
+	v.Z = math.Round(v.Z)
+	v.W = math.Round(v.W)
+	return &v
 }
 
-func (v Vector4)RoundToZero() {
-	v.x = ( v.x < 0 ) ? Math.ceil( v.x ) : Math.floor( v.x );
-	v.y = ( v.y < 0 ) ? Math.ceil( v.y ) : Math.floor( v.y );
-	v.z = ( v.z < 0 ) ? Math.ceil( v.z ) : Math.floor( v.z );
-	v.w = ( v.w < 0 ) ? Math.ceil( v.w ) : Math.floor( v.w );
-	return v;
+func (v Vector4) RoundToZero() *Vector4 {
+	if v.X < 0 {
+		v.X = math.Ceil(v.X)
+	} else {
+		v.X = math.Floor(v.X)
+	}
+	if v.Y < 0 {
+		v.Y = math.Ceil(v.Y)
+	} else {
+		v.Y = math.Floor(v.Y)
+	}
+	if v.Z < 0 {
+		v.Z = math.Ceil(v.Z)
+	} else {
+		v.Z = math.Floor(v.Z)
+	}
+	if v.W < 0 {
+		v.W = math.Ceil(v.W)
+	} else {
+		v.W = math.Floor(v.W)
+	}
+	return &v
 }
 
-func (v Vector4)Negate() {
-	v.x = - v.x;
-	v.y = - v.y;
-	v.z = - v.z;
-	v.w = - v.w;
-	return v;
+func (v Vector4) Negate() *Vector4 {
+	v.X = -v.X
+	v.Y = -v.Y
+	v.Z = -v.Z
+	v.W = -v.W
+	return &v
 }
 
-func (v Vector4)Dot( v1 ) {
-	return v.x * v1.x + v.y * v1.y + v.z * v1.z + v.w * v1.w;
+func (v Vector4) Dot(v1 Vector4) float64 {
+	return v.X*v1.X + v.Y*v1.Y + v.Z*v1.Z + v.W*v1.W
 }
 
-func (v Vector4)LengthSq() {
-	return v.x * v.x + v.y * v.y + v.z * v.z + v.w * v.w;
+func (v Vector4) LengthSq() float64 {
+	return v.X*v.X + v.Y*v.Y + v.Z*v.Z + v.W*v.W
 }
 
-func (v Vector4)Length() {
-	return Math.sqrt( v.x * v.x + v.y * v.y + v.z * v.z + v.w * v.w );
+func (v Vector4) Length() float64 {
+	return math.Sqrt(v.X*v.X + v.Y*v.Y + v.Z*v.Z + v.W*v.W)
 }
 
-func (v Vector4)ManhattanLength() {
-	return Math.abs( v.x ) + Math.abs( v.y ) + Math.abs( v.z ) + Math.abs( v.w );
+func (v Vector4) ManhattanLength() float64 {
+	return math.Abs(v.X) + math.Abs(v.Y) + math.Abs(v.Z) + math.Abs(v.W)
 }
 
-func (v Vector4)Normalize() {
-	return v.divideScalar( v.length() || 1 );
+func (v Vector4) Normalize() *Vector4 {
+	length := v.Length()
+	if length == 0 {
+		length = 1
+	}
+	return v.DivideScalar(length)
 }
 
-func (v Vector4)SetLength( length ) {
-	return v.normalize().multiplyScalar( length );
+func (v Vector4) SetLength(length float64) *Vector4 {
+	return v.Normalize().MultiplyScalar(length)
 }
 
-func (v Vector4)Lerp( v1, alpha ) {
-	v.x += ( v1.x - v.x ) * alpha;
-	v.y += ( v1.y - v.y ) * alpha;
-	v.z += ( v1.z - v.z ) * alpha;
-	v.w += ( v1.w - v.w ) * alpha;
-	return v;
+func (v Vector4) Lerp(v1 Vector4, alpha float64) *Vector4 {
+	v.X += (v1.X - v.X) * alpha
+	v.Y += (v1.Y - v.Y) * alpha
+	v.Z += (v1.Z - v.Z) * alpha
+	v.W += (v1.W - v.W) * alpha
+	return &v
 }
 
-func (v Vector4)LerpVectors( v1, v2, alpha ) {
-	v.x = v1.x + ( v2.x - v1.x ) * alpha;
-	v.y = v1.y + ( v2.y - v1.y ) * alpha;
-	v.z = v1.z + ( v2.z - v1.z ) * alpha;
-	v.w = v1.w + ( v2.w - v1.w ) * alpha;
-	return v;
+func (v Vector4) LerpVectors(v1, v2 Vector4, alpha float64) *Vector4 {
+	v.X = v1.X + (v2.X-v1.X)*alpha
+	v.Y = v1.Y + (v2.Y-v1.Y)*alpha
+	v.Z = v1.Z + (v2.Z-v1.Z)*alpha
+	v.W = v1.W + (v2.W-v1.W)*alpha
+	return &v
 }
 
-func (v Vector4)Equals( v1 ) {
-	return ( ( v1.x === v.x ) && ( v1.y === v.y ) && ( v1.z === v.z ) && ( v1.w === v.w ) );
+func (v Vector4) Equals(v1 Vector4) bool {
+	return ((v1.X == v.X) && (v1.Y == v.Y) && (v1.Z == v.Z) && (v1.W == v.W))
 }
 
-func (v Vector4)FromArray( array, offset ) {
-	if ( offset === undefined ) offset = 0;
-	v.x = array[ offset ];
-	v.y = array[ offset + 1 ];
-	v.z = array[ offset + 2 ];
-	v.w = array[ offset + 3 ];
-	return v;
+func (v Vector4) FromArray(array Vector4, offset float64) *Vector4 {
+	v.X = array[offset]
+	v.Y = array[offset+1]
+	v.Z = array[offset+2]
+	v.W = array[offset+3]
+	return &v
 }
 
-func (v Vector4)ToArray( array, offset ) {
-	if ( array === undefined ) array = [];
-	if ( offset === undefined ) offset = 0;
-	array[ offset ] = v.x;
-	array[ offset + 1 ] = v.y;
-	array[ offset + 2 ] = v.z;
-	array[ offset + 3 ] = v.w;
-	return array;
+func (v Vector4) ToArray(array []float64, offset int) []float64 {
+	array[offset] = v.X
+	array[offset+1] = v.Y
+	array[offset+2] = v.Z
+	array[offset+3] = v.W
+	return array
 }
 
-func (v Vector4)Random() {
-	v.x = Math.random();
-	v.y = Math.random();
-	v.z = Math.random();
-	v.w = Math.random();
-	return v;
+func (v Vector4) Random() *Vector4 {
+	v.X = rand.Float64()
+	v.Y = rand.Float64()
+	v.Z = rand.Float64()
+	v.W = rand.Float64()
+	return &v
 }
