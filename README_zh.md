@@ -4,6 +4,8 @@
 
 <a href='https://gitee.com/tengge1/ShadowEditor/stargazers'><img src='https://gitee.com/tengge1/ShadowEditor/badge/star.svg?theme=dark' alt='star'></img></a>
 <a href='https://gitee.com/tengge1/ShadowEditor/members'><img src='https://gitee.com/tengge1/ShadowEditor/badge/fork.svg?theme=dark' alt='fork'></img></a>
+![image](https://img.shields.io/github/languages/top/tengge1/ShadowEditor)
+![image](https://img.shields.io/github/commit-activity/w/tengge1/ShadowEditor)
 [![image](https://img.shields.io/github/license/tengge1/ShadowEditor)](https://gitee.com/tengge1/ShadowEditor/blob/master/LICENSE)
 [![image](https://travis-ci.org/tengge1/ShadowEditor.svg?branch=master)](https://travis-ci.org/github/tengge1/ShadowEditor)
 [![image](https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2Ftengge1%2FShadowEditor

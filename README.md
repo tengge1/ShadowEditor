@@ -5,6 +5,8 @@ English / [中文](README_zh.md)
 [![image](https://img.shields.io/github/stars/tengge1/ShadowEditor)](https://github.com/tengge1/ShadowEditor/stargazers)
 [![image](https://img.shields.io/github/forks/tengge1/ShadowEditor)](https://github.com/tengge1/ShadowEditor/network/members)
 [![image](https://img.shields.io/github/issues/tengge1/ShadowEditor)](https://github.com/tengge1/ShadowEditor/issues)
+![image](https://img.shields.io/github/languages/top/tengge1/ShadowEditor)
+![image](https://img.shields.io/github/commit-activity/w/tengge1/ShadowEditor)
 [![image](https://img.shields.io/github/license/tengge1/ShadowEditor)](https://github.com/tengge1/ShadowEditor/blob/master/LICENSE)
 [![image](https://travis-ci.org/tengge1/ShadowEditor.svg?branch=master)](https://travis-ci.org/github/tengge1/ShadowEditor)
 [![image](https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2Ftengge1%2FShadowEditor
