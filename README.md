@@ -2,7 +2,7 @@
 
 English / [中文](README_zh.md)  
 
-![image](https://img.shields.io/github/stars/tengge1/ShadowEditor)
+[![image](https://img.shields.io/github/stars/tengge1/ShadowEditor)](https://github.com/tengge1/ShadowEditor/stargazers)
 ![image](https://img.shields.io/github/forks/tengge1/ShadowEditor)
 ![image](https://img.shields.io/github/issues/tengge1/ShadowEditor)
 ![image](https://img.shields.io/github/license/tengge1/ShadowEditor)
