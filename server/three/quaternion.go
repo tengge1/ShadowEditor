@@ -530,6 +530,9 @@ func (q Quaternion) Equals(quaternion Quaternion) bool {
 
 // FromArray :
 func (q Quaternion) FromArray(array []float64, offset int) *Quaternion {
+	if len(array) < offset+4 {
+		panic("array length should be greater than offset+4")
+	}
 	q._x = array[offset]
 	q._y = array[offset+1]
 	q._z = array[offset+2]
@@ -542,11 +545,13 @@ func (q Quaternion) FromArray(array []float64, offset int) *Quaternion {
 
 // ToArray :
 func (q Quaternion) ToArray(array []float64, offset int) []float64 {
+	if len(array) < offset+4 {
+		panic("array length should be greater than offset+4")
+	}
 	array[offset] = q._x
 	array[offset+1] = q._y
 	array[offset+2] = q._z
 	array[offset+3] = q._w
-
 	return array
 }
 

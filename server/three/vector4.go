@@ -516,6 +516,9 @@ func (v Vector4) FromArray(array []float64, offset int) *Vector4 {
 
 // ToArray :
 func (v Vector4) ToArray(array []float64, offset int) []float64 {
+	if len(array) < offset+4 {
+		panic("array length should be greater than offset+4")
+	}
 	array[offset] = v.X
 	array[offset+1] = v.Y
 	array[offset+2] = v.Z

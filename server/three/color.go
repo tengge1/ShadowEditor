@@ -383,6 +383,9 @@ func (c Color) Equals(d Color) bool {
 
 // FromArray :
 func (c Color) FromArray(array []float64, offset int) *Color {
+	if len(array) < offset+3 {
+		panic("array length should be greater than offset+3")
+	}
 	c.R = array[offset]
 	c.G = array[offset+1]
 	c.B = array[offset+2]
@@ -391,6 +394,9 @@ func (c Color) FromArray(array []float64, offset int) *Color {
 
 // ToArray :
 func (c Color) ToArray(array []float64, offset int) []float64 {
+	if len(array) < offset+3 {
+		panic("array length should be greater than offset+3")
+	}
 	array[offset] = c.R
 	array[offset+1] = c.G
 	array[offset+2] = c.B

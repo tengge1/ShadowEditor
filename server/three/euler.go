@@ -237,7 +237,10 @@ func (e Euler) Equals(euler Euler) bool {
 }
 
 // FromArray :
-func (e Euler) FromArray(array [3]float64, order string) *Euler {
+func (e Euler) FromArray(array []float64, order string) *Euler {
+	if len(array) < 3 {
+		panic("array length should be greater than 3")
+	}
 	e._x = array[0]
 	e._y = array[1]
 	e._z = array[2]
@@ -252,7 +255,10 @@ func (e Euler) FromArray(array [3]float64, order string) *Euler {
 }
 
 // ToArray :
-func (e Euler) ToArray(array [3]float64, offset int) ([3]float64, string) {
+func (e Euler) ToArray(array []float64, offset int) ([]float64, string) {
+	if len(array) < offset+3 {
+		panic("array length should be greater than offset+3")
+	}
 	array[offset] = e._x
 	array[offset+1] = e._y
 	array[offset+2] = e._z

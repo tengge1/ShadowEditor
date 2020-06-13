@@ -600,7 +600,6 @@ func (v Vector3) SetFromMatrixColumn(m Matrix4, index int) *Vector3 {
 	for i := 0; i < 3; i++ {
 		elems = append(elems, m.Elements[index*4+i])
 	}
-
 	return v.FromArray(elems, 0)
 }
 
@@ -610,7 +609,6 @@ func (v Vector3) SetFromMatrix3Column(m Matrix3, index int) *Vector3 {
 	for i := 0; i < 3; i++ {
 		elems = append(elems, m.Elements[index*3+i])
 	}
-
 	return v.FromArray(elems, 0)
 }
 
@@ -622,7 +620,7 @@ func (v Vector3) Equals(w Vector3) bool {
 // FromArray :
 func (v Vector3) FromArray(array []float64, offset int) *Vector3 {
 	if len(array) < offset+3 {
-		panic("array should be greater than offset+3")
+		panic("array length should be greater than offset+3")
 	}
 	v.X = array[offset]
 	v.Y = array[offset+1]
@@ -633,7 +631,7 @@ func (v Vector3) FromArray(array []float64, offset int) *Vector3 {
 // ToArray :
 func (v Vector3) ToArray(array []float64, offset int) []float64 {
 	if len(array) < offset+3 {
-		panic("array should be greater than offset+3")
+		panic("array length should be greater than offset+3")
 	}
 	array[offset] = v.X
 	array[offset+1] = v.Y

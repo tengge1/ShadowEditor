@@ -375,6 +375,9 @@ func (v Vector2) Equals(w Vector2) bool {
 
 // FromArray :
 func (v Vector2) FromArray(array []float64, offset int) *Vector2 {
+	if len(array) < offset+2 {
+		panic("array length should be greater than offset+2")
+	}
 	v.X = array[offset]
 	v.Y = array[offset+1]
 
@@ -383,9 +386,11 @@ func (v Vector2) FromArray(array []float64, offset int) *Vector2 {
 
 // ToArray :
 func (v Vector2) ToArray(array []float64, offset int) []float64 {
+	if len(array) < offset+2 {
+		panic("array length should be greater than offset+2")
+	}
 	array[offset] = v.X
 	array[offset+1] = v.Y
-
 	return array
 }
 

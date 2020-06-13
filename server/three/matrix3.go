@@ -57,7 +57,11 @@ func (m Matrix3) Identity() *Matrix3 {
 
 // Clone :
 func (m Matrix3) Clone() *Matrix3 {
-	return NewMatrix3().FromArray(m.Elements, 0)
+	array := make([]float64, 0)
+	for _, elem := range m.Elements {
+		array = append(array, elem)
+	}
+	return NewMatrix3().FromArray(array, 0)
 }
 
 // Copy :
@@ -229,8 +233,10 @@ func (m Matrix3) GetNormalMatrix(matrix4 Matrix4) *Matrix3 {
 
 // TransposeIntoArray :
 func (m Matrix3) TransposeIntoArray(r []float64) *Matrix3 {
+	if len(r) < 9 {
+		panic("array length should be greater than 9")
+	}
 	te := m.Elements
-
 	r[0] = te[0]
 	r[1] = te[3]
 	r[2] = te[6]
@@ -240,7 +246,6 @@ func (m Matrix3) TransposeIntoArray(r []float64) *Matrix3 {
 	r[6] = te[2]
 	r[7] = te[5]
 	r[8] = te[8]
-
 	return &m
 }
 
@@ -321,7 +326,10 @@ func (m Matrix3) Equals(matrix Matrix3) bool {
 }
 
 // FromArray :
-func (m Matrix3) FromArray(array [9]float64, offset int) *Matrix3 {
+func (m Matrix3) FromArray(array []float64, offset int) *Matrix3 {
+	if len(array) < offset+9 {
+		panic("array length should be greater than offset+9")
+	}
 	for i := 0; i < 9; i++ {
 		m.Elements[i] = array[i+offset]
 	}
@@ -330,20 +338,19 @@ func (m Matrix3) FromArray(array [9]float64, offset int) *Matrix3 {
 }
 
 // ToArray :
-func (m Matrix3) ToArray(array [9]float64, offset int) [9]float64 {
+func (m Matrix3) ToArray(array []float64, offset int) []float64 {
+	if len(array) < offset+9 {
+		panic("array length should be greater than offset+9")
+	}
 	te := m.Elements
-
 	array[offset] = te[0]
 	array[offset+1] = te[1]
 	array[offset+2] = te[2]
-
 	array[offset+3] = te[3]
 	array[offset+4] = te[4]
 	array[offset+5] = te[5]
-
 	array[offset+6] = te[6]
 	array[offset+7] = te[7]
 	array[offset+8] = te[8]
-
 	return array
 }

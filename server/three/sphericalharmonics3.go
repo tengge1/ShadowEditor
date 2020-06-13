@@ -142,6 +142,9 @@ func (s SphericalHarmonics3) Clone() *SphericalHarmonics3 {
 
 // FromArray :
 func (s SphericalHarmonics3) FromArray(array []float64, offset int) *SphericalHarmonics3 {
+	if len(array) < offset+27 {
+		panic("array length should be greater than offset+27")
+	}
 	coefficients := s.Coefficients
 	for i := 0; i < 9; i++ {
 		coefficients[i].FromArray(array, offset+(i*3))
@@ -151,6 +154,9 @@ func (s SphericalHarmonics3) FromArray(array []float64, offset int) *SphericalHa
 
 // ToArray :
 func (s SphericalHarmonics3) ToArray(array []float64, offset int) []float64 {
+	if len(array) < offset+27 {
+		panic("array length should be greater than offset+27")
+	}
 	coefficients := s.Coefficients
 	for i := 0; i < 9; i++ {
 		coefficients[i].ToArray(array, offset+(i*3))
