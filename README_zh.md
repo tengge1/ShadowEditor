@@ -16,6 +16,7 @@
 1. 修复windows上上传模型和发布场景bug。
 2. 添加开源项目链接。
 3. THREE.js数学模块翻译为Go语言，[点此](server/three/)查看详情。
+4. 使用Travis CI作为持续集成工具。
 
 ## v0.5.2发布
 
