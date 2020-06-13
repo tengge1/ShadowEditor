@@ -19,3 +19,6 @@ matrix:
 notifications:
   email:
     - 930372551@qq.com
+
+services:
+  - mongodb
