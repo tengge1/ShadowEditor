@@ -17,8 +17,6 @@ matrix:
         - cd web
       install:
         - npm install
-      before_script:
-        - cd web
       script:
         - npm run build
 
