@@ -13,7 +13,7 @@ English / [中文](README_zh.md)
 )](https://twitter.com/tengge11)
 
 * Name: Shadow Editor
-* Version: v0.5.3(Coming Soon)
+* Version: v0.5.3
 * Description: Cross-platform 3D scene editor based on three.js, golang and mongodb.
 * Source: [GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | Document: [Gitee](https://gitee.com/tengge1/ShadowEditor/wikis/pages) | Demo: [GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) | Video: [Weibo](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) | Assets: [BaiduNetdisk](https://pan.baidu.com/s/1IxJVM6fFLoIAJG-GKHjVTA)
 * Technology Stack: html, css, javascript, rollup, react.js, webgl, three.js, golang, mongodb.
@@ -21,30 +21,16 @@ English / [中文](README_zh.md)
 
 ![image](images/scene20200503_en.jpg)
 
-## v0.5.3 is Coming Soon
+## v0.5.3 has Released
+
+* Release Date: June 14, 2020
+* Update Logs:
 
 1. Fix bugs of uploading models and publishing scenes on windows.
 2. Add links to open source projects.
 3. THREE.js math module has translated into golang, [Click](server/three/) for detail.
 4. Use Travis CI as a continuous integration tool.
 5. Comment out ServiceWorker in the index.html file because it caused a lot of trouble.
-
-## v0.5.2 has Released
-
-* Release Date: May 31, 2020
-* Update Logs:
-
-1. MongoDB user and password configuration.
-2. Documentation has moved to gitee wiki. [See Detail](https://gitee.com/tengge1/ShadowEditor/wikis/pages)
-3. Use JSON web tokens (JWT) for user authentication. 
-4. Automatic saving is disabled by default.
-5. Fix the bug that the uploaded data of non-admin users is not displayed.
-6. Fix the bug that the resource list does not load when the user does not have permission to view all resources.
-7. Fix the bug that the thumbnail cannot be set in the texture.
-8. Fix the error of adding gltf format model to the scene.
-9. Non-administrators cannot edit or delete other people's public scenes.
-10. Fix the bug that it will be `saved as` when save twice.
-11. The resource and permission management tests are complete, and there are almost no bugs in the golang server.
 
 ## Features
 

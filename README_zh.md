@@ -12,7 +12,7 @@
 )](https://twitter.com/tengge11)
 
 * 名称：Shadow Editor
-* 版本：v0.5.3（即将到来）
+* 版本：v0.5.3
 * 简介：基于Three.js、Go语言和MongoDB的跨平台的3D场景编辑器。
 * 源码：[GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | 文档：[Gitee](https://gitee.com/tengge1/ShadowEditor/wikis/pages) | 示例：[GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) | 视频：[微博](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) | 资源：[百度网盘](https://pan.baidu.com/s/1IxJVM6fFLoIAJG-GKHjVTA)
 * 技术栈：html、css、javascript、rollup、react.js、webgl、three.js、golang、MongoDB。
@@ -20,30 +20,16 @@
 
 ![image](images/scene20200301.jpg)
 
-## v0.5.3即将发布
+## v0.5.3发布
+
+* 发布日期：2020年6月14日
+* 更新日志：
 
 1. 修复windows上上传模型和发布场景bug。
 2. 添加开源项目链接。
 3. THREE.js数学模块翻译为Go语言，[点此](server/three/)查看详情。
 4. 使用Travis CI作为持续集成工具。
 5. 注释掉index.html文件中的ServiceWorker，因为它带来了很多问题。
-
-## v0.5.2发布
-
-* 发布日期：2020年5月31日
-* 更新日志：
-
-1. MongoDB用户名和密码设置。
-2. 文档移动到gitee wiki。[详情](https://gitee.com/tengge1/ShadowEditor/wikis/pages)
-3. 使用JSON Web令牌（JWT）进行用户身份验证。
-4. 默认禁用自动保存。
-5. 修复非管理员用户上传数据不显示的bug。
-6. 修复用户不具有所有资源查看权限时，资源列表不加载的bug。
-7. 修复贴图无法设置缩略图bug。
-8. 修复向场景中添加gltf格式的模型报错。
-9. 非管理员无法编辑、删除其他人的公开场景。
-10. 修复连续保存两次会变为另存为的bug。
-11. 资源和权限管理测试完成，golang服务端几乎没有bug了。
 
 ## 功能特点
 
