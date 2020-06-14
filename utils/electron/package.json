@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/tengge1/ShadowEditor/issues"
   },
-  "homepage": "https://github.com/tengge1/ShadowEditor#readme"
+  "homepage": "https://github.com/tengge1/ShadowEditor#readme",
+  "devDependencies": {
+    "electron": "^9.0.4"
+  }
 }
