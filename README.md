@@ -27,6 +27,7 @@ English / [中文](README_zh.md)
 2. Add links to open source projects.
 3. THREE.js math module has translated into golang, [Click](server/three/) for detail.
 4. Use Travis CI as a continuous integration tool.
+5. Comment out ServiceWorker in the index.html file because it caused a lot of trouble.
 
 ## v0.5.2 has Released
 

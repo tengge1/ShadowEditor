@@ -26,6 +26,7 @@
 2. 添加开源项目链接。
 3. THREE.js数学模块翻译为Go语言，[点此](server/three/)查看详情。
 4. 使用Travis CI作为持续集成工具。
+5. 注释掉index.html文件中的ServiceWorker，因为它带来了很多问题。
 
 ## v0.5.2发布
 
