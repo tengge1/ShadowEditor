@@ -76,3 +76,4 @@ utils/electron/mongo/*.exe
 utils/electron/mongo/*.dll
 utils/electron/mongo/db
 !utils/electron/mongo/db/README.md
+utils/electron/out
