@@ -19,5 +19,8 @@
   "homepage": "https://github.com/tengge1/ShadowEditor#readme",
   "devDependencies": {
     "electron": "^9.0.4"
+  },
+  "dependencies": {
+    "iconv-lite": "^0.6.0"
   }
 }
