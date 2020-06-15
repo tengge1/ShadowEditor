@@ -2,7 +2,7 @@
 
 Use Electron to create a desktop app.
 
-## Create Guide
+## Create on Windows
 
 1. Install `Electron` with the following command.
 
@@ -23,7 +23,7 @@ ELECTRON_MIRROR=http://npm.taobao.org/mirrors/electron/
 
 Run `npm install` in this folder.
 
-3. Download MongoDB and unzip in the mongo folder.
+3. Download MongoDB and unzip in the `mongo` folder.
 
 Download mongodb zip package from `https://www.mongodb.com/try/download/community`.
 
@@ -33,5 +33,11 @@ You can run `mongo/start.bat` and test if mongodb works well.
 
 4. Build ShadowEditor.
 
-Read [README.md](../../README.md) in the root folder to create build on Windows.
+Read [README.md](../../README.md) in the root folder to build on Windows.
+
+5. Run the following in this folder to copy `build` folder.
+
+```
+xcopy /e /q /y ..\..\build .\build
+```
 
