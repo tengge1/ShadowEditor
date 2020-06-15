@@ -7,7 +7,7 @@ Use Electron to create a desktop app.
 1. Install `Electron` with the following command.
 
 ```bash
-npm install --save-dev electron
+npm install --save-dev electron electron-packager
 ```
 
 In China, as it is really slow and may fail at last, you can set a proxy as follows. Create or edit
@@ -40,4 +40,3 @@ Read [README.md](../../README.md) in the root folder to build on Windows.
 ```
 xcopy /e /q /y ..\..\build .\build
 ```
-
