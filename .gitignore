@@ -72,3 +72,5 @@ server/shadoweditor.exe
 Upload/
 debug.test
 __debug_bin
+utils/electron/mongo/*.exe
+utils/electron/mongo/*.dll
