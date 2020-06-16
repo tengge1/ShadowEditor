@@ -107,7 +107,7 @@ git clone https://gitee.com/tengge1/ShadowEditor.git
 
 ### 创建Windows桌面应用程序
 
-[点击此处]查看如何使用`Electron`创建Windows桌面应用程序。
+[点击此处](utils/electron/README.md)查看如何使用`Electron`创建Windows桌面应用程序。
 
 ## 常见问题
 
