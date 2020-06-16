@@ -57,7 +57,7 @@ function start() {
             nodeIntegration: true
         }
     });
-    win.maximize();
+    // win.maximize();
     win.loadURL('http://localhost:2020');
     win.on('close', () => {
         if (mongo) {

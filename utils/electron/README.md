@@ -6,7 +6,7 @@ Use Electron to create a desktop app.
 
 1. Install `Electron`.
 
-```bash
+```bat
 npm install --save-dev electron electron-packager
 ```
 
@@ -31,8 +31,22 @@ You can run `mongo/start.bat` and test if mongodb works well.
 
 Read [README.md](../../README.md) in the root folder to build on Windows.
 
-5. Run the following in this folder to copy `build` folder.
+4. Run the following in this folder to copy `build` folder.
 
-```
+```bat
 xcopy /e /q /y ..\..\build .\build
 ```
+
+5. Run Electron App.
+
+```bat
+npm start
+```
+
+6. Build Electron App.
+
+```bat
+npm run package
+```
+
+The app will generated in the `out` folder.
