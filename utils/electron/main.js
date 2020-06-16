@@ -1,6 +1,6 @@
 const fs = require('fs');
 const process = require('child_process');
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, Menu } = require('electron');
 
 let mongo, server, win;
 
@@ -49,6 +49,7 @@ function start() {
     startMongoDB(path);
     startServer(path);
 
+    Menu.setApplicationMenu(null);
     win = new BrowserWindow({
         width: 800,
         height: 600,
@@ -56,6 +57,7 @@ function start() {
             nodeIntegration: true
         }
     });
+    win.maximize();
     win.loadURL('http://localhost:2020');
     win.on('close', () => {
         if (mongo) {
