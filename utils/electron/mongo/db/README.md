@@ -1,0 +1,1 @@
+MongoDB Data Directory, DO NOT DELETE.

@@ -4,7 +4,7 @@ Use Electron to create a desktop app.
 
 ## Create on Windows
 
-1. Install `Electron` with the following command.
+1. Install `Electron`.
 
 ```bash
 npm install --save-dev electron electron-packager
@@ -19,11 +19,7 @@ disturl=https://npm.taobao.org/mirrors/node
 ELECTRON_MIRROR=http://npm.taobao.org/mirrors/electron/
 ```
 
-2. Install dependicies.
-
-Run `npm install` in this folder.
-
-3. Download MongoDB and unzip in the `mongo` folder.
+2. Download MongoDB and unzip in the `mongo` folder.
 
 Download mongodb zip package from `https://www.mongodb.com/try/download/community`.
 
@@ -31,7 +27,7 @@ Unzip mongodb-win32-x86_64-2012plus-4.2.7.zip in the `mongo` folder.
 
 You can run `mongo/start.bat` and test if mongodb works well.
 
-4. Build ShadowEditor.
+3. Build ShadowEditor.
 
 Read [README.md](../../README.md) in the root folder to build on Windows.
 
