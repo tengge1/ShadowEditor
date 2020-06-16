@@ -22,6 +22,6 @@ var versionCmd = &cobra.Command{
 	Short: "Print the version number of ShadowEditor",
 	Long:  `All software has versions. This is ShadowEditor's`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("ShadowEditor version: v0.5.3")
+		fmt.Println("ShadowEditor version: v0.5.4")
 	},
 }
