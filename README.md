@@ -106,6 +106,10 @@ git clone https://gitee.com/tengge1/ShadowEditor.git
 3. Double click `service.reg` in the `scripts/service_win` folder.
 4. Open `Windows Services Manager`, start `ShadowEditor` service.
 
+## Create Windows Desktop with Electron
+
+[Click](utils/electron/README.md) to see how to create a windows desktop application with Electron.
+
 ## Frequently Asked Questions
 
 1. Failed when upload models.
