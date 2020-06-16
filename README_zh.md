@@ -105,6 +105,10 @@ git clone https://gitee.com/tengge1/ShadowEditor.git
 3. 双击`scripts/service_win`文件夹中的`service.reg`。
 4. 打开`Windows服务管理器`，启动`ShadowEditor`服务。
 
+### 创建Windows桌面应用程序
+
+[点击此处]查看如何使用`Electron`创建Windows桌面应用程序。
+
 ## 常见问题
 
 1. 上传模型失败。
