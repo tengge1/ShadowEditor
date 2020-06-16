@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "package": "electron-packager . ShadowEditor --platform=win32 --arch=x64 --icon=favicon.ico --out=./out --asar --app-version=0.0.1 --overwrite --ignore=node_modules --electron-version 5.0.0",
+    "package": "rd /s /Q out && electron-packager . ShadowEditor --platform=win32 --arch=x64 --icon=favicon.ico --out=./out --app-version=0.0.1 --overwrite --ignore=node_modules --electron-version 9.0.4",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
