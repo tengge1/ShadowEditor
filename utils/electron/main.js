@@ -1,3 +1,4 @@
+const path = require('path');
 const { app, BrowserWindow } = require('electron');
 const iconv = require('iconv-lite');
 
@@ -29,16 +30,19 @@ function start() {
 
     // // 打印正常的后台可执行程序输出
     workerProcess.stdout.on('data', function (data) {
+        debugger
         console.log('stdout: ' + data)
     })
 
     // // 打印错误的后台可执行程序输出
     workerProcess.stderr.on('data', buf => {
+        debugger
         console.log(iconv.decode(buf, 'GBK'));
     })
 
     // // 退出之后的输出
     workerProcess.on('close', function (code) {
+        debugger
         console.log('out code：' + code)
     })
 
