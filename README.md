@@ -25,6 +25,9 @@ English / [中文](README_zh.md)
 
 1. Create Windows desktop application with `Electron`, [Click](utils/electron/README.md) to see detail.
 
+Windows Desktop App: https://pan.baidu.com/s/1J57qd3wCNwJlxkp8Ed0XYQ  
+Code: vwwd  
+
 ## v0.5.3 has Released
 
 * Release Date: June 14, 2020

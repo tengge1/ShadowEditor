@@ -24,6 +24,9 @@
 
 1. 使用`Electron`创建Windows桌面应用程序，[点击此处](utils/electron/README.md)查看详情。
 
+Windows桌面应用程序：https://pan.baidu.com/s/1J57qd3wCNwJlxkp8Ed0XYQ  
+提取码：vwwd  
+
 ## v0.5.3发布
 
 * 发布日期：2020年6月14日
