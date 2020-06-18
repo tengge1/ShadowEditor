@@ -25,8 +25,7 @@ English / [中文](README_zh.md)
 
 1. Create Windows desktop application with `Electron`, [Click](utils/electron/README.md) to see detail.
 
-Windows Desktop App: https://pan.baidu.com/s/1J57qd3wCNwJlxkp8Ed0XYQ  
-Extraction Code: vwwd  
+Download URL: https://github.com/tengge1/ShadowEditor/releases/download/v0.5.3/ShadowEditor-win32-x64.zip
 
 ## v0.5.3 has Released
 
