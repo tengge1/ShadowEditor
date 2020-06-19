@@ -32,8 +32,7 @@
         "build": "rollup -c rollup.config.js",
         "dev": "rollup -c rollup.config.js --watch",
         "eslint": "eslint src --fix",
-        "docs": "gitbook build docs-dev",
-        "test": "rollup -c test/unit/rollup.config.js",
+        "test": "",
         "clear": "npm prune"
     },
     "repository": {
