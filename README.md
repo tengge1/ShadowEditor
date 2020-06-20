@@ -27,7 +27,7 @@ English / [中文](README_zh.md)
 
 Download URL: https://github.com/tengge1/ShadowEditor/releases/download/v0.5.3/ShadowEditor-win32-x64.zip
 
-Note: MongoDB requires `Visual C++ Redistributable for Visual Studio 2015`. If it not works, install 
+Note: MongoDB requires `Visual C++ Redistributable for Visual Studio 2015`. If it's not working, install 
 from: https://www.microsoft.com/en-us/download/details.aspx?id=48145
 
 ## v0.5.3 has Released
