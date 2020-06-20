@@ -135,6 +135,9 @@ project. No pension, but a lot of fun. To contribute, you should:
 3. Commit your code.
 4. Create Pull Request.
 
+**Note:** DO NOT submit large binaries, or the `Pull Request` may be rejected. If required, you can 
+add the files or directories to be ignored to the `.gitignore` file.
+
 ## Frequently Asked Questions
 
 1. Failed when upload models.
