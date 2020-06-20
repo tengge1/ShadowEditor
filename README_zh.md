@@ -115,6 +115,15 @@ git clone https://gitee.com/tengge1/ShadowEditor.git
 
 [点击此处](utils/electron/README.md)查看如何使用`Electron`创建Windows桌面应用程序。
 
+## 开发指南
+
+1. 下载并安装 `NodeJs`, `golang`, `MongoDB` 和 `Visual Studio Code`.
+2. 推荐安装以下VSCode扩展， 它们对开发很有用。
+
+```
+ESLint, Go, Shader languages support for VS Code, TOML Language Support.
+```
+
 ## 常见问题
 
 1. 上传模型失败。

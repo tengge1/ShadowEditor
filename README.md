@@ -116,6 +116,15 @@ git clone https://gitee.com/tengge1/ShadowEditor.git
 
 [Click](utils/electron/README.md) to see how to create a Windows desktop application with Electron.
 
+## Development Guide
+
+1. Download and install `NodeJs`, `golang`, `MongoDB` and `Visual Studio Code`.
+2. It is recommended to install the following VSCode extensions which may be helpful.
+
+```
+ESLint, Go, Shader languages support for VS Code, TOML Language Support.
+```
+
 ## Frequently Asked Questions
 
 1. Failed when upload models.
