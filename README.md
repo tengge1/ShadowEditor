@@ -125,6 +125,13 @@ git clone https://gitee.com/tengge1/ShadowEditor.git
 ESLint, Go, Shader languages support for VS Code, TOML Language Support.
 ```
 
+## Contributing
+
+ShadowEditor is a project for both users and developers. You can contribute and try you idea on this 
+project. No pension, but a lot of fun.
+
+To contribute, please read the contribution guidelines: [CONTRIBUTING.md](CONTRIBUTING.md)
+
 ## Frequently Asked Questions
 
 1. Failed when upload models.
