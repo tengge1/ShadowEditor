@@ -1,1 +1,3 @@
-This is not a part of server. We just test some code here.
+This is not a part of server. You can test some golang features or packages here.
+
+The contents of this folder will be cleared from time to time.
