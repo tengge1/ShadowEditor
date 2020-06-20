@@ -128,9 +128,12 @@ ESLint, Go, Shader languages support for VS Code, TOML Language Support.
 ## Contributing
 
 ShadowEditor is a project for both users and developers. You can contribute and try you idea on this 
-project. No pension, but a lot of fun.
+project. No pension, but a lot of fun. To contribute, you should:
 
-To contribute, please read the contribution guidelines: [CONTRIBUTING.md](CONTRIBUTING.md)
+1. Fork the repository.
+2. Create Feat_xxx branch.
+3. Commit your code.
+4. Create Pull Request.
 
 ## Frequently Asked Questions
 
