@@ -26,6 +26,9 @@
 
 下载地址：https://github.com/tengge1/ShadowEditor/releases/download/v0.5.3/ShadowEditor-win32-x64.zip
 
+说明：MongoDB需要`Visual C++ Redistributable for Visual Studio 2015`。如果无法正常使用，从这里下载并
+安装：https://www.microsoft.com/en-us/download/details.aspx?id=48145
+
 ## v0.5.3发布
 
 * 发布日期：2020年6月14日
