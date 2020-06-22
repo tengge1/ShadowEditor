@@ -77,5 +77,4 @@ utils/electron/build/*
 !utils/electron/build/README.md
 utils/electron/out
 utils/electron/logs.txt
-server/test/service/service.exe
 web/test/WebWorldWind/build
