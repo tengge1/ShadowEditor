@@ -1,0 +1,50 @@
+{
+  "name": "@nasaworldwind/worldwind",
+  "version": "0.9.0",
+  "description": "Web WorldWind",
+  "main": "build/dist/worldwind.min.js",
+  "homepage": "https://worldwind.arc.nasa.gov",
+  "bugs": {
+    "url": "https://github.com/NASAWorldWind/WebWorldWind/issues"
+  },
+  "license": "Apache-2.0",
+  "author": "NASA",
+  "contributors": [
+    "NASA Project Manager <patrick.hogan@nasa.gov>",
+    "ESA Consortium Contact <yann.voumard@solenix.ch>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NASAWorldWind/WebWorldWind.git"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "fix": "eslint src --fix"
+  },
+  "devDependencies": {
+    "eslint": "^7.3.0",
+    "eslint-config-defaults": "^9.0.0",
+    "rollup": "^2.17.1",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0"
+  },
+  "keywords": [
+    "sdk",
+    "worldwind",
+    "3d",
+    "globe",
+    "earth",
+    "terrain",
+    "imagery",
+    "nasa",
+    "esa",
+    "geospatial",
+    "html5",
+    "javascript",
+    "webgl",
+    "browser"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
