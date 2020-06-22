@@ -38,7 +38,9 @@ func Execute() {
 
 func init() {
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "./config.toml", "config file")
+}
 
-	rootCmd.AddCommand(serveCmd)
-	rootCmd.AddCommand(versionCmd)
+// AddCommand register a custom command.
+func AddCommand(cmd *cobra.Command) {
+	rootCmd.AddCommand(cmd)
 }

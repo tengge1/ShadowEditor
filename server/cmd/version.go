@@ -25,3 +25,7 @@ var versionCmd = &cobra.Command{
 		fmt.Println("ShadowEditor version: v0.5.4")
 	},
 }
+
+func init() {
+	AddCommand(versionCmd)
+}

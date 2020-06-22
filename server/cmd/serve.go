@@ -30,6 +30,10 @@ var serveCmd = &cobra.Command{
 	},
 }
 
+func init() {
+	AddCommand(serveCmd)
+}
+
 // runServe check the config file, and start the server.
 func runServe() {
 	// Read config file `./config.toml`.
