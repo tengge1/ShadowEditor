@@ -25,7 +25,7 @@ import (
 // installCmd install ShadowEditor as a service on Windows.
 var installCmd = &cobra.Command{
 	Use:   "install",
-	Short: "install ShadowEditor as a service",
+	Short: "Install ShadowEditor as a service",
 	Long:  `Install ShadowEditor as a service on Windows.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if err := installService(ServiceName, ServiceDisplayName); err != nil {

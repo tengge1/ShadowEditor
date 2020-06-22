@@ -24,7 +24,7 @@ import (
 // stopCmd stop ShadowEditor service on Windows.
 var stopCmd = &cobra.Command{
 	Use:   "stop",
-	Short: "stop ShadowEditor service",
+	Short: "Stop ShadowEditor service",
 	Long:  `Stop ShadowEditor service on Windows.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if err := controlService(ServiceName, svc.Stop, svc.Stopped); err != nil {

@@ -19,7 +19,7 @@ import (
 // debugCmd debug ShadowEditor service on Windows.
 var debugCmd = &cobra.Command{
 	Use:   "debug",
-	Short: "debug ShadowEditor service",
+	Short: "Debug ShadowEditor service",
 	Long:  `Debug ShadowEditor service on Windows.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		runService(ServiceName, true)

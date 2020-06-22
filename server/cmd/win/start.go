@@ -22,7 +22,7 @@ import (
 // startCmd start ShadowEditor service on Windows.
 var startCmd = &cobra.Command{
 	Use:   "start",
-	Short: "start ShadowEditor service",
+	Short: "Start ShadowEditor service",
 	Long:  `Start ShadowEditor service on Windows.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if err := startService(ServiceName); err != nil {
