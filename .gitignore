@@ -65,11 +65,8 @@ typings/
 
 # custom files
 build/*
-dump/
-logs/
 server/shadoweditor
 server/shadoweditor.exe
-Upload/
 debug.test
 __debug_bin
 utils/electron/mongo/*.exe
