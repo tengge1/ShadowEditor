@@ -11,6 +11,8 @@ import (
 	"github.com/tengge1/shadoweditor/cmd"
 
 	// Register sub packages.
+	_ "github.com/tengge1/shadoweditor/cmd/win" // windows service api
+
 	// Register `github.com/tengge1/shadoweditor/server/assets`
 	_ "github.com/tengge1/shadoweditor/server/assets/animation"  // animation api
 	_ "github.com/tengge1/shadoweditor/server/assets/audio"      // audio api

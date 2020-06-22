@@ -27,5 +27,5 @@ var debugCmd = &cobra.Command{
 }
 
 func init() {
-	cmd.AddCommand(installCmd)
+	cmd.AddCommand(debugCmd)
 }
