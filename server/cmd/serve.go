@@ -22,7 +22,7 @@ import (
 // serveCmd launch the shadow editor server.
 var serveCmd = &cobra.Command{
 	Use:     "serve",
-	Short:   "Start shadow editor server",
+	Short:   "Start ShadowEditor server",
 	Aliases: []string{"server"},
 	Long:    `Use shadow editor server to provider scene and model data.`,
 	Run: func(cmd *cobra.Command, args []string) {
