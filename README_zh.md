@@ -29,6 +29,15 @@
 说明：MongoDB需要`Visual C++ Redistributable for Visual Studio 2015`。如果无法正常使用，从这里下载并
 安装：https://www.microsoft.com/en-us/download/details.aspx?id=48145
 
+2. 使用命令行在Windows上安装和启动ShadowEditor服务。
+
+`.\ShadowEditor install`: 在Windows上安装服务。  
+`.\ShadowEditor remove`: 在Windows上移除服务。  
+`.\ShadowEditor start`: 在Windows上启动服务。  
+`.\ShadowEditor stop`: 在Windows上停止服务。  
+
+你也可以在`Windows服务管理器`中管理这个服务。
+
 ## v0.5.3发布
 
 * 发布日期：2020年6月14日

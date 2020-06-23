@@ -30,6 +30,15 @@ Download URL: https://github.com/tengge1/ShadowEditor/releases/download/v0.5.3/S
 Note: MongoDB requires `Visual C++ Redistributable for Visual Studio 2015`. If it's not working, install 
 from: https://www.microsoft.com/en-us/download/details.aspx?id=48145
 
+2. Using command line to install and start `ShadowEditor` service on Windows.
+
+`.\ShadowEditor install`: install service on Windows.  
+`.\ShadowEditor remove`: remove service on Windows.  
+`.\ShadowEditor start`: start service on Windows.  
+`.\ShadowEditor stop`: stop service on Windows.  
+
+You can also manage this service in the `Windows Services Manager`.
+
 ## v0.5.3 has Released
 
 * Release Date: June 14, 2020
