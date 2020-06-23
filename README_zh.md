@@ -128,6 +128,32 @@ git clone https://gitee.com/tengge1/ShadowEditor.git
 
 [点击此处](utils/electron/README.md)查看如何使用`Electron`创建Windows桌面应用程序。
 
+## 命令行使用
+
+```
+PS E:\github\ShadowEditor\server> .\shadoweditor
+ShadowEditor is a 3D scene editor based on three.js, golang and mongodb.
+This application uses mongodb to store data.
+
+Usage:
+  ShadowEditor [command]
+
+Available Commands:
+  debug       Debug service on Windows  
+  help        Help about any command    
+  install     Install service on Windows
+  serve       Start server
+  start       Start service on Windows
+  stop        Stop service on Windows
+  version     Print the version number
+
+Flags:
+      --config string   config file (default "./config.toml")
+  -h, --help            help for ShadowEditor
+
+Use "ShadowEditor [command] --help" for more information about a command.
+```
+
 ## 开发指南
 
 1. 下载并安装 `NodeJs`, `golang`, `MongoDB` 和 `Visual Studio Code`.
