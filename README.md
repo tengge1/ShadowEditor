@@ -110,10 +110,11 @@ git clone https://gitee.com/tengge1/ShadowEditor.git
 
 ### Install as Windows Service
 
-1. Run `install.bat` in the `scripts/service_win` folder as administrator.
-2. Edit `service.reg` in the `scripts/service_win` folder, set `AppDirectory` to the absolute path of the `build` folder.
-3. Double click `service.reg` in the `scripts/service_win` folder.
-4. Open `Windows Services Manager`, start `ShadowEditor` service.
+1. Open `PowerShell` or `cmd` in the `build` folder as administrator.
+2. Run `.\ShadowEditor install` to install ShadowEditor as a service.
+3. Run `.\ShadowEditor start` to start ShadowEditor service.
+4. Now you can visit: `http://localhost:2020`.
+5. You can also manage this service in the `Windows Services Manager`.
 
 ### Create Windows Desktop Application
 

@@ -109,10 +109,11 @@ git clone https://gitee.com/tengge1/ShadowEditor.git
 
 ### 安装为Windows服务
 
-1. 以管理员身份运行`scripts/service_win`文件夹中的`install.bat`。
-2. 编辑`scripts/service_win`文件夹中的`service.reg`，设置`AppDirectory`为`build`文件夹的绝对路径。
-3. 双击`scripts/service_win`文件夹中的`service.reg`。
-4. 打开`Windows服务管理器`，启动`ShadowEditor`服务。
+1. 以管理员身份在`build`文件夹中打开`PowerShell`或`cmd`。
+2. 运行`.\ShadowEditor install`，将ShadowEditor安装为服务。
+3. 运行`.\ShadowEditor start`，启动ShadowEditor服务。
+4. 现在你可以访问：`http://localhost:2020`。
+5. 你也可以在`Windows服务管理器`中管理这个服务。
 
 ### 创建Windows桌面应用程序
 
