@@ -39,6 +39,7 @@ func init() {
 }
 
 func installService(name, desc string) error {
+	// TODO: Simplify the procedure here.
 	exepath, err := exePath()
 	if err != nil {
 		return err

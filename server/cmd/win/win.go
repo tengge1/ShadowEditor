@@ -59,7 +59,12 @@ func (m *Service) Execute(args []string, r <-chan svc.ChangeRequest, changes cha
 	const cmdsAccepted = svc.AcceptStop | svc.AcceptShutdown | svc.AcceptPauseAndContinue
 	changes <- svc.Status{State: svc.StartPending}
 	elog.Info(1, "start RunServe")
-	cmd.SetCfgFile(filepath.Join(filepath.Dir(os.Args[0]), "config.toml"))
+	if err := os.Chdir(filepath.Dir(os.Args[0])); err != nil {
+		elog.Error(1, err.Error())
+		changes <- svc.Status{State: svc.StopPending}
+		return
+	}
+	// cmd.SetCfgFile(filepath.Join(filepath.Dir(os.Args[0]), "config.toml"))
 	go func() {
 		if err := cmd.RunServe(); err != nil {
 			// something wrong occurs, write to the system logs.
