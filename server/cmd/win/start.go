@@ -22,8 +22,8 @@ import (
 // startCmd start ShadowEditor service on Windows.
 var startCmd = &cobra.Command{
 	Use:   "start",
-	Short: "Start ShadowEditor service",
-	Long:  `Start ShadowEditor service on Windows.`,
+	Short: "Start service on Windows",
+	Long:  `Start service on Windows`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if err := startService(ServiceName); err != nil {
 			fmt.Println(err.Error())

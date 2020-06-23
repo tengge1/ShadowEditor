@@ -23,8 +23,8 @@ import (
 // removeCmd remove ShadowEditor service on Windows.
 var removeCmd = &cobra.Command{
 	Use:   "remove",
-	Short: "Remove ShadowEditor service",
-	Long:  `Remove ShadowEditor service on Windows.`,
+	Short: "Remove service on Windows",
+	Long:  `Remove service on Windows`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if err := removeService(ServiceName); err != nil {
 			fmt.Println(err.Error())
