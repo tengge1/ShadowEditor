@@ -1,5 +1,0 @@
-Windows Registry Editor Version 5.00
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\ShadowEditor\Parameters]
-"Application"="ShadowEditor.exe serve --config=config.toml"
-"AppDirectory"="E:\\github\\ShadowEditor\\build"
-"Description"="Cross-platform 3D scene editor based on three.js, golang and mongodb."
