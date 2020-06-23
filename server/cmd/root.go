@@ -8,6 +8,8 @@
 package cmd
 
 import (
+	"fmt"
+
 	"github.com/inconshreveable/mousetrap"
 	"github.com/spf13/cobra"
 )
@@ -35,7 +37,10 @@ func Execute() {
 	// When you double click ShadowEditor.exe in the Windows explorer, run `serve` command.
 	if mousetrap.StartedByExplorer() {
 		// double click on the Windows system
-		RunServe()
+		if err := RunServe(); err != nil {
+			fmt.Println(err.Error())
+		}
+		wait()
 	} else {
 		// use command line
 		rootCmd.Execute()
@@ -49,4 +54,9 @@ func init() {
 // AddCommand register a custom command.
 func AddCommand(cmd *cobra.Command) {
 	rootCmd.AddCommand(cmd)
+}
+
+// SetCfgFile set config file path.
+func SetCfgFile(pat string) {
+	cfgFile = pat
 }

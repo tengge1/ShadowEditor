@@ -10,7 +10,6 @@ package cmd
 import (
 	"bufio"
 	"fmt"
-	"log"
 	"os"
 
 	"github.com/inconshreveable/mousetrap"
@@ -26,7 +25,10 @@ var serveCmd = &cobra.Command{
 	Aliases: []string{"server"},
 	Long:    `Use shadow editor server to provider scene and model data.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		RunServe()
+		if err := RunServe(); err != nil {
+			fmt.Println(err.Error())
+		}
+		wait()
 	},
 }
 
@@ -35,35 +37,20 @@ func init() {
 }
 
 // RunServe check the config file, and start the server.
-func RunServe() {
+func RunServe() error {
 	// Read config file `./config.toml`.
 	if _, err := os.Stat(cfgFile); os.IsNotExist(err) {
-		log.Printf("cannot find config file: %v", cfgFile)
-		wait()
-		return
+		return fmt.Errorf("cannot find config file: %v", cfgFile)
 	}
-
-	// Print all the exceptions for better user experience.
-	defer func() {
-		if r := recover(); r != nil {
-			if err, ok := r.(error); ok {
-				fmt.Println(err.Error())
-			} else {
-				fmt.Println(r)
-			}
-			wait()
-		}
-	}()
 
 	err := server.Create(cfgFile)
 	if err != nil {
-		log.Printf(err.Error())
-		wait()
-		return
+		return err
 	}
 
 	server.Start()
-	wait()
+
+	return nil
 }
 
 func wait() {

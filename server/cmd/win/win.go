@@ -13,7 +13,8 @@ package win
 
 import (
 	"fmt"
-	"strings"
+	"os"
+	"path/filepath"
 	"time"
 
 	"github.com/tengge1/shadoweditor/cmd"
@@ -57,7 +58,17 @@ type Service struct{}
 func (m *Service) Execute(args []string, r <-chan svc.ChangeRequest, changes chan<- svc.Status) (ssec bool, errno uint32) {
 	const cmdsAccepted = svc.AcceptStop | svc.AcceptShutdown | svc.AcceptPauseAndContinue
 	changes <- svc.Status{State: svc.StartPending}
-	cmd.RunServe()
+	elog.Info(1, "start RunServe")
+	cmd.SetCfgFile(filepath.Join(filepath.Dir(os.Args[0]), "config.toml"))
+	go func() {
+		if err := cmd.RunServe(); err != nil {
+			// something wrong occurs, write to the system logs.
+			elog.Error(1, err.Error())
+			changes <- svc.Status{State: svc.StopPending}
+			return
+		}
+	}()
+	elog.Info(1, "RunServe started")
 	changes <- svc.Status{State: svc.Running, Accepts: cmdsAccepted}
 loop:
 	for {
@@ -65,15 +76,13 @@ loop:
 		case c := <-r:
 			switch c.Cmd {
 			case svc.Interrogate:
+				elog.Info(1, "Interrogate")
 				changes <- c.CurrentStatus
 				// Testing deadlock from https://code.google.com/p/winsvc/issues/detail?id=4
 				time.Sleep(100 * time.Millisecond)
 				changes <- c.CurrentStatus
 			case svc.Stop, svc.Shutdown:
-				// golang.org/x/sys/windows/svc.TestExample is verifying this output.
-				testOutput := strings.Join(args, "-")
-				testOutput += fmt.Sprintf("-%d", c.Context)
-				elog.Info(1, testOutput)
+				elog.Info(1, "Stop")
 				break loop
 			default:
 				elog.Error(1, fmt.Sprintf("unexpected control request #%d", c))
