@@ -16,6 +16,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/tengge1/shadoweditor/cmd"
+
 	"golang.org/x/sys/windows/svc"
 	"golang.org/x/sys/windows/svc/debug"
 	"golang.org/x/sys/windows/svc/eventlog"
@@ -30,6 +32,24 @@ const (
 
 var elog debug.Log
 
+func init() {
+	cmd.ShouldRunService = shouldRunService
+}
+
+// shouldRunService determines if this is running as a service.
+func shouldRunService() bool {
+	isIntSess, err := svc.IsAnInteractiveSession()
+	if err != nil {
+		fmt.Printf("failed to determine if we are running in an interactive session: %v\n", err)
+		return false
+	}
+	if !isIntSess {
+		runService(ServiceName, false)
+		return true
+	}
+	return false
+}
+
 // Service is the ShadowEditor service model.
 type Service struct{}
 
@@ -37,6 +57,7 @@ type Service struct{}
 func (m *Service) Execute(args []string, r <-chan svc.ChangeRequest, changes chan<- svc.Status) (ssec bool, errno uint32) {
 	const cmdsAccepted = svc.AcceptStop | svc.AcceptShutdown | svc.AcceptPauseAndContinue
 	changes <- svc.Status{State: svc.StartPending}
+	cmd.RunServe()
 	changes <- svc.Status{State: svc.Running, Accepts: cmdsAccepted}
 loop:
 	for {

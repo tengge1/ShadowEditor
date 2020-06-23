@@ -26,7 +26,7 @@ var serveCmd = &cobra.Command{
 	Aliases: []string{"server"},
 	Long:    `Use shadow editor server to provider scene and model data.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		runServe()
+		RunServe()
 	},
 }
 
@@ -34,8 +34,8 @@ func init() {
 	AddCommand(serveCmd)
 }
 
-// runServe check the config file, and start the server.
-func runServe() {
+// RunServe check the config file, and start the server.
+func RunServe() {
 	// Read config file `./config.toml`.
 	if _, err := os.Stat(cfgFile); os.IsNotExist(err) {
 		log.Printf("cannot find config file: %v", cfgFile)

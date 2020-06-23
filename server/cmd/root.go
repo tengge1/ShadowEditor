@@ -14,7 +14,6 @@ import (
 
 var (
 	cfgFile string
-
 	rootCmd = &cobra.Command{
 		Use:   "ShadowEditor",
 		Short: "3D scene editor based on three.js, golang and mongodb",
@@ -23,13 +22,20 @@ This application uses mongodb to store data.`,
 	}
 )
 
+// ShouldRunService determines if Execute() is running as a service.
+var ShouldRunService func() bool
+
 // Execute executes the root command. It displays useful information, and register all other commands.
-//
-// When you double click ShadowEditor.exe in the Windows explorer, run `serve` command.
 func Execute() {
+	// When ShouldRunService() return true, it runs as a service on Windows.
+	if ShouldRunService != nil && ShouldRunService() {
+		return
+	}
+
+	// When you double click ShadowEditor.exe in the Windows explorer, run `serve` command.
 	if mousetrap.StartedByExplorer() {
 		// double click on the Windows system
-		runServe()
+		RunServe()
 	} else {
 		// use command line
 		rootCmd.Execute()
