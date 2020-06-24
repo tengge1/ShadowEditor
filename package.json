@@ -29,9 +29,12 @@
         "rollup-plugin-strip-banner": "^2.0.0"
     },
     "scripts": {
+        "build": "node scripts/build.js",
         "build-server": "cd server && go build -o ../build/ShadowEditor",
         "build-web": "rollup -c web/rollup.config.js",
         "dev-web": "rollup -c web/rollup.config.js --watch",
+        "set-proxy": "node scripts/set_proxy.js",
+        "unset-proxy": "node scripts/unset_proxy.js",
         "eslint": "eslint web/src --fix",
         "test": "",
         "clear": "npm prune"

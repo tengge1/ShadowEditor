@@ -8,5 +8,4 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 
-// Download MongoDB
-
+console.log('set proxy');
