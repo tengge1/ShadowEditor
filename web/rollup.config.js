@@ -27,7 +27,7 @@ function glsl() {
 }
 
 export default {
-    input: 'src/index.js',
+    input: 'web/src/index.js',
     output: {
         indent: '\t',
         format: 'umd',
