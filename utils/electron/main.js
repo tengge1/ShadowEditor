@@ -1,5 +1,5 @@
 const fs = require('fs');
-const process = require('child_process');
+const subprocess = require('child_process');
 const { app, BrowserWindow, Menu } = require('electron');
 
 let mongo, server, win;
@@ -10,7 +10,7 @@ function log(data) {
 }
 
 function startMongoDB(root) {
-    mongo = process.exec(`${root}\\mongo\\mongod.exe --dbpath=${root}\\mongo\\db`, {
+    mongo = subprocess.exec(`${root}\\mongo\\mongod.exe --dbpath=${root}\\mongo\\db`, {
         cwd: `${root}\\mongo`,
         encoding: 'gbk' // only for Chinese
     });
@@ -27,7 +27,7 @@ function startMongoDB(root) {
 }
 
 function startServer(root) {
-    server = process.exec(`${root}\\build\\ShadowEditor.exe serve --config ./config.toml`, {
+    server = process.exec(`${root}\\ShadowEditor.exe serve --config ./config.toml`, {
         cwd: `${root}\\build`,
         encoding: 'gbk' // only for Chinese
     });
