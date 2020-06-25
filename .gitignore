@@ -78,3 +78,5 @@ utils/electron/build/*
 utils/electron/out
 utils/electron/logs.txt
 web/test/WebWorldWind/build
+utils/mongodb/*
+!utils/mongodb/README.md
