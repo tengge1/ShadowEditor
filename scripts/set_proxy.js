@@ -30,8 +30,5 @@ const cmds = [
     'echo current nodejs proxy: $(npm config get registry)'
 ];
 
-process.execFile('./set_proxy.bat', (error, stdout, stderr) => {
-    console.log('error:' + error);
-    console.log('stdout:' + stdout);
-    console.log('stderr:' + stderr);
-});
+var buf = process.execSync('go env GOPROXY');
+console.log(buf.toString());
