@@ -29,7 +29,7 @@ function startMongoDB(root) {
 function startServer(root) {
     process.chdir(root);
 
-    server = process.spawn(`ShadowEditor.exe `, ['serve', '--config', './config.toml']);
+    server = subprocess.spawn(`ShadowEditor.exe `, ['serve', '--config', './config.toml']);
     server.stdout.on('data', data => {
         log(`Server Out: ${data}`);
     });
