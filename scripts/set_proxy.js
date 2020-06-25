@@ -42,6 +42,8 @@ function main() {
     // Output the current `go_proxy` and `node_proxy`.
     console.log(`current go proxy: ${exec('go env GOPROXY', false)}`);
     console.log(`current nodejs proxy: ${exec('npm config get registry', false)}`);
+
+    console.log('Done!');
 }
 
-main()
+main();
