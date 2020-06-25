@@ -5,9 +5,10 @@
     "description": "Cross-platform 3D scene editor based on three.js, golang and mongodb.",
     "scripts": {
         "build": "node scripts/build.js",
-        "build-server": "cd server && go build -o ../build/ShadowEditor",
-        "build-web": "rollup -c web/rollup.config.js",
-        "dev-web": "rollup -c web/rollup.config.js --watch",
+        "build-server": "node scripts/build_server.js",
+        "build-web": "cd web && rollup -c rollup.config.js",
+        "dev-web": "cd web && rollup -c rollup.config.js --watch",
+        "start": "cd build && ShadowEditor serve --config ./config.toml",
         "set-proxy": "node scripts/set_proxy.js",
         "unset-proxy": "node scripts/unset_proxy.js",
         "install-dev": "node scripts/install_dev.js",
