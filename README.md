@@ -37,7 +37,9 @@ from: https://www.microsoft.com/en-us/download/details.aspx?id=48145
 `.\ShadowEditor start`: start service on Windows.  
 `.\ShadowEditor stop`: stop service on Windows.  
 
-You can also manage this service in the `Windows Services Manager`.
+You can also manage this service in the `Windows Services Manager`.  
+
+3. Use `nodejs` to rewrite the scripts, and you can now use `npm` to manage this project.
 
 ## v0.5.3 has Released
 
@@ -78,7 +80,6 @@ The following is only required when you want to build from source.
 2. NodeJS 14.1+
 3. gcc 9.3.0+ (`tdm-gcc`, `MinGW-w64` or `MinGW` on Windows, and make sure `gcc` can be accessed through the command line)
 4. git 2.25.1+
-5. make 4.2.1+ (Linux only)
 
 **Note:** The version number is for reference only.
 
@@ -96,26 +97,13 @@ In **China**, `github` is really slow, you can use `gitee` instead.
 git clone https://gitee.com/tengge1/ShadowEditor.git
 ```
 
-### Build on Ubuntu
+### Build on both Windows and Ubuntu
 
-1. If you are in `China`, run `make proxy` to set golang and nodejs proxy.
-2. Run `make` to build the server and web.
-3. Edit `build/config.toml`, and modify the database host and port.
-4. Run `make run` to launch the server. You can now visit: `http://localhost:2020`.
-
-### Build on Windows
-
-1. If you are in `China`, double click `set_proxy.bat` in the `scripts` folder.
-2. Double click `build.bat` in the `scripts` folder.
-3. Edit `config.toml` in the `build` folder, and modify the database host and port.
-4. Double click `ShadowEditor.exe` in the `build` folder. You can now visit: `http://localhost:2020`.
-
-### Install as Ubuntu Service
-
-1. Edit `./scripts/service_linux/shadoweditor.service`, set the right path.
-2. Run `make service` to install service.
-3. Run `sudo systemctl start shadoweditor` to start service.
-4. Run `sudo systemctl enable shadoweditor` to auto start service.
+1. If you are in `China`, run `npm run set-proxy` to set golang and nodejs proxy.
+2. Run `npm install` to install nodejs dependencies.
+3. Run `npm run build` to build the server and web.
+4. Edit `build/config.toml`, and modify the mongodb host and port.
+5. Run `npm run start` to launch the server. You can now visit: `http://localhost:2020`.
 
 ### Install as Windows Service
 
@@ -124,6 +112,14 @@ git clone https://gitee.com/tengge1/ShadowEditor.git
 3. Run `.\ShadowEditor start` to start ShadowEditor service.
 4. Now you can visit: `http://localhost:2020`.
 5. You can also manage this service in the `Windows Services Manager`.
+
+### Install as Ubuntu Service
+
+1. Edit `./scripts/service_linux/shadoweditor.service`, set the right path.
+2. Run `sudo cp ./scripts/service_linux/shadoweditor.service /etc/systemd/system/`.
+3. Run `sudo systemctl daemon-reload` to reload the service daemon.
+4. Run `sudo systemctl start shadoweditor` to start service.
+5. Run `sudo systemctl enable shadoweditor` to auto start service.
 
 ### Create Windows Desktop Application
 

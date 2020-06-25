@@ -36,7 +36,9 @@
 `.\ShadowEditor start`: 在Windows上启动服务。  
 `.\ShadowEditor stop`: 在Windows上停止服务。  
 
-你也可以在`Windows服务管理器`中管理这个服务。
+你也可以在`Windows服务管理器`中管理这个服务。  
+
+3. 使用`nodejs`重写脚本，现在你可以使用`npm`管理这个项目。  
 
 ## v0.5.3发布
 
@@ -77,7 +79,6 @@
 2. NodeJS 14.1+
 3. gcc 9.3.0+ （Windows上需要安装`tdm-gcc`、`MinGW-w64`或`MinGW`。请保证`gcc`可以通过命令行访问）
 4. git 2.25.1+
-5. make 4.2.1+ (仅在Linux上需要)
 
 **注意** 版本号仅供参考。
 
@@ -95,26 +96,13 @@ git clone https://github.com/tengge1/ShadowEditor.git
 git clone https://gitee.com/tengge1/ShadowEditor.git
 ```
 
-### 在Ubuntu上构建
+### 在Windows和Ubuntu上构建
 
-1. 如果你在国内， 执行`make proxy`设置go语言和nodejs代理。
-2. 执行`make`构建服务端和Web端。
-3. 编辑`build/config.toml`，修改数据库host和port设置。
-4. 执行`make run`启动服务端。现在你可以访问：`http://localhost:2020`。
-
-### 在Windows上构建
-
-1. 如果你在国内，双击`scripts`文件夹中的`set_proxy.bat`。
-2. 双击`scripts`文件夹中的`build.bat`。
-3. 编辑`build`文件夹中的`config.toml`，修改数据库host和port配置。
-4. 双击`build`文件夹中的`ShadowEditor.exe`。现在你可以访问：`http://localhost:2020`。
-
-### 安装为Ubuntu服务
-
-1. 编辑`./scripts/service_linux/shadoweditor.service`，设置正确的路径。
-2. 执行`make service`安装`shadoweditor`服务。
-3. 执行`sudo systemctl start shadoweditor`启动服务。
-4. 执行`sudo systemctl enable shadoweditor`设置开机自启动。
+1. 如果你在国内， 执行`npm run set-proxy`设置go语言和nodejs代理。
+2. 执行`npm install`安装nodejs依赖。
+3. 执行`npm run build`构建服务端和Web端。
+4. 编辑`build/config.toml`，修改MongoDB的host和port设置。
+5. 执行`npm run start`启动服务端。现在你可以访问：`http://localhost:2020`。
 
 ### 安装为Windows服务
 
@@ -123,6 +111,14 @@ git clone https://gitee.com/tengge1/ShadowEditor.git
 3. 运行`.\ShadowEditor start`，启动ShadowEditor服务。
 4. 现在你可以访问：`http://localhost:2020`。
 5. 你也可以在`Windows服务管理器`中管理这个服务。
+
+### 安装为Ubuntu服务
+
+1. 编辑`./scripts/service_linux/shadoweditor.service`，设置正确的路径。
+2. 执行`sudo cp ./scripts/service_linux/shadoweditor.service /etc/systemd/system/`。
+3. 执行`sudo systemctl daemon-reload`重新加载服务守护程序。
+4. 执行`sudo systemctl start shadoweditor`启动服务。
+5. 执行`sudo systemctl enable shadoweditor`设置开机自启动。
 
 ### 创建Windows桌面应用程序
 
