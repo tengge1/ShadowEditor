@@ -12,6 +12,7 @@
         "unset-proxy": "node scripts/unset_proxy.js",
         "install-dev": "node scripts/install_dev.js",
         "eslint": "eslint web/src --fix",
+        "clean": "node scripts/clean.js",
         "test": "",
         "clear": "npm prune"
     },
