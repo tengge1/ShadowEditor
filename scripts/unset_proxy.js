@@ -31,7 +31,9 @@ function main() {
 
     // unset nodejs proxy
     console.log('unset nodejs proxy');
-    exec('npm config set registry https://registry.npmjs.org/');
+    exec('npm config delete registry');
+    exec('npm config delete disturl');
+    exec('npm config delete ELECTRON_MIRROR');
 
     // done
     console.log('Done!');

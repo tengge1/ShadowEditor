@@ -38,6 +38,8 @@ function main() {
     // So, we can set a proxy to make it faster to install third-party dependencies.
     console.log('set nodejs proxy');
     exec('npm config set registry https://registry.npm.taobao.org/');
+    exec('npm config set disturl https://npm.taobao.org/mirrors/node');
+    exec('npm config set ELECTRON_MIRROR http://npm.taobao.org/mirrors/electron/');
 
     // done
     console.log('Done!');
