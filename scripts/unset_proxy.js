@@ -8,7 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 
-const process = require('child_process');
+const subprocess = require('child_process');
 
 /**
  * Execute a command
@@ -18,7 +18,7 @@ const process = require('child_process');
  */
 function exec(cmd, showCmd = true) {
     showCmd && console.log(cmd);
-    return process.execSync(cmd).toString().trimRight('\n');
+    return subprocess.execSync(cmd).toString().trimRight('\n');
 }
 
 /**
@@ -31,12 +31,9 @@ function main() {
 
     // unset nodejs proxy
     console.log('unset nodejs proxy');
-    console.log('npm config set registry https://registry.npmjs.org/');
+    exec('npm config set registry https://registry.npmjs.org/');
 
-    // Output the current `go_proxy` and `node_proxy`.
-    console.log(`current go proxy: ${exec('go env GOPROXY', false)}`);
-    console.log(`current nodejs proxy: ${exec('npm config get registry', false)}`);
-
+    // done
     console.log('Done!');
 }
 

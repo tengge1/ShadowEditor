@@ -8,7 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 
-const process = require('child_process');
+const subprocess = require('child_process');
 
 // IMPORTANT: This script is for Chinese users only!
 
@@ -20,7 +20,7 @@ const process = require('child_process');
  */
 function exec(cmd, showCmd = true) {
     showCmd && console.log(cmd);
-    return process.execSync(cmd).toString().trimRight('\n');
+    return subprocess.execSync(cmd).toString().trimRight('\n');
 }
 
 /**
@@ -37,12 +37,9 @@ function main() {
     // For some well-known reasons, it is slow to install packages from https://www.npmjs.com/ in china.
     // So, we can set a proxy to make it faster to install third-party dependencies.
     console.log('set nodejs proxy');
-    console.log('npm config set registry https://registry.npm.taobao.org/');
+    exec('npm config set registry https://registry.npm.taobao.org/');
 
-    // Output the current `go_proxy` and `node_proxy`.
-    console.log(`current go proxy: ${exec('go env GOPROXY', false)}`);
-    console.log(`current nodejs proxy: ${exec('npm config get registry', false)}`);
-
+    // done
     console.log('Done!');
 }
 
