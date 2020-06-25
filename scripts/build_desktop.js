@@ -12,6 +12,7 @@ const subprocess = require('child_process');
 const path = require('path');
 const fs = require('fs-extra');
 const os = require('os');
+const iconv = require('iconv-lite');
 
 /**
  * Execute a command
@@ -21,7 +22,7 @@ const os = require('os');
  */
 function exec(cmd, showCmd = true) {
     showCmd && console.log(cmd);
-    return subprocess.execSync(cmd).toString().trimRight('\n');
+    return iconv.decode(subprocess.execSync(cmd), 'cp936').trimRight('\n');
 }
 
 /**
