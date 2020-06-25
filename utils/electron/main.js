@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 const subprocess = require('child_process');
 const { app, BrowserWindow, Menu } = require('electron');
 
@@ -10,10 +11,9 @@ function log(data) {
 }
 
 function startMongoDB(root) {
-    mongo = subprocess.exec(`${root}\\mongo\\mongod.exe --dbpath=${root}\\mongo\\db`, {
-        cwd: `${root}\\mongo`,
-        encoding: 'gbk' // only for Chinese
-    });
+    process.chdir(path.join(root, 'mongo'));
+
+    mongo = subprocess.spawn('mongod.exe', ['--dbpath=db']);
     mongo.stdout.on('data', data => {
         log(`Mongo Out: ${data}`);
     });
@@ -27,10 +27,9 @@ function startMongoDB(root) {
 }
 
 function startServer(root) {
-    server = process.exec(`${root}\\ShadowEditor.exe serve --config ./config.toml`, {
-        cwd: `${root}\\build`,
-        encoding: 'gbk' // only for Chinese
-    });
+    process.chdir(root);
+
+    server = process.spawn(`ShadowEditor.exe `, ['serve', '--config', './config.toml']);
     server.stdout.on('data', data => {
         log(`Server Out: ${data}`);
     });
@@ -44,10 +43,10 @@ function startServer(root) {
 }
 
 function start() {
-    const path = app.getAppPath();
+    const root = app.getAppPath();
 
-    startMongoDB(path);
-    startServer(path);
+    startMongoDB(root);
+    startServer(root);
 
     Menu.setApplicationMenu(null);
     win = new BrowserWindow({

@@ -73,3 +73,5 @@ web/test/WebWorldWind/build
 utils/mongodb/*
 !utils/mongodb/README.md
 !utils/mongodb/db
+utils/mongodb/db/*
+!utils/mongodb/db/README.md
