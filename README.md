@@ -23,7 +23,7 @@ English / [中文](README_zh.md)
 
 ## v0.5.4 is Coming Soon
 
-1. Create Windows desktop application with `Electron`, [Click](utils/electron/README.md) to see detail.
+1. Create Windows desktop application with `Electron`.
 
 Download URL: https://github.com/tengge1/ShadowEditor/releases/download/v0.5.3/ShadowEditor-win32-x64.zip
 
@@ -104,6 +104,7 @@ git clone https://gitee.com/tengge1/ShadowEditor.git
 3. Run `npm run build` to build the server and web.
 4. Edit `build/config.toml`, and modify the mongodb host and port.
 5. Run `npm run start` to launch the server. You can now visit: `http://localhost:2020`.
+6. Run `npm build build-desktop` to build a desktop app in the folder `build/desktop`.
 
 ### Install as Windows Service
 
@@ -120,10 +121,6 @@ git clone https://gitee.com/tengge1/ShadowEditor.git
 3. Run `sudo systemctl daemon-reload` to reload the service daemon.
 4. Run `sudo systemctl start shadoweditor` to start service.
 5. Run `sudo systemctl enable shadoweditor` to auto start service.
-
-### Create Windows Desktop Application
-
-[Click](utils/electron/README.md) to see how to create a Windows desktop application with Electron.
 
 ## Command Line Usage
 

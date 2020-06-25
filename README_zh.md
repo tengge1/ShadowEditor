@@ -22,7 +22,7 @@
 
 ## v0.5.4即将发布
 
-1. 使用`Electron`创建Windows桌面应用程序，[点击此处](utils/electron/README.md)查看详情。
+1. 使用`Electron`创建Windows桌面应用程序。
 
 下载地址：https://github.com/tengge1/ShadowEditor/releases/download/v0.5.3/ShadowEditor-win32-x64.zip
 
@@ -103,6 +103,7 @@ git clone https://gitee.com/tengge1/ShadowEditor.git
 3. 执行`npm run build`构建服务端和Web端。
 4. 编辑`build/config.toml`，修改MongoDB的host和port设置。
 5. 执行`npm run start`启动服务端。现在你可以访问：`http://localhost:2020`。
+6. 执行`npm build build-desktop`可以在文件夹`build/desktop`中创建一个桌面版应用。
 
 ### 安装为Windows服务
 
@@ -119,10 +120,6 @@ git clone https://gitee.com/tengge1/ShadowEditor.git
 3. 执行`sudo systemctl daemon-reload`重新加载服务守护程序。
 4. 执行`sudo systemctl start shadoweditor`启动服务。
 5. 执行`sudo systemctl enable shadoweditor`设置开机自启动。
-
-### 创建Windows桌面应用程序
-
-[点击此处](utils/electron/README.md)查看如何使用`Electron`创建Windows桌面应用程序。
 
 ## 命令行使用
 
