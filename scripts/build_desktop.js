@@ -62,8 +62,10 @@ async function main() {
 
     exec('electron-packager . ShadowEditor --platform=win32 ' +
         '--arch=x64 --icon=../web/favicon.ico --out=desktop --app-version=0.0.1 ' +
-        '--overwrite --no-prune --ignore=public/Upload|public/Upload2 ' +
-        '--electron-version 9.0.4');
+        '--overwrite --no-prune --ignore="public/Upload" ' +
+        '--electron-version 9.0.4 ' +
+        '--download.mirrorOptions.mirror="http://npm.taobao.org/mirrors/electron/' // Only need in China
+    );
 
     console.log('leave build');
     process.chdir(rootDir);

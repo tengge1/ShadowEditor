@@ -1,1 +1,0 @@
-mongod.exe --dbpath=db

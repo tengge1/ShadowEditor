@@ -1,1 +1,0 @@
-Copy {root}/build/* in this folder.
