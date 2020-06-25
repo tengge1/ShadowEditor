@@ -60,8 +60,11 @@ async function main() {
     console.log('enter build');
     process.chdir(buildDir);
 
+    const package = JSON.parse(fs.readFileSync('../package.json').toString());
+    const version = package.version;
+
     exec('electron-packager . ShadowEditor --platform=win32 ' +
-        '--arch=x64 --icon=../web/favicon.ico --out=desktop --app-version=0.0.1 ' +
+        `--arch=x64 --icon=../web/favicon.ico --out=desktop --app-version=${version} ` +
         '--overwrite --no-prune --ignore="public/Upload" ' +
         '--electron-version 9.0.4 ' +
         '--download.mirrorOptions.mirror="http://npm.taobao.org/mirrors/electron/' // Only need in China
