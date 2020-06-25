@@ -10,7 +10,7 @@
         "dev-web": "rollup -c web/rollup.config.js --watch",
         "set-proxy": "node scripts/set_proxy.js",
         "unset-proxy": "node scripts/unset_proxy.js",
-        "install-dev": "node scripts/install_develop.js",
+        "install-dev": "node scripts/install_dev.js",
         "eslint": "eslint web/src --fix",
         "test": "",
         "clear": "npm prune"
