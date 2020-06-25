@@ -11,7 +11,7 @@
 const subprocess = require('child_process');
 const path = require('path');
 const fs = require('fs-extra');
-const { Z_FIXED } = require('zlib');
+const os = require('os');
 
 /**
  * Execute a command
@@ -53,7 +53,11 @@ function main() {
     console.log(`enter ${serverDir}`);
     process.chdir(serverDir);
     console.log(`build server...`);
-    exec('go build -o ../build/ShadowEditor');
+    if (os.platform() === 'win32') {
+        exec('go build -o ../build/ShadowEditor.exe');
+    } else {
+        exec('go build -o ../build/ShadowEditor');
+    }
     console.log('copy config.toml to the build directory');
     fs.copyFileSync('config.toml', '../build/config.toml');
     console.log(`leave ${serverDir}`);
