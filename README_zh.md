@@ -98,12 +98,19 @@ git clone https://gitee.com/tengge1/ShadowEditor.git
 
 ### 在Windows和Ubuntu上构建
 
+**Web版：**
+
 1. 如果你在国内， 执行`npm run set-proxy`设置go语言和nodejs代理。
 2. 执行`npm install`安装nodejs依赖。
 3. 执行`npm run build`构建服务端和Web端。
 4. 编辑`build/config.toml`，修改MongoDB的host和port设置。
 5. 执行`npm run start`启动服务端。现在你可以访问：`http://localhost:2020`。
-6. 执行`npm run build-desktop`可以在文件夹`build/desktop`中创建一个桌面版应用。
+
+**桌面版：**
+
+1. 下载`MongoDB`，解压到`utils/mongodb`文件夹中。
+2. 构建Web版。
+3. 执行`npm run build-desktop`可以在文件夹`build/desktop`中创建一个桌面版应用。
 
 ### 安装为Windows服务
 

@@ -99,12 +99,19 @@ git clone https://gitee.com/tengge1/ShadowEditor.git
 
 ### Build on both Windows and Ubuntu
 
+**Web Version:**
+
 1. If you are in `China`, run `npm run set-proxy` to set golang and nodejs proxy.
 2. Run `npm install` to install nodejs dependencies.
 3. Run `npm run build` to build the server and web.
 4. Edit `build/config.toml`, and modify the mongodb host and port.
 5. Run `npm run start` to launch the server. You can now visit: `http://localhost:2020`.
-6. Run `npm run build-desktop` to build a desktop app in the folder `build/desktop`.
+
+**Desktop Version:**
+
+1. Download `MongoDB` and unzip it in the `utils/mongodb` folder.
+2. Build web version.
+3. Run `npm run build-desktop` to build a desktop app in the folder `build/desktop`.
 
 ### Install as Windows Service
 
