@@ -40,7 +40,7 @@
 
 3. 使用`nodejs`重写脚本，现在你可以使用`npm`管理这个项目。  
 
-## v0.5.3发布
+## v0.5.3发布[更新日志](https://gitee.com/tengge1/ShadowEditor/wikis/pages?sort_id=2215122&doc_id=188900)
 
 * 发布日期：2020年6月14日
 * 更新日志：
