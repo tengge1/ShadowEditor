@@ -8,26 +8,16 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 
-const subprocess = require('child_process');
 const fs = require('fs-extra');
-
-/**
- * Execute a command
- * @param {String} cmd bat of shell command
- * @param {Boolean} showCmd whether to print the command
- * @returns the result of the command
- */
-function exec(cmd, showCmd = true) {
-    showCmd && console.log(cmd);
-    return subprocess.execSync(cmd).toString().trimRight('\n');
-}
 
 /**
  * The main function
  */
 function main() {
     const list = [
+        'build/desktop',
         'build/logs',
+        'build/mongo',
         'build/public/assets',
         'build/public/build',
         'build/public/locales',
@@ -38,6 +28,9 @@ function main() {
         'build/public/sw.js',
         'build/public/view.html',
         'build/config.toml',
+        'build/logs.txt',
+        'build/main.js',
+        'build/package.json',
         'build/ShadowEditor',
         'build/ShadowEditor.exe'
     ];
