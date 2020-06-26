@@ -23,12 +23,15 @@ English / [中文](README_zh.md)
 
 ## v0.5.4 is Coming Soon
 
-1. Create Windows desktop application with `Electron`.
+1. Create desktop app with `Electron`.
 
-Download URL: https://github.com/tengge1/ShadowEditor/releases/download/v0.5.3/ShadowEditor-v0.5.3-win32-x64.zip
+Windows Desktop: https://github.com/tengge1/ShadowEditor/releases/download/v0.5.3/ShadowEditor-v0.5.3-win32-x64.zip
 
-Note: MongoDB requires `Visual C++ Redistributable for Visual Studio 2015`. If it's not working, install 
-from: https://www.microsoft.com/en-us/download/details.aspx?id=48145
+Ubuntu Desktop: https://github.com/tengge1/ShadowEditor/releases/download/v0.5.3/ShadowEditor-v0.5.3-linux-x64.zip
+
+Note: Windows requires `Visual C++ Redistributable for Visual Studio 2015`. You can install from: https://www.microsoft.com/en-us/download/details.aspx?id=48145  
+
+Ubuntu requires `libcurl4`. You can install with `sudo apt install libcurl4`.
 
 2. Using command line to install and start `ShadowEditor` service on Windows.
 
