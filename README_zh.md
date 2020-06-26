@@ -103,7 +103,7 @@ git clone https://gitee.com/tengge1/ShadowEditor.git
 3. 执行`npm run build`构建服务端和Web端。
 4. 编辑`build/config.toml`，修改MongoDB的host和port设置。
 5. 执行`npm run start`启动服务端。现在你可以访问：`http://localhost:2020`。
-6. 执行`npm build build-desktop`可以在文件夹`build/desktop`中创建一个桌面版应用。
+6. 执行`npm run build-desktop`可以在文件夹`build/desktop`中创建一个桌面版应用。
 
 ### 安装为Windows服务
 
