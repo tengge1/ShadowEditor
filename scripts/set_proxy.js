@@ -8,38 +8,52 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 
-const subprocess = require('child_process');
+const os = require('os');
+const exec = require('./exec');
 
 // IMPORTANT: This script is for Chinese users only!
 
 /**
- * Execute a command
- * @param {String} cmd bat of shell command
- * @param {Boolean} showCmd whether to print the command
- * @returns the result of the command
- */
-function exec(cmd, showCmd = true) {
-    showCmd && console.log(cmd);
-    return subprocess.execSync(cmd).toString().trimRight('\n');
-}
-
-/**
  * The main function
  */
-function main() {
+async function main() {
     // For some well-known reasons, we can not install packages from golang.org in china;
     // and install packages from github.com is extremely slow.
     // So, we can set a proxy to make it faster to install third-party dependencies.
     console.log('set go proxy');
-    exec('go env -w GO111MODULE=on');
-    exec('go env -w GOPROXY=https://goproxy.cn');
+    await exec('go', ['env', '-w', 'GO111MODULE=on']);
+    await exec('go', ['env', '-w', 'GOPROXY=https://goproxy.cn']);
 
     // For some well-known reasons, it is slow to install packages from https://www.npmjs.com/ in china.
     // So, we can set a proxy to make it faster to install third-party dependencies.
     console.log('set nodejs proxy');
-    exec('npm config set registry https://registry.npm.taobao.org/');
-    exec('npm config set disturl https://npm.taobao.org/mirrors/node');
-    exec('npm config set ELECTRON_MIRROR http://npm.taobao.org/mirrors/electron/');
+    const npm = os.platform() === 'win32' ? 'npm.cmd' : 'npm';
+    await exec(npm, ['config', 'set', 'registry', 'https://registry.npm.taobao.org/']);
+    await exec(npm, ['config', 'set', 'disturl', 'https://npm.taobao.org/mirrors/node']);
+    await exec(npm, ['config', 'set', 'ELECTRON_MIRROR', 'http://npm.taobao.org/mirrors/electron/']);
+
+    // output current config
+    console.log('');
+    await exec('go', ['env', 'GOPROXY'], {
+        title: 'current GOPROXY',
+        showCmd: false,
+        trimSpace: true
+    });
+    await exec(npm, ['config', 'get', 'registry'], {
+        title: 'current registry',
+        showCmd: false,
+        trimSpace: true
+    });
+    await exec(npm, ['config', 'get', 'disturl'], {
+        title: 'current disturl',
+        showCmd: false,
+        trimSpace: true
+    });
+    await exec(npm, ['config', 'get', 'ELECTRON_MIRROR'], {
+        title: 'current ELECTRON_MIRROR',
+        showCmd: false,
+        trimSpace: true
+    });
 
     // done
     console.log('Done!');
