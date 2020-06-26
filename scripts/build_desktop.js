@@ -54,8 +54,9 @@ async function main() {
     const version = package.version;
     const npx = os.platform() === 'win32' ? 'npx.cmd' : 'npx';
 
-    await exec(npx, ['electron-packager', '.', 'ShadowEditor', '--platform=win32',
-        '--arch=x64', '--icon=../web/favicon.ico', '--out=desktop', `--app-version=${version}`,
+    await exec(npx, ['electron-packager', '.', 'ShadowEditor',
+        // '--platform=win32', '--arch=x64', 
+        '--icon=../web/favicon.ico', '--out=desktop', `--app-version=${version}`,
         '--overwrite', '--no-prune', '--ignore="public/Upload"',
         '--download.mirrorOptions.mirror="http://npm.taobao.org/mirrors/electron/' // Only need in China
     ]);
