@@ -39,11 +39,10 @@ function exec(cmd, args = [], options = {}) {
         }
         console.log(result);
     });
+    cp.stderr.on('data', data => {
+        console.error(data.toString());
+    });
     return new Promise(resolve => {
-        cp.stderr.on('data', data => {
-            console.error(data.toString());
-            resolve();
-        });
         cp.on('close', () => {
             resolve();
         });
