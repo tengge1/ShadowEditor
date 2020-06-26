@@ -1,44 +1,58 @@
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 const subprocess = require('child_process');
 const { app, BrowserWindow, Menu } = require('electron');
 
 let mongo, server, win;
 
+/**
+ * Write logs to the log file.
+ * @param {String} data message
+ */
 function log(data) {
-    fs.writeFileSync('logs.txt', data, { flag: 'a' });
-    fs.writeFileSync('logs.txt', '\n', { flag: 'a' });
+    fs.writeFileSync('logs.txt', data.toString().trim('\n') + '\n', { flag: 'a' });
 }
 
+/**
+ * Start MongoDB Service
+ * @param {String} root electron root path
+ */
 function startMongoDB(root) {
-    process.chdir(path.join(root, 'mongo'));
-
-    mongo = subprocess.spawn('mongod.exe', ['--dbpath=db']);
+    const mongod = os.platform() === 'win32' ? 'mongod.exe' : 'mongo';
+    mongo = subprocess.spawn(mongod, ['--dbpath=db'], {
+        cwd: path.join(root, 'mongo')
+    });
     mongo.stdout.on('data', data => {
-        log(`Mongo Out: ${data}`);
+        log(data.toString());
     });
     mongo.stderr.on('data', data => {
-        log(`Mongo Error: ${data}`);
+        log(data.toString());
     });
-    mongo.on('SIGTERM', data => {
+    mongo.on('SIGTERM', () => {
         mongo.exit(0);
-        log(`Mongo Close: ${data}`);
+        log('mongodb close');
     });
 }
 
+/**
+ * Start ShadowEditor server
+ * @param {String} root electron root path
+ */
 function startServer(root) {
-    process.chdir(root);
-
-    server = subprocess.spawn(`ShadowEditor.exe `, ['serve', '--config', './config.toml']);
+    const shadoweditor = os.platform() === 'win32' ? 'ShadowEditor.exe' : 'ShadowEditor';
+    server = subprocess.spawn(shadoweditor, ['serve', '--config', './config.toml'], {
+        cwd: root
+    });
     server.stdout.on('data', data => {
-        log(`Server Out: ${data}`);
+        log(data.toString());
     });
     server.stderr.on('data', data => {
-        log(`Server Error: ${data}`);
+        log(data.toString());
     });
     server.on('SIGTERM', data => {
         server.exit(0);
-        log(`Server Close: ${data}`);
+        log('shadow editor close');
     });
 }
 
