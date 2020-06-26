@@ -8,26 +8,15 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 
-const subprocess = require('child_process');
 const path = require('path');
 const fs = require('fs-extra');
 const os = require('os');
-
-/**
- * Execute a command
- * @param {String} cmd bat of shell command
- * @param {Boolean} showCmd whether to print the command
- * @returns the result of the command
- */
-function exec(cmd, showCmd = true) {
-    showCmd && console.log(cmd);
-    return subprocess.execSync(cmd).toString().trimRight('\n');
-}
+const exec = require('./exec');
 
 /**
  * The main function
  */
-function main() {
+async function main() {
     const rootDir = process.cwd(); // The root dir that contains `README.md`.
     const serverDir = path.join(rootDir, 'server'); // The golang server dir.
     const webDir = path.join(rootDir, 'web'); // The web dir.
@@ -39,8 +28,8 @@ function main() {
     // Install the golang dependencies.
     console.log(`enter ${serverDir}`);
     process.chdir(serverDir);
-    exec('go env -w GO111MODULE=on');
-    exec('go install');
+    await exec('go', ['env', '-w', 'GO111MODULE=on']);
+    await exec('go', ['install']);
     console.log(`leave ${serverDir}`);
     process.chdir(rootDir);
 
@@ -54,9 +43,9 @@ function main() {
     process.chdir(serverDir);
     console.log(`build server...`);
     if (os.platform() === 'win32') {
-        exec('go build -o ../build/ShadowEditor.exe');
+        await exec('go', ['build', '-o', '../build/ShadowEditor.exe']);
     } else {
-        exec('go build -o ../build/ShadowEditor');
+        await exec('go', ['build', '-o', '../build/ShadowEditor']);
     }
     console.log('copy config.toml to the build directory');
     fs.copyFileSync('config.toml', '../build/config.toml');
@@ -67,7 +56,8 @@ function main() {
     console.log(`enter ${webDir}`);
     process.chdir(webDir);
     console.log('build web client...');
-    exec('rollup -c rollup.config.js');
+    const npx = os.platform() === 'win32' ? 'npx.cmd' : 'npx';
+    await exec(npx, ['rollup', '-c', 'rollup.config.js']);
     console.log(`copy files...`);
     fs.copySync('./assets', '../build/public/assets');
     fs.copySync('./locales', '../build/public/locales');
