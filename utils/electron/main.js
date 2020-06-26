@@ -19,7 +19,7 @@ function log(data) {
  * @param {String} root electron root path
  */
 function startMongoDB(root) {
-    const mongod = os.platform() === 'win32' ? 'mongod.exe' : 'mongo';
+    const mongod = os.platform() === 'win32' ? 'mongod.exe' : './mongod';
     mongo = subprocess.spawn(mongod, ['--dbpath=db'], {
         cwd: path.join(root, 'mongo')
     });
@@ -40,7 +40,7 @@ function startMongoDB(root) {
  * @param {String} root electron root path
  */
 function startServer(root) {
-    const shadoweditor = os.platform() === 'win32' ? 'ShadowEditor.exe' : 'ShadowEditor';
+    const shadoweditor = os.platform() === 'win32' ? 'ShadowEditor.exe' : './ShadowEditor';
     server = subprocess.spawn(shadoweditor, ['serve', '--config', './config.toml'], {
         cwd: root
     });
