@@ -8,22 +8,11 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 
-const subprocess = require('child_process');
 const path = require('path');
 const fs = require('fs-extra');
 const os = require('os');
 const iconv = require('iconv-lite');
-
-/**
- * Execute a command
- * @param {String} cmd bat of shell command
- * @param {Boolean} showCmd whether to print the command
- * @returns the result of the command
- */
-function exec(cmd, showCmd = true) {
-    showCmd && console.log(cmd);
-    return iconv.decode(subprocess.execSync(cmd), 'cp936').trimRight('\n');
-}
+const exec = require('./exec');
 
 /**
  * The main function
@@ -63,13 +52,13 @@ async function main() {
 
     const package = JSON.parse(fs.readFileSync('../package.json').toString());
     const version = package.version;
+    const npx = os.platform() === 'win32' ? 'npx.cmd' : 'npx';
 
-    exec('electron-packager . ShadowEditor --platform=win32 ' +
-        `--arch=x64 --icon=../web/favicon.ico --out=desktop --app-version=${version} ` +
-        '--overwrite --no-prune --ignore="public/Upload" ' +
-        '--electron-version 9.0.4 ' +
+    await exec(npx, ['electron-packager', '.', 'ShadowEditor', '--platform=win32',
+        '--arch=x64', '--icon=../web/favicon.ico', '--out=desktop', `--app-version=${version}`,
+        '--overwrite', '--no-prune', '--ignore="public/Upload"',
         '--download.mirrorOptions.mirror="http://npm.taobao.org/mirrors/electron/' // Only need in China
-    );
+    ]);
 
     console.log('leave build');
     process.chdir(rootDir);
