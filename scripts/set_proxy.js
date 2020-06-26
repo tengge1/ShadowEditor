@@ -41,6 +41,7 @@ async function main() {
         showCmd: false,
         trimSpace: true
     });
+    // TODO: the output of `npm config get` is wrong
     await exec(npm, ['config', 'get', 'registry'], {
         title: 'current registry',
         showCmd: false,

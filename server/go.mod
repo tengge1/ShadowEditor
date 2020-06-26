@@ -58,8 +58,8 @@ require (
 	golang.org/x/mod v0.3.0 // indirect
 	golang.org/x/net v0.0.0-20200625001655-4c5254603344 // indirect
 	golang.org/x/sync v0.0.0-20200317015054-43a5402ce75a // indirect
-	golang.org/x/sys v0.0.0-20200622214017-ed371f2e16b4
-	golang.org/x/tools v0.0.0-20200624225443-88f3c62a19ff // indirect
+	golang.org/x/sys v0.0.0-20200625212154-ddb9806d33ae
+	golang.org/x/tools v0.0.0-20200626032829-bcbc01e07a20 // indirect
 	golang.org/x/tools/gopls v0.4.1 // indirect
 	google.golang.org/protobuf v1.25.0 // indirect
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
