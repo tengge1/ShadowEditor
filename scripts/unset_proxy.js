@@ -8,32 +8,49 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 
-const subprocess = require('child_process');
-
-/**
- * Execute a command
- * @param {String} cmd bat of shell command
- * @param {Boolean} showCmd whether to print the command
- * @returns the result of the command
- */
-function exec(cmd, showCmd = true) {
-    showCmd && console.log(cmd);
-    return subprocess.execSync(cmd).toString().trimRight('\n');
-}
+const os = require('os');
+const exec = require('./exec');
+const sleep = require('sleep-promise');
 
 /**
  * The main function
  */
-function main() {
+async function main() {
     // unset go proxy
     console.log('unset go proxy');
-    exec('go env -u GOPROXY');
+    await exec('go', ['env', '-u', 'GOPROXY']);
 
     // unset nodejs proxy
     console.log('unset nodejs proxy');
-    exec('npm config delete registry');
-    exec('npm config delete disturl');
-    exec('npm config delete ELECTRON_MIRROR');
+    const npm = os.platform() === 'win32' ? 'npm.cmd' : 'npm';
+    await exec(npm, ['config', 'delete', 'registry']);
+    await exec(npm, ['config', 'delete', 'disturl']);
+    await exec(npm, ['config', 'delete', 'ELECTRON_MIRROR']);
+
+    // output current config
+    console.log('\ncurrent config:');
+    await sleep(1000);
+    await exec('go', ['env', 'GOPROXY'], {
+        title: 'current GOPROXY',
+        showCmd: false,
+        trimSpace: true
+    });
+    // TODO: the output of `npm config get` is wrong
+    await exec(npm, ['config', 'get', 'registry'], {
+        title: 'current registry',
+        showCmd: false,
+        trimSpace: true
+    });
+    await exec(npm, ['config', 'get', 'disturl'], {
+        title: 'current disturl',
+        showCmd: false,
+        trimSpace: true
+    });
+    await exec(npm, ['config', 'get', 'ELECTRON_MIRROR'], {
+        title: 'current ELECTRON_MIRROR',
+        showCmd: false,
+        trimSpace: true
+    });
 
     // done
     console.log('Done!');

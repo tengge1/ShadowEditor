@@ -46,7 +46,8 @@
         "rollup-plugin-node-resolve": "^4.2.4",
         "rollup-plugin-postcss": "^2.9.0",
         "rollup-plugin-replace": "^2.2.0",
-        "rollup-plugin-strip-banner": "^2.0.0"
+        "rollup-plugin-strip-banner": "^2.0.0",
+        "sleep-promise": "^8.0.1"
     },
     "repository": {
         "type": "git",

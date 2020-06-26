@@ -10,6 +10,7 @@
 
 const os = require('os');
 const exec = require('./exec');
+const sleep = require('sleep-promise');
 
 // IMPORTANT: This script is for Chinese users only!
 
@@ -33,7 +34,8 @@ async function main() {
     await exec(npm, ['config', 'set', 'ELECTRON_MIRROR', 'http://npm.taobao.org/mirrors/electron/']);
 
     // output current config
-    console.log('');
+    console.log('\ncurrent config:');
+    await sleep(1000);
     await exec('go', ['env', 'GOPROXY'], {
         title: 'current GOPROXY',
         showCmd: false,
