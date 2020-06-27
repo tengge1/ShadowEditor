@@ -1,6 +1,6 @@
 # Shadow Editor
 
-English / [中文](README_zh.md)  
+English / [中文](README_zh.md) &nbsp;&nbsp; [Windows Desktop](https://github.com/tengge1/ShadowEditor/releases/download/v0.5.4/ShadowEditor-win32-x64.zip) [Ubuntu Desktop](https://github.com/tengge1/ShadowEditor/releases/download/v0.5.4/ShadowEditor-linux-x64.zip)  
 
 [![image](https://img.shields.io/github/stars/tengge1/ShadowEditor)](https://github.com/tengge1/ShadowEditor/stargazers)
 [![image](https://img.shields.io/github/forks/tengge1/ShadowEditor)](https://github.com/tengge1/ShadowEditor/network/members)
