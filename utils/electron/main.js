@@ -20,8 +20,15 @@ function log(data) {
  */
 function startMongoDB(root) {
     const mongod = os.platform() === 'win32' ? 'mongod.exe' : './mongod';
+    const cwd = path.join(root, 'mongo');
+
+    if (os.platform() !== 'win32') {
+        // ubuntu desktop need libcurl4
+        process.env.LD_LIBRARY_PATH = `LD_LIBRARY_PATH:${cwd}`
+    }
+
     mongo = subprocess.spawn(mongod, ['--dbpath=db'], {
-        cwd: path.join(root, 'mongo')
+        cwd: cwd
     });
     mongo.stdout.on('data', data => {
         log(data.toString());
