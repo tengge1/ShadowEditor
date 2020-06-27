@@ -165,7 +165,7 @@ npm run build:          build the server and web client.
 npm run build-server:   build only the server. (For development)
 npm run build-web:      build only the web client. (For development)
 npm run build-desktop:  build the desktoop version.
-npm run dev-web:        build the web client, and build automatically when files changes.(For development)
+npm run dev-web:        build the web client automatically when files changes.(For development)
 npm run start:          start the web server.
 npm run set-proxy:      set golang and nodejs proxy. (In China only)
 npm run unset-proxy:    unset golang and nodejs proxy.
