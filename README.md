@@ -28,7 +28,7 @@ English / [中文](README_zh.md)
 
 1. Create desktop app with `Electron`.
 
-Windows Desktop: https://github.com/tengge1/ShadowEditor/releases/download/v0.5.3/ShadowEditor-v0.5.3-win32-x64.zip
+Windows Desktop: https://github.com/tengge1/ShadowEditor/releases/download/v0.5.4/ShadowEditor-win32-x64.zip
 
 Ubuntu Desktop: https://github.com/tengge1/ShadowEditor/releases/download/v0.5.3/ShadowEditor-v0.5.3-linux-x64.zip
 
