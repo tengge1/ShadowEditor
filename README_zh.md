@@ -1,6 +1,6 @@
 # Shadow Editor
 
-[English](README.md) / 中文  
+[English](README.md) / 中文 &nbsp;&nbsp; [Windows桌面版](https://github.com/tengge1/ShadowEditor/releases/download/v0.5.4/ShadowEditor-win32-x64.zip) [Ubuntu桌面版](https://github.com/tengge1/ShadowEditor/releases/download/v0.5.4/ShadowEditor-linux-x64.zip)  
 
 <a href='https://gitee.com/tengge1/ShadowEditor/stargazers'><img src='https://gitee.com/tengge1/ShadowEditor/badge/star.svg?theme=dark' alt='star'></img></a>
 <a href='https://gitee.com/tengge1/ShadowEditor/members'><img src='https://gitee.com/tengge1/ShadowEditor/badge/fork.svg?theme=dark' alt='fork'></img></a>
