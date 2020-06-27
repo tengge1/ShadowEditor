@@ -10,7 +10,6 @@
 
 const os = require('os');
 const exec = require('./exec');
-const sleep = require('sleep-promise');
 
 // IMPORTANT: This script is for Chinese users only!
 
@@ -35,7 +34,6 @@ async function main() {
 
     // output current config
     console.log('\ncurrent config:');
-    await sleep(1000);
     await exec('go', ['env', 'GOPROXY'], {
         title: 'current GOPROXY',
         showCmd: false,
