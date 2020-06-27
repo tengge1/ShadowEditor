@@ -30,11 +30,9 @@ English / [中文](README_zh.md)
 
 Windows Desktop: https://github.com/tengge1/ShadowEditor/releases/download/v0.5.4/ShadowEditor-win32-x64.zip
 
-Ubuntu Desktop: https://github.com/tengge1/ShadowEditor/releases/download/v0.5.3/ShadowEditor-v0.5.3-linux-x64.zip
+Ubuntu Desktop: https://github.com/tengge1/ShadowEditor/releases/download/v0.5.4/ShadowEditor-linux-x64.zip
 
 Note: Windows requires `Visual C++ Redistributable for Visual Studio 2015`. You can install from: https://www.microsoft.com/en-us/download/details.aspx?id=48145  
-
-Ubuntu requires `libcurl4`. You can install with `sudo apt install libcurl4`.
 
 2. Using command line to install and start `ShadowEditor` service on Windows.
 

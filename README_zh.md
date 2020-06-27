@@ -27,13 +27,11 @@
 
 1. 使用`Electron`创建桌面应用程序。
 
-Windows桌面版：https://github.com/tengge1/ShadowEditor/releases/download/v0.5.3/ShadowEditor-v0.5.3-win32-x64.zip
+Windows桌面版：https://github.com/tengge1/ShadowEditor/releases/download/v0.5.4/ShadowEditor-win32-x64.zip
 
-Ubuntu桌面版：https://github.com/tengge1/ShadowEditor/releases/download/v0.5.3/ShadowEditor-v0.5.3-linux-x64.zip
+Ubuntu桌面版：https://github.com/tengge1/ShadowEditor/releases/download/v0.5.4/ShadowEditor-linux-x64.zip
 
 说明：Windows需要`Visual C++ Redistributable for Visual Studio 2015`。你可以从这安装：https://www.microsoft.com/en-us/download/details.aspx?id=48145
-
-Ubuntu需要`libcurl4`。你可以执行`sudo apt install libcurl4`来安装它。
 
 2. 使用命令行在Windows上安装和启动ShadowEditor服务。
 
