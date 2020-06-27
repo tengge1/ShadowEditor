@@ -13,7 +13,7 @@ English / [中文](README_zh.md)
 )](https://twitter.com/tengge11)
 
 * Name: Shadow Editor
-* Version: v0.5.4(Coming Soon)
+* Version: v0.5.4
 * Description: Cross-platform 3D scene editor based on three.js, golang and mongodb.
 * Source: [GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | Document: [Gitee](https://gitee.com/tengge1/ShadowEditor/wikis/pages) | Demo: [GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) | Video: [Weibo](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) | Assets: [BaiduNetdisk](https://pan.baidu.com/s/1IxJVM6fFLoIAJG-GKHjVTA)
 * Technology Stack: html, css, javascript, rollup, react.js, webgl, three.js, golang, mongodb, nodejs, electron.
@@ -21,7 +21,10 @@ English / [中文](README_zh.md)
 
 ![image](images/scene20200503_en.jpg)
 
-## v0.5.4 is Coming Soon
+## v0.5.4 has Released
+
+* Release Date: June 27, 2020
+* Update Logs:
 
 1. Create desktop app with `Electron`.
 
@@ -43,17 +46,6 @@ Ubuntu requires `libcurl4`. You can install with `sudo apt install libcurl4`.
 You can also manage this service in the `Windows Services Manager`.  
 
 3. Use `nodejs` to rewrite the scripts, and you can now use `npm` to manage this project.
-
-## v0.5.3 has Released
-
-* Release Date: June 14, 2020
-* Update Logs:
-
-1. Fix bugs of uploading models and publishing scenes on windows.
-2. Add links to open source projects.
-3. THREE.js math module has translated into golang, [Click](server/three/) for detail.
-4. Use Travis CI as a continuous integration tool.
-5. Comment out ServiceWorker in the index.html file because it caused a lot of trouble.
 
 ## Features
 

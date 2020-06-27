@@ -12,7 +12,7 @@
 )](https://twitter.com/tengge11)
 
 * 名称：Shadow Editor
-* 版本：v0.5.4（即将发布）
+* 版本：v0.5.4
 * 简介：基于Three.js、Go语言和MongoDB的跨平台的3D场景编辑器。
 * 源码：[GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | 文档：[Gitee](https://gitee.com/tengge1/ShadowEditor/wikis/pages) | 示例：[GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) | 视频：[微博](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) | 资源：[百度网盘](https://pan.baidu.com/s/1IxJVM6fFLoIAJG-GKHjVTA)
 * 技术栈：html、css、javascript、rollup、react.js、webgl、three.js、golang、mongodb、nodejs、electron。
@@ -20,7 +20,10 @@
 
 ![image](images/scene20200301.jpg)
 
-## v0.5.4即将发布
+## v0.5.4发布[【更新日志】](https://gitee.com/tengge1/ShadowEditor/wikis/pages?sort_id=2215122&doc_id=188900)
+
+* 发布日期：2020年6月27日
+* 更新日志：
 
 1. 使用`Electron`创建桌面应用程序。
 
@@ -42,17 +45,6 @@ Ubuntu需要`libcurl4`。你可以执行`sudo apt install libcurl4`来安装它�
 你也可以在`Windows服务管理器`中管理这个服务。  
 
 3. 使用`nodejs`重写脚本，现在你可以使用`npm`管理这个项目。  
-
-## v0.5.3发布 [【更新日志】](https://gitee.com/tengge1/ShadowEditor/wikis/pages?sort_id=2215122&doc_id=188900)
-
-* 发布日期：2020年6月14日
-* 更新日志：
-
-1. 修复windows上上传模型和发布场景bug。
-2. 添加开源项目链接。
-3. THREE.js数学模块翻译为Go语言，[点此](server/three/)查看详情。
-4. 使用Travis CI作为持续集成工具。
-5. 注释掉index.html文件中的ServiceWorker，因为它带来了很多问题。
 
 ## 功能特点
 
