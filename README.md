@@ -1,6 +1,6 @@
 # Shadow Editor
 
-English / [中文](README_zh.md) &nbsp;&nbsp; [Windows Desktop](https://github.com/tengge1/ShadowEditor/releases/download/v0.5.4/ShadowEditor-win32-x64.zip) [Ubuntu Desktop](https://github.com/tengge1/ShadowEditor/releases/download/v0.5.4/ShadowEditor-linux-x64.zip)  
+English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a src="https://github.com/tengge1/ShadowEditor/releases/download/v0.5.4/ShadowEditor-win32-x64.zip" title="Need Visual C++ Redistributable for Visual Studio 2015">Windows Desktop</a> <a src="https://github.com/tengge1/ShadowEditor/releases/download/v0.5.4/ShadowEditor-linux-x64.zip">Ubuntu Desktop</a>  
 
 [![image](https://img.shields.io/github/stars/tengge1/ShadowEditor)](https://github.com/tengge1/ShadowEditor/stargazers)
 [![image](https://img.shields.io/github/forks/tengge1/ShadowEditor)](https://github.com/tengge1/ShadowEditor/network/members)
