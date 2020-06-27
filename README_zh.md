@@ -134,7 +134,7 @@ git clone https://gitee.com/tengge1/ShadowEditor.git
 ## 命令行使用
 
 ```
-PS E:\github\ShadowEditor\server> .\shadoweditor
+PS E:\github\ShadowEditor\build\> .\ShadowEditor
 ShadowEditor is a 3D scene editor based on three.js, golang and mongodb.
 This application uses mongodb to store data.
 
@@ -164,6 +164,24 @@ Use "ShadowEditor [command] --help" for more information about a command.
 
 ```
 ESLint, Go, Shader languages support for VS Code, TOML Language Support.
+```
+
+npm脚本使用：
+
+```
+npm install:            安装nodejs依赖。
+npm run build:          构建服务端和web客户端。
+npm run build-server:   只构建服务端。(用于开发)
+npm run build-web:      只构建web客户端。(用于开发)
+npm run build-desktop:  构建桌面版。
+npm run dev-web:        构建web客户端，文件改变后自动构建。(用于开发)
+npm run start:          启动web服务端。
+npm run set-proxy:      设置golang和nodejs代理。(仅在国内使用)
+npm run unset-proxy:    取消设置golang和nodejs代理。
+npm run install-dev:    安装golang开发工具。
+npm run eslint:         检查js文件，自动修复错误。
+npm run clean:          删除构建的web版和桌面版。
+npm run clear:          删除没用的nodejs包。
 ```
 
 ## 参与贡献

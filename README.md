@@ -135,7 +135,7 @@ git clone https://gitee.com/tengge1/ShadowEditor.git
 ## Command Line Usage
 
 ```
-PS E:\github\ShadowEditor\server> .\shadoweditor
+PS E:\github\ShadowEditor\build\> .\ShadowEditor
 ShadowEditor is a 3D scene editor based on three.js, golang and mongodb.
 This application uses mongodb to store data.
 
@@ -165,6 +165,24 @@ Use "ShadowEditor [command] --help" for more information about a command.
 
 ```
 ESLint, Go, Shader languages support for VS Code, TOML Language Support.
+```
+
+npm scripts usage:
+
+```
+npm install:            install nodejs dependencies.
+npm run build:          build the server and web client.
+npm run build-server:   build only the server. (For development)
+npm run build-web:      build only the web client. (For development)
+npm run build-desktop:  build the desktoop version.
+npm run dev-web:        build the web client, and build automatically when files changes.(For development)
+npm run start:          start the web server.
+npm run set-proxy:      set golang and nodejs proxy. (In China only)
+npm run unset-proxy:    unset golang and nodejs proxy.
+npm run install-dev:    install golang development tools.
+npm run eslint:         check js files and fix errors automatically.
+npm run clean:          delete the web and desktop builds.
+npm run clear:          delete useless nodejs packages.
 ```
 
 ## Contributing
