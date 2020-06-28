@@ -10,7 +10,10 @@
 
 package nasa
 
-import "math"
+import (
+	"bytes"
+	"math"
+)
 
 const (
 	// EarthRadius is the radius of the earth.
@@ -95,7 +98,7 @@ func TileXYToPixelXY(tileX, tileY int) (pixelX, pixelY int) {
 
 // TileXYToQuadKey converts tile XY coordinates into a QuadKey at a specified level of detail.
 func TileXYToQuadKey(tileX, tileY, levelOfDetail int) string {
-	quadKey := ""
+	var quadKey bytes.Buffer
 	for i := levelOfDetail; i > 0; i-- {
 		digit := '0'
 		mask := 1 << (i - 1)
@@ -106,9 +109,9 @@ func TileXYToQuadKey(tileX, tileY, levelOfDetail int) string {
 			digit++
 			digit++
 		}
-		quadKey += string(digit)
+		quadKey.WriteRune(digit)
 	}
-	return quadKey
+	return quadKey.String()
 }
 
 // QuadKeyToTileXY converts a QuadKey into tile XY coordinates.
