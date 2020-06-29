@@ -37,7 +37,7 @@ func Tiles(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	path := server.MapPath(fmt.Sprintf("/Upload/Tiles/Bing/%v/%v/%v.png", z, y, x))
+	path := server.MapPath(fmt.Sprintf("/Upload/Tiles/Bing/%v/%v/%v.jpeg", z, y, x))
 	if _, err := os.Stat(path); err == nil {
 		byts, err := ioutil.ReadFile(path)
 		if err != nil {
@@ -66,7 +66,7 @@ func Tiles(w http.ResponseWriter, r *http.Request) {
 	req.Header.Set("UserAgent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.96 Safari/537.36")
 
 	client := http.Client{}
-	resp, err := client.Do(r)
+	resp, err := client.Do(req)
 	if err != nil {
 		helper.WriteJSON(w, server.Result{
 			Code: 300,
@@ -104,7 +104,7 @@ func Tiles(w http.ResponseWriter, r *http.Request) {
 func writeByts(w http.ResponseWriter, byts []byte) {
 	header := w.Header()
 	header.Set("Content-Length", strconv.Itoa(len(byts)))
-	header.Set("Content-Type", "image/png")
+	header.Set("Content-Type", "image/jpeg")
 	w.WriteHeader(http.StatusOK)
 	w.Write(byts)
 }
