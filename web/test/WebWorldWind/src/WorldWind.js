@@ -292,6 +292,7 @@ import WWMath from './util/WWMath';
 import WWMessage from './util/WWMessage';
 import WWUtil from './util/WWUtil';
 import XmlDocument from './util/XmlDocument';
+import XYZLayer from './layer/XYZLayer';
         
         /**
          * This is the top-level WorldWind module. It is global.
@@ -805,6 +806,7 @@ import XmlDocument from './util/XmlDocument';
         WorldWind['WWUtil'] = WWUtil;
         WorldWind['WorldWindow'] = WorldWindow;
         WorldWind['WorldWindowController'] = WorldWindowController;
+        WorldWind['XYZLayer'] = XYZLayer;
 
         /**
          * Holds configuration parameters for WorldWind. Applications may modify these parameters prior to creating
