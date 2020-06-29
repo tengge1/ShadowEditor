@@ -14,7 +14,19 @@ class XYZLayer extends MercatorTiledImageLayer {
         let displayName = 'Bing';
         super(new Sector(-85.05, 85.05, -180, 180), new Location(85.05, 180), 23, "image/jpeg",
             displayName, imageSize, imageSize);
+
+        this.imageSize = imageSize;
+        this.displayName = displayName;
         this.urlBuilder = new URLBuilder();
+    }
+
+    createTopLevelTiles(dc) {
+        this.topLevelTiles = [];
+
+        this.topLevelTiles.push(this.createTile(null, this.levels.firstLevel(), 0, 0));
+        this.topLevelTiles.push(this.createTile(null, this.levels.firstLevel(), 0, 1));
+        this.topLevelTiles.push(this.createTile(null, this.levels.firstLevel(), 1, 0));
+        this.topLevelTiles.push(this.createTile(null, this.levels.firstLevel(), 1, 1));
     }
 
     mapSizeForLevel(levelNumber) {
