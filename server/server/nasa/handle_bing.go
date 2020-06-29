@@ -15,25 +15,22 @@ import (
 	"path/filepath"
 	"strconv"
 
-	"github.com/tengge1/shadoweditor/helper"
 	"github.com/tengge1/shadoweditor/server"
 )
 
 func init() {
-	server.Handle(http.MethodGet, "/api/Map/Tiles", Tiles, server.None)
+	server.Handle(http.MethodGet, "/api/Map/Tiles", HandleBing, server.None)
 }
 
-// Tiles returns a map tile.
-func Tiles(w http.ResponseWriter, r *http.Request) {
+// HandleBing returns a bing map tile.
+func HandleBing(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	x, err := strconv.Atoi(r.FormValue("x"))
 	y, err := strconv.Atoi(r.FormValue("y"))
 	z, err := strconv.Atoi(r.FormValue("z"))
 	if err != nil {
-		helper.WriteJSON(w, server.Result{
-			Code: 300,
-			Msg:  err.Error(),
-		})
+		server.Logger.Error(err.Error())
+		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 
@@ -41,10 +38,8 @@ func Tiles(w http.ResponseWriter, r *http.Request) {
 	if _, err := os.Stat(path); err == nil {
 		byts, err := ioutil.ReadFile(path)
 		if err != nil {
-			helper.WriteJSON(w, server.Result{
-				Code: 300,
-				Msg:  err.Error(),
-			})
+			server.Logger.Error(err.Error())
+			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}
 		writeByts(w, byts)
@@ -56,10 +51,8 @@ func Tiles(w http.ResponseWriter, r *http.Request) {
 
 	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
-		helper.WriteJSON(w, server.Result{
-			Code: 300,
-			Msg:  err.Error(),
-		})
+		server.Logger.Error(err.Error())
+		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 	req.Header.Set("Referer", "http://cn.bing.com/ditu/")
@@ -68,20 +61,16 @@ func Tiles(w http.ResponseWriter, r *http.Request) {
 	client := http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
-		helper.WriteJSON(w, server.Result{
-			Code: 300,
-			Msg:  err.Error(),
-		})
+		server.Logger.Error(err.Error())
+		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 	defer resp.Body.Close()
 
 	byts, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		helper.WriteJSON(w, server.Result{
-			Code: 300,
-			Msg:  err.Error(),
-		})
+		server.Logger.Error(err.Error())
+		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 
@@ -91,10 +80,8 @@ func Tiles(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := ioutil.WriteFile(path, byts, 0755); err != nil {
-		helper.WriteJSON(w, server.Result{
-			Code: 300,
-			Msg:  err.Error(),
-		})
+		server.Logger.Error(err.Error())
+		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 
