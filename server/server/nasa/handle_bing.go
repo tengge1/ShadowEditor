@@ -56,7 +56,7 @@ func HandleBing(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	req.Header.Set("Referer", "http://cn.bing.com/ditu/")
-	req.Header.Set("UserAgent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.96 Safari/537.36")
+	req.Header.Set("UserAgent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36")
 
 	client := http.Client{}
 	resp, err := client.Do(req)
