@@ -16,7 +16,7 @@ import (
 func writeByts(w http.ResponseWriter, contentType string, byts []byte) {
 	header := w.Header()
 	header.Set("Content-Length", strconv.Itoa(len(byts)))
-	header.Set("Content-Type", "image/jpeg")
+	header.Set("Content-Type", contentType)
 	w.WriteHeader(http.StatusOK)
 	w.Write(byts)
 }

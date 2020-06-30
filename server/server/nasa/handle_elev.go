@@ -10,10 +10,12 @@ package nasa
 import (
 	"fmt"
 	"io/ioutil"
+	"math"
 	"net/http"
 	"os"
 	"path/filepath"
 	"strconv"
+	"strings"
 
 	"github.com/tengge1/shadoweditor/server"
 )
@@ -27,13 +29,23 @@ func HandleElev(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	x, err := strconv.Atoi(r.FormValue("x"))
 	y, err := strconv.Atoi(r.FormValue("y"))
-	z, err := strconv.Atoi(r.FormValue("z"))
+	z, err := strconv.Atoi(r.FormValue("z")) // wrong
 	if err != nil {
 		server.Logger.Error(err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 	bbox := r.FormValue("bbox")
+	aabb := strings.Split(bbox, ",")
+	minLon, err := strconv.ParseFloat(aabb[0], 64)
+	maxLon, err := strconv.ParseFloat(aabb[2], 64)
+	if err != nil {
+		server.Logger.Error(err.Error())
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	z = int(math.Log2(360 / (maxLon - minLon)))
 
 	path := server.MapPath(fmt.Sprintf("/Upload/Tiles/Elev/%v/%v/%v.bil", z, y, x))
 	if _, err := os.Stat(path); err == nil {
