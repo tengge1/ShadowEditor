@@ -33,8 +33,9 @@ func HandleElev(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
+	bbox := r.FormValue("bbox")
 
-	path := server.MapPath(fmt.Sprintf("/Upload/Tiles/Elev/%v/%v/%v.jpeg", z, y, x))
+	path := server.MapPath(fmt.Sprintf("/Upload/Tiles/Elev/%v/%v/%v.bil", z, y, x))
 	if _, err := os.Stat(path); err == nil {
 		byts, err := ioutil.ReadFile(path)
 		if err != nil {
@@ -46,8 +47,7 @@ func HandleElev(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	quadKey := TileXYToQuadKey(x, y, z)
-	url := fmt.Sprintf("http://t0.ssl.ak.tiles.virtualearth.net/tiles/a%v.jpeg?g=5793", quadKey)
+	url := fmt.Sprintf("https://worldwind26.arc.nasa.gov/elev?service=WMS&request=GetMap&version=1.3.0&transparent=TRUE&layers=GEBCO&styles=&format=application/bil16&width=256&height=256&crs=EPSG:4326&bbox=%v", bbox)
 
 	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
@@ -55,7 +55,6 @@ func HandleElev(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-	req.Header.Set("Referer", "http://cn.bing.com/ditu/")
 	req.Header.Set("UserAgent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36")
 
 	client := http.Client{}

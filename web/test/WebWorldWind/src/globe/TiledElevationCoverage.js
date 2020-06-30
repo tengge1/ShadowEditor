@@ -31,12 +31,6 @@ import Sector from '../geom/Sector';
 import Tile from '../util/Tile';
 import WWMath from '../util/WWMath';
 
-class UrlBuilder {
-    urlForTile(tile, format) {
-        return;
-    }
-}
-
 /**
  * Constructs a TiledElevationCoverage
  * @alias TiledElevationCoverage
@@ -187,7 +181,9 @@ var TiledElevationCoverage = function (config) {
      * @type {UrlBuilder}
      * @ignore
      */
-    this.urlBuilder = new UrlBuilder() || null;
+    // this.urlBuilder = new UrlBuilder() || null;
+    this.urlBuilder = config.urlBuilder || null;
+    this.urlBuilder.serviceAddress = 'http://localhost:2020/api/Map/Elev';
 };
 
 TiledElevationCoverage.prototype = Object.create(ElevationCoverage.prototype);
@@ -566,7 +562,7 @@ TiledElevationCoverage.prototype.retrieveTileImage = function (tile) {
         if (!url)
             return;
 
-        xhr.open("GET", url, true);
+        xhr.open("GET", url + `&x=${tile.column}&y=${tile.row}&z=${tile.level.levelNumber + 1}`, true);
         xhr.responseType = 'arraybuffer';
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
