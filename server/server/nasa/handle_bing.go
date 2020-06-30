@@ -42,7 +42,7 @@ func HandleBing(w http.ResponseWriter, r *http.Request) {
 			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}
-		writeByts(w, byts)
+		writeByts(w, "image/jpeg", byts)
 		return
 	}
 
@@ -85,13 +85,5 @@ func HandleBing(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	writeByts(w, byts)
-}
-
-func writeByts(w http.ResponseWriter, byts []byte) {
-	header := w.Header()
-	header.Set("Content-Length", strconv.Itoa(len(byts)))
-	header.Set("Content-Type", "image/jpeg")
-	w.WriteHeader(http.StatusOK)
-	w.Write(byts)
+	writeByts(w, "image/jpeg", byts)
 }
