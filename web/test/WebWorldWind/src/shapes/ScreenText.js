@@ -21,68 +21,67 @@ import ArgumentError from '../error/ArgumentError';
 import Logger from '../util/Logger';
 import Offset from '../util/Offset';
 import Text from '../shapes/Text';
-        
 
-        /**
-         * Constructs a screen text shape at a specified screen location.
-         * @alias ScreenText
-         * @constructor
-         * @augments Text
-         * @classdesc Represents a string of text displayed at a screen location.
-         * <p>
-         * See also {@link GeographicText}.
-         *
-         * @param {Offset} screenOffset The offset indicating the text's placement on the screen.
-         * Use [TextAttributes.offset]{@link TextAttributes#offset} to position the text relative to the specified
-         * screen offset.
-         * @param {String} text The text to display.
-         * @throws {ArgumentError} If either the specified screen offset or text is null or undefined.
-         */
-        var ScreenText = function (screenOffset, text) {
-            if (!screenOffset) {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "Text", "constructor", "missingOffset"));
-            }
 
-            Text.call(this, text);
+/**
+ * Constructs a screen text shape at a specified screen location.
+ * @alias ScreenText
+ * @constructor
+ * @augments Text
+ * @classdesc Represents a string of text displayed at a screen location.
+ * <p>
+ * See also {@link GeographicText}.
+ *
+ * @param {Offset} screenOffset The offset indicating the text's placement on the screen.
+ * Use [TextAttributes.offset]{@link TextAttributes#offset} to position the text relative to the specified
+ * screen offset.
+ * @param {String} text The text to display.
+ * @throws {ArgumentError} If either the specified screen offset or text is null or undefined.
+ */
+var ScreenText = function (screenOffset, text) {
+    if (!screenOffset) {
+        throw new ArgumentError(
+            Logger.logMessage(Logger.LEVEL_SEVERE, "Text", "constructor", "missingOffset"));
+    }
 
-            /**
-             * The offset indicating this text's placement on the screen.
-             * The [TextAttributes.offset]{@link TextAttributes#offset} property indicates the relationship of the text
-             * string to this location.
-             * @type {Offset}
-             */
-            this.screenOffset = screenOffset;
+    Text.call(this, text);
 
-            /**
-             * Inherited from [Text]{@link Text#altitudeMode} but not utilized by screen text.
-             */
-            this.altitudeMode = null;
-        };
+    /**
+     * The offset indicating this text's placement on the screen.
+     * The [TextAttributes.offset]{@link TextAttributes#offset} property indicates the relationship of the text
+     * string to this location.
+     * @type {Offset}
+     */
+    this.screenOffset = screenOffset;
 
-        ScreenText.prototype = Object.create(Text.prototype);
+    /**
+     * Inherited from [Text]{@link Text#altitudeMode} but not utilized by screen text.
+     */
+    this.altitudeMode = null;
+};
 
-        // Documented in superclass.
-        ScreenText.prototype.render = function (dc) {
-            // Ensure that this text is drawn only once per frame.
-            if (this.lastFrameTime !== dc.timestamp) {
-                Text.prototype.render.call(this, dc);
-            }
-        };
+ScreenText.prototype = Object.create(Text.prototype);
 
-        // Documented in superclass.
-        ScreenText.prototype.computeScreenPointAndEyeDistance = function (dc) {
-            var gl = dc.currentGlContext,
-                offset = this.screenOffset.offsetForSize(gl.drawingBufferWidth, gl.drawingBufferHeight);
+// Documented in superclass.
+ScreenText.prototype.render = function (dc) {
+    // Ensure that this text is drawn only once per frame.
+    if (this.lastFrameTime !== dc.timestamp) {
+        Text.prototype.render.call(this, dc);
+    }
+};
 
-            this.screenPoint[0] = offset[0];
-            this.screenPoint[1] = offset[1];
-            this.screenPoint[2] = 0;
+// Documented in superclass.
+ScreenText.prototype.computeScreenPointAndEyeDistance = function (dc) {
+    var gl = dc.currentGlContext,
+        offset = this.screenOffset.offsetForSize(gl.drawingBufferWidth, gl.drawingBufferHeight);
 
-            this.eyeDistance = 0;
+    this.screenPoint[0] = offset[0];
+    this.screenPoint[1] = offset[1];
+    this.screenPoint[2] = 0;
 
-            return true;
-        };
+    this.eyeDistance = 0;
 
-        export default ScreenText;
-    
+    return true;
+};
+
+export default ScreenText;

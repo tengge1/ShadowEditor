@@ -24,207 +24,207 @@ import Logger from '../util/Logger';
 import ShapeAttributes from '../shapes/ShapeAttributes';
 import SurfaceShape from '../shapes/SurfaceShape';
 import WWMath from '../util/WWMath';
-        
 
-        /**
-         * Constructs a surface ellipse with a specified center and radii and an optional attributes bundle.
-         * @alias SurfaceEllipse
-         * @constructor
-         * @augments SurfaceShape
-         * @classdesc Represents an ellipse draped over the terrain surface.
-         * <p>
-         * SurfaceEllipse uses the following attributes from its associated shape attributes bundle:
-         * <ul>
-         *         <li>Draw interior</li>
-         *         <li>Draw outline</li>
-         *         <li>Interior color</li>
-         *         <li>Outline color</li>
-         *         <li>Outline width</li>
-         *         <li>Outline stipple factor</li>
-         *         <li>Outline stipple pattern</li>
-         * </ul>
-         * @param {Location} center The ellipse's center location.
-         * @param {Number} majorRadius The ellipse's major radius in meters.
-         * @param {Number} minorRadius The ellipse's minor radius in meters.
-         * @param {Number} heading The heading of the major axis in degrees.
-         * @param {ShapeAttributes} attributes The attributes to apply to this shape. May be null, in which case
-         * attributes must be set directly before the shape is drawn.
-         * @throws {ArgumentError} If the specified center location is null or undefined or if either specified radii
-         * is negative.
-         */
-        var SurfaceEllipse = function (center, majorRadius, minorRadius, heading, attributes) {
-            if (!center) {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "SurfaceEllipse", "constructor", "missingLocation"));
-            }
 
-            if (majorRadius < 0 || minorRadius < 0) {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "SurfaceEllipse", "constructor", "Radius is negative."));
-            }
+/**
+ * Constructs a surface ellipse with a specified center and radii and an optional attributes bundle.
+ * @alias SurfaceEllipse
+ * @constructor
+ * @augments SurfaceShape
+ * @classdesc Represents an ellipse draped over the terrain surface.
+ * <p>
+ * SurfaceEllipse uses the following attributes from its associated shape attributes bundle:
+ * <ul>
+ *         <li>Draw interior</li>
+ *         <li>Draw outline</li>
+ *         <li>Interior color</li>
+ *         <li>Outline color</li>
+ *         <li>Outline width</li>
+ *         <li>Outline stipple factor</li>
+ *         <li>Outline stipple pattern</li>
+ * </ul>
+ * @param {Location} center The ellipse's center location.
+ * @param {Number} majorRadius The ellipse's major radius in meters.
+ * @param {Number} minorRadius The ellipse's minor radius in meters.
+ * @param {Number} heading The heading of the major axis in degrees.
+ * @param {ShapeAttributes} attributes The attributes to apply to this shape. May be null, in which case
+ * attributes must be set directly before the shape is drawn.
+ * @throws {ArgumentError} If the specified center location is null or undefined or if either specified radii
+ * is negative.
+ */
+var SurfaceEllipse = function (center, majorRadius, minorRadius, heading, attributes) {
+    if (!center) {
+        throw new ArgumentError(
+            Logger.logMessage(Logger.LEVEL_SEVERE, "SurfaceEllipse", "constructor", "missingLocation"));
+    }
 
-            SurfaceShape.call(this, attributes);
+    if (majorRadius < 0 || minorRadius < 0) {
+        throw new ArgumentError(
+            Logger.logMessage(Logger.LEVEL_SEVERE, "SurfaceEllipse", "constructor", "Radius is negative."));
+    }
 
-            // All these are documented with their property accessors below.
-            this._center = center;
-            this._majorRadius = majorRadius;
-            this._minorRadius = minorRadius;
-            this._heading = heading;
-            this._intervals = SurfaceEllipse.DEFAULT_NUM_INTERVALS;
-        };
+    SurfaceShape.call(this, attributes);
 
-        SurfaceEllipse.prototype = Object.create(SurfaceShape.prototype);
+    // All these are documented with their property accessors below.
+    this._center = center;
+    this._majorRadius = majorRadius;
+    this._minorRadius = minorRadius;
+    this._heading = heading;
+    this._intervals = SurfaceEllipse.DEFAULT_NUM_INTERVALS;
+};
 
-        Object.defineProperties(SurfaceEllipse.prototype, {
-            /**
-             * This shape's center location.
-             * @memberof SurfaceEllipse.prototype
-             * @type {Location}
-             */
-            center: {
-                get: function() {
-                    return this._center;
-                },
-                set: function(value) {
-                    this.stateKeyInvalid = true;
-                    this.resetBoundaries();
-                    this._center = value;
-                }
-            },
+SurfaceEllipse.prototype = Object.create(SurfaceShape.prototype);
 
-            /**
-             * This shape's major radius, in meters.
-             * @memberof SurfaceEllipse.prototype
-             * @type {Number}
-             */
-            majorRadius: {
-                get: function() {
-                    return this._majorRadius;
-                },
-                set: function(value) {
-                    this.stateKeyInvalid = true;
-                    this.resetBoundaries();
-                    this._majorRadius = value;
-                }
-            },
+Object.defineProperties(SurfaceEllipse.prototype, {
+    /**
+     * This shape's center location.
+     * @memberof SurfaceEllipse.prototype
+     * @type {Location}
+     */
+    center: {
+        get: function () {
+            return this._center;
+        },
+        set: function (value) {
+            this.stateKeyInvalid = true;
+            this.resetBoundaries();
+            this._center = value;
+        }
+    },
 
-            /**
-             * This shape's minor radius in meters.
-             * @memberof SurfaceEllipse.prototype
-             * @type {Number}
-             */
-            minorRadius: {
-                get: function() {
-                    return this._minorRadius;
-                },
-                set: function(value) {
-                    this.stateKeyInvalid = true;
-                    this.resetBoundaries();
-                    this._minorRadius = value;
-                }
-            },
+    /**
+     * This shape's major radius, in meters.
+     * @memberof SurfaceEllipse.prototype
+     * @type {Number}
+     */
+    majorRadius: {
+        get: function () {
+            return this._majorRadius;
+        },
+        set: function (value) {
+            this.stateKeyInvalid = true;
+            this.resetBoundaries();
+            this._majorRadius = value;
+        }
+    },
 
-            /**
-             * The heading of the major axis, specified as degrees clockwise from North.
-             * @type {Number}
-             * @memberof SurfaceEllipse.prototype
-             * @default 0
-             */
-            heading: {
-                get: function() {
-                    return this._heading;
-                },
-                set: function(value) {
-                    this.stateKeyInvalid = true;
-                    this.resetBoundaries();
-                    this._heading = value;
-                }
-            },
+    /**
+     * This shape's minor radius in meters.
+     * @memberof SurfaceEllipse.prototype
+     * @type {Number}
+     */
+    minorRadius: {
+        get: function () {
+            return this._minorRadius;
+        },
+        set: function (value) {
+            this.stateKeyInvalid = true;
+            this.resetBoundaries();
+            this._minorRadius = value;
+        }
+    },
 
-            /**
-             * The number of intervals to generate locations for.
-             * @type {Number}
-             * @memberof SurfaceEllipse.prototype
-             * @default SurfaceEllipse.DEFAULT_NUM_INTERVALS
-             */
-            intervals: {
-                get: function() {
-                    return this._intervals;
-                },
-                set: function(value) {
-                    this.stateKeyInvalid = true;
-                    this.resetBoundaries();
-                    this._intervals = value;
-                }
-            }
-        });
+    /**
+     * The heading of the major axis, specified as degrees clockwise from North.
+     * @type {Number}
+     * @memberof SurfaceEllipse.prototype
+     * @default 0
+     */
+    heading: {
+        get: function () {
+            return this._heading;
+        },
+        set: function (value) {
+            this.stateKeyInvalid = true;
+            this.resetBoundaries();
+            this._heading = value;
+        }
+    },
 
-        // Internal use only. Intentionally not documented.
-        SurfaceEllipse.staticStateKey = function(shape) {
-            var shapeStateKey = SurfaceShape.staticStateKey(shape);
+    /**
+     * The number of intervals to generate locations for.
+     * @type {Number}
+     * @memberof SurfaceEllipse.prototype
+     * @default SurfaceEllipse.DEFAULT_NUM_INTERVALS
+     */
+    intervals: {
+        get: function () {
+            return this._intervals;
+        },
+        set: function (value) {
+            this.stateKeyInvalid = true;
+            this.resetBoundaries();
+            this._intervals = value;
+        }
+    }
+});
 
-            return shapeStateKey +
-                " ce " + shape.center.toString() +
-                " ma " + shape.majorRadius.toString() +
-                " mi " + shape.minorRadius.toString() +
-                " he " + shape.heading.toString() +
-                " in " + shape.intervals.toString();
-        };
+// Internal use only. Intentionally not documented.
+SurfaceEllipse.staticStateKey = function (shape) {
+    var shapeStateKey = SurfaceShape.staticStateKey(shape);
 
-        // Internal use only. Intentionally not documented.
-        SurfaceEllipse.prototype.computeStateKey = function() {
-            return SurfaceEllipse.staticStateKey(this);
-        };
+    return shapeStateKey +
+        " ce " + shape.center.toString() +
+        " ma " + shape.majorRadius.toString() +
+        " mi " + shape.minorRadius.toString() +
+        " he " + shape.heading.toString() +
+        " in " + shape.intervals.toString();
+};
 
-        // Internal. Intentionally not documented.
-        SurfaceEllipse.prototype.computeBoundaries = function(dc) {
-            if (this.majorRadius == 0 && this.minorRadius == 0) {
-                return null;
-            }
+// Internal use only. Intentionally not documented.
+SurfaceEllipse.prototype.computeStateKey = function () {
+    return SurfaceEllipse.staticStateKey(this);
+};
 
-            var globe = dc.globe,
-                numLocations = 1 + Math.max(SurfaceEllipse.MIN_NUM_INTERVALS, this.intervals),
-                da = (2 * Math.PI) / (numLocations - 1),
-                globeRadius = globe.radiusAt(this.center.latitude, this.center.longitude);
+// Internal. Intentionally not documented.
+SurfaceEllipse.prototype.computeBoundaries = function (dc) {
+    if (this.majorRadius == 0 && this.minorRadius == 0) {
+        return null;
+    }
 
-            this._boundaries = new Array(numLocations);
+    var globe = dc.globe,
+        numLocations = 1 + Math.max(SurfaceEllipse.MIN_NUM_INTERVALS, this.intervals),
+        da = (2 * Math.PI) / (numLocations - 1),
+        globeRadius = globe.radiusAt(this.center.latitude, this.center.longitude);
 
-            for (var i = 0; i < numLocations; i++) {
-                var angle = (i != numLocations - 1) ? i * da : 0,
-                    xLength = this.majorRadius * Math.cos(angle),
-                    yLength = this.minorRadius * Math.sin(angle),
-                    distance = Math.sqrt(xLength * xLength + yLength * yLength);
+    this._boundaries = new Array(numLocations);
 
-                // azimuth runs positive clockwise from north and through 360 degrees.
-                var azimuth = (Math.PI / 2.0) -
-                    (Math.acos(xLength / distance) * WWMath.signum(yLength) - this.heading * Angle.DEGREES_TO_RADIANS);
+    for (var i = 0; i < numLocations; i++) {
+        var angle = (i != numLocations - 1) ? i * da : 0,
+            xLength = this.majorRadius * Math.cos(angle),
+            yLength = this.minorRadius * Math.sin(angle),
+            distance = Math.sqrt(xLength * xLength + yLength * yLength);
 
-                this._boundaries[i] = Location.greatCircleLocation(this.center, azimuth * Angle.RADIANS_TO_DEGREES,
-                    distance / globeRadius, new Location(0, 0));
-            }
-        };
+        // azimuth runs positive clockwise from north and through 360 degrees.
+        var azimuth = (Math.PI / 2.0) -
+            (Math.acos(xLength / distance) * WWMath.signum(yLength) - this.heading * Angle.DEGREES_TO_RADIANS);
 
-        // Internal use only. Intentionally not documented.
-        SurfaceEllipse.prototype.getReferencePosition = function () {
-            return this.center;
-        };
+        this._boundaries[i] = Location.greatCircleLocation(this.center, azimuth * Angle.RADIANS_TO_DEGREES,
+            distance / globeRadius, new Location(0, 0));
+    }
+};
 
-        // Internal use only. Intentionally not documented.
-        SurfaceEllipse.prototype.moveTo = function (globe, position) {
-            this.center = position;
-        };
+// Internal use only. Intentionally not documented.
+SurfaceEllipse.prototype.getReferencePosition = function () {
+    return this.center;
+};
 
-        /**
-         * The minimum number of intervals the ellipse generates.
-         * @type {Number}
-         */
-        SurfaceEllipse.MIN_NUM_INTERVALS = 8;
+// Internal use only. Intentionally not documented.
+SurfaceEllipse.prototype.moveTo = function (globe, position) {
+    this.center = position;
+};
 
-        /**
-         * The default number of intervals the ellipse generates.
-         * @type {Number}
-         */
-        SurfaceEllipse.DEFAULT_NUM_INTERVALS = 64;
+/**
+ * The minimum number of intervals the ellipse generates.
+ * @type {Number}
+ */
+SurfaceEllipse.MIN_NUM_INTERVALS = 8;
 
-        export default SurfaceEllipse;
-    
+/**
+ * The default number of intervals the ellipse generates.
+ * @type {Number}
+ */
+SurfaceEllipse.DEFAULT_NUM_INTERVALS = 64;
+
+export default SurfaceEllipse;
+
