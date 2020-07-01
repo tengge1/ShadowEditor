@@ -22,7 +22,6 @@ import Angle from '../geom/Angle';
 import ArgumentError from '../error/ArgumentError';
 import ElevationCoverage from '../globe/ElevationCoverage';
 import ElevationImage from '../globe/ElevationImage';
-import GeoTiffReader from '../formats/geotiff/GeoTiffReader';
 import LevelSet from '../util/LevelSet';
 import Location from '../geom/Location';
 import Logger from '../util/Logger';
@@ -638,10 +637,6 @@ TiledElevationCoverage.prototype.loadElevationImage = function (tile, xhr) {
     } else if (this.retrievalImageFormat === "application/bil32") {
         elevationImage.imageData = new Float32Array(xhr.response);
         elevationImage.size = elevationImage.imageData.length * 4;
-    } else if (this.retrievalImageFormat === "image/tiff") {
-        geoTiff = new GeoTiffReader(xhr.response);
-        elevationImage.imageData = geoTiff.getImageData();
-        elevationImage.size = elevationImage.imageData.length * geoTiff.metadata.bitsPerSample[0] / 8;
     }
 
     if (elevationImage.imageData) {
