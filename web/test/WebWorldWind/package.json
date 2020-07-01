@@ -19,6 +19,7 @@
   },
   "scripts": {
     "build": "rollup -c",
+    "dev": "rollup -c -w",
     "fix": "eslint src --fix"
   },
   "devDependencies": {
