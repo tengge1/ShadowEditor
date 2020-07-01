@@ -15,7 +15,6 @@
  * limitations under the License.
  */
 import AbstractError from './error/AbstractError';
-import Angle from './geom/Angle';
 import Annotation from './shapes/Annotation';
 import AnnotationAttributes from './shapes/AnnotationAttributes';
 import AreaMeasurer from './util/measure/AreaMeasurer';
