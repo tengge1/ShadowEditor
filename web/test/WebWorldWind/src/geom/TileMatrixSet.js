@@ -19,120 +19,119 @@
  */
 import ArgumentError from '../error/ArgumentError';
 import Logger from '../util/Logger';
-import Sector from '../geom/Sector';
 import TileMatrix from '../geom/TileMatrix';
-        
 
-        /**
-         * TileMatrixSet defines a generic tiled space as defined by a geographic bounding area and an array of
-         * TileMatrix objects which define the tiled space at different resolutions.
-         * @param sector the geographic bounding area of this TileMatrixSet
-         * @param tileMatrixList the array of TileMatrix objects forming this TileMatrixSet
-         * @constructor
-         */
-        var TileMatrixSet = function (sector, tileMatrixList) {
-            if (!sector) {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "TileMatrixSet", "constructor", "missingSector"));
-            }
 
-            if (!tileMatrixList) {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "TileMatrixSet", "constructor",
-                        "The specified TileMatrix list is null or undefined."));
-            }
+/**
+ * TileMatrixSet defines a generic tiled space as defined by a geographic bounding area and an array of
+ * TileMatrix objects which define the tiled space at different resolutions.
+ * @param sector the geographic bounding area of this TileMatrixSet
+ * @param tileMatrixList the array of TileMatrix objects forming this TileMatrixSet
+ * @constructor
+ */
+var TileMatrixSet = function (sector, tileMatrixList) {
+    if (!sector) {
+        throw new ArgumentError(
+            Logger.logMessage(Logger.LEVEL_SEVERE, "TileMatrixSet", "constructor", "missingSector"));
+    }
 
-            /**
-             * The geographic coverage of this TileMatrixSet.
-             */
-            this.sector = sector;
+    if (!tileMatrixList) {
+        throw new ArgumentError(
+            Logger.logMessage(Logger.LEVEL_SEVERE, "TileMatrixSet", "constructor",
+                "The specified TileMatrix list is null or undefined."));
+    }
 
-            /**
-             * An array of TileMatrix objects defining this TileMatrixSet.
-             */
-            this.entries = tileMatrixList;
-        };
+    /**
+     * The geographic coverage of this TileMatrixSet.
+     */
+    this.sector = sector;
 
-        /**
-         * Create a TileMatrixSet based on a quad division technique given the provided initial starting conditions.
-         * @param sector the geographic bounding area of the TileMatrixSet
-         * @param matrixWidth the number of tiles in the x direction at the initial level
-         * @param matrixHeight the number of tiles in the y direction at the initial level
-         * @param tileWidth the number of pixels or points in the x direction of a tile
-         * @param tileHeight the number of pixels or points in the y direction of a tile
-         * @param numLevels the number of resolution levels this TileMatrixSet should contain
-         * @returns {TileMatrixSet} fully configured TileMatrixSet
-         */
-        TileMatrixSet.fromTilePyramid = function (sector, matrixWidth, matrixHeight, tileWidth, tileHeight, numLevels) {
-            if (!sector) {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "TileMatrixSet", "fromTilePyramid", "missingSector"));
-            }
+    /**
+     * An array of TileMatrix objects defining this TileMatrixSet.
+     */
+    this.entries = tileMatrixList;
+};
 
-            if (matrixWidth < 1) {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "TileMatrixSet", "fromTilePyramid", "invalidWidth"));
-            }
+/**
+ * Create a TileMatrixSet based on a quad division technique given the provided initial starting conditions.
+ * @param sector the geographic bounding area of the TileMatrixSet
+ * @param matrixWidth the number of tiles in the x direction at the initial level
+ * @param matrixHeight the number of tiles in the y direction at the initial level
+ * @param tileWidth the number of pixels or points in the x direction of a tile
+ * @param tileHeight the number of pixels or points in the y direction of a tile
+ * @param numLevels the number of resolution levels this TileMatrixSet should contain
+ * @returns {TileMatrixSet} fully configured TileMatrixSet
+ */
+TileMatrixSet.fromTilePyramid = function (sector, matrixWidth, matrixHeight, tileWidth, tileHeight, numLevels) {
+    if (!sector) {
+        throw new ArgumentError(
+            Logger.logMessage(Logger.LEVEL_SEVERE, "TileMatrixSet", "fromTilePyramid", "missingSector"));
+    }
 
-            if (matrixHeight < 1) {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "TileMatrixSet", "fromTilePyramid", "invalidHeight"));
-            }
+    if (matrixWidth < 1) {
+        throw new ArgumentError(
+            Logger.logMessage(Logger.LEVEL_SEVERE, "TileMatrixSet", "fromTilePyramid", "invalidWidth"));
+    }
 
-            if (tileWidth < 1) {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "TileMatrixSet", "fromTilePyramid", "invalidWidth"));
-            }
+    if (matrixHeight < 1) {
+        throw new ArgumentError(
+            Logger.logMessage(Logger.LEVEL_SEVERE, "TileMatrixSet", "fromTilePyramid", "invalidHeight"));
+    }
 
-            if (tileHeight < 1) {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "TileMatrixSet", "fromTilePyramid", "invalidHeight"));
-            }
+    if (tileWidth < 1) {
+        throw new ArgumentError(
+            Logger.logMessage(Logger.LEVEL_SEVERE, "TileMatrixSet", "fromTilePyramid", "invalidWidth"));
+    }
 
-            if (numLevels < 1) {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "TileMatrixSet", "fromTilePyramid",
-                        "The specified number of levels is invalid"));
-            }
+    if (tileHeight < 1) {
+        throw new ArgumentError(
+            Logger.logMessage(Logger.LEVEL_SEVERE, "TileMatrixSet", "fromTilePyramid", "invalidHeight"));
+    }
 
-            var tileMatrices = [], matrix, idx;
+    if (numLevels < 1) {
+        throw new ArgumentError(
+            Logger.logMessage(Logger.LEVEL_SEVERE, "TileMatrixSet", "fromTilePyramid",
+                "The specified number of levels is invalid"));
+    }
 
-            for (idx = 0; idx < numLevels; idx++) {
-                matrix = new TileMatrix(sector, matrixWidth, matrixHeight, tileWidth, tileHeight);
-                tileMatrices.push(matrix);
-                matrixWidth *= 2;
-                matrixHeight *= 2;
-            }
+    var tileMatrices = [], matrix, idx;
 
-            return new TileMatrixSet(sector, tileMatrices);
-        };
+    for (idx = 0; idx < numLevels; idx++) {
+        matrix = new TileMatrix(sector, matrixWidth, matrixHeight, tileWidth, tileHeight);
+        tileMatrices.push(matrix);
+        matrixWidth *= 2;
+        matrixHeight *= 2;
+    }
 
-        /**
-         * Determines the index of the TileMatrix with the closest resolution to the provided value.
-         * @param degreesPerPixel the target resolution
-         * @returns {number} the index of the TileMatrix within this TileMatrixSet's entries array
-         */
-        TileMatrixSet.prototype.indexOfMatrixNearest = function (degreesPerPixel) {
-            if (degreesPerPixel <= 0) {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "TileMatrixSet", "indexOfMatrixNearest",
-                        "The specified resolution is invalid"));
-            }
+    return new TileMatrixSet(sector, tileMatrices);
+};
 
-            var nearestIdx = -1, nearestDelta2 = Number.MAX_VALUE, delta, delta2;
+/**
+ * Determines the index of the TileMatrix with the closest resolution to the provided value.
+ * @param degreesPerPixel the target resolution
+ * @returns {number} the index of the TileMatrix within this TileMatrixSet's entries array
+ */
+TileMatrixSet.prototype.indexOfMatrixNearest = function (degreesPerPixel) {
+    if (degreesPerPixel <= 0) {
+        throw new ArgumentError(
+            Logger.logMessage(Logger.LEVEL_SEVERE, "TileMatrixSet", "indexOfMatrixNearest",
+                "The specified resolution is invalid"));
+    }
 
-            for (var idx = 0, len = this.entries.length; idx < len; idx++) {
-                delta = (this.entries[idx].degreesPerPixel - degreesPerPixel);
-                delta2 = delta * delta;
+    var nearestIdx = -1, nearestDelta2 = Number.MAX_VALUE, delta, delta2;
 
-                if (nearestDelta2 > delta2) {
-                    nearestDelta2 = delta2;
-                    nearestIdx = idx;
-                }
-            }
+    for (var idx = 0, len = this.entries.length; idx < len; idx++) {
+        delta = (this.entries[idx].degreesPerPixel - degreesPerPixel);
+        delta2 = delta * delta;
 
-            return nearestIdx;
-        };
+        if (nearestDelta2 > delta2) {
+            nearestDelta2 = delta2;
+            nearestIdx = idx;
+        }
+    }
 
-        export default TileMatrixSet;
-    
+    return nearestIdx;
+};
+
+export default TileMatrixSet;
+
