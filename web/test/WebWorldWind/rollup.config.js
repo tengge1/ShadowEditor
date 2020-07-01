@@ -36,5 +36,10 @@ export default {
         glsl(),
         resolve(),
         commonjs()
-    ]
+    ],
+    onwarn(warning, rollupWarn) {
+        if (warning.code !== 'CIRCULAR_DEPENDENCY') {
+            rollupWarn(warning);
+        }
+    }
 };
