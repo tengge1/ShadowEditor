@@ -19,37 +19,36 @@
  */
 import Location from '../geom/Location';
 import Navigator from '../navigate/Navigator';
-        
 
-        /**
-         * Constructs a look-at navigator.
-         * @alias LookAtNavigator
-         * @constructor
-         * @augments Navigator
-         * @classdesc Represents a navigator containing the required variables to enable the user to pan, zoom and tilt
-         * the globe.
-         */
-        var LookAtNavigator = function () {
-            Navigator.call(this);
 
-            /**
-             * The geographic location at the center of the viewport.
-             * @type {Location}
-             */
-            this.lookAtLocation = new Location(30, -110);
+/**
+ * Constructs a look-at navigator.
+ * @alias LookAtNavigator
+ * @constructor
+ * @augments Navigator
+ * @classdesc Represents a navigator containing the required variables to enable the user to pan, zoom and tilt
+ * the globe.
+ */
+var LookAtNavigator = function () {
+    Navigator.call(this);
 
-            /**
-             * The distance from this navigator's eye point to its look-at location.
-             * @type {Number}
-             * @default 10,000 kilometers
-             */
-            this.range = 10e6; // TODO: Compute initial range to fit globe in viewport.
+    /**
+     * The geographic location at the center of the viewport.
+     * @type {Location}
+     */
+    this.lookAtLocation = new Location(30, -110);
 
-            // Development testing only. Set this to false to suppress default navigator limits on 2D globes.
-            this.enable2DLimits = true;
-        };
+    /**
+     * The distance from this navigator's eye point to its look-at location.
+     * @type {Number}
+     * @default 10,000 kilometers
+     */
+    this.range = 10e6; // TODO: Compute initial range to fit globe in viewport.
 
-        LookAtNavigator.prototype = Object.create(Navigator.prototype);
+    // Development testing only. Set this to false to suppress default navigator limits on 2D globes.
+    this.enable2DLimits = true;
+};
 
-        export default LookAtNavigator;
-    
+LookAtNavigator.prototype = Object.create(Navigator.prototype);
+
+export default LookAtNavigator;

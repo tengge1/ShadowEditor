@@ -22,23 +22,22 @@ import ElevationModel from '../globe/ElevationModel';
 import GebcoElevationCoverage from '../globe/GebcoElevationCoverage';
 import UsgsNedElevationCoverage from '../globe/UsgsNedElevationCoverage';
 import UsgsNedHiElevationCoverage from '../globe/UsgsNedHiElevationCoverage';
-        
 
-        /**
-         * Constructs an EarthElevationModel consisting of three elevation coverages GEBCO, Aster V2, and USGS NED.
-         * @alias EarthElevationModel
-         * @constructor
-         */
-        var EarthElevationModel = function () {
-            ElevationModel.call(this);
 
-            this.addCoverage(new GebcoElevationCoverage());
-            this.addCoverage(new AsterV2ElevationCoverage());
-            this.addCoverage(new UsgsNedElevationCoverage());
-            this.addCoverage(new UsgsNedHiElevationCoverage());
-        };
+/**
+ * Constructs an EarthElevationModel consisting of three elevation coverages GEBCO, Aster V2, and USGS NED.
+ * @alias EarthElevationModel
+ * @constructor
+ */
+var EarthElevationModel = function () {
+    ElevationModel.call(this);
 
-        EarthElevationModel.prototype = Object.create(ElevationModel.prototype);
+    this.addCoverage(new GebcoElevationCoverage());
+    this.addCoverage(new AsterV2ElevationCoverage());
+    this.addCoverage(new UsgsNedElevationCoverage());
+    this.addCoverage(new UsgsNedHiElevationCoverage());
+};
 
-        export default EarthElevationModel;
-    
+EarthElevationModel.prototype = Object.create(ElevationModel.prototype);
+
+export default EarthElevationModel;

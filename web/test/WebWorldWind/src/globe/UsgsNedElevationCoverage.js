@@ -17,35 +17,33 @@
 /**
  * @exports UsgsNedElevationCoverage
  */
-import Location from '../geom/Location';
 import Sector from '../geom/Sector';
 import TiledElevationCoverage from '../globe/TiledElevationCoverage';
 import WmsUrlBuilder from '../util/WmsUrlBuilder';
-        
 
-        /**
-         * Constructs an Earth elevation coverage using USGS NED data.
-         * @alias UsgsNedElevationCoverage
-         * @constructor
-         * @augments TiledElevationCoverage
-         * @classdesc Provides elevations for Earth. Elevations are drawn from the NASA WorldWind elevation service.
-         */
-        var UsgsNedElevationCoverage = function () {
-            // CONUS Extent: (-124.848974, 24.396308) - (-66.885444, 49.384358)
-            // TODO: Expand this extent to cover HI when the server NO_DATA value issue is resolved.
-            TiledElevationCoverage.call(this, {
-                coverageSector: new Sector(24.396308, 49.384358, -124.848974, -66.885444),
-                resolution: 0.000092592592593,
-                retrievalImageFormat: "application/bil16",
-                minElevation: -11000,
-                maxElevation: 8850,
-                urlBuilder: new WmsUrlBuilder("https://worldwind26.arc.nasa.gov/elev", "USGS-NED", "", "1.3.0")
-            });
 
-            this.displayName = "USGS NED Earth Elevation Coverage";
-        };
+/**
+ * Constructs an Earth elevation coverage using USGS NED data.
+ * @alias UsgsNedElevationCoverage
+ * @constructor
+ * @augments TiledElevationCoverage
+ * @classdesc Provides elevations for Earth. Elevations are drawn from the NASA WorldWind elevation service.
+ */
+var UsgsNedElevationCoverage = function () {
+    // CONUS Extent: (-124.848974, 24.396308) - (-66.885444, 49.384358)
+    // TODO: Expand this extent to cover HI when the server NO_DATA value issue is resolved.
+    TiledElevationCoverage.call(this, {
+        coverageSector: new Sector(24.396308, 49.384358, -124.848974, -66.885444),
+        resolution: 0.000092592592593,
+        retrievalImageFormat: "application/bil16",
+        minElevation: -11000,
+        maxElevation: 8850,
+        urlBuilder: new WmsUrlBuilder("https://worldwind26.arc.nasa.gov/elev", "USGS-NED", "", "1.3.0")
+    });
 
-        UsgsNedElevationCoverage.prototype = Object.create(TiledElevationCoverage.prototype);
+    this.displayName = "USGS NED Earth Elevation Coverage";
+};
 
-        export default UsgsNedElevationCoverage;
-    
+UsgsNedElevationCoverage.prototype = Object.create(TiledElevationCoverage.prototype);
+
+export default UsgsNedElevationCoverage;

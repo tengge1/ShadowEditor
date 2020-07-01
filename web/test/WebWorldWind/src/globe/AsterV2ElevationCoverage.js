@@ -17,33 +17,31 @@
 /**
  * @exports AsterV2ElevationCoverage
  */
-import Location from '../geom/Location';
 import Sector from '../geom/Sector';
 import TiledElevationCoverage from '../globe/TiledElevationCoverage';
 import WmsUrlBuilder from '../util/WmsUrlBuilder';
-        
 
-        /**
-         * Constructs an Earth elevation coverage using ASTER V2 data.
-         * @alias AsterV2ElevationCoverage
-         * @constructor
-         * @augments TiledElevationCoverage
-         * @classdesc Provides elevations for Earth. Elevations are drawn from the NASA WorldWind elevation service.
-         */
-        var AsterV2ElevationCoverage = function () {
-            TiledElevationCoverage.call(this, {
-                coverageSector: new Sector(-83.0001, 83.0001, -180, 180),
-                resolution: 0.000277777777778,
-                retrievalImageFormat: "application/bil16",
-                minElevation: -11000,
-                maxElevation: 8850,
-                urlBuilder: new WmsUrlBuilder("https://worldwind26.arc.nasa.gov/elev", "aster_v2", "", "1.3.0")
-            });
 
-            this.displayName = "ASTER V2 Earth Elevation Coverage";
-        };
+/**
+ * Constructs an Earth elevation coverage using ASTER V2 data.
+ * @alias AsterV2ElevationCoverage
+ * @constructor
+ * @augments TiledElevationCoverage
+ * @classdesc Provides elevations for Earth. Elevations are drawn from the NASA WorldWind elevation service.
+ */
+var AsterV2ElevationCoverage = function () {
+    TiledElevationCoverage.call(this, {
+        coverageSector: new Sector(-83.0001, 83.0001, -180, 180),
+        resolution: 0.000277777777778,
+        retrievalImageFormat: "application/bil16",
+        minElevation: -11000,
+        maxElevation: 8850,
+        urlBuilder: new WmsUrlBuilder("https://worldwind26.arc.nasa.gov/elev", "aster_v2", "", "1.3.0")
+    });
 
-        AsterV2ElevationCoverage.prototype = Object.create(TiledElevationCoverage.prototype);
+    this.displayName = "ASTER V2 Earth Elevation Coverage";
+};
 
-        export default AsterV2ElevationCoverage;
-    
+AsterV2ElevationCoverage.prototype = Object.create(TiledElevationCoverage.prototype);
+
+export default AsterV2ElevationCoverage;

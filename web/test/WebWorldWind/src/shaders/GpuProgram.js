@@ -21,262 +21,261 @@ import ArgumentError from '../error/ArgumentError';
 import Color from '../util/Color';
 import GpuShader from '../shaders/GpuShader';
 import Logger from '../util/Logger';
-        
 
-        /**
-         * Constructs a GPU program with specified source code for vertex and fragment shaders.
-         * This constructor is intended to be called only by subclasses.
-         * <p>
-         * This constructor creates WebGL shaders for the specified shader sources and attaches them to a new GLSL
-         * program. The method compiles the shaders and then links the program if compilation is successful. Use the
-         * [DrawContext.bindProgram]{@link DrawContext#bindProgram} function to make the program current during rendering.
-         *
-         * @alias GpuProgram
-         * @constructor
-         * @classdesc
-         * Represents an OpenGL shading language (GLSL) shader program and provides methods for identifying and
-         * accessing shader variables. Shader programs are created by instances of this class and made current when the
-         * DrawContext.bindProgram function is invoked.
-         * <p>
-         * This is an abstract class and not intended to be created directly.
-         *
-         * @param {WebGLRenderingContext} gl The current WebGL context.
-         * @param {String} vertexShaderSource The source code for the vertex shader.
-         * @param {String} fragmentShaderSource The source code for the fragment shader.
-         * @param {String[]} attributeBindings An array of attribute variable names whose bindings are to be explicitly
-         * specified. Each name is bound to its corresponding index in the array. May be null, in which case the
-         * linker determines all the bindings.
-         * @throws {ArgumentError} If either source is null or undefined, the shaders cannot be compiled, or linking of
-         * the compiled shaders into a program fails.
-         */
-        var GpuProgram = function (gl, vertexShaderSource, fragmentShaderSource, attributeBindings) {
-            if (!vertexShaderSource || !fragmentShaderSource) {
-                throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "GpuProgram", "constructor",
-                    "The specified shader source is null or undefined."));
-            }
 
-            var program, vShader, fShader;
+/**
+ * Constructs a GPU program with specified source code for vertex and fragment shaders.
+ * This constructor is intended to be called only by subclasses.
+ * <p>
+ * This constructor creates WebGL shaders for the specified shader sources and attaches them to a new GLSL
+ * program. The method compiles the shaders and then links the program if compilation is successful. Use the
+ * [DrawContext.bindProgram]{@link DrawContext#bindProgram} function to make the program current during rendering.
+ *
+ * @alias GpuProgram
+ * @constructor
+ * @classdesc
+ * Represents an OpenGL shading language (GLSL) shader program and provides methods for identifying and
+ * accessing shader variables. Shader programs are created by instances of this class and made current when the
+ * DrawContext.bindProgram function is invoked.
+ * <p>
+ * This is an abstract class and not intended to be created directly.
+ *
+ * @param {WebGLRenderingContext} gl The current WebGL context.
+ * @param {String} vertexShaderSource The source code for the vertex shader.
+ * @param {String} fragmentShaderSource The source code for the fragment shader.
+ * @param {String[]} attributeBindings An array of attribute variable names whose bindings are to be explicitly
+ * specified. Each name is bound to its corresponding index in the array. May be null, in which case the
+ * linker determines all the bindings.
+ * @throws {ArgumentError} If either source is null or undefined, the shaders cannot be compiled, or linking of
+ * the compiled shaders into a program fails.
+ */
+var GpuProgram = function (gl, vertexShaderSource, fragmentShaderSource, attributeBindings) {
+    if (!vertexShaderSource || !fragmentShaderSource) {
+        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "GpuProgram", "constructor",
+            "The specified shader source is null or undefined."));
+    }
 
-            try {
-                vShader = new GpuShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
-                fShader = new GpuShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
-            } catch (e) {
-                if (vShader)
-                    vShader.dispose(gl);
-                if (fShader)
-                    fShader.dispose(gl);
+    var program, vShader, fShader;
 
-                throw e;
-            }
+    try {
+        vShader = new GpuShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
+        fShader = new GpuShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
+    } catch (e) {
+        if (vShader)
+            vShader.dispose(gl);
+        if (fShader)
+            fShader.dispose(gl);
 
-            program = gl.createProgram();
-            if (!program) {
-                throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "GpuProgram", "constructor",
-                    "Unable to create shader program."));
-            }
+        throw e;
+    }
 
-            gl.attachShader(program, vShader.shaderId);
-            gl.attachShader(program, fShader.shaderId);
+    program = gl.createProgram();
+    if (!program) {
+        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "GpuProgram", "constructor",
+            "Unable to create shader program."));
+    }
 
-            if (attributeBindings) {
-                for (var i = 0, len = attributeBindings.length; i < len; i++) {
-                    gl.bindAttribLocation(program, i, attributeBindings[i]);
-                }
-            }
+    gl.attachShader(program, vShader.shaderId);
+    gl.attachShader(program, fShader.shaderId);
 
-            if (!this.link(gl, program)) {
-                // Get the info log before deleting the program.
-                var infoLog = gl.getProgramInfoLog(program);
+    if (attributeBindings) {
+        for (var i = 0, len = attributeBindings.length; i < len; i++) {
+            gl.bindAttribLocation(program, i, attributeBindings[i]);
+        }
+    }
 
-                gl.detachShader(program, vShader.shaderId);
-                gl.detachShader(program, fShader.shaderId);
-                gl.deleteProgram(program);
-                vShader.dispose(gl);
-                fShader.dispose(gl);
+    if (!this.link(gl, program)) {
+        // Get the info log before deleting the program.
+        var infoLog = gl.getProgramInfoLog(program);
 
-                throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "GpuProgram", "constructor",
-                    "Unable to link shader program: " + infoLog));
-            }
+        gl.detachShader(program, vShader.shaderId);
+        gl.detachShader(program, fShader.shaderId);
+        gl.deleteProgram(program);
+        vShader.dispose(gl);
+        fShader.dispose(gl);
 
-            /**
-             * Indicates the WebGL program object associated with this GPU program.
-             * @type {WebGLProgram}
-             * @readonly
-             */
-            this.programId = program;
+        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "GpuProgram", "constructor",
+            "Unable to link shader program: " + infoLog));
+    }
 
-            // Internal. Intentionally not documented. These will be filled in as attribute locations are requested.
-            this.attributeLocations = {};
-            this.uniformLocations = {};
+    /**
+     * Indicates the WebGL program object associated with this GPU program.
+     * @type {WebGLProgram}
+     * @readonly
+     */
+    this.programId = program;
 
-            // Internal. Intentionally not documented.
-            this.vertexShader = vShader;
+    // Internal. Intentionally not documented. These will be filled in as attribute locations are requested.
+    this.attributeLocations = {};
+    this.uniformLocations = {};
 
-            // Internal. Intentionally not documented.
-            this.fragmentShader = fShader;
+    // Internal. Intentionally not documented.
+    this.vertexShader = vShader;
 
-            // Internal. Intentionally not documented.
-            this.size = vertexShaderSource.length + fragmentShaderSource.length;
+    // Internal. Intentionally not documented.
+    this.fragmentShader = fShader;
 
-            // Internal. Intentionally not documented.
-            this.scratchArray = new Float32Array(16);
-        };
+    // Internal. Intentionally not documented.
+    this.size = vertexShaderSource.length + fragmentShaderSource.length;
 
-        /**
-         * Releases this GPU program's WebGL program and associated shaders. Upon return this GPU program's WebGL
-         * program ID is 0 as is that of the associated shaders.
-         *
-         * @param {WebGLRenderingContext} gl The current WebGL context.
-         */
-        GpuProgram.prototype.dispose = function (gl) {
-            if (this.programId) {
-                if (this.vertexShader) {
-                    gl.detachShader(this.programId, this.vertexShader.shaderId);
-                }
-                if (this.fragmentShader) {
-                    gl.detachShader(this.programId, this.fragmentShader.shaderId);
-                }
+    // Internal. Intentionally not documented.
+    this.scratchArray = new Float32Array(16);
+};
 
-                gl.deleteProgram(this.programId);
-                delete this.programId;
-            }
+/**
+ * Releases this GPU program's WebGL program and associated shaders. Upon return this GPU program's WebGL
+ * program ID is 0 as is that of the associated shaders.
+ *
+ * @param {WebGLRenderingContext} gl The current WebGL context.
+ */
+GpuProgram.prototype.dispose = function (gl) {
+    if (this.programId) {
+        if (this.vertexShader) {
+            gl.detachShader(this.programId, this.vertexShader.shaderId);
+        }
+        if (this.fragmentShader) {
+            gl.detachShader(this.programId, this.fragmentShader.shaderId);
+        }
 
-            if (this.vertexShader) {
-                this.vertexShader.dispose(gl);
-                delete this.vertexShader;
-            }
+        gl.deleteProgram(this.programId);
+        delete this.programId;
+    }
 
-            if (this.fragmentShader) {
-                this.fragmentShader.dispose(gl);
-                delete this.fragmentShader;
-            }
+    if (this.vertexShader) {
+        this.vertexShader.dispose(gl);
+        delete this.vertexShader;
+    }
 
-            this.attributeLocations = {};
-            this.uniformLocations = {};
-        };
+    if (this.fragmentShader) {
+        this.fragmentShader.dispose(gl);
+        delete this.fragmentShader;
+    }
 
-        /**
-         * Returns the GLSL attribute location of a specified attribute name.
-         *
-         * @param {WebGLRenderingContext} gl The current WebGL context.
-         * @param {String} attributeName The name of the attribute whose location is determined.
-         * @returns {Number} The WebGL attribute location of the specified attribute, or -1 if the attribute is not
-         * found.
-         * @throws {ArgumentError} If the specified attribute name is null, empty or undefined.
-         */
-        GpuProgram.prototype.attributeLocation = function (gl, attributeName) {
-            if (!attributeName || attributeName.length == 0) {
-                throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "GpuProgram", "attributeLocation",
-                    "The specified attribute name is null, undefined or empty."));
-            }
+    this.attributeLocations = {};
+    this.uniformLocations = {};
+};
 
-            var location = this.attributeLocations[attributeName];
-            if (!location) {
-                location = gl.getAttribLocation(this.programId, attributeName);
-                this.attributeLocations[attributeName] = location;
-            }
+/**
+ * Returns the GLSL attribute location of a specified attribute name.
+ *
+ * @param {WebGLRenderingContext} gl The current WebGL context.
+ * @param {String} attributeName The name of the attribute whose location is determined.
+ * @returns {Number} The WebGL attribute location of the specified attribute, or -1 if the attribute is not
+ * found.
+ * @throws {ArgumentError} If the specified attribute name is null, empty or undefined.
+ */
+GpuProgram.prototype.attributeLocation = function (gl, attributeName) {
+    if (!attributeName || attributeName.length == 0) {
+        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "GpuProgram", "attributeLocation",
+            "The specified attribute name is null, undefined or empty."));
+    }
 
-            return location;
-        };
+    var location = this.attributeLocations[attributeName];
+    if (!location) {
+        location = gl.getAttribLocation(this.programId, attributeName);
+        this.attributeLocations[attributeName] = location;
+    }
 
-        /**
-         * Returns the GLSL uniform location of a specified uniform name.
-         *
-         * @param {WebGLRenderingContext} gl The current WebGL context.
-         * @param {String} uniformName The name of the uniform variable whose location is determined.
-         * @returns {WebGLUniformLocation} The WebGL uniform location of the specified uniform variable,
-         * or -1 if the uniform is not found.
-         * @throws {ArgumentError} If the specified uniform name is null, empty or undefined.
-         */
-        GpuProgram.prototype.uniformLocation = function (gl, uniformName) {
-            if (!uniformName || uniformName.length == 0) {
-                throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "GpuProgram", "uniformLocation",
-                    "The specified uniform name is null, undefined or empty."));
-            }
+    return location;
+};
 
-            var location = this.uniformLocations[uniformName];
-            if (!location) {
-                location = gl.getUniformLocation(this.programId, uniformName);
-                this.uniformLocations[uniformName] = location;
-            }
+/**
+ * Returns the GLSL uniform location of a specified uniform name.
+ *
+ * @param {WebGLRenderingContext} gl The current WebGL context.
+ * @param {String} uniformName The name of the uniform variable whose location is determined.
+ * @returns {WebGLUniformLocation} The WebGL uniform location of the specified uniform variable,
+ * or -1 if the uniform is not found.
+ * @throws {ArgumentError} If the specified uniform name is null, empty or undefined.
+ */
+GpuProgram.prototype.uniformLocation = function (gl, uniformName) {
+    if (!uniformName || uniformName.length == 0) {
+        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "GpuProgram", "uniformLocation",
+            "The specified uniform name is null, undefined or empty."));
+    }
 
-            return location;
-        };
+    var location = this.uniformLocations[uniformName];
+    if (!location) {
+        location = gl.getUniformLocation(this.programId, uniformName);
+        this.uniformLocations[uniformName] = location;
+    }
 
-        /**
-         * Links a specified GLSL program. This method is not meant to be called by applications. It is called
-         * internally as needed.
-         *
-         * @param {WebGLRenderingContext} gl The current WebGL context.
-         * @param {WebGLProgram} program The WebGL program.
-         * @returns {Boolean} true if linking was successful, otherwise false.
-         * @protected
-         */
-        GpuProgram.prototype.link = function (gl, program) {
-            gl.linkProgram(program);
+    return location;
+};
 
-            return gl.getProgramParameter(program, gl.LINK_STATUS);
-        };
+/**
+ * Links a specified GLSL program. This method is not meant to be called by applications. It is called
+ * internally as needed.
+ *
+ * @param {WebGLRenderingContext} gl The current WebGL context.
+ * @param {WebGLProgram} program The WebGL program.
+ * @returns {Boolean} true if linking was successful, otherwise false.
+ * @protected
+ */
+GpuProgram.prototype.link = function (gl, program) {
+    gl.linkProgram(program);
 
-        /**
-         * Loads a specified matrix as the value of a GLSL 4x4 matrix uniform variable with the specified location.
-         * <p>
-         * This functions converts the matrix into column-major order prior to loading its components into the GLSL
-         * uniform variable, but does not modify the specified matrix.
-         *
-         * @param {WebGLRenderingContext} gl The current WebGL context.
-         * @param {Matrix} matrix The matrix to load.
-         * @param {WebGLUniformLocation} location The location of the uniform variable in the currently bound GLSL program.
-         * @throws {ArgumentError} If the specified matrix is null or undefined.
-         */
-        GpuProgram.prototype.loadUniformMatrix = function (gl, matrix, location) {
-            if (!matrix) {
-                throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "GpuProgram", "loadUniformMatrix",
-                    "missingMatrix"));
-            }
+    return gl.getProgramParameter(program, gl.LINK_STATUS);
+};
 
-            var columnMajorArray = matrix.columnMajorComponents(this.scratchArray);
-            gl.uniformMatrix4fv(location, false, columnMajorArray);
-        };
+/**
+ * Loads a specified matrix as the value of a GLSL 4x4 matrix uniform variable with the specified location.
+ * <p>
+ * This functions converts the matrix into column-major order prior to loading its components into the GLSL
+ * uniform variable, but does not modify the specified matrix.
+ *
+ * @param {WebGLRenderingContext} gl The current WebGL context.
+ * @param {Matrix} matrix The matrix to load.
+ * @param {WebGLUniformLocation} location The location of the uniform variable in the currently bound GLSL program.
+ * @throws {ArgumentError} If the specified matrix is null or undefined.
+ */
+GpuProgram.prototype.loadUniformMatrix = function (gl, matrix, location) {
+    if (!matrix) {
+        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "GpuProgram", "loadUniformMatrix",
+            "missingMatrix"));
+    }
 
-        /**
-         * Loads a specified color as the value of a GLSL vec4 uniform variable with the specified location.
-         * <p>
-         * This function multiplies the red, green and blue components by the alpha component prior to loading the color
-         * in the GLSL uniform variable, but does not modify the specified color.
-         *
-         * @param {WebGLRenderingContext} gl The current WebGL context.
-         * @param {Color} color The color to load.
-         * @param {WebGLUniformLocation} location The location of the uniform variable in the currently bound GLSL program.
-         * @throws {ArgumentError} If the specified color is null or undefined.
-         */
-        GpuProgram.prototype.loadUniformColor = function (gl, color, location) {
-            if (!color) {
-                throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "GpuProgram", "loadUniformColor",
-                    "missingColor"));
-            }
+    var columnMajorArray = matrix.columnMajorComponents(this.scratchArray);
+    gl.uniformMatrix4fv(location, false, columnMajorArray);
+};
 
-            var premul = color.premultipliedComponents(this.scratchArray);
-            gl.uniform4f(location, premul[0], premul[1], premul[2], premul[3]);
-        };
+/**
+ * Loads a specified color as the value of a GLSL vec4 uniform variable with the specified location.
+ * <p>
+ * This function multiplies the red, green and blue components by the alpha component prior to loading the color
+ * in the GLSL uniform variable, but does not modify the specified color.
+ *
+ * @param {WebGLRenderingContext} gl The current WebGL context.
+ * @param {Color} color The color to load.
+ * @param {WebGLUniformLocation} location The location of the uniform variable in the currently bound GLSL program.
+ * @throws {ArgumentError} If the specified color is null or undefined.
+ */
+GpuProgram.prototype.loadUniformColor = function (gl, color, location) {
+    if (!color) {
+        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "GpuProgram", "loadUniformColor",
+            "missingColor"));
+    }
 
-        /**
-         * Loads the specified RGBA color components as the value of a GLSL vec4 uniform variable with the specified
-         * location.
-         * <p>
-         * This function multiplies the red, green and blue components by the alpha component prior to loading the color
-         * in the GLSL uniform variable.
-         *
-         * @param {WebGLRenderingContext} gl The current WebGL context.
-         * @param {Number} red The red component, a number between 0 and 1.
-         * @param {Number} green The green component, a number between 0 and 1.
-         * @param {Number} blue The blue component, a number between 0 and 1.
-         * @param {Number} alpha The alpha component, a number between 0 and 1.
-         * @param {WebGLUniformLocation} location The location of the uniform variable in the currently bound GLSL program.
-         */
-        GpuProgram.prototype.loadUniformColorComponents = function (gl, red, green, blue, alpha, location) {
-            gl.uniform4f(location, red * alpha, green * alpha, blue * alpha, alpha);
-        };
+    var premul = color.premultipliedComponents(this.scratchArray);
+    gl.uniform4f(location, premul[0], premul[1], premul[2], premul[3]);
+};
 
-        export default GpuProgram;
-    
+/**
+ * Loads the specified RGBA color components as the value of a GLSL vec4 uniform variable with the specified
+ * location.
+ * <p>
+ * This function multiplies the red, green and blue components by the alpha component prior to loading the color
+ * in the GLSL uniform variable.
+ *
+ * @param {WebGLRenderingContext} gl The current WebGL context.
+ * @param {Number} red The red component, a number between 0 and 1.
+ * @param {Number} green The green component, a number between 0 and 1.
+ * @param {Number} blue The blue component, a number between 0 and 1.
+ * @param {Number} alpha The alpha component, a number between 0 and 1.
+ * @param {WebGLUniformLocation} location The location of the uniform variable in the currently bound GLSL program.
+ */
+GpuProgram.prototype.loadUniformColorComponents = function (gl, red, green, blue, alpha, location) {
+    gl.uniform4f(location, red * alpha, green * alpha, blue * alpha, alpha);
+};
+
+export default GpuProgram;

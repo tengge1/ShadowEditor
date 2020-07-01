@@ -17,7 +17,6 @@
 /**
  * @exports MercatorTiledImageLayer
  */
-import Color from '../util/Color';
 import Sector from '../geom/Sector';
 import TiledImageLayer from '../layer/TiledImageLayer';
 import Vec2 from '../geom/Vec2';

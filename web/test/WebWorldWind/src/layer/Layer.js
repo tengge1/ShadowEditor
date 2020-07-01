@@ -17,8 +17,6 @@
 /**
  * @exports Layer
  */
-import Logger from '../util/Logger';
-
 
 /**
  * Constructs a layer. This constructor is meant to be called by subclasses and not directly by an application.

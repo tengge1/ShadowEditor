@@ -18,37 +18,36 @@
  * @exports Navigator
  */
 
-        
 
-        /**
-         * Constructs a base navigator.
-         * @alias Navigator
-         * @constructor
-         * @classdesc Provides an abstract base class for navigators. This class is not meant to be instantiated
-         * directly. See {@Link LookAtNavigator} for a concrete navigator.
-         */
-        var Navigator = function () {
-            /**
-             * This navigator's heading, in degrees clockwise from north.
-             * @type {Number}
-             * @default 0
-             */
-            this.heading = 0;
 
-            /**
-             * This navigator's tilt, in degrees.
-             * @type {Number}
-             * @default 0
-             */
-            this.tilt = 0;
+/**
+ * Constructs a base navigator.
+ * @alias Navigator
+ * @constructor
+ * @classdesc Provides an abstract base class for navigators. This class is not meant to be instantiated
+ * directly. See {@Link LookAtNavigator} for a concrete navigator.
+ */
+var Navigator = function () {
+    /**
+     * This navigator's heading, in degrees clockwise from north.
+     * @type {Number}
+     * @default 0
+     */
+    this.heading = 0;
 
-            /**
-             * This navigator's roll, in degrees.
-             * @type {Number}
-             * @default 0
-             */
-            this.roll = 0;
-        };
+    /**
+     * This navigator's tilt, in degrees.
+     * @type {Number}
+     * @default 0
+     */
+    this.tilt = 0;
 
-        export default Navigator;
-    
+    /**
+     * This navigator's roll, in degrees.
+     * @type {Number}
+     * @default 0
+     */
+    this.roll = 0;
+};
+
+export default Navigator;

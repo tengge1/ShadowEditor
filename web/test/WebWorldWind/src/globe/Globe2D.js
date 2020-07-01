@@ -20,22 +20,21 @@
 import ElevationModel from '../globe/ElevationModel';
 import Globe from '../globe/Globe';
 import ProjectionEquirectangular from '../projections/ProjectionEquirectangular';
-        
 
-        /**
-         * Constructs a 2D globe with a default {@link ElevationModel} and
-         * [equirectangular projection]{@link ProjectionEquirectangular}.
-         * @alias Globe2D
-         * @constructor
-         * @augments Globe
-         * @classdesc Represents a 2D flat globe with a configurable projection.
-         * The default rectangular projection scrolls longitudinally.
-         */
-        var Globe2D = function () {
-            Globe.call(this, new ElevationModel(), new ProjectionEquirectangular());
-        };
 
-        Globe2D.prototype = Object.create(Globe.prototype);
+/**
+ * Constructs a 2D globe with a default {@link ElevationModel} and
+ * [equirectangular projection]{@link ProjectionEquirectangular}.
+ * @alias Globe2D
+ * @constructor
+ * @augments Globe
+ * @classdesc Represents a 2D flat globe with a configurable projection.
+ * The default rectangular projection scrolls longitudinally.
+ */
+var Globe2D = function () {
+    Globe.call(this, new ElevationModel(), new ProjectionEquirectangular());
+};
 
-        export default Globe2D;
-    
+Globe2D.prototype = Object.create(Globe.prototype);
+
+export default Globe2D;

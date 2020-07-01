@@ -17,11 +17,8 @@
 /**
  * @exports AtmosphereLayer
  */
-import ArgumentError from '../error/ArgumentError';
 import GroundProgram from '../shaders/GroundProgram';
 import Layer from '../layer/Layer';
-import Logger from '../util/Logger';
-import Matrix from '../geom/Matrix';
 import Matrix3 from '../geom/Matrix3';
 import Sector from '../geom/Sector';
 import SkyProgram from '../shaders/SkyProgram';
