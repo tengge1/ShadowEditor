@@ -212,4 +212,54 @@ ShadowEditor是一个为用户和开发者而生的项目。在这个项目上�
 
 ## 开源项目
 
-[点击](https://gitee.com/tengge1/ShadowEditor/wikis/pages?sort_id=2376242&doc_id=188900)查看详情。
+感谢以下开源项目。
+
+<details>
+  <summary>展开查看详情</summary>
+
+https://github.com/golang/go  
+https://github.com/BurntSushi/toml  
+https://github.com/dgrijalva/jwt-go  
+https://github.com/dimfeld/httptreemux  
+https://github.com/inconshreveable/mousetrap  
+https://github.com/json-iterator/go  
+https://github.com/mozillazg/go-pinyin  
+https://github.com/otiai10/copy  
+https://github.com/sirupsen/logrus  
+https://github.com/spf13/cobra  
+https://github.com/spf13/viper  
+https://github.com/urfave/negroni  
+https://go.mongodb.org/mongo-driver  
+  
+https://github.com/facebook/react  
+https://github.com/mrdoob/three.js  
+https://github.com/rollup/rollup  
+https://github.com/babel/babel  
+https://github.com/eslint/eslint  
+https://github.com/rollup/rollup-plugin-babel  
+https://github.com/rollup/rollup-plugin-commonjs  
+https://github.com/rollup/rollup-plugin-json  
+https://github.com/rollup/rollup-plugin-node-resolve  
+https://github.com/egoist/rollup-plugin-postcss  
+https://github.com/rollup/rollup-plugin-replace  
+  
+https://github.com/tweenjs/tween.js  
+https://github.com/JedWatson/classnames  
+https://github.com/d3/d3-dispatch  
+https://github.com/i18next/i18next  
+https://github.com/js-cookie/js-cookie  
+https://github.com/facebook/prop-types  
+https://github.com/codemirror/CodeMirror  
+https://github.com/jquery/esprima  
+https://github.com/tschw/glslprep.js  
+https://github.com/zaach/jsonlint  
+https://github.com/acornjs/acorn  
+https://github.com/kripken/ammo.js  
+https://github.com/dataarts/dat.gui  
+https://github.com/toji/gl-matrix  
+https://github.com/squarefeet/ShaderParticleEngine  
+https://github.com/mrdoob/stats.js  
+https://github.com/mrdoob/texgen.js  
+https://github.com/yomotsu/VolumetricFire  
+
+</details>
