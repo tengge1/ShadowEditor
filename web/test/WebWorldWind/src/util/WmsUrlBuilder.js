@@ -19,165 +19,164 @@
  */
 import ArgumentError from '../error/ArgumentError';
 import Logger from '../util/Logger';
-        
 
-        /**
-         * Constructs a WMS URL builder.
-         * @alias WmsUrlBuilder
-         * @constructor
-         * @classdesc Provides a factory to create URLs for WMS Get Map requests.
-         * @param {String} serviceAddress The address of the WMS server.
-         * @param {String} layerNames The comma-separated list of names of the layers to retrieve.
-         * @param {String} styleNames The comma-separated list of names of the styles to retrieve. May be null.
-         * @param {String} wmsVersion The version of the WMS server. May be null, in which case version 1.3.0 is
-         * assumed.
-         * @param {String} timeString The time parameter included in GetMap requests.
-         * May be null, in which case no time parameter is included in the request.
-         * @throws {ArgumentError} If the service address or layer names are null or empty.
-         *
-         */
-        var WmsUrlBuilder = function (serviceAddress, layerNames, styleNames, wmsVersion, timeString) {
-            if (!serviceAddress || (serviceAddress.length === 0)) {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "WmsUrlBuilder", "constructor",
-                        "The WMS service address is missing."));
-            }
 
-            if (!layerNames || (layerNames.length === 0)) {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "WmsUrlBuilder", "constructor",
-                        "The WMS layer names are not specified."));
-            }
+/**
+ * Constructs a WMS URL builder.
+ * @alias WmsUrlBuilder
+ * @constructor
+ * @classdesc Provides a factory to create URLs for WMS Get Map requests.
+ * @param {String} serviceAddress The address of the WMS server.
+ * @param {String} layerNames The comma-separated list of names of the layers to retrieve.
+ * @param {String} styleNames The comma-separated list of names of the styles to retrieve. May be null.
+ * @param {String} wmsVersion The version of the WMS server. May be null, in which case version 1.3.0 is
+ * assumed.
+ * @param {String} timeString The time parameter included in GetMap requests.
+ * May be null, in which case no time parameter is included in the request.
+ * @throws {ArgumentError} If the service address or layer names are null or empty.
+ *
+ */
+var WmsUrlBuilder = function (serviceAddress, layerNames, styleNames, wmsVersion, timeString) {
+    if (!serviceAddress || (serviceAddress.length === 0)) {
+        throw new ArgumentError(
+            Logger.logMessage(Logger.LEVEL_SEVERE, "WmsUrlBuilder", "constructor",
+                "The WMS service address is missing."));
+    }
 
-            /**
-             * The address of the WMS server.
-             * @type {String}
-             */
-            this.serviceAddress = serviceAddress;
+    if (!layerNames || (layerNames.length === 0)) {
+        throw new ArgumentError(
+            Logger.logMessage(Logger.LEVEL_SEVERE, "WmsUrlBuilder", "constructor",
+                "The WMS layer names are not specified."));
+    }
 
-            /**
-             * The comma-separated list of layer names to retrieve.
-             * @type {String}
-             */
-            this.layerNames = layerNames;
+    /**
+     * The address of the WMS server.
+     * @type {String}
+     */
+    this.serviceAddress = serviceAddress;
 
-            /**
-             * The comma-separated list of style names to retrieve.
-             * @type {String}
-             */
-            this.styleNames = styleNames ? styleNames : "";
+    /**
+     * The comma-separated list of layer names to retrieve.
+     * @type {String}
+     */
+    this.layerNames = layerNames;
 
-            /**
-             * Indicates whether the layer should be requested with transparency.
-             * @type {Boolean}
-             * @default true
-             */
-            this.transparent = true;
+    /**
+     * The comma-separated list of style names to retrieve.
+     * @type {String}
+     */
+    this.styleNames = styleNames ? styleNames : "";
 
-            /**
-             * The WMS version to specify when requesting resources.
-             * @type {String}
-             * @default 1.3.0
-             */
-            this.wmsVersion = (wmsVersion && wmsVersion.length > 0) ? wmsVersion : "1.3.0";
-            this.isWms130OrGreater = this.wmsVersion >= "1.3.0";
+    /**
+     * Indicates whether the layer should be requested with transparency.
+     * @type {Boolean}
+     * @default true
+     */
+    this.transparent = true;
 
-            /**
-             * The coordinate reference system to use when requesting layers.
-             * @type {String}
-             * @default EPSG:4326
-             */
-            this.crs = "EPSG:4326";
+    /**
+     * The WMS version to specify when requesting resources.
+     * @type {String}
+     * @default 1.3.0
+     */
+    this.wmsVersion = (wmsVersion && wmsVersion.length > 0) ? wmsVersion : "1.3.0";
+    this.isWms130OrGreater = this.wmsVersion >= "1.3.0";
 
-            /**
-             * The time parameter included in GetMap requests. If null, no time parameter is included in the requests.
-             * @type {String}
-             */
-            this.timeString = timeString;
-        };
+    /**
+     * The coordinate reference system to use when requesting layers.
+     * @type {String}
+     * @default EPSG:4326
+     */
+    this.crs = "EPSG:4326";
 
-        /**
-         * Creates the URL string for a WMS Get Map request.
-         * @param {Tile} tile The tile for which to create the URL.
-         * @param {String} imageFormat The image format to request.
-         * @throws {ArgumentError} If the specified tile or image format are null or undefined.
-         */
-        WmsUrlBuilder.prototype.urlForTile = function (tile, imageFormat) {
-            if (!tile) {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "WmsUrlBuilder", "urlForTile", "missingTile"));
-            }
+    /**
+     * The time parameter included in GetMap requests. If null, no time parameter is included in the requests.
+     * @type {String}
+     */
+    this.timeString = timeString;
+};
 
-            if (!imageFormat) {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "WmsUrlBuilder", "urlForTile",
-                        "The image format is null or undefined."));
-            }
+/**
+ * Creates the URL string for a WMS Get Map request.
+ * @param {Tile} tile The tile for which to create the URL.
+ * @param {String} imageFormat The image format to request.
+ * @throws {ArgumentError} If the specified tile or image format are null or undefined.
+ */
+WmsUrlBuilder.prototype.urlForTile = function (tile, imageFormat) {
+    if (!tile) {
+        throw new ArgumentError(
+            Logger.logMessage(Logger.LEVEL_SEVERE, "WmsUrlBuilder", "urlForTile", "missingTile"));
+    }
 
-            var sector = tile.sector;
+    if (!imageFormat) {
+        throw new ArgumentError(
+            Logger.logMessage(Logger.LEVEL_SEVERE, "WmsUrlBuilder", "urlForTile",
+                "The image format is null or undefined."));
+    }
 
-            var sb = WmsUrlBuilder.fixGetMapString(this.serviceAddress);
+    var sector = tile.sector;
 
-            if (sb.search(/service=wms/i) < 0) {
-                sb = sb + "service=WMS";
-            }
+    var sb = WmsUrlBuilder.fixGetMapString(this.serviceAddress);
 
-            sb = sb + "&request=GetMap";
-            sb = sb + "&version=" + this.wmsVersion;
-            sb = sb + "&transparent=" + (this.transparent ? "TRUE" : "FALSE");
-            sb = sb + "&layers=" + this.layerNames;
-            sb = sb + "&styles=" + this.styleNames;
-            sb = sb + "&format=" + imageFormat;
-            sb = sb + "&width=" + tile.tileWidth;
-            sb = sb + "&height=" + tile.tileHeight;
+    if (sb.search(/service=wms/i) < 0) {
+        sb = sb + "service=WMS";
+    }
 
-            if (this.timeString) {
-                sb = sb + "&time=" + this.timeString;
-            }
+    sb = sb + "&request=GetMap";
+    sb = sb + "&version=" + this.wmsVersion;
+    sb = sb + "&transparent=" + (this.transparent ? "TRUE" : "FALSE");
+    sb = sb + "&layers=" + this.layerNames;
+    sb = sb + "&styles=" + this.styleNames;
+    sb = sb + "&format=" + imageFormat;
+    sb = sb + "&width=" + tile.tileWidth;
+    sb = sb + "&height=" + tile.tileHeight;
 
-            if (this.isWms130OrGreater) {
-                sb = sb + "&crs=" + this.crs;
-                sb = sb + "&bbox=";
-                if (this.crs === "CRS:84") {
-                    sb = sb + sector.minLongitude + "," + sector.minLatitude + ",";
-                    sb = sb + sector.maxLongitude+ "," + sector.maxLatitude;
-                } else {
-                    sb = sb + sector.minLatitude + "," + sector.minLongitude + ",";
-                    sb = sb + sector.maxLatitude+ "," + sector.maxLongitude;
-                }
-            } else {
-                sb = sb + "&srs=" + this.crs;
-                sb = sb + "&bbox=";
-                sb = sb + sector.minLongitude + "," + sector.minLatitude + ",";
-                sb = sb + sector.maxLongitude+ "," + sector.maxLatitude;
-            }
+    if (this.timeString) {
+        sb = sb + "&time=" + this.timeString;
+    }
 
-            sb = sb.replace(" ", "%20");
+    if (this.isWms130OrGreater) {
+        sb = sb + "&crs=" + this.crs;
+        sb = sb + "&bbox=";
+        if (this.crs === "CRS:84") {
+            sb = sb + sector.minLongitude + "," + sector.minLatitude + ",";
+            sb = sb + sector.maxLongitude + "," + sector.maxLatitude;
+        } else {
+            sb = sb + sector.minLatitude + "," + sector.minLongitude + ",";
+            sb = sb + sector.maxLatitude + "," + sector.maxLongitude;
+        }
+    } else {
+        sb = sb + "&srs=" + this.crs;
+        sb = sb + "&bbox=";
+        sb = sb + sector.minLongitude + "," + sector.minLatitude + ",";
+        sb = sb + sector.maxLongitude + "," + sector.maxLatitude;
+    }
 
-            return sb;
-        };
+    sb = sb.replace(" ", "%20");
 
-        // Intentionally not documented.
-        WmsUrlBuilder.fixGetMapString = function (serviceAddress) {
-            if (!serviceAddress) {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "WmsUrlBuilder", "fixGetMapString",
-                        "The specified service address is null or undefined."));
-            }
+    return sb;
+};
 
-            var index = serviceAddress.indexOf("?");
+// Intentionally not documented.
+WmsUrlBuilder.fixGetMapString = function (serviceAddress) {
+    if (!serviceAddress) {
+        throw new ArgumentError(
+            Logger.logMessage(Logger.LEVEL_SEVERE, "WmsUrlBuilder", "fixGetMapString",
+                "The specified service address is null or undefined."));
+    }
 
-            if (index < 0) { // if string contains no question mark
-                serviceAddress = serviceAddress + "?"; // add one
-            } else if (index !== serviceAddress.length - 1) { // else if question mark not at end of string
-                index = serviceAddress.search(/&$/);
-                if (index < 0) {
-                    serviceAddress = serviceAddress + "&"; // add a parameter separator
-                }
-            }
+    var index = serviceAddress.indexOf("?");
 
-            return serviceAddress;
-        };
+    if (index < 0) { // if string contains no question mark
+        serviceAddress = serviceAddress + "?"; // add one
+    } else if (index !== serviceAddress.length - 1) { // else if question mark not at end of string
+        index = serviceAddress.search(/&$/);
+        if (index < 0) {
+            serviceAddress = serviceAddress + "&"; // add a parameter separator
+        }
+    }
 
-        export default WmsUrlBuilder;
-    
+    return serviceAddress;
+};
+
+export default WmsUrlBuilder;

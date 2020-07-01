@@ -15,50 +15,50 @@
  * limitations under the License.
  */
 
-    
-    /**
-     * Descendant of Date.
-     * @param dateInFormat {String} Any format of date accepted by the Date constructor.
-     * @constructor
-     * @alias DateWW
-     */
-    var DateWW = function(dateInFormat) {
-        if(dateInFormat) {
-            this._date = new Date(dateInFormat);
-        } else {
-            this._date = new Date();
-        }
-    };
 
-    DateWW.prototype = Object.create(Date.prototype);
+/**
+ * Descendant of Date.
+ * @param dateInFormat {String} Any format of date accepted by the Date constructor.
+ * @constructor
+ * @alias DateWW
+ */
+var DateWW = function (dateInFormat) {
+    if (dateInFormat) {
+        this._date = new Date(dateInFormat);
+    } else {
+        this._date = new Date();
+    }
+};
 
-    DateWW.prototype.isAfter = function(date) {
-        return this.compare(date) == -1;
-    };
+DateWW.prototype = Object.create(Date.prototype);
 
-    DateWW.prototype.isBefore = function(date) {
-        return this.compare(date) == 1;
-    };
+DateWW.prototype.isAfter = function (date) {
+    return this.compare(date) == -1;
+};
 
-    DateWW.prototype.valueOf = function() {
-        return this._date.valueOf();
-    };
+DateWW.prototype.isBefore = function (date) {
+    return this.compare(date) == 1;
+};
 
-    DateWW.prototype.getTime = function() {
-        return this._date.getTime();
-    };
+DateWW.prototype.valueOf = function () {
+    return this._date.valueOf();
+};
 
-    DateWW.prototype.compare = function(date) {
-        var currentDate = this._date.valueOf();
-        var comparedDate = date.valueOf();
+DateWW.prototype.getTime = function () {
+    return this._date.getTime();
+};
 
-        if(currentDate > comparedDate) {
-            return -1;
-        } else if(currentDate < comparedDate) {
-            return 1;
-        } else {
-            return 0;
-        }
-    };
+DateWW.prototype.compare = function (date) {
+    var currentDate = this._date.valueOf();
+    var comparedDate = date.valueOf();
 
-    export default DateWW;
+    if (currentDate > comparedDate) {
+        return -1;
+    } else if (currentDate < comparedDate) {
+        return 1;
+    } else {
+        return 0;
+    }
+};
+
+export default DateWW;

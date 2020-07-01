@@ -20,43 +20,42 @@
 import ArgumentError from '../error/ArgumentError';
 import Color from '../util/Color';
 import Logger from '../util/Logger';
-        
 
-        /**
-         * Constructs an image source.
-         * @alias ImageSource
-         * @constructor
-         * @classdesc Holds an Image with an associated key that uniquely identifies that image. The key is
-         * automatically generated but may be reassigned after construction. Instances of this class are used to
-         * specify dynamically created image sources for {@link Placemark}, {@link SurfaceImage},
-         * {@link Polygon} textures and other shapes that display imagery.
-         * @param {Image} image The image for this image source.
-         * @throws {ArgumentError} If the specified image is null or undefined.
-         */
-        var ImageSource = function (image) {
-            if (!image) {
-                throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "ImageSource", "constructor",
-                    "missingImage"));
-            }
 
-            /**
-             * This image source's image
-             * @type {Image}
-             * @readonly
-             */
-            this.image = image;
+/**
+ * Constructs an image source.
+ * @alias ImageSource
+ * @constructor
+ * @classdesc Holds an Image with an associated key that uniquely identifies that image. The key is
+ * automatically generated but may be reassigned after construction. Instances of this class are used to
+ * specify dynamically created image sources for {@link Placemark}, {@link SurfaceImage},
+ * {@link Polygon} textures and other shapes that display imagery.
+ * @param {Image} image The image for this image source.
+ * @throws {ArgumentError} If the specified image is null or undefined.
+ */
+var ImageSource = function (image) {
+    if (!image) {
+        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "ImageSource", "constructor",
+            "missingImage"));
+    }
 
-            /**
-             * This image source's key. A unique key is automatically generated and assigned during construction.
-             * Applications may assign a different key after construction.
-             * @type {String}
-             * @default A unique string for this image source.
-             */
-            this.key = "ImageSource " + ++ImageSource.keyPool;
-        };
+    /**
+     * This image source's image
+     * @type {Image}
+     * @readonly
+     */
+    this.image = image;
 
-        // Internal. Intentionally not documented.
-        ImageSource.keyPool = 0; // source of unique ids
+    /**
+     * This image source's key. A unique key is automatically generated and assigned during construction.
+     * Applications may assign a different key after construction.
+     * @type {String}
+     * @default A unique string for this image source.
+     */
+    this.key = "ImageSource " + ++ImageSource.keyPool;
+};
 
-        export default ImageSource;
-    
+// Internal. Intentionally not documented.
+ImageSource.keyPool = 0; // source of unique ids
+
+export default ImageSource;

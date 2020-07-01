@@ -50,10 +50,10 @@ libtess.DEBUG = false;
  * @param {string=} opt_message Error message in case of failure.
  * @throws {Error} Assertion failed, the condition evaluates to false.
  */
-libtess.assert = function(condition, opt_message) {
+libtess.assert = function (condition, opt_message) {
   if (libtess.DEBUG && !condition) {
     throw new Error('Assertion failed' +
-        (opt_message ? ': ' + opt_message : ''));
+      (opt_message ? ': ' + opt_message : ''));
   }
 };
 
@@ -209,7 +209,7 @@ libtess.geom = {};
  * @param {libtess.GluVertex} v
  * @return {boolean}
  */
-libtess.geom.vertEq = function(u, v) {
+libtess.geom.vertEq = function (u, v) {
   return u.s === v.s && u.t === v.t;
 };
 
@@ -219,7 +219,7 @@ libtess.geom.vertEq = function(u, v) {
  * @param {libtess.GluVertex} v
  * @return {boolean}
  */
-libtess.geom.vertLeq = function(u, v) {
+libtess.geom.vertLeq = function (u, v) {
   return u.s < v.s || u.s === v.s && u.t <= v.t;
 };
 
@@ -238,7 +238,7 @@ libtess.geom.vertLeq = function(u, v) {
  * @param {libtess.GluVertex} w
  * @return {number}
  */
-libtess.geom.edgeEval = function(u, v, w) {
+libtess.geom.edgeEval = function (u, v, w) {
 
   var gapL = v.s - u.s;
   var gapR = w.s - v.s;
@@ -264,7 +264,7 @@ libtess.geom.edgeEval = function(u, v, w) {
  * @param {libtess.GluVertex} w
  * @return {number}
  */
-libtess.geom.edgeSign = function(u, v, w) {
+libtess.geom.edgeSign = function (u, v, w) {
 
   var gapL = v.s - u.s;
   var gapR = w.s - v.s;
@@ -284,7 +284,7 @@ libtess.geom.edgeSign = function(u, v, w) {
  * @param {libtess.GluVertex} v
  * @return {boolean}
  */
-libtess.geom.transLeq = function(u, v) {
+libtess.geom.transLeq = function (u, v) {
   return u.t < v.t || u.t === v.t && u.s <= v.s;
 };
 
@@ -304,7 +304,7 @@ libtess.geom.transLeq = function(u, v) {
  * @param {libtess.GluVertex} w
  * @return {number}
  */
-libtess.geom.transEval = function(u, v, w) {
+libtess.geom.transEval = function (u, v, w) {
 
   var gapL = v.t - u.t;
   var gapR = w.t - v.t;
@@ -331,7 +331,7 @@ libtess.geom.transEval = function(u, v, w) {
  * @param {libtess.GluVertex} w
  * @return {number}
  */
-libtess.geom.transSign = function(u, v, w) {
+libtess.geom.transSign = function (u, v, w) {
 
   var gapL = v.t - u.t;
   var gapR = w.t - v.t;
@@ -349,7 +349,7 @@ libtess.geom.transSign = function(u, v, w) {
  * @param {libtess.GluHalfEdge} e
  * @return {boolean}
  */
-libtess.geom.edgeGoesLeft = function(e) {
+libtess.geom.edgeGoesLeft = function (e) {
   return libtess.geom.vertLeq(e.dst(), e.org);
 };
 
@@ -358,7 +358,7 @@ libtess.geom.edgeGoesLeft = function(e) {
  * @param {libtess.GluHalfEdge} e
  * @return {boolean}
  */
-libtess.geom.edgeGoesRight = function(e) {
+libtess.geom.edgeGoesRight = function (e) {
   return libtess.geom.vertLeq(e.org, e.dst());
 };
 
@@ -368,7 +368,7 @@ libtess.geom.edgeGoesRight = function(e) {
  * @param {libtess.GluVertex} v
  * @return {number}
  */
-libtess.geom.vertL1dist = function(u, v) {
+libtess.geom.vertL1dist = function (u, v) {
   return Math.abs(u.s - v.s) + Math.abs(u.t - v.t);
 };
 
@@ -386,7 +386,7 @@ libtess.geom.vertL1dist = function(u, v) {
  * @param {!libtess.GluVertex} w
  * @return {boolean}
  */
-libtess.geom.vertCCW = function(u, v, w) {
+libtess.geom.vertCCW = function (u, v, w) {
   return u.s * (v.t - w.t) + v.s * (w.t - u.t) + w.s * (u.t - v.t) >= 0;
 };
 
@@ -405,7 +405,7 @@ libtess.geom.vertCCW = function(u, v, w) {
  * @param {number} y
  * @return {number}
  */
-libtess.geom.interpolate_ = function(a, x, b, y) {
+libtess.geom.interpolate_ = function (a, x, b, y) {
   // from Macro RealInterpolate:
   //(a = (a < 0) ? 0 : a, b = (b < 0) ? 0 : b, ((a <= b) ? ((b == 0) ? ((x+y) / 2) : (x + (y-x) * (a/(a+b)))) : (y + (x-y) * (b/(a+b)))))
   a = a < 0 ? 0 : a;
@@ -432,7 +432,7 @@ libtess.geom.interpolate_ = function(a, x, b, y) {
  * @param {!libtess.GluVertex} d2
  * @param {!libtess.GluVertex} v
  */
-libtess.geom.edgeIntersect = function(o1, d1, o2, d2, v) {
+libtess.geom.edgeIntersect = function (o1, d1, o2, d2, v) {
   // This is certainly not the most efficient way to find the intersection
   // of two line segments, but it is very numerically stable.
 
@@ -548,7 +548,7 @@ libtess.mesh = {};
  * @param {libtess.GluMesh} mesh [description].
  * @return {libtess.GluHalfEdge} [description].
  */
-libtess.mesh.makeEdge = function(mesh) {
+libtess.mesh.makeEdge = function (mesh) {
   // TODO(bckenny): probably move to GluMesh, but needs Make* methods with it
 
   var e = libtess.mesh.makeEdgePair_(mesh.eHead);
@@ -589,7 +589,7 @@ libtess.mesh.makeEdge = function(mesh) {
  * @param {libtess.GluHalfEdge} eOrg [description].
  * @param {libtess.GluHalfEdge} eDst [description].
  */
-libtess.mesh.meshSplice = function(eOrg, eDst) {
+libtess.mesh.meshSplice = function (eOrg, eDst) {
   // TODO: more descriptive name?
 
   var joiningLoops = false;
@@ -643,7 +643,7 @@ libtess.mesh.meshSplice = function(eOrg, eDst) {
  *
  * @param {libtess.GluHalfEdge} eDel [description].
  */
-libtess.mesh.deleteEdge = function(eDel) {
+libtess.mesh.deleteEdge = function (eDel) {
   var eDelSym = eDel.sym;
   var joiningLoops = false;
 
@@ -703,7 +703,7 @@ libtess.mesh.deleteEdge = function(eDel) {
  * @param {libtess.GluHalfEdge} eOrg [description].
  * @return {libtess.GluHalfEdge} [description].
  */
-libtess.mesh.addEdgeVertex = function(eOrg) {
+libtess.mesh.addEdgeVertex = function (eOrg) {
   // TODO(bckenny): why is it named this?
 
   var eNew = libtess.mesh.makeEdgePair_(eOrg);
@@ -731,7 +731,7 @@ libtess.mesh.addEdgeVertex = function(eOrg) {
  * @param {libtess.GluHalfEdge} eOrg [description].
  * @return {!libtess.GluHalfEdge} [description].
  */
-libtess.mesh.splitEdge = function(eOrg) {
+libtess.mesh.splitEdge = function (eOrg) {
   var tempHalfEdge = libtess.mesh.addEdgeVertex(eOrg);
   var eNew = tempHalfEdge.sym;
 
@@ -765,7 +765,7 @@ libtess.mesh.splitEdge = function(eOrg) {
  * @param {libtess.GluHalfEdge} eDst [description].
  * @return {!libtess.GluHalfEdge} [description].
  */
-libtess.mesh.connect = function(eOrg, eDst) {
+libtess.mesh.connect = function (eOrg, eDst) {
   var joiningLoops = false;
   var eNew = libtess.mesh.makeEdgePair_(eOrg);
   var eNewSym = eNew.sym;
@@ -808,7 +808,7 @@ libtess.mesh.connect = function(eOrg, eDst) {
  *
  * @param {libtess.GluFace} fZap [description].
  */
-libtess.mesh.zapFace = function(fZap) {
+libtess.mesh.zapFace = function (fZap) {
   var eStart = fZap.anEdge;
 
   // walk around face, deleting edges whose right face is also NULL
@@ -865,7 +865,7 @@ libtess.mesh.zapFace = function(fZap) {
  * @param {!libtess.GluMesh} mesh2
  * @return {!libtess.GluMesh}
  */
-libtess.mesh.meshUnion = function(mesh1, mesh2) {
+libtess.mesh.meshUnion = function (mesh1, mesh2) {
   // TODO(bceknny): probably move to GluMesh method
   var f1 = mesh1.fHead;
   var v1 = mesh1.vHead;
@@ -907,7 +907,7 @@ libtess.mesh.meshUnion = function(mesh1, mesh2) {
  * deleteMesh(mesh) will free all storage for any valid mesh.
  * @param {libtess.GluMesh} mesh [description].
  */
-libtess.mesh.deleteMesh = function(mesh) {
+libtess.mesh.deleteMesh = function (mesh) {
   // TODO(bckenny): unnecessary, I think.
   // TODO(bckenny): might want to explicitly null at callsite
   // lots of memFrees. see also DELETE_BY_ZAPPING
@@ -927,7 +927,7 @@ libtess.mesh.deleteMesh = function(mesh) {
  * @param {libtess.GluHalfEdge} eNext [description].
  * @return {libtess.GluHalfEdge} [description].
  */
-libtess.mesh.makeEdgePair_ = function(eNext) {
+libtess.mesh.makeEdgePair_ = function (eNext) {
   var e = new libtess.GluHalfEdge();
   var eSym = new libtess.GluHalfEdge();
 
@@ -968,7 +968,7 @@ libtess.mesh.makeEdgePair_ = function(eNext) {
  * @param {libtess.GluHalfEdge} a [description].
  * @param {libtess.GluHalfEdge} b [description].
  */
-libtess.mesh.splice_ = function(a, b) {
+libtess.mesh.splice_ = function (a, b) {
   var aONext = a.oNext;
   var bONext = b.oNext;
 
@@ -992,7 +992,7 @@ libtess.mesh.splice_ = function(a, b) {
  * @param {libtess.GluHalfEdge} eOrig [description].
  * @param {libtess.GluVertex} vNext [description].
  */
-libtess.mesh.makeVertex_ = function(eOrig, vNext) {
+libtess.mesh.makeVertex_ = function (eOrig, vNext) {
   // insert in circular doubly-linked list before vNext
   var vPrev = vNext.prev;
   var vNew = new libtess.GluVertex(vNext, vPrev);
@@ -1025,7 +1025,7 @@ libtess.mesh.makeVertex_ = function(eOrig, vNext) {
  * @param {libtess.GluHalfEdge} eOrig [description].
  * @param {libtess.GluFace} fNext [description].
  */
-libtess.mesh.makeFace_ = function(eOrig, fNext) {
+libtess.mesh.makeFace_ = function (eOrig, fNext) {
   // insert in circular doubly-linked list before fNext
   var fPrev = fNext.prev;
   var fNew = new libtess.GluFace(fNext, fPrev);
@@ -1054,7 +1054,7 @@ libtess.mesh.makeFace_ = function(eOrig, fNext) {
  * @private
  * @param {libtess.GluHalfEdge} eDel [description].
  */
-libtess.mesh.killEdge_ = function(eDel) {
+libtess.mesh.killEdge_ = function (eDel) {
   // TODO(bckenny): in this case, no need to worry(?), but check when checking mesh.makeEdgePair_
   // Half-edges are allocated in pairs, see EdgePair above
   // if (eDel->Sym < eDel ) { eDel = eDel->Sym; }
@@ -1078,7 +1078,7 @@ libtess.mesh.killEdge_ = function(eDel) {
  * @param {libtess.GluVertex} vDel [description].
  * @param {libtess.GluVertex} newOrg [description].
  */
-libtess.mesh.killVertex_ = function(vDel, newOrg) {
+libtess.mesh.killVertex_ = function (vDel, newOrg) {
   var eStart = vDel.anEdge;
 
   // change the origin of all affected edges
@@ -1107,7 +1107,7 @@ libtess.mesh.killVertex_ = function(vDel, newOrg) {
  * @param {libtess.GluFace} fDel [description].
  * @param {libtess.GluFace} newLFace [description].
  */
-libtess.mesh.killFace_ = function(fDel, newLFace) {
+libtess.mesh.killFace_ = function (fDel, newLFace) {
   var eStart = fDel.anEdge;
 
   // change the left face of all affected edges
@@ -1167,7 +1167,7 @@ libtess.normal.S_UNIT_Y_ = 0.0;
  * polygon.
  * @param {!libtess.GluTesselator} tess
  */
-libtess.normal.projectPolygon = function(tess) {
+libtess.normal.projectPolygon = function (tess) {
   var computedNormal = false;
 
   var norm = [
@@ -1217,9 +1217,9 @@ libtess.normal.projectPolygon = function(tess) {
 
     tUnit[i] = 0;
     tUnit[(i + 1) % 3] = norm[i] > 0 ?
-        -libtess.normal.S_UNIT_Y_ : libtess.normal.S_UNIT_Y_;
+      -libtess.normal.S_UNIT_Y_ : libtess.normal.S_UNIT_Y_;
     tUnit[(i + 2) % 3] = norm[i] > 0 ?
-        libtess.normal.S_UNIT_X_ : -libtess.normal.S_UNIT_X_;
+      libtess.normal.S_UNIT_X_ : -libtess.normal.S_UNIT_X_;
   }
 
   // Project the vertices onto the sweep plane
@@ -1241,7 +1241,7 @@ libtess.normal.projectPolygon = function(tess) {
  * @param {!Array.<number>} v
  * @return {number}
  */
-libtess.normal.dot_ = function(u, v) {
+libtess.normal.dot_ = function (u, v) {
   return u[0] * v[0] + u[1] * v[1] + u[2] * v[2];
 };
 
@@ -1253,7 +1253,7 @@ libtess.normal.dot_ = function(u, v) {
  * @private
  * @param {!Array.<number>} v
  */
-libtess.normal.normalize_ = function(v) {
+libtess.normal.normalize_ = function (v) {
   var len = v[0] * v[0] + v[1] * v[1] + v[2] * v[2];
 
   len = Math.sqrt(len);
@@ -1268,7 +1268,7 @@ libtess.normal.normalize_ = function(v) {
  * @param {!Array.<number>} v
  * @return {number}
  */
-libtess.normal.longAxis_ = function(v) {
+libtess.normal.longAxis_ = function (v) {
   var i = 0;
 
   if (Math.abs(v[1]) > Math.abs(v[0])) {
@@ -1288,7 +1288,7 @@ libtess.normal.longAxis_ = function(v) {
  * @param {!libtess.GluTesselator} tess
  * @param {!Array.<number>} norm
  */
-libtess.normal.computeNormal_ = function(tess, norm) {
+libtess.normal.computeNormal_ = function (tess, norm) {
   var maxVal = [
     -2 * libtess.GLU_TESS_MAX_COORD,
     -2 * libtess.GLU_TESS_MAX_COORD,
@@ -1365,7 +1365,7 @@ libtess.normal.computeNormal_ = function(tess, norm) {
  * @private
  * @param {!libtess.GluTesselator} tess
  */
-libtess.normal.checkOrientation_ = function(tess) {
+libtess.normal.checkOrientation_ = function (tess) {
   var area = 0;
   var fHead = tess.mesh.fHead;
   for (var f = fHead.next; f !== fHead; f = f.next) {
@@ -1403,7 +1403,7 @@ libtess.render = {};
  * @param {!libtess.GluMesh} mesh
  * @param {boolean} flagEdges
  */
-libtess.render.renderMesh = function(tess, mesh, flagEdges) {
+libtess.render.renderMesh = function (tess, mesh, flagEdges) {
   var beginOrBeginDataCalled = false;
 
   // TODO(bckenny): edgeState needs to be boolean, but !== on first call
@@ -1457,7 +1457,7 @@ libtess.render.renderMesh = function(tess, mesh, flagEdges) {
  * @param {!libtess.GluTesselator} tess
  * @param {!libtess.GluMesh} mesh
  */
-libtess.render.renderBoundary = function(tess, mesh) {
+libtess.render.renderBoundary = function (tess, mesh) {
   for (var f = mesh.fHead.next; f !== mesh.fHead; f = f.next) {
     if (f.inside) {
       tess.callBeginOrBeginData(libtess.primitiveType.GL_LINE_LOOP);
@@ -1547,7 +1547,7 @@ libtess.sweep.TOLERANCE_NONZERO_ = false;
  *
  * @param {libtess.GluTesselator} tess [description].
  */
-libtess.sweep.computeInterior = function(tess) {
+libtess.sweep.computeInterior = function (tess) {
   tess.fatalError = false;
 
   // Each vertex defines an event for our sweep line. Start by inserting
@@ -1561,7 +1561,7 @@ libtess.sweep.computeInterior = function(tess) {
   // TODO(bckenny): don't need the cast if pq's key is better typed
   var v;
   while ((v = /** @type {libtess.GluVertex} */tess.pq.extractMin()) !== null) {
-    for (;;) {
+    for (; ;) {
       var vNext = /** @type {libtess.GluVertex} */tess.pq.minimum();
       if (vNext === null || !libtess.geom.vertEq(vNext, v)) {
         break;
@@ -1606,7 +1606,7 @@ libtess.sweep.computeInterior = function(tess) {
  * @param {libtess.GluHalfEdge} eDst [description].
  * @param {libtess.GluHalfEdge} eSrc [description].
  */
-libtess.sweep.addWinding_ = function(eDst, eSrc) {
+libtess.sweep.addWinding_ = function (eDst, eSrc) {
   // NOTE(bckenny): from AddWinding macro
   eDst.winding += eSrc.winding;
   eDst.sym.winding += eSrc.sym.winding;
@@ -1630,7 +1630,7 @@ libtess.sweep.addWinding_ = function(eDst, eSrc) {
  * @param {!libtess.ActiveRegion} reg2
  * @return {boolean}
  */
-libtess.sweep.edgeLeq_ = function(tess, reg1, reg2) {
+libtess.sweep.edgeLeq_ = function (tess, reg1, reg2) {
   var event = tess.event;
   var e1 = reg1.eUp;
   var e2 = reg2.eUp;
@@ -1666,7 +1666,7 @@ libtess.sweep.edgeLeq_ = function(tess, reg1, reg2) {
  * @param {libtess.GluTesselator} tess [description].
  * @param {libtess.ActiveRegion} reg [description].
  */
-libtess.sweep.deleteRegion_ = function(tess, reg) {
+libtess.sweep.deleteRegion_ = function (tess, reg) {
   if (reg.fixUpperEdge) {
     // It was created with zero winding number, so it better be
     // deleted with zero winding number (ie. it better not get merged
@@ -1689,7 +1689,7 @@ libtess.sweep.deleteRegion_ = function(tess, reg) {
  * @param {libtess.ActiveRegion} reg [description].
  * @param {libtess.GluHalfEdge} newEdge [description].
  */
-libtess.sweep.fixUpperEdge_ = function(reg, newEdge) {
+libtess.sweep.fixUpperEdge_ = function (reg, newEdge) {
   libtess.mesh.deleteEdge(reg.eUp);
 
   reg.fixUpperEdge = false;
@@ -1704,7 +1704,7 @@ libtess.sweep.fixUpperEdge_ = function(reg, newEdge) {
  * @param {libtess.ActiveRegion} reg [description].
  * @return {libtess.ActiveRegion} [description].
  */
-libtess.sweep.topLeftRegion_ = function(reg) {
+libtess.sweep.topLeftRegion_ = function (reg) {
   var org = reg.eUp.org;
 
   // Find the region above the uppermost edge with the same origin
@@ -1730,7 +1730,7 @@ libtess.sweep.topLeftRegion_ = function(reg) {
  * @param {libtess.ActiveRegion} reg [description].
  * @return {libtess.ActiveRegion} [description].
  */
-libtess.sweep.topRightRegion_ = function(reg) {
+libtess.sweep.topRightRegion_ = function (reg) {
   var dst = reg.eUp.dst();
 
   do {
@@ -1753,7 +1753,7 @@ libtess.sweep.topRightRegion_ = function(reg) {
  * @param {libtess.GluHalfEdge} eNewUp [description].
  * @return {libtess.ActiveRegion} regNew.
  */
-libtess.sweep.addRegionBelow_ = function(tess, regAbove, eNewUp) {
+libtess.sweep.addRegionBelow_ = function (tess, regAbove, eNewUp) {
   var regNew = new libtess.ActiveRegion();
 
   regNew.eUp = eNewUp;
@@ -1771,7 +1771,7 @@ libtess.sweep.addRegionBelow_ = function(tess, regAbove, eNewUp) {
  * @param {number} n int.
  * @return {boolean} [description].
  */
-libtess.sweep.isWindingInside_ = function(tess, n) {
+libtess.sweep.isWindingInside_ = function (tess, n) {
   switch (tess.windingRule) {
     case libtess.windingRule.GLU_TESS_WINDING_ODD:
       return (n & 1) !== 0;
@@ -1796,7 +1796,7 @@ libtess.sweep.isWindingInside_ = function(tess, n) {
  * @param {libtess.GluTesselator} tess [description].
  * @param {libtess.ActiveRegion} reg [description].
  */
-libtess.sweep.computeWinding_ = function(tess, reg) {
+libtess.sweep.computeWinding_ = function (tess, reg) {
   reg.windingNumber = reg.regionAbove().windingNumber + reg.eUp.winding;
   reg.inside = libtess.sweep.isWindingInside_(tess, reg.windingNumber);
 };
@@ -1813,7 +1813,7 @@ libtess.sweep.computeWinding_ = function(tess, reg) {
  * @param {libtess.GluTesselator} tess [description].
  * @param {libtess.ActiveRegion} reg [description].
  */
-libtess.sweep.finishRegion_ = function(tess, reg) {
+libtess.sweep.finishRegion_ = function (tess, reg) {
   // TODO(bckenny): may need to null reg at callsite
 
   var e = reg.eUp;
@@ -1843,7 +1843,7 @@ libtess.sweep.finishRegion_ = function(tess, reg) {
  * @param {libtess.ActiveRegion} regLast [description].
  * @return {libtess.GluHalfEdge} [description].
  */
-libtess.sweep.finishLeftRegions_ = function(tess, regFirst, regLast) {
+libtess.sweep.finishLeftRegions_ = function (tess, regFirst, regLast) {
   var regPrev = regFirst;
   var ePrev = regFirst.eUp;
   while (regPrev !== regLast) {
@@ -1903,8 +1903,8 @@ libtess.sweep.finishLeftRegions_ = function(tess, regFirst, regLast) {
  * @param {libtess.GluHalfEdge} eTopLeft [description].
  * @param {boolean} cleanUp [description].
  */
-libtess.sweep.addRightEdges_ = function(tess, regUp, eFirst, eLast, eTopLeft,
-    cleanUp) {
+libtess.sweep.addRightEdges_ = function (tess, regUp, eFirst, eLast, eTopLeft,
+  cleanUp) {
 
   var firstTime = true;
 
@@ -1924,7 +1924,7 @@ libtess.sweep.addRightEdges_ = function(tess, regUp, eFirst, eLast, eTopLeft,
   var regPrev = regUp;
   var ePrev = eTopLeft;
   var reg;
-  for (;;) {
+  for (; ;) {
     reg = regPrev.regionBelow();
     e = reg.eUp.sym;
     if (e.org !== ePrev.org) {
@@ -1971,7 +1971,7 @@ libtess.sweep.addRightEdges_ = function(tess, regUp, eFirst, eLast, eTopLeft,
  * @param {Array.<number>} weights [description].
  * @param {boolean} needed [description].
  */
-libtess.sweep.callCombine_ = function(tess, isect, data, weights, needed) {
+libtess.sweep.callCombine_ = function (tess, isect, data, weights, needed) {
   // Copy coord data in case the callback changes it.
   var coords = [
     isect.coords[0],
@@ -1991,7 +1991,7 @@ libtess.sweep.callCombine_ = function(tess, isect, data, weights, needed) {
       // but the user has not provided the callback necessary to handle
       // generated intersection points.
       tess.callErrorOrErrorData(
-          libtess.errorType.GLU_TESS_NEED_COMBINE_CALLBACK);
+        libtess.errorType.GLU_TESS_NEED_COMBINE_CALLBACK);
       tess.fatalError = true;
     }
   }
@@ -2006,7 +2006,7 @@ libtess.sweep.callCombine_ = function(tess, isect, data, weights, needed) {
  * @param {libtess.GluHalfEdge} e1 [description].
  * @param {libtess.GluHalfEdge} e2 [description].
  */
-libtess.sweep.spliceMergeVertices_ = function(tess, e1, e2) {
+libtess.sweep.spliceMergeVertices_ = function (tess, e1, e2) {
   // TODO(bckenny): better way to init these? save them?
   var data = [null, null, null, null];
   var weights = [0.5, 0.5, 0, 0];
@@ -2032,7 +2032,7 @@ libtess.sweep.spliceMergeVertices_ = function(tess, e1, e2) {
  * @param {Array.<number>} weights [description].
  * @param {number} weightIndex Index into weights for first weight to supply.
  */
-libtess.sweep.vertexWeights_ = function(isect, org, dst, weights, weightIndex) {
+libtess.sweep.vertexWeights_ = function (isect, org, dst, weights, weightIndex) {
   // TODO(bckenny): think through how we can use L1dist here and be correct for coords
   var t1 = libtess.geom.vertL1dist(org, isect);
   var t2 = libtess.geom.vertL1dist(dst, isect);
@@ -2062,8 +2062,8 @@ libtess.sweep.vertexWeights_ = function(isect, org, dst, weights, weightIndex) {
  * @param {libtess.GluVertex} orgLo [description].
  * @param {libtess.GluVertex} dstLo [description].
  */
-libtess.sweep.getIntersectData_ = function(tess, isect, orgUp, dstUp, orgLo,
-    dstLo) {
+libtess.sweep.getIntersectData_ = function (tess, isect, orgUp, dstUp, orgLo,
+  dstLo) {
 
   // TODO(bckenny): called for every intersection event, should these be from a pool?
   // TODO(bckenny): better way to init these?
@@ -2117,7 +2117,7 @@ libtess.sweep.getIntersectData_ = function(tess, isect, orgUp, dstUp, orgLo,
  * @param {libtess.ActiveRegion} regUp [description].
  * @return {boolean} [description].
  */
-libtess.sweep.checkForRightSplice_ = function(tess, regUp) {
+libtess.sweep.checkForRightSplice_ = function (tess, regUp) {
   // TODO(bckenny): fully learn how these two checks work
 
   var regLo = regUp.regionBelow();
@@ -2181,7 +2181,7 @@ libtess.sweep.checkForRightSplice_ = function(tess, regUp) {
  * @param {libtess.ActiveRegion} regUp [description].
  * @return {boolean} [description].
  */
-libtess.sweep.checkForLeftSplice_ = function(tess, regUp) {
+libtess.sweep.checkForLeftSplice_ = function (tess, regUp) {
   var regLo = regUp.regionBelow();
   var eUp = regUp.eUp;
   var eLo = regLo.eUp;
@@ -2228,7 +2228,7 @@ libtess.sweep.checkForLeftSplice_ = function(tess, regUp) {
  * @param {libtess.ActiveRegion} regUp [description].
  * @return {boolean} [description].
  */
-libtess.sweep.checkForIntersect_ = function(tess, regUp) {
+libtess.sweep.checkForIntersect_ = function (tess, regUp) {
   var regLo = regUp.regionBelow();
   var eUp = regUp.eUp;
   var eLo = regLo.eUp;
@@ -2298,9 +2298,9 @@ libtess.sweep.checkForIntersect_ = function(tess, regUp) {
 
   // TODO(bckenny): clean this up; length is distracting
   if (!libtess.geom.vertEq(dstUp, tess.event) &&
-      libtess.geom.edgeSign(dstUp, tess.event, isect) >= 0 ||
-      !libtess.geom.vertEq(dstLo, tess.event) &&
-      libtess.geom.edgeSign(dstLo, tess.event, isect) <= 0) {
+    libtess.geom.edgeSign(dstUp, tess.event, isect) >= 0 ||
+    !libtess.geom.vertEq(dstLo, tess.event) &&
+    libtess.geom.edgeSign(dstLo, tess.event, isect) <= 0) {
 
     /* Very unusual -- the new upper or lower edge would pass on the
      * wrong side of the sweep event, or through it. This can happen
@@ -2327,7 +2327,7 @@ libtess.sweep.checkForIntersect_ = function(tess, regUp) {
       regLo.eUp = eLo.oPrev();
       eLo = libtess.sweep.finishLeftRegions_(tess, regLo, null);
       libtess.sweep.addRightEdges_(tess, regUp, eLo.oNext, eUp.rPrev(), e,
-          true);
+        true);
       return true;
     }
 
@@ -2385,10 +2385,10 @@ libtess.sweep.checkForIntersect_ = function(tess, regUp) {
  * @param {libtess.GluTesselator} tess [description].
  * @param {libtess.ActiveRegion} regUp [description].
  */
-libtess.sweep.walkDirtyRegions_ = function(tess, regUp) {
+libtess.sweep.walkDirtyRegions_ = function (tess, regUp) {
   var regLo = regUp.regionBelow();
 
-  for (;;) {
+  for (; ;) {
     // Find the lowest dirty region (we walk from the bottom up).
     while (regLo.dirty) {
       regUp = regLo;
@@ -2430,8 +2430,8 @@ libtess.sweep.walkDirtyRegions_ = function(tess, regUp) {
 
     if (eUp.org !== eLo.org) {
       if (eUp.dst() !== eLo.dst() && !regUp.fixUpperEdge &&
-          !regLo.fixUpperEdge &&
-          (eUp.dst() === tess.event || eLo.dst() === tess.event)) {
+        !regLo.fixUpperEdge &&
+        (eUp.dst() === tess.event || eLo.dst() === tess.event)) {
         /* When all else fails in checkForIntersect(), it uses tess.event
          * as the intersection location. To make this possible, it requires
          * that tess.event lie between the upper and lower edges, and also
@@ -2499,7 +2499,7 @@ libtess.sweep.walkDirtyRegions_ = function(tess, regUp) {
  * @param {libtess.ActiveRegion} regUp [description].
  * @param {libtess.GluHalfEdge} eBottomLeft [description].
  */
-libtess.sweep.connectRightVertex_ = function(tess, regUp, eBottomLeft) {
+libtess.sweep.connectRightVertex_ = function (tess, regUp, eBottomLeft) {
   var eTopLeft = eBottomLeft.oNext;
   var regLo = regUp.regionBelow();
   var eUp = regUp.eUp;
@@ -2526,7 +2526,7 @@ libtess.sweep.connectRightVertex_ = function(tess, regUp, eBottomLeft) {
   }
   if (degenerate) {
     libtess.sweep.addRightEdges_(tess, regUp, eBottomLeft.oNext, eTopLeft,
-        eTopLeft, true);
+      eTopLeft, true);
     return;
   }
 
@@ -2543,7 +2543,7 @@ libtess.sweep.connectRightVertex_ = function(tess, regUp, eBottomLeft) {
   // Prevent cleanup, otherwise eNew might disappear before we've even
   // had a chance to mark it as a temporary edge.
   libtess.sweep.addRightEdges_(tess, regUp, eNew, eNew.oNext, eNew.oNext,
-      false);
+    false);
   eNew.sym.activeRegion.fixUpperEdge = true;
   libtess.sweep.walkDirtyRegions_(tess, regUp);
 };
@@ -2558,7 +2558,7 @@ libtess.sweep.connectRightVertex_ = function(tess, regUp, eBottomLeft) {
  * @param {libtess.ActiveRegion} regUp [description].
  * @param {libtess.GluVertex} vEvent [description].
  */
-libtess.sweep.connectLeftDegenerate_ = function(tess, regUp, vEvent) {
+libtess.sweep.connectLeftDegenerate_ = function (tess, regUp, vEvent) {
   var e = regUp.eUp;
   /* istanbul ignore if */
   if (libtess.geom.vertEq(e.org, vEvent)) {
@@ -2624,7 +2624,7 @@ libtess.sweep.connectLeftDegenerate_ = function(tess, regUp, vEvent) {
     }
 
     libtess.sweep.addRightEdges_(tess, regUp, eTopRight.oNext, eLast, eTopLeft,
-        true);
+      true);
   }
 };
 
@@ -2648,7 +2648,7 @@ libtess.sweep.connectLeftDegenerate_ = function(tess, regUp, vEvent) {
  * @param {libtess.GluTesselator} tess   [description].
  * @param {libtess.GluVertex} vEvent [description].
  */
-libtess.sweep.connectLeftVertex_ = function(tess, vEvent) {
+libtess.sweep.connectLeftVertex_ = function (tess, vEvent) {
   // TODO(bckenny): tmp only used for sweep. better to keep tmp across calls?
   var tmp = new libtess.ActiveRegion();
 
@@ -2686,7 +2686,7 @@ libtess.sweep.connectLeftVertex_ = function(tess, vEvent) {
 
     } else {
       libtess.sweep.computeWinding_(tess,
-          libtess.sweep.addRegionBelow_(tess, regUp, eNew));
+        libtess.sweep.addRegionBelow_(tess, regUp, eNew));
     }
     libtess.sweep.sweepEvent_(tess, vEvent);
 
@@ -2694,7 +2694,7 @@ libtess.sweep.connectLeftVertex_ = function(tess, vEvent) {
     // The new vertex is in a region which does not belong to the polygon.
     // We don''t need to connect this vertex to the rest of the mesh.
     libtess.sweep.addRightEdges_(tess, regUp, vEvent.anEdge, vEvent.anEdge,
-        null, true);
+      null, true);
   }
 };
 
@@ -2706,7 +2706,7 @@ libtess.sweep.connectLeftVertex_ = function(tess, vEvent) {
  * @param {libtess.GluTesselator} tess [description].
  * @param {libtess.GluVertex} vEvent [description].
  */
-libtess.sweep.sweepEvent_ = function(tess, vEvent) {
+libtess.sweep.sweepEvent_ = function (tess, vEvent) {
   tess.event = vEvent; // for access in edgeLeq_ // TODO(bckenny): wuh?
 
   /* Check if this vertex is the right endpoint of an edge that is
@@ -2746,7 +2746,7 @@ libtess.sweep.sweepEvent_ = function(tess, vEvent) {
 
   } else {
     libtess.sweep.addRightEdges_(tess, regUp, eBottomLeft.oNext, eTopLeft,
-        eTopLeft, true);
+      eTopLeft, true);
   }
 };
 
@@ -2758,7 +2758,7 @@ libtess.sweep.sweepEvent_ = function(tess, vEvent) {
  * @param {libtess.GluTesselator} tess [description].
  * @param {number} t [description].
  */
-libtess.sweep.addSentinel_ = function(tess, t) {
+libtess.sweep.addSentinel_ = function (tess, t) {
   var reg = new libtess.ActiveRegion();
 
   var e = libtess.mesh.makeEdge(tess.mesh);
@@ -2785,7 +2785,7 @@ libtess.sweep.addSentinel_ = function(tess, t) {
  * @private
  * @param {libtess.GluTesselator} tess [description].
  */
-libtess.sweep.initEdgeDict_ = function(tess) {
+libtess.sweep.initEdgeDict_ = function (tess) {
   tess.dict = new libtess.Dict(tess, libtess.sweep.edgeLeq_);
 
   libtess.sweep.addSentinel_(tess, -libtess.sweep.SENTINEL_COORD_);
@@ -2798,7 +2798,7 @@ libtess.sweep.initEdgeDict_ = function(tess) {
  * @private
  * @param {libtess.GluTesselator} tess [description].
  */
-libtess.sweep.doneEdgeDict_ = function(tess) {
+libtess.sweep.doneEdgeDict_ = function (tess) {
   // NOTE(bckenny): fixedEdges is only used in the assert below, so ignore so
   // when asserts are removed jshint won't error.
   /* jshint unused:false */
@@ -2824,7 +2824,7 @@ libtess.sweep.doneEdgeDict_ = function(tess) {
  * @private
  * @param {libtess.GluTesselator} tess [description].
  */
-libtess.sweep.removeDegenerateEdges_ = function(tess) {
+libtess.sweep.removeDegenerateEdges_ = function (tess) {
   var eHead = tess.mesh.eHead;
 
   var eNext;
@@ -2864,7 +2864,7 @@ libtess.sweep.removeDegenerateEdges_ = function(tess) {
  * @private
  * @param {libtess.GluTesselator} tess [description].
  */
-libtess.sweep.initPriorityQ_ = function(tess) {
+libtess.sweep.initPriorityQ_ = function (tess) {
   // TODO(bckenny): libtess.geom.vertLeq needs cast?
   var pq = new libtess.PriorityQ(
       /** @type {function(Object, Object): boolean} */libtess.geom.vertLeq);
@@ -2885,7 +2885,7 @@ libtess.sweep.initPriorityQ_ = function(tess) {
  * @private
  * @param {libtess.GluTesselator} tess [description].
  */
-libtess.sweep.donePriorityQ_ = function(tess) {
+libtess.sweep.donePriorityQ_ = function (tess) {
   // TODO(bckenny): probably don't need deleteQ. check that function for comment
   tess.pq.deleteQ();
   tess.pq = null;
@@ -2909,7 +2909,7 @@ libtess.sweep.donePriorityQ_ = function(tess) {
  * @private
  * @param {libtess.GluMesh} mesh [description].
  */
-libtess.sweep.removeDegenerateFaces_ = function(mesh) {
+libtess.sweep.removeDegenerateFaces_ = function (mesh) {
   var fNext;
   for (var f = mesh.fHead.next; f !== mesh.fHead; f = fNext) {
     fNext = f.next;
@@ -2940,7 +2940,7 @@ libtess.tessmono = {};
  * @private
  * @param {!libtess.GluFace} face
  */
-libtess.tessmono.tessellateMonoRegion_ = function(face) {
+libtess.tessmono.tessellateMonoRegion_ = function (face) {
   /* The basic idea is explained in Preparata and Shamos (which I don't
    * have handy right now), although their implementation is more
    * complicated than this one. The are two edge chains, an upper chain
@@ -2978,7 +2978,7 @@ libtess.tessmono.tessellateMonoRegion_ = function(face) {
       // The edgeGoesLeft test guarantees progress even when some triangles
       // are CW, given that the upper and lower chains are truly monotone.
       while (lo.lNext !== up && (libtess.geom.edgeGoesLeft(lo.lNext) ||
-          libtess.geom.edgeSign(lo.org, lo.dst(), lo.lNext.dst()) <= 0)) {
+        libtess.geom.edgeSign(lo.org, lo.dst(), lo.lNext.dst()) <= 0)) {
 
         tempHalfEdge = libtess.mesh.connect(lo.lNext, lo);
         lo = tempHalfEdge.sym;
@@ -2988,7 +2988,7 @@ libtess.tessmono.tessellateMonoRegion_ = function(face) {
     } else {
       // lo.org is on the left. We can make CCW triangles from up.dst().
       while (lo.lNext !== up && (libtess.geom.edgeGoesRight(up.lPrev()) ||
-          libtess.geom.edgeSign(up.dst(), up.org, up.lPrev().org) >= 0)) {
+        libtess.geom.edgeSign(up.dst(), up.org, up.lPrev().org) >= 0)) {
 
         tempHalfEdge = libtess.mesh.connect(up, up.lPrev());
         up = tempHalfEdge.sym;
@@ -3010,7 +3010,7 @@ libtess.tessmono.tessellateMonoRegion_ = function(face) {
  * Each such region must be monotone.
  * @param {!libtess.GluMesh} mesh
  */
-libtess.tessmono.tessellateInterior = function(mesh) {
+libtess.tessmono.tessellateInterior = function (mesh) {
   var next;
   for (var f = mesh.fHead.next; f !== mesh.fHead; f = next) {
     // Make sure we don't try to tessellate the new triangles.
@@ -3028,7 +3028,7 @@ libtess.tessmono.tessellateInterior = function(mesh) {
  * data structure.
  * @param {!libtess.GluMesh} mesh
  */
-libtess.tessmono.discardExterior = function(mesh) {
+libtess.tessmono.discardExterior = function (mesh) {
   var next;
   for (var f = mesh.fHead.next; f !== mesh.fHead; f = next) {
     // Since f will be destroyed, save its next pointer.
@@ -3051,7 +3051,7 @@ libtess.tessmono.discardExterior = function(mesh) {
  * @param {number} value
  * @param {boolean} keepOnlyBoundary
  */
-libtess.tessmono.setWindingNumber = function(mesh, value, keepOnlyBoundary) {
+libtess.tessmono.setWindingNumber = function (mesh, value, keepOnlyBoundary) {
   var eNext;
   for (var e = mesh.eHead.next; e !== mesh.eHead; e = eNext) {
     eNext = e.next;
@@ -3085,7 +3085,7 @@ libtess.tessmono.setWindingNumber = function(mesh, value, keepOnlyBoundary) {
  * @param {!libtess.GluTesselator} frame
  * @param {function(!libtess.GluTesselator, !libtess.ActiveRegion, !libtess.ActiveRegion): boolean} leq
  */
-libtess.Dict = function(frame, leq) {
+libtess.Dict = function (frame, leq) {
 
   /**
    * The head of the doubly-linked DictNode list. At creation time, links back
@@ -3116,7 +3116,7 @@ libtess.Dict = function(frame, leq) {
  * former callsite instead (sweep.doneEdgeDict_)
  * @private
  */
-libtess.Dict.prototype.deleteDict_ = function() {
+libtess.Dict.prototype.deleteDict_ = function () {
   // for (var node = this.head_.next; node !== this.head_; node = node.next) {
   //   memFree(node);
   // }
@@ -3129,7 +3129,7 @@ libtess.Dict.prototype.deleteDict_ = function() {
  * @param {!libtess.ActiveRegion} key
  * @return {!libtess.DictNode}
  */
-libtess.Dict.prototype.insertBefore = function(node, key) {
+libtess.Dict.prototype.insertBefore = function (node, key) {
   do {
     node = node.prev;
   } while (node.key !== null && !this.leq_(this.frame_, node.key, key));
@@ -3147,7 +3147,7 @@ libtess.Dict.prototype.insertBefore = function(node, key) {
  * @param {!libtess.ActiveRegion} key
  * @return {!libtess.DictNode}
  */
-libtess.Dict.prototype.insert = function(key) {
+libtess.Dict.prototype.insert = function (key) {
   // NOTE(bckenny): from a macro in dict.h/dict-list.h
   return this.insertBefore(this.head_, key);
 };
@@ -3156,7 +3156,7 @@ libtess.Dict.prototype.insert = function(key) {
  * Remove node from the list.
  * @param {libtess.DictNode} node
  */
-libtess.Dict.prototype.deleteNode = function(node) {
+libtess.Dict.prototype.deleteNode = function (node) {
   node.next.prev = node.prev;
   node.prev.next = node.next;
 
@@ -3171,7 +3171,7 @@ libtess.Dict.prototype.deleteNode = function(node) {
  * @param {!libtess.ActiveRegion} key
  * @return {!libtess.DictNode}
  */
-libtess.Dict.prototype.search = function(key) {
+libtess.Dict.prototype.search = function (key) {
   var node = this.head_;
 
   do {
@@ -3185,7 +3185,7 @@ libtess.Dict.prototype.search = function(key) {
  * Return the node with the smallest key.
  * @return {!libtess.DictNode}
  */
-libtess.Dict.prototype.getMin = function() {
+libtess.Dict.prototype.getMin = function () {
   // NOTE(bckenny): from a macro in dict.h/dict-list.h
   return this.head_.next;
 };
@@ -3197,7 +3197,7 @@ libtess.Dict.prototype.getMin = function() {
  * Returns the node with the greatest key.
  * @return {!libtess.DictNode}
  */
-libtess.Dict.prototype.getMax = function() {
+libtess.Dict.prototype.getMax = function () {
   // NOTE(bckenny): from a macro in dict.h/dict-list.h
   return this.head_.prev;
 };
@@ -3216,7 +3216,7 @@ libtess.Dict.prototype.getMax = function() {
  * @constructor
  * @struct
  */
-libtess.DictNode = function(opt_key, opt_nextNode, opt_prevNode) {
+libtess.DictNode = function (opt_key, opt_nextNode, opt_prevNode) {
   /**
    * The ActiveRegion key for this node, or null if the head of the list.
    * @type {libtess.ActiveRegion}
@@ -3241,7 +3241,7 @@ libtess.DictNode = function(opt_key, opt_nextNode, opt_prevNode) {
  * Get the key from this node.
  * @return {libtess.ActiveRegion}
  */
-libtess.DictNode.prototype.getKey = function() {
+libtess.DictNode.prototype.getKey = function () {
   return this.key;
 };
 
@@ -3249,7 +3249,7 @@ libtess.DictNode.prototype.getKey = function() {
  * Get the successor node to this one.
  * @return {!libtess.DictNode}
  */
-libtess.DictNode.prototype.getSuccessor = function() {
+libtess.DictNode.prototype.getSuccessor = function () {
   return this.next;
 };
 
@@ -3257,7 +3257,7 @@ libtess.DictNode.prototype.getSuccessor = function() {
  * Get the predecessor node to this one.
  * @return {!libtess.DictNode}
  */
-libtess.DictNode.prototype.getPredecessor = function() {
+libtess.DictNode.prototype.getPredecessor = function () {
   return this.prev;
 };
 
@@ -3271,7 +3271,7 @@ libtess.DictNode.prototype.getPredecessor = function() {
  * @constructor
  * @struct
  */
-libtess.CachedVertex = function() {
+libtess.CachedVertex = function () {
   /**
    * [coords description]
    * @type {Array.<number>}
@@ -3298,7 +3298,7 @@ libtess.CachedVertex = function() {
  * @constructor
  * @struct
  */
-libtess.GluTesselator = function() {
+libtess.GluTesselator = function () {
   // Only initialize fields which can be changed by the api. Other fields
   // are initialized where they are used.
 
@@ -3538,7 +3538,7 @@ libtess.GluTesselator.tessState_ = {
 /**
  * Destory the tesselator object. See README.
  */
-libtess.GluTesselator.prototype.gluDeleteTess = function() {
+libtess.GluTesselator.prototype.gluDeleteTess = function () {
   // TODO(bckenny): This does nothing but assert that it isn't called while
   // building the polygon since we rely on GC to handle memory. *If* the public
   // API changes, this should go.
@@ -3552,7 +3552,7 @@ libtess.GluTesselator.prototype.gluDeleteTess = function() {
  * @param {libtess.gluEnum} which [description].
  * @param {number|boolean} value [description].
  */
-libtess.GluTesselator.prototype.gluTessProperty = function(which, value) {
+libtess.GluTesselator.prototype.gluTessProperty = function (which, value) {
   // TODO(bckenny): split into more setters?
   // TODO(bckenny): in any case, we can do better than this switch statement
 
@@ -3599,7 +3599,7 @@ libtess.GluTesselator.prototype.gluTessProperty = function(which, value) {
  * @param {libtess.gluEnum} which [description].
  * @return {number|boolean} [description].
  */
-libtess.GluTesselator.prototype.gluGetTessProperty = function(which) {
+libtess.GluTesselator.prototype.gluGetTessProperty = function (which) {
   // TODO(bckenny): as above, split into more getters? and improve on switch statement
   // why are these being asserted in getter but not setter?
 
@@ -3636,7 +3636,7 @@ libtess.GluTesselator.prototype.gluGetTessProperty = function(which) {
  * @param {number} y [description].
  * @param {number} z [description].
  */
-libtess.GluTesselator.prototype.gluTessNormal = function(x, y, z) {
+libtess.GluTesselator.prototype.gluTessNormal = function (x, y, z) {
   this.normal[0] = x;
   this.normal[1] = y;
   this.normal[2] = z;
@@ -3649,7 +3649,7 @@ libtess.GluTesselator.prototype.gluTessNormal = function(x, y, z) {
  * @param {libtess.gluEnum} which [description].
  * @param {?Function=} opt_fn [description].
  */
-libtess.GluTesselator.prototype.gluTessCallback = function(which, opt_fn) {
+libtess.GluTesselator.prototype.gluTessCallback = function (which, opt_fn) {
   var fn = !opt_fn ? null : opt_fn;
   // TODO(bckenny): better opt_fn typing?
 
@@ -3722,7 +3722,7 @@ libtess.GluTesselator.prototype.gluTessCallback = function(which, opt_fn) {
  * @param {Array.<number>} coords [description].
  * @param {Object} data [description].
  */
-libtess.GluTesselator.prototype.gluTessVertex = function(coords, data) {
+libtess.GluTesselator.prototype.gluTessVertex = function (coords, data) {
   var tooLarge = false;
 
   // TODO(bckenny): pool allocation?
@@ -3770,7 +3770,7 @@ libtess.GluTesselator.prototype.gluTessVertex = function(coords, data) {
  * [gluTessBeginPolygon description]
  * @param {Object} data Client data for current polygon.
  */
-libtess.GluTesselator.prototype.gluTessBeginPolygon = function(data) {
+libtess.GluTesselator.prototype.gluTessBeginPolygon = function (data) {
   this.requireState_(libtess.GluTesselator.tessState_.T_DORMANT);
 
   this.state = libtess.GluTesselator.tessState_.T_IN_POLYGON;
@@ -3785,7 +3785,7 @@ libtess.GluTesselator.prototype.gluTessBeginPolygon = function(data) {
 /**
  * [gluTessBeginContour description]
  */
-libtess.GluTesselator.prototype.gluTessBeginContour = function() {
+libtess.GluTesselator.prototype.gluTessBeginContour = function () {
   this.requireState_(libtess.GluTesselator.tessState_.T_IN_POLYGON);
 
   this.state = libtess.GluTesselator.tessState_.T_IN_CONTOUR;
@@ -3803,7 +3803,7 @@ libtess.GluTesselator.prototype.gluTessBeginContour = function() {
 /**
  * [gluTessEndContour description]
  */
-libtess.GluTesselator.prototype.gluTessEndContour = function() {
+libtess.GluTesselator.prototype.gluTessEndContour = function () {
   this.requireState_(libtess.GluTesselator.tessState_.T_IN_CONTOUR);
   this.state = libtess.GluTesselator.tessState_.T_IN_POLYGON;
 };
@@ -3812,7 +3812,7 @@ libtess.GluTesselator.prototype.gluTessEndContour = function() {
 /**
  * [gluTessEndPolygon description]
  */
-libtess.GluTesselator.prototype.gluTessEndPolygon = function() {
+libtess.GluTesselator.prototype.gluTessEndPolygon = function () {
   this.requireState_(libtess.GluTesselator.tessState_.T_IN_POLYGON);
   this.state = libtess.GluTesselator.tessState_.T_DORMANT;
 
@@ -3847,8 +3847,8 @@ libtess.GluTesselator.prototype.gluTessEndPolygon = function() {
     this.mesh.checkMesh();
 
     if (this.callBegin_ || this.callEnd_ || this.callVertex_ ||
-        this.callEdgeFlag_ || this.callBeginData_ || this.callEndData_ ||
-        this.callVertexData_ || this.callEdgeFlagData_) {
+      this.callEdgeFlag_ || this.callBeginData_ || this.callEndData_ ||
+      this.callVertexData_ || this.callEdgeFlagData_) {
 
       if (this.boundaryOnly) {
         // output boundary contours
@@ -3887,7 +3887,7 @@ libtess.GluTesselator.prototype.gluTessEndPolygon = function() {
  * Return the tessellator to its original dormant state.
  * @private
  */
-libtess.GluTesselator.prototype.makeDormant_ = function() {
+libtess.GluTesselator.prototype.makeDormant_ = function () {
   if (this.mesh) {
     libtess.mesh.deleteMesh(this.mesh);
   }
@@ -3902,7 +3902,7 @@ libtess.GluTesselator.prototype.makeDormant_ = function() {
  * @private
  * @param {libtess.GluTesselator.tessState_} state [description].
  */
-libtess.GluTesselator.prototype.requireState_ = function(state) {
+libtess.GluTesselator.prototype.requireState_ = function (state) {
   if (this.state !== state) {
     this.gotoState_(state);
   }
@@ -3914,7 +3914,7 @@ libtess.GluTesselator.prototype.requireState_ = function(state) {
  * @private
  * @param  {libtess.GluTesselator.tessState_} newState [description].
  */
-libtess.GluTesselator.prototype.gotoState_ = function(newState) {
+libtess.GluTesselator.prototype.gotoState_ = function (newState) {
   while (this.state !== newState) {
     // We change the current state one level at a time, to get to the desired
     // state.
@@ -3922,13 +3922,13 @@ libtess.GluTesselator.prototype.gotoState_ = function(newState) {
       switch (this.state) {
         case libtess.GluTesselator.tessState_.T_DORMANT:
           this.callErrorOrErrorData(
-              libtess.errorType.GLU_TESS_MISSING_BEGIN_POLYGON);
+            libtess.errorType.GLU_TESS_MISSING_BEGIN_POLYGON);
           this.gluTessBeginPolygon(null);
           break;
 
         case libtess.GluTesselator.tessState_.T_IN_POLYGON:
           this.callErrorOrErrorData(
-              libtess.errorType.GLU_TESS_MISSING_BEGIN_CONTOUR);
+            libtess.errorType.GLU_TESS_MISSING_BEGIN_CONTOUR);
           this.gluTessBeginContour();
           break;
       }
@@ -3937,13 +3937,13 @@ libtess.GluTesselator.prototype.gotoState_ = function(newState) {
       switch (this.state) {
         case libtess.GluTesselator.tessState_.T_IN_CONTOUR:
           this.callErrorOrErrorData(
-              libtess.errorType.GLU_TESS_MISSING_END_CONTOUR);
+            libtess.errorType.GLU_TESS_MISSING_END_CONTOUR);
           this.gluTessEndContour();
           break;
 
         case libtess.GluTesselator.tessState_.T_IN_POLYGON:
           this.callErrorOrErrorData(
-              libtess.errorType.GLU_TESS_MISSING_END_POLYGON);
+            libtess.errorType.GLU_TESS_MISSING_END_POLYGON);
           // this.gluTessEndPolygon() is too much work!
           this.makeDormant_();
           break;
@@ -3959,7 +3959,7 @@ libtess.GluTesselator.prototype.gotoState_ = function(newState) {
  * @param {Array.<number>} coords [description].
  * @param {Object} data [description].
  */
-libtess.GluTesselator.prototype.addVertex_ = function(coords, data) {
+libtess.GluTesselator.prototype.addVertex_ = function (coords, data) {
   var e = this.lastEdge_;
   if (e === null) {
     // Make a self-loop (one vertex, one edge).
@@ -3996,7 +3996,7 @@ libtess.GluTesselator.prototype.addVertex_ = function(coords, data) {
  * @param {Array.<number>} coords [description].
  * @param {Object} data [description].
  */
-libtess.GluTesselator.prototype.cacheVertex_ = function(coords, data) {
+libtess.GluTesselator.prototype.cacheVertex_ = function (coords, data) {
   var v = this.cache[this.cacheCount];
 
   v.data = data;
@@ -4011,7 +4011,7 @@ libtess.GluTesselator.prototype.cacheVertex_ = function(coords, data) {
  * [emptyCache_ description]
  * @private
  */
-libtess.GluTesselator.prototype.emptyCache_ = function() {
+libtess.GluTesselator.prototype.emptyCache_ = function () {
   // NOTE(bckenny): surprise!
   this.mesh = new libtess.GluMesh();
 
@@ -4033,7 +4033,7 @@ libtess.GluTesselator.prototype.emptyCache_ = function() {
  * [callBeginOrBeginData description]
  * @param {libtess.primitiveType} type [description].
  */
-libtess.GluTesselator.prototype.callBeginOrBeginData = function(type) {
+libtess.GluTesselator.prototype.callBeginOrBeginData = function (type) {
   if (this.callBeginData_) {
     this.callBeginData_(type, this.polygonData_);
 
@@ -4047,7 +4047,7 @@ libtess.GluTesselator.prototype.callBeginOrBeginData = function(type) {
  * [callVertexOrVertexData description]
  * @param {Object} data [description].
  */
-libtess.GluTesselator.prototype.callVertexOrVertexData = function(data) {
+libtess.GluTesselator.prototype.callVertexOrVertexData = function (data) {
   if (this.callVertexData_) {
     this.callVertexData_(data, this.polygonData_);
 
@@ -4061,7 +4061,7 @@ libtess.GluTesselator.prototype.callVertexOrVertexData = function(data) {
  * [callEdgeFlagOrEdgeFlagData description]
  * @param {boolean} flag [description].
  */
-libtess.GluTesselator.prototype.callEdgeFlagOrEdgeFlagData = function(flag) {
+libtess.GluTesselator.prototype.callEdgeFlagOrEdgeFlagData = function (flag) {
   if (this.callEdgeFlagData_) {
     this.callEdgeFlagData_(flag, this.polygonData_);
 
@@ -4074,7 +4074,7 @@ libtess.GluTesselator.prototype.callEdgeFlagOrEdgeFlagData = function(flag) {
 /**
  * [callEndOrEndData description]
  */
-libtess.GluTesselator.prototype.callEndOrEndData = function() {
+libtess.GluTesselator.prototype.callEndOrEndData = function () {
   if (this.callEndData_) {
     this.callEndData_(this.polygonData_);
 
@@ -4092,22 +4092,22 @@ libtess.GluTesselator.prototype.callEndOrEndData = function() {
  * @return {Object} Interpolated vertex.
  */
 libtess.GluTesselator.prototype.callCombineOrCombineData =
-    function(coords, data, weight) {
+  function (coords, data, weight) {
 
-  var interpData;
-  if (this.callCombineData_) {
-    interpData = this.callCombineData_(coords, data, weight, this.polygonData_);
+    var interpData;
+    if (this.callCombineData_) {
+      interpData = this.callCombineData_(coords, data, weight, this.polygonData_);
 
-  } else if (this.callCombine_) {
-    interpData = this.callCombine_(coords, data, weight);
-  }
+    } else if (this.callCombine_) {
+      interpData = this.callCombine_(coords, data, weight);
+    }
 
-  // TODO(bckenny): can't be undefined
-  if (interpData === undefined) {
-    interpData = null;
-  }
-  return interpData;
-};
+    // TODO(bckenny): can't be undefined
+    if (interpData === undefined) {
+      interpData = null;
+    }
+    return interpData;
+  };
 
 
 // TODO(bckenny): combine the enums in libtess
@@ -4115,7 +4115,7 @@ libtess.GluTesselator.prototype.callCombineOrCombineData =
  * [callErrorOrErrorData description]
  * @param {(libtess.errorType|libtess.gluEnum)} errno [description].
  */
-libtess.GluTesselator.prototype.callErrorOrErrorData = function(errno) {
+libtess.GluTesselator.prototype.callErrorOrErrorData = function (errno) {
   if (this.callErrorData_) {
     this.callErrorData_(errno, this.polygonData_);
 
@@ -4139,7 +4139,7 @@ libtess.GluTesselator.prototype.callErrorOrErrorData = function(errno) {
  * @constructor
  * @struct
  */
-libtess.GluFace = function(opt_nextFace, opt_prevFace) {
+libtess.GluFace = function (opt_nextFace, opt_prevFace) {
   // TODO(bckenny): reverse order of params?
 
   /**
@@ -4206,7 +4206,7 @@ libtess.GluFace = function(opt_nextFace, opt_prevFace) {
  * @constructor
  * @struct
  */
-libtess.GluHalfEdge = function(opt_nextEdge) {
+libtess.GluHalfEdge = function (opt_nextEdge) {
   // TODO(bckenny): are these the right defaults? (from gl_meshNewMesh requirements)
 
   /**
@@ -4271,7 +4271,7 @@ libtess.GluHalfEdge = function(opt_nextEdge) {
  * [rFace description]
  * @return {libtess.GluFace} [description].
  */
-libtess.GluHalfEdge.prototype.rFace = function() {
+libtess.GluHalfEdge.prototype.rFace = function () {
   return this.sym.lFace;
 };
 
@@ -4280,7 +4280,7 @@ libtess.GluHalfEdge.prototype.rFace = function() {
  * [dst description]
  * @return {libtess.GluVertex} [description].
  */
-libtess.GluHalfEdge.prototype.dst = function() {
+libtess.GluHalfEdge.prototype.dst = function () {
   return this.sym.org;
 };
 
@@ -4289,7 +4289,7 @@ libtess.GluHalfEdge.prototype.dst = function() {
  * [oPrev description]
  * @return {libtess.GluHalfEdge} [description].
  */
-libtess.GluHalfEdge.prototype.oPrev = function() {
+libtess.GluHalfEdge.prototype.oPrev = function () {
   return this.sym.lNext;
 };
 
@@ -4298,7 +4298,7 @@ libtess.GluHalfEdge.prototype.oPrev = function() {
  * [lPrev description]
  * @return {libtess.GluHalfEdge} [description].
  */
-libtess.GluHalfEdge.prototype.lPrev = function() {
+libtess.GluHalfEdge.prototype.lPrev = function () {
   return this.oNext.sym;
 };
 
@@ -4310,7 +4310,7 @@ libtess.GluHalfEdge.prototype.lPrev = function() {
  * The edge clockwise around destination vertex (keep same dest).
  * @return {libtess.GluHalfEdge}
  */
-libtess.GluHalfEdge.prototype.dPrev = function() {
+libtess.GluHalfEdge.prototype.dPrev = function () {
   return this.lNext.sym;
 };
 
@@ -4319,7 +4319,7 @@ libtess.GluHalfEdge.prototype.dPrev = function() {
  * [rPrev description]
  * @return {libtess.GluHalfEdge} [description].
  */
-libtess.GluHalfEdge.prototype.rPrev = function() {
+libtess.GluHalfEdge.prototype.rPrev = function () {
   return this.sym.oNext;
 };
 
@@ -4328,7 +4328,7 @@ libtess.GluHalfEdge.prototype.rPrev = function() {
  * [dNext description]
  * @return {libtess.GluHalfEdge} [description].
  */
-libtess.GluHalfEdge.prototype.dNext = function() {
+libtess.GluHalfEdge.prototype.dNext = function () {
   return this.rPrev().sym;
 };
 
@@ -4341,7 +4341,7 @@ libtess.GluHalfEdge.prototype.dNext = function() {
  * The edge CCW around the right face (origin of this becomes new dest).
  * @return {libtess.GluHalfEdge}
  */
-libtess.GluHalfEdge.prototype.rNext = function() {
+libtess.GluHalfEdge.prototype.rNext = function () {
   return this.oPrev().sym;
 };
 
@@ -4356,7 +4356,7 @@ libtess.GluHalfEdge.prototype.rNext = function() {
  * @constructor
  * @struct
  */
-libtess.GluMesh = function() {
+libtess.GluMesh = function () {
   /**
    * dummy header for vertex list
    * @type {libtess.GluVertex}
@@ -4391,7 +4391,7 @@ libtess.GluMesh = function() {
 /**
  * Checks mesh for self-consistency.
  */
-libtess.GluMesh.prototype.checkMesh = function() {
+libtess.GluMesh.prototype.checkMesh = function () {
   if (!libtess.DEBUG) {
     return;
   }
@@ -4443,7 +4443,7 @@ libtess.GluMesh.prototype.checkMesh = function() {
  * @constructor
  * @struct
  */
-libtess.GluVertex = function(opt_nextVertex, opt_prevVertex) {
+libtess.GluVertex = function (opt_nextVertex, opt_prevVertex) {
   // TODO(bckenny): reverse order of params?
 
   /**
@@ -4510,7 +4510,7 @@ libtess.GluVertex = function(opt_nextVertex, opt_prevVertex) {
  * @constructor
  * @struct
  */
-libtess.PQHandleElem = function() {
+libtess.PQHandleElem = function () {
   // TODO(bckenny): if key could instead be an indexed into another store, makes heap storage a lot easier
 
   /**
@@ -4536,7 +4536,7 @@ libtess.PQHandleElem = function() {
  * @param {number} size [description].
  * @return {Array.<libtess.PQHandleElem>} [description].
  */
-libtess.PQHandleElem.realloc = function(oldArray, size) {
+libtess.PQHandleElem.realloc = function (oldArray, size) {
   var newArray = new Array(size);
 
   // TODO(bckenny): better to reallocate array? or grow array?
@@ -4566,7 +4566,7 @@ libtess.PQHandleElem.realloc = function(oldArray, size) {
  * @constructor
  * @struct
  */
-libtess.PQNode = function() {
+libtess.PQNode = function () {
   /**
    * [handle description]
    * @type {libtess.PQHandle}
@@ -4584,7 +4584,7 @@ libtess.PQNode = function() {
  * @param {number} size [description].
  * @return {Array.<libtess.PQNode>} [description].
  */
-libtess.PQNode.realloc = function(oldArray, size) {
+libtess.PQNode.realloc = function (oldArray, size) {
   var newArray = new Array(size);
 
   // TODO(bckenny): better to reallocate array? or grow array?
@@ -4615,14 +4615,14 @@ libtess.PQNode.realloc = function(oldArray, size) {
  * @struct
  * @param {function(Object, Object): boolean} leq [description].
  */
-libtess.PriorityQ = function(leq) {
+libtess.PriorityQ = function (leq) {
   /**
    * [keys description]
    * @private
    * @type {Array.<libtess.PQKey>}
    */
   this.keys_ = libtess.PriorityQ.prototype.PQKeyRealloc_(null,
-      libtess.PriorityQ.INIT_SIZE_);
+    libtess.PriorityQ.INIT_SIZE_);
 
   /**
    * Array of indexes into this.keys_
@@ -4683,7 +4683,7 @@ libtess.PriorityQ.INIT_SIZE_ = 32;
 /**
  * [deleteQ description]
  */
-libtess.PriorityQ.prototype.deleteQ = function() {
+libtess.PriorityQ.prototype.deleteQ = function () {
   // TODO(bckenny): unnecessary, I think.
   this.heap_.deleteHeap();
   this.heap_ = null;
@@ -4696,7 +4696,7 @@ libtess.PriorityQ.prototype.deleteQ = function() {
 /**
  * [init description]
  */
-libtess.PriorityQ.prototype.init = function() {
+libtess.PriorityQ.prototype.init = function () {
   // TODO(bckenny): reuse. in theory, we don't have to empty this, as access is
   // dictated by this.size_, but array.sort doesn't know that
   this.order_ = [];
@@ -4714,8 +4714,8 @@ libtess.PriorityQ.prototype.init = function() {
   // TODO(bckenny): unstable sort means we may get slightly different polys in
   // different browsers, but only when passing in equal points
   // TODO(bckenny): make less awkward closure?
-  var comparator = (function(keys, leq) {
-    return function(a, b) {
+  var comparator = (function (keys, leq) {
+    return function (a, b) {
       return leq(keys[a], keys[b]) ? 1 : -1;
     };
   })(this.keys_, this.leq_);
@@ -4742,7 +4742,7 @@ libtess.PriorityQ.prototype.init = function() {
  * @param {libtess.PQKey} keyNew [description].
  * @return {libtess.PQHandle} [description].
  */
-libtess.PriorityQ.prototype.insert = function(keyNew) {
+libtess.PriorityQ.prototype.insert = function (keyNew) {
   // NOTE(bckenny): originally returned LONG_MAX as alloc failure signal. no
   // longer does.
   if (this.initialized_) {
@@ -4754,7 +4754,7 @@ libtess.PriorityQ.prototype.insert = function(keyNew) {
     // If the heap overflows, double its size.
     this.max_ *= 2;
     this.keys_ =
-        libtess.PriorityQ.prototype.PQKeyRealloc_(this.keys_, this.max_);
+      libtess.PriorityQ.prototype.PQKeyRealloc_(this.keys_, this.max_);
   }
 
   this.keys_[curr] = keyNew;
@@ -4774,7 +4774,7 @@ libtess.PriorityQ.prototype.insert = function(keyNew) {
  * @param {number} size [description].
  * @return {Array.<(?libtess.PQKey)>} [description].
  */
-libtess.PriorityQ.prototype.PQKeyRealloc_ = function(oldArray, size) {
+libtess.PriorityQ.prototype.PQKeyRealloc_ = function (oldArray, size) {
   // TODO(bckenny): double check return type. can we have ? there?
   var newArray = new Array(size);
 
@@ -4803,7 +4803,7 @@ libtess.PriorityQ.prototype.PQKeyRealloc_ = function(oldArray, size) {
  * @param {number} y
  * @return {boolean}
  */
-libtess.PriorityQ.prototype.keyLessThan_ = function(x, y) {
+libtess.PriorityQ.prototype.keyLessThan_ = function (x, y) {
   // NOTE(bckenny): was macro LT
   var keyX = this.keys_[x];
   var keyY = this.keys_[y];
@@ -4820,7 +4820,7 @@ libtess.PriorityQ.prototype.keyLessThan_ = function(x, y) {
  * @param {number} y
  * @return {boolean}
  */
-libtess.PriorityQ.prototype.keyGreaterThan_ = function(x, y) {
+libtess.PriorityQ.prototype.keyGreaterThan_ = function (x, y) {
   // NOTE(bckenny): was macro GT
   var keyX = this.keys_[x];
   var keyY = this.keys_[y];
@@ -4832,7 +4832,7 @@ libtess.PriorityQ.prototype.keyGreaterThan_ = function(x, y) {
  * [extractMin description]
  * @return {libtess.PQKey} [description].
  */
-libtess.PriorityQ.prototype.extractMin = function() {
+libtess.PriorityQ.prototype.extractMin = function () {
   if (this.size_ === 0) {
     return this.heap_.extractMin();
   }
@@ -4857,7 +4857,7 @@ libtess.PriorityQ.prototype.extractMin = function() {
  * [minimum description]
  * @return {libtess.PQKey} [description].
  */
-libtess.PriorityQ.prototype.minimum = function() {
+libtess.PriorityQ.prototype.minimum = function () {
   if (this.size_ === 0) {
     return this.heap_.minimum();
   }
@@ -4881,7 +4881,7 @@ libtess.PriorityQ.prototype.minimum = function() {
  * @private
  * @return {boolean}
  */
-libtess.PriorityQ.prototype.isEmpty_ = function() {
+libtess.PriorityQ.prototype.isEmpty_ = function () {
   return this.size_ === 0 && this.heap_.isEmpty();
 };
 
@@ -4890,7 +4890,7 @@ libtess.PriorityQ.prototype.isEmpty_ = function() {
  * [remove description]
  * @param {libtess.PQHandle} curr [description].
  */
-libtess.PriorityQ.prototype.remove = function(curr) {
+libtess.PriorityQ.prototype.remove = function (curr) {
   if (curr >= 0) {
     this.heap_.remove(curr);
     return;
@@ -4915,7 +4915,7 @@ libtess.PriorityQ.prototype.remove = function(curr) {
  * @struct
  * @param {function(libtess.PQKey, libtess.PQKey): boolean} leq [description].
  */
-libtess.PriorityQHeap = function(leq) {
+libtess.PriorityQHeap = function (leq) {
   /**
    * The heap itself. Active nodes are stored in the range 1..size. Each node
    * stores only an index into handles.
@@ -4923,7 +4923,7 @@ libtess.PriorityQHeap = function(leq) {
    * @type {Array.<libtess.PQNode>}
    */
   this.nodes_ = libtess.PQNode.realloc(null,
-      libtess.PriorityQHeap.INIT_SIZE_ + 1);
+    libtess.PriorityQHeap.INIT_SIZE_ + 1);
 
   /**
    * Each handle stores a key, plus a pointer back to the node which currently
@@ -4932,7 +4932,7 @@ libtess.PriorityQHeap = function(leq) {
    * @type {Array.<libtess.PQHandleElem>}
    */
   this.handles_ = libtess.PQHandleElem.realloc(null,
-      libtess.PriorityQHeap.INIT_SIZE_ + 1);
+    libtess.PriorityQHeap.INIT_SIZE_ + 1);
 
   // TODO(bckenny): size and max should probably be libtess.PQHandle for correct
   // typing (see PriorityQ.js)
@@ -4995,7 +4995,7 @@ libtess.PriorityQHeap.INIT_SIZE_ = 32;
 /**
  * [deleteHeap description]
  */
-libtess.PriorityQHeap.prototype.deleteHeap = function() {
+libtess.PriorityQHeap.prototype.deleteHeap = function () {
   // TODO(bckenny): unnecessary, I think.
   this.handles_ = null;
   this.nodes_ = null;
@@ -5007,7 +5007,7 @@ libtess.PriorityQHeap.prototype.deleteHeap = function() {
  * Initializing ordering of the heap. Must be called before any method other
  * than insert is called to ensure correctness when removing or querying.
  */
-libtess.PriorityQHeap.prototype.init = function() {
+libtess.PriorityQHeap.prototype.init = function () {
   // This method of building a heap is O(n), rather than O(n lg n).
   for (var i = this.size_; i >= 1; --i) {
     this.floatDown_(i);
@@ -5022,7 +5022,7 @@ libtess.PriorityQHeap.prototype.init = function() {
  * @param {libtess.PQKey} keyNew The key to insert.
  * @return {libtess.PQHandle} A handle that can be used to remove the key.
  */
-libtess.PriorityQHeap.prototype.insert = function(keyNew) {
+libtess.PriorityQHeap.prototype.insert = function (keyNew) {
   var curr = ++this.size_;
 
   // if the heap overflows, double its size.
@@ -5055,7 +5055,7 @@ libtess.PriorityQHeap.prototype.insert = function(keyNew) {
 /**
  * @return {boolean} Whether the heap is empty.
  */
-libtess.PriorityQHeap.prototype.isEmpty = function() {
+libtess.PriorityQHeap.prototype.isEmpty = function () {
   return this.size_ === 0;
 };
 
@@ -5065,7 +5065,7 @@ libtess.PriorityQHeap.prototype.isEmpty = function() {
  * returned.
  * @return {libtess.PQKey} [description].
  */
-libtess.PriorityQHeap.prototype.minimum = function() {
+libtess.PriorityQHeap.prototype.minimum = function () {
   return this.handles_[this.nodes_[1].handle].key;
 };
 
@@ -5075,7 +5075,7 @@ libtess.PriorityQHeap.prototype.minimum = function() {
  * null will be returned.
  * @return {libtess.PQKey} [description].
  */
-libtess.PriorityQHeap.prototype.extractMin = function() {
+libtess.PriorityQHeap.prototype.extractMin = function () {
   var n = this.nodes_;
   var h = this.handles_;
   var hMin = n[1].handle;
@@ -5102,7 +5102,7 @@ libtess.PriorityQHeap.prototype.extractMin = function() {
  * Remove key associated with handle hCurr (returned from insert) from heap.
  * @param {libtess.PQHandle} hCurr [description].
  */
-libtess.PriorityQHeap.prototype.remove = function(hCurr) {
+libtess.PriorityQHeap.prototype.remove = function (hCurr) {
   var n = this.nodes_;
   var h = this.handles_;
 
@@ -5112,7 +5112,7 @@ libtess.PriorityQHeap.prototype.remove = function(hCurr) {
 
   if (curr <= --this.size_) {
     if (curr <= 1 ||
-        this.leq_(h[n[curr >> 1].handle].key, h[n[curr].handle].key)) {
+      this.leq_(h[n[curr >> 1].handle].key, h[n[curr].handle].key)) {
 
       this.floatDown_(curr);
     } else {
@@ -5131,17 +5131,17 @@ libtess.PriorityQHeap.prototype.remove = function(hCurr) {
  * @private
  * @param {libtess.PQHandle} curr [description].
  */
-libtess.PriorityQHeap.prototype.floatDown_ = function(curr) {
+libtess.PriorityQHeap.prototype.floatDown_ = function (curr) {
   var n = this.nodes_;
   var h = this.handles_;
 
   var hCurr = n[curr].handle;
-  for (;;) {
+  for (; ;) {
     // The children of node i are nodes 2i and 2i+1.
     // set child to the index of the child with the minimum key
     var child = curr << 1;
     if (child < this.size_ &&
-        this.leq_(h[n[child + 1].handle].key, h[n[child].handle].key)) {
+      this.leq_(h[n[child + 1].handle].key, h[n[child].handle].key)) {
 
       ++child;
     }
@@ -5164,12 +5164,12 @@ libtess.PriorityQHeap.prototype.floatDown_ = function(curr) {
  * @private
  * @param {libtess.PQHandle} curr [description].
  */
-libtess.PriorityQHeap.prototype.floatUp_ = function(curr) {
+libtess.PriorityQHeap.prototype.floatUp_ = function (curr) {
   var n = this.nodes_;
   var h = this.handles_;
 
   var hCurr = n[curr].handle;
-  for (;;) {
+  for (; ;) {
     var parent = curr >> 1;
     var hParent = n[parent].handle;
     if (parent === 0 || this.leq_(h[hParent].key, h[hCurr].key)) {
@@ -5198,7 +5198,7 @@ libtess.PriorityQHeap.prototype.floatUp_ = function(curr) {
  * @constructor
  * @struct
  */
-libtess.ActiveRegion = function() {
+libtess.ActiveRegion = function () {
   // TODO(bckenny): I *think* eUp and nodeUp could be passed in as constructor params
 
   /**
@@ -5250,7 +5250,7 @@ libtess.ActiveRegion = function() {
  * Returns the ActiveRegion below this one.
  * @return {libtess.ActiveRegion}
  */
-libtess.ActiveRegion.prototype.regionBelow = function() {
+libtess.ActiveRegion.prototype.regionBelow = function () {
   return this.nodeUp.getPredecessor().getKey();
 };
 
@@ -5258,7 +5258,7 @@ libtess.ActiveRegion.prototype.regionBelow = function() {
  * Returns the ActiveRegion above this one.
  * @return {libtess.ActiveRegion}
  */
-libtess.ActiveRegion.prototype.regionAbove = function() {
+libtess.ActiveRegion.prototype.regionAbove = function () {
   return this.nodeUp.getSuccessor().getKey();
 };
 

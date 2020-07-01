@@ -20,143 +20,143 @@
 import ArgumentError from '../error/ArgumentError';
 import Logger from '../util/Logger';
 import WWUtil from '../util/WWUtil';
-        
 
-        /**
-         * Constructs a URL builder for Bing imagery.
-         * @alias BingImageryUrlBuilder
-         * @constructor
-         * @classdesc Provides a factory to create URLs for Bing image requests.
-         * @param {String} imagerySet The name of the imagery set to display.
-         * @param {String} bingMapsKey The Bing Maps key to use for the image requests. If null or undefined, the key at
-         * [WorldWind.BingMapsKey]{@link WorldWind#BingMapsKey} is used. If that is null or undefined, the default
-         * WorldWind Bing Maps key is used,
-         * but this fallback is provided only for non-production use. If you are using Web WorldWind in an app or a
-         * web page, you must obtain your own key from the
-         * [Bing Maps Portal]{@link https://www.microsoft.com/maps/choose-your-bing-maps-API.aspx}
-         * and either pass it as a parameter to this constructor or specify it as the property
-         * [WorldWind.BingMapsKey]{@link WorldWind#BingMapsKey}.
-         */
-        var BingImageryUrlBuilder = function (imagerySet, bingMapsKey) {
-            var wwBingMapsKey = "AkttWCS8p6qzxvx5RH3qUcCPgwG9nRJ7IwlpFGb14B0rBorB5DvmXr2Y_eCUNIxH";
 
-            // Use key specified for this layer
-            this.bingMapsKey = bingMapsKey;
+/**
+ * Constructs a URL builder for Bing imagery.
+ * @alias BingImageryUrlBuilder
+ * @constructor
+ * @classdesc Provides a factory to create URLs for Bing image requests.
+ * @param {String} imagerySet The name of the imagery set to display.
+ * @param {String} bingMapsKey The Bing Maps key to use for the image requests. If null or undefined, the key at
+ * [WorldWind.BingMapsKey]{@link WorldWind#BingMapsKey} is used. If that is null or undefined, the default
+ * WorldWind Bing Maps key is used,
+ * but this fallback is provided only for non-production use. If you are using Web WorldWind in an app or a
+ * web page, you must obtain your own key from the
+ * [Bing Maps Portal]{@link https://www.microsoft.com/maps/choose-your-bing-maps-API.aspx}
+ * and either pass it as a parameter to this constructor or specify it as the property
+ * [WorldWind.BingMapsKey]{@link WorldWind#BingMapsKey}.
+ */
+var BingImageryUrlBuilder = function (imagerySet, bingMapsKey) {
+    var wwBingMapsKey = "AkttWCS8p6qzxvx5RH3qUcCPgwG9nRJ7IwlpFGb14B0rBorB5DvmXr2Y_eCUNIxH";
 
-            // If none, fallback to key specified globally
-            if (!this.bingMapsKey) {
-                this.bingMapsKey = WorldWind.BingMapsKey;
-            }
+    // Use key specified for this layer
+    this.bingMapsKey = bingMapsKey;
 
-            // If none, fallback to default demo key
-            if (!this.bingMapsKey) {
-                this.bingMapsKey = wwBingMapsKey;
-            }
-            
-            // If using WorldWind Bing Maps demo key, show warning
-            if (this.bingMapsKey === wwBingMapsKey) {
-                BingImageryUrlBuilder.showBingMapsKeyWarning();
-            }
+    // If none, fallback to key specified globally
+    if (!this.bingMapsKey) {
+        this.bingMapsKey = WorldWind.BingMapsKey;
+    }
 
-            this.imagerySet = imagerySet;
-        };
+    // If none, fallback to default demo key
+    if (!this.bingMapsKey) {
+        this.bingMapsKey = wwBingMapsKey;
+    }
 
-        // Intentionally not documented.
-        BingImageryUrlBuilder.showBingMapsKeyWarning = function () {
-            if (!BingImageryUrlBuilder.keyMessagePrinted) {
-                BingImageryUrlBuilder.keyMessagePrinted = true;
+    // If using WorldWind Bing Maps demo key, show warning
+    if (this.bingMapsKey === wwBingMapsKey) {
+        BingImageryUrlBuilder.showBingMapsKeyWarning();
+    }
 
-                Logger.log(Logger.LEVEL_WARNING, "WARNING: You are using a limited use, non-production Bing Maps key.\n" +
-                "If you are developing an app or a web page this violates the Bing Terms of Use.\n" +
-                "Please visit https://www.microsoft.com/en-us/maps/create-a-bing-maps-key to obtain your own key for your application.\n" +
-                "Specify that key to WorldWind by setting the WorldWind.BingMapsKey property to your key " +
-                "prior to creating any Bing Maps layers.\n");
-            }
-        };
+    this.imagerySet = imagerySet;
+};
 
-        BingImageryUrlBuilder.prototype.requestMetadata = function () {
-            // Retrieve the metadata for the imagery set.
+// Intentionally not documented.
+BingImageryUrlBuilder.showBingMapsKeyWarning = function () {
+    if (!BingImageryUrlBuilder.keyMessagePrinted) {
+        BingImageryUrlBuilder.keyMessagePrinted = true;
 
-            if (!this.metadataRetrievalInProcess) {
-                this.metadataRetrievalInProcess = true;
+        Logger.log(Logger.LEVEL_WARNING, "WARNING: You are using a limited use, non-production Bing Maps key.\n" +
+            "If you are developing an app or a web page this violates the Bing Terms of Use.\n" +
+            "Please visit https://www.microsoft.com/en-us/maps/create-a-bing-maps-key to obtain your own key for your application.\n" +
+            "Specify that key to WorldWind by setting the WorldWind.BingMapsKey property to your key " +
+            "prior to creating any Bing Maps layers.\n");
+    }
+};
 
-                var url = "https://dev.virtualearth.net/REST/V1/Imagery/Metadata/" + this.imagerySet + "/0,0?zl=1&uriScheme=https&key="
-                    + this.bingMapsKey;
+BingImageryUrlBuilder.prototype.requestMetadata = function () {
+    // Retrieve the metadata for the imagery set.
 
-                // Use JSONP to request the metadata. Can't use XmlHTTPRequest because the virtual earth server doesn't
-                // allow cross-origin requests for metadata retrieval.
+    if (!this.metadataRetrievalInProcess) {
+        this.metadataRetrievalInProcess = true;
 
-                var thisObject = this;
-                WWUtil.jsonp(url, "jsonp", function (jsonData) {
-                    thisObject.imageUrl = jsonData.resourceSets[0].resources[0].imageUrl;
+        var url = "https://dev.virtualearth.net/REST/V1/Imagery/Metadata/" + this.imagerySet + "/0,0?zl=1&uriScheme=https&key="
+            + this.bingMapsKey;
 
-                    // Send an event to request a redraw.
-                    var e = document.createEvent('Event');
-                    e.initEvent(WorldWind.REDRAW_EVENT_TYPE, true, true);
-                    window.dispatchEvent(e);
+        // Use JSONP to request the metadata. Can't use XmlHTTPRequest because the virtual earth server doesn't
+        // allow cross-origin requests for metadata retrieval.
 
-                    thisObject.metadataRetrievalInProcess = false;
-                });
+        var thisObject = this;
+        WWUtil.jsonp(url, "jsonp", function (jsonData) {
+            thisObject.imageUrl = jsonData.resourceSets[0].resources[0].imageUrl;
 
-            }
-        };
+            // Send an event to request a redraw.
+            var e = document.createEvent('Event');
+            e.initEvent(WorldWind.REDRAW_EVENT_TYPE, true, true);
+            window.dispatchEvent(e);
 
-        /**
-         * Creates the URL string for a Bing Maps request.
-         * @param {Tile} tile The tile for which to create the URL.
-         * @param {String} imageFormat This argument is not used.
-         * @return {String} The URL for the specified tile.
-         * @throws {ArgumentError} If the specified tile is null or undefined.
-         */
-        BingImageryUrlBuilder.prototype.urlForTile = function (tile, imageFormat) {
-            if (!tile) {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "BingImageryUrlBuilder", "urlForTile", "missingTile"));
-            }
+            thisObject.metadataRetrievalInProcess = false;
+        });
 
-            if (!this.imageUrl) {
-                // Can't do anything until we get the metadata back from the server.
-                this.requestMetadata();
-                return null;
-            }
+    }
+};
 
-            // The quad key identifies the specific image tile for the requested tile.
-            var quadKey = this.quadKeyFromLevelRowColumn(tile.level.levelNumber, tile.row, tile.column),
-                url;
+/**
+ * Creates the URL string for a Bing Maps request.
+ * @param {Tile} tile The tile for which to create the URL.
+ * @param {String} imageFormat This argument is not used.
+ * @return {String} The URL for the specified tile.
+ * @throws {ArgumentError} If the specified tile is null or undefined.
+ */
+BingImageryUrlBuilder.prototype.urlForTile = function (tile, imageFormat) {
+    if (!tile) {
+        throw new ArgumentError(
+            Logger.logMessage(Logger.LEVEL_SEVERE, "BingImageryUrlBuilder", "urlForTile", "missingTile"));
+    }
 
-            // Modify the original image URL to request the tile.
-            if (this.imagerySet === "Aerial") {
-                url = this.imageUrl.replace(/a3/, "a" + quadKey);
-            } else if (this.imagerySet === "AerialWithLabels") {
-                url = this.imageUrl.replace(/h3/, "h" + quadKey);
-            } else if (this.imagerySet === "Road") {
-                url = this.imageUrl.replace(/r3/, "r" + quadKey);
-            }
+    if (!this.imageUrl) {
+        // Can't do anything until we get the metadata back from the server.
+        this.requestMetadata();
+        return null;
+    }
 
-            return url;
-        };
+    // The quad key identifies the specific image tile for the requested tile.
+    var quadKey = this.quadKeyFromLevelRowColumn(tile.level.levelNumber, tile.row, tile.column),
+        url;
 
-        // Intentionally not documented.
-        BingImageryUrlBuilder.prototype.quadKeyFromLevelRowColumn = function (levelNumber, row, column) {
-            var digit, mask, key = "";
+    // Modify the original image URL to request the tile.
+    if (this.imagerySet === "Aerial") {
+        url = this.imageUrl.replace(/a3/, "a" + quadKey);
+    } else if (this.imagerySet === "AerialWithLabels") {
+        url = this.imageUrl.replace(/h3/, "h" + quadKey);
+    } else if (this.imagerySet === "Road") {
+        url = this.imageUrl.replace(/r3/, "r" + quadKey);
+    }
 
-            for (var i = levelNumber + 1; i > 0; i--) {
-                digit = 0;
-                mask = 1 << (i - 1);
+    return url;
+};
 
-                if ((column & mask) != 0) {
-                    digit += 1;
-                }
+// Intentionally not documented.
+BingImageryUrlBuilder.prototype.quadKeyFromLevelRowColumn = function (levelNumber, row, column) {
+    var digit, mask, key = "";
 
-                if ((row & mask) != 0) {
-                    digit += 2;
-                }
+    for (var i = levelNumber + 1; i > 0; i--) {
+        digit = 0;
+        mask = 1 << (i - 1);
 
-                key += digit.toString();
-            }
+        if ((column & mask) != 0) {
+            digit += 1;
+        }
 
-            return key;
-        };
+        if ((row & mask) != 0) {
+            digit += 2;
+        }
 
-        export default BingImageryUrlBuilder;
-    
+        key += digit.toString();
+    }
+
+    return key;
+};
+
+export default BingImageryUrlBuilder;
+
