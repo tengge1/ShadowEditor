@@ -16,33 +16,33 @@
  */
 import KmlElements from './../KmlElements';
 import KmlFeature from './KmlFeature';
-    
 
-    /**
-     * Constructs an KmlTour. Applications usually don't call this constructor. It is called by {@link KmlFile} as
-     * objects from Kml file are read. This object is already concrete implementation.
-     * @alias KmlTour
-     * @classdesc Contains the data associated with Tour node.
-     * @param options {Object}
-     * @param options.objectNode {Node} Node representing Tour.
-     * @constructor
-     * @throws {ArgumentError} If the node is null or undefined.
-     * @see https://developers.google.com/kml/documentation/kmlreference#gxtour
-     * @augments KmlFeature
-     */
-    var KmlTour = function (options) {
-        KmlFeature.call(this, options);
-    };
 
-    KmlTour.prototype = Object.create(KmlFeature.prototype);
+/**
+ * Constructs an KmlTour. Applications usually don't call this constructor. It is called by {@link KmlFile} as
+ * objects from Kml file are read. This object is already concrete implementation.
+ * @alias KmlTour
+ * @classdesc Contains the data associated with Tour node.
+ * @param options {Object}
+ * @param options.objectNode {Node} Node representing Tour.
+ * @constructor
+ * @throws {ArgumentError} If the node is null or undefined.
+ * @see https://developers.google.com/kml/documentation/kmlreference#gxtour
+ * @augments KmlFeature
+ */
+var KmlTour = function (options) {
+    KmlFeature.call(this, options);
+};
 
-    /**
-     * @inheritDoc
-     */
-    KmlTour.prototype.getTagNames = function () {
-        return ['gx:Tour'];
-    };
+KmlTour.prototype = Object.create(KmlFeature.prototype);
 
-    KmlElements.addKey(KmlTour.prototype.getTagNames()[0], KmlTour);
+/**
+ * @inheritDoc
+ */
+KmlTour.prototype.getTagNames = function () {
+    return ['gx:Tour'];
+};
 
-    export default KmlTour;
+KmlElements.addKey(KmlTour.prototype.getTagNames()[0], KmlTour);
+
+export default KmlTour;

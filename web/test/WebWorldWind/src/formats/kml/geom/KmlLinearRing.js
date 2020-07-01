@@ -16,32 +16,32 @@
  */
 import KmlLineString from './KmlLineString';
 import KmlElements from '../KmlElements';
-    
-    /**
-     * Constructs an KmlLinearRing element. Applications don't usually call this constructor. It is called by objects in
-     * the hierarchy of KmlObject.
-     * @alias KmlLinearRing
-     * @classdesc Contains the data associated with LinerRing
-     * @param options {Object}
-     * @param options.objectNode {Node} Node representing LinearRing.
-     * @param options.style {Promise} Promise of style to be applied to current geometry
-     * @constructor
-     * @see https://developers.google.com/kml/documentation/kmlreference#linearring
-     * @augments KmlLineString
-     */
-    var KmlLinearRing = function (options) {
-        KmlLineString.call(this, options);
-    };
 
-    KmlLinearRing.prototype = Object.create(KmlLineString.prototype);
+/**
+ * Constructs an KmlLinearRing element. Applications don't usually call this constructor. It is called by objects in
+ * the hierarchy of KmlObject.
+ * @alias KmlLinearRing
+ * @classdesc Contains the data associated with LinerRing
+ * @param options {Object}
+ * @param options.objectNode {Node} Node representing LinearRing.
+ * @param options.style {Promise} Promise of style to be applied to current geometry
+ * @constructor
+ * @see https://developers.google.com/kml/documentation/kmlreference#linearring
+ * @augments KmlLineString
+ */
+var KmlLinearRing = function (options) {
+    KmlLineString.call(this, options);
+};
 
-    /**
-     * @inheritDoc
-     */
-    KmlLinearRing.prototype.getTagNames = function () {
-        return ['LinearRing'];
-    };
+KmlLinearRing.prototype = Object.create(KmlLineString.prototype);
 
-    KmlElements.addKey(KmlLinearRing.prototype.getTagNames()[0], KmlLinearRing);
+/**
+ * @inheritDoc
+ */
+KmlLinearRing.prototype.getTagNames = function () {
+    return ['LinearRing'];
+};
 
-    export default KmlLinearRing;
+KmlElements.addKey(KmlLinearRing.prototype.getTagNames()[0], KmlLinearRing);
+
+export default KmlLinearRing;

@@ -19,54 +19,54 @@
  */
 
 import ColladaUtils from './ColladaUtils';
-    
 
-    /**
-     * Constructs a ColladaImage
-     * @alias ColladaImage
-     * @constructor
-     * @classdesc Represents a collada image tag.
-     * @param {String} imageId The id of an image node
-     * @param {String} imageName The name of an image node
-     */
-    var ColladaImage = function (imageId, imageName) {
-        this.filename = '';
-        this.map = imageId;
-        this.name = imageName;
-        this.path = '';
-    };
 
-    /**
-     * Parses the images of a collada file.
-     * Internal. Applications should not call this function.
-     * @param {Node} element An image node
-     */
-    ColladaImage.prototype.parse = function (element) {
+/**
+ * Constructs a ColladaImage
+ * @alias ColladaImage
+ * @constructor
+ * @classdesc Represents a collada image tag.
+ * @param {String} imageId The id of an image node
+ * @param {String} imageName The name of an image node
+ */
+var ColladaImage = function (imageId, imageName) {
+    this.filename = '';
+    this.map = imageId;
+    this.name = imageName;
+    this.path = '';
+};
 
-        for (var i = 0; i < element.childNodes.length; i++) {
+/**
+ * Parses the images of a collada file.
+ * Internal. Applications should not call this function.
+ * @param {Node} element An image node
+ */
+ColladaImage.prototype.parse = function (element) {
 
-            var child = element.childNodes[i];
+    for (var i = 0; i < element.childNodes.length; i++) {
 
-            if (child.nodeType !== 1) {
-                continue;
-            }
+        var child = element.childNodes[i];
 
-            switch (child.nodeName){
-
-                case 'init_from':
-
-                    this.filename = ColladaUtils.getFilename(child.textContent);
-                    this.path = child.textContent;
-
-                    break;
-
-                default:
-                    break;
-            }
+        if (child.nodeType !== 1) {
+            continue;
         }
 
-        return this;
+        switch (child.nodeName) {
 
-    };
+            case 'init_from':
 
-    export default ColladaImage;
+                this.filename = ColladaUtils.getFilename(child.textContent);
+                this.path = child.textContent;
+
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    return this;
+
+};
+
+export default ColladaImage;

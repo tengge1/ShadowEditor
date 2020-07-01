@@ -17,71 +17,71 @@
 import KmlElements from './KmlElements';
 import KmlObject from './KmlObject';
 import NodeTransformers from './util/KmlNodeTransformers';
-    
 
+
+/**
+ * Constructs an KmlLocation. Applications usually don't call this constructor. It is called by {@link KmlFile} as
+ * objects from Kml file are read. This object is already concrete implementation.
+ * @alias KmlLocation
+ * @classdesc Contains the data associated with Location node.
+ * @param options {Object}
+ * @param options.objectNode {Node} Node representing location in the document.
+ * @constructor
+ * @throws {ArgumentError} If the node is null or undefined.
+ * @see https://developers.google.com/kml/documentation/kmlreference#location
+ * @augments KmlObject
+ */
+var KmlLocation = function (options) {
+    KmlObject.call(this, options);
+};
+
+KmlLocation.prototype = Object.create(KmlObject.prototype);
+
+Object.defineProperties(KmlLocation.prototype, {
     /**
-     * Constructs an KmlLocation. Applications usually don't call this constructor. It is called by {@link KmlFile} as
-     * objects from Kml file are read. This object is already concrete implementation.
-     * @alias KmlLocation
-     * @classdesc Contains the data associated with Location node.
-     * @param options {Object}
-     * @param options.objectNode {Node} Node representing location in the document.
-     * @constructor
-     * @throws {ArgumentError} If the node is null or undefined.
-     * @see https://developers.google.com/kml/documentation/kmlreference#location
-     * @augments KmlObject
+     * Longitude of the location.
+     * @memberof KmlLocation.prototype
+     * @readonly
+     * @type {String}
      */
-    var KmlLocation = function (options) {
-        KmlObject.call(this, options);
-    };
-
-    KmlLocation.prototype = Object.create(KmlObject.prototype);
-
-    Object.defineProperties(KmlLocation.prototype, {
-        /**
-         * Longitude of the location.
-         * @memberof KmlLocation.prototype
-         * @readonly
-         * @type {String}
-         */
-        kmlLongitude: {
-            get: function() {
-                return this._factory.specific(this, {name: 'longitude', transformer: NodeTransformers.string});
-            }
-        },
-
-        /**
-         * Latitude of the location.
-         * @memberof KmlLocation.prototype
-         * @readonly
-         * @type {String}
-         */
-        kmlLatitude: {
-            get: function() {
-                return this._factory.specific(this, {name: 'latitude', transformer: NodeTransformers.string});
-            }
-        },
-
-        /**
-         * Altitude of the location.
-         * @memberof KmlLocation.prototype
-         * @readonly
-         * @type {String}
-         */
-        kmlAltitude: {
-            get: function() {
-                return this._factory.specific(this, {name: 'altitude', transformer: NodeTransformers.string});
-            }
+    kmlLongitude: {
+        get: function () {
+            return this._factory.specific(this, { name: 'longitude', transformer: NodeTransformers.string });
         }
-    });
+    },
 
     /**
-     * @inheritDoc
+     * Latitude of the location.
+     * @memberof KmlLocation.prototype
+     * @readonly
+     * @type {String}
      */
-    KmlLocation.prototype.getTagNames = function () {
-        return ['Location'];
-    };
+    kmlLatitude: {
+        get: function () {
+            return this._factory.specific(this, { name: 'latitude', transformer: NodeTransformers.string });
+        }
+    },
 
-    KmlElements.addKey(KmlLocation.prototype.getTagNames()[0], KmlLocation);
+    /**
+     * Altitude of the location.
+     * @memberof KmlLocation.prototype
+     * @readonly
+     * @type {String}
+     */
+    kmlAltitude: {
+        get: function () {
+            return this._factory.specific(this, { name: 'altitude', transformer: NodeTransformers.string });
+        }
+    }
+});
 
-    export default KmlLocation;
+/**
+ * @inheritDoc
+ */
+KmlLocation.prototype.getTagNames = function () {
+    return ['Location'];
+};
+
+KmlElements.addKey(KmlLocation.prototype.getTagNames()[0], KmlLocation);
+
+export default KmlLocation;

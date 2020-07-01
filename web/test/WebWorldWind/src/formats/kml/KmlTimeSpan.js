@@ -20,61 +20,61 @@
 import KmlElements from './KmlElements';
 import KmlTimePrimitive from './KmlTimePrimitive';
 import NodeTransformers from './util/KmlNodeTransformers';
-    
+
+/**
+ * Constructs an KmlTimeSpan. Applications usually don't call this constructor. It is called by {@link KmlFile} as
+ * objects from KmlFile are read.
+ * @alias KmlTimeSpan
+ * @classdesc Contains the data associated with Kml TimeSpan
+ * @param options {Object}
+ * @param options.objectNode {Node} Node representing the Kml TimeSpan
+ * @constructor
+ * @throws {ArgumentError} If the content of the node contains invalid elements.
+ * @see https://developers.google.com/kml/documentation/kmlreference#timespan
+ * @augments KmlTimePrimitive
+ */
+var KmlTimeSpan = function (options) {
+    //noinspection JSUndefinedPropertyAssignment
+    options.isTimeSpan = true;
+
+    KmlTimePrimitive.call(this, options);
+};
+
+KmlTimeSpan.prototype = Object.create(KmlTimePrimitive.prototype);
+
+Object.defineProperties(KmlTimeSpan.prototype, {
     /**
-     * Constructs an KmlTimeSpan. Applications usually don't call this constructor. It is called by {@link KmlFile} as
-     * objects from KmlFile are read.
-     * @alias KmlTimeSpan
-     * @classdesc Contains the data associated with Kml TimeSpan
-     * @param options {Object}
-     * @param options.objectNode {Node} Node representing the Kml TimeSpan
-     * @constructor
-     * @throws {ArgumentError} If the content of the node contains invalid elements.
-     * @see https://developers.google.com/kml/documentation/kmlreference#timespan
-     * @augments KmlTimePrimitive
+     * Time from which is the event valid.
+     * @memberof KmlTimeSpan.prototype
+     * @type {Date}
+     * @readonly
      */
-    var KmlTimeSpan = function (options) {
-        //noinspection JSUndefinedPropertyAssignment
-        options.isTimeSpan = true;
-
-        KmlTimePrimitive.call(this, options);
-    };
-
-    KmlTimeSpan.prototype = Object.create(KmlTimePrimitive.prototype);
-
-    Object.defineProperties(KmlTimeSpan.prototype, {
-        /**
-         * Time from which is the event valid.
-         * @memberof KmlTimeSpan.prototype
-         * @type {Date}
-         * @readonly
-         */
-        kmlBegin: {
-            get: function() {
-                return this._factory.specific(this, {name: 'begin', transformer: NodeTransformers.date});
-            }
-        },
-
-        /**
-         * Time to which is the event valid.
-         * @memberof KmlTimeSpan.prototype
-         * @type {Date}
-         * @readonly
-         */
-        kmlEnd: {
-            get: function() {
-                return this._factory.specific(this, {name: 'end', transformer: NodeTransformers.date});
-            }
+    kmlBegin: {
+        get: function () {
+            return this._factory.specific(this, { name: 'begin', transformer: NodeTransformers.date });
         }
-    });
+    },
 
     /**
-     * @inheritDoc
+     * Time to which is the event valid.
+     * @memberof KmlTimeSpan.prototype
+     * @type {Date}
+     * @readonly
      */
-    KmlTimeSpan.prototype.getTagNames = function () {
-        return ['TimeSpan'];
-    };
+    kmlEnd: {
+        get: function () {
+            return this._factory.specific(this, { name: 'end', transformer: NodeTransformers.date });
+        }
+    }
+});
 
-    KmlElements.addKey(KmlTimeSpan.prototype.getTagNames()[0], KmlTimeSpan);
+/**
+ * @inheritDoc
+ */
+KmlTimeSpan.prototype.getTagNames = function () {
+    return ['TimeSpan'];
+};
 
-    export default KmlTimeSpan;
+KmlElements.addKey(KmlTimeSpan.prototype.getTagNames()[0], KmlTimeSpan);
+
+export default KmlTimeSpan;

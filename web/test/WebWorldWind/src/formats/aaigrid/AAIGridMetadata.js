@@ -18,121 +18,120 @@
  * @exports AAIGridMetadata
  */
 
-        
 
-        /**
-         * Constructs a new container for AAIGrid metadata.
-         * @alias AAIGridMetadata
-         * @constructor
-         * @classdesc Contains the metadata for an AAIGrid file.
-         */
-        var AAIGridMetadata = function () {
-            // Documented in defineProperties below.
-            this._ncols = null;
 
-            // Documented in defineProperties below.
-            this._nrows = null;
+/**
+ * Constructs a new container for AAIGrid metadata.
+ * @alias AAIGridMetadata
+ * @constructor
+ * @classdesc Contains the metadata for an AAIGrid file.
+ */
+var AAIGridMetadata = function () {
+    // Documented in defineProperties below.
+    this._ncols = null;
 
-            // Documented in defineProperties below.
-            this._xllcorner = null;
+    // Documented in defineProperties below.
+    this._nrows = null;
 
-            // Documented in defineProperties below.
-            this._yllcorner = null;
+    // Documented in defineProperties below.
+    this._xllcorner = null;
 
-            // Documented in defineProperties below.
-            this._cellsize = null;
+    // Documented in defineProperties below.
+    this._yllcorner = null;
 
-            // Documented in defineProperties below.
-            this._NODATA_value = undefined;
-        };
+    // Documented in defineProperties below.
+    this._cellsize = null;
 
-        Object.defineProperties(AAIGridMetadata.prototype, {
+    // Documented in defineProperties below.
+    this._NODATA_value = undefined;
+};
 
-            /**
-             * Number of columns in the grid.
-             * @memberof AAIGridMetadata.prototype
-             * @type {Number}
-             */
-            ncols: {
-                get: function () {
-                    return this._ncols;
-                },
-                set: function (value) {
-                    this._ncols = value;
-                }
-            },
+Object.defineProperties(AAIGridMetadata.prototype, {
 
-            /**
-             * Number of rows in the grid.
-             * @memberof AAIGridMetadata.prototype
-             * @type {Number}
-             */
-            nrows: {
-                get: function () {
-                    return this._nrows;
-                },
-                set: function (value) {
-                    this._nrows = value;
-                }
-            },
+    /**
+     * Number of columns in the grid.
+     * @memberof AAIGridMetadata.prototype
+     * @type {Number}
+     */
+    ncols: {
+        get: function () {
+            return this._ncols;
+        },
+        set: function (value) {
+            this._ncols = value;
+        }
+    },
 
-            /**
-             * The western edge (left), x-coordinate
-             * @memberof AAIGridMetadata.prototype
-             * @type {Number}
-             */
-            xllcorner: {
-                get: function () {
-                    return this._xllcorner;
-                },
-                set: function (value) {
-                    this._xllcorner = value;
-                }
-            },
+    /**
+     * Number of rows in the grid.
+     * @memberof AAIGridMetadata.prototype
+     * @type {Number}
+     */
+    nrows: {
+        get: function () {
+            return this._nrows;
+        },
+        set: function (value) {
+            this._nrows = value;
+        }
+    },
 
-            /**
-             * The southern edge (bottom), y-coordinate
-             * @memberof AAIGridMetadata.prototype
-             * @type {Number}
-             */
-            yllcorner: {
-                get: function () {
-                    return this._yllcorner;
-                },
-                set: function (value) {
-                    this._yllcorner = value;
-                }
-            },
+    /**
+     * The western edge (left), x-coordinate
+     * @memberof AAIGridMetadata.prototype
+     * @type {Number}
+     */
+    xllcorner: {
+        get: function () {
+            return this._xllcorner;
+        },
+        set: function (value) {
+            this._xllcorner = value;
+        }
+    },
 
-            /**
-             * The length of one side of a square cell (resolution of the grid).
-             * @memberof AAIGridMetadata.prototype
-             * @type {Number}
-             */
-            cellsize: {
-                get: function () {
-                    return this._cellsize;
-                },
-                set: function (value) {
-                    this._cellsize = value;
-                }
-            },
+    /**
+     * The southern edge (bottom), y-coordinate
+     * @memberof AAIGridMetadata.prototype
+     * @type {Number}
+     */
+    yllcorner: {
+        get: function () {
+            return this._yllcorner;
+        },
+        set: function (value) {
+            this._yllcorner = value;
+        }
+    },
 
-            /**
-             * The value that is regarded as "missing" or "not applicable".
-             * This value is optional. If not present, its value is <code>undefined</code>.
-             * @memberof AAIGridMetadata.prototype
-             * @type {Number|undefined}
-             */
-            NODATA_value: {
-                get: function () {
-                    return this._NODATA_value;
-                },
-                set: function (value) {
-                    this._NODATA_value = value;
-                }
-            }
-        });
+    /**
+     * The length of one side of a square cell (resolution of the grid).
+     * @memberof AAIGridMetadata.prototype
+     * @type {Number}
+     */
+    cellsize: {
+        get: function () {
+            return this._cellsize;
+        },
+        set: function (value) {
+            this._cellsize = value;
+        }
+    },
 
-        export default AAIGridMetadata;
-    
+    /**
+     * The value that is regarded as "missing" or "not applicable".
+     * This value is optional. If not present, its value is <code>undefined</code>.
+     * @memberof AAIGridMetadata.prototype
+     * @type {Number|undefined}
+     */
+    NODATA_value: {
+        get: function () {
+            return this._NODATA_value;
+        },
+        set: function (value) {
+            this._NODATA_value = value;
+        }
+    }
+});
+
+export default AAIGridMetadata;

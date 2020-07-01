@@ -18,41 +18,41 @@
  * @exports KmlGeometry
  */
 import KmlObject from '../KmlObject';
-    
-    /**
-     * Constructs an KmlGeometry. Application usually don't call this constructor. It is called by {@link KmlFile} as
-     * Objects from KmlFile are read.
-     * @alias KmlGeometry
-     * @constructor
-     * @classdesc Contains the data associated with Kml geometry
-     * @param options {Object}
-     * @param options.objectNode {Node} Node representing the Geometry
-     * @throws {ArgumentError} If either the node is null or the content of the Kml point contains invalid elements.
-     * @see https://developers.google.com/kml/documentation/kmlreference#geometry
-     * @augments KmlObject
-     */
-    var KmlGeometry = function (options) {
-        KmlObject.call(this, options);
 
-        this._renderable = null;
-    };
+/**
+ * Constructs an KmlGeometry. Application usually don't call this constructor. It is called by {@link KmlFile} as
+ * Objects from KmlFile are read.
+ * @alias KmlGeometry
+ * @constructor
+ * @classdesc Contains the data associated with Kml geometry
+ * @param options {Object}
+ * @param options.objectNode {Node} Node representing the Geometry
+ * @throws {ArgumentError} If either the node is null or the content of the Kml point contains invalid elements.
+ * @see https://developers.google.com/kml/documentation/kmlreference#geometry
+ * @augments KmlObject
+ */
+var KmlGeometry = function (options) {
+    KmlObject.call(this, options);
 
-    KmlGeometry.prototype = Object.create(KmlObject.prototype);
+    this._renderable = null;
+};
 
-	/**
-     * @inheritDoc
-     */
-    KmlGeometry.prototype.render = function(dc, kmlOptions) {
-        KmlObject.prototype.render.call(this, dc, kmlOptions);
+KmlGeometry.prototype = Object.create(KmlObject.prototype);
 
-        this.enabled = kmlOptions.lastVisibility;
-    };
+/**
+ * @inheritDoc
+ */
+KmlGeometry.prototype.render = function (dc, kmlOptions) {
+    KmlObject.prototype.render.call(this, dc, kmlOptions);
 
-    /**
-     * @inheritDoc
-     */
-    KmlGeometry.prototype.getTagNames = KmlGeometry.getTagNames = function () {
-        return ['Point', 'LinearRing', 'LineString', 'MultiGeometry', 'Polygon'];
-    };
+    this.enabled = kmlOptions.lastVisibility;
+};
 
-    export default KmlGeometry;
+/**
+ * @inheritDoc
+ */
+KmlGeometry.prototype.getTagNames = KmlGeometry.getTagNames = function () {
+    return ['Point', 'LinearRing', 'LineString', 'MultiGeometry', 'Polygon'];
+};
+
+export default KmlGeometry;

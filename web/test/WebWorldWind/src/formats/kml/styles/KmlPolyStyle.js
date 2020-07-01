@@ -18,72 +18,72 @@ import Color from '../../../util/Color';
 import KmlColorStyle from './KmlColorStyle';
 import KmlElements from './../KmlElements';
 import NodeTransformers from '../util/KmlNodeTransformers';
-    
 
+
+/**
+ * Constructs an KmlPolyStyle. Application usually don't call this constructor. It is called by {@link KmlFile} as
+ * Objects from KmlFile are read. It is concrete implementation.
+ * @alias KmlPolyStyle
+ * @constructor
+ * @classdesc Contains the data associated with Kml poly style
+ * @param options {Object}
+ * @param options.objectNode {Node} Node representing the Kml poly style.
+ * @throws {ArgumentError} If either the node is null or undefined.
+ * @see https://developers.google.com/kml/documentation/kmlreference#polystyle
+ * @augments KmlColorStyle
+ */
+var KmlPolyStyle = function (options) {
+    KmlColorStyle.call(this, options);
+};
+
+KmlPolyStyle.prototype = Object.create(KmlColorStyle.prototype);
+
+Object.defineProperties(KmlPolyStyle.prototype, {
     /**
-     * Constructs an KmlPolyStyle. Application usually don't call this constructor. It is called by {@link KmlFile} as
-     * Objects from KmlFile are read. It is concrete implementation.
-     * @alias KmlPolyStyle
-     * @constructor
-     * @classdesc Contains the data associated with Kml poly style
-     * @param options {Object}
-     * @param options.objectNode {Node} Node representing the Kml poly style.
-     * @throws {ArgumentError} If either the node is null or undefined.
-     * @see https://developers.google.com/kml/documentation/kmlreference#polystyle
-     * @augments KmlColorStyle
+     * If true the polygon's surface will be filled with color
+     * @memberof KmlPolyStyle.prototype
+     * @readonly
+     * @type {Boolean}
      */
-    var KmlPolyStyle = function (options) {
-        KmlColorStyle.call(this, options);
-    };
-
-    KmlPolyStyle.prototype = Object.create(KmlColorStyle.prototype);
-
-    Object.defineProperties(KmlPolyStyle.prototype, {
-        /**
-         * If true the polygon's surface will be filled with color
-         * @memberof KmlPolyStyle.prototype
-         * @readonly
-         * @type {Boolean}
-         */
-        kmlFill: {
-            get: function(){
-                return this._factory.specific(this, {name: 'fill', transformer: NodeTransformers.boolean});
-            }
-        },
-
-        /**
-         * Specifies whether outline polygon. Outline style is defined by line style if present.
-         * @memberof KmlPolyStyle.prototype
-         * @readonly
-         * @type {Boolean}
-         */
-        kmlOutline: {
-            get: function(){
-                return this._factory.specific(this, {name: 'outline', transformer: NodeTransformers.boolean});
-            }
+    kmlFill: {
+        get: function () {
+            return this._factory.specific(this, { name: 'fill', transformer: NodeTransformers.boolean });
         }
-    });
-
-
-    KmlPolyStyle.update = function (style, options) {
-        style = style || {};
-        var shapeOptions = options || {};
-        shapeOptions._drawInterior = style.kmlFill || true;
-        shapeOptions._drawOutline = style.kmlOutline || false;
-        shapeOptions._outlineColor = options._outlineColor || Color.WHITE;
-        shapeOptions._interiorColor = style.kmlColor && Color.colorFromKmlHex(style.kmlColor) || Color.WHITE;
-        shapeOptions._colorMode = style.kmlColorMode || 'normal'; // TODO Not yet supported.
-
-        return shapeOptions;
-    };
+    },
 
     /**
-     * @inheritDoc
+     * Specifies whether outline polygon. Outline style is defined by line style if present.
+     * @memberof KmlPolyStyle.prototype
+     * @readonly
+     * @type {Boolean}
      */
-    KmlPolyStyle.prototype.getTagNames = function () {
-        return ['PolyStyle'];
-    };
+    kmlOutline: {
+        get: function () {
+            return this._factory.specific(this, { name: 'outline', transformer: NodeTransformers.boolean });
+        }
+    }
+});
 
-    KmlElements.addKey(KmlPolyStyle.prototype.getTagNames()[0], KmlPolyStyle);
 
-    export default KmlPolyStyle;
+KmlPolyStyle.update = function (style, options) {
+    style = style || {};
+    var shapeOptions = options || {};
+    shapeOptions._drawInterior = style.kmlFill || true;
+    shapeOptions._drawOutline = style.kmlOutline || false;
+    shapeOptions._outlineColor = options._outlineColor || Color.WHITE;
+    shapeOptions._interiorColor = style.kmlColor && Color.colorFromKmlHex(style.kmlColor) || Color.WHITE;
+    shapeOptions._colorMode = style.kmlColorMode || 'normal'; // TODO Not yet supported.
+
+    return shapeOptions;
+};
+
+/**
+ * @inheritDoc
+ */
+KmlPolyStyle.prototype.getTagNames = function () {
+    return ['PolyStyle'];
+};
+
+KmlElements.addKey(KmlPolyStyle.prototype.getTagNames()[0], KmlPolyStyle);
+
+export default KmlPolyStyle;

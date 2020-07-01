@@ -20,53 +20,53 @@
 import ArgumentError from '../../error/ArgumentError';
 import GeoJSONGeometry from './GeoJSONGeometry';
 import Logger from '../../util/Logger';
-        
 
-        /**
-         * Constructs a GeoJSON geometry for a MultiLineString. Applications typically do not call this constructor.
-         * It is called by {@link GeoJSON} as GeoJSON geometries are read.
-         * @alias GeoJSONGeometryMultiLineString
-         * @constructor
-         * @classdesc Contains the data associated with a GeoJSON MultiLineString geometry.
-         * @augments GeoJSONGeometry
-         * @param {Number[]} coordinates The array containing MultiLineString coordinates.
-         * @param {String} type A string containing type of geometry.
-         * @param {Object} bbox An object containing GeoJSON bbox information.
-         * @throws {ArgumentError} If the specified coordinates or type are null or undefined or if the coordinates
-         * parameter is not an array of LineString coordinates array.
-         */
-        var GeoJSONGeometryMultiLineString = function (coordinates, type, bbox) {
 
-            if (!coordinates) {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "GeoJSONGeometryMultiLineString", "constructor",
-                        "missingCoordinates"));
-            }
+/**
+ * Constructs a GeoJSON geometry for a MultiLineString. Applications typically do not call this constructor.
+ * It is called by {@link GeoJSON} as GeoJSON geometries are read.
+ * @alias GeoJSONGeometryMultiLineString
+ * @constructor
+ * @classdesc Contains the data associated with a GeoJSON MultiLineString geometry.
+ * @augments GeoJSONGeometry
+ * @param {Number[]} coordinates The array containing MultiLineString coordinates.
+ * @param {String} type A string containing type of geometry.
+ * @param {Object} bbox An object containing GeoJSON bbox information.
+ * @throws {ArgumentError} If the specified coordinates or type are null or undefined or if the coordinates
+ * parameter is not an array of LineString coordinates array.
+ */
+var GeoJSONGeometryMultiLineString = function (coordinates, type, bbox) {
 
-            if (coordinates[0].length < 2 || coordinates[0][0].length < 2) {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "GeoJSONGeometryMultiLineString", "constructor",
-                        "invalidNumberOfCoordinates"));
-            }
+    if (!coordinates) {
+        throw new ArgumentError(
+            Logger.logMessage(Logger.LEVEL_SEVERE, "GeoJSONGeometryMultiLineString", "constructor",
+                "missingCoordinates"));
+    }
 
-            if (Object.prototype.toString.call(coordinates[0]) !== '[object Array]' ||
-                Object.prototype.toString.call(coordinates[0][0]) !== '[object Array]' ||
-                Object.prototype.toString.call(coordinates[0][0][0]) !== '[object Number]') {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "GeoJSONGeometryMultiLineString", "constructor",
-                        "invalidCoordinatesType"));
-            }
+    if (coordinates[0].length < 2 || coordinates[0][0].length < 2) {
+        throw new ArgumentError(
+            Logger.logMessage(Logger.LEVEL_SEVERE, "GeoJSONGeometryMultiLineString", "constructor",
+                "invalidNumberOfCoordinates"));
+    }
 
-            if (!type) {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "GeoJSONGeometryLineString", "constructor",
-                        "missingType"));
-            }
+    if (Object.prototype.toString.call(coordinates[0]) !== '[object Array]' ||
+        Object.prototype.toString.call(coordinates[0][0]) !== '[object Array]' ||
+        Object.prototype.toString.call(coordinates[0][0][0]) !== '[object Number]') {
+        throw new ArgumentError(
+            Logger.logMessage(Logger.LEVEL_SEVERE, "GeoJSONGeometryMultiLineString", "constructor",
+                "invalidCoordinatesType"));
+    }
 
-            GeoJSONGeometry.call(this, coordinates, type, bbox);
-        };
+    if (!type) {
+        throw new ArgumentError(
+            Logger.logMessage(Logger.LEVEL_SEVERE, "GeoJSONGeometryLineString", "constructor",
+                "missingType"));
+    }
 
-        GeoJSONGeometryMultiLineString.prototype = Object.create(GeoJSONGeometry.prototype);
+    GeoJSONGeometry.call(this, coordinates, type, bbox);
+};
 
-        export default GeoJSONGeometryMultiLineString;
-    
+GeoJSONGeometryMultiLineString.prototype = Object.create(GeoJSONGeometry.prototype);
+
+export default GeoJSONGeometryMultiLineString;
+

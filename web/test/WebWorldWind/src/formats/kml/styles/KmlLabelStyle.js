@@ -17,51 +17,51 @@
 import KmlColorStyle from './KmlColorStyle';
 import KmlElements from '../KmlElements';
 import NodeTransformers from '../util/KmlNodeTransformers';
-    
+
+/**
+ * Constructs an KmlLabelStyle. Applications don't usually call this constructor. It is called by {@link KmlFile} as
+ * objects from KmlFile are read. This object is already concrete implementation.
+ * @alias KmlLabelStyle
+ * @classdesc Contains the data associated with LabelStyle
+ * @param options {Object}
+ * @param options.objectNode {Node} Node representing the LabelStyle in the document.
+ * @constructor
+ * @throws {ArgumentError} If node is null or undefined.
+ * @see https://developers.google.com/kml/documentation/kmlreference#labelstyle
+ * @augments KmlColorStyle
+ */
+var KmlLabelStyle = function (options) {
+    KmlColorStyle.call(this, options);
+};
+
+KmlLabelStyle.prototype = Object.create(KmlColorStyle.prototype);
+
+Object.defineProperties(KmlLabelStyle.prototype, {
     /**
-     * Constructs an KmlLabelStyle. Applications don't usually call this constructor. It is called by {@link KmlFile} as
-     * objects from KmlFile are read. This object is already concrete implementation.
-     * @alias KmlLabelStyle
-     * @classdesc Contains the data associated with LabelStyle
-     * @param options {Object}
-     * @param options.objectNode {Node} Node representing the LabelStyle in the document.
-     * @constructor
-     * @throws {ArgumentError} If node is null or undefined.
-     * @see https://developers.google.com/kml/documentation/kmlreference#labelstyle
-     * @augments KmlColorStyle
+     * Scale in which to resize the icon.
+     * @memberof KmlLabelStyle.prototype
+     * @readonly
+     * @type {Number}
      */
-    var KmlLabelStyle = function (options) {
-        KmlColorStyle.call(this, options);
-    };
-
-    KmlLabelStyle.prototype = Object.create(KmlColorStyle.prototype);
-
-    Object.defineProperties(KmlLabelStyle.prototype, {
-        /**
-         * Scale in which to resize the icon.
-         * @memberof KmlLabelStyle.prototype
-         * @readonly
-         * @type {Number}
-         */
-        kmlScale: {
-            get: function() {
-                return this._factory.specific(this, {name: 'scale', transformer: NodeTransformers.number});
-            }
+    kmlScale: {
+        get: function () {
+            return this._factory.specific(this, { name: 'scale', transformer: NodeTransformers.number });
         }
-    });
+    }
+});
 
 
-    KmlLabelStyle.update = function () {
+KmlLabelStyle.update = function () {
 
-    };
+};
 
-    /**
-     * @inheritDoc
-     */
-    KmlLabelStyle.prototype.getTagNames = function () {
-        return ['LabelStyle'];
-    };
+/**
+ * @inheritDoc
+ */
+KmlLabelStyle.prototype.getTagNames = function () {
+    return ['LabelStyle'];
+};
 
-    KmlElements.addKey(KmlLabelStyle.prototype.getTagNames()[0], KmlLabelStyle);
+KmlElements.addKey(KmlLabelStyle.prototype.getTagNames()[0], KmlLabelStyle);
 
-    export default KmlLabelStyle;
+export default KmlLabelStyle;

@@ -18,30 +18,29 @@
  * @exports ArgumentError
  */
 import AbstractError from '../error/AbstractError';
-        
 
-        /**
-         * Constructs an argument error with a specified message.
-         * @alias ArgumentError
-         * @constructor
-         * @classdesc Represents an error associated with invalid function arguments.
-         * @augments AbstractError
-         * @param {String} message The message.
-         */
-        var ArgumentError = function (message) {
-            AbstractError.call(this, "ArgumentError", message);
 
-            var stack;
-            try {
-                //noinspection ExceptionCaughtLocallyJS
-                throw new Error();
-            } catch (e) {
-                stack = e.stack;
-            }
-            this.stack = stack;
-        };
+/**
+ * Constructs an argument error with a specified message.
+ * @alias ArgumentError
+ * @constructor
+ * @classdesc Represents an error associated with invalid function arguments.
+ * @augments AbstractError
+ * @param {String} message The message.
+ */
+var ArgumentError = function (message) {
+    AbstractError.call(this, "ArgumentError", message);
 
-        ArgumentError.prototype = Object.create(AbstractError.prototype);
+    var stack;
+    try {
+        //noinspection ExceptionCaughtLocallyJS
+        throw new Error();
+    } catch (e) {
+        stack = e.stack;
+    }
+    this.stack = stack;
+};
 
-        export default ArgumentError;
-    
+ArgumentError.prototype = Object.create(AbstractError.prototype);
+
+export default ArgumentError;

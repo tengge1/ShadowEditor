@@ -20,52 +20,52 @@
 import ArgumentError from '../../error/ArgumentError';
 import GeoJSONGeometry from './GeoJSONGeometry';
 import Logger from '../../util/Logger';
-        
 
-        /**
-         * Constructs a GeoJSON geometry for a Point. Applications typically do not call this constructor.
-         * It is called by {@link GeoJSON} as GeoJSON geometries are read.
-         * @alias GeoJSONGeometryPoint
-         * @constructor
-         * @classdesc Contains the data associated with a GeoJSON Point geometry.
-         * @augments GeoJSONGeometry
-         * @param {Number[]} coordinates The array containing Point coordinates.
-         * @param {String} type A string containing type of geometry.
-         * @param {Object} bbox An object containing GeoJSON bbox information.
-         * @throws {ArgumentError} If the specified coordinates or type are null or undefined or if the coordinates
-         * parameter is not a single position.
-         */
-        var GeoJSONGeometryPoint = function (coordinates, type, bbox) {
 
-            if (!coordinates) {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "GeoJSONGeometryPoint", "constructor",
-                        "missingCoordinates"));
-            }
+/**
+ * Constructs a GeoJSON geometry for a Point. Applications typically do not call this constructor.
+ * It is called by {@link GeoJSON} as GeoJSON geometries are read.
+ * @alias GeoJSONGeometryPoint
+ * @constructor
+ * @classdesc Contains the data associated with a GeoJSON Point geometry.
+ * @augments GeoJSONGeometry
+ * @param {Number[]} coordinates The array containing Point coordinates.
+ * @param {String} type A string containing type of geometry.
+ * @param {Object} bbox An object containing GeoJSON bbox information.
+ * @throws {ArgumentError} If the specified coordinates or type are null or undefined or if the coordinates
+ * parameter is not a single position.
+ */
+var GeoJSONGeometryPoint = function (coordinates, type, bbox) {
 
-            if (coordinates.length < 2) {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "GeoJSONGeometryPoint", "constructor",
-                        "invalidNumberOfCoordinates"));
-            }
+    if (!coordinates) {
+        throw new ArgumentError(
+            Logger.logMessage(Logger.LEVEL_SEVERE, "GeoJSONGeometryPoint", "constructor",
+                "missingCoordinates"));
+    }
 
-            if (Object.prototype.toString.call(coordinates) !== '[object Array]' ||
-                Object.prototype.toString.call(coordinates[0]) !== '[object Number]') {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "GeoJSONGeometryPoint", "constructor",
-                        "invalidCoordinatesType"));
-            }
+    if (coordinates.length < 2) {
+        throw new ArgumentError(
+            Logger.logMessage(Logger.LEVEL_SEVERE, "GeoJSONGeometryPoint", "constructor",
+                "invalidNumberOfCoordinates"));
+    }
 
-            if (!type) {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "GeoJSONGeometryPoint", "constructor",
-                        "missingType"));
-            }
+    if (Object.prototype.toString.call(coordinates) !== '[object Array]' ||
+        Object.prototype.toString.call(coordinates[0]) !== '[object Number]') {
+        throw new ArgumentError(
+            Logger.logMessage(Logger.LEVEL_SEVERE, "GeoJSONGeometryPoint", "constructor",
+                "invalidCoordinatesType"));
+    }
 
-            GeoJSONGeometry.call(this, coordinates, type, bbox);
-        };
+    if (!type) {
+        throw new ArgumentError(
+            Logger.logMessage(Logger.LEVEL_SEVERE, "GeoJSONGeometryPoint", "constructor",
+                "missingType"));
+    }
 
-        GeoJSONGeometryPoint.prototype = Object.create(GeoJSONGeometry.prototype);
+    GeoJSONGeometry.call(this, coordinates, type, bbox);
+};
 
-        export default GeoJSONGeometryPoint;
-    
+GeoJSONGeometryPoint.prototype = Object.create(GeoJSONGeometry.prototype);
+
+export default GeoJSONGeometryPoint;
+

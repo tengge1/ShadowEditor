@@ -18,36 +18,36 @@
  * @exports AbstractError
  */
 
-    
 
-    /**
-     * Constructs an error with a specified name and message.
-     * @alias AbstractError
-     * @constructor
-     * @abstract
-     * @classdesc Provides an abstract base class for error classes. This class is not meant to be instantiated
-     * directly but used only by subclasses.
-     * @param {String} name The error's name.
-     * @param {String} message The message.
-     */
-    var AbstractError = function (name, message) {
-        this.name = name;
-        this.message = message;
-    };
 
-    /**
-     * Returns the message and stack trace associated with this error.
-     * @returns {String} The message and stack trace associated with this error.
-     */
-    AbstractError.prototype.toString = function () {
-        var str = this.name + ': ' + this.message;
+/**
+ * Constructs an error with a specified name and message.
+ * @alias AbstractError
+ * @constructor
+ * @abstract
+ * @classdesc Provides an abstract base class for error classes. This class is not meant to be instantiated
+ * directly but used only by subclasses.
+ * @param {String} name The error's name.
+ * @param {String} message The message.
+ */
+var AbstractError = function (name, message) {
+    this.name = name;
+    this.message = message;
+};
 
-        if (this.stack) {
-            str += '\n' + this.stack.toString();
-        }
+/**
+ * Returns the message and stack trace associated with this error.
+ * @returns {String} The message and stack trace associated with this error.
+ */
+AbstractError.prototype.toString = function () {
+    var str = this.name + ': ' + this.message;
 
-        return str;
-    };
+    if (this.stack) {
+        str += '\n' + this.stack.toString();
+    }
 
-    export default AbstractError;
+    return str;
+};
+
+export default AbstractError;
 
