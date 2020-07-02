@@ -33,6 +33,10 @@ RenderEvent.prototype.stop = function () {
 };
 
 RenderEvent.prototype.render = function () {
+    if (app.options.sceneType === 'WorldWind') {
+        return;
+    }
+
     const { scene, sceneHelpers } = app.editor;
 
     this.clock._getDelta(); // see: ../polyfills.js

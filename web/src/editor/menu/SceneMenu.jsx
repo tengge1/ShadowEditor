@@ -184,7 +184,7 @@ class SceneMenu extends React.Component {
         map.addLayer(new WorldWind.StarFieldLayer());
         window.map = map;
 
-        app.options.sceneType = 'GIS';
+        app.options.sceneType = 'WorldWind';
         app.editor.camera.userData.control = '';
         app.call(`sceneGraphChanged`, this);
     }
