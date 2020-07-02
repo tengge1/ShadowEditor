@@ -20,6 +20,7 @@ class SceneMenu extends React.Component {
         this.handleCreateEmptyScene = this.handleCreateEmptyScene.bind(this);
         this.handleCreateDistrictAndIndoor = this.handleCreateDistrictAndIndoor.bind(this);
         this.handleCreateGISScene = this.handleCreateGISScene.bind(this);
+        this.handleCreateWorldWind = this.handleCreateWorldWind.bind(this);
         this.handleSaveScene = this.handleSaveScene.bind(this);
         this.handleSaveAsScene = this.handleSaveAsScene.bind(this);
 
@@ -46,6 +47,9 @@ class SceneMenu extends React.Component {
                 />
                 <MenuItem title={_t('GIS Scene (Test)')}
                     onClick={this.handleCreateGISScene}
+                />
+                <MenuItem title={_t('World Wind (Test)')}
+                    onClick={this.handleCreateWorldWind}
                 />
             </MenuItem> : null}
             {!enableAuthority || authorities.includes('SAVE_SCENE') ? <MenuItem title={_t('Save')}
@@ -169,6 +173,10 @@ class SceneMenu extends React.Component {
         app.editor.camera.userData.control = '';
 
         app.call(`sceneGraphChanged`, this);
+    }
+
+    handleCreateWorldWind() {
+        alert('world wind');
     }
 
     // --------------------------- 保存场景 ----------------------------------------
