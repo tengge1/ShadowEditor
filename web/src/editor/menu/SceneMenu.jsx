@@ -8,6 +8,7 @@ import SaveSceneWindow from './window/SaveSceneWindow.jsx';
 import EmptySceneTemplate from './scene/EmptySceneTemplate';
 // import DistrictSceneTemplate from './scene/DistrictSceneTemplate';
 // import GISSceneTemplate from './scene/GISSceneTemplate';
+import WorldWind from '../../wind/WorldWind';
 
 /**
  * 场景菜单
@@ -54,10 +55,10 @@ class SceneMenu extends React.Component {
             </MenuItem> : null}
             {!enableAuthority || authorities.includes('SAVE_SCENE') ? <MenuItem title={_t('Save')}
                 onClick={this.handleSaveScene}
-            /> : null}
+                                                                      /> : null}
             {!enableAuthority || authorities.includes('SAVE_SCENE') ? <MenuItem title={_t('Save As')}
                 onClick={this.handleSaveAsScene}
-            /> : null}
+                                                                      /> : null}
             {!enableAuthority || authorities.includes('SAVE_SCENE') ? <MenuItemSeparator /> : null}
             {!enableAuthority || isLogin ? <MenuItem title={_t('Export Scene')}>
                 <MenuItem title={_t('To JSON File')}
@@ -81,7 +82,7 @@ class SceneMenu extends React.Component {
             </MenuItem> : null}
             {!enableAuthority || authorities.includes('PUBLISH_SCENE') ? <MenuItem title={_t('Publish Scene')}
                 onClick={this.handlePublishScene}
-            /> : null}
+                                                                         /> : null}
         </MenuItem>;
     }
 
@@ -176,7 +177,17 @@ class SceneMenu extends React.Component {
     }
 
     handleCreateWorldWind() {
-        alert('world wind');
+        let context = app.editor.renderer.getContext();
+        debugger;
+        let map = new WorldWind.WorldWindow(context);
+        map.addLayer(new WorldWind.XYZLayer());
+        map.addLayer(new WorldWind.AtmosphereLayer());
+        map.addLayer(new WorldWind.StarFieldLayer());
+        window.map = map;
+
+        app.options.sceneType = 'GIS';
+        app.editor.camera.userData.control = '';
+        app.call(`sceneGraphChanged`, this);
     }
 
     // --------------------------- 保存场景 ----------------------------------------
