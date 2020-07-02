@@ -178,7 +178,6 @@ class SceneMenu extends React.Component {
 
     handleCreateWorldWind() {
         let context = app.editor.renderer.getContext();
-        debugger;
         let map = new WorldWind.WorldWindow(context);
         map.addLayer(new WorldWind.XYZLayer());
         map.addLayer(new WorldWind.AtmosphereLayer());
