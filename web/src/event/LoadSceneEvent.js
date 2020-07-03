@@ -1,6 +1,6 @@
 import BaseEvent from './BaseEvent';
 import Converter from '../serialization/Converter';
-import GISScene from '../gis/Scene';
+// import GISScene from '../gis/Scene';
 
 /**
  * 加载场景事件
@@ -68,15 +68,15 @@ LoadSceneEvent.prototype.onLoadSceneList = function (list, name, id) {
         if (obj.options) {
             app.call('optionsChanged', this);
 
-            if (obj.options.sceneType === 'GIS') {
-                if (app.editor.gis) {
-                    app.editor.gis.stop();
-                }
-                app.editor.gis = new GISScene(app, {
-                    useCameraPosition: true
-                });
-                app.editor.gis.start();
-            }
+            // if (obj.options.sceneType === 'GIS') {
+            //     if (app.editor.gis) {
+            //         app.editor.gis.stop();
+            //     }
+            //     app.editor.gis = new GISScene(app, {
+            //         useCameraPosition: true
+            //     });
+            //     app.editor.gis.start();
+            // }
         }
 
         if (obj.scripts) {

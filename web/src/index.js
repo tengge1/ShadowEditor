@@ -11,6 +11,5 @@ export * from './ui/index';
 
 // utils
 export { default as LanguageLoader } from './utils/LanguageLoader';
-export { default as GeoUtils } from './gis/utils/GeoUtils';
 
 export { default as Application } from './Application';

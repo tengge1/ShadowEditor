@@ -9,7 +9,7 @@ import PlayerRenderer from './component/PlayerRenderer';
 import PlayerAnimation from './component/PlayerAnimation';
 import PlayerPhysics from './component/PlayerPhysics';
 import CssUtils from '../utils/CssUtils';
-import Globe from '../gis/Globe';
+// import Globe from '../gis/Globe';
 // import Visualization from '../visual/Visualization';
 
 /**
@@ -157,10 +157,10 @@ Player.prototype.stop = function () {
     this.animation.dispose();
     this.physics.dispose();
 
-    if (this.gis) {
-        this.gis.dispose();
-        this.gis = null;
-    }
+    // if (this.gis) {
+    //     this.gis.dispose();
+    //     this.gis = null;
+    // }
 
     this.playerRenderer.dispose();
 
@@ -218,11 +218,11 @@ Player.prototype.initPlayer = function (obj) {
     // scene
     this.scene = obj.scene || new THREE.Scene();
 
-    if (obj.options.sceneType === 'GIS') {
-        this.gis = new Globe(this.camera, this.renderer, Object.assign({}, obj.options, {
-            useCameraPosition: true
-        }));
-    }
+    // if (obj.options.sceneType === 'GIS') {
+    //     this.gis = new Globe(this.camera, this.renderer, Object.assign({}, obj.options, {
+    //         useCameraPosition: true
+    //     }));
+    // }
 
     // 可视化
     // if (obj.visual) {
@@ -252,9 +252,9 @@ Player.prototype.animate = function () {
     this.animation.update(this.clock, deltaTime);
     this.physics.update(this.clock, deltaTime);
 
-    if (this.gis) {
-        this.gis.update();
-    }
+    // if (this.gis) {
+    //     this.gis.update();
+    // }
 
     if (this.stats) {
         this.stats.end();

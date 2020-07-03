@@ -1,14 +1,13 @@
 import { MenuItem, MenuItemSeparator } from '../../ui/index';
 import Converter from '../../serialization/Converter';
 import Ajax from '../../utils/Ajax';
-import GISScene from '../../gis/Scene';
 import TimeUtils from '../../utils/TimeUtils';
 import StringUtils from '../../utils/StringUtils';
 import SaveSceneWindow from './window/SaveSceneWindow.jsx';
 import EmptySceneTemplate from './scene/EmptySceneTemplate';
 // import DistrictSceneTemplate from './scene/DistrictSceneTemplate';
 // import GISSceneTemplate from './scene/GISSceneTemplate';
-import WorldWind from '../../wind/WorldWind';
+import WorldWind from '../../gis/WorldWind';
 
 /**
  * 场景菜单
@@ -21,7 +20,6 @@ class SceneMenu extends React.Component {
         this.handleCreateEmptyScene = this.handleCreateEmptyScene.bind(this);
         this.handleCreateDistrictAndIndoor = this.handleCreateDistrictAndIndoor.bind(this);
         this.handleCreateGISScene = this.handleCreateGISScene.bind(this);
-        this.handleCreateWorldWind = this.handleCreateWorldWind.bind(this);
         this.handleSaveScene = this.handleSaveScene.bind(this);
         this.handleSaveAsScene = this.handleSaveAsScene.bind(this);
 
@@ -48,9 +46,6 @@ class SceneMenu extends React.Component {
                 />
                 <MenuItem title={_t('GIS Scene (Test)')}
                     onClick={this.handleCreateGISScene}
-                />
-                <MenuItem title={_t('World Wind (Test)')}
-                    onClick={this.handleCreateWorldWind}
                 />
             </MenuItem> : null}
             {!enableAuthority || authorities.includes('SAVE_SCENE') ? <MenuItem title={_t('Save')}
@@ -166,17 +161,6 @@ class SceneMenu extends React.Component {
             app.editor.gis.stop();
         }
 
-        app.editor.gis = new GISScene(app);
-        app.editor.gis.start();
-
-        app.options.sceneType = 'GIS';
-
-        app.editor.camera.userData.control = '';
-
-        app.call(`sceneGraphChanged`, this);
-    }
-
-    handleCreateWorldWind() {
         let context = app.editor.renderer.getContext();
         context.activeTexture(context.TEXTURE0);
         let map = new WorldWind.WorldWindow(context);
@@ -185,8 +169,9 @@ class SceneMenu extends React.Component {
         map.addLayer(new WorldWind.StarFieldLayer());
         window.map = map;
 
-        app.options.sceneType = 'WorldWind';
+        app.options.sceneType = 'GIS';
         app.editor.camera.userData.control = '';
+
         app.call(`sceneGraphChanged`, this);
     }
 

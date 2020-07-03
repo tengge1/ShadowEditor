@@ -33,7 +33,7 @@ RenderEvent.prototype.stop = function () {
 };
 
 RenderEvent.prototype.render = function () {
-    if (app.options.sceneType === 'WorldWind') {
+    if (app.options.sceneType === 'GIS') {
         return;
     }
 
