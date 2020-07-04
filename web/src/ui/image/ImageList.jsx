@@ -1,3 +1,12 @@
+/*
+ * Copyright 2017-2020 The ShadowEditor Authors. All rights reserved.
+ *
+ * Use of this source code is governed by a MIT-style
+ * license that can be found in the LICENSE file.
+ * 
+ * For more information, please visit: https://github.com/tengge1/ShadowEditor
+ * You can also visit: https://gitee.com/tengge1/ShadowEditor
+ */
 import './css/ImageList.css';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
@@ -44,14 +53,14 @@ class ImageList extends React.Component {
 
         return <div className={classNames('ImageList', className)}
             style={style}
-        >
+               >
             <div className={'content'}>
                 {current.map(n => {
                     return <div className={'item'}
                         name={n.id}
                         key={n.id}
                         onClick={this.handleClick}
-                    >
+                           >
                         {n.src ?
                             <img className={'img'}
                                 src={n.src}
@@ -66,12 +75,12 @@ class ImageList extends React.Component {
                             icon={'edit'}
                             name={n.id}
                             onClick={this.handleEdit}
-                        />}
+                                                                         />}
                         {showDeleteButton && n.showDeleteButton !== false && <IconButton className={'delete'}
                             icon={'delete'}
                             name={n.id}
                             onClick={this.handleDelete}
-                        />}
+                                                                             />}
                     </div>;
                 })}
             </div>
