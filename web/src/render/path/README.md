@@ -1,1 +1,0 @@
-# Path Tracing(光线追踪)
