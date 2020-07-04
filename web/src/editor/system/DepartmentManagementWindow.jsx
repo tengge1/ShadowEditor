@@ -1,3 +1,12 @@
+/*
+ * Copyright 2017-2020 The ShadowEditor Authors. All rights reserved.
+ *
+ * Use of this source code is governed by a MIT-style
+ * license that can be found in the LICENSE file.
+ * 
+ * For more information, please visit: https://github.com/tengge1/ShadowEditor
+ * You can also visit: https://gitee.com/tengge1/ShadowEditor
+ */
 import './css/DepartmentManagementWindow.css';
 import { Window, Content, Toolbar, Button, ToolbarFiller, Input, HBoxLayout, Tree, Form, FormControl, Label } from '../../ui/index';
 import EditDeptWindow from './dept/EditDeptWindow.jsx';

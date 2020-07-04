@@ -1,3 +1,12 @@
+/*
+ * Copyright 2017-2020 The ShadowEditor Authors. All rights reserved.
+ *
+ * Use of this source code is governed by a MIT-style
+ * license that can be found in the LICENSE file.
+ * 
+ * For more information, please visit: https://github.com/tengge1/ShadowEditor
+ * You can also visit: https://gitee.com/tengge1/ShadowEditor
+ */
 import './css/HelpMenu.css';
 import { MenuItem, MenuItemSeparator } from '../../ui/index';
 import RendererAttributesWindow from './window/RendererAttributesWindow.jsx';
@@ -49,8 +58,9 @@ class HelpMenu extends React.Component {
                     onClick={this.handleGiteeSource}
                 />
             </MenuItem>
-            <MenuItem title={_t('Documents')} onClick={this.handleDocument}>
-            </MenuItem>
+            <MenuItem title={_t('Documents')}
+                onClick={this.handleDocument}
+            />
             <MenuItem title={_t('Examples')}>
                 <MenuItem title={_t('GitHub')}
                     onClick={this.handleGitHubExamples}
@@ -114,11 +124,11 @@ class HelpMenu extends React.Component {
                 {_t('Source')}1: <a href="https://github.com/tengge1/ShadowEditor"
                     target="_blank"
                     rel="noopener noreferrer"
-                >https://github.com/tengge1/ShadowEditor</a><br />
+                                 >https://github.com/tengge1/ShadowEditor</a><br />
                 {_t('Source')}2: <a href="https://gitee.com/tengge1/ShadowEditor"
                     target="_blank"
                     rel="noopener noreferrer"
-                >https://gitee.com/tengge1/ShadowEditor</a><br />
+                                 >https://gitee.com/tengge1/ShadowEditor</a><br />
             </>
         });
     }
