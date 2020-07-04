@@ -5,49 +5,36 @@
 // For more information, please visit: https://github.com/tengge1/ShadowEditor
 // You can also visit: https://gitee.com/tengge1/ShadowEditor
 
-package nasa
+package gis
 
 import (
 	"fmt"
 	"io/ioutil"
-	"math"
 	"net/http"
 	"os"
 	"path/filepath"
 	"strconv"
-	"strings"
 
 	"github.com/tengge1/shadoweditor/server"
 )
 
 func init() {
-	server.Handle(http.MethodGet, "/api/Map/Elev", HandleElev, server.None)
+	server.Handle(http.MethodGet, "/api/Map/Tiles", HandleBing, server.None)
 }
 
-// HandleElev returns a nasa elev tile.
-func HandleElev(w http.ResponseWriter, r *http.Request) {
+// HandleBing returns a bing map tile.
+func HandleBing(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	x, err := strconv.Atoi(r.FormValue("x"))
 	y, err := strconv.Atoi(r.FormValue("y"))
-	z, err := strconv.Atoi(r.FormValue("z")) // wrong
-	if err != nil {
-		server.Logger.Error(err.Error())
-		w.WriteHeader(http.StatusInternalServerError)
-		return
-	}
-	bbox := r.FormValue("bbox")
-	aabb := strings.Split(bbox, ",")
-	minLon, err := strconv.ParseFloat(aabb[0], 64)
-	maxLon, err := strconv.ParseFloat(aabb[2], 64)
+	z, err := strconv.Atoi(r.FormValue("z"))
 	if err != nil {
 		server.Logger.Error(err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 
-	z = int(math.Log2(360 / (maxLon - minLon)))
-
-	path := server.MapPath(fmt.Sprintf("/Upload/Tiles/Elev/%v/%v/%v.bil", z, y, x))
+	path := server.MapPath(fmt.Sprintf("/Upload/Tiles/Bing/%v/%v/%v.jpeg", z, y, x))
 	if _, err := os.Stat(path); err == nil {
 		byts, err := ioutil.ReadFile(path)
 		if err != nil {
@@ -55,11 +42,12 @@ func HandleElev(w http.ResponseWriter, r *http.Request) {
 			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}
-		writeByts(w, "application/bil16", byts)
+		writeByts(w, "image/jpeg", byts)
 		return
 	}
 
-	url := fmt.Sprintf("https://worldwind26.arc.nasa.gov/elev?service=WMS&request=GetMap&version=1.3.0&transparent=TRUE&layers=GEBCO&styles=&format=application/bil16&width=256&height=256&crs=EPSG:4326&bbox=%v", bbox)
+	quadKey := TileXYToQuadKey(x, y, z)
+	url := fmt.Sprintf("http://t0.ssl.ak.tiles.virtualearth.net/tiles/a%v.jpeg?g=5793", quadKey)
 
 	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
@@ -67,6 +55,7 @@ func HandleElev(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
+	req.Header.Set("Referer", "http://cn.bing.com/ditu/")
 	req.Header.Set("UserAgent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36")
 
 	client := http.Client{}
@@ -96,5 +85,5 @@ func HandleElev(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	writeByts(w, "application/bil16", byts)
+	writeByts(w, "image/jpeg", byts)
 }

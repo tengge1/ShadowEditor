@@ -8,7 +8,7 @@
 // Note: This file is translated from:
 // https://docs.microsoft.com/en-us/bingmaps/articles/bing-maps-tile-system?redirectedfrom=MSDN
 
-package nasa
+package gis
 
 import (
 	"bytes"
