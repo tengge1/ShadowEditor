@@ -1,3 +1,12 @@
+/*
+ * Copyright 2017-2020 The ShadowEditor Authors. All rights reserved.
+ *
+ * Use of this source code is governed by a MIT-style
+ * license that can be found in the LICENSE file.
+ * 
+ * For more information, please visit: https://github.com/tengge1/ShadowEditor
+ * You can also visit: https://gitee.com/tengge1/ShadowEditor
+ */
 import './css/EditWindow.css';
 import { PropTypes } from '../../../third_party';
 import { Window, Content, Buttons, Form, FormControl, Label, Input, Select, ImageUploader, Button, CheckBox } from '../../../ui/index';
@@ -42,7 +51,7 @@ class EditWindow extends React.Component {
             style={{ width: '320px', height: '300px' }}
             mask={false}
             onClose={this.handleClose}
-        >
+               >
             <Content>
                 <Form>
                     <FormControl>
@@ -59,8 +68,7 @@ class EditWindow extends React.Component {
                             value={categoryID}
                             onChange={this.handleCategoryChange}
                         />
-                        <Button onClick={this.handleEditCategoryList}
-                        >{_t('Edit')}</Button>
+                        <Button onClick={this.handleEditCategoryList}>{_t('Edit')}</Button>
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Thumbnail')}</Label>

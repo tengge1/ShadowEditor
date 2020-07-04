@@ -1,3 +1,12 @@
+/*
+ * Copyright 2017-2020 The ShadowEditor Authors. All rights reserved.
+ *
+ * Use of this source code is governed by a MIT-style
+ * license that can be found in the LICENSE file.
+ * 
+ * For more information, please visit: https://github.com/tengge1/ShadowEditor
+ * You can also visit: https://gitee.com/tengge1/ShadowEditor
+ */
 import './css/EditSceneWindow.css';
 import { PropTypes } from '../../../third_party';
 import { Window, TabLayout, Content, Buttons, Form, FormControl, Label, Input, Select, ImageUploader, Button, CheckBox, DataGrid, Column, LinkButton } from '../../../ui/index';
@@ -53,7 +62,7 @@ class EditSceneWindow extends React.Component {
             style={{ width: '400px', height: '320px' }}
             mask={false}
             onClose={this.handleClose}
-        >
+               >
             <Content>
                 <TabLayout activeTabIndex={activeTabIndex}
                     onActiveTabChange={this.handleActiveTabChange}
@@ -73,8 +82,7 @@ class EditSceneWindow extends React.Component {
                                 value={categoryID}
                                 onChange={this.handleCategoryChange}
                             />
-                            <Button onClick={this.handleEditCategoryList}
-                            >{_t('Edit')}</Button>
+                            <Button onClick={this.handleEditCategoryList}>{_t('Edit')}</Button>
                         </FormControl>
                         <FormControl>
                             <Label>{_t('Thumbnail')}</Label>
@@ -217,7 +225,7 @@ class EditSceneWindow extends React.Component {
         }
         return <LinkButton name={row.ID}
             onClick={this.handleLoadHistory}
-        >{_t('Load')}</LinkButton>;
+               >{_t('Load')}</LinkButton>;
     }
 
     handleLoadHistory(name) {
