@@ -1,3 +1,12 @@
+/*
+ * Copyright 2017-2020 The ShadowEditor Authors. All rights reserved.
+ *
+ * Use of this source code is governed by a MIT-style
+ * license that can be found in the LICENSE file.
+ * 
+ * For more information, please visit: https://github.com/tengge1/ShadowEditor
+ * You can also visit: https://gitee.com/tengge1/ShadowEditor
+ */
 import UnscaledTriangleVertexShader from './shader/unscaled_triangle_vertex.glsl';
 import UnscaledTriangleFragmentShader from './shader/unscaled_triangle_fragment.glsl';
 import CanvasUtils from '../../utils/CanvasUtils';
