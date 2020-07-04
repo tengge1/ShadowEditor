@@ -65,9 +65,10 @@ class ExtensionWindow extends React.Component {
         const extensions = context.getSupportedExtensions();
 
         extensions.forEach(n => {
+            const key = n.startsWith('WEBKIT_') ? n.substring(7) : n;
             list.push({
                 Name: n,
-                Description: DESCRIPTIONS[n]
+                Description: DESCRIPTIONS[key]
             });
         });
 
@@ -104,7 +105,11 @@ class ExtensionWindow extends React.Component {
 
     renderName(value, row) {
         if (row.Description) {
-            return `<a href="https://developer.mozilla.org/en-US/docs/Web/API/${value}" target="_blank">${value}</a>`;
+            let key = value;
+            if (value.startsWith('WEBKIT_')) {
+                key = key.substring(7);
+            }
+            return `<a href="https://developer.mozilla.org/en-US/docs/Web/API/${key}" target="_blank">${value}</a>`;
         } else {
             return value;
         }
