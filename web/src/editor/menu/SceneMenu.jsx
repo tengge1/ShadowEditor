@@ -164,9 +164,9 @@ class SceneMenu extends React.Component {
         let context = app.editor.renderer.getContext();
         context.activeTexture(context.TEXTURE0);
         let map = new WorldWind.WorldWindow(context);
-        map.addLayer(new WorldWind.XYZLayer());
-        map.addLayer(new WorldWind.AtmosphereLayer());
         map.addLayer(new WorldWind.StarFieldLayer());
+        map.addLayer(new WorldWind.AtmosphereLayer());
+        map.addLayer(new WorldWind.XYZLayer());
         window.map = map;
 
         app.options.sceneType = 'GIS';
