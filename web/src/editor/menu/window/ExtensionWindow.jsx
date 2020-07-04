@@ -54,7 +54,8 @@ const DESCRIPTIONS = {
 class ExtensionWindow extends React.Component {
     constructor(props) {
         super(props);
-        this.renderName = this.renderName.bind(this);
+
+        this.renderDescription = this.renderDescription.bind(this);
         this.handleClose = this.handleClose.bind(this);
     }
 
@@ -89,11 +90,11 @@ class ExtensionWindow extends React.Component {
                     <Column field={'Name'}
                         title={_t('Name')}
                         width={200}
-                        danger
-                        renderer={this.renderName}
                     />
                     <Column field={'Description'}
                         title={_t('Description')}
+                        danger
+                        renderer={this.renderDescription}
                     />
                 </DataGrid>
             </Content>
@@ -103,13 +104,13 @@ class ExtensionWindow extends React.Component {
         </Window>;
     }
 
-    renderName(value, row) {
+    renderDescription(value, row) {
         if (row.Description) {
-            let key = value;
-            if (value.startsWith('WEBKIT_')) {
-                key = key.substring(7);
+            let name = row.Name;
+            if (name.startsWith('WEBKIT_')) {
+                name = name.substring(7);
             }
-            return `<a href="https://developer.mozilla.org/en-US/docs/Web/API/${key}" target="_blank">${value}</a>`;
+            return `${value} [<a href="https://developer.mozilla.org/en-US/docs/Web/API/${name}" target="_blank">${_t('MDN')}</a>]`;
         } else {
             return value;
         }
