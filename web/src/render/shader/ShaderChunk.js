@@ -1,3 +1,12 @@
+/*
+ * Copyright 2017-2020 The ShadowEditor Authors. All rights reserved.
+ *
+ * Use of this source code is governed by a MIT-style
+ * license that can be found in the LICENSE file.
+ * 
+ * For more information, please visit: https://github.com/tengge1/ShadowEditor
+ * You can also visit: https://gitee.com/tengge1/ShadowEditor
+ */
 import applyMatrix4 from './vec3/applyMatrix4.glsl';
 import lengthSq from './vec3/lengthSq.glsl';
 import angleTo from './vec3/angleTo.glsl';
