@@ -122,10 +122,18 @@ class DataGrid extends React.Component {
                                 </td>;
                             } else {
                                 const value = col.renderer ? col.renderer(row[col.field], row) : row[col.field];
-                                return <td width={col.width}
-                                    align={col.align}
-                                    key={col.field}
-                                       >{value}</td>;
+                                if (col.danger) {
+                                    return <td width={col.width}
+                                        align={col.align}
+                                        key={col.field}
+                                        dangerouslySetInnerHTML={{__html: value}}
+                                           />;
+                                } else {
+                                    return <td width={col.width}
+                                        align={col.align}
+                                        key={col.field}
+                                           >{value}</td>;
+                                }
                             }
                         })}
                     </tr>;

@@ -54,6 +54,7 @@ const DESCRIPTIONS = {
 class ExtensionWindow extends React.Component {
     constructor(props) {
         super(props);
+        this.renderName = this.renderName.bind(this);
         this.handleClose = this.handleClose.bind(this);
     }
 
@@ -87,6 +88,7 @@ class ExtensionWindow extends React.Component {
                     <Column field={'Name'}
                         title={_t('Name')}
                         width={200}
+                        danger
                         renderer={this.renderName}
                     />
                     <Column field={'Description'}
@@ -98,6 +100,14 @@ class ExtensionWindow extends React.Component {
                 <Button onClick={this.handleClose}>{_t('Close')}</Button>
             </Buttons>
         </Window>;
+    }
+
+    renderName(value, row) {
+        if (row.Description) {
+            return `<a href="https://developer.mozilla.org/en-US/docs/Web/API/${value}" target="_blank">${value}</a>`;
+        } else {
+            return value;
+        }
     }
 
     handleClose() {
