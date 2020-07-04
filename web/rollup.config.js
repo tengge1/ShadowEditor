@@ -54,5 +54,10 @@ export default {
             exclude: 'node_modules/**'
         }),
         strip()
-    ]
+    ],
+    onwarn(warning, rollupWarn) {
+        if (warning.code !== 'CIRCULAR_DEPENDENCY') {
+            rollupWarn(warning);
+        }
+    }
 };
