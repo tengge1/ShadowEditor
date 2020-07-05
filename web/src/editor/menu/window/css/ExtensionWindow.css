@@ -5,3 +5,7 @@
     bottom: 32px;
     overflow-y: auto;
 }
+
+.Window.ExtensionWindow>.wrap>.content>.DataGrid {
+    height: 100%;
+}

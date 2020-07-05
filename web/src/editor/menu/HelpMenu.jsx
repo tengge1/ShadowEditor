@@ -11,6 +11,7 @@ import './css/HelpMenu.css';
 import { MenuItem, MenuItemSeparator } from '../../ui/index';
 import RendererAttributesWindow from './window/RendererAttributesWindow.jsx';
 import ThreeJsInformationWindow from './window/ThreeJsInformationWindow.jsx';
+import ExtensionWindow from './window/ExtensionWindow.jsx';
 
 /**
  * 帮助菜单
@@ -22,6 +23,7 @@ class HelpMenu extends React.Component {
 
         this.handleRendererAttributes = this.handleRendererAttributes.bind(this);
         this.handleThreeJsInformation = this.handleThreeJsInformation.bind(this);
+        this.handleExtension = this.handleExtension.bind(this);
         this.handleVisitSketchfab = this.handleVisitSketchfab.bind(this);
         this.handleVisit3dpunk = this.handleVisit3dpunk.bind(this);
         this.handleGitHubSource = this.handleGitHubSource.bind(this);
@@ -39,6 +41,9 @@ class HelpMenu extends React.Component {
             />
             <MenuItem title={_t('Three.js Information')}
                 onClick={this.handleThreeJsInformation}
+            />
+            <MenuItem title={_t('WebGL Extensions')}
+                onClick={this.handleExtension}
             />
             <MenuItemSeparator />
             <MenuItem title={_t('Download Mesh')}>
@@ -82,6 +87,11 @@ class HelpMenu extends React.Component {
 
     handleThreeJsInformation() {
         const win = app.createElement(ThreeJsInformationWindow);
+        app.addElement(win);
+    }
+
+    handleExtension() {
+        const win = app.createElement(ExtensionWindow);
         app.addElement(win);
     }
 

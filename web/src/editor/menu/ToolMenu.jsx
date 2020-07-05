@@ -13,7 +13,6 @@ import TypefaceManagementWindow from './window/TypefaceManagementWindow.jsx';
 import TypefaceConverterWindow from './window/TypefaceConverterWindow.jsx';
 // import CleanUpScenesWindow from './window/CleanUpScenesWindow.jsx';
 import PluginsWindow from './window/PluginsWindow.jsx';
-import ExtensionWindow from './window/ExtensionWindow.jsx';
 
 /**
  * 工具菜单
@@ -30,9 +29,7 @@ class ToolMenu extends React.Component {
         this.handleCleanUpScenes = this.handleCleanUpScenes.bind(this);
         this.commitCleanUpScenes = this.commitCleanUpScenes.bind(this);
         this.handlePlugins = this.handlePlugins.bind(this);
-        this.handleExtension = this.handleExtension.bind(this);
         this.handleExportExamples = this.handleExportExamples.bind(this);
-        this.handleTest = this.handleTest.bind(this);
     }
 
     render() {
@@ -57,15 +54,8 @@ class ToolMenu extends React.Component {
             <MenuItem title={_t('Plugins')}
                 onClick={this.handlePlugins}
             />
-            <MenuItem title={_t('WebGL Extensions')}
-                onClick={this.handleExtension}
-            />
             <MenuItem title={_t('Export Examples')}
                 onClick={this.handleExportExamples}
-            />
-            <MenuItemSeparator />
-            <MenuItem title={_t('Test')}
-                onClick={this.handleTest}
             />
         </MenuItem>;
     }
@@ -132,11 +122,6 @@ class ToolMenu extends React.Component {
         app.addElement(win);
     }
 
-    handleExtension() {
-        const win = app.createElement(ExtensionWindow);
-        app.addElement(win);
-    }
-
     handleExportExamples() {
         app.confirm({
             title: _t('Query'),
@@ -160,10 +145,6 @@ class ToolMenu extends React.Component {
                 });
             }
         });
-    }
-
-    handleTest() {
-
     }
 }
 
