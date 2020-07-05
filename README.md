@@ -21,9 +21,13 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
 
 ![image](images/scene20200503_en.jpg)
 
+![image](images/scene20200705.jpg)
+
 ## v0.5.5 is Coming
 
 1. Add WebGL extension window, you can view the name and description of WebGL extension supported by the browser, and you can jump to MDN.
+
+2. 3D Earth. (In development)
 
 ## v0.5.4 has Released
 
@@ -273,5 +277,7 @@ https://github.com/squarefeet/ShaderParticleEngine
 https://github.com/mrdoob/stats.js  
 https://github.com/mrdoob/texgen.js  
 https://github.com/yomotsu/VolumetricFire  
+
+https://github.com/NASAWorldWind/WebWorldWind  
 
 </details>
