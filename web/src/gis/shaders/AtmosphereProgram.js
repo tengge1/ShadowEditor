@@ -37,7 +37,7 @@ import Logger from '../util/Logger';
  * @throws {ArgumentError} If the shaders cannot be compiled, or linking of
  * the compiled shaders into a program fails.
  */
-var AtmosphereProgram = function (gl, vertexShaderSource, fragmentShaderSource, attribute) {
+function AtmosphereProgram(gl, vertexShaderSource, fragmentShaderSource, attribute) {
 
     // Call to the superclass, which performs shader program compiling and linking.
     GpuProgram.call(this, gl, vertexShaderSource, fragmentShaderSource, attribute);
@@ -162,7 +162,7 @@ var AtmosphereProgram = function (gl, vertexShaderSource, fragmentShaderSource, 
     this.scaleOverScaleDepthLocation = this.uniformLocation(gl, "scaleOverScaleDepth");
 
     this.scratchArray9 = new Float32Array(9);
-};
+}
 
 /**
  * A string that uniquely identifies this program.
@@ -298,7 +298,7 @@ AtmosphereProgram.prototype.loadGlobeRadius = function (gl, globeRadius) {
 AtmosphereProgram.prototype.setScale = function (gl) {
     gl.uniform1f(this.scaleLocation, 1 / this.getAltitude());
     gl.uniform1f(this.scaleDepthLocation, this.rayleighScaleDepth);
-    gl.uniform1f(this.scaleOverScaleDepthLocation, (1 / this.getAltitude()) / this.rayleighScaleDepth);
+    gl.uniform1f(this.scaleOverScaleDepthLocation, 1 / this.getAltitude() / this.rayleighScaleDepth);
 };
 
 /**

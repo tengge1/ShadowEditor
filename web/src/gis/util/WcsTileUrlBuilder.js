@@ -33,14 +33,14 @@ import Logger from '../util/Logger';
  * @constructor
  * @deprecated
  */
-var WcsTileUrlBuilder = function (serviceAddress, coverageName, wcsVersion) {
-    if (!serviceAddress || (serviceAddress.length === 0)) {
+function WcsTileUrlBuilder(serviceAddress, coverageName, wcsVersion) {
+    if (!serviceAddress || serviceAddress.length === 0) {
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "WcsTileUrlBuilder", "constructor",
                 "The WCS service address is missing."));
     }
 
-    if (!coverageName || (coverageName.length === 0)) {
+    if (!coverageName || coverageName.length === 0) {
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "WcsTileUrlBuilder", "constructor",
                 "The WCS coverage name is missing."));
@@ -63,7 +63,7 @@ var WcsTileUrlBuilder = function (serviceAddress, coverageName, wcsVersion) {
      * @type {String}
      * @default 1.0.0
      */
-    this.wcsVersion = (wcsVersion && wcsVersion.length > 0) ? wcsVersion : "1.0.0";
+    this.wcsVersion = wcsVersion && wcsVersion.length > 0 ? wcsVersion : "1.0.0";
 
     /**
      * The coordinate reference system to use when requesting coverages.
@@ -71,7 +71,7 @@ var WcsTileUrlBuilder = function (serviceAddress, coverageName, wcsVersion) {
      * @default EPSG:4326
      */
     this.crs = "EPSG:4326";
-};
+}
 
 /**
  * Creates the URL string for a WCS Get Coverage request.

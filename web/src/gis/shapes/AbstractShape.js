@@ -44,7 +44,7 @@ import Vec3 from '../geom/Vec3';
  * @param {ShapeAttributes} attributes The attributes to associate with this shape. May be null, in which case
  * default attributes are associated.
  */
-var AbstractShape = function (attributes) {
+function AbstractShape(attributes) {
 
     Renderable.call(this);
 
@@ -99,7 +99,7 @@ var AbstractShape = function (attributes) {
     this.useSurfaceShapeFor2D = false;
 
     this.scratchMatrix = Matrix.fromIdentity(); // scratch variable
-};
+}
 
 AbstractShape.prototype = Object.create(Renderable.prototype);
 
@@ -218,7 +218,7 @@ AbstractShape.prototype.render = function (dc) {
         }
     }
 
-    if (!dc.terrain && (this.altitudeMode != WorldWind.ABSOLUTE)) {
+    if (!dc.terrain && this.altitudeMode != WorldWind.ABSOLUTE) {
         return;
     }
 

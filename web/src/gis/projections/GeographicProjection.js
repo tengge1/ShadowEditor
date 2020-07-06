@@ -41,7 +41,7 @@ import UnsupportedOperationError from '../error/UnsupportedOperationError';
  * @param {Sector} projectionLimits This projection's projection limits. May be null to indicate the full
  * range of latitude and longitude, +/- 90 degrees latitude, +/- 180 degrees longitude.
  */
-var GeographicProjection = function (displayName, continuous, projectionLimits) {
+function GeographicProjection(displayName, continuous, projectionLimits) {
 
     /**
      * This projection's display name.
@@ -70,7 +70,7 @@ var GeographicProjection = function (displayName, continuous, projectionLimits) 
      * @readonly
      */
     this.is2D = true;
-};
+}
 
 /**
  * Converts a geographic position to Cartesian coordinates.

@@ -37,7 +37,7 @@ import WWUtil from '../util/WWUtil';
  * and either pass it as a parameter to this constructor or specify it as the property
  * [WorldWind.BingMapsKey]{@link WorldWind#BingMapsKey}.
  */
-var BingImageryUrlBuilder = function (imagerySet, bingMapsKey) {
+function BingImageryUrlBuilder(imagerySet, bingMapsKey) {
     var wwBingMapsKey = "AkttWCS8p6qzxvx5RH3qUcCPgwG9nRJ7IwlpFGb14B0rBorB5DvmXr2Y_eCUNIxH";
 
     // Use key specified for this layer
@@ -59,7 +59,7 @@ var BingImageryUrlBuilder = function (imagerySet, bingMapsKey) {
     }
 
     this.imagerySet = imagerySet;
-};
+}
 
 // Intentionally not documented.
 BingImageryUrlBuilder.showBingMapsKeyWarning = function () {
@@ -142,7 +142,7 @@ BingImageryUrlBuilder.prototype.quadKeyFromLevelRowColumn = function (levelNumbe
 
     for (var i = levelNumber + 1; i > 0; i--) {
         digit = 0;
-        mask = 1 << (i - 1);
+        mask = 1 << i - 1;
 
         if ((column & mask) != 0) {
             digit += 1;

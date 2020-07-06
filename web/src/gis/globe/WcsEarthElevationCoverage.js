@@ -31,7 +31,7 @@ import WcsTileUrlBuilder from '../util/WcsTileUrlBuilder';
  * @classdesc Provides elevations for Earth. Elevations are drawn from the NASA WorldWind elevation service.
  * @deprecated
  */
-var WcsEarthElevationCoverage = function () {
+function WcsEarthElevationCoverage() {
     TiledElevationCoverage.call(this, {
         coverageSector: Sector.FULL_SPHERE,
         resolution: 0.008333333333333,
@@ -43,7 +43,7 @@ var WcsEarthElevationCoverage = function () {
     });
 
     this.displayName = "WCS Earth Elevation Coverage";
-};
+}
 
 WcsEarthElevationCoverage.prototype = Object.create(TiledElevationCoverage.prototype);
 

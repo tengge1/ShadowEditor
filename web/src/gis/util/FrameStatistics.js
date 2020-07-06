@@ -27,7 +27,7 @@
  * @constructor
  * @classdesc Captures performance statistics.
  */
-var FrameStatistics = function () {
+function FrameStatistics() {
 
     // Internal: intentionally not documented
     this.frameCount = 0;
@@ -125,7 +125,7 @@ var FrameStatistics = function () {
      * @type {Number}
      */
     this.frameTimeMax = 0;
-};
+}
 
 /**
  * Initializes this frame statistics with initial values.

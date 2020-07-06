@@ -40,7 +40,7 @@ import Logger from '../util/Logger';
  * delta values are less than or equal to zero, or any of the number-of-levels, tile-width or tile-height
  * arguments are less than 1.
  */
-var LevelSet = function (sector, levelZeroDelta, numLevels, tileWidth, tileHeight) {
+function LevelSet(sector, levelZeroDelta, numLevels, tileWidth, tileHeight) {
     if (!sector) {
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "LevelSet", "constructor", "missingSector"));
@@ -118,7 +118,7 @@ var LevelSet = function (sector, levelZeroDelta, numLevels, tileWidth, tileHeigh
 
         this.levels[i] = level;
     }
-};
+}
 
 /**
  * Returns the number of levels that match the specified resolution. firstLevelResolution indicates the

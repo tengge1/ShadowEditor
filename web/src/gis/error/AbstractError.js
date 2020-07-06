@@ -30,10 +30,10 @@
  * @param {String} name The error's name.
  * @param {String} message The message.
  */
-var AbstractError = function (name, message) {
+function AbstractError(name, message) {
     this.name = name;
     this.message = message;
-};
+}
 
 /**
  * Returns the message and stack trace associated with this error.

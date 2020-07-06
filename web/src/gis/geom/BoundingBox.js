@@ -37,7 +37,7 @@ import WWUtil from '../util/WWUtil';
  * @constructor
  * @classdesc Represents a bounding box in Cartesian coordinates. Typically used as a bounding volume.
  */
-var BoundingBox = function () {
+function BoundingBox() {
 
     /**
      * The box's center point.
@@ -96,7 +96,7 @@ var BoundingBox = function () {
     // Internal use only. Intentionally not documented.
     this.scratchElevations = new Float64Array(9);
     this.scratchPoints = new Float64Array(3 * this.scratchElevations.length);
-};
+}
 
 // Internal use only. Intentionally not documented.
 BoundingBox.scratchMatrix = Matrix.fromIdentity();

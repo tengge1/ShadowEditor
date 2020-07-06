@@ -42,7 +42,7 @@ import WWMath from '../util/WWMath';
  * @param {AnnotationAttributes} attributes The attributes to associate with this annotation.
  * @throws {ArgumentError} If the specified position is null or undefined.
  */
-var Annotation = function (position, attributes) {
+function Annotation(position, attributes) {
 
     if (!position) {
         throw new ArgumentError(
@@ -106,7 +106,7 @@ var Annotation = function (position, attributes) {
 
     // Internal use only. Intentionally not documented.
     this.calloutPoints = null;
-};
+}
 
 Annotation.matrix = Matrix.fromIdentity();
 Annotation.screenPoint = new Vec3(0, 0, 0);
@@ -298,7 +298,7 @@ Annotation.prototype.makeOrderedRenderable = function (dc) {
     var width = (w + iLeft + iRight) * s;
     var height = (h + iTop + iBottom) * s;
 
-    var leaderOffsetX = (width / 2);
+    var leaderOffsetX = width / 2;
 
     var leaderOffsetY = -leaderGapHeight;
 
@@ -439,7 +439,7 @@ Annotation.prototype.doDrawOrderedAnnotation = function (dc) {
 
     // Attributes have changed. We need to track this because the callout vbo data may
     // have changed if scaled or text wrapping changes callout dimensions
-    var calloutAttributesChanged = (this.attributes.stateKey !== this.lastStateKey);
+    var calloutAttributesChanged = this.attributes.stateKey !== this.lastStateKey;
 
     // Create new cache key if callout drawing points have changed
     if (!this.calloutCacheKey || calloutAttributesChanged) {

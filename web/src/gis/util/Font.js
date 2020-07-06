@@ -36,7 +36,7 @@ import Logger from '../util/Logger';
  * the textual features of {@link Placemark} and other shapes. The values used for these attributes are those
  * defined by the [CSS Font property]{@link http://www.w3schools.com/cssref/pr_font_font.asp}.
  */
-var Font = function (size, style, variant, weight, family, horizontalAlignment) {
+function Font(size, style, variant, weight, family, horizontalAlignment) {
     /*
      * All properties of Font are intended to be private and must be accessed via public getters and setters.
      */
@@ -58,7 +58,7 @@ var Font = function (size, style, variant, weight, family, horizontalAlignment) 
     this.weight = weight || "normal";
     this.family = family || "sans-serif";
     this.horizontalAlignment = horizontalAlignment || "center";
-};
+}
 
 Object.defineProperties(Font.prototype, {
     /**

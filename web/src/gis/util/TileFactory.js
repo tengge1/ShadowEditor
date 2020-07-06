@@ -30,7 +30,8 @@ import UnsupportedOperationError from '../error/UnsupportedOperationError';
  * Represents a tile factory.
  * This is an interface class and is not meant to be instantiated directly.
  */
-var TileFactory = function () { };
+function TileFactory() { 
+}
 
 /**
  * Creates a tile for a specified sector, level and row and column within that level.

@@ -39,7 +39,7 @@ import TextureTile from '../render/TextureTile';
  * are less than zero, or the specified image path is null, undefined or empty.
  *
  */
-var SurfaceShapeTile = function (sector, level, row, column) {
+function SurfaceShapeTile(sector, level, row, column) {
     TextureTile.call(this, sector, level, row, column); // args are checked in the superclass' constructor
 
     /**
@@ -70,7 +70,7 @@ var SurfaceShapeTile = function (sector, level, row, column) {
     this.pickSequence = 0;
 
     this.createCtx2D();
-};
+}
 
 SurfaceShapeTile.prototype = Object.create(TextureTile.prototype);
 

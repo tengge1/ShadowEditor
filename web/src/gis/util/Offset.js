@@ -42,7 +42,7 @@ import Vec2 from '../geom/Vec2';
  * </ul>
  * @param {Number} y The offset in the Y dimension.
  */
-var Offset = function (xUnits, x, yUnits, y) {
+function Offset(xUnits, x, yUnits, y) {
 
     /**
      * The offset in the X dimension, interpreted according to this instance's xUnits argument.
@@ -69,7 +69,7 @@ var Offset = function (xUnits, x, yUnits, y) {
      * @type {String}
      */
     this.yUnits = yUnits;
-};
+}
 
 /**
  * Creates a new copy of this offset with identical property values.

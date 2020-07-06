@@ -63,7 +63,7 @@ import WWUtil from '../util/WWUtil';
  * null or undefined, or if the specified number of levels, tile width or tile height is less than 1.
  *
  */
-var TiledImageLayer = function (sector, levelZeroDelta, numLevels, imageFormat, cachePath, tileWidth, tileHeight) {
+function TiledImageLayer(sector, levelZeroDelta, numLevels, imageFormat, cachePath, tileWidth, tileHeight) {
     if (!sector) {
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "TiledImageLayer", "constructor", "missingSector"));
@@ -150,7 +150,7 @@ var TiledImageLayer = function (sector, levelZeroDelta, numLevels, imageFormat, 
 
     // Internal. Intentionally not documented.
     this.lasTtMVP = Matrix.fromIdentity();
-};
+}
 
 TiledImageLayer.prototype = Object.create(Layer.prototype);
 
@@ -178,7 +178,7 @@ TiledImageLayer.prototype.prePopulate = function (wwd) {
 
     var dc = wwd.drawContext;
 
-    if (!this.topLevelTiles || (this.topLevelTiles.length === 0)) {
+    if (!this.topLevelTiles || this.topLevelTiles.length === 0) {
         this.createTopLevelTiles(dc);
     }
 
@@ -336,7 +336,7 @@ TiledImageLayer.prototype.createTopLevelTiles = function (dc) {
 TiledImageLayer.prototype.assembleTiles = function (dc) {
     this.currentTiles = [];
 
-    if (!this.topLevelTiles || (this.topLevelTiles.length === 0)) {
+    if (!this.topLevelTiles || this.topLevelTiles.length === 0) {
         this.createTopLevelTiles(dc);
     }
 
@@ -394,7 +394,7 @@ TiledImageLayer.prototype.addTile = function (dc, tile) {
     var texture = dc.gpuResourceCache.resourceForKey(tile.imagePath);
     if (texture) {
         tile.opacity = 1;
-        ;
+        
         this.currentTiles.push(tile);
 
         // If the tile's texture has expired, cause it to be re-retrieved. Note that the current,
@@ -443,7 +443,7 @@ TiledImageLayer.prototype.isTileTextureInMemory = function (dc, tile) {
 
 // Intentionally not documented.
 TiledImageLayer.prototype.isTextureExpired = function (texture) {
-    return this.expiration && (texture.creationTime.getTime() <= this.expiration.getTime());
+    return this.expiration && texture.creationTime.getTime() <= this.expiration.getTime();
 };
 
 /**

@@ -32,7 +32,7 @@ import GestureRecognizer from '../gesture/GestureRecognizer';
  * e.g., <code>gestureCallback(recognizer)</code>.
  * @throws {ArgumentError} If the specified target is null or undefined.
  */
-var PanRecognizer = function (target, callback) {
+function PanRecognizer(target, callback) {
     GestureRecognizer.call(this, target, callback);
 
     /**
@@ -49,7 +49,7 @@ var PanRecognizer = function (target, callback) {
 
     // Intentionally not documented.
     this.interpretDistance = 20;
-};
+}
 
 PanRecognizer.prototype = Object.create(GestureRecognizer.prototype);
 
@@ -125,7 +125,7 @@ PanRecognizer.prototype.shouldRecognize = function () {
     var touchCount = this.touchCount;
     return touchCount != 0
         && touchCount >= this.minNumberOfTouches
-        && touchCount <= this.maxNumberOfTouches
+        && touchCount <= this.maxNumberOfTouches;
 };
 
 export default PanRecognizer;

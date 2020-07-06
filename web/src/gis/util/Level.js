@@ -31,7 +31,7 @@ import Logger from '../util/Logger';
  * @classdesc Represents a level in a tile pyramid.
  * @throws {ArgumentError} If either the specified tile delta or parent level set is null or undefined.
  */
-var Level = function (levelNumber, tileDelta, parent) {
+function Level(levelNumber, tileDelta, parent) {
     if (!tileDelta) {
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "Level", "constructor",
@@ -66,7 +66,7 @@ var Level = function (levelNumber, tileDelta, parent) {
      * The size of pixels or elevation cells within this level, in radians per pixel or per cell.
      * @type {Number}
      */
-    this.texelSize = (tileDelta.latitude * Angle.DEGREES_TO_RADIANS) / parent.tileHeight;
+    this.texelSize = tileDelta.latitude * Angle.DEGREES_TO_RADIANS / parent.tileHeight;
 
     /**
      * The width in pixels or cells of the resource associated with tiles within this level.
@@ -85,7 +85,7 @@ var Level = function (levelNumber, tileDelta, parent) {
      * @type {Sector}
      */
     this.sector = parent.sector;
-};
+}
 
 /**
  * Indicates whether this level is the lowest resolution level (level 0) within its parent's level set.

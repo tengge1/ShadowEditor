@@ -68,7 +68,7 @@ import Vec3 from '../geom/Vec3';
  * number of vertices per row is less than 2, the array lengths are inconsistent, or too many positions are
  * specified (limit is 65536).
  */
-var GeographicMesh = function (positions, attributes) {
+function GeographicMesh(positions, attributes) {
     if (!positions) {
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "GeographicMesh", "constructor", "missingPositions"));
@@ -126,7 +126,7 @@ var GeographicMesh = function (positions, attributes) {
 
     // Internal. Intentionally not documented.
     this.referencePosition = this.determineReferencePosition(this._positions);
-};
+}
 
 GeographicMesh.prototype = Object.create(AbstractMesh.prototype);
 
@@ -210,7 +210,7 @@ Object.defineProperties(GeographicMesh.prototype, {
             this.reset();
             this.texCoords = null;
         }
-    },
+    }
 });
 
 GeographicMesh.makeGridIndices = function (nRows, nCols) {
@@ -269,7 +269,7 @@ GeographicMesh.prototype.computeMeshPoints = function (dc, currentData) {
 
     var eyeDistSquared = Number.MAX_VALUE,
         eyePoint = dc.eyePoint,
-        meshPoints = new Float32Array((this.numRows * this.numColumns) * 3),
+        meshPoints = new Float32Array(this.numRows * this.numColumns * 3),
         pt = new Vec3(0, 0, 0),
         k = 0,
         pos, dSquared;
@@ -336,10 +336,10 @@ GeographicMesh.prototype.computeImplicitTexCoords = function () {
         k = 0;
 
     for (var r = 0; r < this._positions.length; r++) {
-        var t = (r === this.numRows - 1) ? 1.0 : r * rowDelta;
+        var t = r === this.numRows - 1 ? 1.0 : r * rowDelta;
 
         for (var c = 0, len = this._positions[r].length; c < len; c++) {
-            texCoords[k++] = (c === this.numColumns - 1) ? 1.0 : c * columnDelta;
+            texCoords[k++] = c === this.numColumns - 1 ? 1.0 : c * columnDelta;
             texCoords[k++] = t;
         }
     }

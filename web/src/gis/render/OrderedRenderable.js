@@ -29,7 +29,7 @@ import UnsupportedOperationError from '../error/UnsupportedOperationError';
  * @classdesc Represents an ordered renderable.
  * This is an interface class and is not meant to be instantiated directly.
  */
-var OrderedRenderable = function () {
+function OrderedRenderable() {
 
     /**
      * This ordered renderable's display name.
@@ -61,7 +61,7 @@ var OrderedRenderable = function () {
 
     throw new UnsupportedOperationError(
         Logger.logMessage(Logger.LEVEL_SEVERE, "OrderedRenderable", "constructor", "abstractInvocation"));
-};
+}
 
 /**
  * Renders this ordered renderable.

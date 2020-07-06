@@ -22,13 +22,13 @@
  * @constructor
  * @alias DateWW
  */
-var DateWW = function (dateInFormat) {
+function DateWW(dateInFormat) {
     if (dateInFormat) {
         this._date = new Date(dateInFormat);
     } else {
         this._date = new Date();
     }
-};
+}
 
 DateWW.prototype = Object.create(Date.prototype);
 

@@ -22,12 +22,12 @@ import Logger from '../util/Logger';
  * @param document String representation of the xml document.
  * @constructor
  */
-var XmlDocument = function (document) {
+function XmlDocument(document) {
     /**
      * Retrieved textual representation of the document.
      */
     this._document = document;
-};
+}
 
 /**
  * This method abstracts parsing of XmlDocument away form users of this class. It should work in all browsers

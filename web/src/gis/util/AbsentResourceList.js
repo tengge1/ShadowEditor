@@ -30,7 +30,7 @@
  * @param {Number} minCheckInterval The amount of time to wait between attempts, in milliseconds.
  * @constructor
  */
-var AbsentResourceList = function (maxTrys, minCheckInterval) {
+function AbsentResourceList(maxTrys, minCheckInterval) {
 
     /**
      * The number  of attempts to make before the resource is marked as absent.
@@ -54,7 +54,7 @@ var AbsentResourceList = function (maxTrys, minCheckInterval) {
     this.tryAgainInterval = 60e3; // 60 seconds
 
     this.possiblyAbsent = {};
-};
+}
 
 /**
  * Indicates whether a specified resource is marked as absent.

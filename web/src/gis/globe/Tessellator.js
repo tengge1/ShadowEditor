@@ -42,7 +42,7 @@ import WWUtil from '../util/WWUtil';
  * @constructor
  * @classdesc Provides terrain tessellation for a globe.
  */
-var Tessellator = function () {
+function Tessellator() {
     // Parameterize top level subdivision in one place.
 
     // TilesInTopLevel describes the most coarse tile structure.
@@ -139,7 +139,7 @@ var Tessellator = function () {
 
     this.corners = {};
     this.tiles = [];
-};
+}
 
 /**
  * Creates the visible terrain of the globe associated with the current draw context.
@@ -903,10 +903,10 @@ Tessellator.prototype.setNeighbors = function (tile) {
         westIdx = swCorner.se;
     }
 
-    tile.setNeighborLevel(WorldWind.NORTH, (northIdx >= 0) ? this.tiles[northIdx].level : null);
-    tile.setNeighborLevel(WorldWind.SOUTH, (southIdx >= 0) ? this.tiles[southIdx].level : null);
-    tile.setNeighborLevel(WorldWind.EAST, (eastIdx >= 0) ? this.tiles[eastIdx].level : null);
-    tile.setNeighborLevel(WorldWind.WEST, (westIdx >= 0) ? this.tiles[westIdx].level : null);
+    tile.setNeighborLevel(WorldWind.NORTH, northIdx >= 0 ? this.tiles[northIdx].level : null);
+    tile.setNeighborLevel(WorldWind.SOUTH, southIdx >= 0 ? this.tiles[southIdx].level : null);
+    tile.setNeighborLevel(WorldWind.EAST, eastIdx >= 0 ? this.tiles[eastIdx].level : null);
+    tile.setNeighborLevel(WorldWind.WEST, westIdx >= 0 ? this.tiles[westIdx].level : null);
 };
 
 Tessellator.prototype.isTileVisible = function (dc, tile) {
@@ -943,7 +943,7 @@ Tessellator.prototype.regenerateTileGeometryIfNeeded = function (dc, tile) {
  * @ignore
  */
 Tessellator.prototype.coverageTargetResolution = function (texelSize) {
-    return (texelSize / 8) * Angle.RADIANS_TO_DEGREES;
+    return texelSize / 8 * Angle.RADIANS_TO_DEGREES;
 };
 
 Tessellator.prototype.regenerateTileGeometry = function (dc, tile) {
@@ -988,10 +988,10 @@ Tessellator.prototype.mustAlignNeighborElevations = function (dc, tile) {
         eastLevel = tile.neighborLevel(WorldWind.EAST),
         westLevel = tile.neighborLevel(WorldWind.WEST);
 
-    return (northLevel && northLevel.compare(level) < 0) ||
-        (southLevel && southLevel.compare(level) < 0) ||
-        (eastLevel && eastLevel.compare(level) < 0) ||
-        (westLevel && westLevel.compare(level) < 0);
+    return northLevel && northLevel.compare(level) < 0 ||
+        southLevel && southLevel.compare(level) < 0 ||
+        eastLevel && eastLevel.compare(level) < 0 ||
+        westLevel && westLevel.compare(level) < 0;
 };
 
 Tessellator.prototype.alignNeighborElevations = function (dc, tile, elevations) {
@@ -1142,7 +1142,7 @@ Tessellator.prototype.buildIndices = function (tileWidth, tileHeight) {
         //      one for the end of the current row, and
         //      one for the beginning of the next row.
         indices[index++] = vertexIndex + 1;
-        vertexIndex = (lonIndex + 1) + 1 * numLonVertices;
+        vertexIndex = lonIndex + 1 + 1 * numLonVertices;
         indices[index++] = vertexIndex;
     }
 
@@ -1292,7 +1292,7 @@ Tessellator.prototype.buildIndices = function (tileWidth, tileHeight) {
 
     for (lonIndex = numLonVertices - 2; lonIndex > 0; lonIndex -= 1) {
         // Exterior vertex rounded up to even index.
-        vertexIndex = ((lonIndex + 1) & ~1) + latIndex * numLonVertices;
+        vertexIndex = (lonIndex + 1 & ~1) + latIndex * numLonVertices;
         indices[index++] = vertexIndex;
 
         // Interior vertex.
@@ -1348,11 +1348,11 @@ Tessellator.prototype.buildIndices = function (tileWidth, tileHeight) {
 
     for (latIndex = numLatVertices - 2; latIndex > 0; latIndex -= 1) {
         // Exterior Vertex rounded up to even index.
-        vertexIndex = lonIndex + ((latIndex + 1) & ~1) * numLonVertices;
+        vertexIndex = lonIndex + (latIndex + 1 & ~1) * numLonVertices;
         indices[index++] = vertexIndex;
 
         // Interior vertex.
-        vertexIndex = (lonIndex + 1) + latIndex * numLonVertices;
+        vertexIndex = lonIndex + 1 + latIndex * numLonVertices;
         indices[index++] = vertexIndex;
     }
 
@@ -1380,7 +1380,7 @@ Tessellator.prototype.buildIndices = function (tileWidth, tileHeight) {
         indices[index++] = vertexIndex;
 
         // Interior vertex.
-        vertexIndex = (lonIndex - 1) + latIndex * numLonVertices;
+        vertexIndex = lonIndex - 1 + latIndex * numLonVertices;
         indices[index++] = vertexIndex;
     }
 
@@ -1428,8 +1428,8 @@ Tessellator.prototype.buildWireframeIndices = function (tileWidth, tileHeight) {
         for (lonIndex = 0; lonIndex < tileWidth; lonIndex += 1) {
             vertexIndex = lonIndex + latIndex * rowStride;
             indices[index] = vertexIndex;
-            indices[index + 1] = (vertexIndex + 1);
-            index += 2
+            indices[index + 1] = vertexIndex + 1;
+            index += 2;
         }
     }
 
@@ -1438,7 +1438,7 @@ Tessellator.prototype.buildWireframeIndices = function (tileWidth, tileHeight) {
         for (latIndex = 0; latIndex < tileHeight; latIndex += 1) {
             vertexIndex = lonIndex + latIndex * rowStride;
             indices[index] = vertexIndex;
-            indices[index + 1] = (vertexIndex + rowStride);
+            indices[index + 1] = vertexIndex + rowStride;
             index += 2;
         }
     }
@@ -1478,7 +1478,7 @@ Tessellator.prototype.buildOutlineIndices = function (tileWidth, tileHeight) {
     for (latIndex = 1; latIndex < numLatVertices; latIndex += 1) {
         vertexIndex = lonIndex + latIndex * numLonVertices;
         indices[index] = vertexIndex;
-        index += 1
+        index += 1;
     }
 
     // Top row, starting on the right and going to the left.
@@ -1486,7 +1486,7 @@ Tessellator.prototype.buildOutlineIndices = function (tileWidth, tileHeight) {
     for (lonIndex = numLonVertices - 1; lonIndex >= 0; lonIndex -= 1) {
         vertexIndex = lonIndex + latIndex * numLonVertices;
         indices[index] = vertexIndex;
-        index += 1
+        index += 1;
     }
 
     // Leftmost column, starting at the top and going down.
@@ -1494,7 +1494,7 @@ Tessellator.prototype.buildOutlineIndices = function (tileWidth, tileHeight) {
     for (latIndex = numLatVertices - 1; latIndex >= 0; latIndex -= 1) {
         vertexIndex = lonIndex + latIndex * numLonVertices;
         indices[index] = vertexIndex;
-        index += 1
+        index += 1;
     }
 
     this.numOutlineIndices = numIndices;

@@ -30,7 +30,7 @@ import Vec3 from '../geom/Vec3';
  * @param {WorldWindow} worldWindow The WorldWindow in which to perform the animation.
  * @throws {ArgumentError} If the specified WorldWindow is null or undefined.
  */
-var GoToAnimator = function (worldWindow) {
+function GoToAnimator(worldWindow) {
     if (!worldWindow) {
         throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "GoToAnimator", "constructor",
             "missingWorldWindow"));
@@ -67,7 +67,7 @@ var GoToAnimator = function (worldWindow) {
      * @readonly
      */
     this.cancelled = false;
-};
+}
 
 // Stop the current animation.
 GoToAnimator.prototype.cancel = function () {
@@ -153,7 +153,7 @@ GoToAnimator.prototype.goTo = function (position, completionCallback) {
     if (animationDistance < 2 * viewportSize) {
         // Start and target positions are close, so reduce the travel time based on the
         // distance to travel relative to the viewport size.
-        animationDuration = Math.min((animationDistance / viewportSize) * this.travelTime, this.travelTime);
+        animationDuration = Math.min(animationDistance / viewportSize * this.travelTime, this.travelTime);
     }
 
     // Don't let the animation duration go to 0.
@@ -221,10 +221,10 @@ GoToAnimator.prototype.updateRange = function (currentPosition) {
     } else {
         elapsedTime = Date.now() - this.maxAltitudeReachedTime;
         if (this.maxAltitude > this.targetPosition.altitude) {
-            nextRange = this.maxAltitude - (this.rangeVelocity * elapsedTime);
+            nextRange = this.maxAltitude - this.rangeVelocity * elapsedTime;
             nextRange = Math.max(nextRange, this.targetPosition.altitude);
         } else {
-            nextRange = this.maxAltitude + (this.rangeVelocity * elapsedTime);
+            nextRange = this.maxAltitude + this.rangeVelocity * elapsedTime;
             nextRange = Math.min(nextRange, this.targetPosition.altitude);
         }
         this.wwd.navigator.range = nextRange;

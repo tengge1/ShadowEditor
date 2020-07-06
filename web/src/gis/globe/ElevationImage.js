@@ -33,7 +33,7 @@ import WWMath from '../util/WWMath';
  * @param {Number} imageHeight The number of latitudinal sample points in this elevation image.
  * @throws {ArgumentError} If the sector is null or undefined
  */
-var ElevationImage = function (sector, imageWidth, imageHeight) {
+function ElevationImage(sector, imageWidth, imageHeight) {
     if (!sector) {
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "ElevationImage", "constructor", "missingSector"));
@@ -80,7 +80,7 @@ var ElevationImage = function (sector, imageWidth, imageHeight) {
      * @ignore
      */
     this.hasMissingData = false;
-};
+}
 
 /**
  * Internal use only
@@ -337,7 +337,7 @@ ElevationImage.prototype.findMinAndMaxElevation = function () {
     this.hasData = false;
     this.hasMissingData = false;
 
-    if (this.imageData && (this.imageData.length > 0)) {
+    if (this.imageData && this.imageData.length > 0) {
         this.minElevation = Number.MAX_VALUE;
         this.maxElevation = -Number.MAX_VALUE;
 

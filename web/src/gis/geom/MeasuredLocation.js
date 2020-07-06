@@ -31,7 +31,7 @@ import Location from './Location';
  * @param {Number} longitude The longitude in degrees.
  * @param {Number} measure The measure in an arbitrary unit.
  */
-var MeasuredLocation = function (latitude, longitude, measure) {
+function MeasuredLocation(latitude, longitude, measure) {
     Location.call(this, latitude, longitude);
 
     /**
@@ -39,7 +39,7 @@ var MeasuredLocation = function (latitude, longitude, measure) {
      * @type {Number}
      */
     this.measure = measure;
-};
+}
 
 MeasuredLocation.prototype = Object.create(Location.prototype);
 

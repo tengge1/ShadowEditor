@@ -29,7 +29,7 @@ import WmsUrlBuilder from '../util/WmsUrlBuilder';
  * @augments TiledElevationCoverage
  * @classdesc Provides elevations for Earth. Elevations are drawn from the NASA WorldWind elevation service.
  */
-var UsgsNedHiElevationCoverage = function () {
+function UsgsNedHiElevationCoverage() {
     // Hawaii Extent: (-178.443593, 18.865460) - (-154.755792, 28.517269)
     // TODO: Remove this class when the server NO_DATA value issue is resolved.
     TiledElevationCoverage.call(this, {
@@ -42,7 +42,7 @@ var UsgsNedHiElevationCoverage = function () {
     });
 
     this.displayName = "USGS NED Hawaii Elevation Coverage";
-};
+}
 
 UsgsNedHiElevationCoverage.prototype = Object.create(TiledElevationCoverage.prototype);
 

@@ -46,7 +46,7 @@ import WWMath from './util/WWMath';
  * @param {WebGLRenderingContext} gl The ID assigned to the HTML canvas in the document or the canvas
  * element itself.
  */
-var WorldWindow = function (gl) {
+function WorldWindow(gl) {
     var canvas = gl.canvas;
 
     // Internal. Intentionally not documented.
@@ -252,7 +252,7 @@ var WorldWindow = function (gl) {
 
     // Render to the WebGL context in an animation frame loop until the WebGL context is lost.
     this.animationFrameLoop();
-};
+}
 
 Object.defineProperties(WorldWindow.prototype, {
     /**

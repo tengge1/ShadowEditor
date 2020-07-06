@@ -39,7 +39,7 @@ import Logger from '../util/Logger';
  * @throws {ArgumentError} If the shaders cannot be compiled, or linking of
  * the compiled shaders into a program fails.
  */
-var BasicProgram = function (gl) {
+function BasicProgram(gl) {
     var vertexShaderSource =
         'attribute vec4 vertexPoint;\n' +
         'uniform mat4 mvpMatrix;\n' +
@@ -72,7 +72,7 @@ var BasicProgram = function (gl) {
      * @readonly
      */
     this.colorLocation = this.uniformLocation(gl, "color");
-};
+}
 
 /**
  * A string that uniquely identifies this program.

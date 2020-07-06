@@ -40,7 +40,7 @@ import TextureTile from '../render/TextureTile';
 import Tile from '../util/Tile';
 
 
-var SurfaceShapeTileBuilder = function () {
+function SurfaceShapeTileBuilder() {
     // Parameterize top level subdivision in one place.
 
     // TilesInTopLevel describes the most coarse tile structure.
@@ -101,7 +101,7 @@ var SurfaceShapeTileBuilder = function () {
 
     // Internal use only. Intentionally not documented.
     this.tileCache = new MemoryCache(500000, 400000);
-};
+}
 
 /**
  * Clear all transient state from the surface shape tile builder.

@@ -33,14 +33,14 @@ import WWMath from '../util/WWMath';
  * @augments GeographicProjection
  * @classdesc Represents a WGS84 ellipsoid.
  */
-var ProjectionWgs84 = function () {
+function ProjectionWgs84() {
 
     GeographicProjection.call(this, "WGS84", false, null);
 
     this.is2D = false;
 
     this.scratchPosition = new Position(0, 0, 0);
-};
+}
 
 ProjectionWgs84.prototype = Object.create(GeographicProjection.prototype);
 

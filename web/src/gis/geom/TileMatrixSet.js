@@ -29,7 +29,7 @@ import TileMatrix from '../geom/TileMatrix';
  * @param tileMatrixList the array of TileMatrix objects forming this TileMatrixSet
  * @constructor
  */
-var TileMatrixSet = function (sector, tileMatrixList) {
+function TileMatrixSet(sector, tileMatrixList) {
     if (!sector) {
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "TileMatrixSet", "constructor", "missingSector"));
@@ -50,7 +50,7 @@ var TileMatrixSet = function (sector, tileMatrixList) {
      * An array of TileMatrix objects defining this TileMatrixSet.
      */
     this.entries = tileMatrixList;
-};
+}
 
 /**
  * Create a TileMatrixSet based on a quad division technique given the provided initial starting conditions.
@@ -121,7 +121,7 @@ TileMatrixSet.prototype.indexOfMatrixNearest = function (degreesPerPixel) {
     var nearestIdx = -1, nearestDelta2 = Number.MAX_VALUE, delta, delta2;
 
     for (var idx = 0, len = this.entries.length; idx < len; idx++) {
-        delta = (this.entries[idx].degreesPerPixel - degreesPerPixel);
+        delta = this.entries[idx].degreesPerPixel - degreesPerPixel;
         delta2 = delta * delta;
 
         if (nearestDelta2 > delta2) {

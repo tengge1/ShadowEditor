@@ -32,10 +32,10 @@ import Vec3 from '../geom/Vec3';
  * @augments GeographicProjection
  * @classdesc Represents an equirectangular geographic projection.
  */
-var ProjectionEquirectangular = function () {
+function ProjectionEquirectangular() {
 
     GeographicProjection.call(this, "Equirectangular", true, null);
-};
+}
 
 ProjectionEquirectangular.prototype = Object.create(GeographicProjection.prototype);
 
@@ -149,8 +149,8 @@ ProjectionEquirectangular.prototype.cartesianToGeographic = function (globe, x, 
             "cartesianToGeographic", "missingResult"));
     }
 
-    result.latitude = (y / globe.equatorialRadius) * Angle.RADIANS_TO_DEGREES;
-    result.longitude = ((x - (offset ? offset[0] : 0)) / globe.equatorialRadius) * Angle.RADIANS_TO_DEGREES;
+    result.latitude = y / globe.equatorialRadius * Angle.RADIANS_TO_DEGREES;
+    result.longitude = (x - (offset ? offset[0] : 0)) / globe.equatorialRadius * Angle.RADIANS_TO_DEGREES;
     result.altitude = z;
 
     return result;

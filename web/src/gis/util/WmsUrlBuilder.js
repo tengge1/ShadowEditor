@@ -36,14 +36,14 @@ import Logger from '../util/Logger';
  * @throws {ArgumentError} If the service address or layer names are null or empty.
  *
  */
-var WmsUrlBuilder = function (serviceAddress, layerNames, styleNames, wmsVersion, timeString) {
-    if (!serviceAddress || (serviceAddress.length === 0)) {
+function WmsUrlBuilder(serviceAddress, layerNames, styleNames, wmsVersion, timeString) {
+    if (!serviceAddress || serviceAddress.length === 0) {
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "WmsUrlBuilder", "constructor",
                 "The WMS service address is missing."));
     }
 
-    if (!layerNames || (layerNames.length === 0)) {
+    if (!layerNames || layerNames.length === 0) {
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "WmsUrlBuilder", "constructor",
                 "The WMS layer names are not specified."));
@@ -79,7 +79,7 @@ var WmsUrlBuilder = function (serviceAddress, layerNames, styleNames, wmsVersion
      * @type {String}
      * @default 1.3.0
      */
-    this.wmsVersion = (wmsVersion && wmsVersion.length > 0) ? wmsVersion : "1.3.0";
+    this.wmsVersion = wmsVersion && wmsVersion.length > 0 ? wmsVersion : "1.3.0";
     this.isWms130OrGreater = this.wmsVersion >= "1.3.0";
 
     /**
@@ -94,7 +94,7 @@ var WmsUrlBuilder = function (serviceAddress, layerNames, styleNames, wmsVersion
      * @type {String}
      */
     this.timeString = timeString;
-};
+}
 
 /**
  * Creates the URL string for a WMS Get Map request.

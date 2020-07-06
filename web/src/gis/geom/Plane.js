@@ -37,7 +37,7 @@ import Vec3 from '../geom/Vec3';
  * @param {Number} z The Z coordinate of the plane's unit normal vector.
  * @param {Number} distance The plane's distance from the origin.
  */
-var Plane = function (x, y, z, distance) {
+function Plane(x, y, z, distance) {
     /**
      * The normal vector to the plane.
      * @type {Vec3}
@@ -49,7 +49,7 @@ var Plane = function (x, y, z, distance) {
      * @type {Number}
      */
     this.distance = distance;
-};
+}
 
 /**
  * Computes a plane that passes through the specified three points.

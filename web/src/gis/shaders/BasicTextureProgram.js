@@ -39,7 +39,7 @@ import Logger from '../util/Logger';
  * @throws {ArgumentError} If the shaders cannot be compiled, or if linking of
  * the compiled shaders into a program fails.
  */
-var BasicTextureProgram = function (gl) {
+function BasicTextureProgram(gl) {
     var vertexShaderSource =
         'attribute vec4 vertexPoint;\n' +
         'attribute vec4 vertexTexCoord;\n' +
@@ -170,7 +170,7 @@ var BasicTextureProgram = function (gl) {
      * @readonly
      */
     this.applyLightingLocation = this.uniformLocation(gl, "applyLighting");
-};
+}
 
 /**
  * A string that uniquely identifies this program.

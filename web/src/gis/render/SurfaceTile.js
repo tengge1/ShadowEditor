@@ -33,7 +33,7 @@ import UnsupportedOperationError from '../error/UnsupportedOperationError';
  * @param {Sector} sector The sector of this surface tile.
  * @throws {ArgumentError} If the specified sector is null or undefined.
  */
-var SurfaceTile = function (sector) {
+function SurfaceTile(sector) {
     if (!sector) {
         throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "SurfaceTile", "constructor",
             "missingSector"));
@@ -44,7 +44,7 @@ var SurfaceTile = function (sector) {
      * @type {Sector}
      */
     this.sector = sector;
-};
+}
 
 /**
  * Causes this surface tile to be active, typically by binding the tile's texture in WebGL.

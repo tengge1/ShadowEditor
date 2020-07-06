@@ -33,7 +33,7 @@ import Logger from '../util/Logger';
  * @throws {ArgumentError} If either the capacity is 0 or negative or the low-water value is greater than
  * or equal to the capacity or less than 1.
  */
-var MemoryCache = function (capacity, lowWater) {
+function MemoryCache(capacity, lowWater) {
     if (!capacity || capacity < 1) {
         throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "MemoryCache", "constructor",
             "The specified capacity is undefined, zero or negative"));
@@ -69,7 +69,7 @@ var MemoryCache = function (capacity, lowWater) {
 
     // Private. The cache listeners.
     this.listeners = [];
-};
+}
 
 Object.defineProperties(MemoryCache.prototype, {
     /**
@@ -290,7 +290,7 @@ MemoryCache.prototype.addCacheListener = function (listener) {
             Logger.logMessage(Logger.LEVEL_SEVERE, "MemoryCache", "addCacheListener", "missingListener"));
     }
 
-    if (typeof listener.entryRemoved != "function" || typeof listener.removalError != "function") {
+    if (typeof listener.entryRemoved !== "function" || typeof listener.removalError !== "function") {
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "MemoryCache", "addCacheListener",
                 "The specified listener does not implement the required functions."));

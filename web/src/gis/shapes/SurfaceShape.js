@@ -51,7 +51,7 @@ import Vec3 from '../geom/Vec3';
  * @param {ShapeAttributes} attributes The attributes to apply to this shape. May be null, in which case
  * attributes must be set directly before the shape is drawn.
  */
-var SurfaceShape = function (attributes) {
+function SurfaceShape(attributes) {
 
     Renderable.call(this);
 
@@ -158,7 +158,7 @@ var SurfaceShape = function (attributes) {
     // Internal use only. Intentionally not documented.
     // The shape-data-cache data that is for the currently active globe.
     this.currentData = null;
-};
+}
 
 SurfaceShape.prototype = Object.create(Renderable.prototype);
 
@@ -174,17 +174,17 @@ Object.defineProperties(SurfaceShape.prototype, {
             if (!this._attributesStateKey) {
                 // Update the state key for the appropriate attributes for future
                 if (this._highlighted) {
-                    if (!!this._highlightAttributes) {
+                    if (this._highlightAttributes) {
                         this._attributesStateKey = this._highlightAttributes.stateKey;
                     }
                 } else {
-                    if (!!this._attributes) {
+                    if (this._attributes) {
                         this._attributesStateKey = this._attributes.stateKey;
                     }
                 }
 
                 // If we now actually have a state key for the attributes, it was previously invalid.
-                if (!!this._attributesStateKey) {
+                if (this._attributesStateKey) {
                     this.stateKeyInvalid = true;
                 }
             } else {
@@ -193,11 +193,11 @@ Object.defineProperties(SurfaceShape.prototype, {
 
                 if (this._highlighted) {
                     // If there are highlight attributes associated with this shape, ...
-                    if (!!this._highlightAttributes) {
+                    if (this._highlightAttributes) {
                         currentAttributesStateKey = this._highlightAttributes.stateKey;
                     }
                 } else {
-                    if (!!this._attributes) {
+                    if (this._attributes) {
                         currentAttributesStateKey = this._attributes.stateKey;
                     }
                 }
@@ -610,7 +610,7 @@ SurfaceShape.prototype.throttledStep = function (dt, location) {
     // This acts as a weight between no throttle and fill throttle.
     var weight = this._polarThrottle / (1 + this._polarThrottle);
 
-    return dt * ((1 - weight) + weight * cosLat);
+    return dt * (1 - weight + weight * cosLat);
 };
 
 // Internal function. Intentionally not documented.
@@ -962,13 +962,13 @@ SurfaceShape.prototype.resetPickColor = function () {
  * @param {Number} dy The additive offset in the vertical direction.
  */
 SurfaceShape.prototype.renderToTexture = function (dc, ctx2D, xScale, yScale, dx, dy) {
-    var attributes = (this._highlighted ? (this._highlightAttributes || this._attributes) : this._attributes);
+    var attributes = this._highlighted ? this._highlightAttributes || this._attributes : this._attributes;
     if (!attributes) {
         return;
     }
 
-    var drawInterior = (!this._isInteriorInhibited && attributes.drawInterior);
-    var drawOutline = (attributes.drawOutline && attributes.outlineWidth > 0);
+    var drawInterior = !this._isInteriorInhibited && attributes.drawInterior;
+    var drawOutline = attributes.drawOutline && attributes.outlineWidth > 0;
     if (!drawInterior && !drawOutline) {
         return;
     }

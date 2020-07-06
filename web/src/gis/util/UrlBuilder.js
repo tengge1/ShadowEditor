@@ -28,7 +28,8 @@ import UnsupportedOperationError from '../error/UnsupportedOperationError';
  * @classdesc
  * Defines an interface for tile URL builders. This is an interface class and not meant to be instantiated.
  */
-var UrlBuilder = function () { };
+function UrlBuilder() { 
+}
 
 /**
  * Creates the URL string for a resource.

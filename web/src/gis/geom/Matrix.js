@@ -49,7 +49,7 @@ import WWMath from '../util/WWMath';
  * @param {Number} m43 matrix element at row 4, column 3.
  * @param {Number} m44 matrix element at row 4, column 4.
  */
-var Matrix = function (m11, m12, m13, m14,
+function Matrix(m11, m12, m13, m14,
     m21, m22, m23, m24,
     m31, m32, m33, m34,
     m41, m42, m43, m44) {
@@ -69,7 +69,7 @@ var Matrix = function (m11, m12, m13, m14,
     this[13] = m42;
     this[14] = m43;
     this[15] = m44;
-};
+}
 
 // Derives from Float64Array.
 Matrix.prototype = new Float64Array(16);
@@ -1078,9 +1078,9 @@ Matrix.prototype.extractEyePoint = function (result) {
     // The eye point of a modelview matrix is computed by transforming the origin (0, 0, 0, 1) by the matrix's inverse.
     // This is equivalent to transforming the inverse of this matrix's translation components in the rightmost column by
     // the transpose of its upper 3x3 components.
-    result[0] = -(this[0] * this[3]) - (this[4] * this[7]) - (this[8] * this[11]);
-    result[1] = -(this[1] * this[3]) - (this[5] * this[7]) - (this[9] * this[11]);
-    result[2] = -(this[2] * this[3]) - (this[6] * this[7]) - (this[10] * this[11]);
+    result[0] = -(this[0] * this[3]) - this[4] * this[7] - this[8] * this[11];
+    result[1] = -(this[1] * this[3]) - this[5] * this[7] - this[9] * this[11];
+    result[2] = -(this[2] * this[3]) - this[6] * this[7] - this[10] * this[11];
 
     return result;
 };
@@ -1257,40 +1257,40 @@ Matrix.prototype.multiplyMatrix = function (matrix) {
     ma1 = ma[1];
     ma2 = ma[2];
     ma3 = ma[3];
-    ma[0] = (ma0 * mb[0]) + (ma1 * mb[4]) + (ma2 * mb[8]) + (ma3 * mb[12]);
-    ma[1] = (ma0 * mb[1]) + (ma1 * mb[5]) + (ma2 * mb[9]) + (ma3 * mb[13]);
-    ma[2] = (ma0 * mb[2]) + (ma1 * mb[6]) + (ma2 * mb[10]) + (ma3 * mb[14]);
-    ma[3] = (ma0 * mb[3]) + (ma1 * mb[7]) + (ma2 * mb[11]) + (ma3 * mb[15]);
+    ma[0] = ma0 * mb[0] + ma1 * mb[4] + ma2 * mb[8] + ma3 * mb[12];
+    ma[1] = ma0 * mb[1] + ma1 * mb[5] + ma2 * mb[9] + ma3 * mb[13];
+    ma[2] = ma0 * mb[2] + ma1 * mb[6] + ma2 * mb[10] + ma3 * mb[14];
+    ma[3] = ma0 * mb[3] + ma1 * mb[7] + ma2 * mb[11] + ma3 * mb[15];
 
     // Row 2
     ma0 = ma[4];
     ma1 = ma[5];
     ma2 = ma[6];
     ma3 = ma[7];
-    ma[4] = (ma0 * mb[0]) + (ma1 * mb[4]) + (ma2 * mb[8]) + (ma3 * mb[12]);
-    ma[5] = (ma0 * mb[1]) + (ma1 * mb[5]) + (ma2 * mb[9]) + (ma3 * mb[13]);
-    ma[6] = (ma0 * mb[2]) + (ma1 * mb[6]) + (ma2 * mb[10]) + (ma3 * mb[14]);
-    ma[7] = (ma0 * mb[3]) + (ma1 * mb[7]) + (ma2 * mb[11]) + (ma3 * mb[15]);
+    ma[4] = ma0 * mb[0] + ma1 * mb[4] + ma2 * mb[8] + ma3 * mb[12];
+    ma[5] = ma0 * mb[1] + ma1 * mb[5] + ma2 * mb[9] + ma3 * mb[13];
+    ma[6] = ma0 * mb[2] + ma1 * mb[6] + ma2 * mb[10] + ma3 * mb[14];
+    ma[7] = ma0 * mb[3] + ma1 * mb[7] + ma2 * mb[11] + ma3 * mb[15];
 
     // Row 3
     ma0 = ma[8];
     ma1 = ma[9];
     ma2 = ma[10];
     ma3 = ma[11];
-    ma[8] = (ma0 * mb[0]) + (ma1 * mb[4]) + (ma2 * mb[8]) + (ma3 * mb[12]);
-    ma[9] = (ma0 * mb[1]) + (ma1 * mb[5]) + (ma2 * mb[9]) + (ma3 * mb[13]);
-    ma[10] = (ma0 * mb[2]) + (ma1 * mb[6]) + (ma2 * mb[10]) + (ma3 * mb[14]);
-    ma[11] = (ma0 * mb[3]) + (ma1 * mb[7]) + (ma2 * mb[11]) + (ma3 * mb[15]);
+    ma[8] = ma0 * mb[0] + ma1 * mb[4] + ma2 * mb[8] + ma3 * mb[12];
+    ma[9] = ma0 * mb[1] + ma1 * mb[5] + ma2 * mb[9] + ma3 * mb[13];
+    ma[10] = ma0 * mb[2] + ma1 * mb[6] + ma2 * mb[10] + ma3 * mb[14];
+    ma[11] = ma0 * mb[3] + ma1 * mb[7] + ma2 * mb[11] + ma3 * mb[15];
 
     // Row 4
     ma0 = ma[12];
     ma1 = ma[13];
     ma2 = ma[14];
     ma3 = ma[15];
-    ma[12] = (ma0 * mb[0]) + (ma1 * mb[4]) + (ma2 * mb[8]) + (ma3 * mb[12]);
-    ma[13] = (ma0 * mb[1]) + (ma1 * mb[5]) + (ma2 * mb[9]) + (ma3 * mb[13]);
-    ma[14] = (ma0 * mb[2]) + (ma1 * mb[6]) + (ma2 * mb[10]) + (ma3 * mb[14]);
-    ma[15] = (ma0 * mb[3]) + (ma1 * mb[7]) + (ma2 * mb[11]) + (ma3 * mb[15]);
+    ma[12] = ma0 * mb[0] + ma1 * mb[4] + ma2 * mb[8] + ma3 * mb[12];
+    ma[13] = ma0 * mb[1] + ma1 * mb[5] + ma2 * mb[9] + ma3 * mb[13];
+    ma[14] = ma0 * mb[2] + ma1 * mb[6] + ma2 * mb[10] + ma3 * mb[14];
+    ma[15] = ma0 * mb[3] + ma1 * mb[7] + ma2 * mb[11] + ma3 * mb[15];
 
     return this;
 };
@@ -1329,40 +1329,40 @@ Matrix.prototype.multiply = function (m00, m01, m02, m03,
     ma1 = ma[1];
     ma2 = ma[2];
     ma3 = ma[3];
-    ma[0] = (ma0 * m00) + (ma1 * m10) + (ma2 * m20) + (ma3 * m30);
-    ma[1] = (ma0 * m01) + (ma1 * m11) + (ma2 * m21) + (ma3 * m31);
-    ma[2] = (ma0 * m02) + (ma1 * m12) + (ma2 * m22) + (ma3 * m32);
-    ma[3] = (ma0 * m03) + (ma1 * m13) + (ma2 * m23) + (ma3 * m33);
+    ma[0] = ma0 * m00 + ma1 * m10 + ma2 * m20 + ma3 * m30;
+    ma[1] = ma0 * m01 + ma1 * m11 + ma2 * m21 + ma3 * m31;
+    ma[2] = ma0 * m02 + ma1 * m12 + ma2 * m22 + ma3 * m32;
+    ma[3] = ma0 * m03 + ma1 * m13 + ma2 * m23 + ma3 * m33;
 
     // Row 2
     ma0 = ma[4];
     ma1 = ma[5];
     ma2 = ma[6];
     ma3 = ma[7];
-    ma[4] = (ma0 * m00) + (ma1 * m10) + (ma2 * m20) + (ma3 * m30);
-    ma[5] = (ma0 * m01) + (ma1 * m11) + (ma2 * m21) + (ma3 * m31);
-    ma[6] = (ma0 * m02) + (ma1 * m12) + (ma2 * m22) + (ma3 * m32);
-    ma[7] = (ma0 * m03) + (ma1 * m13) + (ma2 * m23) + (ma3 * m33);
+    ma[4] = ma0 * m00 + ma1 * m10 + ma2 * m20 + ma3 * m30;
+    ma[5] = ma0 * m01 + ma1 * m11 + ma2 * m21 + ma3 * m31;
+    ma[6] = ma0 * m02 + ma1 * m12 + ma2 * m22 + ma3 * m32;
+    ma[7] = ma0 * m03 + ma1 * m13 + ma2 * m23 + ma3 * m33;
 
     // Row 3
     ma0 = ma[8];
     ma1 = ma[9];
     ma2 = ma[10];
     ma3 = ma[11];
-    ma[8] = (ma0 * m00) + (ma1 * m10) + (ma2 * m20) + (ma3 * m30);
-    ma[9] = (ma0 * m01) + (ma1 * m11) + (ma2 * m21) + (ma3 * m31);
-    ma[10] = (ma0 * m02) + (ma1 * m12) + (ma2 * m22) + (ma3 * m32);
-    ma[11] = (ma0 * m03) + (ma1 * m13) + (ma2 * m23) + (ma3 * m33);
+    ma[8] = ma0 * m00 + ma1 * m10 + ma2 * m20 + ma3 * m30;
+    ma[9] = ma0 * m01 + ma1 * m11 + ma2 * m21 + ma3 * m31;
+    ma[10] = ma0 * m02 + ma1 * m12 + ma2 * m22 + ma3 * m32;
+    ma[11] = ma0 * m03 + ma1 * m13 + ma2 * m23 + ma3 * m33;
 
     // Row 4
     ma0 = ma[12];
     ma1 = ma[13];
     ma2 = ma[14];
     ma3 = ma[15];
-    ma[12] = (ma0 * m00) + (ma1 * m10) + (ma2 * m20) + (ma3 * m30);
-    ma[13] = (ma0 * m01) + (ma1 * m11) + (ma2 * m21) + (ma3 * m31);
-    ma[14] = (ma0 * m02) + (ma1 * m12) + (ma2 * m22) + (ma3 * m32);
-    ma[15] = (ma0 * m03) + (ma1 * m13) + (ma2 * m23) + (ma3 * m33);
+    ma[12] = ma0 * m00 + ma1 * m10 + ma2 * m20 + ma3 * m30;
+    ma[13] = ma0 * m01 + ma1 * m11 + ma2 * m21 + ma3 * m31;
+    ma[14] = ma0 * m02 + ma1 * m12 + ma2 * m22 + ma3 * m32;
+    ma[15] = ma0 * m03 + ma1 * m13 + ma2 * m23 + ma3 * m33;
 
     return this;
 };
@@ -1611,17 +1611,17 @@ Matrix.prototype.invertOrthonormalMatrix = function (matrix) {
     this[0] = a[0];
     this[1] = a[4];
     this[2] = a[8];
-    this[3] = 0.0 - (a[0] * a[3]) - (a[4] * a[7]) - (a[8] * a[11]);
+    this[3] = 0.0 - a[0] * a[3] - a[4] * a[7] - a[8] * a[11];
 
     this[4] = a[1];
     this[5] = a[5];
     this[6] = a[9];
-    this[7] = 0.0 - (a[1] * a[3]) - (a[5] * a[7]) - (a[9] * a[11]);
+    this[7] = 0.0 - a[1] * a[3] - a[5] * a[7] - a[9] * a[11];
 
     this[8] = a[2];
     this[9] = a[6];
     this[10] = a[10];
-    this[11] = 0.0 - (a[2] * a[3]) - (a[6] * a[7]) - (a[10] * a[11]);
+    this[11] = 0.0 - a[2] * a[3] - a[6] * a[7] - a[10] * a[11];
 
     this[12] = 0;
     this[13] = 0;
@@ -1684,7 +1684,7 @@ Matrix.prototype.eigensystemFromSymmetricMatrix = function (result1, result2, re
             u = (m22 - m11) * 0.5 / m12;
             u2 = u * u;
             u2p1 = u2 + 1;
-            t = (u2p1 != u2) ? ((u < 0) ? -1 : 1) * (Math.sqrt(u2p1) - WWMath.fabs(u)) : 0.5 / u;
+            t = u2p1 != u2 ? (u < 0 ? -1 : 1) * (Math.sqrt(u2p1) - WWMath.fabs(u)) : 0.5 / u;
             c = 1 / Math.sqrt(t * t + 1);
             s = c * t;
 
@@ -1708,7 +1708,7 @@ Matrix.prototype.eigensystemFromSymmetricMatrix = function (result1, result2, re
             u = (m33 - m11) * 0.5 / m13;
             u2 = u * u;
             u2p1 = u2 + 1;
-            t = (u2p1 != u2) ? ((u < 0) ? -1 : 1) * (Math.sqrt(u2p1) - WWMath.fabs(u)) : 0.5 / u;
+            t = u2p1 != u2 ? (u < 0 ? -1 : 1) * (Math.sqrt(u2p1) - WWMath.fabs(u)) : 0.5 / u;
             c = 1 / Math.sqrt(t * t + 1);
             s = c * t;
 
@@ -1732,7 +1732,7 @@ Matrix.prototype.eigensystemFromSymmetricMatrix = function (result1, result2, re
             u = (m33 - m22) * 0.5 / m23;
             u2 = u * u;
             u2p1 = u2 + 1;
-            t = (u2p1 != u2) ? ((u < 0) ? -1 : 1) * (Math.sqrt(u2p1) - WWMath.fabs(u)) : 0.5 / u;
+            t = u2p1 != u2 ? (u < 0 ? -1 : 1) * (Math.sqrt(u2p1) - WWMath.fabs(u)) : 0.5 / u;
             c = 1 / Math.sqrt(t * t + 1);
             s = c * t;
 

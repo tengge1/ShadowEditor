@@ -90,7 +90,7 @@ import libtessDummy from '../util/libtess';
  *
  * @throws {ArgumentError} If the specified boundaries array is null or undefined.
  */
-var Polygon = function (boundaries, attributes) {
+function Polygon(boundaries, attributes) {
     if (!boundaries) {
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "Polygon", "constructor", "missingBoundaries"));
@@ -113,7 +113,7 @@ var Polygon = function (boundaries, attributes) {
     this._extrude = false;
 
     this.scratchPoint = new Vec3(0, 0, 0); // scratch variable
-};
+}
 
 Polygon.prototype = Object.create(AbstractShape.prototype);
 
@@ -186,7 +186,7 @@ Object.defineProperties(Polygon.prototype, {
 // Intentionally not documented.
 Polygon.prototype.determineReferencePosition = function (boundaries) {
     // Assign the first position as the reference position.
-    return (boundaries.length > 0 && boundaries[0].length > 2) ? boundaries[0][0] : null;
+    return boundaries.length > 0 && boundaries[0].length > 2 ? boundaries[0][0] : null;
 };
 
 // Internal. Determines whether this shape's geometry must be re-computed.
@@ -203,7 +203,7 @@ Polygon.prototype.mustGenerateGeometry = function (dc) {
         return false;
     }
 
-    return this.currentData.isExpired
+    return this.currentData.isExpired;
 };
 
 // Internal. Indicates whether this polygon should be textured.
@@ -217,7 +217,7 @@ Polygon.prototype.capImageSource = function () {
         return null;
     }
 
-    if ((typeof this.activeAttributes.imageSource) === "string"
+    if (typeof this.activeAttributes.imageSource === "string"
         || this.activeAttributes.imageSource instanceof ImageSource) {
         return this.activeAttributes.imageSource;
     }
@@ -616,7 +616,7 @@ Polygon.prototype.drawSides = function (dc, pickColor) {
 
     numSides = 0;
     for (var b = 0; b < currentData.boundaryPoints.length; b++) { // for each boundary}
-        numSides += (currentData.boundaryPoints[b].length / 6) - 1; // 6 floats per boundary point: top + bottom
+        numSides += currentData.boundaryPoints[b].length / 6 - 1; // 6 floats per boundary point: top + bottom
     }
 
     if (!currentData.sidesVboCacheKey) {

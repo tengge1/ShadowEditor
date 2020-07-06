@@ -27,7 +27,7 @@
  * @classdesc Provides an abstract base class for navigators. This class is not meant to be instantiated
  * directly. See {@Link LookAtNavigator} for a concrete navigator.
  */
-var Navigator = function () {
+function Navigator() {
     /**
      * This navigator's heading, in degrees clockwise from north.
      * @type {Number}
@@ -48,6 +48,6 @@ var Navigator = function () {
      * @default 0
      */
     this.roll = 0;
-};
+}
 
 export default Navigator;

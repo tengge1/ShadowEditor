@@ -29,7 +29,7 @@ import WmsUrlBuilder from '../util/WmsUrlBuilder';
  * @augments TiledElevationCoverage
  * @classdesc Provides elevations for Earth. Elevations are drawn from the NASA WorldWind elevation service.
  */
-var GebcoElevationCoverage = function () {
+function GebcoElevationCoverage() {
     TiledElevationCoverage.call(this, {
         coverageSector: Sector.FULL_SPHERE,
         resolution: 0.008333333333333,
@@ -40,7 +40,7 @@ var GebcoElevationCoverage = function () {
     });
 
     this.displayName = "GEBCO Earth Elevation Coverage";
-};
+}
 
 GebcoElevationCoverage.prototype = Object.create(TiledElevationCoverage.prototype);
 

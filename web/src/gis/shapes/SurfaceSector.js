@@ -48,7 +48,7 @@ import SurfaceShape from '../shapes/SurfaceShape';
  * attributes must be set directly before the shape is drawn.
  * @throws {ArgumentError} If the specified boundaries are null or undefined.
  */
-var SurfaceSector = function (sector, attributes) {
+function SurfaceSector(sector, attributes) {
     if (!sector) {
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "SurfaceSector", "constructor", "missingSector"));
@@ -64,7 +64,7 @@ var SurfaceSector = function (sector, attributes) {
 
     // The default path type for a surface sector is linear so that it represents a bounding box by default.
     this._pathType = WorldWind.LINEAR;
-};
+}
 
 SurfaceSector.prototype = Object.create(SurfaceShape.prototype);
 

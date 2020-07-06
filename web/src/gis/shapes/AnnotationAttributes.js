@@ -28,7 +28,7 @@ import TextAttributes from '../shapes/TextAttributes';
  * @param {AnnotationAttributes} attributes Attributes to initialize this attributes instance to. May be null,
  * in which case the new instance contains default attributes.
  */
-var AnnotationAttributes = function (attributes) {
+function AnnotationAttributes(attributes) {
 
     // These are all documented with their property accessors below.
     this._cornerRadius = attributes ? attributes._cornerRadius : 0;
@@ -51,7 +51,7 @@ var AnnotationAttributes = function (attributes) {
      * @protected
      */
     this.stateKeyInvalid = true;
-};
+}
 
 /**
  * Computes the state key for this attributes object. Subclasses that define additional attributes must

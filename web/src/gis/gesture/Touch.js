@@ -29,7 +29,7 @@
  * @param {Number} clientX The X coordinate of the touch point's location.
  * @param {Number} clientY The Y coordinate of the touch point's location.
  */
-var Touch = function (identifier, clientX, clientY) {
+function Touch(identifier, clientX, clientY) {
 
     /**
      * A number uniquely identifying this touch point.
@@ -49,7 +49,7 @@ var Touch = function (identifier, clientX, clientY) {
 
     // Intentionally not documented.
     this._clientStartY = clientY;
-};
+}
 
 Object.defineProperties(Touch.prototype, {
     /**

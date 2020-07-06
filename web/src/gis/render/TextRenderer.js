@@ -38,7 +38,7 @@ import Vec2 from '../geom/Vec2';
  * is attached to.
  * @throws {ArgumentError} If the specified draw context is null or undefined.
  */
-var TextRenderer = function (drawContext) {
+function TextRenderer(drawContext) {
     if (!drawContext) {
         throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "TextRenderer", "constructor",
             "missingDc"));
@@ -86,7 +86,7 @@ var TextRenderer = function (drawContext) {
      * @type {Font}
      */
     this.typeFace = new Font(14);
-};
+}
 
 /**
  * Returns the width and height of a specified text string considering the current typeFace and outline usage.

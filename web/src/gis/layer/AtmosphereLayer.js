@@ -35,7 +35,7 @@ import WWUtil from '../util/WWUtil';
  * @param {URL} nightImageSource optional url for the night texture.
  * @augments Layer
  */
-var AtmosphereLayer = function (nightImageSource) {
+function AtmosphereLayer(nightImageSource) {
     Layer.call(this, "Atmosphere");
 
     // The atmosphere layer is not pickable.
@@ -68,7 +68,7 @@ var AtmosphereLayer = function (nightImageSource) {
 
     //Internal use only. The night texture.
     this._activeTexture = null;
-};
+}
 
 AtmosphereLayer.prototype = Object.create(Layer.prototype);
 
@@ -207,7 +207,7 @@ AtmosphereLayer.prototype.drawGround = function (dc) {
     program.setScale(gl);
 
     // Use this layer's night image when the layer has time value defined
-    if (this.nightImageSource && (this.time !== null)) {
+    if (this.nightImageSource && this.time !== null) {
 
         this._activeTexture = dc.gpuResourceCache.resourceForKey(this.nightImageSource);
 

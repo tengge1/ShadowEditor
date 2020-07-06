@@ -35,7 +35,7 @@ import TextAttributes from '../shapes/TextAttributes';
  * @param {PlacemarkAttributes} attributes Attributes to initialize this attributes instance to. May be null,
  * in which case the new instance contains default attributes.
  */
-var PlacemarkAttributes = function (attributes) {
+function PlacemarkAttributes(attributes) {
     // These are all documented with their property accessors below.
     this._imageColor = attributes ? attributes._imageColor.clone() : Color.WHITE.clone();
     this._imageOffset = attributes ? attributes._imageOffset
@@ -55,7 +55,7 @@ var PlacemarkAttributes = function (attributes) {
      * @protected
      */
     this.stateKeyInvalid = true;
-};
+}
 
 /**
  * Computes the state key for this attributes object. Subclasses that define additional attributes must

@@ -33,7 +33,7 @@ import GestureRecognizer from '../gesture/GestureRecognizer';
  * e.g., <code>gestureCallback(recognizer)</code>.
  * @throws {ArgumentError} If the specified target is null or undefined.
  */
-var RotationRecognizer = function (target, callback) {
+function RotationRecognizer(target, callback) {
     GestureRecognizer.call(this, target, callback);
 
     // Intentionally not documented.
@@ -53,7 +53,7 @@ var RotationRecognizer = function (target, callback) {
 
     // Intentionally not documented.
     this.rotationTouches = [];
-};
+}
 
 RotationRecognizer.prototype = Object.create(GestureRecognizer.prototype);
 

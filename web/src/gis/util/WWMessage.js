@@ -27,7 +27,7 @@
  * @param {{}} source The source of the message.
  * @constructor
  */
-var WWMessage = function (type, source) {
+function WWMessage(type, source) {
 
     /**
      * This object's message type.
@@ -42,6 +42,6 @@ var WWMessage = function (type, source) {
      * @readonly
      */
     this.source = source;
-};
+}
 
 export default WWMessage;

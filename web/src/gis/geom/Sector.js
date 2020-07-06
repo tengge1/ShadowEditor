@@ -35,7 +35,7 @@ import WWMath from '../util/WWMath';
  * @param {Number} minLongitude The sector's minimum longitude in degrees.
  * @param {Number} maxLongitude The sector's maximum longitude in degrees.
  */
-var Sector = function (minLatitude, maxLatitude, minLongitude, maxLongitude) {
+function Sector(minLatitude, maxLatitude, minLongitude, maxLongitude) {
     /**
      * This sector's minimum latitude in degrees.
      * @type {Number}
@@ -56,7 +56,7 @@ var Sector = function (minLatitude, maxLatitude, minLongitude, maxLongitude) {
      * @type {Number}
      */
     this.maxLongitude = maxLongitude;
-};
+}
 
 /**
  * A sector with minimum and maximum latitudes and minimum and maximum longitudes all zero.

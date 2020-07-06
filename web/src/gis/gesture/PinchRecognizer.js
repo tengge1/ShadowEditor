@@ -32,7 +32,7 @@ import GestureRecognizer from '../gesture/GestureRecognizer';
  * e.g., <code>gestureCallback(recognizer)</code>.
  * @throws {ArgumentError} If the specified target is null or undefined.
  */
-var PinchRecognizer = function (target, callback) {
+function PinchRecognizer(target, callback) {
     GestureRecognizer.call(this, target, callback);
 
     // Intentionally not documented.
@@ -52,7 +52,7 @@ var PinchRecognizer = function (target, callback) {
 
     // Intentionally not documented.
     this.pinchTouches = [];
-};
+}
 
 PinchRecognizer.prototype = Object.create(GestureRecognizer.prototype);
 
@@ -153,7 +153,7 @@ PinchRecognizer.prototype.prepareToRecognize = function () {
 PinchRecognizer.prototype.shouldRecognize = function () {
     var distance = this.currentPinchDistance();
 
-    return Math.abs(distance - this.referenceDistance) > this.interpretThreshold
+    return Math.abs(distance - this.referenceDistance) > this.interpretThreshold;
 };
 
 // Intentionally not documented.

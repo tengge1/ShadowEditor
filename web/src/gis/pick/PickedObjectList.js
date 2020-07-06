@@ -26,13 +26,13 @@
  * @constructor
  * @classdesc Holds a collection of picked objects.
  */
-var PickedObjectList = function () {
+function PickedObjectList() {
     /**
      * The picked objects.
      * @type {Array}
      */
     this.objects = [];
-};
+}
 
 /**
  * Indicates whether this list contains picked objects that are not terrain.
@@ -40,7 +40,7 @@ var PickedObjectList = function () {
  * otherwise false.
  */
 PickedObjectList.prototype.hasNonTerrainObjects = function () {
-    return this.objects.length > 1 || (this.objects.length === 1 && this.terrainObject() == null);
+    return this.objects.length > 1 || this.objects.length === 1 && this.terrainObject() == null;
 };
 
 /**

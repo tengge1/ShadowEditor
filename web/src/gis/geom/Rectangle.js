@@ -28,7 +28,7 @@
  * @param {Number} width The rectangle's width.
  * @param {Number} height The rectangle's height.
  */
-var Rectangle = function (x, y, width, height) {
+function Rectangle(x, y, width, height) {
 
     /**
      * The X coordinate of this rectangle's origin.
@@ -53,7 +53,7 @@ var Rectangle = function (x, y, width, height) {
      * @type {Number}
      */
     this.height = height;
-};
+}
 
 /**
  * Sets all this rectangle's properties.
@@ -107,8 +107,8 @@ Rectangle.prototype.getMaxY = function () {
  * @returns {Boolean} true if this rectangle contains the specified point, otherwise false.
  */
 Rectangle.prototype.containsPoint = function (point) {
-    return point[0] >= this.x && point[0] <= (this.x + this.width)
-        && point[1] >= this.y && point[1] <= (this.y + this.height);
+    return point[0] >= this.x && point[0] <= this.x + this.width
+        && point[1] >= this.y && point[1] <= this.y + this.height;
 };
 /**
  *
@@ -117,17 +117,17 @@ Rectangle.prototype.containsPoint = function (point) {
  * @returns {Boolean} true if this triangle and the specified one intersect, otherwise false.
  */
 Rectangle.prototype.intersects = function (that) {
-    if ((that.x + that.width) < this.x)
+    if (that.x + that.width < this.x)
         return false;
 
-    if (that.x > (this.x + this.width))
+    if (that.x > this.x + this.width)
         return false;
 
-    if ((that.y + that.height) < this.y)
+    if (that.y + that.height < this.y)
         return false;
 
     //noinspection RedundantIfStatementJS
-    if (that.y > (this.y + this.height))
+    if (that.y > this.y + this.height)
         return false;
 
     return true;

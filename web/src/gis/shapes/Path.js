@@ -71,7 +71,7 @@ import Vec3 from '../geom/Vec3';
  * default attributes are associated.
  * @throws {ArgumentError} If the specified positions array is null or undefined.
  */
-var Path = function (positions, attributes) {
+function Path(positions, attributes) {
     if (!positions) {
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "Path", "constructor", "missingPositions"));
@@ -94,7 +94,7 @@ var Path = function (positions, attributes) {
     this.referencePosition = this.determineReferencePosition(this._positions);
 
     this.scratchPoint = new Vec3(0, 0, 0); // scratch variable
-};
+}
 
 Path.prototype = Object.create(AbstractShape.prototype);
 
@@ -216,7 +216,7 @@ Object.defineProperties(Path.prototype, {
 // Intentionally not documented.
 Path.prototype.determineReferencePosition = function (positions) {
     // Assign the first position as the reference position.
-    return (positions.length > 0) ? positions[0] : null;
+    return positions.length > 0 ? positions[0] : null;
 };
 
 // Internal. Determines whether this shape's geometry must be re-computed.
@@ -242,7 +242,7 @@ Path.prototype.mustGenerateGeometry = function (dc) {
         return false;
     }
 
-    return this.currentData.isExpired
+    return this.currentData.isExpired;
 };
 
 Path.prototype.createSurfaceShape = function () {
@@ -540,7 +540,7 @@ Path.prototype.doRenderOrdered = function (dc) {
     }
 
     if (this.activeAttributes.drawOutline) {
-        if ((this.mustDrawVerticals(dc) && this.mustDrawInterior(dc))
+        if (this.mustDrawVerticals(dc) && this.mustDrawInterior(dc)
             || this.altitudeMode === WorldWind.CLAMP_TO_GROUND) {
             // Make the verticals stand out from the interior, or the outline stand out from the terrain.
             this.applyMvpMatrixForOutline(dc);

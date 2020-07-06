@@ -39,7 +39,7 @@ import WWMath from './util/WWMath';
  * @classDesc This class provides the default window controller for WorldWind for controlling the globe via user interaction.
  * @param {WorldWindow} worldWindow The WorldWindow associated with this layer.
  */
-var BasicWorldWindowController = function (worldWindow) {
+function BasicWorldWindowController(worldWindow) {
     WorldWindowController.call(this, worldWindow); // base class checks for a valid worldWindow
 
     // Intentionally not documented.
@@ -95,7 +95,7 @@ var BasicWorldWindowController = function (worldWindow) {
     this.beginTilt = 0;
     this.beginRange = 0;
     this.lastRotation = 0;
-};
+}
 
 BasicWorldWindowController.prototype = Object.create(WorldWindowController.prototype);
 
@@ -190,8 +190,8 @@ BasicWorldWindowController.prototype.handlePanOrDrag3D = function (recognizer) {
             metersPerPixel = WWMath.perspectivePixelSize(canvas.clientWidth, canvas.clientHeight, distance),
             forwardMeters = (ty - this.lastPoint[1]) * metersPerPixel,
             sideMeters = -(tx - this.lastPoint[0]) * metersPerPixel,
-            forwardDegrees = (forwardMeters / globeRadius) * Angle.RADIANS_TO_DEGREES,
-            sideDegrees = (sideMeters / globeRadius) * Angle.RADIANS_TO_DEGREES;
+            forwardDegrees = forwardMeters / globeRadius * Angle.RADIANS_TO_DEGREES,
+            sideDegrees = sideMeters / globeRadius * Angle.RADIANS_TO_DEGREES;
 
         // Apply the change in latitude and longitude to this navigator, relative to the current heading.
         var sinHeading = Math.sin(navigator.heading * Angle.DEGREES_TO_RADIANS),
@@ -363,7 +363,7 @@ BasicWorldWindowController.prototype.handleWheelEvent = function (event) {
     // Compute a zoom scale factor by adding a fraction of the normalized delta to 1. When multiplied by the
     // navigator's range, this has the effect of zooming out or zooming in depending on whether the delta is
     // positive or negative, respectfully.
-    var scale = 1 + (normalizedDelta / 1000);
+    var scale = 1 + normalizedDelta / 1000;
 
     // Apply the scale to this navigator's properties.
     navigator.range *= scale;

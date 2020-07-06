@@ -32,7 +32,7 @@ import UnsupportedOperationError from './error/UnsupportedOperationError';
  * @param {WorldWindow} worldWindow The WorldWindow associated with this layer.
  * @throws {ArgumentError} If the specified WorldWindow is null or undefined.
  */
-var WorldWindowController = function (worldWindow) {
+function WorldWindowController(worldWindow) {
     if (!worldWindow) {
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "WorldWindowController", "constructor", "missingWorldWindow"));
@@ -47,7 +47,7 @@ var WorldWindowController = function (worldWindow) {
 
     // Intentionally not documented.
     this.allGestureListeners = [];
-};
+}
 
 // Intentionally not documented.
 WorldWindowController.prototype.onGestureEvent = function (event) {

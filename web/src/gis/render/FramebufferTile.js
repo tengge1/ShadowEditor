@@ -46,8 +46,8 @@ import TextureTile from '../render/TextureTile';
  * @throws {ArgumentError} If the specified sector or level is null or undefined, the row or column arguments
  * are less than zero, or the cache name is null, undefined or empty.
  */
-var FramebufferTile = function (sector, level, row, column, cacheKey) {
-    if (!cacheKey || (cacheKey.length < 1)) {
+function FramebufferTile(sector, level, row, column, cacheKey) {
+    if (!cacheKey || cacheKey.length < 1) {
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "FramebufferTile", "constructor",
                 "The specified cache name is null, undefined or zero length."));
@@ -63,7 +63,7 @@ var FramebufferTile = function (sector, level, row, column, cacheKey) {
 
     // Internal. Intentionally not documented.
     this.mustClear = true;
-};
+}
 
 FramebufferTile.prototype = Object.create(TextureTile.prototype);
 

@@ -58,7 +58,7 @@ import WWMath from '../util/WWMath';
  * in which case default attributes are associated.
  * @throws {ArgumentError} If the specified position is null or undefined.
  */
-var Placemark = function (position, eyeDistanceScaling, attributes) {
+function Placemark(position, eyeDistanceScaling, attributes) {
     if (!position) {
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "Placemark", "constructor", "missingPosition"));
@@ -264,7 +264,7 @@ var Placemark = function (position, eyeDistanceScaling, attributes) {
 
     // Internal use only. Intentionally not documented.
     this.depthOffset = -0.003;
-};
+}
 
 // Internal use only. Intentionally not documented.
 Placemark.screenPoint = new Vec3(0, 0, 0); // scratch variable
@@ -511,14 +511,14 @@ Placemark.prototype.determineActiveAttributes = function (dc) {
 Placemark.prototype.isVisible = function (dc) {
     if (dc.pickingMode) {
         return dc.pickRectangle && (this.imageBounds.intersects(dc.pickRectangle)
-            || (this.mustDrawLabel() && this.labelBounds.intersects(dc.pickRectangle))
-            || (this.mustDrawLeaderLine(dc)
-                && dc.pickFrustum.intersectsSegment(this.groundPoint, this.placePoint)));
+            || this.mustDrawLabel() && this.labelBounds.intersects(dc.pickRectangle)
+            || this.mustDrawLeaderLine(dc)
+                && dc.pickFrustum.intersectsSegment(this.groundPoint, this.placePoint));
     } else {
         return this.imageBounds.intersects(dc.viewport)
-            || (this.mustDrawLabel() && this.labelBounds.intersects(dc.viewport))
-            || (this.mustDrawLeaderLine(dc)
-                && dc.frustumInModelCoordinates.intersectsSegment(this.groundPoint, this.placePoint));
+            || this.mustDrawLabel() && this.labelBounds.intersects(dc.viewport)
+            || this.mustDrawLeaderLine(dc)
+                && dc.frustumInModelCoordinates.intersectsSegment(this.groundPoint, this.placePoint);
     }
 };
 
@@ -547,7 +547,7 @@ Placemark.prototype.drawBatchOrderedPlacemarks = function (dc) {
         dc.popOrderedRenderable(); // remove it from the queue
 
         try {
-            or.doDrawOrderedPlacemark(dc)
+            or.doDrawOrderedPlacemark(dc);
         } catch (e) {
             Logger.logMessage(Logger.LEVEL_WARNING, 'Placemark', 'drawBatchOrderedPlacemarks',
                 "Error occurred while rendering placemark using batching: " + e.message);
@@ -603,7 +603,7 @@ Placemark.prototype.doDrawOrderedPlacemark = function (dc) {
         this.pickColor = dc.uniquePickColor();
     }
 
-    if (this.eyeDistanceScaling && (this.eyeDistance > this.eyeDistanceScalingLabelThreshold)) {
+    if (this.eyeDistanceScaling && this.eyeDistance > this.eyeDistanceScalingLabelThreshold) {
         // Target visibility is set to 0 to cause the label to be faded in or out. Nothing else
         // here uses target visibility.
         this.targetVisibility = 0;

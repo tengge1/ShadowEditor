@@ -32,7 +32,7 @@ import GestureRecognizer from '../gesture/GestureRecognizer';
  * e.g., <code>gestureCallback(recognizer)</code>.
  * @throws {ArgumentError} If the specified target is null or undefined.
  */
-var DragRecognizer = function (target, callback) {
+function DragRecognizer(target, callback) {
     GestureRecognizer.call(this, target, callback);
 
     /**
@@ -43,7 +43,7 @@ var DragRecognizer = function (target, callback) {
 
     // Intentionally not documented.
     this.interpretDistance = 5;
-};
+}
 
 DragRecognizer.prototype = Object.create(GestureRecognizer.prototype);
 
@@ -100,7 +100,7 @@ DragRecognizer.prototype.shouldInterpret = function () {
  * @protected
  */
 DragRecognizer.prototype.shouldRecognize = function () {
-    var buttonBit = (1 << this.button);
+    var buttonBit = 1 << this.button;
     return buttonBit == this.mouseButtonMask; // true when the specified button is the only button down
 };
 

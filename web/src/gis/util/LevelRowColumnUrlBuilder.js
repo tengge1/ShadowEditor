@@ -42,7 +42,7 @@ import WWUtil from '../util/WWUtil';
  * the data is directly relative to the specified server address.
  *
  */
-var LevelRowColumnUrlBuilder = function (serverAddress, pathToData) {
+function LevelRowColumnUrlBuilder(serverAddress, pathToData) {
     /**
      * The server address.
      * @type {String}
@@ -57,7 +57,7 @@ var LevelRowColumnUrlBuilder = function (serverAddress, pathToData) {
      * @type {String}
      */
     this.pathToData = pathToData;
-};
+}
 
 /**
  * Creates the URL string for a WMS Get Map request.

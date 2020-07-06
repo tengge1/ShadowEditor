@@ -70,7 +70,7 @@ import Vec3 from '../geom/Vec3';
  * @throws {ArgumentError} If the specified positions array is null, empty or undefined, the number of indices
  * is less than 3 or too many positions are specified (limit is 65536).
  */
-var TriangleMesh = function (positions, indices, attributes) {
+function TriangleMesh(positions, indices, attributes) {
     if (!positions) {
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "TriangleMesh", "constructor", "missingPositions"));
@@ -108,7 +108,7 @@ var TriangleMesh = function (positions, indices, attributes) {
     this._indices = indices;
 
     this.referencePosition = this._positions[0];
-};
+}
 
 TriangleMesh.prototype = Object.create(AbstractMesh.prototype);
 
@@ -197,7 +197,7 @@ Object.defineProperties(TriangleMesh.prototype, {
         },
         set: function (coords) {
 
-            if (coords && (coords.length != this._positions.length)) {
+            if (coords && coords.length != this._positions.length) {
                 throw new ArgumentError(
                     Logger.logMessage(Logger.LEVEL_SEVERE, "TriangleMesh", "textureCoordinates",
                         "Number of texture coordinates is inconsistent with the currently specified positions."));
@@ -325,7 +325,7 @@ TriangleMesh.split = function (positions, indices, textureCoords, outlineIndices
         originalIndex, mappedIndex;
 
     for (var i = 0; i <= indices.length; i++) {
-        if ((i === indices.length) || ((splitPositions.length > 65533) && splitIndices.length % 3 === 0)) {
+        if (i === indices.length || splitPositions.length > 65533 && splitIndices.length % 3 === 0) {
             if (splitPositions.length > 0) {
                 var shape = {
                     positions: splitPositions,

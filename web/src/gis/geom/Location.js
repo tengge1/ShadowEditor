@@ -33,7 +33,7 @@ import WWMath from '../util/WWMath';
  * @param {Number} latitude The latitude in degrees.
  * @param {Number} longitude The longitude in degrees.
  */
-var Location = function (latitude, longitude) {
+function Location(latitude, longitude) {
     /**
      * The latitude in degrees.
      * @type {Number}
@@ -44,7 +44,7 @@ var Location = function (latitude, longitude) {
      * @type {Number}
      */
     this.longitude = longitude;
-};
+}
 
 /**
  * A location with latitude and longitude both 0.
@@ -375,7 +375,7 @@ Location.rhumbAzimuth = function (location1, location2) {
 
     // If lonChange over 180 take shorter rhumb across 180 meridian.
     if (WWMath.fabs(dLon) > Math.PI) {
-        dLon = dLon > 0 ? -(2 * Math.PI - dLon) : (2 * Math.PI + dLon);
+        dLon = dLon > 0 ? -(2 * Math.PI - dLon) : 2 * Math.PI + dLon;
     }
 
     azimuthRadians = Math.atan2(dLon, dPhi);
@@ -426,7 +426,7 @@ Location.rhumbDistance = function (location1, location2) {
 
     // If lonChange over 180 take shorter rhumb across 180 meridian.
     if (WWMath.fabs(dLon) > Math.PI) {
-        dLon = dLon > 0 ? -(2 * Math.PI - dLon) : (2 * Math.PI + dLon);
+        dLon = dLon > 0 ? -(2 * Math.PI - dLon) : 2 * Math.PI + dLon;
     }
 
     distanceRadians = Math.sqrt(dLat * dLat + q * q * dLon * dLon);
@@ -559,7 +559,7 @@ Location.linearAzimuth = function (location1, location2) {
 
     // If longitude change is over 180 take shorter path across 180 meridian.
     if (WWMath.fabs(dLon) > Math.PI) {
-        dLon = dLon > 0 ? -(2 * Math.PI - dLon) : (2 * Math.PI + dLon);
+        dLon = dLon > 0 ? -(2 * Math.PI - dLon) : 2 * Math.PI + dLon;
     }
 
     azimuthRadians = Math.atan2(dLon, dPhi);
@@ -601,7 +601,7 @@ Location.linearDistance = function (location1, location2) {
 
     // If lonChange over 180 take shorter path across 180 meridian.
     if (WWMath.fabs(dLon) > Math.PI) {
-        dLon = dLon > 0 ? -(2 * Math.PI - dLon) : (2 * Math.PI + dLon);
+        dLon = dLon > 0 ? -(2 * Math.PI - dLon) : 2 * Math.PI + dLon;
     }
 
     distanceRadians = Math.sqrt(dLat * dLat + dLon * dLon);
@@ -854,8 +854,8 @@ Location.greatCircleExtremeLocationsUsingAzimuth = function (location, azimuth) 
     var tanDistance = -Math.tan(lat0) / Math.cos(az);
     var distance = Math.atan(tanDistance);
 
-    var extremeDistance1 = distance + (Math.PI / 2.0);
-    var extremeDistance2 = distance - (Math.PI / 2.0);
+    var extremeDistance1 = distance + Math.PI / 2.0;
+    var extremeDistance2 = distance - Math.PI / 2.0;
 
     return [
         Location.greatCircleLocation(location, azimuth, extremeDistance1, new Location(0, 0)),

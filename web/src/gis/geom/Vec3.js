@@ -29,11 +29,11 @@ import ArgumentError from '../error/ArgumentError';
  * @param {Number} z Z component of vector.
  * @constructor
  */
-var Vec3 = function Vec3(x, y, z) {
+function Vec3(x, y, z) {
     this[0] = x;
     this[1] = y;
     this[2] = z;
-};
+}
 
 // Vec3 extends Float64Array.
 Vec3.prototype = new Float64Array(3);
@@ -151,10 +151,10 @@ Vec3.computeTriangleNormal = function (a, b, c) {
             Logger.logMessage(Logger.LEVEL_SEVERE, "Vec3", "areColinear", "missingVector"));
     }
 
-    var x = ((b[1] - a[1]) * (c[2] - a[2])) - ((b[2] - a[2]) * (c[1] - a[1])),
-        y = ((b[2] - a[2]) * (c[0] - a[0])) - ((b[0] - a[0]) * (c[2] - a[2])),
-        z = ((b[0] - a[0]) * (c[1] - a[1])) - ((b[1] - a[1]) * (c[0] - a[0])),
-        length = (x * x) + (y * y) + (z * z);
+    var x = (b[1] - a[1]) * (c[2] - a[2]) - (b[2] - a[2]) * (c[1] - a[1]),
+        y = (b[2] - a[2]) * (c[0] - a[0]) - (b[0] - a[0]) * (c[2] - a[2]),
+        z = (b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0]),
+        length = x * x + y * y + z * z;
 
     if (length === 0) {
         return new Vec3(x, y, z);
@@ -176,7 +176,7 @@ Vec3.computeTriangleNormal = function (a, b, c) {
  * contains fewer than three points.
  */
 Vec3.findThreeIndependentVertices = function (coords, stride) {
-    var xstride = (stride && stride > 0) ? stride : 3;
+    var xstride = stride && stride > 0 ? stride : 3;
 
     if (!coords || coords.length < 3 * xstride) {
         return null;
@@ -204,8 +204,8 @@ Vec3.findThreeIndependentVertices = function (coords, stride) {
 
         // if c is not coincident with a or b, and the vectors ab and bc are not colinear, break and
         // return a, b, c.
-        if (!((c[0] === a[0] && c[1] === a[1] && c[2] === a[2])
-            || (c[0] === b[0] && c[1] === b[1] && c[2] === b[2]))) {
+        if (!(c[0] === a[0] && c[1] === a[1] && c[2] === a[2]
+            || c[0] === b[0] && c[1] === b[1] && c[2] === b[2])) {
             if (!Vec3.areColinear(a, b, c))
                 break;
         }

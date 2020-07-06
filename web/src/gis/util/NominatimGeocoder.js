@@ -26,14 +26,14 @@ import Logger from '../util/Logger';
  * @constructor
  * @classdesc Provides a gazetteer that uses Open Street Map Nominatim geocoder at Mapquest.
  */
-var NominatimGeocoder = function () {
+function NominatimGeocoder() {
     /**
      * The URL of the geocoder service.
      * @type {String}
      * @default http://open.mapquestapi.com/nominatim/v1/search/
      */
     this.service = "https://open.mapquestapi.com/nominatim/v1/search/";
-};
+}
 
 /**
  * Queries the geocoder service with a specified query string.

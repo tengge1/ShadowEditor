@@ -32,7 +32,7 @@ import ImageSource from '../util/ImageSource';
  * the constructed attributes bundle. May be null, in which case the constructed attributes bundle is populated
  * with default attributes.
  */
-var ShapeAttributes = function (attributes) {
+function ShapeAttributes(attributes) {
 
     // All these are documented with their property accessors below.
     this._drawInterior = attributes ? attributes._drawInterior : true;
@@ -56,7 +56,7 @@ var ShapeAttributes = function (attributes) {
      * @protected
      */
     this.stateKeyInvalid = true;
-};
+}
 
 /**
  * Computes the state key for this attributes object. Subclasses that define additional attributes must
@@ -75,7 +75,7 @@ ShapeAttributes.prototype.computeStateKey = function () {
         " osf " + this._outlineStippleFactor +
         " osp " + this._outlineStipplePattern +
         " is " + (this._imageSource ?
-            (this.imageSource instanceof ImageSource ? this.imageSource.key : this.imageSource) : "null") +
+            this.imageSource instanceof ImageSource ? this.imageSource.key : this.imageSource : "null") +
         " dt " + this._depthTest +
         " dv " + this._drawVerticals +
         " li " + this._applyLighting;

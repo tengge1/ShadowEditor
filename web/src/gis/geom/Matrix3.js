@@ -37,7 +37,7 @@ import Logger from '../util/Logger';
  * @param {Number} m32 matrix element at row 3, column 2.
  * @param {Number} m33 matrix element at row 3, column 3.
  */
-var Matrix3 = function (m11, m12, m13,
+function Matrix3(m11, m12, m13,
     m21, m22, m23,
     m31, m32, m33) {
     this[0] = m11;
@@ -49,7 +49,7 @@ var Matrix3 = function (m11, m12, m13,
     this[6] = m31;
     this[7] = m32;
     this[8] = m33;
-};
+}
 
 // Derives from Float64Array.
 Matrix3.prototype = new Float64Array(9);
@@ -109,25 +109,25 @@ Matrix3.prototype.multiplyMatrix = function (matrix) {
     ma0 = ma[0];
     ma1 = ma[1];
     ma2 = ma[2];
-    ma[0] = (ma0 * mb[0]) + (ma1 * mb[3]) + (ma2 * mb[6]);
-    ma[1] = (ma0 * mb[1]) + (ma1 * mb[4]) + (ma2 * mb[7]);
-    ma[2] = (ma0 * mb[2]) + (ma1 * mb[5]) + (ma2 * mb[8]);
+    ma[0] = ma0 * mb[0] + ma1 * mb[3] + ma2 * mb[6];
+    ma[1] = ma0 * mb[1] + ma1 * mb[4] + ma2 * mb[7];
+    ma[2] = ma0 * mb[2] + ma1 * mb[5] + ma2 * mb[8];
 
     // Row 2
     ma0 = ma[3];
     ma1 = ma[4];
     ma2 = ma[5];
-    ma[3] = (ma0 * mb[0]) + (ma1 * mb[3]) + (ma2 * mb[6]);
-    ma[4] = (ma0 * mb[1]) + (ma1 * mb[4]) + (ma2 * mb[7]);
-    ma[5] = (ma0 * mb[2]) + (ma1 * mb[5]) + (ma2 * mb[8]);
+    ma[3] = ma0 * mb[0] + ma1 * mb[3] + ma2 * mb[6];
+    ma[4] = ma0 * mb[1] + ma1 * mb[4] + ma2 * mb[7];
+    ma[5] = ma0 * mb[2] + ma1 * mb[5] + ma2 * mb[8];
 
     // Row 3
     ma0 = ma[6];
     ma1 = ma[7];
     ma2 = ma[8];
-    ma[6] = (ma0 * mb[0]) + (ma1 * mb[3]) + (ma2 * mb[6]);
-    ma[7] = (ma0 * mb[1]) + (ma1 * mb[4]) + (ma2 * mb[7]);
-    ma[8] = (ma0 * mb[2]) + (ma1 * mb[5]) + (ma2 * mb[8]);
+    ma[6] = ma0 * mb[0] + ma1 * mb[3] + ma2 * mb[6];
+    ma[7] = ma0 * mb[1] + ma1 * mb[4] + ma2 * mb[7];
+    ma[8] = ma0 * mb[2] + ma1 * mb[5] + ma2 * mb[8];
 
     return this;
 
@@ -173,9 +173,9 @@ Matrix3.prototype.multiplyByTileTransform = function (src, dst) {
     var m = this;
 
     // Must be done before modifying m0, m1, etc. below.
-    m[2] += (m[0] * xt) + (m[1] * yt);
-    m[5] += (m[3] * xt) + (m[4] * yt);
-    m[8] += (m[6] * xt) + (m[6] * yt);
+    m[2] += m[0] * xt + m[1] * yt;
+    m[5] += m[3] * xt + m[4] * yt;
+    m[8] += m[6] * xt + m[6] * yt;
 
     m[0] *= xs;
     m[1] *= ys;

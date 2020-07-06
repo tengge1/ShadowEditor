@@ -48,7 +48,7 @@ import SurfaceShape from '../shapes/SurfaceShape';
  * @throws {ArgumentError} If the specified center location is null or undefined or the specified radius
  * is negative.
  */
-var SurfaceCircle = function (center, radius, attributes) {
+function SurfaceCircle(center, radius, attributes) {
     if (!center) {
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "SurfaceCircle", "constructor", "missingLocation"));
@@ -65,7 +65,7 @@ var SurfaceCircle = function (center, radius, attributes) {
     this._center = center;
     this._radius = radius;
     this._intervals = SurfaceCircle.DEFAULT_NUM_INTERVALS;
-};
+}
 
 SurfaceCircle.prototype = Object.create(SurfaceShape.prototype);
 
@@ -147,7 +147,7 @@ SurfaceCircle.prototype.computeBoundaries = function (dc) {
     this._boundaries = new Array(numLocations);
 
     for (var i = 0; i < numLocations; i++) {
-        var azimuth = (i !== numLocations - 1) ? (i * da) : 0;
+        var azimuth = i !== numLocations - 1 ? i * da : 0;
         this._boundaries[i] = Location.greatCircleLocation(
             this.center,
             azimuth,   // In degrees

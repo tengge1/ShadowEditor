@@ -29,10 +29,10 @@ import Vec3 from '../geom/Vec3';
  * @param {Number} y Y component of vector.
  * @constructor
  */
-var Vec2 = function Vec2(x, y) {
+function Vec2(x, y) {
     this[0] = x;
     this[1] = y;
-};
+}
 
 // Vec2 inherits from Float64Array.
 Vec2.prototype = new Float64Array(2);

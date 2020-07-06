@@ -32,7 +32,7 @@ import PanRecognizer from '../gesture/PanRecognizer';
  * e.g., <code>gestureCallback(recognizer)</code>.
  * @throws {ArgumentError} If the specified target is null or undefined.
  */
-var TiltRecognizer = function (target, callback) {
+function TiltRecognizer(target, callback) {
     PanRecognizer.call(this, target, callback);
 
     // Intentionally not documented.
@@ -40,19 +40,19 @@ var TiltRecognizer = function (target, callback) {
 
     // Intentionally not documented.
     this.maxTouchDivergence = 50;
-};
+}
 
 // Intentionally not documented.
-TiltRecognizer.LEFT = (1 << 0);
+TiltRecognizer.LEFT = 1 << 0;
 
 // Intentionally not documented.
-TiltRecognizer.RIGHT = (1 << 1);
+TiltRecognizer.RIGHT = 1 << 1;
 
 // Intentionally not documented.
-TiltRecognizer.UP = (1 << 2);
+TiltRecognizer.UP = 1 << 2;
 
 // Intentionally not documented.
-TiltRecognizer.DOWN = (1 << 3);
+TiltRecognizer.DOWN = 1 << 3;
 
 TiltRecognizer.prototype = Object.create(PanRecognizer.prototype);
 
@@ -107,11 +107,11 @@ TiltRecognizer.prototype.touchDirection = function (touch) {
         dirMask = 0;
 
     if (Math.abs(dx) > Math.abs(dy)) {
-        dirMask |= (dx < 0 ? TiltRecognizer.LEFT : 0);
-        dirMask |= (dx > 0 ? TiltRecognizer.RIGHT : 0);
+        dirMask |= dx < 0 ? TiltRecognizer.LEFT : 0;
+        dirMask |= dx > 0 ? TiltRecognizer.RIGHT : 0;
     } else {
-        dirMask |= (dy < 0 ? TiltRecognizer.UP : 0);
-        dirMask |= (dy > 0 ? TiltRecognizer.DOWN : 0);
+        dirMask |= dy < 0 ? TiltRecognizer.UP : 0;
+        dirMask |= dy > 0 ? TiltRecognizer.DOWN : 0;
     }
 
     return dirMask;

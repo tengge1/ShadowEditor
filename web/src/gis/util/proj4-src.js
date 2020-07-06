@@ -1,7 +1,7 @@
 
 
 
-var globals = function (defs) {
+function globals(defs) {
     defs('EPSG:4326', "+title=WGS 84 (long/lat) +proj=longlat +ellps=WGS84 +datum=WGS84 +units=degrees");
     defs('EPSG:4269', "+title=NAD83 (long/lat) +proj=longlat +a=6378137.0 +b=6356752.31414036 +ellps=GRS80 +datum=NAD83 +units=degrees");
     defs('EPSG:3857', "+title=WGS 84 / Pseudo-Mercator +proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs");
@@ -11,7 +11,7 @@ var globals = function (defs) {
     defs.GOOGLE = defs['EPSG:3857'];
     defs['EPSG:900913'] = defs['EPSG:3857'];
     defs['EPSG:102113'] = defs['EPSG:3857'];
-};
+}
 
 var PJD_3PARAM = 1;
 var PJD_7PARAM = 2;
@@ -25,7 +25,7 @@ var SIXTH = 0.1666666666666666667;
 var RA4 = 0.04722222222222222222;
 /* 17/360 */
 var RA6 = 0.02215608465608465608;
-var EPSLN = (typeof Number.EPSILON === 'undefined') ? 1.0e-10 : Number.EPSILON;
+var EPSLN = typeof Number.EPSILON === 'undefined' ? 1.0e-10 : Number.EPSILON;
 var D2R = 0.01745329251994329577;
 var R2D = 57.29577951308232088;
 var FORTPI = Math.PI / 4;
@@ -243,7 +243,7 @@ Parser.prototype.readCharicter = function () {
         case NEUTRAL:
             return this.neutral(char);
         case KEYWORD:
-            return this.keyword(char)
+            return this.keyword(char);
         case QUOTED:
             return this.quoted(char);
         case AFTERQUOTE:
@@ -382,7 +382,7 @@ function mapit(obj, key, value) {
 
     var out = value.reduce(function (newObj, item) {
         sExpr(item, newObj);
-        return newObj
+        return newObj;
     }, thing);
     if (key) {
         obj[key] = out;
@@ -482,7 +482,7 @@ var D2R$1 = 0.01745329251994329577;
 function rename(obj, params) {
     var outName = params[0];
     var inName = params[1];
-    if (!(outName in obj) && (inName in obj)) {
+    if (!(outName in obj) && inName in obj) {
         obj[outName] = obj[inName];
         if (params.length === 3) {
             obj[outName] = params[2](obj[outName]);
@@ -725,7 +725,7 @@ var extend = function (destination, source) {
 
 var msfnz = function (eccent, sinphi, cosphi) {
     var con = eccent * sinphi;
-    return cosphi / (Math.sqrt(1 - con * con));
+    return cosphi / Math.sqrt(1 - con * con);
 };
 
 var sign = function (x) {
@@ -733,14 +733,14 @@ var sign = function (x) {
 };
 
 var adjust_lon = function (x) {
-    return (Math.abs(x) <= SPI) ? x : (x - (sign(x) * TWO_PI));
+    return Math.abs(x) <= SPI ? x : x - sign(x) * TWO_PI;
 };
 
 var tsfnz = function (eccent, phi, sinphi) {
     var con = eccent * sinphi;
     var com = 0.5 * eccent;
-    con = Math.pow(((1 - con) / (1 + con)), com);
-    return (Math.tan(0.5 * (HALF_PI - phi)) / con);
+    con = Math.pow((1 - con) / (1 + con), com);
+    return Math.tan(0.5 * (HALF_PI - phi)) / con;
 };
 
 var phi2z = function (eccent, ts) {
@@ -749,7 +749,7 @@ var phi2z = function (eccent, ts) {
     var phi = HALF_PI - 2 * Math.atan(ts);
     for (var i = 0; i <= 15; i++) {
         con = eccent * Math.sin(phi);
-        dphi = HALF_PI - 2 * Math.atan(ts * (Math.pow(((1 - con) / (1 + con)), eccnth))) - phi;
+        dphi = HALF_PI - 2 * Math.atan(ts * Math.pow((1 - con) / (1 + con), eccnth)) - phi;
         phi += dphi;
         if (Math.abs(dphi) <= 0.0000000001) {
             return phi;
@@ -1326,7 +1326,7 @@ function datum(datumCode, datum_params, a, b, es, ep2) {
                 out.datum_params[3] *= SEC_TO_RAD;
                 out.datum_params[4] *= SEC_TO_RAD;
                 out.datum_params[5] *= SEC_TO_RAD;
-                out.datum_params[6] = (out.datum_params[6] / 1000000.0) + 1.0;
+                out.datum_params[6] = out.datum_params[6] / 1000000.0 + 1.0;
             }
         }
     }
@@ -1407,9 +1407,9 @@ function compareDatums(source, dest) {
         // are considered identical
         return false;
     } else if (source.datum_type === PJD_3PARAM) {
-        return (source.datum_params[0] === dest.datum_params[0] && source.datum_params[1] === dest.datum_params[1] && source.datum_params[2] === dest.datum_params[2]);
+        return source.datum_params[0] === dest.datum_params[0] && source.datum_params[1] === dest.datum_params[1] && source.datum_params[2] === dest.datum_params[2];
     } else if (source.datum_type === PJD_7PARAM) {
-        return (source.datum_params[0] === dest.datum_params[0] && source.datum_params[1] === dest.datum_params[1] && source.datum_params[2] === dest.datum_params[2] && source.datum_params[3] === dest.datum_params[3] && source.datum_params[4] === dest.datum_params[4] && source.datum_params[5] === dest.datum_params[5] && source.datum_params[6] === dest.datum_params[6]);
+        return source.datum_params[0] === dest.datum_params[0] && source.datum_params[1] === dest.datum_params[1] && source.datum_params[2] === dest.datum_params[2] && source.datum_params[3] === dest.datum_params[3] && source.datum_params[4] === dest.datum_params[4] && source.datum_params[5] === dest.datum_params[5] && source.datum_params[6] === dest.datum_params[6];
     } else {
         return true; // datums are equal
     }
@@ -1447,23 +1447,23 @@ function geodeticToGeocentric(p, es, a) {
         Latitude = -HALF_PI;
     } else if (Latitude > HALF_PI && Latitude < 1.001 * HALF_PI) {
         Latitude = HALF_PI;
-    } else if ((Latitude < -HALF_PI) || (Latitude > HALF_PI)) {
+    } else if (Latitude < -HALF_PI || Latitude > HALF_PI) {
         /* Latitude out of range */
         //..reportError('geocent:lat out of range:' + Latitude);
         return null;
     }
 
     if (Longitude > Math.PI) {
-        Longitude -= (2 * Math.PI);
+        Longitude -= 2 * Math.PI;
     }
     Sin_Lat = Math.sin(Latitude);
     Cos_Lat = Math.cos(Latitude);
     Sin2_Lat = Sin_Lat * Sin_Lat;
-    Rn = a / (Math.sqrt(1.0e0 - es * Sin2_Lat));
+    Rn = a / Math.sqrt(1.0e0 - es * Sin2_Lat);
     return {
         x: (Rn + Height) * Cos_Lat * Math.cos(Longitude),
         y: (Rn + Height) * Cos_Lat * Math.sin(Longitude),
-        z: ((Rn * (1 - es)) + Height) * Sin_Lat
+        z: (Rn * (1 - es) + Height) * Sin_Lat
     };
 } // cs_geodetic_to_geocentric()
 
@@ -1471,7 +1471,7 @@ function geocentricToGeodetic(p, es, a, b) {
     /* local defintions and variables */
     /* end-criterium of loop, accuracy of sin(Latitude) */
     var genau = 1e-12;
-    var genau2 = (genau * genau);
+    var genau2 = genau * genau;
     var maxiter = 30;
 
     var P; /* distance between semi-minor axis and location */
@@ -1583,7 +1583,7 @@ function geocentricToWgs84(p, datum_type, datum_params) {
         return {
             x: p.x + datum_params[0],
             y: p.y + datum_params[1],
-            z: p.z + datum_params[2],
+            z: p.z + datum_params[2]
         };
     } else if (datum_type === PJD_7PARAM) {
         var Dx_BF = datum_params[0];
@@ -1615,7 +1615,7 @@ function geocentricFromWgs84(p, datum_type, datum_params) {
         return {
             x: p.x - datum_params[0],
             y: p.y - datum_params[1],
-            z: p.z - datum_params[2],
+            z: p.z - datum_params[2]
         };
 
     } else if (datum_type === PJD_7PARAM) {
@@ -1641,7 +1641,7 @@ function geocentricFromWgs84(p, datum_type, datum_params) {
 }
 
 function checkParams(type) {
-    return (type === PJD_3PARAM || type === PJD_7PARAM);
+    return type === PJD_3PARAM || type === PJD_7PARAM;
 }
 
 var datum_transform = function (source, dest, point) {
@@ -1745,7 +1745,7 @@ var toPoint = function (array) {
 };
 
 function checkNotWGS(source, dest) {
-    return ((source.datum.datum_type === PJD_3PARAM || source.datum.datum_type === PJD_7PARAM) && dest.datumCode !== 'WGS84') || ((dest.datum.datum_type === PJD_3PARAM || dest.datum.datum_type === PJD_7PARAM) && source.datumCode !== 'WGS84');
+    return (source.datum.datum_type === PJD_3PARAM || source.datum.datum_type === PJD_7PARAM) && dest.datumCode !== 'WGS84' || (dest.datum.datum_type === PJD_3PARAM || dest.datum.datum_type === PJD_7PARAM) && source.datumCode !== 'WGS84';
 }
 
 function transform(source, dest, point) {
@@ -1964,7 +1964,7 @@ function toPoint$1(mgrs) {
  * @return {number} the angle in radians.
  */
 function degToRad(deg) {
-    return (deg * (Math.PI / 180.0));
+    return deg * (Math.PI / 180.0);
 }
 
 /**
@@ -1975,7 +1975,7 @@ function degToRad(deg) {
  * @return {number} the angle in degrees.
  */
 function radToDeg(rad) {
-    return (180.0 * (rad / Math.PI));
+    return 180.0 * (rad / Math.PI);
 }
 
 /**
@@ -2036,18 +2036,18 @@ function LLtoUTM(ll) {
     // zone
     LongOriginRad = degToRad(LongOrigin);
 
-    eccPrimeSquared = (eccSquared) / (1 - eccSquared);
+    eccPrimeSquared = eccSquared / (1 - eccSquared);
 
     N = a / Math.sqrt(1 - eccSquared * Math.sin(LatRad) * Math.sin(LatRad));
     T = Math.tan(LatRad) * Math.tan(LatRad);
     C = eccPrimeSquared * Math.cos(LatRad) * Math.cos(LatRad);
     A = Math.cos(LatRad) * (LongRad - LongOriginRad);
 
-    M = a * ((1 - eccSquared / 4 - 3 * eccSquared * eccSquared / 64 - 5 * eccSquared * eccSquared * eccSquared / 256) * LatRad - (3 * eccSquared / 8 + 3 * eccSquared * eccSquared / 32 + 45 * eccSquared * eccSquared * eccSquared / 1024) * Math.sin(2 * LatRad) + (15 * eccSquared * eccSquared / 256 + 45 * eccSquared * eccSquared * eccSquared / 1024) * Math.sin(4 * LatRad) - (35 * eccSquared * eccSquared * eccSquared / 3072) * Math.sin(6 * LatRad));
+    M = a * ((1 - eccSquared / 4 - 3 * eccSquared * eccSquared / 64 - 5 * eccSquared * eccSquared * eccSquared / 256) * LatRad - (3 * eccSquared / 8 + 3 * eccSquared * eccSquared / 32 + 45 * eccSquared * eccSquared * eccSquared / 1024) * Math.sin(2 * LatRad) + (15 * eccSquared * eccSquared / 256 + 45 * eccSquared * eccSquared * eccSquared / 1024) * Math.sin(4 * LatRad) - 35 * eccSquared * eccSquared * eccSquared / 3072 * Math.sin(6 * LatRad));
 
-    var UTMEasting = (k0 * N * (A + (1 - T + C) * A * A * A / 6.0 + (5 - 18 * T + T * T + 72 * C - 58 * eccPrimeSquared) * A * A * A * A * A / 120.0) + 500000.0);
+    var UTMEasting = k0 * N * (A + (1 - T + C) * A * A * A / 6.0 + (5 - 18 * T + T * T + 72 * C - 58 * eccPrimeSquared) * A * A * A * A * A / 120.0) + 500000.0;
 
-    var UTMNorthing = (k0 * (M + N * Math.tan(LatRad) * (A * A / 2 + (5 - T + 9 * C + 4 * C * C) * A * A * A * A / 24.0 + (61 - 58 * T + T * T + 600 * C - 330 * eccPrimeSquared) * A * A * A * A * A * A / 720.0)));
+    var UTMNorthing = k0 * (M + N * Math.tan(LatRad) * (A * A / 2 + (5 - T + 9 * C + 4 * C * C) * A * A * A * A / 24.0 + (61 - 58 * T + T * T + 600 * C - 330 * eccPrimeSquared) * A * A * A * A * A * A / 720.0));
     if (Lat < 0.0) {
         UTMNorthing += 10000000.0; //10000000 meter offset for
         // southern hemisphere
@@ -2114,12 +2114,12 @@ function UTMtoLL(utm) {
     // in middle of
     // zone
 
-    eccPrimeSquared = (eccSquared) / (1 - eccSquared);
+    eccPrimeSquared = eccSquared / (1 - eccSquared);
 
     M = y / k0;
     mu = M / (a * (1 - eccSquared / 4 - 3 * eccSquared * eccSquared / 64 - 5 * eccSquared * eccSquared * eccSquared / 256));
 
-    phi1Rad = mu + (3 * e1 / 2 - 27 * e1 * e1 * e1 / 32) * Math.sin(2 * mu) + (21 * e1 * e1 / 16 - 55 * e1 * e1 * e1 * e1 / 32) * Math.sin(4 * mu) + (151 * e1 * e1 * e1 / 96) * Math.sin(6 * mu);
+    phi1Rad = mu + (3 * e1 / 2 - 27 * e1 * e1 * e1 / 32) * Math.sin(2 * mu) + (21 * e1 * e1 / 16 - 55 * e1 * e1 * e1 * e1 / 32) * Math.sin(4 * mu) + 151 * e1 * e1 * e1 / 96 * Math.sin(6 * mu);
     // double phi1 = ProjMath.radToDeg(phi1Rad);
 
     N1 = a / Math.sqrt(1 - eccSquared * Math.sin(phi1Rad) * Math.sin(phi1Rad));
@@ -2128,7 +2128,7 @@ function UTMtoLL(utm) {
     R1 = a * (1 - eccSquared) / Math.pow(1 - eccSquared * Math.sin(phi1Rad) * Math.sin(phi1Rad), 1.5);
     D = x / (N1 * k0);
 
-    var lat = phi1Rad - (N1 * Math.tan(phi1Rad) / R1) * (D * D / 2 - (5 + 3 * T1 + 10 * C1 - 4 * C1 * C1 - 9 * eccPrimeSquared) * D * D * D * D / 24 + (61 + 90 * T1 + 298 * C1 + 45 * T1 * T1 - 252 * eccPrimeSquared - 3 * C1 * C1) * D * D * D * D * D * D / 720);
+    var lat = phi1Rad - N1 * Math.tan(phi1Rad) / R1 * (D * D / 2 - (5 + 3 * T1 + 10 * C1 - 4 * C1 * C1 - 9 * eccPrimeSquared) * D * D * D * D / 24 + (61 + 90 * T1 + 298 * C1 + 45 * T1 * T1 - 252 * eccPrimeSquared - 3 * C1 * C1) * D * D * D * D * D * D / 720);
     lat = radToDeg(lat);
 
     var lon = (D - (1 + 2 * T1 + C1) * D * D * D / 6 + (5 - 2 * C1 + 28 * T1 - 3 * C1 * C1 + 8 * eccPrimeSquared + 24 * T1 * T1) * D * D * D * D * D / 120) / Math.cos(phi1Rad);
@@ -2171,64 +2171,64 @@ function getLetterDesignator(lat) {
     //outside MGRS limits
     var LetterDesignator = 'Z';
 
-    if ((84 >= lat) && (lat >= 72)) {
+    if (84 >= lat && lat >= 72) {
         LetterDesignator = 'X';
     }
-    else if ((72 > lat) && (lat >= 64)) {
+    else if (72 > lat && lat >= 64) {
         LetterDesignator = 'W';
     }
-    else if ((64 > lat) && (lat >= 56)) {
+    else if (64 > lat && lat >= 56) {
         LetterDesignator = 'V';
     }
-    else if ((56 > lat) && (lat >= 48)) {
+    else if (56 > lat && lat >= 48) {
         LetterDesignator = 'U';
     }
-    else if ((48 > lat) && (lat >= 40)) {
+    else if (48 > lat && lat >= 40) {
         LetterDesignator = 'T';
     }
-    else if ((40 > lat) && (lat >= 32)) {
+    else if (40 > lat && lat >= 32) {
         LetterDesignator = 'S';
     }
-    else if ((32 > lat) && (lat >= 24)) {
+    else if (32 > lat && lat >= 24) {
         LetterDesignator = 'R';
     }
-    else if ((24 > lat) && (lat >= 16)) {
+    else if (24 > lat && lat >= 16) {
         LetterDesignator = 'Q';
     }
-    else if ((16 > lat) && (lat >= 8)) {
+    else if (16 > lat && lat >= 8) {
         LetterDesignator = 'P';
     }
-    else if ((8 > lat) && (lat >= 0)) {
+    else if (8 > lat && lat >= 0) {
         LetterDesignator = 'N';
     }
-    else if ((0 > lat) && (lat >= -8)) {
+    else if (0 > lat && lat >= -8) {
         LetterDesignator = 'M';
     }
-    else if ((-8 > lat) && (lat >= -16)) {
+    else if (-8 > lat && lat >= -16) {
         LetterDesignator = 'L';
     }
-    else if ((-16 > lat) && (lat >= -24)) {
+    else if (-16 > lat && lat >= -24) {
         LetterDesignator = 'K';
     }
-    else if ((-24 > lat) && (lat >= -32)) {
+    else if (-24 > lat && lat >= -32) {
         LetterDesignator = 'J';
     }
-    else if ((-32 > lat) && (lat >= -40)) {
+    else if (-32 > lat && lat >= -40) {
         LetterDesignator = 'H';
     }
-    else if ((-40 > lat) && (lat >= -48)) {
+    else if (-40 > lat && lat >= -48) {
         LetterDesignator = 'G';
     }
-    else if ((-48 > lat) && (lat >= -56)) {
+    else if (-48 > lat && lat >= -56) {
         LetterDesignator = 'F';
     }
-    else if ((-56 > lat) && (lat >= -64)) {
+    else if (-56 > lat && lat >= -64) {
         LetterDesignator = 'E';
     }
-    else if ((-64 > lat) && (lat >= -72)) {
+    else if (-64 > lat && lat >= -72) {
         LetterDesignator = 'D';
     }
-    else if ((-72 > lat) && (lat >= -80)) {
+    else if (-72 > lat && lat >= -80) {
         LetterDesignator = 'C';
     }
     return LetterDesignator;
@@ -2316,11 +2316,11 @@ function getLetter100kID(column, row, parm) {
         rollover = true;
     }
 
-    if (colInt === I || (colOrigin < I && colInt > I) || ((colInt > I || colOrigin < I) && rollover)) {
+    if (colInt === I || colOrigin < I && colInt > I || (colInt > I || colOrigin < I) && rollover) {
         colInt++;
     }
 
-    if (colInt === O || (colOrigin < O && colInt > O) || ((colInt > O || colOrigin < O) && rollover)) {
+    if (colInt === O || colOrigin < O && colInt > O || (colInt > O || colOrigin < O) && rollover) {
         colInt++;
 
         if (colInt === I) {
@@ -2340,11 +2340,11 @@ function getLetter100kID(column, row, parm) {
         rollover = false;
     }
 
-    if (((rowInt === I) || ((rowOrigin < I) && (rowInt > I))) || (((rowInt > I) || (rowOrigin < I)) && rollover)) {
+    if (rowInt === I || rowOrigin < I && rowInt > I || (rowInt > I || rowOrigin < I) && rollover) {
         rowInt++;
     }
 
-    if (((rowInt === O) || ((rowOrigin < O) && (rowInt > O))) || (((rowInt > O) || (rowOrigin < O)) && rollover)) {
+    if (rowInt === O || rowOrigin < O && rowInt > O || (rowInt > O || rowOrigin < O) && rollover) {
         rowInt++;
 
         if (rowInt === I) {
@@ -2371,7 +2371,7 @@ function getLetter100kID(column, row, parm) {
 function decode(mgrsString) {
 
     if (mgrsString && mgrsString.length === 0) {
-        throw ("MGRSPoint coverting from nothing");
+        throw "MGRSPoint coverting from nothing";
     }
 
     var length = mgrsString.length;
@@ -2384,7 +2384,7 @@ function decode(mgrsString) {
     // get Zone number
     while (!(/[A-Z]/).test(testChar = mgrsString.charAt(i))) {
         if (i >= 2) {
-            throw ("MGRSPoint bad conversion from: " + mgrsString);
+            throw "MGRSPoint bad conversion from: " + mgrsString;
         }
         sb += testChar;
         i++;
@@ -2395,14 +2395,14 @@ function decode(mgrsString) {
     if (i === 0 || i + 3 > length) {
         // A good MGRS string has to be 4-5 digits long,
         // ##AAA/#AAA at least.
-        throw ("MGRSPoint bad conversion from: " + mgrsString);
+        throw "MGRSPoint bad conversion from: " + mgrsString;
     }
 
     var zoneLetter = mgrsString.charAt(i++);
 
     // Should we check the zone letter here? Why not.
     if (zoneLetter <= 'A' || zoneLetter === 'B' || zoneLetter === 'Y' || zoneLetter >= 'Z' || zoneLetter === 'I' || zoneLetter === 'O') {
-        throw ("MGRSPoint zone letter " + zoneLetter + " not handled: " + mgrsString);
+        throw "MGRSPoint zone letter " + zoneLetter + " not handled: " + mgrsString;
     }
 
     hunK = mgrsString.substring(i, i += 2);
@@ -2424,7 +2424,7 @@ function decode(mgrsString) {
     var remainder = length - i;
 
     if (remainder % 2 !== 0) {
-        throw ("MGRSPoint has to have an even number \nof digits after the zone letter and two 100km letters - front \nhalf for easting meters, second half for \nnorthing meters" + mgrsString);
+        throw "MGRSPoint has to have an even number \nof digits after the zone letter and two 100km letters - front \nhalf for easting meters, second half for \nnorthing meters" + mgrsString;
     }
 
     var sep = remainder / 2;
@@ -2479,7 +2479,7 @@ function getEastingFromChar(e, set) {
         }
         if (curCol > Z) {
             if (rewindMarker) {
-                throw ("Bad character: " + e);
+                throw "Bad character: " + e;
             }
             curCol = A;
             rewindMarker = true;
@@ -2509,7 +2509,7 @@ function getEastingFromChar(e, set) {
 function getNorthingFromChar(n, set) {
 
     if (n > 'V') {
-        throw ("MGRSPoint given invalid Northing " + n);
+        throw "MGRSPoint given invalid Northing " + n;
     }
 
     // rowOrigin is the letter at the origin of the set for the
@@ -2530,7 +2530,7 @@ function getNorthingFromChar(n, set) {
         // when 'n' is a wrong character
         if (curRow > V) {
             if (rewindMarker) { // making sure that this loop ends
-                throw ("Bad character: " + n);
+                throw "Bad character: " + n;
             }
             curRow = A;
             rewindMarker = true;
@@ -2621,7 +2621,7 @@ function getMinNorthing(zoneLetter) {
         return northing;
     }
     else {
-        throw ("Invalid zone letter: " + zoneLetter);
+        throw "Invalid zone letter: " + zoneLetter;
     }
 
 }
@@ -2688,7 +2688,7 @@ var pj_enfn = function (es) {
 var pj_mlfn = function (phi, sphi, cphi, en) {
     cphi *= sphi;
     sphi *= sphi;
-    return (en[0] * phi - cphi * (en[1] + sphi * (en[2] + sphi * (en[3] + sphi * en[4]))));
+    return en[0] * phi - cphi * (en[1] + sphi * (en[2] + sphi * (en[3] + sphi * en[4])));
 };
 
 var MAX_ITER = 20;
@@ -2743,8 +2743,8 @@ function forward$2(p) {
     if (!this.es) {
         var b = cos_phi * Math.sin(delta_lon);
 
-        if ((Math.abs(Math.abs(b) - 1)) < EPSLN) {
-            return (93);
+        if (Math.abs(Math.abs(b) - 1) < EPSLN) {
+            return 93;
         }
         else {
             x = 0.5 * this.a * this.k0 * Math.log((1 + b) / (1 - b)) + this.x0;
@@ -2752,8 +2752,8 @@ function forward$2(p) {
             b = Math.abs(y);
 
             if (b >= 1) {
-                if ((b - 1) > EPSLN) {
-                    return (93);
+                if (b - 1 > EPSLN) {
+                    return 93;
                 }
                 else {
                     y = 0;
@@ -2823,7 +2823,7 @@ function inverse$2(p) {
             lat = -lat;
         }
 
-        if ((g === 0) && (h === 0)) {
+        if (g === 0 && h === 0) {
             lon = 0;
         }
         else {
@@ -2847,15 +2847,15 @@ function inverse$2(p) {
             var ds = Math.pow(d, 2);
             con = con * tan_phi;
 
-            lat = phi - (con * ds / (1 - this.es)) * 0.5 * (1 -
+            lat = phi - con * ds / (1 - this.es) * 0.5 * (1 -
                 ds / 12 * (5 + 3 * t - 9 * c * t + c - 4 * cs -
                     ds / 30 * (61 + 90 * t - 252 * c * t + 45 * ts + 46 * c -
                         ds / 56 * (1385 + 3633 * t + 4095 * ts + 1574 * ts * t))));
 
-            lon = adjust_lon(this.long0 + (d * (1 -
+            lon = adjust_lon(this.long0 + d * (1 -
                 ds / 6 * (1 + 2 * t + c -
                     ds / 20 * (5 + 28 * t + 24 * ts + 8 * c * t + 6 * c -
-                        ds / 42 * (61 + 662 * t + 1320 * ts + 720 * ts * t)))) / cos_phi));
+                        ds / 42 * (61 + 662 * t + 1320 * ts + 720 * ts * t)))) / cos_phi);
         }
         else {
             lat = HALF_PI * sign(y);
@@ -2919,7 +2919,7 @@ var gatg = function (pp, B) {
         h1 = h;
     }
 
-    return (B + h * Math.sin(2 * B));
+    return B + h * Math.sin(2 * B);
 };
 
 var clens = function (pp, arg_r) {
@@ -3152,7 +3152,7 @@ function init$4() {
         throw new Error('unknown utm zone');
     }
     this.lat0 = 0;
-    this.long0 = ((6 * Math.abs(zone)) - 183) * D2R;
+    this.long0 = (6 * Math.abs(zone) - 183) * D2R;
     this.x0 = 500000;
     this.y0 = this.utmSouth ? 10000000 : 0;
     this.k0 = 0.9996;
@@ -3170,7 +3170,7 @@ var utm = {
 };
 
 var srat = function (esinp, exp) {
-    return (Math.pow((1 - esinp) / (1 + esinp), exp));
+    return Math.pow((1 - esinp) / (1 + esinp), exp);
 };
 
 var MAX_ITER$1 = 20;
@@ -3258,7 +3258,7 @@ function inverse$4(p) {
 
     p.x /= this.k0;
     p.y /= this.k0;
-    if ((rho = Math.sqrt(p.x * p.x + p.y * p.y))) {
+    if (rho = Math.sqrt(p.x * p.x + p.y * p.y)) {
         var c = 2 * Math.atan2(rho, this.R2);
         sinc = Math.sin(c);
         cosc = Math.cos(c);
@@ -3287,7 +3287,7 @@ var sterea = {
 
 function ssfn_(phit, sinphi, eccen) {
     sinphi *= eccen;
-    return (Math.tan(0.5 * (HALF_PI + phit)) * Math.pow((1 - sinphi) / (1 + sinphi), 0.5 * eccen));
+    return Math.tan(0.5 * (HALF_PI + phit)) * Math.pow((1 - sinphi) / (1 + sinphi), 0.5 * eccen);
 }
 
 function init$7() {
@@ -3593,10 +3593,10 @@ function init$9() {
         var jl = (this.el * this.el - ll * hl) / (this.el * this.el + ll * hl);
         var pl = (ll - hl) / (ll + hl);
         var dlon12 = adjust_lon(this.long1 - this.long2);
-        this.long0 = 0.5 * (this.long1 + this.long2) - Math.atan(jl * Math.tan(0.5 * this.bl * (dlon12)) / pl) / this.bl;
+        this.long0 = 0.5 * (this.long1 + this.long2) - Math.atan(jl * Math.tan(0.5 * this.bl * dlon12) / pl) / this.bl;
         this.long0 = adjust_lon(this.long0);
         var dlon10 = adjust_lon(this.long1 - this.long0);
-        this.gamma0 = Math.atan(Math.sin(this.bl * (dlon10)) / gl);
+        this.gamma0 = Math.atan(Math.sin(this.bl * dlon10) / gl);
         this.alpha = Math.asin(dl * Math.sin(this.gamma0));
     }
 
@@ -3637,7 +3637,7 @@ function forward$8(p) {
         var ql = this.el / Math.pow(t, this.bl);
         var sl = 0.5 * (ql - 1 / ql);
         var tl = 0.5 * (ql + 1 / ql);
-        var vl = Math.sin(this.bl * (dlon));
+        var vl = Math.sin(this.bl * dlon);
         var ul = (sl * Math.sin(this.gamma0) - vl * Math.cos(this.gamma0)) / tl;
         if (Math.abs(Math.abs(ul) - 1) <= EPSLN) {
             vs = Number.POSITIVE_INFINITY;
@@ -3645,8 +3645,8 @@ function forward$8(p) {
         else {
             vs = 0.5 * this.al * Math.log((1 - ul) / (1 + ul)) / this.bl;
         }
-        if (Math.abs(Math.cos(this.bl * (dlon))) <= EPSLN) {
-            us = this.al * this.bl * (dlon);
+        if (Math.abs(Math.cos(this.bl * dlon)) <= EPSLN) {
+            us = this.al * this.bl * dlon;
         }
         else {
             us = this.al * Math.atan2(sl * Math.cos(this.gamma0) + vl * Math.sin(this.gamma0), Math.cos(this.bl * dlon)) / this.bl;
@@ -3801,7 +3801,7 @@ function inverse$9(p) {
     var rh1, con, ts;
     var lat, lon;
     var x = (p.x - this.x0) / this.k0;
-    var y = (this.rh - (p.y - this.y0) / this.k0);
+    var y = this.rh - (p.y - this.y0) / this.k0;
     if (this.ns > 0) {
         rh1 = Math.sqrt(x * x + y * y);
         con = 1;
@@ -3812,11 +3812,11 @@ function inverse$9(p) {
     }
     var theta = 0;
     if (rh1 !== 0) {
-        theta = Math.atan2((con * x), (con * y));
+        theta = Math.atan2(con * x, con * y);
     }
-    if ((rh1 !== 0) || (this.ns > 0)) {
+    if (rh1 !== 0 || this.ns > 0) {
         con = 1 / this.ns;
-        ts = Math.pow((rh1 / (this.a * this.f0)), con);
+        ts = Math.pow(rh1 / (this.a * this.f0), con);
         lat = phi2z(this.e, ts);
         if (lat === -9999) {
             return null;
@@ -3859,7 +3859,7 @@ function init$11() {
     this.fi0 = this.lat0;
     this.e2 = this.es;
     this.e = Math.sqrt(this.e2);
-    this.alfa = Math.sqrt(1 + (this.e2 * Math.pow(Math.cos(this.fi0), 4)) / (1 - this.e2));
+    this.alfa = Math.sqrt(1 + this.e2 * Math.pow(Math.cos(this.fi0), 4) / (1 - this.e2));
     this.uq = 1.04216856380474;
     this.u0 = Math.asin(Math.sin(this.fi0) / this.alfa);
     this.g = Math.pow((1 + this.e * Math.sin(this.fi0)) / (1 - this.e * Math.sin(this.fi0)), this.alfa * this.e / 2);
@@ -3881,7 +3881,7 @@ function forward$10(p) {
     var lat = p.y;
     var delta_lon = adjust_lon(lon - this.long0);
     /* Transformation */
-    gfi = Math.pow(((1 + this.e * Math.sin(lat)) / (1 - this.e * Math.sin(lat))), (this.alfa * this.e / 2));
+    gfi = Math.pow((1 + this.e * Math.sin(lat)) / (1 - this.e * Math.sin(lat)), this.alfa * this.e / 2);
     u = 2 * (Math.atan(this.k * Math.pow(Math.tan(lat / 2 + this.s45), this.alfa) / gfi) - this.s45);
     deltav = -delta_lon * this.alfa;
     s = Math.asin(Math.cos(this.ad) * Math.sin(u) + Math.sin(this.ad) * Math.cos(u) * Math.cos(deltav));
@@ -3895,7 +3895,7 @@ function forward$10(p) {
         p.y *= -1;
         p.x *= -1;
     }
-    return (p);
+    return p;
 }
 
 /* calculate lat/lon from xy */
@@ -3934,7 +3934,7 @@ function inverse$10(p) {
         return null;
     }
 
-    return (p);
+    return p;
 }
 
 var names$12 = ["Krovak", "krovak"];
@@ -3946,23 +3946,23 @@ var krovak = {
 };
 
 var mlfn = function (e0, e1, e2, e3, phi) {
-    return (e0 * phi - e1 * Math.sin(2 * phi) + e2 * Math.sin(4 * phi) - e3 * Math.sin(6 * phi));
+    return e0 * phi - e1 * Math.sin(2 * phi) + e2 * Math.sin(4 * phi) - e3 * Math.sin(6 * phi);
 };
 
 var e0fn = function (x) {
-    return (1 - 0.25 * x * (1 + x / 16 * (3 + 1.25 * x)));
+    return 1 - 0.25 * x * (1 + x / 16 * (3 + 1.25 * x));
 };
 
 var e1fn = function (x) {
-    return (0.375 * x * (1 + 0.25 * x * (1 + 0.46875 * x)));
+    return 0.375 * x * (1 + 0.25 * x * (1 + 0.46875 * x));
 };
 
 var e2fn = function (x) {
-    return (0.05859375 * x * x * (1 + 0.75 * x));
+    return 0.05859375 * x * x * (1 + 0.75 * x);
 };
 
 var e3fn = function (x) {
-    return (x * x * x * (35 / 3072));
+    return x * x * x * (35 / 3072);
 };
 
 var gN = function (a, e, sinphi) {
@@ -3971,7 +3971,7 @@ var gN = function (a, e, sinphi) {
 };
 
 var adjust_lat = function (x) {
-    return (Math.abs(x) < HALF_PI) ? x : (x - (sign(x) * Math.PI));
+    return Math.abs(x) < HALF_PI ? x : x - sign(x) * Math.PI;
 };
 
 var imlfn = function (ml, e0, e1, e2, e3) {
@@ -4093,10 +4093,10 @@ var qsfnz = function (eccent, sinphi) {
     var con;
     if (eccent > 1.0e-7) {
         con = eccent * sinphi;
-        return ((1 - eccent * eccent) * (sinphi / (1 - con * con) - (0.5 / eccent) * Math.log((1 - con) / (1 + con))));
+        return (1 - eccent * eccent) * (sinphi / (1 - con * con) - 0.5 / eccent * Math.log((1 - con) / (1 + con)));
     }
     else {
-        return (2 * sinphi);
+        return 2 * sinphi;
     }
 };
 
@@ -4179,13 +4179,13 @@ function forward$12(p) {
         cosphi = Math.cos(phi);
         coslam = Math.cos(lam);
         if (this.mode === this.OBLIQ || this.mode === this.EQUIT) {
-            y = (this.mode === this.EQUIT) ? 1 + cosphi * coslam : 1 + this.sinph0 * sinphi + this.cosph0 * cosphi * coslam;
+            y = this.mode === this.EQUIT ? 1 + cosphi * coslam : 1 + this.sinph0 * sinphi + this.cosph0 * cosphi * coslam;
             if (y <= EPSLN) {
                 return null;
             }
             y = Math.sqrt(2 / y);
             x = y * cosphi * Math.sin(lam);
-            y *= (this.mode === this.EQUIT) ? sinphi : this.cosph0 * sinphi - this.sinph0 * cosphi * coslam;
+            y *= this.mode === this.EQUIT ? sinphi : this.cosph0 * sinphi - this.sinph0 * cosphi * coslam;
         }
         else if (this.mode === this.N_POLE || this.mode === this.S_POLE) {
             if (this.mode === this.N_POLE) {
@@ -4195,7 +4195,7 @@ function forward$12(p) {
                 return null;
             }
             y = FORTPI - phi * 0.5;
-            y = 2 * ((this.mode === this.S_POLE) ? Math.cos(y) : Math.sin(y));
+            y = 2 * (this.mode === this.S_POLE ? Math.cos(y) : Math.sin(y));
             x = y * Math.sin(lam);
             y *= coslam;
         }
@@ -4247,7 +4247,7 @@ function forward$12(p) {
             case this.S_POLE:
                 if (q >= 0) {
                     x = (b = Math.sqrt(q)) * sinlam;
-                    y = coslam * ((this.mode === this.S_POLE) ? b : -b);
+                    y = coslam * (this.mode === this.S_POLE ? b : -b);
                 }
                 else {
                     x = y = 0;
@@ -4285,12 +4285,12 @@ function inverse$12(p) {
         }
         switch (this.mode) {
             case this.EQUIT:
-                phi = (Math.abs(rh) <= EPSLN) ? 0 : Math.asin(y * sinz / rh);
+                phi = Math.abs(rh) <= EPSLN ? 0 : Math.asin(y * sinz / rh);
                 x *= sinz;
                 y = cosz * rh;
                 break;
             case this.OBLIQ:
-                phi = (Math.abs(rh) <= EPSLN) ? this.phi0 : Math.asin(cosz * this.sinph0 + y * sinz * this.cosph0 / rh);
+                phi = Math.abs(rh) <= EPSLN ? this.phi0 : Math.asin(cosz * this.sinph0 + y * sinz * this.cosph0 / rh);
                 x *= sinz * this.cosph0;
                 y = (cosz - Math.sin(phi) * this.sinph0) * rh;
                 break;
@@ -4302,7 +4302,7 @@ function inverse$12(p) {
                 phi -= HALF_PI;
                 break;
         }
-        lam = (y === 0 && (this.mode === this.EQUIT || this.mode === this.OBLIQ)) ? 0 : Math.atan2(x, y);
+        lam = y === 0 && (this.mode === this.EQUIT || this.mode === this.OBLIQ) ? 0 : Math.atan2(x, y);
     }
     else {
         ab = 0;
@@ -4317,7 +4317,7 @@ function inverse$12(p) {
             }
             sCe = 2 * Math.asin(0.5 * rho / this.rq);
             cCe = Math.cos(sCe);
-            x *= (sCe = Math.sin(sCe));
+            x *= sCe = Math.sin(sCe);
             if (this.mode === this.OBLIQ) {
                 ab = cCe * this.sinb1 + y * sCe * this.cosb1 / rho;
                 q = this.qp * ab;
@@ -4333,7 +4333,7 @@ function inverse$12(p) {
             if (this.mode === this.N_POLE) {
                 y = -y;
             }
-            q = (x * x + y * y);
+            q = x * x + y * y;
             if (!q) {
                 p.x = 0;
                 p.y = this.phi0;
@@ -4378,7 +4378,7 @@ function authset(es) {
 
 function authlat(beta, APA) {
     var t = beta + beta;
-    return (beta + APA[0] * Math.sin(t) + APA[1] * Math.sin(t + t) + APA[2] * Math.sin(t + t + t));
+    return beta + APA[0] * Math.sin(t) + APA[1] * Math.sin(t + t) + APA[2] * Math.sin(t + t + t);
 }
 
 var names$14 = ["Lambert Azimuthal Equal Area", "Lambert_Azimuthal_Equal_Area", "laea"];
@@ -4395,7 +4395,7 @@ var laea = {
 
 var asinz = function (x) {
     if (Math.abs(x) > 1) {
-        x = (x > 1) ? 1 : -1;
+        x = x > 1 ? 1 : -1;
     }
     return Math.asin(x);
 };
@@ -4562,7 +4562,7 @@ function forward$14(p) {
     coslon = Math.cos(dlon);
     g = this.sin_p14 * sinphi + this.cos_p14 * cosphi * coslon;
     ksp = 1;
-    if ((g > 0) || (Math.abs(g) <= EPSLN)) {
+    if (g > 0 || Math.abs(g) <= EPSLN) {
         x = this.x0 + this.a * ksp * cosphi * Math.sin(dlon) / g;
         y = this.y0 + this.a * ksp * (this.cos_p14 * sinphi - this.sin_p14 * cosphi * coslon) / g;
     }
@@ -4598,12 +4598,12 @@ function inverse$14(p) {
     p.x /= this.k0;
     p.y /= this.k0;
 
-    if ((rh = Math.sqrt(p.x * p.x + p.y * p.y))) {
+    if (rh = Math.sqrt(p.x * p.x + p.y * p.y)) {
         c = Math.atan2(rh, this.rc);
         sinc = Math.sin(c);
         cosc = Math.cos(c);
 
-        lat = asinz(cosc * this.sin_p14 + (p.y * sinc * this.cos_p14) / rh);
+        lat = asinz(cosc * this.sin_p14 + p.y * sinc * this.cos_p14 / rh);
         lon = Math.atan2(p.x * sinc, rh * this.cos_p14 * cosc - p.y * this.sin_p14 * sinc);
         lon = adjust_lon(this.long0 + lon);
     }
@@ -4629,7 +4629,7 @@ var iqsfnz = function (eccent, q) {
     var temp = 1 - (1 - eccent * eccent) / (2 * eccent) * Math.log((1 - eccent) / (1 + eccent));
     if (Math.abs(Math.abs(q) - temp) < 1.0E-6) {
         if (q < 0) {
-            return (-1 * HALF_PI);
+            return -1 * HALF_PI;
         }
         else {
             return HALF_PI;
@@ -4701,8 +4701,8 @@ function inverse$15(p) {
     var lon, lat;
 
     if (this.sphere) {
-        lon = adjust_lon(this.long0 + (p.x / this.a) / Math.cos(this.lat_ts));
-        lat = Math.asin((p.y / this.a) * Math.cos(this.lat_ts));
+        lon = adjust_lon(this.long0 + p.x / this.a / Math.cos(this.lat_ts));
+        lat = Math.asin(p.y / this.a * Math.cos(this.lat_ts));
     }
     else {
         lat = iqsfnz(this.e, 2 * p.y * this.k0 / this.a);
@@ -4743,8 +4743,8 @@ function forward$16(p) {
 
     var dlon = adjust_lon(lon - this.long0);
     var dlat = adjust_lat(lat - this.lat0);
-    p.x = this.x0 + (this.a * dlon * this.rc);
-    p.y = this.y0 + (this.a * dlat);
+    p.x = this.x0 + this.a * dlon * this.rc;
+    p.y = this.y0 + this.a * dlat;
     return p;
 }
 
@@ -4755,8 +4755,8 @@ function inverse$16(p) {
     var x = p.x;
     var y = p.y;
 
-    p.x = adjust_lon(this.long0 + ((x - this.x0) / (this.a * this.rc)));
-    p.y = adjust_lat(this.lat0 + ((y - this.y0) / (this.a)));
+    p.x = adjust_lon(this.long0 + (x - this.x0) / (this.a * this.rc));
+    p.y = adjust_lat(this.lat0 + (y - this.y0) / this.a);
     return p;
 }
 
@@ -4846,7 +4846,7 @@ function inverse$17(p) {
                     break;
                 }
             }
-            lon = adjust_lon(this.long0 + (Math.asin(x * Math.tan(phi) / this.a)) / Math.sin(lat));
+            lon = adjust_lon(this.long0 + Math.asin(x * Math.tan(phi) / this.a) / Math.sin(lat));
         }
     }
     else {
@@ -5011,8 +5011,8 @@ function forward$18(p) {
     }
 
     // 4. Calculate easting and northing
-    p.x = (z_im * this.a) + this.x0;
-    p.y = (z_re * this.a) + this.y0;
+    p.x = z_im * this.a + this.x0;
+    p.y = z_re * this.a + this.y0;
 
     return p;
 }
@@ -5102,7 +5102,7 @@ function inverse$18(p) {
 
     // 4. Calculate latitude and longitude
     // d_phi is calcuated in second of arc * 10^-5, so we need to scale back to radians. d_lambda is in radians.
-    var lat = this.lat0 + (d_phi * SEC_TO_RAD * 1E5);
+    var lat = this.lat0 + d_phi * SEC_TO_RAD * 1E5;
     var lon = this.long0 + d_lambda;
 
     p.x = lon;
@@ -5141,7 +5141,7 @@ function forward$19(p) {
      -----------------*/
     var dlon = adjust_lon(lon - this.long0);
     var x = this.x0 + this.a * dlon;
-    var y = this.y0 + this.a * Math.log(Math.tan((Math.PI / 4) + (lat / 2.5))) * 1.25;
+    var y = this.y0 + this.a * Math.log(Math.tan(Math.PI / 4 + lat / 2.5)) * 1.25;
 
     p.x = x;
     p.y = y;
@@ -5259,7 +5259,7 @@ function inverse$20(p) {
             //temp = this.long0 + p.x / (this.a * Math.cos(lat));
             lon = adjust_lon(temp);
         }
-        else if ((s - EPSLN) < HALF_PI) {
+        else if (s - EPSLN < HALF_PI) {
             lon = this.long0;
         }
     }
@@ -5332,8 +5332,8 @@ function inverse$21(p) {
         arg = 0.999999999999;
     }
     theta = Math.asin(arg);
-    var lon = adjust_lon(this.long0 + (p.x / (0.900316316158 * this.a * Math.cos(theta))));
-    if (lon < (-Math.PI)) {
+    var lon = adjust_lon(this.long0 + p.x / (0.900316316158 * this.a * Math.cos(theta)));
+    if (lon < -Math.PI) {
         lon = -Math.PI;
     }
     if (lon > Math.PI) {
@@ -5487,7 +5487,7 @@ function forward$23(p) {
         y = this.y0;
     }
     var theta = asinz(2 * Math.abs(lat / Math.PI));
-    if ((Math.abs(dlon) <= EPSLN) || (Math.abs(Math.abs(lat) - HALF_PI) <= EPSLN)) {
+    if (Math.abs(dlon) <= EPSLN || Math.abs(Math.abs(lat) - HALF_PI) <= EPSLN) {
         x = this.x0;
         if (lat >= 0) {
             y = this.y0 + Math.PI * this.R * Math.tan(0.5 * theta);
@@ -5497,7 +5497,7 @@ function forward$23(p) {
         }
         //  return(OK);
     }
-    var al = 0.5 * Math.abs((Math.PI / dlon) - (dlon / Math.PI));
+    var al = 0.5 * Math.abs(Math.PI / dlon - dlon / Math.PI);
     var asq = al * al;
     var sinth = Math.sin(theta);
     var costh = Math.cos(theta);
@@ -5552,7 +5552,7 @@ function inverse$23(p) {
     d = yy * yy / c3 + (2 * c2 * c2 * c2 / c3 / c3 / c3 - 9 * c1 * c2 / c3 / c3) / 27;
     a1 = (c1 - c2 * c2 / 3 / c3) / c3;
     m1 = 2 * Math.sqrt(-a1 / 3);
-    con = ((3 * d) / a1) / m1;
+    con = 3 * d / a1 / m1;
     if (Math.abs(con) > 1) {
         if (con >= 0) {
             con = 1;
@@ -5685,7 +5685,7 @@ function inverse$24(p) {
     var rh, z, sinz, cosz, lon, lat, con, e0, e1, e2, e3, Mlp, M, N1, psi, Az, cosAz, tmp, A, B, D, Ee, F;
     if (this.sphere) {
         rh = Math.sqrt(p.x * p.x + p.y * p.y);
-        if (rh > (2 * HALF_PI * this.a)) {
+        if (rh > 2 * HALF_PI * this.a) {
             return;
         }
         z = rh / this.a;
@@ -5698,7 +5698,7 @@ function inverse$24(p) {
             lat = this.lat0;
         }
         else {
-            lat = asinz(cosz * this.sin_p12 + (p.y * sinz * this.cos_p12) / rh);
+            lat = asinz(cosz * this.sin_p12 + p.y * sinz * this.cos_p12 / rh);
             con = Math.abs(this.lat0) - HALF_PI;
             if (Math.abs(con) <= EPSLN) {
                 if (this.lat0 >= 0) {
@@ -5812,7 +5812,7 @@ function forward$25(p) {
     coslon = Math.cos(dlon);
     g = this.sin_p14 * sinphi + this.cos_p14 * cosphi * coslon;
     ksp = 1;
-    if ((g > 0) || (Math.abs(g) <= EPSLN)) {
+    if (g > 0 || Math.abs(g) <= EPSLN) {
         x = this.a * ksp * cosphi * Math.sin(dlon);
         y = this.y0 + this.a * ksp * (this.cos_p14 * sinphi - this.sin_p14 * cosphi * coslon);
     }
@@ -5844,7 +5844,7 @@ function inverse$25(p) {
         p.y = lat;
         return p;
     }
-    lat = asinz(cosz * this.sin_p14 + (p.y * sinz * this.cos_p14) / rh);
+    lat = asinz(cosz * this.sin_p14 + p.y * sinz * this.cos_p14 / rh);
     con = Math.abs(this.lat0) - HALF_PI;
     if (Math.abs(con) <= EPSLN) {
         if (this.lat0 >= 0) {
@@ -5857,7 +5857,7 @@ function inverse$25(p) {
         p.y = lat;
         return p;
     }
-    lon = adjust_lon(this.long0 + Math.atan2((p.x * sinz), rh * this.cos_p14 * cosz - p.y * this.sin_p14 * sinz));
+    lon = adjust_lon(this.long0 + Math.atan2(p.x * sinz, rh * this.cos_p14 * cosz - p.y * this.sin_p14 * sinz));
     p.x = lon;
     p.y = lat;
     return p;

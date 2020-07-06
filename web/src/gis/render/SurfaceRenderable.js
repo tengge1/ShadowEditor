@@ -29,7 +29,7 @@ import UnsupportedOperationError from '../error/UnsupportedOperationError';
  * @classdesc Represents a surface renderable.
  * This is an interface class and is not meant to be instantiated directly.
  */
-var SurfaceRenderable = function () {
+function SurfaceRenderable() {
 
     /**
      * This surface renderable's display name.
@@ -47,7 +47,7 @@ var SurfaceRenderable = function () {
 
     throw new UnsupportedOperationError(
         Logger.logMessage(Logger.LEVEL_SEVERE, "SurfaceRenderable", "constructor", "abstractInvocation"));
-};
+}
 
 /**
  * Renders this surface renderable.

@@ -43,7 +43,7 @@ import SurfaceShape from '../shapes/SurfaceShape';
  * attributes must be set directly before the shape is drawn.
  * @throws {ArgumentError} If the specified locations are null or undefined.
  */
-var SurfacePolyline = function (locations, attributes) {
+function SurfacePolyline(locations, attributes) {
     if (!locations) {
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "SurfacePolyline", "constructor",
@@ -62,7 +62,7 @@ var SurfacePolyline = function (locations, attributes) {
 
     // Internal use only.
     this._isInteriorInhibited = true;
-};
+}
 
 SurfacePolyline.prototype = Object.create(SurfaceShape.prototype);
 

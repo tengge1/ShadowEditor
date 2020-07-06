@@ -28,7 +28,7 @@ import Logger from '../util/Logger';
  * @param {Number} right The inset from the right.
  * @constructor
  */
-var Insets = function (top, left, bottom, right) {
+function Insets(top, left, bottom, right) {
 
     if (arguments.length !== 4) {
         throw new ArgumentError(
@@ -40,7 +40,7 @@ var Insets = function (top, left, bottom, right) {
     this._left = left;
     this._bottom = bottom;
     this._right = right;
-};
+}
 
 /**
  * Set top, left, bottom, and right to the specified values.

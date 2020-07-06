@@ -52,7 +52,7 @@ import WWMath from '../util/WWMath';
  * @throws {ArgumentError} If the specified center location is null or undefined or if either specified width
  * or height is negative.
  */
-var SurfaceRectangle = function (center, width, height, heading, attributes) {
+function SurfaceRectangle(center, width, height, heading, attributes) {
     if (!center) {
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "SurfaceRectangle", "constructor", "missingLocation"));
@@ -70,7 +70,7 @@ var SurfaceRectangle = function (center, width, height, heading, attributes) {
     this._width = width;
     this._height = height;
     this._heading = heading;
-};
+}
 
 SurfaceRectangle.prototype = Object.create(SurfaceShape.prototype);
 
@@ -177,7 +177,7 @@ SurfaceRectangle.prototype.addLocation = function (idx, xLength, yLength, globeR
     var distance = Math.sqrt(xLength * xLength + yLength * yLength);
 
     // azimuth runs positive clockwise from north and through 360 degrees.
-    var azimuth = (Math.PI / 2.0) - (Math.acos(xLength / distance) * WWMath.signum(yLength) - this.heading * Angle.DEGREES_TO_RADIANS);
+    var azimuth = Math.PI / 2.0 - (Math.acos(xLength / distance) * WWMath.signum(yLength) - this.heading * Angle.DEGREES_TO_RADIANS);
 
     this._boundaries[idx] = Location.greatCircleLocation(this.center, azimuth * Angle.RADIANS_TO_DEGREES,
         distance / globeRadius, new Location(0, 0));

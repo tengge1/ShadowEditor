@@ -31,7 +31,7 @@ import SurfaceTileRendererProgram from '../shaders/SurfaceTileRendererProgram';
  * @classdesc This class is responsible for rendering imagery onto the terrain.
  * It is meant to be used internally. Applications typically do not interact with this class.
  */
-var SurfaceTileRenderer = function () {
+function SurfaceTileRenderer() {
 
     // Scratch values to avoid constantly recreating these matrices.
     this.texMaskMatrix = Matrix.fromIdentity();
@@ -39,7 +39,7 @@ var SurfaceTileRenderer = function () {
 
     // Internal. Intentionally not documented.
     this.isSurfaceShapeTileRendering = false;
-};
+}
 
 /**
  * Render a specified collection of surface tiles.

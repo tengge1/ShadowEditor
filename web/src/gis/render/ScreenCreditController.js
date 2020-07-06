@@ -33,7 +33,7 @@ import ScreenText from '../shapes/ScreenText';
  * @augments Layer
  * @classdesc Collects and displays screen credits.
  */
-var ScreenCreditController = function () {
+function ScreenCreditController() {
     Layer.call(this, "ScreenCreditController");
 
     /**
@@ -55,7 +55,7 @@ var ScreenCreditController = function () {
 
     // Internal. Intentionally not documented.
     this.credits = [];
-};
+}
 
 ScreenCreditController.prototype = Object.create(Layer.prototype);
 

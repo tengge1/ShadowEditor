@@ -31,7 +31,7 @@
  * @param {Layer} parentLayer The layer containing the picked object.
  * @param {Boolean} isTerrain true if the picked object is terrain, otherwise false.
  */
-var PickedObject = function (color, userObject, position, parentLayer, isTerrain) {
+function PickedObject(color, userObject, position, parentLayer, isTerrain) {
 
     /**
      * This picked object's pick color.
@@ -73,6 +73,6 @@ var PickedObject = function (color, userObject, position, parentLayer, isTerrain
      * @type {boolean}
      */
     this.isOnTop = false;
-};
+}
 
 export default PickedObject;

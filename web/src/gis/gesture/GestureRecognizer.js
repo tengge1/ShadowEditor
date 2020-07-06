@@ -39,7 +39,7 @@ import Touch from '../gesture/Touch';
  * @throws {ArgumentError} If the specified target is null or undefined.
  */
 // TODO: evaluate target usage
-var GestureRecognizer = function (target, callback) {
+function GestureRecognizer(target, callback) {
     if (!target) {
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "GestureRecognizer", "constructor", "missingTarget"));
@@ -121,7 +121,7 @@ var GestureRecognizer = function (target, callback) {
 
     // Add this recognizer to the list of all recognizers.
     GestureRecognizer.allRecognizers.push(this);
-};
+}
 
 // Intentionally not documented.
 GestureRecognizer.allRecognizers = [];
@@ -617,7 +617,7 @@ GestureRecognizer.prototype.handleMouseDown = function (event) {
         return; // ignore synthesized mouse down events on Android Chrome
     }
 
-    var buttonBit = (1 << event.button);
+    var buttonBit = 1 << event.button;
     if (buttonBit & this._mouseButtonMask != 0) {
         return; // ignore redundant mouse down events
     }
@@ -657,7 +657,7 @@ GestureRecognizer.prototype.handleMouseMove = function (event) {
 
 // Intentionally not documented.
 GestureRecognizer.prototype.handleMouseUp = function (event) {
-    var buttonBit = (1 << event.button);
+    var buttonBit = 1 << event.button;
     if (buttonBit & this._mouseButtonMask == 0) {
         return; // ignore mouse up events for buttons this recognizer does not consider to be down
     }

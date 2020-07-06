@@ -52,7 +52,7 @@ import WWMath from '../util/WWMath';
  * @throws {ArgumentError} If the specified center location is null or undefined or if either specified radii
  * is negative.
  */
-var SurfaceEllipse = function (center, majorRadius, minorRadius, heading, attributes) {
+function SurfaceEllipse(center, majorRadius, minorRadius, heading, attributes) {
     if (!center) {
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "SurfaceEllipse", "constructor", "missingLocation"));
@@ -71,7 +71,7 @@ var SurfaceEllipse = function (center, majorRadius, minorRadius, heading, attrib
     this._minorRadius = minorRadius;
     this._heading = heading;
     this._intervals = SurfaceEllipse.DEFAULT_NUM_INTERVALS;
-};
+}
 
 SurfaceEllipse.prototype = Object.create(SurfaceShape.prototype);
 
@@ -184,19 +184,19 @@ SurfaceEllipse.prototype.computeBoundaries = function (dc) {
 
     var globe = dc.globe,
         numLocations = 1 + Math.max(SurfaceEllipse.MIN_NUM_INTERVALS, this.intervals),
-        da = (2 * Math.PI) / (numLocations - 1),
+        da = 2 * Math.PI / (numLocations - 1),
         globeRadius = globe.radiusAt(this.center.latitude, this.center.longitude);
 
     this._boundaries = new Array(numLocations);
 
     for (var i = 0; i < numLocations; i++) {
-        var angle = (i != numLocations - 1) ? i * da : 0,
+        var angle = i != numLocations - 1 ? i * da : 0,
             xLength = this.majorRadius * Math.cos(angle),
             yLength = this.minorRadius * Math.sin(angle),
             distance = Math.sqrt(xLength * xLength + yLength * yLength);
 
         // azimuth runs positive clockwise from north and through 360 degrees.
-        var azimuth = (Math.PI / 2.0) -
+        var azimuth = Math.PI / 2.0 -
             (Math.acos(xLength / distance) * WWMath.signum(yLength) - this.heading * Angle.DEGREES_TO_RADIANS);
 
         this._boundaries[i] = Location.greatCircleLocation(this.center, azimuth * Angle.RADIANS_TO_DEGREES,

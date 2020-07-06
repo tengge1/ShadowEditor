@@ -32,7 +32,7 @@ import GestureRecognizer from '../gesture/GestureRecognizer';
  * e.g., <code>gestureCallback(recognizer)</code>.
  * @throws {ArgumentError} If the specified target is null or undefined.
  */
-var ClickRecognizer = function (target, callback) {
+function ClickRecognizer(target, callback) {
     GestureRecognizer.call(this, target, callback);
 
     /**
@@ -61,7 +61,7 @@ var ClickRecognizer = function (target, callback) {
 
     // Intentionally not documented.
     this.timeout = null;
-};
+}
 
 ClickRecognizer.prototype = Object.create(GestureRecognizer.prototype);
 

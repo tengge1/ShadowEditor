@@ -35,7 +35,7 @@ import Logger from '../util/Logger';
  * @throws {ArgumentError} If the specified intervalString is null, undefined or not a valid time interval
  * string.
  */
-var PeriodicTimeSequence = function (sequenceString) {
+function PeriodicTimeSequence(sequenceString) {
     if (!sequenceString) {
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "PeriodicTimeSequence", "constructor", "missingString"));
@@ -85,7 +85,7 @@ var PeriodicTimeSequence = function (sequenceString) {
     // Intentionally not documented. The array of sequence increments:
     // year, month, week, day, hours, minutes, seconds
     this.period = PeriodicTimeSequence.parsePeriodString(intervalParts[2], false);
-};
+}
 
 Object.defineProperties(PeriodicTimeSequence.prototype, {
     /**
@@ -130,7 +130,7 @@ Object.defineProperties(PeriodicTimeSequence.prototype, {
 PeriodicTimeSequence.prototype.next = function () {
     if (!this.currentTime) {
         this.currentTime = this.startTime;
-    } else if ((this.currentTime.getTime() >= this.endTime.getTime()) && !this.infiniteInterval) {
+    } else if (this.currentTime.getTime() >= this.endTime.getTime() && !this.infiniteInterval) {
         this.currentTime = null;
     } else {
         this.currentTime = PeriodicTimeSequence.incrementTime(this.currentTime, this.period);
@@ -231,12 +231,12 @@ PeriodicTimeSequence.incrementTime = function (currentTime, period) {
 
 // Intentionally not documented.
 PeriodicTimeSequence.isLeapYear = function (year) {
-    return (((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0));
+    return year % 4 === 0 && year % 100 !== 0 || year % 400 === 0;
 };
 
 // Intentionally not documented.
 PeriodicTimeSequence.getDaysInMonth = function (year, month) {
-    return [31, (PeriodicTimeSequence.isLeapYear(year) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
+    return [31, PeriodicTimeSequence.isLeapYear(year) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
 };
 
 // Intentionally not documented.
@@ -267,7 +267,7 @@ PeriodicTimeSequence.parsePeriodString = function (period, distributeOverflow) {
     // | PT1M              | 3Y6M4D |      |      |      |      | T1M        |      | 1M   |      |
     // --------------------------------------------------------------------------------------------
 
-    var _distributeOverflow = (distributeOverflow) ? distributeOverflow : false;
+    var _distributeOverflow = distributeOverflow ? distributeOverflow : false;
     var valueIndexes = [2, 3, 4, 5, 7, 8, 9];
     var duration = [0, 0, 0, 0, 0, 0, 0];
     var overflowLimits = [0, 12, 4, 7, 24, 60, 60];

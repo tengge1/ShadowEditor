@@ -35,7 +35,7 @@ import WWMath from '../util/WWMath';
  * @param {String} pole Indicates the north or south aspect. Specify "North" for the north aspect or "South"
  * for the south aspect.
  */
-var ProjectionUPS = function (pole) {
+function ProjectionUPS(pole) {
 
     // Internal. Intentionally not documented.
     this.north = !(pole === "South");
@@ -52,7 +52,7 @@ var ProjectionUPS = function (pole) {
 
     // Internal. Intentionally not documented. See "stateKey" property accessor below for public interface.
     this._stateKey = "projection ups " + this._pole + " ";
-};
+}
 
 ProjectionUPS.prototype = Object.create(GeographicProjection.prototype);
 
@@ -105,7 +105,7 @@ ProjectionUPS.prototype.geographicToCartesian = function (globe, latitude, longi
 
     // Formulas taken from "Map Projections -- A Working Manual", Snyder, USGS paper 1395, pg. 161.
 
-    if ((this.north && latitude === 90) || (!this.north && latitude === -90)) {
+    if (this.north && latitude === 90 || !this.north && latitude === -90) {
         result[0] = 0;
         result[1] = 0;
         result[2] = elevation;
@@ -118,12 +118,12 @@ ProjectionUPS.prototype.geographicToCartesian = function (globe, latitude, longi
             s = Math.sqrt(Math.pow(1 + ecc, 1 + ecc) * Math.pow(1 - ecc, 1 - ecc)),
             sp, t, r;
 
-        if ((this.north && lat < 0) || (!this.north && lat > 0)) {
+        if (this.north && lat < 0 || !this.north && lat > 0) {
             lat = 0;
         }
 
         sp = Math.sin(lat * poleFactor);
-        t = Math.sqrt(((1 - sp) / (1 + sp)) * Math.pow((1 + ecc * sp) / (1 - ecc * sp), ecc));
+        t = Math.sqrt((1 - sp) / (1 + sp) * Math.pow((1 + ecc * sp) / (1 - ecc * sp), ecc));
         r = 2 * globe.equatorialRadius * k0 * t / s;
 
         result[0] = r * Math.sin(lon);
@@ -189,7 +189,7 @@ ProjectionUPS.prototype.geographicToCartesianGrid = function (globe, sector, num
         // Latitude is constant for each row. Values that are a function of latitude can be computed once per row.
         clampedLat = WWMath.clamp(lat, minLatLimit, maxLatLimit);
         sp = Math.sin(clampedLat * poleFactor);
-        t = Math.sqrt(((1 - sp) / (1 + sp)) * Math.pow((1 + ecc * sp) / (1 - ecc * sp), ecc));
+        t = Math.sqrt((1 - sp) / (1 + sp) * Math.pow((1 + ecc * sp) / (1 - ecc * sp), ecc));
         r = 2 * eqr * k0 * t / s;
 
         for (lonIndex = 0, lon = minLon; lonIndex < numLon; lonIndex++, lon += deltaLon) {

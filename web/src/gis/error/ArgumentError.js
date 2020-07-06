@@ -28,7 +28,7 @@ import AbstractError from '../error/AbstractError';
  * @augments AbstractError
  * @param {String} message The message.
  */
-var ArgumentError = function (message) {
+function ArgumentError(message) {
     AbstractError.call(this, "ArgumentError", message);
 
     var stack;
@@ -39,7 +39,7 @@ var ArgumentError = function (message) {
         stack = e.stack;
     }
     this.stack = stack;
-};
+}
 
 ArgumentError.prototype = Object.create(AbstractError.prototype);
 

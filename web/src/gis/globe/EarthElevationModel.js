@@ -29,14 +29,14 @@ import UsgsNedHiElevationCoverage from '../globe/UsgsNedHiElevationCoverage';
  * @alias EarthElevationModel
  * @constructor
  */
-var EarthElevationModel = function () {
+function EarthElevationModel() {
     ElevationModel.call(this);
 
     this.addCoverage(new GebcoElevationCoverage());
     this.addCoverage(new AsterV2ElevationCoverage());
     this.addCoverage(new UsgsNedElevationCoverage());
     this.addCoverage(new UsgsNedHiElevationCoverage());
-};
+}
 
 EarthElevationModel.prototype = Object.create(ElevationModel.prototype);
 

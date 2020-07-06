@@ -29,7 +29,7 @@ import WmsUrlBuilder from '../util/WmsUrlBuilder';
  * @augments TiledElevationCoverage
  * @classdesc Provides elevations for Earth. Elevations are drawn from the NASA WorldWind elevation service.
  */
-var AsterV2ElevationCoverage = function () {
+function AsterV2ElevationCoverage() {
     TiledElevationCoverage.call(this, {
         coverageSector: new Sector(-83.0001, 83.0001, -180, 180),
         resolution: 0.000277777777778,
@@ -40,7 +40,7 @@ var AsterV2ElevationCoverage = function () {
     });
 
     this.displayName = "ASTER V2 Earth Elevation Coverage";
-};
+}
 
 AsterV2ElevationCoverage.prototype = Object.create(TiledElevationCoverage.prototype);
 

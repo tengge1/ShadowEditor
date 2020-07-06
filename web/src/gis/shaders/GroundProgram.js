@@ -36,7 +36,7 @@ import AtmosphereProgram from '../shaders/AtmosphereProgram';
  * @throws {ArgumentError} If the shaders cannot be compiled, or linking of
  * the compiled shaders into a program fails.
  */
-var GroundProgram = function (gl) {
+function GroundProgram(gl) {
     var vertexShaderSource =
         'precision mediump int;\n' +
 
@@ -177,7 +177,7 @@ var GroundProgram = function (gl) {
 
     // Call to the superclass, which performs shader program compiling and linking.
     AtmosphereProgram.call(this, gl, vertexShaderSource, fragmentShaderSource, ["vertexPoint", "vertexTexCoord"]);
-};
+}
 
 /**
  * A string that uniquely identifies this program.

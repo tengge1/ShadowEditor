@@ -32,7 +32,7 @@ import Sector from '../geom/Sector';
  * meters, divide the number of meters by the globe's radius to obtain radians and convert the result to degrees.)
  * @throws {ArgumentError} If the resolution argument is null, undefined, or zero.
  */
-var ElevationCoverage = function (resolution) {
+function ElevationCoverage(resolution) {
     if (!resolution) {
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "ElevationCoverage", "constructor",
@@ -73,7 +73,7 @@ var ElevationCoverage = function (resolution) {
      * @readonly
      */
     this.coverageSector = Sector.FULL_SPHERE;
-};
+}
 
 Object.defineProperties(ElevationCoverage.prototype, {
     /**

@@ -39,7 +39,7 @@ import WWUtil from '../util/WWUtil';
  * @throws {ArgumentError} If the specified sector or level is null or undefined or the row or column arguments
  * are less than zero.
  */
-var Tile = function (sector, level, row, column) {
+function Tile(sector, level, row, column) {
     if (!sector) {
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "Tile", "constructor", "missingSector"));
@@ -144,7 +144,7 @@ var Tile = function (sector, level, row, column) {
 
     // Internal use only. Intentionally not documented.
     this.updateGlobeStateKey = null;
-};
+}
 
 /**
  * Indicates whether this tile is equivalent to a specified tile.

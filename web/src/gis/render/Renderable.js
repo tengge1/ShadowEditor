@@ -28,7 +28,7 @@ import UnsupportedOperationError from '../error/UnsupportedOperationError';
  * @classdesc Represents a shape or other object that can be rendered. This is an abstract class and is not
  * meant to be instantiated directly.
  */
-var Renderable = function () {
+function Renderable() {
 
     /**
      * The display name of the renderable.
@@ -60,7 +60,7 @@ var Renderable = function () {
      * @default An empty object
      */
     this.userProperties = {};
-};
+}
 
 /**
  * Render this renderable. Some shapes actually draw themselves during this call, others only add themselves

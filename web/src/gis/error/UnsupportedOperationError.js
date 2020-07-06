@@ -30,7 +30,7 @@ import AbstractError from '../error/AbstractError';
  * @augments AbstractError
  * @param {String} message The message.
  */
-var UnsupportedOperationError = function (message) {
+function UnsupportedOperationError(message) {
     AbstractError.call(this, "UnsupportedOperationError", message);
 
     var stack;
@@ -41,7 +41,7 @@ var UnsupportedOperationError = function (message) {
         stack = e.stack;
     }
     this.stack = stack;
-};
+}
 
 UnsupportedOperationError.prototype = Object.create(AbstractError.prototype);
 

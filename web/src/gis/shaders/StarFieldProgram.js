@@ -38,7 +38,7 @@ import Logger from '../util/Logger';
  * @throws {ArgumentError} If the shaders cannot be compiled, or linking of the compiled shaders into a program
  * fails.
  */
-var StarFieldProgram = function (gl) {
+function StarFieldProgram(gl) {
     var vertexShaderSource =
         //.x = declination
         //.y = right ascension
@@ -148,7 +148,7 @@ var StarFieldProgram = function (gl) {
      * @readonly
      */
     this.textureEnabledLocation = this.uniformLocation(gl, "textureEnabled");
-};
+}
 
 /**
  * A string that uniquely identifies this program.

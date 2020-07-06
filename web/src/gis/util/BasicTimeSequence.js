@@ -34,7 +34,7 @@ import Logger from '../util/Logger';
  * @throws {ArgumentError} If the specified dates array is null, undefined or has a length less than two.
  */
 
-var BasicTimeSequence = function (dates) {
+function BasicTimeSequence(dates) {
 
     if (!dates && dates.length < 2) {
         throw new ArgumentError(
@@ -60,7 +60,7 @@ var BasicTimeSequence = function (dates) {
      * @default This sequence's start time.
      */
     this.currentTime = dates[0];
-};
+}
 
 Object.defineProperties(BasicTimeSequence.prototype, {
     /**
@@ -77,7 +77,7 @@ Object.defineProperties(BasicTimeSequence.prototype, {
                 return 1;
             }
             else {
-                return (this.currentIndex / this.dates.length);
+                return this.currentIndex / this.dates.length;
             }
         }
     }

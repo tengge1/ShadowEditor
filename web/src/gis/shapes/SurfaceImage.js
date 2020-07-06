@@ -35,7 +35,7 @@ import SurfaceTile from '../render/SurfaceTile';
  * dynamically created image.
  * @throws {ArgumentError} If either the specified sector or image source is null or undefined.
  */
-var SurfaceImage = function (sector, imageSource) {
+function SurfaceImage(sector, imageSource) {
     if (!sector) {
         throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "SurfaceImage", "constructor",
             "missingSector"));
@@ -87,7 +87,7 @@ var SurfaceImage = function (sector, imageSource) {
 
     // Internal. Indicates whether the image needs to be updated in the GPU resource cache.
     this.imageSourceWasUpdated = true;
-};
+}
 
 SurfaceImage.prototype = Object.create(SurfaceTile.prototype);
 

@@ -31,7 +31,7 @@ import Offset from '../util/Offset';
  * @param {TextAttributes} attributes Attributes to initialize this attributes instance to. May be null,
  * in which case the new instance contains default attributes.
  */
-var TextAttributes = function (attributes) {
+function TextAttributes(attributes) {
     this._color = attributes ? attributes._color.clone() : Color.WHITE.clone();
     this._font = attributes ? attributes._font : new Font(14);
     this._offset = attributes ? attributes._offset
@@ -50,7 +50,7 @@ var TextAttributes = function (attributes) {
      * @protected
      */
     this.stateKeyInvalid = true;
-};
+}
 
 /**
  * Computes the state key for this attributes object. Subclasses that define additional attributes must

@@ -35,7 +35,7 @@ import Tile from '../util/Tile';
  * WorldWind shapes use this class internally to draw on the terrain surface. Applications typically do not
  * interact with this class.
  */
-var FramebufferTileController = function () {
+function FramebufferTileController() {
 
     /**
      * The width in pixels of framebuffers associated with this controller's tiles.
@@ -79,7 +79,7 @@ var FramebufferTileController = function () {
 
     // Internal. Intentionally not documented.
     this.key = "FramebufferTileController " + ++FramebufferTileController.keyPool;
-};
+}
 
 // Internal. Intentionally not documented.
 FramebufferTileController.keyPool = 0; // source of unique ids

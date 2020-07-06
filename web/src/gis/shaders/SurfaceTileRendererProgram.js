@@ -38,7 +38,7 @@ import Logger from '../util/Logger';
  * Application's typically do not interact with this class.
  * @param {WebGLRenderingContext} gl The current WebGL context.
  */
-var SurfaceTileRendererProgram = function (gl) {
+function SurfaceTileRendererProgram(gl) {
     var vertexShaderSource =
         'attribute vec4 vertexPoint;\n' +
         'attribute vec4 vertexTexCoord;\n' +
@@ -137,7 +137,7 @@ var SurfaceTileRendererProgram = function (gl) {
      * @readonly
      */
     this.vertexPointLocation = -1;
-};
+}
 
 /**
  * A string that uniquely identifies this program.

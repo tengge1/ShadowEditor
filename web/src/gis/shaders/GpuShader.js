@@ -37,7 +37,7 @@ import Logger from '../util/Logger';
  * @throws {ArgumentError} If the shader type is unrecognized, the shader source is null or undefined or shader
  * compilation fails. If the compilation fails the error thrown contains any compilation messages.
  */
-var GpuShader = function (gl, shaderType, shaderSource) {
+function GpuShader(gl, shaderType, shaderSource) {
     if (!(shaderType === gl.VERTEX_SHADER
         || shaderType === gl.FRAGMENT_SHADER)) {
         throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "GpuShader", "constructor",
@@ -66,7 +66,7 @@ var GpuShader = function (gl, shaderType, shaderSource) {
     }
 
     this.shaderId = shader;
-};
+}
 
 /**
  * Compiles the source code for this shader. This method is not meant to be invoked by applications. It is

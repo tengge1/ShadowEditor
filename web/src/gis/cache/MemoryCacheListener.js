@@ -27,7 +27,8 @@ import UnsupportedOperationError from '../error/UnsupportedOperationError';
  * @alias MemoryCacheListener
  * @constructor
  */
-var MemoryCacheListener = function () { };
+function MemoryCacheListener() { 
+}
 
 /**
  * Called when an entry is removed from the cache.

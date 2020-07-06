@@ -38,7 +38,7 @@ import Text from '../shapes/Text';
  * @param {String} text The text to display.
  * @throws {ArgumentError} If either the specified screen offset or text is null or undefined.
  */
-var ScreenText = function (screenOffset, text) {
+function ScreenText(screenOffset, text) {
     if (!screenOffset) {
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "Text", "constructor", "missingOffset"));
@@ -58,7 +58,7 @@ var ScreenText = function (screenOffset, text) {
      * Inherited from [Text]{@link Text#altitudeMode} but not utilized by screen text.
      */
     this.altitudeMode = null;
-};
+}
 
 ScreenText.prototype = Object.create(Text.prototype);
 

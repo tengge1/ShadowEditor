@@ -46,7 +46,7 @@ import WWMath from '../util/WWMath';
  * @param {ShapeAttributes} attributes The attributes to associate with this mesh. May be null, in which case
  * default attributes are associated.
  */
-var AbstractMesh = function (attributes) {
+function AbstractMesh(attributes) {
     AbstractShape.call(this, attributes);
 
     /**
@@ -61,7 +61,7 @@ var AbstractMesh = function (attributes) {
 
     // Private. Documentation is with the defined property below.
     this._altitudeScale = 1;
-};
+}
 
 AbstractMesh.prototype = Object.create(AbstractShape.prototype);
 
@@ -101,7 +101,7 @@ AbstractMesh.prototype.mustGenerateGeometry = function (dc) {
         return false;
     }
 
-    return this.currentData.isExpired
+    return this.currentData.isExpired;
 };
 
 // Overridden from AbstractShape base class.

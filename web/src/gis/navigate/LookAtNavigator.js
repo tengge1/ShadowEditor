@@ -29,7 +29,7 @@ import Navigator from '../navigate/Navigator';
  * @classdesc Represents a navigator containing the required variables to enable the user to pan, zoom and tilt
  * the globe.
  */
-var LookAtNavigator = function () {
+function LookAtNavigator() {
     Navigator.call(this);
 
     /**
@@ -47,7 +47,7 @@ var LookAtNavigator = function () {
 
     // Development testing only. Set this to false to suppress default navigator limits on 2D globes.
     this.enable2DLimits = true;
-};
+}
 
 LookAtNavigator.prototype = Object.create(Navigator.prototype);
 

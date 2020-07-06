@@ -30,7 +30,7 @@ import Logger from '../util/Logger';
  * @param {Number} blue The blue component, a number between 0 and 1.
  * @param {Number} alpha The alpha component, a number between 0 and 1.
  */
-var Color = function (red, green, blue, alpha) {
+function Color(red, green, blue, alpha) {
 
     /**
      * This color's red component, a number between 0 and 1.
@@ -55,7 +55,7 @@ var Color = function (red, green, blue, alpha) {
      * @type {Number}
      */
     this.alpha = alpha;
-};
+}
 
 /**
  * The color white.
@@ -326,11 +326,11 @@ Color.prototype.toHexString = function (isUsingAlpha) {
         alphaHex = Math.ceil(this.alpha * 255).toString(16);
 
     var result = "#";
-    result += (redHex.length < 2) ? ('0' + redHex) : redHex;
-    result += (greenHex.length < 2) ? ('0' + greenHex) : greenHex;
-    result += (blueHex.length < 2) ? ('0' + blueHex) : blueHex;
+    result += redHex.length < 2 ? '0' + redHex : redHex;
+    result += greenHex.length < 2 ? '0' + greenHex : greenHex;
+    result += blueHex.length < 2 ? '0' + blueHex : blueHex;
     if (isUsingAlpha) {
-        result += (alphaHex.length < 2) ? ('0' + alphaHex) : alphaHex;
+        result += alphaHex.length < 2 ? '0' + alphaHex : alphaHex;
     }
 
     return result;

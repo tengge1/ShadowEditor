@@ -32,7 +32,7 @@ import WWMath from '../util/WWMath';
  * @param {GLenum} wrapMode Optional. Specifies the wrap mode of the texture. Defaults to gl.CLAMP_TO_EDGE
  * @throws {ArgumentError} If the specified WebGL context or image is null or undefined.
  */
-var Texture = function (gl, image, wrapMode) {
+function Texture(gl, image, wrapMode) {
 
     if (!gl) {
         throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Texture", "constructor",
@@ -49,7 +49,7 @@ var Texture = function (gl, image, wrapMode) {
     }
 
     var textureId = gl.createTexture(),
-        isPowerOfTwo = (WWMath.isPowerOfTwo(image.width) && WWMath.isPowerOfTwo(image.height));
+        isPowerOfTwo = WWMath.isPowerOfTwo(image.width) && WWMath.isPowerOfTwo(image.height);
 
     this.originalImageWidth = image.width;
     this.originalImageHeight = image.height;
@@ -92,9 +92,9 @@ var Texture = function (gl, image, wrapMode) {
 
     // Internal use only. Intentionally not documented.
     // https://www.khronos.org/registry/webgl/extensions/EXT_texture_filter_anisotrop
-    this.anisotropicFilterExt = (gl.getExtension("EXT_texture_filter_anisotropic") ||
-        gl.getExtension("WEBKIT_EXT_texture_filter_anisotropic"));
-};
+    this.anisotropicFilterExt = gl.getExtension("EXT_texture_filter_anisotropic") ||
+        gl.getExtension("WEBKIT_EXT_texture_filter_anisotropic");
+}
 
 /**
  * Sets a texture parameter to apply when binding this texture.

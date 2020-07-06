@@ -33,10 +33,10 @@ import WWMath from '../util/WWMath';
  * @augments GeographicProjection
  * @classdesc Represents a Mercator geographic projection.
  */
-var ProjectionMercator = function () {
+function ProjectionMercator() {
 
     GeographicProjection.call(this, "Mercator", true, new Sector(-78, 78, -180, 180));
-};
+}
 
 ProjectionMercator.prototype = Object.create(GeographicProjection.prototype);
 
@@ -64,7 +64,7 @@ ProjectionMercator.prototype.geographicToCartesian = function (globe, latitude, 
 
     var ecc = Math.sqrt(globe.eccentricitySquared),
         sinLat = Math.sin(latitude * Angle.DEGREES_TO_RADIANS),
-        s = ((1 + sinLat) / (1 - sinLat)) * Math.pow((1 - ecc * sinLat) / (1 + ecc * sinLat), ecc);
+        s = (1 + sinLat) / (1 - sinLat) * Math.pow((1 - ecc * sinLat) / (1 + ecc * sinLat), ecc);
 
     result[0] = globe.equatorialRadius * longitude * Angle.DEGREES_TO_RADIANS + (offset ? offset[0] : 0);
     result[1] = 0.5 * globe.equatorialRadius * Math.log(s);
@@ -139,7 +139,7 @@ ProjectionMercator.prototype.geographicToCartesianGrid = function (globe, sector
         // Latitude is constant for each row. Values that are a function of latitude can be computed once per row.
         clampedLat = WWMath.clamp(lat, minLatLimit, maxLatLimit);
         sinLat = Math.sin(clampedLat);
-        s = ((1 + sinLat) / (1 - sinLat)) * Math.pow((1 - ecc * sinLat) / (1 + ecc * sinLat), ecc);
+        s = (1 + sinLat) / (1 - sinLat) * Math.pow((1 - ecc * sinLat) / (1 + ecc * sinLat), ecc);
         y = eqr * Math.log(s) * 0.5 - refCenter[1];
 
         for (lonIndex = 0, lon = minLon; lonIndex < numLon; lonIndex++, lon += deltaLon) {
@@ -189,7 +189,7 @@ ProjectionMercator.prototype.cartesianToGeographic = function (globe, x, y, z, o
         lat = Ap + s2p * (Bp + s2p * (Cp + s2p * (Dp + Ep * s2p)));
 
     result.latitude = lat * Angle.RADIANS_TO_DEGREES;
-    result.longitude = ((x - (offset ? offset[0] : 0)) / globe.equatorialRadius) * Angle.RADIANS_TO_DEGREES;
+    result.longitude = (x - (offset ? offset[0] : 0)) / globe.equatorialRadius * Angle.RADIANS_TO_DEGREES;
     result.altitude = z;
 
     return result;

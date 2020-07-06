@@ -29,7 +29,7 @@ import Logger from '../util/Logger';
  * @param {WorldWindow} worldWindow The WorldWindow to monitor for mouse-move and tap events.
  * @throws {ArgumentError} If the specified WorldWindow is null or undefined.
  */
-var HighlightController = function (worldWindow) {
+function HighlightController(worldWindow) {
     if (!worldWindow) {
         throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "HighlightController", "constructor",
             "missingWorldWindow"));
@@ -88,6 +88,6 @@ var HighlightController = function (worldWindow) {
 
     // Listen for taps on mobile devices and highlight the placemarks that the user taps.
     var tapRecognizer = new WorldWind.TapRecognizer(this.worldWindow, handlePick);
-};
+}
 
 export default HighlightController;

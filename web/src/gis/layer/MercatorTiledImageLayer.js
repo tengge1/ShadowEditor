@@ -43,7 +43,7 @@ import WWMath from '../util/WWMath';
  * @throws {ArgumentError} If any of the specified sector, level-zero delta, cache path or image format arguments are
  * null or undefined, or if the specified number of levels, tile width or tile height is less than 1.
  */
-var MercatorTiledImageLayer = function (sector, levelZeroDelta, numLevels, imageFormat, cachePath,
+function MercatorTiledImageLayer(sector, levelZeroDelta, numLevels, imageFormat, cachePath,
     tileWidth, tileHeight) {
     TiledImageLayer.call(this,
         sector, levelZeroDelta, numLevels, imageFormat, cachePath, tileWidth, tileHeight);
@@ -61,7 +61,7 @@ var MercatorTiledImageLayer = function (sector, levelZeroDelta, numLevels, image
     // Create a canvas we can use when unprojecting retrieved images.
     this.destCanvas = document.createElement("canvas");
     this.destContext = this.destCanvas.getContext("2d");
-};
+}
 
 MercatorTiledImageLayer.prototype = Object.create(TiledImageLayer.prototype);
 
@@ -71,17 +71,17 @@ MercatorTiledImageLayer.prototype.createTile = function (sector, level, row, col
     var mapSize = this.mapSizeForLevel(level.levelNumber),
         swX = WWMath.clamp(column * this.imageSize, 0, mapSize),
         neY = WWMath.clamp(row * this.imageSize, 0, mapSize),
-        neX = WWMath.clamp(swX + (this.imageSize), 0, mapSize),
-        swY = WWMath.clamp(neY + (this.imageSize), 0, mapSize),
+        neX = WWMath.clamp(swX + this.imageSize, 0, mapSize),
+        swY = WWMath.clamp(neY + this.imageSize, 0, mapSize),
         x, y, swLat, swLon, neLat, neLon;
 
-    x = (swX / mapSize) - 0.5;
-    y = 0.5 - (swY / mapSize);
+    x = swX / mapSize - 0.5;
+    y = 0.5 - swY / mapSize;
     swLat = 90 - 360 * Math.atan(Math.exp(-y * 2 * Math.PI)) / Math.PI;
     swLon = 360 * x;
 
-    x = (neX / mapSize) - 0.5;
-    y = 0.5 - (neY / mapSize);
+    x = neX / mapSize - 0.5;
+    y = 0.5 - neY / mapSize;
     neLat = 90 - 360 * Math.atan(Math.exp(-y * 2 * Math.PI)) / Math.PI;
     neLon = 360 * x;
 

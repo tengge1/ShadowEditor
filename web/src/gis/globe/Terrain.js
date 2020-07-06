@@ -29,7 +29,7 @@ import Vec3 from '../geom/Vec3';
  * @classdesc Represents terrain and provides functions for computing points on or relative to the terrain.
  * Applications do not typically interact directly with this class.
  */
-var Terrain = function (globe, tessellator, terrainTiles, verticalExaggeration) {
+function Terrain(globe, tessellator, terrainTiles, verticalExaggeration) {
 
     /**
      * The globe associated with this terrain.
@@ -69,7 +69,7 @@ var Terrain = function (globe, tessellator, terrainTiles, verticalExaggeration) 
      * @type {String}
      */
     this.stateKey = globe.stateKey + " ve " + verticalExaggeration.toString();
-};
+}
 
 Terrain.scratchPoint = new Vec3(0, 0, 0);
 

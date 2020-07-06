@@ -33,7 +33,7 @@ import Logger from '../util/Logger';
  * @param {Image} image The image for this image source.
  * @throws {ArgumentError} If the specified image is null or undefined.
  */
-var ImageSource = function (image) {
+function ImageSource(image) {
     if (!image) {
         throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "ImageSource", "constructor",
             "missingImage"));
@@ -53,7 +53,7 @@ var ImageSource = function (image) {
      * @default A unique string for this image source.
      */
     this.key = "ImageSource " + ++ImageSource.keyPool;
-};
+}
 
 // Internal. Intentionally not documented.
 ImageSource.keyPool = 0; // source of unique ids

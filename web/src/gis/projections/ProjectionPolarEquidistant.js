@@ -32,7 +32,7 @@ import Logger from '../util/Logger';
  * @param {String} pole Indicates the north or south aspect. Specify "North" for the north aspect or "South"
  * for the south aspect.
  */
-var ProjectionPolarEquidistant = function (pole) {
+function ProjectionPolarEquidistant(pole) {
 
     GeographicProjection.call(this, "Polar Equidistant", false, null);
 
@@ -47,7 +47,7 @@ var ProjectionPolarEquidistant = function (pole) {
 
     // Internal. Intentionally not documented. See "stateKey" property accessor below for public interface.
     this._stateKey = "projection polar equidistant " + this._pole + " ";
-};
+}
 
 ProjectionPolarEquidistant.prototype = Object.create(GeographicProjection.prototype);
 
@@ -99,7 +99,7 @@ ProjectionPolarEquidistant.prototype.geographicToCartesian = function (globe, la
 
     // Formulae taken from "Map Projections -- A Working Manual", Snyder, USGS paper 1395, pg. 195.
 
-    if ((this.north && latitude === 90) || (!this.north && latitude === -90)) {
+    if (this.north && latitude === 90 || !this.north && latitude === -90) {
         result[0] = 0;
         result[1] = 0;
         result[2] = elevation;
@@ -175,7 +175,7 @@ ProjectionPolarEquidistant.prototype.geographicToCartesianGrid = function (globe
 
         // Latitude is constant for each row. Values that are a function of latitude can be computed once per row.
         a = eqr * (pi_2 + lat * northSouthFactor);
-        if ((this.north && lat === pi_2) || (!this.north && lat === -pi_2)) {
+        if (this.north && lat === pi_2 || !this.north && lat === -pi_2) {
             a = 0;
         }
 

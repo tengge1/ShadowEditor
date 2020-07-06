@@ -36,7 +36,7 @@ import Logger from '../util/Logger';
  * @param {Plane} far The frustum's far plane.
  * @throws {ArgumentError} If any specified plane is null or undefined.
  */
-var Frustum = function (left, right, bottom, top, near, far) {
+function Frustum(left, right, bottom, top, near, far) {
     if (!left || !right || !bottom || !top || !near || !far) {
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "Frustum", "constructor", "missingPlane"));
@@ -52,7 +52,7 @@ var Frustum = function (left, right, bottom, top, near, far) {
 
     // Internal. Intentionally not documented.
     this._planes = [this._left, this._right, this._top, this._bottom, this._near, this._far];
-};
+}
 
 // These accessors are defined in order to prevent changes that would make the properties inconsistent with the
 // planes array.

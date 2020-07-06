@@ -36,7 +36,7 @@ import Texture from '../render/Texture';
  * @throws {ArgumentError} If the specified capacity is undefined, 0 or negative or the low-water value is
  * undefined, negative or not less than the capacity.
  */
-var GpuResourceCache = function (capacity, lowWater) {
+function GpuResourceCache(capacity, lowWater) {
     if (!capacity || capacity < 1) {
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "GpuResourceCache", "constructor",
@@ -60,7 +60,7 @@ var GpuResourceCache = function (capacity, lowWater) {
 
     // Private. Identifies requested resources that whose retrieval failed.
     this.absentResourceList = new AbsentResourceList(3, 60e3);
-};
+}
 
 Object.defineProperties(GpuResourceCache.prototype, {
     /**
@@ -161,7 +161,7 @@ GpuResourceCache.prototype.putResource = function (key, resource, size) {
  * this cache or the specified key is null or undefined.
  */
 GpuResourceCache.prototype.resourceForKey = function (key) {
-    var entry = (key instanceof ImageSource)
+    var entry = key instanceof ImageSource
         ? this.entries.entryForKey(key.key) : this.entries.entryForKey(key);
 
     var resource = entry ? entry.resource : null;

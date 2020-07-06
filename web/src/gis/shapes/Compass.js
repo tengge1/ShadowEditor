@@ -36,7 +36,7 @@ import ScreenImage from '../shapes/ScreenImage';
  * screen point.
  * @param {String} imagePath The URL of the image to display. If null or undefined, a default compass image is used.
  */
-var Compass = function (screenOffset, imagePath) {
+function Compass(screenOffset, imagePath) {
 
     var sOffset = screenOffset ? screenOffset
         : new Offset(WorldWind.OFFSET_FRACTION, 1, WorldWind.OFFSET_FRACTION, 1), // upper-right placement
@@ -57,7 +57,7 @@ var Compass = function (screenOffset, imagePath) {
      * @default 0.15
      */
     this.size = 0.15;
-};
+}
 
 Compass.prototype = Object.create(ScreenImage.prototype);
 

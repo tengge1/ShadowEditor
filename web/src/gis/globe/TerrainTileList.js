@@ -31,7 +31,7 @@ import Sector from '../geom/Sector';
  * @param {Tessellator} tessellator The tessellator that created this terrain tile list.
  *
  */
-var TerrainTileList = function TerrainTileList(tessellator) {
+function TerrainTileList(tessellator) {
     if (!tessellator) {
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "TerrainTileList", "TerrainTileList", "missingTessellator"));
@@ -39,7 +39,7 @@ var TerrainTileList = function TerrainTileList(tessellator) {
     this.tessellator = tessellator;
     this.sector = null;
     this.tileArray = [];
-};
+}
 
 Object.defineProperties(TerrainTileList.prototype, {
     /**
@@ -50,7 +50,7 @@ Object.defineProperties(TerrainTileList.prototype, {
      */
     length: {
         get: function () {
-            return this.tileArray.length
+            return this.tileArray.length;
         }
     }
 });

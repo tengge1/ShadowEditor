@@ -55,7 +55,7 @@ import WWMath from '../util/WWMath';
  * @param {WebGLRenderingContext} gl The WebGL rendering context this draw context is associated with.
  * @throws {ArgumentError} If the specified WebGL rendering context is null or undefined.
  */
-var DrawContext = function (gl) {
+function DrawContext(gl) {
     if (!gl) {
         throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Texture", "constructor",
             "missingGlContext"));
@@ -394,7 +394,7 @@ var DrawContext = function (gl) {
 
     // Intentionally not documented.
     this.glExtensionsCache = {};
-};
+}
 
 // Internal use. Intentionally not documented.
 DrawContext.unitCubeKey = "DrawContextUnitCubeKey";
@@ -538,7 +538,7 @@ DrawContext.prototype.findAndBindProgram = function (programConstructor) {
             this.bindProgram(program);
             this.gpuResourceCache.putResource(programConstructor.key, program, program.size);
         } catch (e) {
-            Logger.log(Logger.LEVEL_SEVERE, "Error attempting to create GPU program.")
+            Logger.log(Logger.LEVEL_SEVERE, "Error attempting to create GPU program.");
         }
     }
 
@@ -997,7 +997,7 @@ DrawContext.prototype.isSmall = function (extent, numPixels) {
     var distance = this.eyePoint.distanceTo(extent.center),
         pixelSize = this.pixelSizeAtDistance(distance);
 
-    return (2 * extent.radius) < (numPixels * pixelSize); // extent diameter less than size of num pixels
+    return 2 * extent.radius < numPixels * pixelSize; // extent diameter less than size of num pixels
 };
 
 /**

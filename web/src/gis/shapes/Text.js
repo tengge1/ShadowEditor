@@ -44,7 +44,7 @@ import WWMath from '../util/WWMath';
  * @param {String} text The text to display.
  * @throws {ArgumentError} If the specified text is null or undefined.
  */
-var Text = function (text) {
+function Text(text) {
     if (!text) {
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "Text", "constructor", "missingText"));
@@ -180,7 +180,7 @@ var Text = function (text) {
 
     // Internal use only. Intentionally not documented.
     this.screenPoint = new Vec3(0, 0, 0);
-};
+}
 
 // Internal use only. Intentionally not documented.
 Text.matrix = Matrix.fromIdentity(); // scratch variable
@@ -230,7 +230,7 @@ Object.defineProperties(Text.prototype, {
  * @param {DrawContext} dc The current draw context.
  */
 Text.prototype.render = function (dc) {
-    if (!this.enabled || (!this.text) || this.text.length === 0) {
+    if (!this.enabled || !this.text || this.text.length === 0) {
         return;
     }
 
@@ -371,7 +371,7 @@ Text.prototype.drawBatchOrderedText = function (dc) {
         dc.popOrderedRenderable(); // remove it from the queue
 
         try {
-            or.doDrawOrderedText(dc)
+            or.doDrawOrderedText(dc);
         } catch (e) {
             Logger.logMessage(Logger.LEVEL_WARNING, 'Text', 'drawBatchOrderedText',
                 "Error occurred while rendering text using batching: " + e.message);

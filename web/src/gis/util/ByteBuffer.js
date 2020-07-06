@@ -30,7 +30,7 @@ import Logger from '../util/Logger';
  * @param {ArrayBuffer} array An array buffer containing source data.
  * @constructor
  */
-var ByteBuffer = function (array) {
+function ByteBuffer(array) {
     if (!array) {
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "ByteBuffer", "constructor", "missingArray"));
@@ -64,7 +64,7 @@ var ByteBuffer = function (array) {
      * @private
      */
     this._order = ByteBuffer.LITTLE_ENDIAN;
-};
+}
 
 /**
  * Get a byte from the current position and advance the position.

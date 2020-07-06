@@ -37,7 +37,7 @@ import Tile from '../util/Tile';
  * @throws {ArgumentError} If the specified sector or level is null or undefined or the row or column arguments
  * are less than zero.
  */
-var TerrainTile = function (sector, level, row, column) {
+function TerrainTile(sector, level, row, column) {
     Tile.call(this, sector, level, row, column); // args are checked in the superclass' constructor
 
     /**
@@ -81,7 +81,7 @@ var TerrainTile = function (sector, level, row, column) {
 
     // Internal use. Intentionally not documented.
     this.scratchArray = [];
-};
+}
 
 TerrainTile.prototype = Object.create(Tile.prototype);
 
@@ -184,8 +184,8 @@ TerrainTile.prototype.surfacePoint = function (latitude, longitude, result) {
     // relative placement within the cell. The cell's vertices are defined in the following order: lower-left,
     // lower-right, upper-left, upper-right. The cell's diagonal starts at the lower-right vertex and ends at the
     // upper-left vertex.
-    sf = (s < tileWidth ? s - Math.floor(s) : 1);
-    tf = (t < tileHeight ? t - Math.floor(t) : 1);
+    sf = s < tileWidth ? s - Math.floor(s) : 1;
+    tf = t < tileHeight ? t - Math.floor(t) : 1;
 
     if (sf > tf) {
         result[0] = points[0] + sf * (points[3] - points[0]) + tf * (points[6] - points[0]);

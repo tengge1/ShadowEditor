@@ -32,7 +32,7 @@ import Sector from '../geom/Sector';
  * @param tileHeight the number of pixels or points in the y direction
  * @constructor
  */
-var TileMatrix = function (sector, matrixWidth, matrixHeight, tileWidth, tileHeight) {
+function TileMatrix(sector, matrixWidth, matrixHeight, tileWidth, tileHeight) {
     if (!sector) {
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "TileMatrix", "constructor",
@@ -93,7 +93,7 @@ var TileMatrix = function (sector, matrixWidth, matrixHeight, tileWidth, tileHei
      * @type {number}
      */
     this.degreesPerPixel = this.sector.deltaLatitude() / (this.matrixHeight * this.tileHeight);
-};
+}
 
 /**
  * Returns the geographic representation of a tile at the provided row and column.

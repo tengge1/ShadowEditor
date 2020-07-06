@@ -29,7 +29,7 @@ import WmsUrlBuilder from '../util/WmsUrlBuilder';
  * @augments TiledElevationCoverage
  * @classdesc Provides elevations for Earth. Elevations are drawn from the NASA WorldWind elevation service.
  */
-var UsgsNedElevationCoverage = function () {
+function UsgsNedElevationCoverage() {
     // CONUS Extent: (-124.848974, 24.396308) - (-66.885444, 49.384358)
     // TODO: Expand this extent to cover HI when the server NO_DATA value issue is resolved.
     TiledElevationCoverage.call(this, {
@@ -42,7 +42,7 @@ var UsgsNedElevationCoverage = function () {
     });
 
     this.displayName = "USGS NED Earth Elevation Coverage";
-};
+}
 
 UsgsNedElevationCoverage.prototype = Object.create(TiledElevationCoverage.prototype);
 

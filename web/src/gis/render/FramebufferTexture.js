@@ -40,7 +40,7 @@ import '../util/WWMath';
  * @throws {ArgumentError} If the specified draw context is null or undefined, or if the width or height is less
  * than zero.
  */
-var FramebufferTexture = function (gl, width, height, depth) {
+function FramebufferTexture(gl, width, height, depth) {
     if (!gl) {
         throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "FramebufferTexture", "constructor",
             "missingGlContext"));
@@ -77,7 +77,7 @@ var FramebufferTexture = function (gl, width, height, depth) {
      * @type {Number}
      * @readonly
      */
-    this.size = (width * height * 4) + (depth ? width * height * 2 : 0);
+    this.size = width * height * 4 + (depth ? width * height * 2 : 0);
 
     /**
      * Indicates the WebGL framebuffer object object associated with this framebuffer texture.
@@ -126,7 +126,7 @@ var FramebufferTexture = function (gl, width, height, depth) {
     gl.bindFramebuffer(gl.FRAMEBUFFER, null);
     gl.bindRenderbuffer(gl.RENDERBUFFER, null);
     gl.bindTexture(gl.TEXTURE_2D, null);
-};
+}
 
 /**
  * Binds this off-screen framebuffer's texture in the current WebGL graphics context. This texture contains

@@ -25,7 +25,7 @@
  * @classdesc Provides an abstract base class for layer implementations. This class is not meant to be instantiated
  * directly.
  */
-var Layer = function (displayName) {
+function Layer(displayName) {
 
     /**
      * This layer's display name.
@@ -83,7 +83,7 @@ var Layer = function (displayName) {
      * @type {Date}
      */
     this.time = null;
-};
+}
 
 /**
  * Refreshes the data associated with this layer. The behavior of this function varies with the layer

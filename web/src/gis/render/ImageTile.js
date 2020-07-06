@@ -39,8 +39,8 @@ import Tile from '../util/Tile';
  * are less than zero, or the specified image path is null, undefined or empty.
  *
  */
-var ImageTile = function (sector, level, row, column, imagePath) {
-    if (!imagePath || (imagePath.length < 1)) {
+function ImageTile(sector, level, row, column, imagePath) {
+    if (!imagePath || imagePath.length < 1) {
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "ImageTile", "constructor",
                 "The specified image path is null, undefined or zero length."));
@@ -62,7 +62,7 @@ var ImageTile = function (sector, level, row, column, imagePath) {
 
     // Assign imagePath to gpuCacheKey (inherited from TextureTile).
     this.gpuCacheKey = imagePath;
-};
+}
 
 ImageTile.prototype = Object.create(TextureTile.prototype);
 
@@ -99,7 +99,7 @@ ImageTile.prototype.bind = function (dc) {
  * @param {Matrix} matrix The matrix to apply the transform to.
  */
 ImageTile.prototype.applyInternalTransform = function (dc, matrix) {
-    if (this.fallbackTile && !(dc.gpuResourceCache.resourceForKey(this.imagePath))) {
+    if (this.fallbackTile && !dc.gpuResourceCache.resourceForKey(this.imagePath)) {
         // Must apply a texture transform to map the tile's sector into its fallback's image.
         this.applyFallbackTransform(matrix);
     }

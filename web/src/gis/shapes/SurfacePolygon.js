@@ -49,7 +49,7 @@ import SurfaceShape from '../shapes/SurfaceShape';
  *
  * @throws {ArgumentError} If the specified boundaries are null or undefined.
  */
-var SurfacePolygon = function (boundaries, attributes) {
+function SurfacePolygon(boundaries, attributes) {
     if (!Array.isArray(boundaries)) {
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "SurfacePolygon", "constructor",
@@ -61,7 +61,7 @@ var SurfacePolygon = function (boundaries, attributes) {
     this._boundaries = boundaries;
 
     this._stateId = SurfacePolygon.stateId++;
-};
+}
 
 SurfacePolygon.prototype = Object.create(SurfaceShape.prototype);
 

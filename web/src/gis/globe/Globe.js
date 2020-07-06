@@ -50,7 +50,7 @@ import Vec3 from '../geom/Vec3';
  * in which case no projection is applied and the globe is a WGS84 ellipsoid.
  * @throws {ArgumentError} If the specified elevation model is null or undefined.
  */
-var Globe = function (elevationModel, projection) {
+function Globe(elevationModel, projection) {
     if (!elevationModel) {
         throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Globe",
             "constructor", "Elevation model is null or undefined."));
@@ -82,7 +82,7 @@ var Globe = function (elevationModel, projection) {
      * @type {Number}
      * @default WGS 84 first eccentricity squared (6.694379990141e-3). Taken from NGA.STND.0036_1.0.0_WGS84, section 3.3.
      */
-    this.eccentricitySquared = (2 * f) - (f * f);
+    this.eccentricitySquared = 2 * f - f * f;
 
     /**
      * The tessellator used to create this globe's terrain.
@@ -103,7 +103,7 @@ var Globe = function (elevationModel, projection) {
     this.id = ++Globe.idPool;
 
     this._stateKey = "globe " + this.id.toString() + " ";
-};
+}
 
 Globe.idPool = 0; // Used to assign unique IDs to globes for use in their state keys.
 
@@ -580,7 +580,7 @@ Globe.prototype.elevationTimestamp = function () {
  * @returns {Number} This globe's minimum elevation.
  */
 Globe.prototype.minElevation = function () {
-    return this.elevationModel.minElevation
+    return this.elevationModel.minElevation;
 };
 
 /**
@@ -588,7 +588,7 @@ Globe.prototype.minElevation = function () {
  * @returns {Number} This globe's maximum elevation.
  */
 Globe.prototype.maxElevation = function () {
-    return this.elevationModel.maxElevation
+    return this.elevationModel.maxElevation;
 };
 
 /**

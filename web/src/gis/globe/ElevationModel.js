@@ -28,7 +28,7 @@ import Logger from '../util/Logger';
  * @constructor
  * @classdesc Represents the elevations for an area, often but not necessarily the whole globe.
  */
-var ElevationModel = function () {
+function ElevationModel() {
 
     /**
      * Internal use only
@@ -58,7 +58,7 @@ var ElevationModel = function () {
 
     this.computeStateKey();
 
-};
+}
 
 Object.defineProperties(ElevationModel.prototype, {
     /**
@@ -98,7 +98,7 @@ Object.defineProperties(ElevationModel.prototype, {
                 }
             }
 
-            return (minElevation !== Number.MAX_VALUE) ? minElevation : 0; // no coverages or all coverages disabled
+            return minElevation !== Number.MAX_VALUE ? minElevation : 0; // no coverages or all coverages disabled
         }
     },
 
@@ -118,7 +118,7 @@ Object.defineProperties(ElevationModel.prototype, {
                 }
             }
 
-            return (maxElevation !== -Number.MAX_VALUE) ? maxElevation : 0; // no coverages or all coverages disabled
+            return maxElevation !== -Number.MAX_VALUE ? maxElevation : 0; // no coverages or all coverages disabled
         }
     }
 });
@@ -263,7 +263,7 @@ ElevationModel.prototype.minAndMaxElevationsForSector = function (sector) {
         }
     }
 
-    return (result[0] !== Number.MAX_VALUE) ? result : [0, 0]; // no coverages, all coverages disabled, or no coverages intersect the sector
+    return result[0] !== Number.MAX_VALUE ? result : [0, 0]; // no coverages, all coverages disabled, or no coverages intersect the sector
 };
 
 /**
@@ -308,8 +308,8 @@ ElevationModel.prototype.preferredCoverageIndex = function (sector, location, ta
 
     for (i = 0; i < n; i++) {
         var coverage = this.coverages[i],
-            validCoverage = coverage.enabled && ((sector !== null && coverage.coverageSector.intersects(sector)) ||
-                (location !== null && coverage.coverageSector.containsLocation(location.latitude, location.longitude)));
+            validCoverage = coverage.enabled && (sector !== null && coverage.coverageSector.intersects(sector) ||
+                location !== null && coverage.coverageSector.containsLocation(location.latitude, location.longitude));
         if (validCoverage) {
             var resDiff = Math.abs(coverage.resolution - targetResolution);
             if (resDiff > minResDiff) {

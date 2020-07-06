@@ -49,7 +49,7 @@ import Logger from '../util/Logger';
  * @throws {ArgumentError} If either source is null or undefined, the shaders cannot be compiled, or linking of
  * the compiled shaders into a program fails.
  */
-var GpuProgram = function (gl, vertexShaderSource, fragmentShaderSource, attributeBindings) {
+function GpuProgram(gl, vertexShaderSource, fragmentShaderSource, attributeBindings) {
     if (!vertexShaderSource || !fragmentShaderSource) {
         throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "GpuProgram", "constructor",
             "The specified shader source is null or undefined."));
@@ -120,7 +120,7 @@ var GpuProgram = function (gl, vertexShaderSource, fragmentShaderSource, attribu
 
     // Internal. Intentionally not documented.
     this.scratchArray = new Float32Array(16);
-};
+}
 
 /**
  * Releases this GPU program's WebGL program and associated shaders. Upon return this GPU program's WebGL

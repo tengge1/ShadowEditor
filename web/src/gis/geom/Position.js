@@ -34,7 +34,7 @@ import WWMath from '../util/WWMath';
  * @param {Number} longitude The longitude in degrees.
  * @param {Number} altitude The altitude in meters.
  */
-var Position = function (latitude, longitude, altitude) {
+function Position(latitude, longitude, altitude) {
     /**
      * The latitude in degrees.
      * @type {Number}
@@ -50,7 +50,7 @@ var Position = function (latitude, longitude, altitude) {
      * @type {Number}
      */
     this.altitude = altitude;
-};
+}
 
 /**
  * A Position with latitude, longitude and altitude all 0.

@@ -37,7 +37,7 @@ import Tile from '../util/Tile';
  * are less than zero, or the specified image path is null, undefined or empty.
  *
  */
-var TextureTile = function (sector, level, row, column) {
+function TextureTile(sector, level, row, column) {
     Tile.call(this, sector, level, row, column); // args are checked in the superclass' constructor
 
     /**
@@ -45,7 +45,7 @@ var TextureTile = function (sector, level, row, column) {
      * @type {string}
      */
     this.gpuCacheKey = null;
-};
+}
 
 TextureTile.prototype = Object.create(Tile.prototype);
 

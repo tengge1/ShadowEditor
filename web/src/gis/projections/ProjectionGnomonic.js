@@ -34,7 +34,7 @@ import WWMath from '../util/WWMath';
  * @param {String} pole Indicates the north or south aspect. Specify "North" for the north aspect or "South"
  * for the south aspect.
  */
-var ProjectionGnomonic = function (pole) {
+function ProjectionGnomonic(pole) {
 
     // Internal. Intentionally not documented. See "pole" property accessor below for public interface.
 
@@ -53,7 +53,7 @@ var ProjectionGnomonic = function (pole) {
 
     // Internal. Intentionally not documented. See "stateKey" property accessor below for public interface.
     this._stateKey = "projection polar gnomonic " + this._pole + " ";
-};
+}
 
 ProjectionGnomonic.prototype = Object.create(GeographicProjection.prototype);
 
@@ -106,7 +106,7 @@ ProjectionGnomonic.prototype.geographicToCartesian = function (globe, latitude, 
 
     // Formulae taken from "Map Projections -- A Working Manual", Snyder, USGS paper 1395, pg. 167.
 
-    if ((this.north && latitude === 90) || (!this.north && latitude === -90)) {
+    if (this.north && latitude === 90 || !this.north && latitude === -90) {
         result[0] = 0;
         result[1] = 0;
         result[2] = elevation;
@@ -170,7 +170,7 @@ ProjectionGnomonic.prototype.geographicToCartesianGrid = function (globe, sector
         clampedLat = WWMath.clamp(lat, minLatLimit, maxLatLimit);
 
         a = globe.equatorialRadius / Math.tan(clampedLat);
-        if ((this.north && clampedLat === Math.PI / 2) || (!this.north && clampedLat === -Math.PI / 2)) {
+        if (this.north && clampedLat === Math.PI / 2 || !this.north && clampedLat === -Math.PI / 2) {
             a = 0;
         }
 

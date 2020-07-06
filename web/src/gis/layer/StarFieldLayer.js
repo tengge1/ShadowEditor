@@ -43,7 +43,7 @@ import SunPosition from '../util/SunPosition';
  * @param {URL} starDataSource optional url for the stars data
  * @augments Layer
  */
-var StarFieldLayer = function (starDataSource) {
+function StarFieldLayer(starDataSource) {
     Layer.call(this, 'StarField');
 
     // The StarField Layer is not pickable.
@@ -100,7 +100,7 @@ var StarFieldLayer = function (starDataSource) {
 
     //Internal use only.
     this._MAX_GL_POINT_SIZE = 0;
-};
+}
 
 StarFieldLayer.prototype = Object.create(Layer.prototype);
 

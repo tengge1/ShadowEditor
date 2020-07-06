@@ -32,7 +32,7 @@ import GestureRecognizer from '../gesture/GestureRecognizer';
  * e.g., <code>gestureCallback(recognizer)</code>.
  * @throws {ArgumentError} If the specified target is null or undefined.
  */
-var TapRecognizer = function (target, callback) {
+function TapRecognizer(target, callback) {
     GestureRecognizer.call(this, target, callback);
 
     /**
@@ -61,7 +61,7 @@ var TapRecognizer = function (target, callback) {
 
     // Intentionally not documented.
     this.timeout = null;
-};
+}
 
 TapRecognizer.prototype = Object.create(GestureRecognizer.prototype);
 

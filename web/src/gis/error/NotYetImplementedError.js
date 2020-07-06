@@ -28,7 +28,7 @@ import AbstractError from '../error/AbstractError';
  * @augments AbstractError
  * @param {String} message The message.
  */
-var NotYetImplementedError = function (message) {
+function NotYetImplementedError(message) {
     AbstractError.call(this, "NotYetImplementedError", message);
 
     var stack;
@@ -39,7 +39,7 @@ var NotYetImplementedError = function (message) {
         stack = e.stack;
     }
     this.stack = stack;
-};
+}
 
 NotYetImplementedError.prototype = Object.create(AbstractError.prototype);
 

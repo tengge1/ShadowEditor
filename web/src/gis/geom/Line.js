@@ -31,7 +31,7 @@ import Vec3 from '../geom/Vec3';
  * @param {Vec3} direction The line's direction.
  * @throws {ArgumentError} If either the origin or the direction are null or undefined.
  */
-var Line = function (origin, direction) {
+function Line(origin, direction) {
     if (!origin) {
         throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Line", "constructor",
             "Origin is null or undefined."));
@@ -53,7 +53,7 @@ var Line = function (origin, direction) {
      * @type {Vec3}
      */
     this.direction = direction;
-};
+}
 
 /**
  * Creates a line given two specified endpoints.

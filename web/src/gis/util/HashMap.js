@@ -25,9 +25,9 @@
  * @alias HashMap
  * @constructor
  */
-var HashMap = function () {
+function HashMap() {
     this._entries = Object.create(null);
-};
+}
 
 /**
  * Returns the stored value for this key or undefined

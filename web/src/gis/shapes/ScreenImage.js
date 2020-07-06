@@ -46,7 +46,7 @@ import WWMath from '../util/WWMath';
  * dynamically created image.
  * @throws {ArgumentError} If the specified screen offset or image source is null or undefined.
  */
-var ScreenImage = function (screenOffset, imageSource) {
+function ScreenImage(screenOffset, imageSource) {
     if (!screenOffset) {
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "ScreenImage", "constructor", "missingOffset"));
@@ -142,7 +142,7 @@ var ScreenImage = function (screenOffset, imageSource) {
 
     // Internal use only. Intentionally not documented.
     this.layer = null;
-};
+}
 
 // Internal use only. Intentionally not documented.
 ScreenImage.matrix = Matrix.fromIdentity(); // scratch variable
@@ -269,7 +269,7 @@ ScreenImage.prototype.getActiveTexture = function (dc) {
 // Internal. Intentionally not documented.
 ScreenImage.prototype.isVisible = function (dc) {
     if (dc.pickingMode) {
-        return dc.pickRectangle && (this.imageBounds.intersects(dc.pickRectangle));
+        return dc.pickRectangle && this.imageBounds.intersects(dc.pickRectangle);
     } else {
         return this.imageBounds.intersects(dc.viewport);
     }

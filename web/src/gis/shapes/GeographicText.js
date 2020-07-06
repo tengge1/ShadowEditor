@@ -36,7 +36,7 @@ import Vec3 from '../geom/Vec3';
  * @param {String} text The text to display.
  * @throws {ArgumentError} If either the specified position or text is null or undefined.
  */
-var GeographicText = function (position, text) {
+function GeographicText(position, text) {
     if (!position) {
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "Text", "constructor", "missingPosition"));
@@ -61,7 +61,7 @@ var GeographicText = function (position, text) {
      * @default 1
      */
     this.declutterGroup = 1;
-};
+}
 
 // Internal use only. Intentionally not documented.
 GeographicText.placePoint = new Vec3(0, 0, 0); // Cartesian point corresponding to this placemark's geographic position

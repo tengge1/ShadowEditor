@@ -46,7 +46,7 @@ import WWMath from '../util/WWMath';
  * <ul>
  * @throws {ArgumentError} If any required configuration parameter is null or undefined.
  */
-var TiledElevationCoverage = function (config) {
+function TiledElevationCoverage(config) {
     if (!config) {
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "TiledElevationCoverage", "constructor", "missingConfig"));
@@ -183,7 +183,7 @@ var TiledElevationCoverage = function (config) {
     // this.urlBuilder = new UrlBuilder() || null;
     this.urlBuilder = config.urlBuilder || null;
     this.urlBuilder.serviceAddress = 'http://localhost:2020/api/Map/Elev';
-};
+}
 
 TiledElevationCoverage.prototype = Object.create(ElevationCoverage.prototype);
 
@@ -367,12 +367,12 @@ TiledElevationCoverage.prototype.areaElevationForCoord = function (s, t, levelNu
         u = levelWidth * WWMath.fract(s); // wrap the horizontal coordinate
         v = levelHeight * WWMath.clamp(t, tMin, tMax); // clamp the vertical coordinate to the level edge
         x0 = WWMath.mod(Math.floor(u - 0.5), levelWidth);
-        x1 = WWMath.mod((x0 + 1), levelWidth);
+        x1 = WWMath.mod(x0 + 1, levelWidth);
         y0 = WWMath.clamp(Math.floor(v - 0.5), vMin, vMax);
         y1 = WWMath.clamp(y0 + 1, vMin, vMax);
         xf = WWMath.fract(u - 0.5);
         yf = WWMath.fract(v - 0.5);
-        retrieveTiles = (i == levelNumber) || (i == 0);
+        retrieveTiles = i == levelNumber || i == 0;
 
         if (this.lookupPixels(x0, x1, y0, y1, level, retrieveTiles, pixels)) {
             if (ElevationImage.isNoData(pixels[0], pixels[1], pixels[2], pixels[3])) {

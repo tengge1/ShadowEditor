@@ -31,9 +31,9 @@ import ProjectionEquirectangular from '../projections/ProjectionEquirectangular'
  * @classdesc Represents a 2D flat globe with a configurable projection.
  * The default rectangular projection scrolls longitudinally.
  */
-var Globe2D = function () {
+function Globe2D() {
     Globe.call(this, new ElevationModel(), new ProjectionEquirectangular());
-};
+}
 
 Globe2D.prototype = Object.create(Globe.prototype);
 
