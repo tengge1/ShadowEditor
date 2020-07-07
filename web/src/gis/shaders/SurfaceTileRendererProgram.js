@@ -21,7 +21,8 @@ import ArgumentError from '../error/ArgumentError';
 import Color from '../util/Color';
 import GpuProgram from '../shaders/GpuProgram';
 import Logger from '../util/Logger';
-
+import SurfaceTileVertex from './glsl/surface_tile_vertex.glsl';
+import SurfaceTileFragment from './glsl/surface_tile_fragment.glsl';
 
 /**
  * Constructs a new surface-tile-renderer program.
@@ -39,51 +40,8 @@ import Logger from '../util/Logger';
  * @param {WebGLRenderingContext} gl The current WebGL context.
  */
 function SurfaceTileRendererProgram(gl) {
-    var vertexShaderSource =
-        'attribute vec4 vertexPoint;\n' +
-        'attribute vec4 vertexTexCoord;\n' +
-        'uniform mat4 mvpMatrix;\n' +
-        'uniform mat4 texSamplerMatrix;\n' +
-        'uniform mat4 texMaskMatrix;\n' +
-        'varying vec2 texSamplerCoord;\n' +
-        'varying vec2 texMaskCoord;\n' +
-        'void main() {\n' +
-        'gl_Position = mvpMatrix * vertexPoint;\n' +
-        /* Transform the vertex texture coordinate into sampler texture coordinates. */
-        'texSamplerCoord = (texSamplerMatrix * vertexTexCoord).st;\n' +
-        /* Transform the vertex texture coordinate into mask texture coordinates. */
-        'texMaskCoord = (texMaskMatrix * vertexTexCoord).st;\n' +
-        '}',
-        fragmentShaderSource =
-            'precision mediump float;\n' +
-            /* Uniform sampler indicating the texture 2D unit (0, 1, 2, etc.) to use when sampling texture color. */
-            'uniform sampler2D texSampler;\n' +
-            'uniform float opacity;\n' +
-            'uniform vec4 color;\n' +
-            'uniform bool modulateColor;\n' +
-            'varying vec2 texSamplerCoord;\n' +
-            'varying vec2 texMaskCoord;\n' +
-            /*
-             * Returns true when the texture coordinate samples texels outside the texture image.
-             */
-            'bool isInsideTextureImage(const vec2 coord) {\n' +
-            '    return coord.x >= 0.0 && coord.x <= 1.0 && coord.y >= 0.0 && coord.y <= 1.0;\n' +
-            '}\n' +
-            /*
-             * OpenGL ES Shading Language v1.00 fragment shader for SurfaceTileRendererProgram. Writes the value of the texture 2D
-             * object bound to texSampler at the current transformed texture coordinate, multiplied by the uniform opacity. Writes
-             * transparent black (0, 0, 0, 0) if the transformed texture coordinate indicates a texel outside of the texture data's
-             * standard range of [0,1].
-             */
-            'void main(void) {\n' +
-            'float mask = float(isInsideTextureImage(texMaskCoord));' +
-            'if (modulateColor) {\n' +
-            '    gl_FragColor = color * mask * floor(texture2D(texSampler, texSamplerCoord).a + 0.5);\n' +
-            '} else {\n' +
-            /* Return either the sampled texture2D color multiplied by opacity or transparent black. */
-            '    gl_FragColor = texture2D(texSampler, texSamplerCoord) * mask * opacity;\n' +
-            '}\n' +
-            '}';
+    var vertexShaderSource = SurfaceTileVertex,
+        fragmentShaderSource = SurfaceTileFragment;
 
     // Call to the superclass, which performs shader program compiling and linking.
     GpuProgram.call(this, gl, vertexShaderSource, fragmentShaderSource);
