@@ -21,7 +21,8 @@ import ArgumentError from '../error/ArgumentError';
 import Color from '../util/Color';
 import GpuProgram from '../shaders/GpuProgram';
 import Logger from '../util/Logger';
-
+import BasicVertex from './glsl/basic_vertex.glsl';
+import BasicFragment from './glsl/basic_fragment.glsl';
 
 /**
  * Constructs a new program.
@@ -40,14 +41,8 @@ import Logger from '../util/Logger';
  * the compiled shaders into a program fails.
  */
 function BasicProgram(gl) {
-    var vertexShaderSource =
-        'attribute vec4 vertexPoint;\n' +
-        'uniform mat4 mvpMatrix;\n' +
-        'void main() {gl_Position = mvpMatrix * vertexPoint;}',
-        fragmentShaderSource =
-            'precision mediump float;\n' +
-            'uniform vec4 color;\n' +
-            'void main() {gl_FragColor = color;}';
+    var vertexShaderSource = BasicVertex,
+        fragmentShaderSource = BasicFragment;
 
     // Call to the superclass, which performs shader program compiling and linking.
     GpuProgram.call(this, gl, vertexShaderSource, fragmentShaderSource);
