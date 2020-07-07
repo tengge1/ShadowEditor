@@ -21,7 +21,8 @@ import ArgumentError from '../error/ArgumentError';
 import Color from '../util/Color';
 import GpuProgram from '../shaders/GpuProgram';
 import Logger from '../util/Logger';
-
+import BasicTextureVertex from './glsl/basic_texture_vertex.glsl';
+import BasicTextureFragment from './glsl/basic_texture_fragment.glsl';
 
 /**
  * Constructs a new program.
@@ -40,45 +41,8 @@ import Logger from '../util/Logger';
  * the compiled shaders into a program fails.
  */
 function BasicTextureProgram(gl) {
-    var vertexShaderSource =
-        'attribute vec4 vertexPoint;\n' +
-        'attribute vec4 vertexTexCoord;\n' +
-        'attribute vec4 normalVector;\n' +
-        'uniform mat4 mvpMatrix;\n' +
-        'uniform mat4 mvInverseMatrix;\n' +
-        'uniform mat4 texCoordMatrix;\n' +
-        'uniform bool applyLighting;\n' +
-        'varying vec2 texCoord;\n' +
-        'varying vec4 normal;\n' +
-        'void main() {gl_Position = mvpMatrix * vertexPoint;\n' +
-        'texCoord = (texCoordMatrix * vertexTexCoord).st;\n' +
-        'if (applyLighting) {normal = mvInverseMatrix * normalVector;}\n' +
-        '}',
-        fragmentShaderSource =
-            'precision mediump float;\n' +
-            'uniform float opacity;\n' +
-            'uniform vec4 color;\n' +
-            'uniform bool enableTexture;\n' +
-            'uniform bool modulateColor;\n' +
-            'uniform sampler2D textureSampler;\n' +
-            'uniform bool applyLighting;\n' +
-            'varying vec2 texCoord;\n' +
-            'varying vec4 normal;\n' +
-            'void main() {\n' +
-            'vec4 textureColor = texture2D(textureSampler, texCoord);\n' +
-            'float ambient = 0.15; vec4 lightDirection = vec4(0, 0, 1, 0);\n' +
-            'if (enableTexture && !modulateColor)\n' +
-            '    gl_FragColor = textureColor * color * opacity;\n' +
-            'else if (enableTexture && modulateColor)\n' +
-            '    gl_FragColor = color * floor(textureColor.a + 0.5);\n' +
-            'else\n' +
-            '    gl_FragColor = color * opacity;\n' +
-            'if (gl_FragColor.a == 0.0) {discard;}\n' +
-            'if (applyLighting) {\n' +
-            '    vec4 n = normal * (gl_FrontFacing ? 1.0 : -1.0);\n' +
-            '    gl_FragColor.rgb *= clamp(ambient + dot(lightDirection, n), 0.0, 1.0);\n' +
-            '}\n' +
-            '}';
+    var vertexShaderSource = BasicTextureVertex,
+        fragmentShaderSource = BasicTextureFragment;
 
     // Specify bindings to avoid the WebGL performance warning that's generated when normalVector gets
     // bound to location 0.
