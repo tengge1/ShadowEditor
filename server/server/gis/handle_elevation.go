@@ -10,12 +10,10 @@ package gis
 import (
 	"fmt"
 	"io/ioutil"
-	"math"
 	"net/http"
 	"os"
 	"path/filepath"
 	"strconv"
-	"strings"
 
 	"github.com/tengge1/shadoweditor/server"
 )
@@ -30,25 +28,14 @@ func HandleElevation(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	x, err := strconv.Atoi(r.FormValue("x"))
 	y, err := strconv.Atoi(r.FormValue("y"))
-	z, err := strconv.Atoi(r.FormValue("z")) // wrong
-	if err != nil {
-		server.Logger.Error(err.Error())
-		w.WriteHeader(http.StatusInternalServerError)
-		return
-	}
-	bbox := r.FormValue("bbox")
-	aabb := strings.Split(bbox, ",")
-	minLon, err := strconv.ParseFloat(aabb[0], 64)
-	maxLon, err := strconv.ParseFloat(aabb[2], 64)
+	z, err := strconv.Atoi(r.FormValue("z"))
 	if err != nil {
 		server.Logger.Error(err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 
-	z = int(math.Log2(360 / (maxLon - minLon)))
-
-	path := server.MapPath(fmt.Sprintf("/Upload/Tiles/Elev/%v/%v/%v.bil", z, y, x))
+	path := server.MapPath(fmt.Sprintf("/Upload/Tiles/Atm/%v/%v/%v.atm", z, y, x))
 	if _, err := os.Stat(path); err == nil {
 		byts, err := ioutil.ReadFile(path)
 		if err != nil {
@@ -56,11 +43,11 @@ func HandleElevation(w http.ResponseWriter, r *http.Request) {
 			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}
-		writeByts(w, "application/bil16", byts)
+		writeByts(w, "application/octet-stream", byts)
 		return
 	}
 
-	url := fmt.Sprintf("https://worldwind26.arc.nasa.gov/elev?service=WMS&request=GetMap&version=1.3.0&transparent=TRUE&layers=GEBCO&styles=&format=application/bil16&width=256&height=256&crs=EPSG:4326&bbox=%v", bbox)
+	url := fmt.Sprintf("http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer/tile/%v/%v/%v", z, y, x)
 
 	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
@@ -97,5 +84,5 @@ func HandleElevation(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	writeByts(w, "application/bil16", byts)
+	writeByts(w, "application/octet-stream", byts)
 }
