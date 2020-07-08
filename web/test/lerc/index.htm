@@ -1,0 +1,204 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=10,11,edge" />
+  <title></title>
+  <script type="text/javascript" src="./LercDecode.js"></script>
+</head>
+<body>
+  <div id="imageInfo">Image Header Info</div>
+  <div id="currentPV">Hover over to see current pixel value</div>
+  <input id="mapUrl" type="text" style="width:90%" value="" onchange="showTile()">
+  <div id="divControls" style="display:none;">
+    <button onclick="showTile(-1)">Previous</button>&nbsp;
+    <button onclick="showTile(1)">Next</button>&nbsp;
+    <button onclick="autoShow(this)">Auto</button>&nbsp;
+    <span id="currentIndex"></span>
+  </div>
+  <div>
+    <canvas width="100" height="100" id="imageCanvas"></canvas>
+  </div>
+  <script>
+    var defaultUrl = "https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer/tile/0/0/0";
+    //http://sampleserver6.arcgisonline.com/arcgis/rest/services/Toronto/ImageServer/exportImage?bbox=-8844874.0651,5401062.402699997,-8828990.0651,5420947.402699997&bboxSR=&size=&imageSR=&time=&format=lerc&pixelType=UNKNOWN&noData=&noDataInterpretation=esriNoDataMatchAny&interpolation= RSP_BilinearInterpolation&compression=&compressionQuality=&bandIds=&mosaicRule=&renderingRule=&f=image
+    var url = location.search.indexOf("?url=") === 0 ? location.search.slice(5) : defaultUrl;
+    var showNext, autoShowInterval = 3000;
+    var list;
+    if (url.indexOf(".txt") > 0) {
+      var listXhr = new XMLHttpRequest();
+      listXhr.open("Get", url, true);
+      listXhr.responseType = "text";
+      listXhr.send();
+      listXhr.onload = function() {
+        list = listXhr.response.split("\r\n");
+        currentIndex = -1;
+        document.getElementById("divControls").style.display = "block";
+        showTile(1);
+      }
+      listXhr.onerror = function() {
+        url = defaultUrl;
+        document.getElementById("mapUrl").value = url;
+        showTile();
+      }
+    }
+    else {
+      document.getElementById("mapUrl").value = url;
+      showTile();
+    }
+    function autoShow(btn) {
+      if (showNext) {
+        clearTimeout(showNext);
+        showNext = null;
+        btn.innerText = "Auto";
+      }
+      else {
+        btn.innerText = "Pause";
+        autoShowNext();      
+      }
+    }
+
+    function autoShowNext() {
+      showNext = setTimeout(function() {
+        showTile(1);
+        if (currentIndex < list.length - 1 && showNext) {
+          autoShowNext();
+        }
+      }, autoShowInterval);
+    }
+
+    function showTile(next) {
+      if (next === -1) {
+        if (currentIndex > 0) {
+          document.getElementById("mapUrl").value = list[--currentIndex];
+        }
+      }
+      else if (next === 1) {
+        if (currentIndex < list.length - 1) {
+          document.getElementById("mapUrl").value = list[++currentIndex];
+        }
+      }
+      if (list) {
+        document.getElementById("currentIndex").innerText = (currentIndex + 1) + "/" + list.length;
+      }
+      //UI elements
+      var div_Info = document.getElementById("imageInfo");
+      var div_CurrentPv = document.getElementById("currentPV");
+      var imageCanvas = document.getElementById("imageCanvas");
+      var canvasPos = imageCanvas.getBoundingClientRect();
+      var context = imageCanvas.getContext("2d");
+      var mapUrl = document.getElementById("mapUrl").value;
+      //div_Header.innerHTML = "test";
+      //if it fails you'll see the red
+      context.clearRect(0, 0, imageCanvas.width, imageCanvas.height);
+      context.fillStyle = 'red';
+      context.fillRect(0, 0, 100, 100);
+      //fetching lerc
+      var xhr = new XMLHttpRequest();
+      xhr.open("Get", mapUrl, true);
+      xhr.responseType = "arraybuffer";
+      xhr.send();
+      var pixels, mask, min, max, factor, planes, height, width;
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          var t0 = new Date();
+          var decodedPixelBlock = Lerc.decode(xhr.response);
+          var duration = (new Date()) - t0;
+          width = decodedPixelBlock.width;
+          height = decodedPixelBlock.height;
+          pixels = decodedPixelBlock.pixels;
+          mask = decodedPixelBlock.mask;
+          imageCanvas.width = width;
+          imageCanvas.height = height;
+
+          var imageData = context.createImageData(width, height);
+          var data = imageData.data;
+          var pv = 0;
+          var index = 0;
+          var nPixels = width * height;
+          planes = pixels.length;
+
+          if (planes === 1) {
+            min = decodedPixelBlock.statistics[0].minValue;
+            max = decodedPixelBlock.statistics[0].maxValue;
+            factor = 255 / (max - min);
+            //optimization for no mask case  (mid of most rasters)
+            if (mask) {
+              for (var i = 0; i < nPixels; i++) {
+                if (mask[i]) {
+                  pv = (pixels[0][i] - min) * factor;
+                  data[i * 4] = pv;
+                  data[i * 4 + 1] = pv;
+                  data[i * 4 + 2] = pv;
+                  data[i * 4 + 3] = 255;
+                }
+                else {
+                  data[i * 4 + 3] = 0;
+                }
+              }
+            }
+            else {
+              for (var i = 0; i < nPixels; i++) {
+                pv = (pixels[0][i] - min) * factor;
+                data[i * 4] = pv;
+                data[i * 4 + 1] = pv;
+                data[i * 4 + 2] = pv;
+                data[i * 4 + 3] = 255;
+              }
+            }
+          }
+          else if (planes >= 3) {
+            //show first 3 bands here, use same min/max for demonstration purpose.
+            min = Math.min.apply(null, decodedPixelBlock.statistics.map(function(x) { return x.minValue; }));
+            max = Math.max.apply(null, decodedPixelBlock.statistics.map(function(x) { return x.maxValue; }));
+            factor = 255 / (max - min);
+            if (mask) {
+              for (var i = 0; i < nPixels; i++) {
+                if (mask[i]) {
+                  data[i * 4] = (pixels[0][i] - min) * factor;
+                  data[i * 4 + 1] = (pixels[1][i] - min) * factor;
+                  data[i * 4 + 2] = (pixels[2][i] - min) * factor;
+                  data[i * 4 + 3] = 255;
+                }
+                else {
+                  data[i * 4 + 3] = 0;
+                }
+              }
+            }
+            else {
+              for (var i = 0; i < nPixels; i++) {
+                data[i * 4] = (pixels[0][i] - min) * factor;
+                data[i * 4 + 1] = (pixels[1][i] - min) * factor;
+                data[i * 4 + 2] = (pixels[2][i] - min) * factor;
+                data[i * 4 + 3] = 255;
+              }
+            }
+          }
+          context.putImageData(imageData, 0, 0);
+          div_Info.innerHTML = "max: " + max + ", min: " + min + ", width: " + width + ", height: " + height + ", planes: " + planes + ", decode time:" + duration;
+
+        }
+        imageCanvas.onmousemove = function(evt) {
+          if (!pixels) {
+            return;
+          }
+          var i = evt.clientX - canvasPos.left; //col
+          var j = evt.clientY - canvasPos.top; //row
+          var pos = j * width + i;
+          if (mask && mask[pos] || !mask) {
+            var pv = [];
+            for (var kk = 0; kk < planes; kk++) {
+              pv.push(pixels[kk][pos]);
+            }
+            div_CurrentPv.innerHTML = "current pixel value: " + pv.join(", ");
+          }
+          else {
+            div_CurrentPv.innerHTML = "current pixel value: no data";
+          }
+        }
+      }
+    }
+  </script>
+</body>
+</html>
