@@ -20,6 +20,7 @@ import Storage from './utils/Storage';
 import Server from './utils/Server';
 import PackageManager from './package/PackageManager';
 import EventDispatcher from './event/EventDispatcher';
+import Loader from './editor/Loader.jsx';
 import Editor from './editor/Editor.jsx';
 import Ajax from './utils/Ajax';
 import LanguageLoader from './utils/LanguageLoader';
@@ -79,6 +80,10 @@ function Application(container, options) {
             resolve();
         });
     });
+
+    // Loading Screen
+    const loader = React.createElement(Loader);
+    ReactDOM.render(loader, this.container);
 
     Promise.all([promise1, promise2, promise3]).then(() => {
         this.ui = React.createElement(Editor);
