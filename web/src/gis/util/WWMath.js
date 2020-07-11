@@ -16,7 +16,6 @@
  */
 import Angle from '../geom/Angle';
 import ArgumentError from '../error/ArgumentError';
-import Line from '../geom/Line';
 import Logger from '../util/Logger';
 import Rectangle from '../geom/Rectangle';
 import Vec3 from '../geom/Vec3';
@@ -58,7 +57,7 @@ var WWMath = {
      */
     cbrt: function (x) {
         // Use the built-in version if it exists. cbrt() is defined in ECMA6.
-        if (typeof Math.cbrt == 'function') {
+        if (typeof Math.cbrt === 'function') {
             return Math.cbrt(x);
         } else {
             return Math.pow(x, 1 / 3);
@@ -164,9 +163,9 @@ var WWMath = {
             edge2z = vertex2[2] - vertex0[2];
 
         // Compute cross product of line direction and edge2
-        var px = (vy * edge2z) - (vz * edge2y),
-            py = (vz * edge2x) - (vx * edge2z),
-            pz = (vx * edge2y) - (vy * edge2x);
+        var px = vy * edge2z - vz * edge2y,
+            py = vz * edge2x - vx * edge2z,
+            pz = vx * edge2y - vy * edge2x;
 
         // Get determinant
         var det = edge1x * px + edge1y * py + edge1z * pz; // edge1 dot p
@@ -188,9 +187,9 @@ var WWMath = {
         }
 
         // Prepare to test v parameter: t cross edge1
-        var qx = (ty * edge1z) - (tz * edge1y),
-            qy = (tz * edge1x) - (tx * edge1z),
-            qz = (tx * edge1y) - (ty * edge1x);
+        var qx = ty * edge1z - tz * edge1y,
+            qy = tz * edge1x - tx * edge1z,
+            qz = tx * edge1y - ty * edge1x;
 
         // Calculate v parameter and test bounds: 1/det * dir dot q
         var v = inv_det * (vx * qx + vy * qy + vz * qz);
@@ -366,9 +365,9 @@ var WWMath = {
             edge2z = vert2z - vert0z;
 
             // Compute cross product of line direction and edge2
-            px = (vy * edge2z) - (vz * edge2y);
-            py = (vz * edge2x) - (vx * edge2z);
-            pz = (vx * edge2y) - (vy * edge2x);
+            px = vy * edge2z - vz * edge2y;
+            py = vz * edge2x - vx * edge2z;
+            pz = vx * edge2y - vy * edge2x;
 
             // Get determinant
             det = edge1x * px + edge1y * py + edge1z * pz; // edge1 dot p
@@ -390,9 +389,9 @@ var WWMath = {
             }
 
             // Prepare to test v parameter: tvec cross edge1
-            qx = (ty * edge1z) - (tz * edge1y);
-            qy = (tz * edge1x) - (tx * edge1z);
-            qz = (tx * edge1y) - (ty * edge1x);
+            qx = ty * edge1z - tz * edge1y;
+            qy = tz * edge1x - tx * edge1z;
+            qz = tx * edge1y - ty * edge1x;
 
             // Calculate v parameter and test bounds: 1/det * dir dot q
             v = inv_det * (vx * qx + vy * qy + vz * qz);
@@ -445,7 +444,7 @@ var WWMath = {
      * @returns {Number} The remainder after dividing the number by the modulus.
      */
     mod: function (number, modulus) {
-        return ((number % modulus) + modulus) % modulus;
+        return (number % modulus + modulus) % modulus;
     },
 
     /**
@@ -533,7 +532,7 @@ var WWMath = {
                 "horizontalDistanceForGlobeRadius", "The specified globe radius is negative."));
         }
 
-        return (radius > 0 && altitude > 0) ? Math.sqrt(altitude * (2 * radius + altitude)) : 0;
+        return radius > 0 && altitude > 0 ? Math.sqrt(altitude * (2 * radius + altitude)) : 0;
     },
 
     /**
@@ -741,7 +740,7 @@ var WWMath = {
      * otherwise <code>false</code>.
      */
     isPowerOfTwo: function (value) {
-        return value != 0 && (value & (value - 1)) === 0;
+        return value != 0 && (value & value - 1) === 0;
     },
 
     /**
@@ -759,12 +758,12 @@ var WWMath = {
      * @returns {Number} The Gudermannian inverse for the specified latitude.
      */
     gudermannianInverse: function (latitude) {
-        return Math.log(Math.tan(Math.PI / 4 + (latitude * Angle.DEGREES_TO_RADIANS) / 2)) / Math.PI;
+        return Math.log(Math.tan(Math.PI / 4 + latitude * Angle.DEGREES_TO_RADIANS / 2)) / Math.PI;
     },
 
     epsg3857ToEpsg4326: function (easting, northing) {
         var r = 6.3781e6,
-            latRadians = (Math.PI / 2) - 2 * Math.atan(Math.exp(-northing / r)),
+            latRadians = Math.PI / 2 - 2 * Math.atan(Math.exp(-northing / r)),
             lonRadians = easting / r;
 
         return [
@@ -794,7 +793,7 @@ var WWMath = {
      */
     normalizeAngle360: function (degrees) {
         var angle = degrees % 360;
-        return angle >= 0 ? angle : (angle < 0 ? 360 + angle : 360 - angle);
+        return angle >= 0 ? angle : angle < 0 ? 360 + angle : 360 - angle;
     }
 };
 

@@ -18,7 +18,6 @@
  * @exports ImageSource
  */
 import ArgumentError from '../error/ArgumentError';
-import Color from '../util/Color';
 import Logger from '../util/Logger';
 
 
