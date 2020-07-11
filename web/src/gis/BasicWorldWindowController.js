@@ -172,7 +172,6 @@ BasicWorldWindowController.prototype.handlePanOrDrag = function (recognizer) {
 
 // Intentionally not documented.
 BasicWorldWindowController.prototype.handlePanOrDrag3D = function (recognizer) {
-    console.log('handlePanOrDrag3D');
     var state = recognizer.state,
         tx = recognizer.translationX,
         ty = recognizer.translationY;
@@ -208,7 +207,6 @@ BasicWorldWindowController.prototype.handlePanOrDrag3D = function (recognizer) {
 
 // Intentionally not documented.
 BasicWorldWindowController.prototype.handlePanOrDrag2D = function (recognizer) {
-    console.log('handlePanOrDrag2D');
     var state = recognizer.state,
         x = recognizer.clientX,
         y = recognizer.clientY,
@@ -269,7 +267,6 @@ BasicWorldWindowController.prototype.handlePanOrDrag2D = function (recognizer) {
 
 // Intentionally not documented.
 BasicWorldWindowController.prototype.handleSecondaryDrag = function (recognizer) {
-    console.log('handleSecondaryDrag');
     var state = recognizer.state,
         tx = recognizer.translationX,
         ty = recognizer.translationY;
@@ -294,7 +291,6 @@ BasicWorldWindowController.prototype.handleSecondaryDrag = function (recognizer)
 
 // Intentionally not documented.
 BasicWorldWindowController.prototype.handlePinch = function (recognizer) {
-    console.log('handlePinch');
     var navigator = this.wwd.navigator;
     var state = recognizer.state,
         scale = recognizer.scale;
@@ -314,7 +310,6 @@ BasicWorldWindowController.prototype.handlePinch = function (recognizer) {
 
 // Intentionally not documented.
 BasicWorldWindowController.prototype.handleRotation = function (recognizer) {
-    console.log('handleRotation');
     var navigator = this.wwd.navigator;
     var state = recognizer.state,
         rotation = recognizer.rotation;
@@ -334,7 +329,6 @@ BasicWorldWindowController.prototype.handleRotation = function (recognizer) {
 
 // Intentionally not documented.
 BasicWorldWindowController.prototype.handleTilt = function (recognizer) {
-    console.log('handleTilt');
     var navigator = this.wwd.navigator;
     var state = recognizer.state,
         ty = recognizer.translationY;
