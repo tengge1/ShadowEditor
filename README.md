@@ -26,7 +26,6 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
 ## v0.5.5 is Coming
 
 1. Add WebGL extension window, you can view the name and description of WebGL extension supported by the browser, and you can jump to MDN.
-
 2. 3D Earth. (In development)
 
 ## v0.5.4 has Released

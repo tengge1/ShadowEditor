@@ -25,7 +25,6 @@
 ## v0.5.5即将发布
 
 1. 增加WebGL扩展窗口，可以查看浏览器支持的WebGL扩展名称和描述，并可以跳转到MDN。
-
 2. 三维地球。（开发中）
 
 ## v0.5.4发布[【更新日志】](https://gitee.com/tengge1/ShadowEditor/wikis/pages?sort_id=2215122&doc_id=188900)
