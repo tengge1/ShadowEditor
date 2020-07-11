@@ -86,6 +86,7 @@ function start() {
         if (server) {
             server.kill('SIGTERM');
         }
+        app.quit()
     });
 }
 

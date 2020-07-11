@@ -4,8 +4,7 @@
     "description": "Cross-platform 3D scene editor based on three.js, golang and mongodb.",
     "main": "main.js",
     "scripts": {
-        "start": "electron .",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "start": "electron ."
     },
     "repository": {
         "type": "git",
@@ -16,10 +15,5 @@
     "bugs": {
         "url": "https://github.com/tengge1/ShadowEditor/issues"
     },
-    "homepage": "https://github.com/tengge1/ShadowEditor#readme",
-    "devDependencies": {
-        "electron": "^9.0.4",
-        "electron-packager": "^14.2.1"
-    },
-    "dependencies": {}
+    "homepage": "https://github.com/tengge1/ShadowEditor#readme"
 }
