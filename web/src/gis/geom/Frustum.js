@@ -18,7 +18,6 @@
  * @exports Frustum
  */
 import ArgumentError from '../error/ArgumentError';
-import Matrix from '../geom/Matrix';
 import Plane from '../geom/Plane';
 import Logger from '../util/Logger';
 

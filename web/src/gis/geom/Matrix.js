@@ -21,8 +21,6 @@ import Angle from '../geom/Angle';
 import ArgumentError from '../error/ArgumentError';
 import Logger from '../util/Logger';
 import Position from '../geom/Position';
-import Rectangle from '../geom/Rectangle';
-import Texture from '../render/Texture';
 import Vec3 from '../geom/Vec3';
 import WWMath from '../util/WWMath';
 

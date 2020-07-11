@@ -19,11 +19,8 @@
  */
 import ArgumentError from '../error/ArgumentError';
 import BasicProgram from '../shaders/BasicProgram';
-import Frustum from '../geom/Frustum';
 import Logger from '../util/Logger';
 import Matrix from '../geom/Matrix';
-import Plane from '../geom/Plane';
-import Sector from '../geom/Sector';
 import Vec3 from '../geom/Vec3';
 import WWMath from '../util/WWMath';
 import WWUtil from '../util/WWUtil';
