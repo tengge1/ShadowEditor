@@ -78,7 +78,7 @@ function start() {
         }
     });
     // win.maximize();
-    win.loadURL('http://localhost:2020');
+    win.loadURL('http://localhost:2020?electron=true');
     win.on('close', () => {
         if (mongo) {
             mongo.kill('SIGTERM');
