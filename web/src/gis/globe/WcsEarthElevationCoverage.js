@@ -17,7 +17,6 @@
 /**
  * @exports WcsEarthElevationCoverage
  */
-import Location from '../geom/Location';
 import Sector from '../geom/Sector';
 import TiledElevationCoverage from '../globe/TiledElevationCoverage';
 import WcsTileUrlBuilder from '../util/WcsTileUrlBuilder';
