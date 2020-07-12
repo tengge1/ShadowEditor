@@ -19,9 +19,9 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
 * Technology Stack: html, css, javascript, rollup, react.js, webgl, three.js, golang, mongodb, nodejs, electron, WebWorldWind.
 * If helpful to you, please [DOnate](https://gitee.com/tengge1/ShadowEditor) to support us. thank you!
 
-![image](images/scene20200503_en.jpg)
+![image](https://gitee.com/tengge1/ShadowEditor/raw/master/images/scene20200503_en.jpg)
 
-![image](images/scene20200705.jpg)
+![image](https://gitee.com/tengge1/ShadowEditor/raw/master/images/scene20200705.jpg)
 
 ## v0.5.6 is Coming
 
