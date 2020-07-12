@@ -22,10 +22,6 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
 <img src="https://gitee.com/tengge1/ShadowEditor/raw/master/images/scene20200503_en.jpg" />  
 <img src="https://gitee.com/tengge1/ShadowEditor/raw/master/images/scene20200705.jpg" />  
 
-![image](https://gitee.com/tengge1/ShadowEditor/raw/master/images/scene20200503_en.jpg)
-
-![image](https://gitee.com/tengge1/ShadowEditor/raw/master/images/scene20200705.jpg)
-
 ## v0.5.6 is Coming
 
 1. 3D Earth. (In development)
