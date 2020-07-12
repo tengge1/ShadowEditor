@@ -42,6 +42,9 @@ async function main() {
     }
 
     // copy files needed by desktop app
+    if (os.platform() !== 'win32') {
+        fs.removeSync('build/mongo');
+    }
     fs.copySync(mongoDir, 'build/mongo');
     fs.copySync('utils/electron/main.js', 'build/main.js');
     fs.copySync('utils/electron/package.json', 'build/package.json');
