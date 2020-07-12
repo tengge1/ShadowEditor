@@ -34,7 +34,6 @@ import DateWW from './util/Date';
 import DragRecognizer from './gesture/DragRecognizer';
 import DrawContext from './render/DrawContext';
 import EarthElevationModel from './globe/EarthElevationModel';
-import EarthRestElevationCoverage from './globe/EarthRestElevationCoverage';
 import ElevationCoverage from './globe/ElevationCoverage';
 import ElevationModel from './globe/ElevationModel';
 import Font from './util/Font';
@@ -49,7 +48,6 @@ import GeographicProjection from './projections/GeographicProjection';
 import GeographicText from './shapes/GeographicText';
 import GestureRecognizer from './gesture/GestureRecognizer';
 import Globe from './globe/Globe';
-import Globe2D from './globe/Globe2D';
 import GoToAnimator from './util/GoToAnimator';
 import GpuProgram from './shaders/GpuProgram';
 import GpuResourceCache from './cache/GpuResourceCache';
@@ -141,7 +139,6 @@ import UnsupportedOperationError from './globe/UsgsNedHiElevationCoverage';
 import UrlBuilder from './util/UrlBuilder';
 import Vec2 from './geom/Vec2';
 import Vec3 from './geom/Vec3';
-import WcsEarthElevationCoverage from './globe/WcsEarthElevationCoverage';
 import WcsTileUrlBuilder from './util/WcsTileUrlBuilder';
 import WmsUrlBuilder from './util/WmsUrlBuilder';
 import WorldWindow from './WorldWindow';
@@ -405,7 +402,6 @@ WorldWind['DateWW'] = DateWW;
 WorldWind['DragRecognizer'] = DragRecognizer;
 WorldWind['DrawContext'] = DrawContext;
 WorldWind['EarthElevationModel'] = EarthElevationModel;
-WorldWind['EarthRestElevationCoverage'] = EarthRestElevationCoverage;
 WorldWind['ElevationCoverage'] = ElevationCoverage;
 WorldWind['ElevationModel'] = ElevationModel;
 WorldWind['Font'] = Font;
@@ -420,7 +416,6 @@ WorldWind['GeographicProjection'] = GeographicProjection;
 WorldWind['GeographicText'] = GeographicText;
 WorldWind['GestureRecognizer'] = GestureRecognizer;
 WorldWind['Globe'] = Globe;
-WorldWind['Globe2D'] = Globe2D;
 WorldWind['GoToAnimator'] = GoToAnimator;
 WorldWind['GpuProgram'] = GpuProgram;
 WorldWind['GpuResourceCache'] = GpuResourceCache;
@@ -512,7 +507,6 @@ WorldWind['UnsupportedOperationError'] = UnsupportedOperationError;
 WorldWind['UrlBuilder'] = UrlBuilder;
 WorldWind['Vec2'] = Vec2;
 WorldWind['Vec3'] = Vec3;
-WorldWind['WcsEarthElevationCoverage'] = WcsEarthElevationCoverage;
 WorldWind['WcsTileUrlBuilder'] = WcsTileUrlBuilder;
 WorldWind['WmsUrlBuilder'] = WmsUrlBuilder;
 WorldWind['WWMessage'] = WWMessage;
@@ -536,7 +530,7 @@ WorldWind['XYZLayer'] = XYZLayer;
  */
 WorldWind.configuration = {
     gpuCacheSize: 250e6,
-    baseUrl: (WWUtil.worldwindlibLocation()) || (WWUtil.currentUrlSansFilePart() + '/'),
+    baseUrl: WWUtil.worldwindlibLocation() || WWUtil.currentUrlSansFilePart() + '/',
     layerRetrievalQueueSize: 16,
     coverageRetrievalQueueSize: 16,
     bingLogoPlacement: new Offset(WorldWind.OFFSET_INSET_PIXELS, 7, WorldWind.OFFSET_PIXELS, 7),
