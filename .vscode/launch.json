@@ -44,6 +44,20 @@
             "type": "node",
             "request": "launch",
             "program": "${file}"
+        },
+        {
+            "name": "Electron Main",
+            "type": "pwa-node",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/build/desktop/ShadowEditor-win32-x64/resources/app",
+            "program": "${workspaceFolder}/utils/electron/main.js",
+            "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
+            "windows": {
+                "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron.cmd"
+            },
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
         }
     ]
 }

@@ -13,7 +13,7 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
 )](https://twitter.com/tengge11)
 
 * Name: Shadow Editor
-* Version: v0.5.5 (Coming Soon)
+* Version: v0.5.5
 * Description: Cross-platform 3D scene editor based on three.js, golang and mongodb.
 * Source: [GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | Document: [Gitee](https://gitee.com/tengge1/ShadowEditor/wikis/pages) | Demo: [GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) | Video: [Weibo](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) | Assets: [BaiduNetdisk](https://pan.baidu.com/s/1IxJVM6fFLoIAJG-GKHjVTA)
 * Technology Stack: html, css, javascript, rollup, react.js, webgl, three.js, golang, mongodb, nodejs, electron, WebWorldWind.
@@ -23,34 +23,17 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
 
 ![image](images/scene20200705.jpg)
 
-## v0.5.5 is Coming
+## v0.5.5 has Released
+
+* Release Date: July 12, 2020
+* Update Logs:
 
 1. Add WebGL extension window, you can view the name and description of WebGL extension supported by the browser, and you can jump to MDN.
 2. 3D Earth. (In development)
+3. Added loading mask on software loading page.
+4. The desktop version reads MongoDB and website ports from the configuration file.
 
-## v0.5.4 has Released
-
-* Release Date: June 27, 2020
-* Update Logs:
-
-1. Create desktop app with `Electron`.
-
-Windows Desktop: https://github.com/tengge1/ShadowEditor/releases/download/v0.5.4/ShadowEditor-win32-x64.zip
-
-Ubuntu Desktop: https://github.com/tengge1/ShadowEditor/releases/download/v0.5.4/ShadowEditor-linux-x64.zip
-
-Note: Windows requires `Visual C++ Redistributable for Visual Studio 2015`. You can install from: https://www.microsoft.com/en-us/download/details.aspx?id=48145  
-
-2. Using command line to install and start `ShadowEditor` service on Windows.
-
-`.\ShadowEditor install`: install service on Windows.  
-`.\ShadowEditor remove`: remove service on Windows.  
-`.\ShadowEditor start`: start service on Windows.  
-`.\ShadowEditor stop`: stop service on Windows.  
-
-You can also manage this service in the `Windows Services Manager`.  
-
-3. Use `nodejs` to rewrite the scripts, and you can now use `npm` to manage this project.
+Note: If the desktop version cannot be opened, you can view `logs.txt`; if the port conflicts, you can modify the MongoDB and website ports in `resources/app/config.toml`.
 
 ## Features
 
@@ -197,6 +180,9 @@ add the files or directories to be ignored to the `.gitignore` file.
 
 ## Frequently Asked Questions
 
+<details>
+  <summary>Expand to view details</summary>
+
 1. Failed when upload models.
 
 You need to compress the model assets into a `zip` file, and the entry file cannot be nested in a folder. The server will decompress and put it in the `./build/public/Upload/Model` folder, and add a record in the MongoDB `_Mesh` collection.
@@ -219,6 +205,13 @@ Edit `config.toml` and set `authority.enabled` to `true`. The default administra
 
 The data structure and web client is not changed, just copy `./ShadowEditor.Web/Upload/` folder to
 `build/public/Upload/`.
+
+6. The desktop version cannot be opened.
+
+Windows requires `Visual C++ Redistributable for Visual Studio 2015`. You can install from: https://www.microsoft.com/en-us/download/details.aspx?id=48145  
+If the desktop version cannot be opened, you can view `logs.txt`; if the port conflicts, you can modify the MongoDB and website ports in `resources/app/config.toml`.  
+
+</details>
 
 ## License
 

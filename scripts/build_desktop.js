@@ -45,6 +45,7 @@ async function main() {
     fs.copySync(mongoDir, 'build/mongo');
     fs.copySync('utils/electron/main.js', 'build/main.js');
     fs.copySync('utils/electron/package.json', 'build/package.json');
+    fs.copySync('utils/electron/toml', 'build/toml');
 
     // Build desktop package
     console.log('enter build');

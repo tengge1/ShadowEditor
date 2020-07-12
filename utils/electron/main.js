@@ -3,6 +3,7 @@ const path = require('path');
 const os = require('os');
 const subprocess = require('child_process');
 const { app, BrowserWindow, Menu } = require('electron');
+const toml = require('./toml');
 
 let mongo, server, win;
 
@@ -18,7 +19,7 @@ function log(data) {
  * Start MongoDB Service
  * @param {String} root electron root path
  */
-function startMongoDB(root) {
+function startMongoDB(root, mongoPort) {
     const mongod = os.platform() === 'win32' ? 'mongod.exe' : './mongod';
     const cwd = path.join(root, 'mongo');
 
@@ -27,7 +28,7 @@ function startMongoDB(root) {
         process.env.LD_LIBRARY_PATH = `LD_LIBRARY_PATH:${cwd}`
     }
 
-    mongo = subprocess.spawn(mongod, ['--dbpath=db'], {
+    mongo = subprocess.spawn(mongod, ['--dbpath=db', `--port=${mongoPort}`], {
         cwd: cwd
     });
     mongo.stdout.on('data', data => {
@@ -65,8 +66,13 @@ function startServer(root) {
 
 function start() {
     const root = app.getAppPath();
+    const tomlPath = path.join(root, 'config.toml');
+    const tomlString = fs.readFileSync(tomlPath).toString()
+    const config = toml.parse(tomlString);
+    const mongoPort = config.database.port; // 27017
+    const serverPort = config.server.port.split(':')[1] // 2020
 
-    startMongoDB(root);
+    startMongoDB(root, mongoPort);
     startServer(root);
 
     Menu.setApplicationMenu(null);
@@ -77,8 +83,10 @@ function start() {
             nodeIntegration: true
         }
     });
+
     // win.maximize();
-    win.loadURL('http://localhost:2020?electron=true');
+
+    win.loadURL(`http://localhost:${serverPort}?electron=true`);
     win.on('close', () => {
         if (mongo) {
             mongo.kill('SIGTERM');

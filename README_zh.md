@@ -12,7 +12,7 @@
 )](https://twitter.com/tengge11)
 
 * 名称：Shadow Editor
-* 版本：v0.5.5 (开发中)
+* 版本：v0.5.5
 * 简介：基于Three.js、Go语言和MongoDB的跨平台的3D场景编辑器。
 * 源码：[GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | 文档：[Gitee](https://gitee.com/tengge1/ShadowEditor/wikis/pages) | 示例：[GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) | 视频：[微博](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) | 资源：[百度网盘](https://pan.baidu.com/s/1IxJVM6fFLoIAJG-GKHjVTA)
 * 技术栈：html、css、javascript、rollup、react.js、webgl、three.js、golang、mongodb、nodejs、electron、WebWorldWind。
@@ -22,34 +22,17 @@
 
 ![image](images/scene20200705.jpg)
 
-## v0.5.5即将发布
+## v0.5.5发布[【更新日志】](https://gitee.com/tengge1/ShadowEditor/wikis/pages?sort_id=2215122&doc_id=188900)
+
+* 发布日期：2020年7月12日
+* 更新日志：
 
 1. 增加WebGL扩展窗口，可以查看浏览器支持的WebGL扩展名称和描述，并可以跳转到MDN。
 2. 三维地球。（开发中）
+3. 软件载入页面增加加载遮罩。
+4. 桌面版从配置文件中读取MongoDB和网站端口。
 
-## v0.5.4发布[【更新日志】](https://gitee.com/tengge1/ShadowEditor/wikis/pages?sort_id=2215122&doc_id=188900)
-
-* 发布日期：2020年6月27日
-* 更新日志：
-
-1. 使用`Electron`创建桌面应用程序。
-
-Windows桌面版：https://github.com/tengge1/ShadowEditor/releases/download/v0.5.4/ShadowEditor-win32-x64.zip
-
-Ubuntu桌面版：https://github.com/tengge1/ShadowEditor/releases/download/v0.5.4/ShadowEditor-linux-x64.zip
-
-说明：Windows需要`Visual C++ Redistributable for Visual Studio 2015`。你可以从这安装：https://www.microsoft.com/en-us/download/details.aspx?id=48145
-
-2. 使用命令行在Windows上安装和启动ShadowEditor服务。
-
-`.\ShadowEditor install`: 在Windows上安装服务。  
-`.\ShadowEditor remove`: 在Windows上移除服务。  
-`.\ShadowEditor start`: 在Windows上启动服务。  
-`.\ShadowEditor stop`: 在Windows上停止服务。  
-
-你也可以在`Windows服务管理器`中管理这个服务。  
-
-3. 使用`nodejs`重写脚本，现在你可以使用`npm`管理这个项目。  
+说明：如果桌面版打不开，可以查看`logs.txt`；如果端口冲突，可以修改`resources/app/config.toml`中的MongoDB和网站端口。
 
 ## 功能特点
 
@@ -194,6 +177,9 @@ ShadowEditor是一个为用户和开发者而生的项目。在这个项目上�
 
 ## 常见问题
 
+<details>
+  <summary>展开查看详情</summary>
+
 1. 上传模型失败。
 
 需要把模型贴图等资源压缩成一个zip包，而且入口文件不能嵌套文件夹。服务端会解压上传的zip包到`./build/public/Upload/Model`文件夹，并在MongoDB `_Mesh`表里添加一条记录。
@@ -214,6 +200,13 @@ ShadowEditor是一个为用户和开发者而生的项目。在这个项目上�
 5. 怎么从C#版本升级到golang版本？
 
 数据结构和客户端都没变，只需要把文件夹`./ShadowEditor.Web/Upload/`复制到`build/public/Upload/`即可。
+
+6. 桌面版打不开。
+
+说明：Windows需要`Visual C++ Redistributable for Visual Studio 2015`。你可以从这安装：https://www.microsoft.com/en-us/download/details.aspx?id=48145  
+说明：如果桌面版打不开，可以查看`logs.txt`；如果端口冲突，可以修改`resources/app/config.toml`中的MongoDB和网站端口。  
+
+</details>
 
 ## 开源项目
 
