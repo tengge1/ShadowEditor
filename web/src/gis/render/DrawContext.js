@@ -19,15 +19,10 @@
  */
 import ArgumentError from '../error/ArgumentError';
 import Color from '../util/Color';
-import FrameStatistics from '../util/FrameStatistics';
 import FramebufferTexture from '../render/FramebufferTexture';
 import FramebufferTileController from '../render/FramebufferTileController';
 import Frustum from '../geom/Frustum';
-import Globe from '../globe/Globe';
-import GpuProgram from '../shaders/GpuProgram';
 import GpuResourceCache from '../cache/GpuResourceCache';
-import Layer from '../layer/Layer';
-import Line from '../geom/Line';
 import Logger from '../util/Logger';
 import Matrix from '../geom/Matrix';
 import PickedObjectList from '../pick/PickedObjectList';
@@ -35,7 +30,6 @@ import Plane from '../geom/Plane';
 import Position from '../geom/Position';
 import Rectangle from '../geom/Rectangle';
 import ScreenCreditController from '../render/ScreenCreditController';
-import Sector from '../geom/Sector';
 import SurfaceShape from '../shapes/SurfaceShape';
 import SurfaceShapeTileBuilder from '../shapes/SurfaceShapeTileBuilder';
 import SurfaceTileRenderer from '../render/SurfaceTileRenderer';

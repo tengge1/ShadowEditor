@@ -19,7 +19,6 @@
  */
 import ArgumentError from '../error/ArgumentError';
 import Logger from '../util/Logger';
-import Sector from '../geom/Sector';
 import UnsupportedOperationError from '../error/UnsupportedOperationError';
 
 
