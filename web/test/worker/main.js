@@ -6,3 +6,5 @@ myWorker.onmessage = function (evt) {
         myWorker.postMessage('hello back!');
     }
 };
+
+export { myWorker };

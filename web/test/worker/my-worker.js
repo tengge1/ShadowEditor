@@ -1,3 +1,3 @@
-class MyWorker {
-
-}
+self.onmessage = e => {
+    console.log(e);
+};

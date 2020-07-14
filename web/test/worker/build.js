@@ -1,7 +1,8 @@
-(function (factory) {
-	typeof define === 'function' && define.amd ? define(factory) :
-	factory();
-}((function () { 'use strict';
+(function (global, factory) {
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+	typeof define === 'function' && define.amd ? define(['exports'], factory) :
+	(global = global || self, factory(global.Test = {}));
+}(this, (function (exports) { 'use strict';
 
 	var TARGET = typeof Symbol === 'undefined' ? '__target' : Symbol(),
 	    SCRIPT_TYPE = 'application/javascript',
@@ -89,6 +90,10 @@
 	}
 
 	var MyWorker = new shimWorker("./my-worker.js", function (window, document) {
+	var self = this;
+	self.onmessage = e => {
+	    console.log(e);
+	};
 
 	});
 
@@ -98,5 +103,9 @@
 	        myWorker.postMessage('hello back!');
 	    }
 	};
+
+	exports.myWorker = myWorker;
+
+	Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
