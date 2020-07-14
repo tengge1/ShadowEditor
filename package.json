@@ -9,7 +9,7 @@
         "build-web": "cd web && rollup -c rollup.config.js",
         "build-desktop": "node scripts/build_desktop.js",
         "start-desktop": "cd build && electron .",
-        "dev-web": "cd web && rollup -c rollup.config.js --watch",
+        "dev": "cd web && rollup -c rollup.config.js --watch",
         "start": "cd build && ShadowEditor serve --config ./config.toml",
         "set-proxy": "node scripts/set_proxy.js",
         "unset-proxy": "node scripts/unset_proxy.js",
