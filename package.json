@@ -41,6 +41,7 @@
         "iconv-lite": "^0.6.0",
         "rollup": "^1.32.1",
         "rollup-plugin-babel": "^4.4.0",
+        "rollup-plugin-bundle-worker": "^0.1.0",
         "rollup-plugin-commonjs": "^9.3.4",
         "rollup-plugin-json": "^4.0.0",
         "rollup-plugin-node-resolve": "^4.2.4",

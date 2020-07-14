@@ -245,6 +245,7 @@ https://github.com/rollup/rollup-plugin-node-resolve
 https://github.com/egoist/rollup-plugin-postcss  
 https://github.com/rollup/rollup-plugin-replace  
 https://github.com/mjeanroy/rollup-plugin-strip-banner  
+https://github.com/andyearnshaw/rollup-plugin-bundle-worker  
   
 https://github.com/tweenjs/tween.js  
 https://github.com/JedWatson/classnames  
@@ -266,5 +267,6 @@ https://github.com/mrdoob/texgen.js
 https://github.com/yomotsu/VolumetricFire  
 
 https://github.com/NASAWorldWind/WebWorldWind  
+https://github.com/jonbretman/amd-to-as6  
 
 </details>
