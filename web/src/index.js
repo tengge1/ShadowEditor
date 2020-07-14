@@ -22,6 +22,6 @@ export * from './ui/index';
 export { default as LanguageLoader } from './utils/LanguageLoader';
 
 // workers
-// import './worker/Workers';
+import './worker/Workers';
 
 export { default as Application } from './Application';

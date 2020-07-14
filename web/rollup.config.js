@@ -13,7 +13,6 @@ import replace from 'rollup-plugin-replace';
 import postcss from 'rollup-plugin-postcss';
 import babel from 'rollup-plugin-babel';
 import strip from 'rollup-plugin-strip-banner';
-import builtins from 'rollup-plugin-node-builtins';
 import bundleWorker from 'rollup-plugin-bundle-worker';
 
 function glsl() {
@@ -48,6 +47,7 @@ export default {
     treeshake: true,
     external: [],
     plugins: [
+        bundleWorker(),
         glsl(),
         resolve(),
         commonjs({
@@ -61,8 +61,6 @@ export default {
         postcss({
             extract: true
         }),
-        builtins(),
-        bundleWorker(),
         babel({
             exclude: 'node_modules/**'
         }),
