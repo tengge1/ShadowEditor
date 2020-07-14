@@ -245,6 +245,7 @@ https://github.com/rollup/rollup-plugin-node-resolve
 https://github.com/egoist/rollup-plugin-postcss  
 https://github.com/rollup/rollup-plugin-replace  
 https://github.com/mjeanroy/rollup-plugin-strip-banner  
+https://github.com/calvinmetcalf/rollup-plugin-node-builtins  
 https://github.com/andyearnshaw/rollup-plugin-bundle-worker  
   
 https://github.com/tweenjs/tween.js  
