@@ -1,3 +1,5 @@
+import '../util/LercDecode';
+
 self.onmessage = e => {
     let tileKey = e.data.tileKey;
     let x = e.data.column;
