@@ -22,7 +22,7 @@ import ElevationModel from '../globe/ElevationModel';
 import GebcoElevationCoverage from '../globe/GebcoElevationCoverage';
 import UsgsNedElevationCoverage from '../globe/UsgsNedElevationCoverage';
 import UsgsNedHiElevationCoverage from '../globe/UsgsNedHiElevationCoverage';
-
+import ArcgisElevationCoverage from './ArcgisElevationCoverage';
 
 /**
  * Constructs an EarthElevationModel consisting of three elevation coverages GEBCO, Aster V2, and USGS NED.
@@ -32,6 +32,7 @@ import UsgsNedHiElevationCoverage from '../globe/UsgsNedHiElevationCoverage';
 function EarthElevationModel() {
     ElevationModel.call(this);
 
+    // this.addCoverage(new ArcgisElevationCoverage());
     this.addCoverage(new GebcoElevationCoverage());
     this.addCoverage(new AsterV2ElevationCoverage());
     this.addCoverage(new UsgsNedElevationCoverage());

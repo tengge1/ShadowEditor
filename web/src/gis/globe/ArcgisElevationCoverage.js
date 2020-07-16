@@ -20,6 +20,8 @@
 import Sector from '../geom/Sector';
 import TiledElevationCoverage from '../globe/TiledElevationCoverage';
 import WmsUrlBuilder from '../util/WmsUrlBuilder';
+import ElevationImage from './ElevationImage';
+import Logger from '../util/Logger';
 import ArcgisElevationWorker from 'worker!./ArcgisElevationWorker.js';
 
 /**
@@ -49,92 +51,59 @@ ArcgisElevationCoverage.prototype = Object.create(TiledElevationCoverage.prototy
 
 ArcgisElevationCoverage.prototype.retrieveTileImage = function (tile) {
     if (this.currentRetrievals.indexOf(tile.tileKey) < 0) {
-
         if (this.currentRetrievals.length > this.retrievalQueueSize) {
             return;
         }
 
+        let z = 360 / (tile.sector.maxLongitude - tile.sector.minLongitude);
+        let x = (180 + tile.sector.minLongitude) / 360 * Math.pow(2, z);
+        let y = (90 - tile.sector.maxLatitude) / 180 * Math.pow(2, z);
+
         this.worker.postMessage({
             tileKey: tile.tileKey,
-            column: tile.column,
-            row: tile.row,
-            levelNumber: tile.level.levelNumber
+            x,
+            y,
+            z
         });
 
         this.currentRetrievals.push(tile.tileKey);
     }
 };
 
-ArcgisElevationCoverage.prototype.handleMessage = function (e) {
-    let xhr = new XMLHttpRequest(),
-        elevationCoverage = this;
+ArcgisElevationCoverage.prototype.handleMessage = function (evt) {
+    let { result, tileKey, url, data, msg } = evt.data;
+    let tile = this.tileCache.entryForKey(tileKey);
 
-    xhr.open("GET", url + `&x=${x}&y=${y}&z=${z}`, true);
-    xhr.responseType = 'arraybuffer';
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-            elevationCoverage.removeFromCurrentRetrievals(tile.tileKey);
+    if (result === 'success') {
+        Logger.log(Logger.LEVEL_INFO, "Elevations retrieval succeeded: " + url);
+        this.loadElevationImage(tile, data);
+        this.absentResourceList.unmarkResourceAbsent(tileKey);
 
-            var contentType = xhr.getResponseHeader("content-type");
-
-            if (xhr.status === 200) {
-                if (contentType === elevationCoverage.retrievalImageFormat
-                    || contentType === "text/plain"
-                    || contentType === "application/octet-stream") {
-                    Logger.log(Logger.LEVEL_INFO, "Elevations retrieval succeeded: " + url);
-                    elevationCoverage.loadElevationImage(tile, xhr);
-                    elevationCoverage.absentResourceList.unmarkResourceAbsent(tile.tileKey);
-
-                    // Send an event to request a redraw.
-                    var e = document.createEvent('Event');
-                    e.initEvent(WorldWind.REDRAW_EVENT_TYPE, true, true);
-                    window.dispatchEvent(e);
-                } else if (contentType === "text/xml") {
-                    elevationCoverage.absentResourceList.markResourceAbsent(tile.tileKey);
-                    Logger.log(Logger.LEVEL_WARNING,
-                        "Elevations retrieval failed (" + xhr.statusText + "): " + url + ".\n "
-                        + String.fromCharCode.apply(null, new Uint8Array(xhr.response)));
-                } else {
-                    elevationCoverage.absentResourceList.markResourceAbsent(tile.tileKey);
-                    Logger.log(Logger.LEVEL_WARNING,
-                        "Elevations retrieval failed: " + url + ". " + "Unexpected content type "
-                        + contentType);
-                }
-            } else {
-                elevationCoverage.absentResourceList.markResourceAbsent(tile.tileKey);
-                Logger.log(Logger.LEVEL_WARNING,
-                    "Elevations retrieval failed (" + xhr.statusText + "): " + url);
-            }
-        }
-    };
-
-    xhr.onerror = function () {
-        elevationCoverage.removeFromCurrentRetrievals(tile.tileKey);
-        elevationCoverage.absentResourceList.markResourceAbsent(tile.tileKey);
+        // Send an event to request a redraw.
+        var e = document.createEvent('Event');
+        e.initEvent(WorldWind.REDRAW_EVENT_TYPE, true, true);
+        window.dispatchEvent(e);
+    } else if (result === 'fail') {
+        this.absentResourceList.markResourceAbsent(tileKey);
+        Logger.log(Logger.LEVEL_WARNING,
+            "Elevations retrieval failed (" + msg + "): " + url);
+    } else if (result === 'error') {
+        this.removeFromCurrentRetrievals(tileKey);
+        this.absentResourceList.markResourceAbsent(tileKey);
         Logger.log(Logger.LEVEL_WARNING, "Elevations retrieval failed: " + url);
-    };
-
-    xhr.ontimeout = function () {
-        elevationCoverage.removeFromCurrentRetrievals(tile.tileKey);
-        elevationCoverage.absentResourceList.markResourceAbsent(tile.tileKey);
+    } else if (result === 'timeout') {
+        this.removeFromCurrentRetrievals(tileKey);
+        this.absentResourceList.markResourceAbsent(tileKey);
         Logger.log(Logger.LEVEL_WARNING, "Elevations retrieval timed out: " + url);
-    };
-
-    xhr.send(null);
+    }
 };
 
 // Intentionally not documented.
-ArcgisElevationCoverage.prototype.loadElevationImage = function (tile, xhr) {
-    var elevationImage = new ElevationImage(tile.sector, tile.tileWidth, tile.tileHeight),
-        geoTiff;
+ArcgisElevationCoverage.prototype.loadElevationImage = function (tile, data) {
+    var elevationImage = new ElevationImage(tile.sector, data.width, data.height);
 
-    if (this.retrievalImageFormat === "application/bil16") {
-        elevationImage.imageData = new Int16Array(xhr.response);
-        elevationImage.size = elevationImage.imageData.length * 2;
-    } else if (this.retrievalImageFormat === "application/bil32") {
-        elevationImage.imageData = new Float32Array(xhr.response);
-        elevationImage.size = elevationImage.imageData.length * 4;
-    }
+    elevationImage.imageData = data.pixelData;
+    elevationImage.size = elevationImage.imageData.length * 4;
 
     if (elevationImage.imageData) {
         elevationImage.findMinAndMaxElevation();
