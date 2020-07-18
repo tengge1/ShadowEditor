@@ -170,6 +170,9 @@ npm run clear:          delete useless nodejs packages.
 
 ## Contributing
 
+<details>
+  <summary>Expand to view details</summary>
+
 ShadowEditor is a project for both users and developers. You can contribute and try you idea on this 
 project. No pension, but a lot of fun. To contribute, you should:
 
@@ -180,6 +183,8 @@ project. No pension, but a lot of fun. To contribute, you should:
 
 **Note:** DO NOT submit large binaries, or the `Pull Request` may be rejected. If required, you can 
 add the files or directories to be ignored to the `.gitignore` file.
+
+</details>
 
 ## Frequently Asked Questions
 

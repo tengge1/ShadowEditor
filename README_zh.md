@@ -170,12 +170,17 @@ npm run clear:          删除没用的nodejs包。
 
 ## 参与贡献
 
+<details>
+  <summary>展开查看详情</summary>
+
 ShadowEditor是一个为用户和开发者而生的项目。在这个项目上，你可以提交代码，尝试你的想法。没有报酬，但是有很多乐趣。提交代码，你需要：
 
 1. Fork 本仓库。
 2. 新建 Feat_xxx 分支。
 3. 提交代码。
 4. 新建 Pull Request。
+
+</details>
 
 **注意：** 不要提交大的二进制文件，否则可能会被拒绝。如果需要，你可以把想忽略的文件或目录添加到`.gitignore`文件中。
 
