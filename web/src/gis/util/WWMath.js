@@ -813,7 +813,7 @@ var WWMath = {
      * @see https://github.com/d3/d3-geo/blob/master/src/projection/mercator.js
      */
     mercatorLat: function (lat) {
-        return _mercatorLat(lat * Angle.DEGREES_TO_RADIANS) * angle.RADIANS_TO_DEGREES;
+        return this._mercatorLat(lat * Angle.DEGREES_TO_RADIANS) * angle.RADIANS_TO_DEGREES;
     },
 
     /**
@@ -833,7 +833,7 @@ var WWMath = {
      * @see https://github.com/d3/d3-geo/blob/master/src/projection/mercator.js
      */
     mercatorLatInvert: function (y) {
-        return _mercatorLatInvert(y * Angle.DEGREES_TO_RADIANS) * Angle.RADIANS_TO_DEGREES;
+        return this._mercatorLatInvert(y * Angle.DEGREES_TO_RADIANS) * Angle.RADIANS_TO_DEGREES;
     },
 
     /**
@@ -865,7 +865,7 @@ var WWMath = {
         lon2 *= Angle.DEGREES_TO_RADIANS;
         lat2 *= Angle.DEGREES_TO_RADIANS;
 
-        return _getDistance(lon1, lat1, lon2, lat2);
+        return this._getDistance(lon1, lat1, lon2, lat2);
     }
 };
 
