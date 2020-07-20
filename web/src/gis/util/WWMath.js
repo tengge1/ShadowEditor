@@ -794,6 +794,78 @@ var WWMath = {
     normalizeAngle360: function (degrees) {
         var angle = degrees % 360;
         return angle >= 0 ? angle : angle < 0 ? 360 + angle : 360 - angle;
+    },
+
+    /**
+     * 墨卡托投影（弧度）
+     * @param {Number} lat 纬度（弧度）
+     * @returns {Number} 投影纬度（弧度）
+     * @see https://github.com/d3/d3-geo/blob/master/src/projection/mercator.js
+     */
+    _mercatorLat: function (lat) {
+        return Math.log(Math.tan((Math.PI / 2 + lat) / 2));
+    },
+
+    /**
+     * 墨卡托投影（角度）
+     * @param {Number} lat 纬度（角度）
+     * @returns {Number} 投影纬度（角度）
+     * @see https://github.com/d3/d3-geo/blob/master/src/projection/mercator.js
+     */
+    mercatorLat: function (lat) {
+        return _mercatorLat(lat * Angle.DEGREES_TO_RADIANS) * angle.RADIANS_TO_DEGREES;
+    },
+
+    /**
+     * 墨卡托投影反算（弧度）
+     * @param {Number} y 墨卡托投影Y坐标
+     * @returns {Number} 纬度（弧度）
+     * @see https://github.com/d3/d3-geo/blob/master/src/projection/mercator.js
+     */
+    _mercatorLatInvert: function (y) {
+        return 2 * Math.atan(Math.exp(y)) - Math.PI / 2;
+    },
+
+    /**
+     * 墨卡托投影反算（角度）
+     * @param {Number} y 墨卡托投影Y坐标（角度）
+     * @returns {Number} 纬度（角度）
+     * @see https://github.com/d3/d3-geo/blob/master/src/projection/mercator.js
+     */
+    mercatorLatInvert: function (y) {
+        return _mercatorLatInvert(y * Angle.DEGREES_TO_RADIANS) * Angle.RADIANS_TO_DEGREES;
+    },
+
+    /**
+     * 计算两个经纬度之间距离(弧度)
+     * @param {Number} lon1 经度1(弧度)
+     * @param {Number} lat1 纬度1(弧度)
+     * @param {Number} lon2 经度2(弧度)
+     * @param {Number} lat2 纬度2(弧度)
+     * @returns {Number} 距离（米）
+     * @see https://www.xuebuyuan.com/2173606.html
+     */
+    _getDistance: function (lon1, lat1, lon2, lat2) {
+        return 2 * 6378137 * Math.asin(Math.sqrt(Math.pow(Math.sin((lat1 - lat2) / 2), 2) +
+            Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin((lon1 - lon2) / 2), 2)));
+    },
+
+    /**
+     * 计算两个经纬度之间距离(角度)
+     * @param {*} lon1 经度1(角度)
+     * @param {*} lat1 纬度1(角度)
+     * @param {*} lon2 经度2(角度)
+     * @param {*} lat2 纬度2(角度)
+     * @returns {Number} 距离（米）
+     * @see https://www.xuebuyuan.com/2173606.html
+     */
+    getDistance: function (lon1, lat1, lon2, lat2) {
+        lon1 *= Angle.DEGREES_TO_RADIANS;
+        lat1 *= Angle.DEGREES_TO_RADIANS;
+        lon2 *= Angle.DEGREES_TO_RADIANS;
+        lat2 *= Angle.DEGREES_TO_RADIANS;
+
+        return _getDistance(lon1, lat1, lon2, lat2);
     }
 };
 
