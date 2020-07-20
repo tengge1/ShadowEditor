@@ -32,11 +32,11 @@ import ArcgisElevationCoverage from './ArcgisElevationCoverage';
 function EarthElevationModel() {
     ElevationModel.call(this);
 
-    // this.addCoverage(new ArcgisElevationCoverage());
-    this.addCoverage(new GebcoElevationCoverage());
-    this.addCoverage(new AsterV2ElevationCoverage());
-    this.addCoverage(new UsgsNedElevationCoverage());
-    this.addCoverage(new UsgsNedHiElevationCoverage());
+    this.addCoverage(new ArcgisElevationCoverage());
+    // this.addCoverage(new GebcoElevationCoverage());
+    // this.addCoverage(new AsterV2ElevationCoverage());
+    // this.addCoverage(new UsgsNedElevationCoverage());
+    // this.addCoverage(new UsgsNedHiElevationCoverage());
 }
 
 EarthElevationModel.prototype = Object.create(ElevationModel.prototype);
