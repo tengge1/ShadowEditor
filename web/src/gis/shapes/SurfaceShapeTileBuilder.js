@@ -38,6 +38,7 @@ import TerrainTile from '../globe/TerrainTile';
 import TerrainTileList from '../globe/TerrainTileList';
 import TextureTile from '../render/TextureTile';
 import Tile from '../util/Tile';
+import WWMath from '../util/WWMath';
 
 
 function SurfaceShapeTileBuilder() {
@@ -89,7 +90,7 @@ function SurfaceShapeTileBuilder() {
      * Accumulator of all sectors for surface shapes
      * @type {Sector}
      */
-    this.sector = new Sector(-90, 90, -180, 180);
+    this.sector = new Sector(-WWMath.MAX_LAT, WWMath.MAX_LAT, -180, 180);
 
     /**
      * The default split scale. The split scale 2.9 has been empirically determined to render sharp lines and edges with

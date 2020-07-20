@@ -22,6 +22,7 @@ import TiledElevationCoverage from '../globe/TiledElevationCoverage';
 import WmsUrlBuilder from '../util/WmsUrlBuilder';
 import ElevationImage from './ElevationImage';
 import Logger from '../util/Logger';
+import WWMath from '../util/WWMath';
 import ArcgisElevationWorker from 'worker!./ArcgisElevationWorker.js';
 
 /**
@@ -33,7 +34,7 @@ import ArcgisElevationWorker from 'worker!./ArcgisElevationWorker.js';
  */
 function ArcgisElevationCoverage() {
     TiledElevationCoverage.call(this, {
-        coverageSector: new Sector(-83.0001, 83.0001, -180, 180),
+        coverageSector: new Sector(-WWMath.MAX_LAT, WWMath.MAX_LAT, -180, 180),
         resolution: 0.000277777777778,
         retrievalImageFormat: "application/bil16",
         minElevation: -11000,

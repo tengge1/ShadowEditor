@@ -36,6 +36,7 @@ import WWMath from '../util/WWMath';
  * @param {Number} maxLongitude The sector's maximum longitude in degrees.
  */
 function Sector(minLatitude, maxLatitude, minLongitude, maxLongitude) {
+    debugger;
     /**
      * This sector's minimum latitude in degrees.
      * @type {Number}
@@ -70,7 +71,7 @@ Sector.ZERO = new Sector(0, 0, 0, 0);
  * @constant
  * @type {Sector}
  */
-Sector.FULL_SPHERE = new Sector(-90, 90, -180, 180);
+Sector.FULL_SPHERE = new Sector(-WWMath.MAX_LAT, WWMath.MAX_LAT, -180, 180);
 
 /**
  * Sets this sector's latitudes and longitudes to those of a specified sector.
