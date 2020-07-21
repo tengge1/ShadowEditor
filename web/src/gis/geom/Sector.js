@@ -36,7 +36,6 @@ import WWMath from '../util/WWMath';
  * @param {Number} maxLongitude The sector's maximum longitude in degrees.
  */
 function Sector(minLatitude, maxLatitude, minLongitude, maxLongitude) {
-    debugger;
     /**
      * This sector's minimum latitude in degrees.
      * @type {Number}
