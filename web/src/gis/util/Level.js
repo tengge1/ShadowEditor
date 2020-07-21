@@ -31,7 +31,6 @@ import Logger from '../util/Logger';
  * @throws {ArgumentError} If either the specified tile delta or parent level set is null or undefined.
  */
 function Level(levelNumber, tileDelta, parent) {
-    debugger;
     if (!tileDelta) {
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "Level", "constructor",

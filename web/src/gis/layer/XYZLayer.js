@@ -12,7 +12,7 @@ class XYZLayer extends MercatorTiledImageLayer {
     constructor() {
         let imageSize = 256;
         let displayName = 'Bing';
-        super(new Sector(-85.05, 85.05, -180, 180), new Location(85.05, 180), 23, "image/jpeg",
+        super(new Sector(-180, 180, -180, 180), new Location(360, 360), 18, "image/jpeg",
             displayName, imageSize, imageSize);
 
         this.imageSize = imageSize;
@@ -30,7 +30,7 @@ class XYZLayer extends MercatorTiledImageLayer {
     }
 
     mapSizeForLevel(levelNumber) {
-        return 256 << (levelNumber + 1);
+        return 256 << levelNumber + 1;
     }
 }
 

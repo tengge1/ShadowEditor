@@ -60,7 +60,7 @@ function FramebufferTileController() {
     this.detailControl = 1.75;
 
     // Internal. Intentionally not documented.
-    this.levels = new LevelSet(Sector.FULL_SPHERE, new Location(45, 45), 16, this.tileWidth, this.tileHeight);
+    this.levels = new LevelSet(Sector.FULL_SPHERE, new Location(360, 360), 18, this.tileWidth, this.tileHeight);
 
     // Internal. Intentionally not documented.
     this.topLevelTiles = [];

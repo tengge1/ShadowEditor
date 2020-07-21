@@ -868,7 +868,7 @@ var WWMath = {
         return this._getDistance(lon1, lat1, lon2, lat2);
     },
     // this.mercatorLatInvert(180)
-    MAX_LAT: 85.0511287798066
+    MAX_LAT: 180
 };
 
 export default WWMath;

@@ -45,11 +45,11 @@ function SurfaceShapeTileBuilder() {
     // Parameterize top level subdivision in one place.
 
     // TilesInTopLevel describes the most coarse tile structure.
-    this.numRowsTilesInTopLevel = 4;
-    this.numColumnsTilesInTopLevel = 8;
+    this.numRowsTilesInTopLevel = 1;
+    this.numColumnsTilesInTopLevel = 1;
 
     // The maximum number of levels that will ever be tessellated.
-    this.maximumSubdivisionDepth = 15;
+    this.maximumSubdivisionDepth = 18;
 
     // tileWidth, tileHeight - the number of subdivisions a single tile has; this determines the sampling grid.
     this.tileWidth = 256;
@@ -62,7 +62,7 @@ function SurfaceShapeTileBuilder() {
     this.levels = new LevelSet(
         Sector.FULL_SPHERE,
         new Location(
-            180 / this.numRowsTilesInTopLevel,
+            360 / this.numRowsTilesInTopLevel,
             360 / this.numColumnsTilesInTopLevel),
         this.maximumSubdivisionDepth,
         this.tileWidth,

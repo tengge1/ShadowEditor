@@ -46,15 +46,15 @@ function Tessellator() {
     // Parameterize top level subdivision in one place.
 
     // TilesInTopLevel describes the most coarse tile structure.
-    this.numRowsTilesInTopLevel = 4; // baseline: 4
-    this.numColumnsTilesInTopLevel = 8; // baseline: 8
+    this.numRowsTilesInTopLevel = 1; // baseline: 4
+    this.numColumnsTilesInTopLevel = 1; // baseline: 8
 
     // The maximum number of levels that will ever be tessellated.
-    this.maximumSubdivisionDepth = 15; // baseline: 15
+    this.maximumSubdivisionDepth = 16; // baseline: 15
 
     // tileWidth, tileHeight - the number of subdivisions a single tile has; this determines the sampling grid.
-    this.tileWidth = 32; // baseline: 32
-    this.tileHeight = 32; // baseline: 32
+    this.tileWidth = 256; // baseline: 32
+    this.tileHeight = 256; // baseline: 32
 
     /**
      * Controls the level of detail switching for this layer. The next highest resolution level is
@@ -68,7 +68,7 @@ function Tessellator() {
     this.levels = new LevelSet(
         Sector.FULL_SPHERE,
         new Location(
-            180 / this.numRowsTilesInTopLevel,
+            360 / this.numRowsTilesInTopLevel,
             360 / this.numColumnsTilesInTopLevel),
         this.maximumSubdivisionDepth,
         this.tileWidth,

@@ -415,10 +415,10 @@ Tile.computeTileKey = function (levelNumber, row, column) {
  * @returns {Number} The computed row number.
  */
 Tile.computeRow = function (delta, latitude) {
-    var row = Math.floor((latitude + 90) / delta);
+    var row = Math.floor((latitude + 180) / delta);
 
     // If latitude is at the end of the grid, subtract 1 from the computed row to return the last row.
-    if (latitude == 90) {
+    if (latitude == 180) {
         row -= 1;
     }
 
