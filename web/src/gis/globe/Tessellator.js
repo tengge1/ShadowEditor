@@ -148,6 +148,7 @@ function Tessellator() {
  * @throws {ArgumentError} If the dc is null or undefined.
  */
 Tessellator.prototype.tessellate = function (dc) {
+    debugger;
     if (!dc) {
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "Tessellator", "tessellate", "missingDC"));

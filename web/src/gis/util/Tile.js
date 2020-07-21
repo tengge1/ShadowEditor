@@ -541,7 +541,7 @@ Tile.createTilesForLevel = function (level, tileFactory, result) {
         firstCol = Tile.computeColumn(deltaLon, sector.minLongitude),
         lastCol = Tile.computeColumn(deltaLon, sector.maxLongitude),
 
-        firstRowLat = -90 + firstRow * deltaLat,
+        firstRowLat = -180 + firstRow * deltaLat,
         firstRowLon = -180 + firstCol * deltaLon,
 
         minLat = firstRowLat,
