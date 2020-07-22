@@ -90,22 +90,22 @@ class SceneMenu extends React.Component {
         </MenuItem>;
     }
 
-    componentDidMount() {
-        if (app.debug) {
-            // TODO: just for gis development, and remove this afterwards.
-            app.on(`appStarted.dev-3d-gis`, () => {
-                setTimeout(() => {
-                    this.handleCreateGISScene();
-                    let navigator = window.map.navigator;
-                    navigator.lookAtLocation.longitude = 117.10127241777573;
-                    navigator.lookAtLocation.latitude = 36.252883073248505;
-                    navigator.range = 8213.599866566046;
-                    navigator.heading = -4.154778165537195;
-                    navigator.tilt = 75.51000478580939;
-                });
-            });
-        }
-    }
+    // componentDidMount() {
+    //     if (app.debug) {
+    //         // TODO: just for gis development, and remove this afterwards.
+    //         app.on(`appStarted.dev-3d-gis`, () => {
+    //             setTimeout(() => {
+    //                 this.handleCreateGISScene();
+    //                 let navigator = window.map.navigator;
+    //                 navigator.lookAtLocation.longitude = 117.10127241777573;
+    //                 navigator.lookAtLocation.latitude = 36.252883073248505;
+    //                 navigator.range = 8213.599866566046;
+    //                 navigator.heading = -4.154778165537195;
+    //                 navigator.tilt = 75.51000478580939;
+    //             });
+    //         });
+    //     }
+    // }
 
     /**
      * 创建场景前询问
