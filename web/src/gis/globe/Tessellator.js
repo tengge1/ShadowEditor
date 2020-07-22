@@ -148,7 +148,6 @@ function Tessellator() {
  * @throws {ArgumentError} If the dc is null or undefined.
  */
 Tessellator.prototype.tessellate = function (dc) {
-    debugger;
     if (!dc) {
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "Tessellator", "tessellate", "missingDC"));
@@ -913,6 +912,9 @@ Tessellator.prototype.setNeighbors = function (tile) {
 Tessellator.prototype.isTileVisible = function (dc, tile) {
     if (dc.globe.projectionLimits && !tile.sector.overlaps(dc.globe.projectionLimits)) {
         return false;
+    }
+    if(tile.level.levelNumber < 4) {
+        return true;
     }
 
     return tile.extent.intersectsFrustum(dc.frustumInModelCoordinates);

@@ -68,7 +68,6 @@ MercatorTiledImageLayer.prototype = Object.create(TiledImageLayer.prototype);
 // Overridden from TiledImageLayer. Computes a tile's sector and creates the tile.
 // Unlike typical tiles, Tiles at the same level do not have the same sector size.
 MercatorTiledImageLayer.prototype.createTile = function (sector, level, row, column) {
-    debugger;
     var mapSize = this.mapSizeForLevel(level.levelNumber),
         swX = WWMath.clamp(column * this.imageSize, 0, mapSize),
         neY = WWMath.clamp(row * this.imageSize, 0, mapSize),
