@@ -77,12 +77,12 @@ MercatorTiledImageLayer.prototype.createTile = function (sector, level, row, col
 
     x = swX / mapSize - 0.5;
     y = 0.5 - swY / mapSize;
-    swLat = 90 - 360 * Math.atan(Math.exp(-y * 2 * Math.PI)) / Math.PI;
+    swLat = -y * 2 * Math.PI * (-180 / Math.PI);
     swLon = 360 * x;
 
     x = neX / mapSize - 0.5;
     y = 0.5 - neY / mapSize;
-    neLat = 90 - 360 * Math.atan(Math.exp(-y * 2 * Math.PI)) / Math.PI;
+    neLat = -y * 2 * Math.PI * (-180 / Math.PI);
     neLon = 360 * x;
 
     sector = new Sector(swLat, neLat, swLon, neLon);
