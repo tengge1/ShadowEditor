@@ -640,10 +640,10 @@ Tessellator.prototype.createTopLevelTiles = function (dc) {
 };
 
 Tessellator.prototype.addTileOrDescendants = function (dc, tile) {
-    if (this.tileMeetsRenderCriteria(dc, tile)) {
-        this.addTile(dc, tile);
-        return;
-    }
+    // if (this.tileMeetsRenderCriteria(dc, tile)) {
+    //     this.addTile(dc, tile);
+    //     return;
+    // }
 
     this.addTileDescendants(dc, tile);
 };
@@ -914,6 +914,7 @@ Tessellator.prototype.isTileVisible = function (dc, tile) {
         return false;
     }
     if(tile.level.levelNumber < 4) {
+        debugger;
         return true;
     }
 
