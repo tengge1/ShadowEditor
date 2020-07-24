@@ -139,7 +139,14 @@ MercatorTiledImageLayer.prototype.createTexture = function (dc, tile, image) {
         }
     }
 
-    destContext.putImageData(destImageData, 0, 0);
+    //destContext.putImageData(destImageData, 0, 0);
+    destContext.strokeStyle = '#ffff00';
+    destContext.strokeRect(0, 0, 256, 256);
+    destContext.font = "48px sans-serif";
+    destContext.fillStyle = '#ff0000';
+    destContext.textAlign = 'center';
+    destContext.textBaseline = 'middle';
+    destContext.fillText(`${tile.row},${tile.column}`, 128, 128);
 
     return TiledImageLayer.prototype.createTexture.call(this, dc, tile, destCanvas);
 };
