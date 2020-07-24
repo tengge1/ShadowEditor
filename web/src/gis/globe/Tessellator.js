@@ -640,10 +640,10 @@ Tessellator.prototype.createTopLevelTiles = function (dc) {
 };
 
 Tessellator.prototype.addTileOrDescendants = function (dc, tile) {
-    // if (this.tileMeetsRenderCriteria(dc, tile)) {
-    //     this.addTile(dc, tile);
-    //     return;
-    // }
+    if (this.tileMeetsRenderCriteria(dc, tile)) {
+        this.addTile(dc, tile);
+        return;
+    }
 
     this.addTileDescendants(dc, tile);
 };
@@ -913,8 +913,7 @@ Tessellator.prototype.isTileVisible = function (dc, tile) {
     if (dc.globe.projectionLimits && !tile.sector.overlaps(dc.globe.projectionLimits)) {
         return false;
     }
-    if(tile.level.levelNumber < 4) {
-        debugger;
+    if (tile.level.levelNumber < 4) {
         return true;
     }
 

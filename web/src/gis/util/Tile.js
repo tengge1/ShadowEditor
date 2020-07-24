@@ -241,22 +241,22 @@ Tile.prototype.subdivide = function (level, tileFactory) {
 
     subRow = 2 * this.row;
     subCol = 2 * this.column;
-    childSector = new Sector(latMin, latMid, lonMin, lonMid);
+    childSector = new Sector(latMid, latMax, lonMin, lonMid);
     children.push(tileFactory.createTile(childSector, level, subRow, subCol));
 
     subRow = 2 * this.row;
     subCol = 2 * this.column + 1;
-    childSector = new Sector(latMin, latMid, lonMid, lonMax);
+    childSector = new Sector(latMid, latMax, lonMid, lonMax);
     children.push(tileFactory.createTile(childSector, level, subRow, subCol));
 
     subRow = 2 * this.row + 1;
     subCol = 2 * this.column;
-    childSector = new Sector(latMid, latMax, lonMin, lonMid);
+    childSector = new Sector(latMin, latMid, lonMin, lonMid);
     children.push(tileFactory.createTile(childSector, level, subRow, subCol));
 
     subRow = 2 * this.row + 1;
     subCol = 2 * this.column + 1;
-    childSector = new Sector(latMid, latMax, lonMid, lonMax);
+    childSector = new Sector(latMin, latMid, lonMid, lonMax);
     children.push(tileFactory.createTile(childSector, level, subRow, subCol));
 
     return children;
@@ -499,9 +499,9 @@ Tile.computeSector = function (level, row, column) {
     var deltaLat = level.tileDelta.latitude,
         deltaLon = level.tileDelta.longitude,
 
-        minLat = -90 + row * deltaLat,
+        maxLat = 180 - row * deltaLat,
         minLon = -180 + column * deltaLon,
-        maxLat = minLat + deltaLat,
+        minLat = maxLat - deltaLat,
         maxLon = minLon + deltaLon;
 
     return new Sector(minLat, maxLat, minLon, maxLon);
