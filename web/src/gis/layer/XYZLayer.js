@@ -24,13 +24,10 @@ class XYZLayer extends MercatorTiledImageLayer {
         this.topLevelTiles = [];
 
         this.topLevelTiles.push(this.createTile(null, this.levels.firstLevel(), 0, 0));
-        this.topLevelTiles.push(this.createTile(null, this.levels.firstLevel(), 0, 1));
-        this.topLevelTiles.push(this.createTile(null, this.levels.firstLevel(), 1, 0));
-        this.topLevelTiles.push(this.createTile(null, this.levels.firstLevel(), 1, 1));
     }
 
     mapSizeForLevel(levelNumber) {
-        return 256 << levelNumber + 1;
+        return 256 << levelNumber;
     }
 }
 
