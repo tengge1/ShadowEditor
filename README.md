@@ -24,7 +24,8 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
 
 ## v0.5.6 is Coming
 
-1. 3D Earth. (In development)
+1. 3D GIS. (In development)
+2. The `v0.4.6-csharp` branch will be deleted on August 1.
 
 ## v0.5.5 has Released
 

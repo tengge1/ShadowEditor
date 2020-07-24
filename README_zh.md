@@ -24,7 +24,8 @@
 
 ## v0.5.6即将发布
 
-1. 三维地球。（开发中）
+1. 三维GIS。（开发中）
+2. `v0.4.6-csharp`分支将在8月1日删除。
 
 ## v0.5.5发布[【更新日志】](https://gitee.com/tengge1/ShadowEditor/wikis/pages?sort_id=2215122&doc_id=188900)
 
