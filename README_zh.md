@@ -89,7 +89,7 @@
   - [x] 模型导出
     - [x] gltf、obj、ply、stl、Collada、DRACO
   - [x] 场景发布
-    - [x] 将场景发布成静态资源，可以嵌入`iframe`中
+    - [x] 将场景发布成静态资源，可以嵌入iframe中
 - [ ] GIS场景编辑
   - [ ] 卫星图
     - [x] 必应卫星图

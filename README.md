@@ -89,7 +89,7 @@ Note: If the desktop version cannot be opened, you can view `logs.txt`; if the p
   - [x] Mesh export
     - [x] gltf、obj、ply、stl、Collada、DRACO
   - [x] Scene publishment
-    - [x] Publish scene as static resources, and can be embedded in `iframe`
+    - [x] Publish scene as static resources, and can be embedded in iframe
 - [ ] GIS scene editing
   - [ ] Satellite imagery
     - [x] Bing satellite image
