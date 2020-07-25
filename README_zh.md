@@ -41,6 +41,35 @@
 
 ## 功能特点
 
+  - [x] 跨平台
+  - [x] 多种语言支持
+  - [x] 资源管理
+  - [x] 权限管理
+  - [x] 版本控制
+
+1. 小场景编辑
+
+  - [x] 添加模型
+  - [x] 内置几何体
+  - [x] 内置光源
+  - [x] 内置组件
+  - [x] 材质编辑
+  - [x] 脚本、着色器编辑
+  - [x] 模型导出
+
+2. GIS场景编辑
+
+  - [ ] 地形编辑
+  - [ ] 数据导入
+  - [ ] 多种卫星图支持
+  - [ ] 管网编辑
+  - [ ] 小区编辑
+
+3. 数据可视化
+
+  - [ ] WebSocket和Ajax数据接入
+  - [ ] 可视化图表
+
 1. 跨平台：支持`Windows`、`Linux`和`Mac`；支持桌面版和Web版。
 2. 支持多种3D格式：`3ds`, `3mf`, `amf`, `assimp`(anim), `awd`, `babylon`, `binary`, `bvh`(anim), `collada`, `ctm`, `draco` , `fbx`(anim), `gcode`, `gltf`(`gltf`和`glb`, anim), `js`(anim), `kmz`, `lmesh`(anim), `md2`, `mmd`(`pmd`和`pmx`, anim), `nrrd`, `obj`, `pcd`, `pdb`, `ply`, `prwm`, `sea3d`(anim), `stl`, `vrm`, `vrml`, `vtk`, `X`. (anim)表示支持动画。
 3. 内置物体：组；平面、正方体、圆、圆柱体、球体、二十面体、圆环面、圆环结、茶壶、车床；不缩放文字、三维文字；线段、CatmullRom曲线、二次贝塞尔曲线、三次贝塞尔曲线、椭圆曲线；点标注；箭头帮助器、轴帮助器；精灵。
