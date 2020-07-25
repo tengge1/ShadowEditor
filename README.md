@@ -39,22 +39,88 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
 
 Note: If the desktop version cannot be opened, you can view `logs.txt`; if the port conflicts, you can modify the MongoDB and website ports in `resources/app/config.toml`.
 
-## Features
+## Feature List
 
-1. Cross-platform: `Windows`, `Linux`, `Mac`; and supports desktop and web versions.
-2. It supports many 3D formats: `3ds`, `3mf`, `amf`, `assimp`(anim), `awd`, `babylon`, `binary`, `bvh`(anim), `collada`, `ctm`, `draco` , `fbx`(anim), `gcode`, `gltf`(`gltf` and `glb`, anim), `js`(anim), `kmz`, `lmesh`(anim), `md2`, `mmd`(`pmd` and `pmx`, anim), `nrrd`, `obj`, `pcd`, `pdb`, `ply`, `prwm`, `sea3d`(anim), `stl`, `vrm`, `vrml`, `vtk`, `X`. (anim) means it supports animation.
-3. Built-in objects: group; plane, cube, circle, cylinder, sphere, icosahedron, torus, torus knot, teapot, lathe; unscaled text, 3D text; line segments, CatmullRom curve, quadratic Bezier curve, cubic Bezier curve, ellipse curve; point marks; arrow helper, axes helper; sprite.
-4. Built-in lights: ambient light, directional light, point light, spotlight, hemispherical light, rect area light.
-5. Built-in components: background music, particle emitter, sky, fire, water, smoke, cloth, berlin terrain, sky sphere.
-6. Support materials: LineBasicMaterial, LineDashedMaterial, MeshBasicMaterial, MeshDepthMaterial, MeshNormalMaterial, MeshLambertMaterial, MeshPhongMaterial, PointsMaterial, MeshStandardMaterial, MeshPhysicalMaterial, SpriteMaterial, ShaderMaterial, RawShaderMaterial.
-7. Edit javascript, shader program and json with intelligence.
-8. Live player can play animations in the scene.
-9. Exporting `gltf`, `obj`, `ply`, `stl`, `Collada`, `DRACO` models.
-10. Publish scene as static resources, and can be embedded in `iframe`.
-11. Support languages: `English`, `中文`, `繁體中文`, `日本語`, `한국어`, `русский`, `Le français`.
-12. Scene version management: supporting history and logs, undo and redo, auto saving.
-13. Authority management: organization, user, role, authority, registration, login, and password modification.
-14. Resource management: scene, mesh, texture, material, audio, animation, screenshot, video, typeface.
+- [x] General
+  - [x] Cross-platform
+    - [x] Windows, Linux, Mac
+    - [x] Desktop, Web
+  - [x] Multi-language support
+    - [x] English、中文、繁體中文、日本語、한국어、русский、Le français
+  - [x] Assets management
+    - [x] scene, mesh, texture, material, audio, animation, screenshot, video, typeface
+  - [x] Authority management
+    - [x] organization, user
+    - [x] role, authority
+    - [x] registration, login, password modification
+  - [x] Version management
+    - [x] Scene history and logs
+    - [x] undo, redo, auto saving
+  - [x] Player
+    - [x] play animations in the scene in real time
+- [x] Small scene editing
+  - [x] Add mesh
+    - [x] 3ds, 3mf, amf, assimp, awd, babylon, binary, bvh, collada, ctm
+    - [x] draco, fbx, gcode, gltf, glb, js, kmz, lmesh, md2, pmd, pmx
+    - [x] nrrd, obj, pcd, pdb, ply, prwm, sea3d, stl, vrm, vrml, vtk, X
+  - [x] Built-in objects
+    - [x] group
+    - [x] plane, cube, circle, cylinder, sphere, icosahedron, torus, torus knot, teapot, lathe
+    - [x] unscaled text, 3D text
+    - [x] line segments, CatmullRom curve, quadratic Bezier curve, cubic Bezier curve, ellipse curve
+    - [x] point marks
+    - [x] arrow helper, axes helper
+    - [x] sprite
+  - [x] Built-in lights
+    - [x] ambient light, directional light, point light, spotlight, hemispherical light, rect area light
+    - [x] directional light, point light, spotlight, hemispherical light, rect area light helper
+  - [x] Built-in components
+    - [x] background music, particle emitter
+    - [x] sky, fire, water, smoke, cloth
+    - [x] berlin terrain, sky sphere
+  - [x] Materials editing
+    - [x] LineBasicMaterial, LineDashedMaterial, MeshBasicMaterial, MeshDepthMaterial, MeshNormalMaterial
+    - [x] MeshLambertMaterial, MeshPhongMaterial, PointsMaterial, MeshStandardMaterial, MeshPhysicalMaterial
+    - [x] SpriteMaterial, ShaderMaterial, RawShaderMaterial
+  - [x] Text editing
+    - [x] javascript editing with intelligence
+    - [x] shader editing
+    - [x] json file editing
+  - [x] Mesh export
+    - [x] gltf、obj、ply、stl、Collada、DRACO
+  - [x] Scene publishment
+    - [x] Publish scene as static resources, and can be embedded in iframe
+- [ ] GIS scene editing
+  - [ ] Satellite imagery
+    - [x] Bing satellite image
+    - [ ] Google satellite image
+    - [ ] Tianditu satellite image
+  - [ ] 3D terrain
+    - [ ] Arcgis Elevation
+    - [ ] Terrain editing
+  - [ ] Ground features editing
+    - [ ] Pipe network editing
+    - [ ] District editing
+  - [ ] Data import
+    - [ ] OSM
+    - [ ] Sharp
+    - [ ] dxf
+    - [ ] Excel
+    - [ ] BIM
+    - [ ] Point cloud
+- [ ] Data visualization
+  - [ ] Real-time data access
+    - [ ] WebSocket
+    - [ ] Ajax
+  - [ ] UI
+    - [ ] Form
+      - [ ] Button, radio, checkbox, dropdown
+    - [ ] Panel
+    - [ ] Datagrid
+  - [ ] Chart
+    - [ ] Histogram
+    - [ ] Pie chart
+    - [ ] Line chart
 
 ## Requirements
 
