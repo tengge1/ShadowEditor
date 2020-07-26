@@ -22,3 +22,7 @@
 .ContextMenu>.MenuItem:hover {
     padding: 1px 15px; 
 }
+
+.ContextMenu>.MenuItem.disabled:hover{
+    padding: 2px 16px; 
+}

@@ -28,6 +28,7 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
 2. The `v0.4.6-csharp` branch will be deleted on August 1.
 3. Fix the bug that it says "Only jpg, png, mp4 file is allowed to upload!" when uploading a mesh after uploading an image.
 4. Fix the bug that it says "Only zip file is allowed!" when uploading an image after uploading a mesh.
+5. The check box in front of the texture property is changed to enable and disable the texture, and add a delete button after the texture.
 
 ## v0.5.5 has Released
 

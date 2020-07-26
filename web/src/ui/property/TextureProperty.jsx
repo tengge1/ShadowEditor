@@ -58,6 +58,7 @@ class TextureProperty extends React.Component {
             >
                 <ContextMenu>
                     <MenuItem title={_t('Delete')}
+                        disabled={this.texture === null}
                         onClick={this.handleDelete}
                     />
                 </ContextMenu>
