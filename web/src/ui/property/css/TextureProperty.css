@@ -36,7 +36,7 @@
 .TextureProperty>.field>.texture>.menu::after {
     left: auto;
     right: 0;
-    width: 100px;
+    width: 26px;
 }
 
 .TextureProperty>.field>.texture>.menu>.menu {

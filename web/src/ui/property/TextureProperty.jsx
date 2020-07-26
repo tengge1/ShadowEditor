@@ -24,15 +24,23 @@ class TextureProperty extends React.Component {
         super(props);
 
         this.canvasRef = React.createRef();
+        this.texture = null;
 
         this.handleSelect = this.handleSelect.bind(this);
 
         this.handleEnable = this.handleEnable.bind(this, props.onChange);
+        this.handleDelete = this.handleDelete.bind(this, props.onChange);
         this.handleChange = this.handleChange.bind(this, props.onChange);
     }
 
     render() {
         const { className, style, value } = this.props;
+
+        if (!this.texture) {
+            this.texture = value;
+        } else if (value && value.uuid !== this.texture.uuid) { // a new texture
+            this.texture = value;
+        }
 
         return <div className={classNames('texture', className)}
             style={style}
@@ -49,8 +57,8 @@ class TextureProperty extends React.Component {
                 icon={'setting-black'}
             >
                 <ContextMenu>
-                    <MenuItem title={_t('Delete Texture')}
-                        onClick={this.handleDeleteTexture}
+                    <MenuItem title={_t('Delete')}
+                        onClick={this.handleDelete}
                     />
                 </ContextMenu>
             </IconMenuButton>
@@ -62,7 +70,7 @@ class TextureProperty extends React.Component {
     }
 
     componentDidUpdate() {
-        let texture = this.props.value;
+        let texture = this.texture;
 
         const canvas = this.canvasRef.current;
         const context = canvas.getContext('2d');
@@ -91,19 +99,16 @@ class TextureProperty extends React.Component {
     }
 
     handleEnable(onChange, enabled, name, event) {
-        const value = this.props.value;
-
-        if (enabled && value === null) {
-            this.input.value = null;
-            this.input.click();
-            return;
-        }
-
         if (enabled) {
-            onChange && onChange(value, this.props.name, event);
+            onChange && onChange(this.texture, this.props.name, event);
         } else {
             onChange && onChange(null, this.props.name, event);
         }
+    }
+
+    handleDelete(onChange) {
+        this.texture = null;
+        onChange && onChange(null, this.props.name, event);
     }
 
     handleChange(onChange, data) {
