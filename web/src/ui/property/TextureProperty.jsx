@@ -12,7 +12,6 @@ import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 
 import CheckBox from '../form/CheckBox.jsx';
-import Input from '../form/Input.jsx';
 
 /**
  * 纹理属性
@@ -31,7 +30,7 @@ class TextureProperty extends React.Component {
     }
 
     render() {
-        const { className, style, value, showScale, scale } = this.props;
+        const { className, style, value } = this.props;
 
         return <div className={classNames('texture', className)}
             style={style}
@@ -42,10 +41,6 @@ class TextureProperty extends React.Component {
             <canvas title={value ? value.sourceFile : ''}
                 ref={this.canvasRef}
                 onClick={this.handleSelect}
-            />
-            <Input type={'number'}
-                value={scale}
-                show={showScale}
             />
         </div>;
     }
@@ -161,8 +156,6 @@ TextureProperty.propTypes = {
             return new TypeError(`Invalid prop \`${propName}\` of type \`${typeof value}\` supplied to \`${componentName}\`, expected \`THREE.Texture\`.`);
         }
     },
-    showScale: PropTypes.bool,
-    scale: PropTypes.number,
     onChange: PropTypes.func
 };
 
@@ -171,8 +164,6 @@ TextureProperty.defaultProps = {
     style: null,
     name: null,
     value: null,
-    showScale: false,
-    scale: 1.0,
     onChange: null
 };
 
