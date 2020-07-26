@@ -32,3 +32,13 @@
     display: inline-block;
     vertical-align: middle;
 }
+
+.TextureProperty>.field>.texture>.menu::after {
+    left: auto;
+    right: 0;
+    width: 100px;
+}
+
+.TextureProperty>.field>.texture>.menu>.menu {
+    right: 0;
+}
