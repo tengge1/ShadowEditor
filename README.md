@@ -59,7 +59,9 @@ Note: If the desktop version cannot be opened, you can view `logs.txt`; if the p
     - [x] Scene history and logs
     - [x] undo, redo, auto saving
   - [x] Player
-    - [x] play animations in the scene in real time
+    - [x] play animations in the scene in real time, and can play full screen and in new window
+  - [x] Settings
+    - [x] Display, renderer, helpers, filter, weather, control mode, select mode, add mode, language
 - [x] Small scene editing
   - [x] Add mesh
     - [x] 3ds, 3mf, amf, assimp, awd, babylon, binary, bvh, collada, ctm
@@ -75,7 +77,7 @@ Note: If the desktop version cannot be opened, you can view `logs.txt`; if the p
     - [x] sprite
   - [x] Built-in lights
     - [x] ambient light, directional light, point light, spotlight, hemispherical light, rect area light
-    - [x] directional light, point light, spotlight, hemispherical light, rect area light helper
+    - [x] point light, hemispherical light, rect area light helper
   - [x] Built-in components
     - [x] background music, particle emitter
     - [x] sky, fire, water, smoke, cloth
@@ -92,6 +94,14 @@ Note: If the desktop version cannot be opened, you can view `logs.txt`; if the p
     - [x] gltf、obj、ply、stl、Collada、DRACO
   - [x] Scene publishment
     - [x] Publish scene as static resources, and can be embedded in iframe
+  - [x] Examples
+    - [x] Arkanoid, camera, particle, ping pong, shader
+  - [x] General tools
+    - [x] Select, pan, rotate, zoom
+    - [x] Perspective view, front view, side view, top view, grid mode
+    - [x] Screenshot, record
+    - [x] Draw point, draw line, draw polygon, spray
+    - [x] Measure distance
 - [ ] GIS scene editing
   - [ ] Satellite imagery
     - [x] Bing satellite image
