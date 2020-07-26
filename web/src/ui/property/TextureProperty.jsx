@@ -10,8 +10,10 @@
 import './css/TextureProperty.css';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
-
 import CheckBox from '../form/CheckBox.jsx';
+import IconMenuButton from '../form/IconMenuButton.jsx';
+import ContextMenu from '../menu/ContextMenu.jsx';
+import MenuItem from '../menu/MenuItem.jsx';
 
 /**
  * 纹理属性
@@ -42,6 +44,16 @@ class TextureProperty extends React.Component {
                 ref={this.canvasRef}
                 onClick={this.handleSelect}
             />
+            <IconMenuButton
+                className={'menu'}
+                icon={'setting-black'}
+            >
+                <ContextMenu>
+                    <MenuItem title={_t('Delete Texture')}
+                        onClick={this.handleDeleteTexture}
+                    />
+                </ContextMenu>
+            </IconMenuButton>
         </div>;
     }
 
