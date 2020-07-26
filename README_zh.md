@@ -12,7 +12,7 @@
 )](https://twitter.com/tengge11)
 
 * 名称：Shadow Editor
-* 版本：v0.5.6（开发中）
+* 版本：v0.5.7（开发中）
 * 简介：基于Three.js、Go语言和MongoDB的跨平台的3D场景编辑器。
 * 源码：[GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | 文档：[Gitee](https://gitee.com/tengge1/ShadowEditor/wikis/pages) | 示例：[GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) | 视频：[微博](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) | 资源：[百度网盘](https://pan.baidu.com/s/1IxJVM6fFLoIAJG-GKHjVTA)
 * 技术栈：html、css、javascript、rollup、react.js、webgl、three.js、golang、mongodb、nodejs、electron、WebWorldWind。
@@ -22,22 +22,20 @@
 
 ![image](images/scene20200705.jpg)
 
-## v0.5.6即将发布
+## v0.5.7即将更新
+
+1. 三维GIS。（开发中）
+
+## v0.5.6发布
+
+* 发布日期：2020年7月26日
+* 更新日志：
 
 1. 三维GIS。（开发中）
 2. `v0.4.6-csharp`分支将在8月1日删除。
-
-## v0.5.5发布[【更新日志】](https://gitee.com/tengge1/ShadowEditor/wikis/pages?sort_id=2215122&doc_id=188900)
-
-* 发布日期：2020年7月12日
-* 更新日志：
-
-1. 增加WebGL扩展窗口，可以查看浏览器支持的WebGL扩展名称和描述，并可以跳转到MDN。
-2. 三维地球。（开发中）
-3. 软件载入页面增加加载遮罩。
-4. 桌面版从配置文件中读取MongoDB和网站端口。
-
-说明：如果桌面版打不开，可以查看`logs.txt`；如果端口冲突，可以修改`resources/app/config.toml`中的MongoDB和网站端口。
+3. 修复上传完图片，上传模型，提示“只允许上传jpg、png或mp4格式文件！”的bug。
+4. 修复上传完模型，上传图片，提示“只允许上传zip格式文件！”的bug。
+5. 纹理属性前面的复选框改为启用禁用，后面增加了删除纹理按钮。
 
 ## 功能清单
 
@@ -57,7 +55,9 @@
     - [x] 场景历史记录、操作日志
     - [x] 撤销、重做、自动保存
   - [x] 播放器
-    - [x] 实时播放场景中的动画
+    - [x] 实时播放场景中的动画，支持全屏播放和新窗口播放
+  - [x] 设置
+    - [x] 显示、渲染器、帮助器、滤镜、天气、控制器模式、选择模式、添加模式、语言设置
 - [x] 小场景编辑
   - [x] 添加模型
     - [x] 3ds, 3mf, amf, assimp, awd, babylon, binary, bvh, collada, ctm
@@ -73,7 +73,7 @@
     - [x] 精灵
   - [x] 内置光源
     - [x] 环境光、平行光、点光源、聚光灯、半球光、矩形光
-    - [x] 平行光、点光源、聚光灯、半球光、矩形光帮助器
+    - [x] 点光源、半球光、矩形光帮助器
   - [x] 内置组件
     - [x] 背景音乐、粒子发射器
     - [x] 天空、火焰、水、烟、布
@@ -90,6 +90,14 @@
     - [x] gltf、obj、ply、stl、Collada、DRACO
   - [x] 场景发布
     - [x] 将场景发布成静态资源，可以嵌入iframe中
+  - [x] 示例
+    - [x] 打砖块、相机、例子、乒乓球、着色器
+  - [x] 常用工具
+    - [x] 选择、平移、旋转、缩放
+    - [x] 透视图、正视图、侧视图、顶视图、网格模式
+    - [x] 截图、录制视频
+    - [x] 点、线、面绘制、贴花
+    - [x] 距离测量
 - [ ] GIS场景编辑
   - [ ] 卫星图
     - [x] 必应卫星图

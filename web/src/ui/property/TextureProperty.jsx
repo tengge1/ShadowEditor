@@ -10,9 +10,10 @@
 import './css/TextureProperty.css';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
-
 import CheckBox from '../form/CheckBox.jsx';
-import Input from '../form/Input.jsx';
+import IconMenuButton from '../form/IconMenuButton.jsx';
+import ContextMenu from '../menu/ContextMenu.jsx';
+import MenuItem from '../menu/MenuItem.jsx';
 
 /**
  * 纹理属性
@@ -23,15 +24,23 @@ class TextureProperty extends React.Component {
         super(props);
 
         this.canvasRef = React.createRef();
+        this.texture = null;
 
         this.handleSelect = this.handleSelect.bind(this);
 
         this.handleEnable = this.handleEnable.bind(this, props.onChange);
+        this.handleDelete = this.handleDelete.bind(this, props.onChange);
         this.handleChange = this.handleChange.bind(this, props.onChange);
     }
 
     render() {
-        const { className, style, value, showScale, scale } = this.props;
+        const { className, style, value } = this.props;
+
+        if (!this.texture) {
+            this.texture = value;
+        } else if (value && value.uuid !== this.texture.uuid) { // a new texture
+            this.texture = value;
+        }
 
         return <div className={classNames('texture', className)}
             style={style}
@@ -43,10 +52,17 @@ class TextureProperty extends React.Component {
                 ref={this.canvasRef}
                 onClick={this.handleSelect}
             />
-            <Input type={'number'}
-                value={scale}
-                show={showScale}
-            />
+            <IconMenuButton
+                className={'menu'}
+                icon={'setting-black'}
+            >
+                <ContextMenu>
+                    <MenuItem title={_t('Delete')}
+                        disabled={this.texture === null}
+                        onClick={this.handleDelete}
+                    />
+                </ContextMenu>
+            </IconMenuButton>
         </div>;
     }
 
@@ -55,7 +71,7 @@ class TextureProperty extends React.Component {
     }
 
     componentDidUpdate() {
-        let texture = this.props.value;
+        let texture = this.texture;
 
         const canvas = this.canvasRef.current;
         const context = canvas.getContext('2d');
@@ -84,19 +100,16 @@ class TextureProperty extends React.Component {
     }
 
     handleEnable(onChange, enabled, name, event) {
-        const value = this.props.value;
-
-        if (enabled && value === null) {
-            this.input.value = null;
-            this.input.click();
-            return;
-        }
-
         if (enabled) {
-            onChange && onChange(value, this.props.name, event);
+            onChange && onChange(this.texture, this.props.name, event);
         } else {
             onChange && onChange(null, this.props.name, event);
         }
+    }
+
+    handleDelete(onChange) {
+        this.texture = null;
+        onChange && onChange(null, this.props.name, event);
     }
 
     handleChange(onChange, data) {
@@ -161,8 +174,6 @@ TextureProperty.propTypes = {
             return new TypeError(`Invalid prop \`${propName}\` of type \`${typeof value}\` supplied to \`${componentName}\`, expected \`THREE.Texture\`.`);
         }
     },
-    showScale: PropTypes.bool,
-    scale: PropTypes.number,
     onChange: PropTypes.func
 };
 
@@ -171,8 +182,6 @@ TextureProperty.defaultProps = {
     style: null,
     name: null,
     value: null,
-    showScale: false,
-    scale: 1.0,
     onChange: null
 };
 

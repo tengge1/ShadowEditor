@@ -1,6 +1,6 @@
 {
     "name": "shadoweditor",
-    "version": "0.5.6",
+    "version": "0.5.7",
     "private": true,
     "description": "Cross-platform 3D scene editor based on three.js, golang and mongodb.",
     "scripts": {

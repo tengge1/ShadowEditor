@@ -13,7 +13,7 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
 )](https://twitter.com/tengge11)
 
 * Name: Shadow Editor
-* Version: v0.5.6(Coming Soon)
+* Version: v0.5.7 (Coming Soon)
 * Description: Cross-platform 3D scene editor based on three.js, golang and mongodb.
 * Source: [GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | Document: [Gitee](https://gitee.com/tengge1/ShadowEditor/wikis/pages) | Demo: [GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) | Video: [Weibo](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) | Assets: [BaiduNetdisk](https://pan.baidu.com/s/1IxJVM6fFLoIAJG-GKHjVTA)
 * Technology Stack: html, css, javascript, rollup, react.js, webgl, three.js, golang, mongodb, nodejs, electron, WebWorldWind.
@@ -22,22 +22,20 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
 <img src="https://gitee.com/tengge1/ShadowEditor/raw/master/images/scene20200503_en.jpg" />  
 <img src="https://gitee.com/tengge1/ShadowEditor/raw/master/images/scene20200705.jpg" />  
 
-## v0.5.6 is Coming
+## v0.5.7 is Coming Soon
+
+1. 3D GIS. (In development)
+
+## v0.5.6 has Released
+
+* Release Date: July 26, 2020
+* Update Logs:
 
 1. 3D GIS. (In development)
 2. The `v0.4.6-csharp` branch will be deleted on August 1.
-
-## v0.5.5 has Released
-
-* Release Date: July 12, 2020
-* Update Logs:
-
-1. Add WebGL extension window, you can view the name and description of WebGL extension supported by the browser, and you can jump to MDN.
-2. 3D Earth. (In development)
-3. Added loading mask on software loading page.
-4. The desktop version reads MongoDB and website ports from the configuration file.
-
-Note: If the desktop version cannot be opened, you can view `logs.txt`; if the port conflicts, you can modify the MongoDB and website ports in `resources/app/config.toml`.
+3. Fix the bug that it says "Only jpg, png, mp4 file is allowed to upload!" when uploading a mesh after uploading an image.
+4. Fix the bug that it says "Only zip file is allowed!" when uploading an image after uploading a mesh.
+5. The check box in front of the texture property is changed to enable and disable the texture, and add a delete button after the texture.
 
 ## Feature List
 
@@ -57,7 +55,9 @@ Note: If the desktop version cannot be opened, you can view `logs.txt`; if the p
     - [x] Scene history and logs
     - [x] undo, redo, auto saving
   - [x] Player
-    - [x] play animations in the scene in real time
+    - [x] play animations in the scene in real time, and can play full screen and in new window
+  - [x] Settings
+    - [x] Display, renderer, helpers, filter, weather, control mode, select mode, add mode, language
 - [x] Small scene editing
   - [x] Add mesh
     - [x] 3ds, 3mf, amf, assimp, awd, babylon, binary, bvh, collada, ctm
@@ -73,7 +73,7 @@ Note: If the desktop version cannot be opened, you can view `logs.txt`; if the p
     - [x] sprite
   - [x] Built-in lights
     - [x] ambient light, directional light, point light, spotlight, hemispherical light, rect area light
-    - [x] directional light, point light, spotlight, hemispherical light, rect area light helper
+    - [x] point light, hemispherical light, rect area light helper
   - [x] Built-in components
     - [x] background music, particle emitter
     - [x] sky, fire, water, smoke, cloth
@@ -90,6 +90,14 @@ Note: If the desktop version cannot be opened, you can view `logs.txt`; if the p
     - [x] gltf、obj、ply、stl、Collada、DRACO
   - [x] Scene publishment
     - [x] Publish scene as static resources, and can be embedded in iframe
+  - [x] Examples
+    - [x] Arkanoid, camera, particle, ping pong, shader
+  - [x] General tools
+    - [x] Select, pan, rotate, zoom
+    - [x] Perspective view, front view, side view, top view, grid mode
+    - [x] Screenshot, record
+    - [x] Draw point, draw line, draw polygon, spray
+    - [x] Measure distance
 - [ ] GIS scene editing
   - [ ] Satellite imagery
     - [x] Bing satellite image
