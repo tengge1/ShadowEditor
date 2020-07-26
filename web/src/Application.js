@@ -389,21 +389,22 @@ Application.prototype.upload = function () {
             input = document.createElement('input');
             input.type = 'file';
             input.style.display = 'none';
-            input.addEventListener('change', event => {
-                Ajax.post(url, {
-                    file: event.target.files[0]
-                }, json => {
-                    let obj = JSON.parse(json);
-                    if (obj.Code === 200) {
-                        callback(obj);
-                    } else {
-                        app.toast(_t(obj.Msg), 'warn');
-                    }
-                });
-            });
             document.body.appendChild(input);
         }
         input.value = null;
+        input.onchange = event => {
+            input.onchange = null;
+            Ajax.post(url, {
+                file: event.target.files[0]
+            }, json => {
+                let obj = JSON.parse(json);
+                if (obj.Code === 200) {
+                    callback(obj);
+                } else {
+                    app.toast(_t(obj.Msg), 'warn');
+                }
+            });
+        };
         input.click();
     };
 }();

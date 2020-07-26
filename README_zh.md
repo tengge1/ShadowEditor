@@ -26,6 +26,8 @@
 
 1. 三维GIS。（开发中）
 2. `v0.4.6-csharp`分支将在8月1日删除。
+3. 修复上传完图片，上传模型，提示“只允许上传jpg、png或mp4格式文件！”的bug。
+4. 修复上传完模型，上传图片，提示“只允许上传zip格式文件！”的bug。
 
 ## v0.5.5发布[【更新日志】](https://gitee.com/tengge1/ShadowEditor/wikis/pages?sort_id=2215122&doc_id=188900)
 
