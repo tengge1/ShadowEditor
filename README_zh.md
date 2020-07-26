@@ -12,7 +12,7 @@
 )](https://twitter.com/tengge11)
 
 * 名称：Shadow Editor
-* 版本：v0.5.6（开发中）
+* 版本：v0.5.6
 * 简介：基于Three.js、Go语言和MongoDB的跨平台的3D场景编辑器。
 * 源码：[GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | 文档：[Gitee](https://gitee.com/tengge1/ShadowEditor/wikis/pages) | 示例：[GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) | 视频：[微博](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) | 资源：[百度网盘](https://pan.baidu.com/s/1IxJVM6fFLoIAJG-GKHjVTA)
 * 技术栈：html、css、javascript、rollup、react.js、webgl、three.js、golang、mongodb、nodejs、electron、WebWorldWind。
@@ -22,25 +22,16 @@
 
 ![image](images/scene20200705.jpg)
 
-## v0.5.6即将发布
+## v0.5.6发布
+
+* 发布日期：2020年7月26日
+* 更新日志：
 
 1. 三维GIS。（开发中）
 2. `v0.4.6-csharp`分支将在8月1日删除。
 3. 修复上传完图片，上传模型，提示“只允许上传jpg、png或mp4格式文件！”的bug。
 4. 修复上传完模型，上传图片，提示“只允许上传zip格式文件！”的bug。
 5. 纹理属性前面的复选框改为启用禁用，后面增加了删除纹理按钮。
-
-## v0.5.5发布[【更新日志】](https://gitee.com/tengge1/ShadowEditor/wikis/pages?sort_id=2215122&doc_id=188900)
-
-* 发布日期：2020年7月12日
-* 更新日志：
-
-1. 增加WebGL扩展窗口，可以查看浏览器支持的WebGL扩展名称和描述，并可以跳转到MDN。
-2. 三维地球。（开发中）
-3. 软件载入页面增加加载遮罩。
-4. 桌面版从配置文件中读取MongoDB和网站端口。
-
-说明：如果桌面版打不开，可以查看`logs.txt`；如果端口冲突，可以修改`resources/app/config.toml`中的MongoDB和网站端口。
 
 ## 功能清单
 
