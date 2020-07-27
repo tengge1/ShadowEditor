@@ -68,6 +68,8 @@ ProjectionWgs84.prototype.geographicToCartesian = function (globe, latitude, lon
             "geographicToCartesian", "missingGlobe"));
     }
 
+    latitude = WWMath._mercatorLatInvert(latitude); // TODO
+
     var cosLat = Math.cos(latitude * Angle.DEGREES_TO_RADIANS),
         sinLat = Math.sin(latitude * Angle.DEGREES_TO_RADIANS),
         cosLon = Math.cos(longitude * Angle.DEGREES_TO_RADIANS),
@@ -119,6 +121,8 @@ ProjectionWgs84.prototype.geographicToCartesianGrid = function (globe, sector, n
         if (latIndex === numLat - 1) {
             lat = maxLat; // explicitly set the last lat to the max longitude to ensure alignment
         }
+
+        lat = WWMath._mercatorLatInvert(lat); // TODO
 
         // Latitude is constant for each row. Values that are a function of latitude can be computed once per row.
         cosLat = Math.cos(lat);
