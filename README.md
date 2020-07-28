@@ -82,6 +82,11 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
     - [x] LineBasicMaterial, LineDashedMaterial, MeshBasicMaterial, MeshDepthMaterial, MeshNormalMaterial
     - [x] MeshLambertMaterial, MeshPhongMaterial, PointsMaterial, MeshStandardMaterial, MeshPhysicalMaterial
     - [x] SpriteMaterial, ShaderMaterial, RawShaderMaterial
+  - [x] Post-processing
+    - [x] After-image, bokeh, dot screen, FXAA, glitch
+    - [x] halftone, pixel, RGB shift, SAO
+    - [x] SMAA, SSAA
+    - [x] SSAO, TAA
   - [x] Text editing
     - [x] javascript editing with intelligence
     - [x] shader editing
