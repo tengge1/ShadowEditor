@@ -139,7 +139,7 @@ MercatorTiledImageLayer.prototype.createTexture = function (dc, tile, image) {
         }
     }
 
-    //destContext.putImageData(destImageData, 0, 0);
+    destContext.putImageData(destImageData, 0, 0);
     destContext.strokeStyle = '#ffff00';
     destContext.strokeRect(0, 0, 256, 256);
     destContext.font = "48px sans-serif";
