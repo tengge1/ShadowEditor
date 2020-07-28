@@ -239,7 +239,7 @@ TiledImageLayer.prototype.isPrePopulated = function (wwd) {
 
 // Intentionally not documented.
 TiledImageLayer.prototype.createTile = function (sector, level, row, column) {
-    var path = this.cachePath + "-layer/" + level.levelNumber + "/" + row + "/" + row + "_" + column + "."
+    var path = this.cachePath + "-layer/" + level.levelNumber + "/" + row + "/" + column + "."
         + WWUtil.suffixForMimeType(this.retrievalImageFormat);
 
     return new ImageTile(sector, level, row, column, path);

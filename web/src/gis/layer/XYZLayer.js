@@ -4,7 +4,7 @@ import Location from '../geom/Location';
 
 class URLBuilder {
     urlForTile(tile, imageFormat) {
-        return `http://localhost:2020/api/Map/Tiles?x=${tile.column}&y=${tile.row}&z=${tile.level.levelNumber + 1}`;
+        return `http://localhost:2020/api/Map/Tiles?x=${tile.column}&y=${tile.row}&z=${tile.level.levelNumber}`;
     }
 }
 
