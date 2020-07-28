@@ -91,8 +91,8 @@ ProjectionWgs84.prototype.geographicToCartesianGrid = function (globe, sector, n
             "geographicToCartesianGrid", "missingGlobe"));
     }
 
-    var minLat = sector.minLatitude * Angle.DEGREES_TO_RADIANS,
-        maxLat = sector.maxLatitude * Angle.DEGREES_TO_RADIANS,
+    var minLat = WWMath._mercatorLatInvert(sector.minLatitude * Angle.DEGREES_TO_RADIANS),
+        maxLat = WWMath._mercatorLatInvert(sector.maxLatitude * Angle.DEGREES_TO_RADIANS),
         minLon = sector.minLongitude * Angle.DEGREES_TO_RADIANS,
         maxLon = sector.maxLongitude * Angle.DEGREES_TO_RADIANS,
         deltaLat = (maxLat - minLat) / (numLat > 1 ? numLat - 1 : 1),
@@ -122,7 +122,7 @@ ProjectionWgs84.prototype.geographicToCartesianGrid = function (globe, sector, n
             lat = maxLat; // explicitly set the last lat to the max longitude to ensure alignment
         }
 
-        lat = WWMath._mercatorLatInvert(lat); // TODO
+        //lat = WWMath._mercatorLatInvert(lat); // TODO
 
         // Latitude is constant for each row. Values that are a function of latitude can be computed once per row.
         cosLat = Math.cos(lat);
