@@ -97,37 +97,37 @@ MercatorTiledImageLayer.prototype.createTexture = function (dc, tile, image) {
     destCanvas.height = image.height;
 
     // Draw the original image to a canvas so image data can be had for it.
-    srcContext.drawImage(image, 0, 0, image.width, image.height);
-    srcImageData = srcContext.getImageData(0, 0, image.width, image.height);
+    destContext.drawImage(image, 0, 0, image.width, image.height);
+    // srcImageData = srcContext.getImageData(0, 0, image.width, image.height);
 
     // If it's a blank image, mark it as permanently absent.
-    if (this.detectBlankImages && this.isBlankImage(image, srcImageData)) {
-        this.absentResourceList.markResourceAbsentPermanently(tile.imagePath);
-        return null;
-    }
+    // if (this.detectBlankImages && this.isBlankImage(image, srcImageData)) {
+    //     this.absentResourceList.markResourceAbsentPermanently(tile.imagePath);
+    //     return null;
+    // }
 
     // Unproject the retrieved image.
-    for (var n = 0; n < 1; n++) {
-        for (var y = 0; y < image.height; y++) {
-            sy = 1 - y / (image.height - 1);
-            lat = sy * sector.deltaLatitude() + sector.minLatitude;
-            g = WWMath.gudermannianInverse(lat);
-            dy = 1 - (g - tMin) / (tMax - tMin);
-            dy = WWMath.clamp(dy, 0, 1);
-            srcRow = Math.floor(dy * (image.height - 1));
-            for (var x = 0; x < image.width; x++) {
-                kSrc = 4 * (x + srcRow * image.width);
-                kDest = 4 * (x + y * image.width);
+    // for (var n = 0; n < 1; n++) {
+    //     for (var y = 0; y < image.height; y++) {
+    //         sy = 1 - y / (image.height - 1);
+    //         lat = sy * sector.deltaLatitude() + sector.minLatitude;
+    //         g = WWMath.gudermannianInverse(lat);
+    //         dy = 1 - (g - tMin) / (tMax - tMin);
+    //         dy = WWMath.clamp(dy, 0, 1);
+    //         srcRow = Math.floor(dy * (image.height - 1));
+    //         for (var x = 0; x < image.width; x++) {
+    //             kSrc = 4 * (x + srcRow * image.width);
+    //             kDest = 4 * (x + y * image.width);
 
-                destImageData.data[kDest] = srcImageData.data[kSrc];
-                destImageData.data[kDest + 1] = srcImageData.data[kSrc + 1];
-                destImageData.data[kDest + 2] = srcImageData.data[kSrc + 2];
-                destImageData.data[kDest + 3] = srcImageData.data[kSrc + 3];
-            }
-        }
-    }
+    //             destImageData.data[kDest] = srcImageData.data[kSrc];
+    //             destImageData.data[kDest + 1] = srcImageData.data[kSrc + 1];
+    //             destImageData.data[kDest + 2] = srcImageData.data[kSrc + 2];
+    //             destImageData.data[kDest + 3] = srcImageData.data[kSrc + 3];
+    //         }
+    //     }
+    // }
 
-    destContext.putImageData(destImageData, 0, 0);
+    //destContext.putImageData(destImageData, 0, 0);
     destContext.strokeStyle = '#ffff00';
     destContext.strokeRect(0, 0, 256, 256);
     destContext.font = "48px sans-serif";
