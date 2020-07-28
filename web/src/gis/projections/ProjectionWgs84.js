@@ -68,8 +68,6 @@ ProjectionWgs84.prototype.geographicToCartesian = function (globe, latitude, lon
             "geographicToCartesian", "missingGlobe"));
     }
 
-    latitude = WWMath._mercatorLatInvert(latitude); // TODO
-
     var cosLat = Math.cos(latitude * Angle.DEGREES_TO_RADIANS),
         sinLat = Math.sin(latitude * Angle.DEGREES_TO_RADIANS),
         cosLon = Math.cos(longitude * Angle.DEGREES_TO_RADIANS),
@@ -91,8 +89,8 @@ ProjectionWgs84.prototype.geographicToCartesianGrid = function (globe, sector, n
             "geographicToCartesianGrid", "missingGlobe"));
     }
 
-    var minLat = WWMath._mercatorLatInvert(sector.minLatitude * Angle.DEGREES_TO_RADIANS),
-        maxLat = WWMath._mercatorLatInvert(sector.maxLatitude * Angle.DEGREES_TO_RADIANS),
+    var minLat = sector.minLatitude * Angle.DEGREES_TO_RADIANS,
+        maxLat = sector.maxLatitude * Angle.DEGREES_TO_RADIANS,
         minLon = sector.minLongitude * Angle.DEGREES_TO_RADIANS,
         maxLon = sector.maxLongitude * Angle.DEGREES_TO_RADIANS,
         deltaLat = (maxLat - minLat) / (numLat > 1 ? numLat - 1 : 1),
