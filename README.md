@@ -103,6 +103,12 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
     - [x] Screenshot, record
     - [x] Draw point, draw line, draw polygon, spray
     - [x] Measure distance
+  - [ ] Others
+    - [ ] Bullet physics engine
+    - [ ] Ray tracing rendering
+    - [ ] UV unwrap
+    - [ ] Automatic pathfinding
+    - [ ] Batch rendering
 - [ ] GIS scene editing
   - [ ] Satellite imagery
     - [x] Bing satellite image
