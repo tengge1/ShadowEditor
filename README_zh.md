@@ -97,6 +97,7 @@
     - [ ] UV展开
     - [ ] 自动寻路
     - [ ] 批量渲染
+    - [ ] 遮挡剔除
   - [x] 模型导出
     - [x] gltf、obj、ply、stl、Collada、DRACO
   - [x] 场景发布

@@ -109,6 +109,7 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
     - [ ] UV unwrap
     - [ ] Automatic pathfinding
     - [ ] Batch rendering
+    - [ ] Occlusion culling
 - [ ] GIS scene editing
   - [ ] Satellite imagery
     - [x] Bing satellite image
