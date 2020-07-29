@@ -128,6 +128,11 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
     - [ ] Excel
     - [ ] BIM
     - [ ] Point cloud
+    - [ ] Oblique photography
+  - [ ] Analysis
+    - [ ] Flood analysis
+    - [ ] Visual field analysis
+  - [ ] 3D plotting
 - [ ] Data visualization
   - [ ] Real-time data access
     - [ ] WebSocket
