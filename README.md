@@ -119,8 +119,14 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
     - [ ] Arcgis Elevation
     - [ ] Terrain editing
   - [ ] Ground features editing
+    - [ ] Point, line and surface editing
+    - [ ] Style editing
     - [ ] Pipe network editing
     - [ ] District editing
+  - [ ] Data Service
+    - [ ] WMTS
+    - [ ] WMS
+    - [ ] MVT
   - [ ] Data import
     - [ ] OSM
     - [ ] Sharp
@@ -133,6 +139,7 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
     - [ ] Flood analysis
     - [ ] Visual field analysis
   - [ ] 3D plotting
+  - [ ] 3D cartography
 - [ ] Data visualization
   - [ ] Real-time data access
     - [ ] WebSocket
