@@ -30,6 +30,8 @@ class BaseSceneTemplate {
     clear() {
         const editor = app.editor;
 
+        app.call('clearTools', this);
+
         editor.history.clear();
         editor.camera.copy(editor.DEFAULT_CAMERA);
 

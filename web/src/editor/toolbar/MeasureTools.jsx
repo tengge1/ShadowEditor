@@ -114,7 +114,8 @@ class MeasureTools extends React.Component {
     // --------------------------- 清空工具 ---------------------------------------
 
     handleClearTools() {
-
+        app.call('clearTools', this);
+        app.toast(_t('Clear tools successfully'), 'success');
     }
 }
 

@@ -55,6 +55,7 @@ var EventList = [
     'copy',
     'clone',
     'delete',
+    'clearTools', // 清空工具事件
 
     // editor事件
     'sceneSaved', // 场景保存成功

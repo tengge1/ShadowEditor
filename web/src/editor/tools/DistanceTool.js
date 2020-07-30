@@ -33,6 +33,7 @@ class DistanceTool extends BaseTool {
                 app.on(`mousedown.${this.id}`, this.onMouseDown);
                 app.on(`gpuPick.${this.id}`, this.onGpuPick);
                 app.on(`dblclick.${this.id}`, this.onDblClick);
+                app.on(`clearTools.${this.id}`, this.handleClearTools.bind(this));
             });
         } else {
             this.positions.length = 0;
@@ -55,11 +56,15 @@ class DistanceTool extends BaseTool {
 
     clear() {
         while (this.lines.length) {
-            let line = this.lines[0];
+            const line = this.lines[0];
+            const texts = line.texts;
+            while(texts.length) {
+                app.editor.sceneHelpers.remove(texts[0]);
+                texts.splice(0, 1);
+            }
             app.editor.sceneHelpers.remove(line);
+            this.lines.splice(0, 1);
         }
-
-        this.lines.length = 0;
     }
 
     onMouseDown() {
@@ -167,6 +172,11 @@ class DistanceTool extends BaseTool {
     onDblClick() {
         this.stop();
         this.call(`end`, this);
+    }
+
+    handleClearTools() {
+        this.clear();
+        this.stop();
     }
 }
 

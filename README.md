@@ -25,6 +25,7 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
 ## v0.5.7 is Coming Soon
 
 1. 3D GIS. (In development)
+2. When create new scenes and clear tools, automatically clear distance measurement tools.
 
 ## v0.5.6 has Released
 
