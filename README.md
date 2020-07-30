@@ -99,7 +99,7 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
     - [x] Arkanoid, camera, particle, ping pong, shader
   - [x] General tools
     - [x] Select, pan, rotate, zoom
-    - [x] Perspective view, front view, side view, top view, grid mode
+    - [x] Perspective view, front view, side view, top view, wireframe mode
     - [x] Screenshot, record
     - [x] Draw point, draw line, draw polygon, spray
     - [x] Measure distance
