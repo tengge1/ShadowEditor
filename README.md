@@ -135,6 +135,9 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
     - [ ] Perspective analysis, visual domain analysis, buffer analysis, flooding analysis
     - [ ] Topographic excavation, section diagram, contour line, heat map
   - [ ] 3D plotting, 3D cartography
+  - [ ] Other tools
+    - [ ] Coordinate system conversion, Data correction
+    - [ ] Resource downloader, pyramid slice, mesh resampling
 - [ ] Data visualization
   - [ ] Real-time data access
     - [ ] WebSocket
