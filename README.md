@@ -110,6 +110,7 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
     - [ ] Automatic pathfinding
     - [ ] Batch rendering
     - [ ] Occlusion culling
+    - [ ] Split screen display
 - [ ] GIS scene editing
   - [ ] Satellite imagery
     - [x] Bing satellite image
@@ -119,27 +120,21 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
     - [ ] Arcgis Elevation
     - [ ] Terrain editing
   - [ ] Ground features editing
-    - [ ] Point, line and surface editing
+    - [ ] Draw point, line and polygon
     - [ ] Style editing
     - [ ] Pipe network editing
     - [ ] District editing
+    - [ ] Data query
   - [ ] Data Service
-    - [ ] WMTS
-    - [ ] WMS
-    - [ ] MVT
-  - [ ] Data import
-    - [ ] OSM
-    - [ ] Sharp
-    - [ ] dxf
-    - [ ] Excel
-    - [ ] BIM
-    - [ ] Point cloud
-    - [ ] Oblique photography
+    - [ ] WMTS, WMS, MVT service
+    - [ ] Support data for openLayers, mapbox gl js and cesiumjs
+  - [ ] Data processing and import
+    - [ ] OSM, sharp, dxf, excel, BIM, point cloud, oblique photography
   - [ ] Analysis
-    - [ ] Flood analysis
-    - [ ] Visual field analysis
-  - [ ] 3D plotting
-  - [ ] 3D cartography
+    - [ ] Distance measurement, area measurement, angle measurement
+    - [ ] Perspective analysis, visual domain analysis, buffer analysis, flooding analysis
+    - [ ] Topographic excavation, section diagram, contour line, heat map
+  - [ ] 3D plotting, 3D cartography
 - [ ] Data visualization
   - [ ] Real-time data access
     - [ ] WebSocket
