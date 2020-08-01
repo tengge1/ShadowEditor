@@ -33,13 +33,14 @@ import ArcgisElevationWorker from 'worker!./ArcgisElevationWorker.js';
  * @classdesc Provides elevations for Earth. Elevations are drawn from the NASA WorldWind elevation service.
  */
 function ArcgisElevationCoverage() {
+    // see: http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer
     TiledElevationCoverage.call(this, {
         coverageSector: new Sector(-WWMath.MAX_LAT, WWMath.MAX_LAT, -180, 180),
-        resolution: 360 / 256,
+        resolution: 360 / 2 ** 16 / 256,
         retrievalImageFormat: "application/bil16",
-        minElevation: -11000,
-        maxElevation: 8850,
-        urlBuilder: new WmsUrlBuilder("https://worldwind26.arc.nasa.gov/elev", "aster_v2", "", "1.3.0")
+        minElevation: -450,
+        maxElevation: 8700,
+        urlBuilder: new WmsUrlBuilder("http://localhost:2020/api/Map/Elev", "WorldElevation3D", "", "1.3.0")
     });
 
     this.displayName = "Arcgis Elevation Coverage";
@@ -59,7 +60,7 @@ ArcgisElevationCoverage.prototype.retrieveTileImage = function (tile) {
         let z = 360 / (tile.sector.maxLongitude - tile.sector.minLongitude);
         let x = (180 + tile.sector.minLongitude) / 360 * Math.pow(2, z);
 
-        if(Math.abs(tile.sector.minLatitude) > 85.01) {
+        if (Math.abs(tile.sector.minLatitude) > 85.01) {
             return;
         }
 

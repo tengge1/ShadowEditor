@@ -69,7 +69,7 @@ function TiledElevationCoverage(config) {
 
     ElevationCoverage.call(this, config.resolution);
 
-    var firstLevelDelta = 45,
+    var firstLevelDelta = 360,
         tileWidth = 256,
         lastLevel = LevelSet.numLevelsForResolution(firstLevelDelta / tileWidth, config.resolution),
         numLevels = Math.ceil(lastLevel); // match or exceed the specified resolution
@@ -182,7 +182,6 @@ function TiledElevationCoverage(config) {
      */
     // this.urlBuilder = new UrlBuilder() || null;
     this.urlBuilder = config.urlBuilder || null;
-    this.urlBuilder.serviceAddress = 'http://localhost:2020/api/Map/Elev';
 }
 
 TiledElevationCoverage.prototype = Object.create(ElevationCoverage.prototype);
@@ -333,7 +332,7 @@ TiledElevationCoverage.prototype.areaElevationsForGrid = function (sector, numLa
             if (isNaN(result[resultIndex])) {
                 if (this.coverageSector.containsLocation(lat, lon)) { // ignore locations outside of the model
                     s = (lon + 180) / 360;
-                    t = (lat + 90) / 180;
+                    t = (lat + 180) / 360;
                     this.areaElevationForCoord(s, t, level.levelNumber, result, resultIndex);
                 }
             }
@@ -359,7 +358,7 @@ TiledElevationCoverage.prototype.areaElevationForCoord = function (s, t, levelNu
     for (var i = levelNumber; i >= 0; i--) {
         level = this.levels.level(i);
         levelWidth = Math.round(level.tileWidth * 360 / level.tileDelta.longitude);
-        levelHeight = Math.round(level.tileHeight * 180 / level.tileDelta.latitude);
+        levelHeight = Math.round(level.tileHeight * 360 / level.tileDelta.latitude);
         tMin = 1 / (2 * levelHeight);
         tMax = 1 - tMin;
         vMin = 0;
