@@ -57,21 +57,11 @@ ArcgisElevationCoverage.prototype.retrieveTileImage = function (tile) {
             return;
         }
 
-        let z = 360 / (tile.sector.maxLongitude - tile.sector.minLongitude);
-        let x = (180 + tile.sector.minLongitude) / 360 * Math.pow(2, z);
-
-        if (Math.abs(tile.sector.minLatitude) > 85.01) {
-            return;
-        }
-
-        let lat = Math.log(Math.tan((Math.PI / 2.0 + tile.sector.minLatitude * Math.PI / 180) / 2.0)) * 180 / Math.PI;
-        let y = Math.floor((180 - lat) / 360 * Math.pow(2, z));
-
         this.worker.postMessage({
             tileKey: tile.tileKey,
-            x,
-            y,
-            z
+            x: tile.column,
+            y: tile.row,
+            z: tile.level.levelNumber
         });
 
         this.currentRetrievals.push(tile.tileKey);

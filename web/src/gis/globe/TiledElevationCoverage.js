@@ -107,7 +107,7 @@ function TiledElevationCoverage(config) {
      * @type {Boolean}
      * @default true
      */
-    this.pixelIsPoint = false;
+    this.pixelIsPoint = true;
 
     /**
      * The {@link LevelSet} dividing this coverage's geographic domain into a multi-resolution, hierarchical

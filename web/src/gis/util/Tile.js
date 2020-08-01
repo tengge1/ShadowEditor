@@ -449,10 +449,10 @@ Tile.computeColumn = function (delta, longitude) {
  * @returns {Number} The computed row number.
  */
 Tile.computeLastRow = function (delta, maxLatitude) {
-    var row = Math.ceil((maxLatitude + 90) / delta - 1);
+    var row = Math.ceil((maxLatitude + 180) / delta - 1);
 
     // If max latitude is in the first row, set the max row to 0.
-    if (maxLatitude + 90 < delta) {
+    if (maxLatitude + 180 < delta) {
         row = 0;
     }
 
