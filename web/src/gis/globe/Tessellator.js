@@ -946,7 +946,7 @@ Tessellator.prototype.regenerateTileGeometryIfNeeded = function (dc, tile) {
  * @ignore
  */
 Tessellator.prototype.coverageTargetResolution = function (texelSize) {
-    return texelSize / 8 * Angle.RADIANS_TO_DEGREES;
+    return texelSize * Angle.RADIANS_TO_DEGREES;
 };
 
 Tessellator.prototype.regenerateTileGeometry = function (dc, tile) {

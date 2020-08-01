@@ -35,7 +35,7 @@ import ArcgisElevationWorker from 'worker!./ArcgisElevationWorker.js';
 function ArcgisElevationCoverage() {
     TiledElevationCoverage.call(this, {
         coverageSector: new Sector(-WWMath.MAX_LAT, WWMath.MAX_LAT, -180, 180),
-        resolution: 0.000277777777778,
+        resolution: 360 / 256,
         retrievalImageFormat: "application/bil16",
         minElevation: -11000,
         maxElevation: 8850,
