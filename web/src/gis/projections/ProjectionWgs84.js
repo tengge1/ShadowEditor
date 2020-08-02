@@ -117,16 +117,16 @@ ProjectionWgs84.prototype.geographicToCartesianGrid = function (globe, sector, n
 
     // Iterate over the latitude and longitude coordinates in the specified sector, computing the Cartesian
     // point corresponding to each latitude and longitude.
-    for (latIndex = 0, lat = minLat; latIndex < numLat; latIndex++, lat += deltaLat) {
+    for (latIndex = 0, lat = maxLat; latIndex < numLat; latIndex++, lat -= deltaLat) {
         if (latIndex === numLat - 1) {
-            lat = maxLat; // explicitly set the last lat to the max longitude to ensure alignment
+            lat = minLat; // explicitly set the last lat to the max longitude to ensure alignment
         }
 
-        lat = WWMath._mercatorLatInvert(lat); // TODO
+        var invertLat = WWMath._mercatorLatInvert(lat); // TODO
 
         // Latitude is constant for each row. Values that are a function of latitude can be computed once per row.
-        cosLat = Math.cos(lat);
-        sinLat = Math.sin(lat);
+        cosLat = Math.cos(invertLat);
+        sinLat = Math.sin(invertLat);
         rpm = globe.equatorialRadius / Math.sqrt(1.0 - globe.eccentricitySquared * sinLat * sinLat);
 
         for (lonIndex = 0; lonIndex < numLon; lonIndex++) {

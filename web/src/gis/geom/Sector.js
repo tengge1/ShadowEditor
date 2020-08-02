@@ -56,26 +56,6 @@ function Sector(minLatitude, maxLatitude, minLongitude, maxLongitude) {
      * @type {Number}
      */
     this.maxLongitude = maxLongitude;
-    /**
-     * This sector's minimum mercator latitude in degrees.
-     * @type {Number}
-     */
-    this.minMLatitude = WWMath.mercatorLat(minLatitude);
-    /**
-     * This sector's maximum mercator latitude in degrees.
-     * @type {Number}
-     */
-    this.maxMLatitude = WWMath.mercatorLat(maxLatitude);
-    /**
-     * This sector's minimum mercator longitude in degrees.
-     * @type {Number}
-     */
-    this.minMLongitude = minLongitude;
-    /**
-     * This sector's maximum mercator longitude in degrees.
-     * @type {Number}
-     */
-    this.maxMLongitude = maxLongitude;
 }
 
 /**
@@ -107,11 +87,6 @@ Sector.prototype.copy = function (sector) {
     this.maxLatitude = sector.maxLatitude;
     this.minLongitude = sector.minLongitude;
     this.maxLongitude = sector.maxLongitude;
-
-    this.minMLatitude = sector.minMLatitude;
-    this.maxMLatitude = sector.maxMLatitude;
-    this.minMLongitude = sector.minMLongitude;
-    this.maxMLongitude = sector.maxMLongitude;
 
     return this;
 };

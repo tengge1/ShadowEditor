@@ -415,10 +415,10 @@ Tile.computeTileKey = function (levelNumber, row, column) {
  * @returns {Number} The computed row number.
  */
 Tile.computeRow = function (delta, latitude) {
-    var row = Math.floor((latitude + 180) / delta);
+    var row = Math.floor((180 - latitude) / delta);
 
     // If latitude is at the end of the grid, subtract 1 from the computed row to return the last row.
-    if (latitude == 180) {
+    if (latitude == -180) {
         row -= 1;
     }
 
@@ -535,22 +535,22 @@ Tile.createTilesForLevel = function (level, tileFactory, result) {
         deltaLon = level.tileDelta.longitude,
 
         sector = level.sector,
-        firstRow = Tile.computeRow(deltaLat, sector.minLatitude),
-        lastRow = Tile.computeRow(deltaLat, sector.maxLatitude),
+        firstRow = Tile.computeRow(deltaLat, sector.maxLatitude),
+        lastRow = Tile.computeRow(deltaLat, sector.minLatitude),
 
         firstCol = Tile.computeColumn(deltaLon, sector.minLongitude),
         lastCol = Tile.computeColumn(deltaLon, sector.maxLongitude),
 
-        firstRowLat = -180 + firstRow * deltaLat,
+        firstRowLat = 180 - firstRow * deltaLat,
         firstRowLon = -180 + firstCol * deltaLon,
 
-        minLat = firstRowLat,
+        minLat,
         minLon,
-        maxLat,
+        maxLat = firstRowLat,
         maxLon;
 
     for (var row = firstRow; row <= lastRow; row += 1) {
-        maxLat = minLat + deltaLat;
+        minLat = maxLat - deltaLat;
         minLon = firstRowLon;
 
         for (var col = firstCol; col <= lastCol; col += 1) {
@@ -562,7 +562,7 @@ Tile.createTilesForLevel = function (level, tileFactory, result) {
             minLon = maxLon;
         }
 
-        minLat = maxLat;
+        maxLat = minLat;
     }
 };
 
