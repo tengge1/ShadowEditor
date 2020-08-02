@@ -813,7 +813,7 @@ var WWMath = {
      * @see https://github.com/d3/d3-geo/blob/master/src/projection/mercator.js
      */
     mercatorLat: function (lat) {
-        return this._mercatorLat(lat * Angle.DEGREES_TO_RADIANS) * angle.RADIANS_TO_DEGREES;
+        return this._mercatorLat(lat * Angle.DEGREES_TO_RADIANS) * Angle.RADIANS_TO_DEGREES;
     },
 
     /**
@@ -867,8 +867,7 @@ var WWMath = {
 
         return this._getDistance(lon1, lat1, lon2, lat2);
     },
-    // this.mercatorLatInvert(180)
-    MAX_LAT: 180
+    MAX_LAT: 85.0511287798066 // this.mercatorLatInvert(180)
 };
 
 export default WWMath;
