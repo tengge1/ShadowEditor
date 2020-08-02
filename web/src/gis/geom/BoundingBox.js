@@ -306,8 +306,8 @@ BoundingBox.prototype.setToSector = function (sector, globe, minElevation, maxEl
     // the sector. The antipodal points along the parallel through the sector's centroid represent its extremes
     // in longitude. Incorporate those antipodal points into the extremes along each axis.
     if (sector.deltaLongitude() > 180) {
-        globe.computePointFromPosition(sector.centroidLatitude(), sector.centroidLongitude() + 90, maxElevation, this.tmp1);
-        globe.computePointFromPosition(sector.centroidLatitude(), sector.centroidLongitude() - 90, maxElevation, this.tmp2);
+        globe.computePointFromPosition(WWMath.mercatorLat(sector.centroidLatitude()), sector.centroidLongitude() + 90, maxElevation, this.tmp1);
+        globe.computePointFromPosition(WWMath.mercatorLat(sector.centroidLatitude()), sector.centroidLongitude() - 90, maxElevation, this.tmp2);
         this.adjustExtremes(this.r, rExtremes, this.s, sExtremes, this.t, tExtremes, this.tmp1);
         this.adjustExtremes(this.r, rExtremes, this.s, sExtremes, this.t, tExtremes, this.tmp2);
     }

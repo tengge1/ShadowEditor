@@ -22,6 +22,7 @@ import BoundingBox from '../geom/BoundingBox';
 import Logger from '../util/Logger';
 import Sector from '../geom/Sector';
 import Vec3 from '../geom/Vec3';
+import WWMath from '../util/WWMath';
 import WWUtil from '../util/WWUtil';
 
 
@@ -392,7 +393,7 @@ Tile.prototype.doUpdate = function (dc) {
         this.referencePoint = new Vec3(0, 0, 0);
     }
 
-    globe.computePointFromPosition(this.sector.centroidLatitude(), this.sector.centroidLongitude(), 0,
+    globe.computePointFromPosition(WWMath.mercatorLatInvert(this.sector.centroidLatitude()), this.sector.centroidLongitude(), 0,
         this.referencePoint);
 };
 
