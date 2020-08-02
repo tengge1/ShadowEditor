@@ -919,7 +919,8 @@ Tessellator.prototype.isTileVisible = function (dc, tile) {
 
 Tessellator.prototype.tileMeetsRenderCriteria = function (dc, tile) {
     var s = this.detailControl;
-    if (tile.sector.minLatitude >= 75 || tile.sector.maxLatitude <= -75) {
+    var lat = WWMath.mercatorLat(75);
+    if (tile.sector.minLatitude >= lat || tile.sector.maxLatitude <= -lat) {
         s *= 2;
     }
     return tile.level.isLastLevel() || !tile.mustSubdivide(dc, s);
