@@ -317,10 +317,10 @@ ShadowEditor是一个为用户和开发者而生的项目。在这个项目上�
 
 ## 开源项目
 
-感谢以下开源项目。
-
 <details>
   <summary>展开查看详情</summary>
+
+感谢以下开源项目。  
 
 https://github.com/golang/go  
 https://github.com/BurntSushi/toml  
@@ -368,8 +368,15 @@ https://github.com/squarefeet/ShaderParticleEngine
 https://github.com/mrdoob/stats.js  
 https://github.com/mrdoob/texgen.js  
 https://github.com/yomotsu/VolumetricFire  
-
-https://github.com/NASAWorldWind/WebWorldWind  
 https://github.com/jonbretman/amd-to-as6  
+https://github.com/chandlerprall/ThreeCSG  
+
+https://github.com/mapbox/mapbox-gl-js  
+https://github.com/CesiumGS/cesium  
+https://github.com/NASAWorldWind/WebWorldWind  
+https://github.com/OSGeo/gdal  
+https://github.com/mapnik/mapnik  
+https://github.com/go-spatial/tegola  
+https://github.com/Turfjs/turf  
 
 </details>

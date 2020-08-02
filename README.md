@@ -325,10 +325,10 @@ MIT License
 
 ## Open Source Projects
 
-Thanks to the following open source projects.
-
 <details>
   <summary>Expand to view details</summary>
+
+Thanks to the following open source projects.  
 
 https://github.com/golang/go  
 https://github.com/BurntSushi/toml  
@@ -376,8 +376,15 @@ https://github.com/squarefeet/ShaderParticleEngine
 https://github.com/mrdoob/stats.js  
 https://github.com/mrdoob/texgen.js  
 https://github.com/yomotsu/VolumetricFire  
-
-https://github.com/NASAWorldWind/WebWorldWind  
 https://github.com/jonbretman/amd-to-as6  
+https://github.com/chandlerprall/ThreeCSG  
+
+https://github.com/mapbox/mapbox-gl-js  
+https://github.com/CesiumGS/cesium  
+https://github.com/NASAWorldWind/WebWorldWind  
+https://github.com/OSGeo/gdal  
+https://github.com/mapnik/mapnik  
+https://github.com/go-spatial/tegola  
+https://github.com/Turfjs/turf  
 
 </details>
