@@ -134,6 +134,7 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
   - [ ] Analysis
     - [ ] Distance measurement, area measurement, angle measurement
     - [ ] Perspective analysis, visual domain analysis, buffer analysis, flooding analysis
+    - [ ] Topological analysis, Connectivity analysis, Burst analysis, Cross-sectional analysis
     - [ ] Topographic excavation, section diagram, contour line, heat map
   - [ ] 3D plotting, 3D cartography
   - [ ] Other tools
