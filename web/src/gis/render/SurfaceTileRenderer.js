@@ -135,9 +135,6 @@ SurfaceTileRenderer.prototype.beginRendering = function (dc, opacity) {
     var gl = dc.currentGlContext,
         program = dc.findAndBindProgram(SurfaceTileRendererProgram);
 
-    gl.disable(gl.CULL_FACE);
-    //gl.frontFace(gl.CW);
-
     program.loadTexSampler(gl, gl.TEXTURE0);
 
     if (dc.pickingMode && !this.isSurfaceShapeTileRendering) {
