@@ -26,6 +26,7 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
 
 1. 3D GIS. (In development)
 2. When create new scene or click clear tool, automatically clear distance measurement tools.
+3. Delete branch `origin/v0.4.6-csharp`.
 
 ## v0.5.6 has Released
 
