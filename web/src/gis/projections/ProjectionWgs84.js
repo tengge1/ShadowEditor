@@ -117,9 +117,9 @@ ProjectionWgs84.prototype.geographicToCartesianGrid = function (globe, sector, n
 
     // Iterate over the latitude and longitude coordinates in the specified sector, computing the Cartesian
     // point corresponding to each latitude and longitude.
-    for (latIndex = 0, lat = maxLat; latIndex < numLat; latIndex++, lat -= deltaLat) {
+    for (latIndex = 0, lat = minLat; latIndex < numLat; latIndex++, lat += deltaLat) {
         if (latIndex === numLat - 1) {
-            lat = minLat; // explicitly set the last lat to the max longitude to ensure alignment
+            lat = maxLat; // explicitly set the last lat to the max longitude to ensure alignment
         }
 
         var invertLat = WWMath._mercatorLatInvert(lat); // TODO
