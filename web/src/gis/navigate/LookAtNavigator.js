@@ -36,7 +36,7 @@ function LookAtNavigator() {
      * The geographic location at the center of the viewport.
      * @type {Location}
      */
-    this.lookAtLocation = new Location(30, -110);
+    this.lookAtLocation = new Location(36.4, 117);
 
     /**
      * The distance from this navigator's eye point to its look-at location.
