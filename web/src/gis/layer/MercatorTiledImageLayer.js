@@ -47,20 +47,6 @@ function MercatorTiledImageLayer(sector, levelZeroDelta, numLevels, imageFormat,
     tileWidth, tileHeight) {
     TiledImageLayer.call(this,
         sector, levelZeroDelta, numLevels, imageFormat, cachePath, tileWidth, tileHeight);
-
-    this.detectBlankImages = false;
-
-    // These pixels are tested in retrieved images to determine whether the image is blank.
-    this.testPixels = [
-        new Vec2(20, 20),
-        new Vec2(235, 20),
-        new Vec2(20, 235),
-        new Vec2(235, 235)
-    ];
-
-    // Create a canvas we can use when unprojecting retrieved images.
-    this.destCanvas = document.createElement("canvas");
-    this.destContext = this.destCanvas.getContext("2d");
 }
 
 MercatorTiledImageLayer.prototype = Object.create(TiledImageLayer.prototype);
@@ -76,37 +62,6 @@ MercatorTiledImageLayer.prototype.createTile = function (sector, level, row, col
 
     sector = new Sector(minLat, maxLat, minLon, maxLon);
     return TiledImageLayer.prototype.createTile.call(this, sector, level, row, column);
-};
-
-// Overridden from TiledImageLayer to unproject the retrieved image prior to creating a texture for it.
-MercatorTiledImageLayer.prototype.createTexture = function (dc, tile, image) {
-    return TiledImageLayer.prototype.createTexture.call(this, dc, tile, image);
-};
-
-// Determines whether a retrieved image is blank.
-MercatorTiledImageLayer.prototype.isBlankImage = function (image, srcImageData) {
-    var pixel, k, pixelValue = null;
-
-    for (var i = 0, len = this.testPixels.length; i < len; i++) {
-        pixel = this.testPixels[i];
-        k = 4 * (pixel[0] + pixel[1] * image.width);
-
-        if (!pixelValue) {
-            pixelValue = [
-                srcImageData.data[k],
-                srcImageData.data[k + 1],
-                srcImageData.data[k + 2]
-            ];
-        } else {
-            if (srcImageData.data[k] != pixelValue[0]
-                || srcImageData.data[k + 1] != pixelValue[1]
-                || srcImageData.data[k + 2] != pixelValue[2]) {
-                return false;
-            }
-        }
-    }
-
-    return true;
 };
 
 export default MercatorTiledImageLayer;
