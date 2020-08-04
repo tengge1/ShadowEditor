@@ -49,7 +49,7 @@ Object.defineProperties(ProjectionWgs84.prototype, {
      * A string identifying this projection's current state. Used to compare states during rendering to
      * determine whether globe-state dependent cached values must be updated. Applications typically do not
      * interact with this property.
-     * @memberof ProjectionEquirectangular.prototype
+     * @memberof GeographicProjection.prototype
      * @readonly
      * @type {String}
      */

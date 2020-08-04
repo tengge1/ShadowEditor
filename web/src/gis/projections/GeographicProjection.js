@@ -30,10 +30,7 @@ import UnsupportedOperationError from '../error/UnsupportedOperationError';
  * This is an abstract class and is meant to be instantiated only by subclasses.
  * See the following projections:
  * <ul>
- *     <li>{@link ProjectionEquirectangular}</li>
- *     <li>{@link ProjectionMercator}</li>
- *     <li>{@link ProjectionPolarEquidistant}</li>
- *     <li>{@link ProjectionUPS}</li>
+ *     <li>{@link ProjectionWgs84}</li>
  </ul>
  * @param {String} displayName The projection's display name.
  * @param {boolean} continuous Indicates whether this projection is continuous.
@@ -163,7 +160,7 @@ GeographicProjection.prototype.cartesianToGeographic = function (globe, x, y, z,
  */
 GeographicProjection.prototype.northTangentAtLocation = function (globe, latitude, longitude, result) {
     if (!result) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "ProjectionEquirectangular",
+        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "GeographicProjection",
             "northTangentAtLocation", "missingResult"));
     }
 
@@ -192,7 +189,7 @@ GeographicProjection.prototype.northTangentAtLocation = function (globe, latitud
  */
 GeographicProjection.prototype.northTangentAtPoint = function (globe, x, y, z, offset, result) {
     if (!result) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "ProjectionEquirectangular",
+        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "GeographicProjection",
             "northTangentAtPoint", "missingResult"));
     }
 
