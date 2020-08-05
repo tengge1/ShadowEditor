@@ -71,7 +71,10 @@ ArcgisElevationCoverage.prototype.retrieveTileImage = function (tile) {
 ArcgisElevationCoverage.prototype.handleMessage = function (evt) {
     let { result, tileKey, url, data, msg } = evt.data;
     let tile = this.tileCache.entryForKey(tileKey);
-
+    if (!tile) {
+        // tile has been released
+        return;
+    }
     if (result === 'success') {
         Logger.log(Logger.LEVEL_INFO, "Elevations retrieval succeeded: " + url);
         this.loadElevationImage(tile, data);
