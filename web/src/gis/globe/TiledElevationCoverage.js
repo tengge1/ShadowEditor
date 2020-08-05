@@ -198,35 +198,23 @@ TiledElevationCoverage.prototype.minAndMaxElevationsForSector = function (sector
             Logger.logMessage(Logger.LEVEL_SEVERE, "TiledElevationCoverage", "minAndMaxElevationsForSector", "missingResult"));
     }
 
-    var level = this.levels.levelForTexelSize(sector.deltaLatitude() * Angle.DEGREES_TO_RADIANS / 64);
-    this.assembleTiles(level, sector, false);
+    var levelNumber = Math.log2(360 / (sector.maxLongitude - sector.minLongitude));
+    var tileSize = 360 / 2 ** levelNumber;
+    var column = (180 + sector.minLongitude) / tileSize;
+    var row = (180 - sector.maxLatitude) / tileSize;
+    var tileKey = Tile.computeTileKey(levelNumber, row, column);
 
-    if (this.currentTiles.length === 0) {
-        return false; // Sector is outside the coverage's coverage area. Don't modify the result.
+    var image = this.imageCache.entryForKey(tileKey);
+    if (!image || !image.hasData || image.hasMissingData) {
+        return false;
     }
 
-    var hasCompleteCoverage = true;
+    debugger;
 
-    for (var i = 0, len = this.currentTiles.length; i < len; i++) {
-        var image = this.imageCache.entryForKey(this.currentTiles[i].tileKey);
-        if (image && image.hasData) {
-            var imageMin = image.minElevation;
-            if (result[0] > imageMin) {
-                result[0] = imageMin;
-            }
+    result[0] = image.minElevation;
+    result[1] = image.maxElevation;
 
-            var imageMax = image.maxElevation;
-            if (result[1] < imageMax) {
-                result[1] = imageMax;
-            }
-        }
-
-        if (!image || !image.hasData || image.hasMissingData) {
-            hasCompleteCoverage = false;
-        }
-    }
-
-    return hasCompleteCoverage;
+    return true;
 };
 
 // Documented in super class
