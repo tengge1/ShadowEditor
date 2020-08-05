@@ -346,17 +346,12 @@ ElevationImage.prototype.findMinAndMaxElevation = function () {
 
         for (var i = 0; i < pixelCount; i++) {
             var p = pixels[i];
-            if (p !== ElevationImage.NO_DATA) {
-                this.hasData = true;
-                if (this.minElevation > p) {
-                    this.minElevation = p;
-                }
+            if (this.minElevation > p) {
+                this.minElevation = p;
+            }
 
-                if (this.maxElevation < p) {
-                    this.maxElevation = p;
-                }
-            } else {
-                this.hasMissingData = true;
+            if (this.maxElevation < p) {
+                this.maxElevation = p;
             }
         }
     }

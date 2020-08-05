@@ -209,8 +209,6 @@ TiledElevationCoverage.prototype.minAndMaxElevationsForSector = function (sector
         return false;
     }
 
-    debugger;
-
     result[0] = image.minElevation;
     result[1] = image.maxElevation;
 
