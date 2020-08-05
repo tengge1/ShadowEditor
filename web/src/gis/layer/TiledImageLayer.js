@@ -28,6 +28,7 @@ import MemoryCache from '../cache/MemoryCache';
 import Texture from '../render/Texture';
 import Tile from '../util/Tile';
 import WWUtil from '../util/WWUtil';
+import WWMath from '../util/WWMath';
 
 
 /**
@@ -394,7 +395,7 @@ TiledImageLayer.prototype.addTile = function (dc, tile) {
     var texture = dc.gpuResourceCache.resourceForKey(tile.imagePath);
     if (texture) {
         tile.opacity = 1;
-        
+
         this.currentTiles.push(tile);
 
         // If the tile's texture has expired, cause it to be re-retrieved. Note that the current,
@@ -430,7 +431,8 @@ TiledImageLayer.prototype.isTileVisible = function (dc, tile) {
 // Intentionally not documented.
 TiledImageLayer.prototype.tileMeetsRenderingCriteria = function (dc, tile) {
     var s = this.detailControl;
-    if (tile.sector.minLatitude >= 75 || tile.sector.maxLatitude <= -75) {
+    var highLatitude = WWMath.mercatorLat(75);
+    if (tile.sector.minLatitude >= highLatitude || tile.sector.maxLatitude <= -highLatitude) {
         s *= 1.2;
     }
     return tile.level.isLastLevel() || !tile.mustSubdivide(dc, s);
