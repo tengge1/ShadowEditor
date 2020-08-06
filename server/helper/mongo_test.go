@@ -23,7 +23,7 @@ func TestMongo(t *testing.T) {
 	}
 
 	// test data
-	dbName := "Test" + time.Now().Format(TimeFormat)
+	dbName := "Test" + time.Now().Format("150405")
 	collectionName := "PersonTest"
 	person := Person{"xiaoqiang", 30}
 	persons := []interface{}{

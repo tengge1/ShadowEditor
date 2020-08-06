@@ -53,7 +53,9 @@ func TestGet(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	t.Log(string(bytes))
+	if len(bytes) == 0 {
+		t.Error("get http://www.baidu.com failed")
+	}
 }
 
 func TestPost(t *testing.T) {
@@ -62,7 +64,9 @@ func TestPost(t *testing.T) {
 		t.Error(err)
 		return
 	}
-	t.Log(string(bytes))
+	if len(bytes) == 0 {
+		t.Error("post https://passport.baidu.com/v2/api/?login failed")
+	}
 }
 
 func TestWrite(t *testing.T) {

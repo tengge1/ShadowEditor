@@ -10,6 +10,8 @@ package helper
 import (
 	"fmt"
 	"os"
+	"runtime"
+	"strings"
 	"testing"
 
 	"github.com/spf13/viper"
@@ -135,6 +137,11 @@ func TestConfig(t *testing.T) {
 		path := viper.Sub("path")
 		publicDir := path.GetString("public_dir")
 		logDir := path.GetString("log_dir")
+
+		if strings.HasPrefix(runtime.GOOS, "windows") {
+			publicDir = strings.ReplaceAll(publicDir, "/", "\\")
+			logDir = strings.ReplaceAll(logDir, "/", "\\")
+		}
 
 		if config.Path.PublicDir != publicDir {
 			t.Errorf("expect %v, got %v", publicDir, config.Path.PublicDir)
