@@ -8,8 +8,6 @@
 ![image](https://img.shields.io/github/commit-activity/w/tengge1/ShadowEditor)
 [![image](https://img.shields.io/github/license/tengge1/ShadowEditor)](https://gitee.com/tengge1/ShadowEditor/blob/master/LICENSE)
 [![image](https://travis-ci.org/tengge1/ShadowEditor.svg?branch=master)](https://travis-ci.org/github/tengge1/ShadowEditor)
-[![image](https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2Ftengge1%2FShadowEditor
-)](https://twitter.com/tengge11)
 
 * 名称：Shadow Editor
 * 版本：v0.5.7（开发中）
