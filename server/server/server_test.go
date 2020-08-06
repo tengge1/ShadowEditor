@@ -18,7 +18,7 @@ import (
 
 func TestMux(t *testing.T) {
 	hello := "Hello, world!"
-	path := "/hello"
+	path := "/hello-TestMux"
 	handler := func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(hello))
 	}
@@ -79,7 +79,7 @@ func TestStart(t *testing.T) {
 
 func TestHandle(t *testing.T) {
 	hello := "Hello, world!"
-	path := "/hello"
+	path := "/hello-TestHandle"
 	handler := func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(hello))
 	}
