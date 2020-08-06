@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import { PropertyGroup, NumberProperty } from '../../../ui/index';
+import global from '../../../global';
 
 /**
  * 二次贝塞尔曲线组件
@@ -99,8 +100,8 @@ class QuadraticBezierCurveComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.QuadraticBezierCurveComponent`, this.handleUpdate.bind(this));
-        app.on(`objectChanged.QuadraticBezierCurveComponent`, this.handleUpdate.bind(this));
+        global.app.on(`objectSelected.QuadraticBezierCurveComponent`, this.handleUpdate.bind(this));
+        global.app.on(`objectChanged.QuadraticBezierCurveComponent`, this.handleUpdate.bind(this));
     }
 
     handleExpand(expanded) {
@@ -110,7 +111,7 @@ class QuadraticBezierCurveComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || editor.selected.userData.type !== 'QuadraticBezierCurve') {
             this.setState({
@@ -157,7 +158,7 @@ class QuadraticBezierCurveComponent extends React.Component {
 
         this.selected.update();
 
-        app.call('objectChanged', this, this.selected);
+        global.app.call('objectChanged', this, this.selected);
     }
 }
 

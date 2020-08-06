@@ -11,6 +11,7 @@ import { PropertyGroup, TextProperty, DisplayProperty, CheckBoxProperty } from '
 import SetValueCommand from '../../command/SetValueCommand';
 import UnscaledText from '../../object/text/UnscaledText';
 import PointMarker from '../../object/mark/PointMarker';
+import global from '../../global';
 
 /**
  * 基本信息组件
@@ -64,8 +65,8 @@ class BasicComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.BasicComponent`, this.handleUpdate);
-        app.on(`objectChanged.BasicComponent`, this.handleUpdate);
+        global.app.on(`objectSelected.BasicComponent`, this.handleUpdate);
+        global.app.on(`objectChanged.BasicComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {
@@ -75,7 +76,7 @@ class BasicComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected) {
             this.setState({
@@ -99,14 +100,14 @@ class BasicComponent extends React.Component {
             name: value
         });
 
-        app.editor.execute(new SetValueCommand(this.selected, 'name', value));
+        global.app.editor.execute(new SetValueCommand(this.selected, 'name', value));
 
         // bug: https://gitee.com/tengge1/ShadowEditor/issues/IV1V3
         if (this.selected instanceof UnscaledText || this.selected instanceof PointMarker) {
             this.selected.setText(value);
         }
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeVisible(value) {
@@ -115,7 +116,7 @@ class BasicComponent extends React.Component {
         });
 
         this.selected.visible = value;
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 }
 

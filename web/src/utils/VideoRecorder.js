@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import TimeUtils from './TimeUtils';
+import global from '../global';
 
 /**
  * 视频录制器
@@ -26,7 +27,7 @@ class VideoRecorder {
 
     start() {
         if (!navigator.mediaDevices) {
-            app.toast(`Record is not supported!`, 'error');
+            global.app.toast(`Record is not supported!`, 'error');
             return new Promise(resolve => {
                 resolve(false);
             });
@@ -59,7 +60,7 @@ class VideoRecorder {
                 const file = new File(this.chunks, TimeUtils.getDateTime() + '.webm');
 
                 let form = new FormData();
-                form.append('file', file);
+                form.global.append('file', file);
 
                 fetch(`/api/Video/Add`, {
                     method: 'POST',
@@ -67,10 +68,10 @@ class VideoRecorder {
                 }).then(response => {
                     response.json().then(obj => {
                         if (obj.Code !== 200) {
-                            app.toast(_t(obj.Msg), 'warn');
+                            global.app.toast(_t(obj.Msg), 'warn');
                             return;
                         }
-                        app.toast(_t(obj.Msg), 'success');
+                        global.app.toast(_t(obj.Msg), 'success');
                         this.chunks.length = 0;
                         resolve(true);
                     });

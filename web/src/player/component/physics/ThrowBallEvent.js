@@ -45,7 +45,7 @@ ThrowBallEvent.prototype.dispose = function () {
 };
 
 ThrowBallEvent.prototype.throwBall = function (event) {
-    if (!app.options.enableThrowBall) {
+    if (!this.app.options.enableThrowBall) {
         return;
     }
 

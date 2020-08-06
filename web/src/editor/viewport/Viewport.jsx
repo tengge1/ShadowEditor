@@ -11,6 +11,7 @@ import './css/Viewport.css';
 import ScriptEditorPanel from './ScriptEditorPanel.jsx';
 import Player from '../../player/Player';
 import VisualDOM from '../../visual/VisualDOM.jsx';
+import global from '../../global';
 
 /**
  * 视口
@@ -45,23 +46,23 @@ class Viewport extends React.Component {
     }
 
     componentDidMount() {
-        app.viewportRef = this.viewportRef.current;
-        app.editorRef = this.editorRef.current;
-        app.svgRef = this.svgRef.current;
-        app.visual = this.svgRef.current;
-        app.playerRef = this.playerRef.current;
+        global.app.viewportRef = this.viewportRef.current;
+        global.app.editorRef = this.editorRef.current;
+        global.app.svgRef = this.svgRef.current;
+        global.app.visual = this.svgRef.current;
+        global.app.playerRef = this.playerRef.current;
 
         // 性能控件
-        app.stats = new Stats();
+        global.app.stats = new Stats();
 
-        let showStats = app.storage.showStats;
+        let showStats = global.app.storage.showStats;
 
         if (showStats === undefined) {
             showStats = true;
-            app.storage.showStats = true;
+            global.app.storage.showStats = true;
         }
 
-        Object.assign(app.stats.dom.style, {
+        Object.assign(global.app.stats.dom.style, {
             position: 'absolute',
             left: '8px',
             top: '8px',
@@ -69,11 +70,11 @@ class Viewport extends React.Component {
             display: showStats ? 'block' : 'none'
         });
 
-        app.viewportRef.appendChild(app.stats.dom);
+        global.app.viewportRef.appendChild(global.app.stats.dom);
 
-        app.viewport = this.editorRef.current;
-        app.player = new Player(this.playerRef.current, {
-            server: app.options.server,
+        global.app.viewport = this.editorRef.current;
+        global.app.player = new Player(this.playerRef.current, {
+            server: global.app.options.server,
             enableThrowBall: false,
             showStats: false
         });

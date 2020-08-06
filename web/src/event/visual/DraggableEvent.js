@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import BaseEvent from '../BaseEvent';
+import global from '../../global';
 
 /**
  * 拖动事件
@@ -21,11 +22,11 @@ DraggableEvent.prototype = Object.create(BaseEvent.prototype);
 DraggableEvent.prototype.constructor = DraggableEvent;
 
 DraggableEvent.prototype.start = function () {
-    app.on(`appStarted.${this.id}`, this.onAppStarted.bind(this));
+    global.app.on(`appStarted.${this.id}`, this.onAppStarted.bind(this));
 };
 
 DraggableEvent.prototype.onAppStarted = function () {
-    var visual = app.editor.visual;
+    var visual = global.app.editor.visual;
     var component = null;
 
     var drag = d3.drag()
@@ -53,7 +54,7 @@ DraggableEvent.prototype.onAppStarted = function () {
             component = null;
         });
 
-    d3.select(app.editor.svg)
+    d3.select(global.app.editor.svg)
         .call(drag);
 };
 

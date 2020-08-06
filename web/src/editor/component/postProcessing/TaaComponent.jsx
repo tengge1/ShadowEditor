@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import { PropertyGroup, CheckBoxProperty, SelectProperty } from '../../../ui/index';
+import global from '../../../global';
 
 /**
  * 时间抗锯齿(TAA)组件
@@ -74,8 +75,8 @@ class TaaComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.TaaComponent`, this.handleUpdate);
-        app.on(`objectChanged.TaaComponent`, this.handleUpdate);
+        global.app.on(`objectSelected.TaaComponent`, this.handleUpdate);
+        global.app.on(`objectChanged.TaaComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {
@@ -85,7 +86,7 @@ class TaaComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || editor.selected !== editor.scene) {
             this.setState({
@@ -133,8 +134,8 @@ class TaaComponent extends React.Component {
             }
         });
 
-        app.call(`objectChanged`, this, this.selected);
-        app.call(`postProcessingChanged`, this);
+        global.app.call(`objectChanged`, this, this.selected);
+        global.app.call(`postProcessingChanged`, this);
     }
 }
 

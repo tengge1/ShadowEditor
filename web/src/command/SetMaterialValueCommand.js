@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import Command from './Command';
+import global from '../global';
 
 /**
  * 设置材质值命令
@@ -39,13 +40,13 @@ Object.assign(SetMaterialValueCommand.prototype, {
 	execute: function () {
 		this.object.material[this.attributeName] = this.newValue;
 		this.object.material.needsUpdate = true;
-		app.call('objectChanged', this, this.object);
+		global.app.call('objectChanged', this, this.object);
 	},
 
 	undo: function () {
 		this.object.material[this.attributeName] = this.oldValue;
 		this.object.material.needsUpdate = true;
-		app.call('objectChanged', this, this.object);
+		global.app.call('objectChanged', this, this.object);
 	},
 
 	update: function (cmd) {

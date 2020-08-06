@@ -13,6 +13,7 @@ import TypefaceManagementWindow from './window/TypefaceManagementWindow.jsx';
 import TypefaceConverterWindow from './window/TypefaceConverterWindow.jsx';
 // import CleanUpScenesWindow from './window/CleanUpScenesWindow.jsx';
 import PluginsWindow from './window/PluginsWindow.jsx';
+import global from '../../global';
 
 /**
  * 工具菜单
@@ -61,33 +62,33 @@ class ToolMenu extends React.Component {
     }
 
     handleTextureGenerator() {
-        app.require('TexGen').then(() => {
-            const win = app.createElement(TextureGeneratorWindow);
-            app.addElement(win);
+        global.app.require('TexGen').then(() => {
+            const win = global.app.createElement(TextureGeneratorWindow);
+            global.app.addElement(win);
         });
     }
 
     handleTypefaceManagement() {
-        const win = app.createElement(TypefaceManagementWindow);
-        app.addElement(win);
+        const win = global.app.createElement(TypefaceManagementWindow);
+        global.app.addElement(win);
     }
 
     handleTypefaceConverter() {
-        const win = app.createElement(TypefaceConverterWindow);
-        app.addElement(win);
+        const win = global.app.createElement(TypefaceConverterWindow);
+        global.app.addElement(win);
     }
 
     handleBackupDatabase() {
-        app.mask(_t('Backing up, please wait.'));
-        fetch(`${app.options.server}/api/BackupDatabase/Run`, {
+        global.app.mask(_t('Backing up, please wait.'));
+        fetch(`${global.app.options.server}/api/BackupDatabase/Run`, {
             method: 'POST'
         }).then(response => {
             response.json().then(json => {
-                app.unmask();
+                global.app.unmask();
                 if (json.Code === 300) {
-                    app.toast(_t(json.Msg), 'error');
+                    global.app.toast(_t(json.Msg), 'error');
                 }
-                app.alert({
+                global.app.alert({
                     title: _t(json.Msg),
                     content: json.Path
                 });
@@ -96,7 +97,7 @@ class ToolMenu extends React.Component {
     }
 
     handleCleanUpScenes() {
-        app.confirm({
+        global.app.confirm({
             title: _t('Clean Up Scenes'),
             content: _t('Are you sure to clean up all the deleted scenes and scene histories?'),
             onOK: this.commitCleanUpScenes
@@ -109,37 +110,37 @@ class ToolMenu extends React.Component {
         }).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg), 'warn');
+                    global.app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
-                app.toast(_t(obj.Msg), 'success');
+                global.app.toast(_t(obj.Msg), 'success');
             });
         });
     }
 
     handlePlugins() {
-        const win = app.createElement(PluginsWindow);
-        app.addElement(win);
+        const win = global.app.createElement(PluginsWindow);
+        global.app.addElement(win);
     }
 
     handleExportExamples() {
-        app.confirm({
+        global.app.confirm({
             title: _t('Query'),
             content: _t('Are you sure to export all the examples?'),
             onOK: () => {
-                app.mask();
-                fetch(`${app.options.server}/api/ExportExamples/Run`, {
+                global.app.mask();
+                fetch(`${global.app.options.server}/api/ExportExamples/Run`, {
                     method: 'POST'
                 }).then(response => {
-                    app.unmask();
+                    global.app.unmask();
                     if (response.ok) {
                         response.json().then(obj => {
                             if (obj.Code !== 200) {
-                                app.toast(_t(obj.Msg), 'warn');
+                                global.app.toast(_t(obj.Msg), 'warn');
                                 return;
                             }
-                            app.toast(_t(obj.Msg), 'success');
-                            window.open(`${app.options.server}${obj.Url}`, 'export');
+                            global.app.toast(_t(obj.Msg), 'success');
+                            window.open(`${global.app.options.server}${obj.Url}`, 'export');
                         });
                     }
                 });

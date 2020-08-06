@@ -10,6 +10,7 @@
 import './css/EditDeptWindow.css';
 import { PropTypes } from '../../../third_party';
 import { Window, Content, Buttons, Form, FormControl, Label, Input, Button } from '../../../ui/index';
+import global from '../../../global';
 
 /**
  * 组织机构编辑窗口
@@ -73,13 +74,13 @@ class EditDeptWindow extends React.Component {
         const { id, name, pid } = this.state;
 
         if (!name || name.trim() === '') {
-            app.toast(_t('Name is not allowed to be empty.'), 'warn');
+            global.app.toast(_t('Name is not allowed to be empty.'), 'warn');
             return;
         }
 
         const url = !id ? `/api/Department/Add` : `/api/Department/Edit`;
 
-        fetch(`${app.options.server}${url}`, {
+        fetch(`${global.app.options.server}${url}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -88,7 +89,7 @@ class EditDeptWindow extends React.Component {
         }).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg), 'warn');
+                    global.app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 this.handleClose();
@@ -98,7 +99,7 @@ class EditDeptWindow extends React.Component {
     }
 
     handleClose() {
-        app.removeElement(this);
+        global.app.removeElement(this);
     }
 }
 

@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import { MenuTab } from '../../ui/index';
+import global from '../../global';
 
 /**
  * 编辑器选项卡菜单
@@ -56,7 +57,7 @@ class EditorTabMenu extends React.Component {
     }
 
     handleSelect(name) {
-        app.editor.type = name;
+        global.app.editor.type = name;
 
         this.setState({
             type: name

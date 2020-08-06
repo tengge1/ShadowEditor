@@ -7,6 +7,8 @@
  * For more information, please visit: https://github.com/tengge1/ShadowEditor
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
+import global from '../global';
+
 /**
  * 模型工具类
  */
@@ -38,7 +40,7 @@ const MeshUtils = {
      * @returns {*} 整体模型
      */
     partToMesh(obj) {
-        let scene = app.editor.scene;
+        let scene = global.app.editor.scene;
 
         if (obj === scene || obj.userData && obj.userData.Server === true) { // 场景或服务端模型
             return obj;

@@ -9,6 +9,7 @@
  */
 import './css/HistoryPanel.css';
 import { Button } from '../../ui/index';
+import global from '../../global';
 
 /**
  * 历史面板
@@ -60,8 +61,8 @@ class HistoryPanel extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`editorCleared.HistoryPanel`, this.update);
-        app.on(`historyChanged.HistoryPanel`, this.update);
+        global.app.on(`editorCleared.HistoryPanel`, this.update);
+        global.app.on(`historyChanged.HistoryPanel`, this.update);
     }
 
     componentDidUpdate() {
@@ -70,7 +71,7 @@ class HistoryPanel extends React.Component {
     }
 
     update() {
-        var history = app.editor.history;
+        var history = global.app.editor.history;
 
         let undos = [], redos = [];
 
@@ -101,15 +102,15 @@ class HistoryPanel extends React.Component {
             return;
         }
 
-        app.editor.history.goToState(parseInt(id));
+        global.app.editor.history.goToState(parseInt(id));
 
         this.update();
     }
 
     handleClear() {
-        var editor = app.editor;
+        var editor = global.app.editor;
 
-        app.confirm({
+        global.app.confirm({
             title: _t('Confirm'),
             content: _t('Undo/Redo history will be cleared. Are you sure?'),
             onOK: () => {

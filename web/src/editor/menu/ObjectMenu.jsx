@@ -34,6 +34,7 @@ import EllipseCurve from '../../object/line/EllipseCurve';
 import PointMarkTool from '../tools/PointMarkTool';
 
 import Sprite from '../../object/geometry/Sprite';
+import global from '../../global';
 
 /**
  * 物体菜单
@@ -170,79 +171,79 @@ class ObjectMenu extends React.Component {
     // ------------------------- 组 ---------------------------------
 
     handleAddGroup() {
-        app.editor.execute(new AddObjectCommand(new Group()));
+        global.app.editor.execute(new AddObjectCommand(new Group()));
     }
 
     // ------------------------- 平板 -------------------------------
 
     handleAddPlane() {
-        app.editor.execute(new AddObjectCommand(new Plane()));
+        global.app.editor.execute(new AddObjectCommand(new Plane()));
     }
 
     // ------------------------ 正方体 -----------------------------
 
     handleAddBox() {
-        app.editor.execute(new AddObjectCommand(new Box()));
+        global.app.editor.execute(new AddObjectCommand(new Box()));
     }
 
     // ------------------------ 圆 ----------------------------------
 
     handleAddCircle() {
-        app.editor.execute(new AddObjectCommand(new Circle()));
+        global.app.editor.execute(new AddObjectCommand(new Circle()));
     }
 
     // ------------------------圆柱体 -------------------------------
 
     handleAddCylinder() {
-        app.editor.execute(new AddObjectCommand(new Cylinder()));
+        global.app.editor.execute(new AddObjectCommand(new Cylinder()));
     }
 
     // ------------------------ 球体 -------------------------------
 
     handleAddSphere() {
-        app.editor.execute(new AddObjectCommand(new Sphere()));
+        global.app.editor.execute(new AddObjectCommand(new Sphere()));
     }
 
     // ----------------------- 二十面体 -----------------------------
 
     handleAddIcosahedron() {
-        app.editor.execute(new AddObjectCommand(new Icosahedron()));
+        global.app.editor.execute(new AddObjectCommand(new Icosahedron()));
     }
 
     // ----------------------- 轮胎 ---------------------------------
 
     handleAddTorus() {
-        app.editor.execute(new AddObjectCommand(new Torus()));
+        global.app.editor.execute(new AddObjectCommand(new Torus()));
     }
 
     // ----------------------- 纽结 ---------------------------------
 
     handleAddTorusKnot() {
-        app.editor.execute(new AddObjectCommand(new TorusKnot()));
+        global.app.editor.execute(new AddObjectCommand(new TorusKnot()));
     }
 
     // ---------------------- 茶壶 ----------------------------------
 
     handleAddTeaport() {
-        app.editor.execute(new AddObjectCommand(new Teapot()));
+        global.app.editor.execute(new AddObjectCommand(new Teapot()));
     }
 
     // ---------------------- 酒杯 ----------------------------------
 
     handleAddLathe() {
-        app.editor.execute(new AddObjectCommand(new Lathe()));
+        global.app.editor.execute(new AddObjectCommand(new Lathe()));
     }
 
     // ---------------------- 不缩放文字 ----------------------------------
 
     handleAddUnscaledText() {
-        app.prompt({
+        global.app.prompt({
             title: _t('Please input'),
             value: _t('Some Words'),
             onOK: (value) => {
-                app.editor.execute(new AddObjectCommand(new UnscaledText(value, {
-                    domWidth: app.editor.renderer.domElement.width,
-                    domHeight: app.editor.renderer.domElement.height
+                global.app.editor.execute(new AddObjectCommand(new UnscaledText(value, {
+                    domWidth: global.app.editor.renderer.domElement.width,
+                    domHeight: global.app.editor.renderer.domElement.height
                 })));
             }
         });
@@ -251,43 +252,43 @@ class ObjectMenu extends React.Component {
     // ---------------------- 3D文字 ---------------------------------------
 
     handleAdd3DText() {
-        let win = app.createElement(Add3DTextWindow);
-        app.addElement(win);
+        let win = global.app.createElement(Add3DTextWindow);
+        global.app.addElement(win);
     }
 
     // ---------------------- 线段 ----------------------------------
 
     handleAddLineCurve() {
         var line = new LineCurve();
-        app.editor.execute(new AddObjectCommand(line));
+        global.app.editor.execute(new AddObjectCommand(line));
     }
 
     // ---------------------- CatmullRom曲线 ----------------------------------
 
     handleAddCatmullRomCurve() {
         var line = new CatmullRomCurve();
-        app.editor.execute(new AddObjectCommand(line));
+        global.app.editor.execute(new AddObjectCommand(line));
     }
 
     // ----------------------- 二次贝塞尔曲线 ---------------------------------
 
     handleAddQuadraticBezierCurve() {
         var line = new QuadraticBezierCurve();
-        app.editor.execute(new AddObjectCommand(line));
+        global.app.editor.execute(new AddObjectCommand(line));
     }
 
     // ----------------------- 三次贝塞尔曲线 ---------------------------------
 
     handleAddCubicBezierCurve() {
         var line = new CubicBezierCurve();
-        app.editor.execute(new AddObjectCommand(line));
+        global.app.editor.execute(new AddObjectCommand(line));
     }
 
     // --------------------- 椭圆曲线 ------------------------------------------
 
     handleAddEllipseCurve() {
         var line = new EllipseCurve();
-        app.editor.execute(new AddObjectCommand(line));
+        global.app.editor.execute(new AddObjectCommand(line));
     }
 
     // -------------------- 点状标注 ----------------------------------
@@ -312,13 +313,13 @@ class ObjectMenu extends React.Component {
     handleAddOrthographicCamera() {
         let camera = new THREE.OrthographicCamera();
         camera.name = _t('Orthographic Camera');
-        app.editor.addObject(camera);
+        global.app.editor.addObject(camera);
     }
 
     handleAddPerspectiveCamera() {
         let camera = new THREE.PerspectiveCamera();
         camera.name = _t('Perspective Camera');
-        app.editor.addObject(camera);
+        global.app.editor.addObject(camera);
     }
 
     // ---------------------- 帮助器 ---------------------------------
@@ -330,20 +331,20 @@ class ObjectMenu extends React.Component {
             10
         );
         helper.name = _t('Arrow Helper');
-        app.editor.addObject(helper);
+        global.app.editor.addObject(helper);
     }
 
     handleAddAxesHelper() {
         let helper = new THREE.AxesHelper(10);
         helper.name = _t('Axes Helper');
         helper.position.y = 1;
-        app.editor.addObject(helper);
+        global.app.editor.addObject(helper);
     }
 
     // ---------------------- 精灵 -----------------------------------
 
     handleAddSprite() {
-        app.editor.execute(new AddObjectCommand(new Sprite()));
+        global.app.editor.execute(new AddObjectCommand(new Sprite()));
     }
 }
 

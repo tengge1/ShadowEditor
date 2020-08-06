@@ -11,6 +11,7 @@ import './css/AddSkyBoxWindow.css';
 import { PropTypes } from '../../../third_party';
 import { Window, Content, Buttons, ImageSelector, Button } from '../../../ui/index';
 import Ajax from '../../../utils/Ajax';
+import global from '../../../global';
 
 /**
  * 添加天空盒窗口
@@ -126,11 +127,11 @@ class AddSkyBoxWindow extends React.Component {
         const { posXFile, negXFile, posYFile, negYFile, posZFile, negZFile } = this.state;
 
         if (!posXFile || !negXFile || !posYFile || !negYFile || !posZFile || !negZFile) {
-            app.toast(_t('Please upload all the textures before save.'), 'warn');
+            global.app.toast(_t('Please upload all the textures before save.'), 'warn');
             return;
         }
 
-        Ajax.post(`${app.options.server}/api/Map/Add`, {
+        Ajax.post(`${global.app.options.server}/api/Map/Add`, {
             posX: posXFile,
             negX: negXFile,
             posY: posYFile,
@@ -141,12 +142,12 @@ class AddSkyBoxWindow extends React.Component {
             let obj = JSON.parse(result);
             this.handleClose();
             callback && callback();
-            app.toast(_t(obj.Msg));
+            global.app.toast(_t(obj.Msg));
         });
     }
 
     handleClose() {
-        app.removeElement(this);
+        global.app.removeElement(this);
     }
 }
 

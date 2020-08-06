@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import { PropertyGroup, SelectProperty } from '../../../ui/index';
+import global from '../../../global';
 
 /**
  * 场景控制器组件
@@ -61,8 +62,8 @@ class ControlComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.ControlComponent`, this.handleUpdate.bind(this));
-        app.on(`objectChanged.ControlComponent`, this.handleUpdate.bind(this));
+        global.app.on(`objectSelected.ControlComponent`, this.handleUpdate.bind(this));
+        global.app.on(`objectChanged.ControlComponent`, this.handleUpdate.bind(this));
     }
 
     handleExpand(expanded) {
@@ -72,7 +73,7 @@ class ControlComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || editor.selected !== editor.camera) {
             this.setState({
@@ -96,7 +97,7 @@ class ControlComponent extends React.Component {
 
         this.selected.userData.control = type;
 
-        app.call('objectChanged', this, this.selected);
+        global.app.call('objectChanged', this, this.selected);
     }
 }
 

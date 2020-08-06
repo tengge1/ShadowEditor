@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import BaseEvent from './BaseEvent';
+import global from '../global';
 
 /**
  * 物理事件
@@ -29,13 +30,13 @@ PhysicsEngine.prototype = Object.create(BaseEvent.prototype);
 PhysicsEngine.prototype.constructor = PhysicsEngine;
 
 PhysicsEngine.prototype.start = function () {
-    app.on(`optionChange.${this.id}`, this.onOptionChange);
-    app.on(`afterRender.${this.id}`, this.updatePhysicsWorld);
+    global.app.on(`optionChange.${this.id}`, this.onOptionChange);
+    global.app.on(`afterRender.${this.id}`, this.updatePhysicsWorld);
 };
 
 PhysicsEngine.prototype.stop = function () {
-    app.on(`optionChange.${this.id}`, null);
-    app.on(`afterRender.${this.id}`, null);
+    global.app.on(`optionChange.${this.id}`, null);
+    global.app.on(`afterRender.${this.id}`, null);
 };
 
 PhysicsEngine.prototype.onOptionChange = function (name, value) {
@@ -78,7 +79,7 @@ PhysicsEngine.prototype.disablePhysics = function () {
 
     this.rigidBodies.length = 0;
 
-    app.editor.scene.traverse(n => {
+    global.app.editor.scene.traverse(n => {
         if (n._physicsBody) {
             n._physicsBody = null;
         }
@@ -116,7 +117,7 @@ PhysicsEngine.prototype.initPhysicsWorld = function () {
 };
 
 PhysicsEngine.prototype.createScene = function () {
-    app.editor.scene.traverse(n => {
+    global.app.editor.scene.traverse(n => {
         if (!n.userData.physics || !n.userData.physics.enabled) {
             return;
         }

@@ -7,6 +7,8 @@
  * For more information, please visit: https://github.com/tengge1/ShadowEditor
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
+import global from '../global';
+
 /**
  * 字体工具类
  * @author tengge / https://github.com/tengge1
@@ -22,7 +24,7 @@ const TypefaceUtils = {
      */
     convertTtfToJson(arrayBuffer, reverseDirection = false, characterSet = '') {
         return new Promise(resolve => {
-            app.require('opentype').then(() => {
+            global.app.require('opentype').then(() => {
                 const font = opentype.parse(arrayBuffer);
                 let result = this._convert(font, reverseDirection, characterSet);
                 resolve({ result, font });

@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import { PropertyGroup, CheckBoxProperty, NumberProperty } from '../../../ui/index';
+import global from '../../../global';
 
 /**
  * 背景虚化特效组件
@@ -70,8 +71,8 @@ class BokehComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.BokehComponent`, this.handleUpdate);
-        app.on(`objectChanged.BokehComponent`, this.handleUpdate);
+        global.app.on(`objectSelected.BokehComponent`, this.handleUpdate);
+        global.app.on(`objectChanged.BokehComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {
@@ -81,7 +82,7 @@ class BokehComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || editor.selected !== editor.scene) {
             this.setState({
@@ -131,8 +132,8 @@ class BokehComponent extends React.Component {
             }
         });
 
-        app.call(`objectChanged`, this, this.selected);
-        app.call(`postProcessingChanged`, this);
+        global.app.call(`objectChanged`, this, this.selected);
+        global.app.call(`postProcessingChanged`, this);
     }
 }
 

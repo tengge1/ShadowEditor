@@ -10,6 +10,7 @@
 import BaseEvent from './BaseEvent';
 import Converter from '../serialization/Converter';
 // import GISScene from '../gis/Scene';
+import global from '../global';
 
 /**
  * 加载场景事件
@@ -23,13 +24,13 @@ LoadSceneEvent.prototype = Object.create(BaseEvent.prototype);
 LoadSceneEvent.prototype.constructor = LoadSceneEvent;
 
 LoadSceneEvent.prototype.start = function () {
-    app.on(`load.${this.id}`, this.onLoad.bind(this));
-    app.on(`loadSceneList.${this.id}`, this.onLoadSceneList.bind(this));
+    global.app.on(`load.${this.id}`, this.onLoad.bind(this));
+    global.app.on(`loadSceneList.${this.id}`, this.onLoadSceneList.bind(this));
 };
 
 LoadSceneEvent.prototype.stop = function () {
-    app.on(`load.${this.id}`, null);
-    app.on(`loadSceneObj.${this.id}`, null);
+    global.app.on(`load.${this.id}`, null);
+    global.app.on(`loadSceneObj.${this.id}`, null);
 };
 
 LoadSceneEvent.prototype.onLoad = function (url, name, id) { // id: MongoDB _id
@@ -42,15 +43,15 @@ LoadSceneEvent.prototype.onLoad = function (url, name, id) { // id: MongoDB _id
     //     id = THREE.Math.generateUUID();
     // }
 
-    app.editor.clear(false);
+    global.app.editor.clear(false);
     document.title = name;
 
-    app.mask(_t('Loading...'));
+    global.app.mask(_t('Loading...'));
 
     fetch(url).then(response => {
         response.json().then(obj => {
             if (obj.Code !== 200) {
-                app.toast(_t(obj.Msg), 'warn');
+                global.app.toast(_t(obj.Msg), 'warn');
                 return;
             }
 
@@ -60,81 +61,81 @@ LoadSceneEvent.prototype.onLoad = function (url, name, id) { // id: MongoDB _id
 };
 
 LoadSceneEvent.prototype.onLoadSceneList = function (list, name, id) {
-    app.mask(_t('Loading...'));
+    global.app.mask(_t('Loading...'));
 
     new Converter().fromJson(list, {
-        server: app.options.server,
-        camera: app.editor.camera,
-        domWidth: app.editor.renderer.domElement.width,
-        domHeight: app.editor.renderer.domElement.height
+        server: global.app.options.server,
+        camera: global.app.editor.camera,
+        domWidth: global.app.editor.renderer.domElement.width,
+        domHeight: global.app.editor.renderer.domElement.height
     }).then(obj => {
         this.onLoadScene(obj);
 
-        app.editor.sceneID = id || 0;
-        app.editor.sceneName = name || _t('No Name');
-        document.title = app.editor.sceneName;
+        global.app.editor.sceneID = id || 0;
+        global.app.editor.sceneName = name || _t('No Name');
+        document.title = global.app.editor.sceneName;
 
         if (obj.options) {
-            app.call('optionsChanged', this);
+            global.app.call('optionsChanged', this);
 
             // if (obj.options.sceneType === 'GIS') {
-            //     if (app.editor.gis) {
-            //         app.editor.gis.stop();
+            //     if (global.app.editor.gis) {
+            //         global.app.editor.gis.stop();
             //     }
-            //     app.editor.gis = new GISScene(app, {
+            //     global.app.editor.gis = new GISScene(global.app, {
             //         useCameraPosition: true
             //     });
-            //     app.editor.gis.start();
+            //     global.app.editor.gis.start();
             // }
         }
 
         if (obj.scripts) {
-            app.call('scriptChanged', this);
+            global.app.call('scriptChanged', this);
         }
 
         if (obj.scene) {
-            app.call('sceneGraphChanged', this);
+            global.app.call('sceneGraphChanged', this);
         }
 
-        app.unmask();
+        global.app.unmask();
     });
 };
 
 LoadSceneEvent.prototype.onLoadScene = function (obj) {
     if (obj.options) {
-        Object.assign(app.options, obj.options);
+        Object.assign(global.app.options, obj.options);
     }
 
     if (obj.camera) {
-        app.editor.camera.remove(app.editor.audioListener);
-        app.editor.camera.copy(obj.camera);
+        global.app.editor.camera.remove(global.app.editor.audioListener);
+        global.app.editor.camera.copy(obj.camera);
 
-        let audioListener = app.editor.camera.children.filter(n => n instanceof THREE.AudioListener)[0];
+        let audioListener = global.app.editor.camera.children.filter(n => n instanceof THREE.AudioListener)[0];
 
         if (audioListener) {
-            app.editor.audioListener = audioListener;
+            global.app.editor.audioListener = audioListener;
         }
     }
 
     if (obj.renderer) {
-        var viewport = app.viewport;
-        var oldRenderer = app.editor.renderer;
+        var viewport = global.app.viewport;
+        var oldRenderer = global.app.editor.renderer;
 
         viewport.removeChild(oldRenderer.domElement);
         viewport.appendChild(obj.renderer.domElement);
-        app.editor.renderer = obj.renderer;
-        app.editor.renderer.setSize(viewport.offsetWidth, viewport.offsetHeight);
-        app.call('resize', this);
+        global.app.editor.renderer = obj.renderer;
+        global.app.editor.renderer.setSize(viewport.offsetWidth, viewport.offsetHeight);
+        global.app.call('resize', this);
     }
 
     if (obj.scripts) {
-        Object.assign(app.editor.scripts, obj.scripts);
+        Object.assign(global.app.editor.scripts, obj.scripts);
     }
 
     if (obj.animations) {
-        Object.assign(app.editor.animations, obj.animations);
+        Object.assign(global.app.editor.animations, obj.animations);
     } else {
-        app.editor.animations = [{
+        global.app.editor.animations = [{
             id: null,
             uuid: THREE.Math.generateUUID(),
             layer: 0,
@@ -156,28 +157,28 @@ LoadSceneEvent.prototype.onLoadScene = function (obj) {
     }
 
     if (obj.scene) {
-        app.editor.setScene(obj.scene);
+        global.app.editor.setScene(obj.scene);
     }
 
-    app.editor.camera.updateProjectionMatrix();
+    global.app.editor.camera.updateProjectionMatrix();
 
     if (obj.options.selected) {
-        var selected = app.editor.objectByUuid(obj.options.selected);
+        var selected = global.app.editor.objectByUuid(obj.options.selected);
         if (selected) {
-            app.editor.select(selected);
+            global.app.editor.select(selected);
         }
     }
 
     // 可视化
     // if (obj.visual) {
-    //     app.editor.visual.fromJSON(obj.visual);
+    //     global.app.editor.visual.fromJSON(obj.visual);
     // } else {
-    // app.editor.visual.clear();
+    // global.app.editor.visual.clear();
     // }
-    // app.editor.visual.render(app.editor.svg);
+    // global.app.editor.visual.render(global.app.editor.svg);
 
-    app.call('sceneLoaded', this);
-    app.call('animationChanged', this);
+    global.app.call('sceneLoaded', this);
+    global.app.call('animationChanged', this);
 };
 
 export default LoadSceneEvent;

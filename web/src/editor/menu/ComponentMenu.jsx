@@ -18,6 +18,7 @@ import ParticleEmitter from '../../object/component/ParticleEmitter';
 import PerlinTerrain from '../../object/terrain/PerlinTerrain';
 import ShaderTerrain from '../../object/terrain/ShaderTerrain';
 import SkyBall from '../../object/component/SkyBall';
+import global from '../../global';
 
 /**
  * 组件菜单
@@ -78,7 +79,7 @@ class ComponentMenu extends React.Component {
     // ---------------------------- 添加背景音乐 ----------------------------------
 
     handleAddBackgroundMusic() {
-        var editor = app.editor;
+        var editor = global.app.editor;
 
         setTimeout(() => {
             var listener = editor.audioListener;
@@ -91,7 +92,7 @@ class ComponentMenu extends React.Component {
     
             audio.userData.autoplay = true;
     
-            app.editor.execute(new AddObjectCommand(audio));
+            global.app.editor.execute(new AddObjectCommand(audio));
         });
     }
 
@@ -99,7 +100,7 @@ class ComponentMenu extends React.Component {
 
     handleParticleEmitter() {
         var emitter = new ParticleEmitter();
-        app.editor.execute(new AddObjectCommand(emitter));
+        global.app.editor.execute(new AddObjectCommand(emitter));
         emitter.userData.group.tick(0);
     }
 
@@ -109,13 +110,13 @@ class ComponentMenu extends React.Component {
         var obj = new Sky();
         obj.name = _t('Sky');
         obj.userData.type = 'Sky';
-        app.editor.execute(new AddObjectCommand(obj));
+        global.app.editor.execute(new AddObjectCommand(obj));
     }
 
     // ---------------------------- 添加火焰 -------------------------------------
 
     handleAddFire() {
-        var editor = app.editor;
+        var editor = global.app.editor;
 
         var fire = new Fire(editor.camera);
 
@@ -127,7 +128,7 @@ class ComponentMenu extends React.Component {
     // -------------------------- 添加水 ---------------------------------------
 
     handleAddWater() {
-        var editor = app.editor;
+        var editor = global.app.editor;
 
         var water = new Water(editor.renderer);
 
@@ -139,7 +140,7 @@ class ComponentMenu extends React.Component {
     // ------------------------------ 添加烟 ------------------------------------
 
     handleAddSmoke() {
-        var editor = app.editor;
+        var editor = global.app.editor;
         var camera = editor.camera;
         var renderer = editor.renderer;
 
@@ -155,7 +156,7 @@ class ComponentMenu extends React.Component {
     // ----------------------------- 添加布 ------------------------------------
 
     handleAddCloth() {
-        var editor = app.editor;
+        var editor = global.app.editor;
 
         var cloth = new Cloth();
 
@@ -171,32 +172,32 @@ class ComponentMenu extends React.Component {
 
         terrain.name = _t('Perlin Terrain');
 
-        app.editor.execute(new AddObjectCommand(terrain));
+        global.app.editor.execute(new AddObjectCommand(terrain));
     }
 
     // ------------------------ 天空球 -------------------------------------------
 
     handleAddSkyBall() {
-        app.toast(_t('Please click the sky ball in the MapPanel.'));
-        app.on(`selectMap.ComponentMenu`, obj => {
+        global.app.toast(_t('Please click the sky ball in the MapPanel.'));
+        global.app.on(`selectMap.ComponentMenu`, obj => {
             if (obj.Type !== 'skyBall') {
-                app.toast(_t('The map you clicked is not sky ball.'), 'warn');
+                global.app.toast(_t('The map you clicked is not sky ball.'), 'warn');
                 return;
             }
-            app.on(`selectMap.ComponentMenu`, null);
-            const ball = new SkyBall(`${app.options.server}${obj.Url}`);
+            global.app.on(`selectMap.ComponentMenu`, null);
+            const ball = new SkyBall(`${global.app.options.server}${obj.Url}`);
             ball.name = obj.Name;
-            app.editor.addObject(ball);
+            global.app.editor.addObject(ball);
         });
     }
 
     // ----------------------------- 添加着色器地形 --------------------------------
 
     handleAddShaderTerrain() {
-        app.require('NormalMapShader').then(() => {
-            let terrain = new ShaderTerrain(app.editor.renderer);
+        global.app.require('NormalMapShader').then(() => {
+            let terrain = new ShaderTerrain(global.app.editor.renderer);
             terrain.name = _t('Shader Terrain');
-            app.editor.execute(new AddObjectCommand(terrain));
+            global.app.editor.execute(new AddObjectCommand(terrain));
             terrain.update(0);
         });
     }

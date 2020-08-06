@@ -24,6 +24,7 @@ import Loader from './editor/Loader.jsx';
 import Editor from './editor/Editor.jsx';
 import Ajax from './utils/Ajax';
 import LanguageLoader from './utils/LanguageLoader';
+import global from './global';
 
 /**
  * 应用程序
@@ -38,7 +39,7 @@ function Application(container, options) {
     this.width = this.container.clientWidth;
     this.height = this.container.clientHeight;
 
-    window.app = this;
+    global.app = this;
 
     // 配置
     this.options = new Options(options);
@@ -401,7 +402,7 @@ Application.prototype.upload = function () {
                 if (obj.Code === 200) {
                     callback(obj);
                 } else {
-                    app.toast(_t(obj.Msg), 'warn');
+                    global.app.toast(_t(obj.Msg), 'warn');
                 }
             });
         };

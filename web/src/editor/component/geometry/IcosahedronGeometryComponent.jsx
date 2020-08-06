@@ -9,6 +9,7 @@
  */
 import { PropertyGroup, NumberProperty } from '../../../ui/index';
 import SetGeometryCommand from '../../../command/SetGeometryCommand';
+import global from '../../../global';
 
 /**
  * 二十面体组件
@@ -58,8 +59,8 @@ class IcosahedronGeometryComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.IcosahedronGeometryComponent`, this.handleUpdate);
-        app.on(`objectChanged.IcosahedronGeometryComponent`, this.handleUpdate);
+        global.app.on(`objectSelected.IcosahedronGeometryComponent`, this.handleUpdate);
+        global.app.on(`objectChanged.IcosahedronGeometryComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {
@@ -69,7 +70,7 @@ class IcosahedronGeometryComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || !(editor.selected instanceof THREE.Mesh) || !(editor.selected.geometry instanceof THREE.IcosahedronBufferGeometry)) {
             this.setState({
@@ -104,12 +105,12 @@ class IcosahedronGeometryComponent extends React.Component {
 
         this.setState(state);
 
-        app.editor.execute(new SetGeometryCommand(this.selected, new THREE.IcosahedronBufferGeometry(
+        global.app.editor.execute(new SetGeometryCommand(this.selected, new THREE.IcosahedronBufferGeometry(
             radius,
             detail
         )));
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 }
 

@@ -9,6 +9,7 @@
  */
 import BaseHelper from '../BaseHelper';
 import VolumeDirectionalLightHelper from './VolumeDirectionalLightHelper';
+import global from '../../global';
 
 /**
  * 平行光帮助器
@@ -24,17 +25,17 @@ DirectionalLightHelpers.prototype = Object.create(BaseHelper.prototype);
 DirectionalLightHelpers.prototype.constructor = DirectionalLightHelpers;
 
 DirectionalLightHelpers.prototype.start = function () {
-    app.on(`objectAdded.${this.id}`, this.onObjectAdded.bind(this));
-    app.on(`objectRemoved.${this.id}`, this.onObjectRemoved.bind(this));
-    app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
-    app.on(`storageChanged.${this.id}`, this.onStorageChanged.bind(this));
+    global.app.on(`objectAdded.${this.id}`, this.onObjectAdded.bind(this));
+    global.app.on(`objectRemoved.${this.id}`, this.onObjectRemoved.bind(this));
+    global.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    global.app.on(`storageChanged.${this.id}`, this.onStorageChanged.bind(this));
 };
 
 DirectionalLightHelpers.prototype.stop = function () {
-    app.on(`objectAdded.${this.id}`, null);
-    app.on(`objectRemoved.${this.id}`, null);
-    app.on(`objectChanged.${this.id}`, null);
-    app.on(`storageChanged.${this.id}`, null);
+    global.app.on(`objectAdded.${this.id}`, null);
+    global.app.on(`objectRemoved.${this.id}`, null);
+    global.app.on(`objectChanged.${this.id}`, null);
+    global.app.on(`storageChanged.${this.id}`, null);
 };
 
 DirectionalLightHelpers.prototype.onObjectAdded = function (object) {
@@ -44,11 +45,11 @@ DirectionalLightHelpers.prototype.onObjectAdded = function (object) {
 
     var helper = new VolumeDirectionalLightHelper(object, 1);
 
-    helper.visible = app.storage.showDirectionalLight;
+    helper.visible = global.app.storage.showDirectionalLight;
     
     this.helpers.push(helper);
 
-    app.editor.sceneHelpers.add(helper);
+    global.app.editor.sceneHelpers.add(helper);
 };
 
 DirectionalLightHelpers.prototype.onObjectRemoved = function (object) {
@@ -64,7 +65,7 @@ DirectionalLightHelpers.prototype.onObjectRemoved = function (object) {
         return;
     }
 
-    app.editor.sceneHelpers.remove(this.helpers[index]);
+    global.app.editor.sceneHelpers.remove(this.helpers[index]);
     this.helpers[index].dispose();
 
     this.helpers.splice(index, 1);

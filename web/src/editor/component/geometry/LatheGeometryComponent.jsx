@@ -9,6 +9,7 @@
  */
 import { PropertyGroup, NumberProperty, IntegerProperty } from '../../../ui/index';
 import SetGeometryCommand from '../../../command/SetGeometryCommand';
+import global from '../../../global';
 
 /**
  * 车床组件
@@ -64,8 +65,8 @@ class LatheGeometryComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.LatheGeometryComponent`, this.handleUpdate);
-        app.on(`objectChanged.LatheGeometryComponent`, this.handleUpdate);
+        global.app.on(`objectSelected.LatheGeometryComponent`, this.handleUpdate);
+        global.app.on(`objectChanged.LatheGeometryComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {
@@ -75,7 +76,7 @@ class LatheGeometryComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || !(editor.selected instanceof THREE.Mesh) || !(editor.selected.geometry instanceof THREE.LatheBufferGeometry)) {
             this.setState({
@@ -111,14 +112,14 @@ class LatheGeometryComponent extends React.Component {
 
         const points = this.selected.geometry.parameters.points;
 
-        app.editor.execute(new SetGeometryCommand(this.selected, new THREE.LatheBufferGeometry(
+        global.app.editor.execute(new SetGeometryCommand(this.selected, new THREE.LatheBufferGeometry(
             points,
             segments,
             phiStart,
             phiLength
         )));
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 }
 

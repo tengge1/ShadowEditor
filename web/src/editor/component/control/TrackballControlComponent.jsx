@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import { PropertyGroup, CheckBoxProperty, NumberProperty } from '../../../ui/index';
+import global from '../../../global';
 
 /**
  * 轨迹球控制器组件
@@ -105,8 +106,8 @@ class TrackballControlComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.TrackballControlComponent`, this.handleUpdate.bind(this));
-        app.on(`objectChanged.TrackballControlComponent`, this.handleUpdate.bind(this));
+        global.app.on(`objectSelected.TrackballControlComponent`, this.handleUpdate.bind(this));
+        global.app.on(`objectChanged.TrackballControlComponent`, this.handleUpdate.bind(this));
     }
 
     handleExpand(expanded) {
@@ -116,7 +117,7 @@ class TrackballControlComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || editor.selected !== editor.camera || editor.selected.userData.control !== 'TrackballControls') {
             this.setState({
@@ -164,7 +165,7 @@ class TrackballControlComponent extends React.Component {
             rotateSpeed, zoomSpeed, panSpeed, noRotate, noZoom, noPan, staticMoving, dynamicDampingFactor, minDistance, maxDistance
         });
 
-        app.call('objectChanged', this, this.selected);
+        global.app.call('objectChanged', this, this.selected);
     }
 }
 

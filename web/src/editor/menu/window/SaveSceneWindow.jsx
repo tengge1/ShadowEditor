@@ -11,6 +11,7 @@ import './css/SaveSceneWindow.css';
 import { Window, Content, Buttons, Form, FormControl, Label, Input, Button, CheckBox } from '../../../ui/index';
 import Converter from '../../../serialization/Converter';
 import Ajax from '../../../utils/Ajax';
+import global from '../../../global';
 
 /**
  * 保存场景窗口
@@ -20,18 +21,18 @@ class SaveSceneWindow extends React.Component {
     constructor(props) {
         super(props);
 
-        if (app.options.saveChild === undefined) {
-            app.options.saveChild = true;
+        if (global.app.options.saveChild === undefined) {
+            global.app.options.saveChild = true;
         }
 
-        if (app.options.saveMaterial === undefined) {
-            app.options.saveMaterial = true;
+        if (global.app.options.saveMaterial === undefined) {
+            global.app.options.saveMaterial = true;
         }
 
         this.state = {
-            sceneName: app.editor.sceneName || _t('New Scene'),
-            saveChild: app.options.saveChild,
-            saveMaterial: app.options.saveMaterial
+            sceneName: global.app.editor.sceneName || _t('New Scene'),
+            saveChild: global.app.options.saveChild,
+            saveMaterial: global.app.options.saveMaterial
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -84,7 +85,7 @@ class SaveSceneWindow extends React.Component {
 
     handleChange(value, name) {
         if (name === 'saveChild' || name === 'saveMaterial') {
-            app.options[name] = value;
+            global.app.options[name] = value;
         }
         this.setState({
             [name]: value
@@ -92,14 +93,14 @@ class SaveSceneWindow extends React.Component {
     }
 
     handleSave() {
-        var editor = app.editor;
+        var editor = global.app.editor;
 
         const { sceneName } = this.state;
 
-        app.mask(_t('Waiting...'));
+        global.app.mask(_t('Waiting...'));
 
         var obj = new Converter().toJSON({
-            options: app.options,
+            options: global.app.options,
             camera: editor.camera,
             renderer: editor.renderer,
             scripts: editor.scripts,
@@ -108,7 +109,7 @@ class SaveSceneWindow extends React.Component {
             visual: editor.visual
         });
 
-        Ajax.post(`${app.options.server}/api/Scene/Save`, {
+        Ajax.post(`${global.app.options.server}/api/Scene/Save`, {
             Name: sceneName,
             Data: JSON.stringify(obj)
         }, result => {
@@ -120,18 +121,18 @@ class SaveSceneWindow extends React.Component {
                 document.title = sceneName;
             }
 
-            app.call(`sceneSaved`, this);
+            global.app.call(`sceneSaved`, this);
 
-            app.unmask();
+            global.app.unmask();
 
             this.handleClose();
 
-            app.toast(_t(obj.Msg), 'success');
+            global.app.toast(_t(obj.Msg), 'success');
         });
     }
 
     handleClose() {
-        app.removeElement(this);
+        global.app.removeElement(this);
     }
 }
 

@@ -9,6 +9,7 @@
  */
 import BaseEvent from './BaseEvent';
 import CssUtils from '../utils/CssUtils';
+import global from '../global';
 
 /**
  * 滤镜事件
@@ -22,21 +23,21 @@ FilterEvent.prototype = Object.create(BaseEvent.prototype);
 FilterEvent.prototype.constructor = FilterEvent;
 
 FilterEvent.prototype.start = function () {
-    app.on(`editorCleared.${this.id}`, this.onEditorCleared.bind(this));
-    app.on(`optionsChanged.${this.id}`, this.onOptionsChanged.bind(this));
+    global.app.on(`editorCleared.${this.id}`, this.onEditorCleared.bind(this));
+    global.app.on(`optionsChanged.${this.id}`, this.onOptionsChanged.bind(this));
 };
 
 FilterEvent.prototype.stop = function () {
-    app.on(`editorCleared.${this.id}`, null);
-    app.on(`optionsChanged.${this.id}`, null);
+    global.app.on(`editorCleared.${this.id}`, null);
+    global.app.on(`optionsChanged.${this.id}`, null);
 };
 
 FilterEvent.prototype.onEditorCleared = function () {
-    app.editor.renderer.domElement.style.filter = '';
+    global.app.editor.renderer.domElement.style.filter = '';
 };
 
 FilterEvent.prototype.onOptionsChanged = function () {
-    app.editor.renderer.domElement.style.filter = CssUtils.serializeFilter(app.options);
+    global.app.editor.renderer.domElement.style.filter = CssUtils.serializeFilter(global.app.options);
 };
 
 export default FilterEvent;

@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import { PropertyGroup, NumberProperty, SelectProperty } from '../../../ui/index';
+import global from '../../../global';
 
 /**
  * 物理环境组件
@@ -75,8 +76,8 @@ class PhysicsWorldComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.PhysicsWorldComponent`, this.handleUpdate.bind(this));
-        app.on(`objectChanged.PhysicsWorldComponent`, this.handleUpdate.bind(this));
+        global.app.on(`objectSelected.PhysicsWorldComponent`, this.handleUpdate.bind(this));
+        global.app.on(`objectChanged.PhysicsWorldComponent`, this.handleUpdate.bind(this));
     }
 
     handleExpand(expanded) {
@@ -86,7 +87,7 @@ class PhysicsWorldComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || editor.selected !== editor.scene) {
             this.setState({
@@ -136,7 +137,7 @@ class PhysicsWorldComponent extends React.Component {
             gravityZ
         };
 
-        app.call('objectChanged', this, this.selected);
+        global.app.call('objectChanged', this, this.selected);
     }
 }
 

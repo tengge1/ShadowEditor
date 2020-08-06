@@ -14,6 +14,7 @@ import CheckBox from '../form/CheckBox.jsx';
 import IconMenuButton from '../form/IconMenuButton.jsx';
 import ContextMenu from '../menu/ContextMenu.jsx';
 import MenuItem from '../menu/MenuItem.jsx';
+import global from '../../global';
 
 /**
  * 纹理属性
@@ -95,8 +96,8 @@ class TextureProperty extends React.Component {
     }
 
     handleSelect() {
-        app.toast(_t('Please click the image in the MapPanel.'));
-        app.on(`selectMap.TextureProperty`, this.handleChange);
+        global.app.toast(_t('Please click the image in the Mglobal.appanel.'));
+        global.app.on(`selectMap.TextureProperty`, this.handleChange);
     }
 
     handleEnable(onChange, enabled, name, event) {
@@ -113,7 +114,7 @@ class TextureProperty extends React.Component {
     }
 
     handleChange(onChange, data) {
-        app.on(`selectMap.TextureProperty`, null);
+        global.app.on(`selectMap.TextureProperty`, null);
 
         const name = data.Name;
         const type = data.Type;
@@ -122,7 +123,7 @@ class TextureProperty extends React.Component {
         if (type === 'targa') {
             const loader = new THREE.TGALoader();
             loader.load(url, obj => {
-                let texture = new THREE.CanvasTexture(obj, THREE.UVMapping);
+                let texture = new THREE.CanvasTexture(obj, THREE.UVMglobal.apping);
                 texture.sourceFile = name;
                 onChange && onChange(texture, this.props.name, data);
             });

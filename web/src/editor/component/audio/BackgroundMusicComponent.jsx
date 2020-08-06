@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import { PropertyGroup, DisplayProperty, CheckBoxProperty, NumberProperty, ButtonProperty } from '../../../ui/index';
+import global from '../../../global';
 
 /**
  * 音频监听器组件
@@ -80,8 +81,8 @@ class BackgroundMusicComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.BackgroundMusicComponent`, this.handleUpdate.bind(this));
-        app.on(`objectChanged.BackgroundMusicComponent`, this.handleUpdate.bind(this));
+        global.app.on(`objectSelected.BackgroundMusicComponent`, this.handleUpdate.bind(this));
+        global.app.on(`objectChanged.BackgroundMusicComponent`, this.handleUpdate.bind(this));
     }
 
     handleExpand(expanded) {
@@ -91,7 +92,7 @@ class BackgroundMusicComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || !(editor.selected instanceof THREE.Audio)) {
             this.setState({
@@ -116,13 +117,13 @@ class BackgroundMusicComponent extends React.Component {
     }
 
     handleSelect() {
-        app.call(`selectBottomPanel`, this, 'audio');
-        app.toast(_t('Please click the audio in the Audio Panel.'));
-        app.on(`selectAudio.BackgroundMusicComponent`, this.onSelectAudio);
+        global.app.call(`selectBottomPanel`, this, 'audio');
+        global.app.toast(_t('Please click the audio in the Audio Panel.'));
+        global.app.on(`selectAudio.BackgroundMusicComponent`, this.onSelectAudio);
     }
 
     onSelectAudio(obj) {
-        app.on(`selectAudio.BackgroundMusicComponent`, null);
+        global.app.on(`selectAudio.BackgroundMusicComponent`, null);
 
         Object.assign(this.selected.userData, obj);
 
@@ -154,7 +155,7 @@ class BackgroundMusicComponent extends React.Component {
         this.selected.setLoop(loop);
         this.selected.setVolume(volumn);
 
-        app.call('objectChanged', this, this.selected);
+        global.app.call('objectChanged', this, this.selected);
     }
 
     handlePlay() {

@@ -20,6 +20,7 @@ import PlayerPhysics from './component/PlayerPhysics';
 import CssUtils from '../utils/CssUtils';
 // import Globe from '../gis/Globe';
 // import Visualization from '../visual/Visualization';
+import global from '../global';
 
 /**
  * 播放器
@@ -104,7 +105,7 @@ function Player(container = document.body, options = {}) {
  */
 Player.prototype.start = function (sceneData) {
     if (typeof sceneData !== 'string') {
-        app.toast(_t('Scene data of string type is needed.'));
+        global.app.toast(_t('Scene data of string type is needed.'));
         return;
     }
 
@@ -113,7 +114,7 @@ Player.prototype.start = function (sceneData) {
     try {
         jsons = JSON.parse(sceneData);
     } catch (e) {
-        app.toast(_t('Cannot deserialize scene data.'), 'error');
+        global.app.toast(_t('Cannot deserialize scene data.'), 'error');
         return;
     }
 

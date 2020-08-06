@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import PlayerComponent from './PlayerComponent';
+import global from '../../global';
 
 /**
  * 播放器音频
@@ -35,7 +36,8 @@ PlayerAudio.prototype.create = function (scene, camera, renderer) { // eslint-di
 
     var promises = this.audios.map(n => {
         return new Promise(resolve => {
-            loader.load(app.options.server + n.userData.Url, buffer => {
+            // TODO: global.app.options.server is not a player config
+            loader.load(global.app.options.server + n.userData.Url, buffer => {
                 n.setBuffer(buffer);
 
                 if (n.userData.autoplay) {

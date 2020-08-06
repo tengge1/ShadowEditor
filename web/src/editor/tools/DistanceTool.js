@@ -9,6 +9,7 @@
  */
 import BaseTool from './BaseTool';
 import UnscaledText from '../../object/text/UnscaledText';
+import global from '../../global';
 
 /**
  * 距离测量工具
@@ -29,26 +30,26 @@ class DistanceTool extends BaseTool {
             this.lines = [];
             this.world = new THREE.Vector3();
 
-            app.require('line').then(() => {
-                app.on(`mousedown.${this.id}`, this.onMouseDown);
-                app.on(`gpuPick.${this.id}`, this.onGpuPick);
-                app.on(`dblclick.${this.id}`, this.onDblClick);
-                app.on(`clearTools.${this.id}`, this.handleClearTools.bind(this));
+            global.app.require('line').then(() => {
+                global.app.on(`mousedown.${this.id}`, this.onMouseDown);
+                global.app.on(`gpuPick.${this.id}`, this.onGpuPick);
+                global.app.on(`dblclick.${this.id}`, this.onDblClick);
+                global.app.on(`clearTools.${this.id}`, this.handleClearTools.bind(this));
             });
         } else {
             this.positions.length = 0;
-            app.on(`mousedown.${this.id}`, this.onMouseDown);
-            app.on(`gpuPick.${this.id}`, this.onGpuPick);
-            app.on(`dblclick.${this.id}`, this.onDblClick);
+            global.app.on(`mousedown.${this.id}`, this.onMouseDown);
+            global.app.on(`gpuPick.${this.id}`, this.onGpuPick);
+            global.app.on(`dblclick.${this.id}`, this.onDblClick);
         }
-        app.editor.gpuPickNum++;
+        global.app.editor.gpuPickNum++;
     }
 
     stop() {
-        app.editor.gpuPickNum--;
-        app.on(`mousedown.${this.id}`, null);
-        app.on(`gpuPick.${this.id}`, null);
-        app.on(`dblclick.${this.id}`, null);
+        global.app.editor.gpuPickNum--;
+        global.app.on(`mousedown.${this.id}`, null);
+        global.app.on(`gpuPick.${this.id}`, null);
+        global.app.on(`dblclick.${this.id}`, null);
 
         this.positions.length = 0;
         delete this.line;
@@ -59,17 +60,17 @@ class DistanceTool extends BaseTool {
             const line = this.lines[0];
             const texts = line.texts;
             while(texts.length) {
-                app.editor.sceneHelpers.remove(texts[0]);
+                global.app.editor.sceneHelpers.remove(texts[0]);
                 texts.splice(0, 1);
             }
-            app.editor.sceneHelpers.remove(line);
+            global.app.editor.sceneHelpers.remove(line);
             this.lines.splice(0, 1);
         }
     }
 
     onMouseDown() {
         if (!this.line) {
-            let { width, height } = app.editor.renderer.domElement;
+            let { width, height } = global.app.editor.renderer.domElement;
             let geometry1 = new THREE.LineGeometry();
             let material = new THREE.LineMaterial({
                 color: 0xffff00,
@@ -79,7 +80,7 @@ class DistanceTool extends BaseTool {
             this.line = new THREE.Line2(geometry1, material);
             this.line.texts = [];
             this.lines.push(this.line);
-            app.editor.sceneHelpers.add(this.line);
+            global.app.editor.sceneHelpers.add(this.line);
         }
 
         if (this.positions.length === 0) {
@@ -126,7 +127,7 @@ class DistanceTool extends BaseTool {
 
         dist = dist.toFixed(2);
 
-        let domElement = app.editor.renderer.domElement;
+        let domElement = global.app.editor.renderer.domElement;
 
         if (this.positions.length === 6 && this.line.texts.length === 0) { // 前两个点
             let text1 = new UnscaledText(_t('Start Point'), {
@@ -142,8 +143,8 @@ class DistanceTool extends BaseTool {
             this.offsetText(text2);
             text2.position.fromArray(this.positions, 3);
             this.line.texts.push(text1, text2);
-            app.editor.sceneHelpers.add(text1);
-            app.editor.sceneHelpers.add(text2);
+            global.app.editor.sceneHelpers.add(text1);
+            global.app.editor.sceneHelpers.add(text2);
         } else if (this.line.texts.length < this.positions.length / 3) { // 增加点了
             let text1 = new UnscaledText(_t('{{dist}}m', { dist }), {
                 domWidth: domElement.width,
@@ -152,7 +153,7 @@ class DistanceTool extends BaseTool {
             this.offsetText(text1);
             text1.position.fromArray(this.positions, this.positions.length - 3);
             this.line.texts.push(text1);
-            app.editor.sceneHelpers.add(text1);
+            global.app.editor.sceneHelpers.add(text1);
         } else { // 更新最后一个点坐标
             let text1 = this.line.texts[this.line.texts.length - 1];
             this.offsetText(text1);

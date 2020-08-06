@@ -23,6 +23,7 @@ import PrefabPanel from './PrefabPanel.jsx';
 import ScreenshotPanel from './ScreenshotPanel.jsx';
 import VideoPanel from './VideoPanel.jsx';
 import LogPanel from './LogPanel.jsx';
+import global from '../../global';
 
 /**
  * 资源面板
@@ -53,7 +54,7 @@ class AssetsPanel extends React.Component {
     render() {
         const { activeIndex, sceneCount, meshCount, mapCount, materialCount, audioCount, animationCount, particleCount, prefabCount, screenshotCount, videoCount } = this.state;
 
-        const { enableAuthority, isLogin, authorities } = app.server;
+        const { enableAuthority, isLogin, authorities } = global.app.server;
 
         let index = 0;
 
@@ -156,11 +157,11 @@ class AssetsPanel extends React.Component {
     }
 
     update() {
-        fetch(`${app.options.server}/api/Assets/List`).then(response => {
+        fetch(`${global.app.options.server}/api/Assets/List`).then(response => {
             if (response.ok) {
                 response.json().then(obj => {
                     if (obj.Code !== 200) {
-                        app.toast(_t(obj.Msg), 'warn');
+                        global.app.toast(_t(obj.Msg), 'warn');
                         return;
                     }
                     this.setState(obj);

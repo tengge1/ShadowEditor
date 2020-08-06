@@ -9,6 +9,7 @@
  */
 import BaseEvent from './BaseEvent';
 import MeshUtils from '../utils/MeshUtils';
+import global from '../global';
 
 /**
  * 选取事件
@@ -32,11 +33,11 @@ PickEvent.prototype = Object.create(BaseEvent.prototype);
 PickEvent.prototype.constructor = PickEvent;
 
 PickEvent.prototype.start = function () {
-    app.on(`appStarted.${this.id}`, this.onAppStarted);
+    global.app.on(`appStarted.${this.id}`, this.onAppStarted);
 };
 
 PickEvent.prototype.onAppStarted = function () {
-    app.viewport.addEventListener('mousedown', this.onMouseDown, false);
+    global.app.viewport.addEventListener('mousedown', this.onMouseDown, false);
 };
 
 PickEvent.prototype.onMouseDown = function (event) {
@@ -48,14 +49,14 @@ PickEvent.prototype.onMouseDown = function (event) {
     // 2、不能使用preventDefault，因为div无法获得焦点，无法响应keydown事件。
     // event.preventDefault();
 
-    let array = this.getMousePosition(app.viewport, event.clientX, event.clientY);
+    let array = this.getMousePosition(global.app.viewport, event.clientX, event.clientY);
     this.onDownPosition.fromArray(array);
 
     document.addEventListener('mouseup', this.onMouseUp, false);
 };
 
 PickEvent.prototype.onMouseUp = function (event) {
-    let array = this.getMousePosition(app.viewport, event.clientX, event.clientY);
+    let array = this.getMousePosition(global.app.viewport, event.clientX, event.clientY);
     this.onUpPosition.fromArray(array);
 
     this.handleClick();
@@ -65,7 +66,7 @@ PickEvent.prototype.onMouseUp = function (event) {
 
 PickEvent.prototype.getIntersects = function (point, objects) {
     this.mouse.set(point.x * 2 - 1, -(point.y * 2) + 1);
-    this.raycaster.setFromCamera(this.mouse, app.editor.view === 'perspective' ? app.editor.camera : app.editor.orthCamera);
+    this.raycaster.setFromCamera(this.mouse, global.app.editor.view === 'perspective' ? global.app.editor.camera : global.app.editor.orthCamera);
     return this.raycaster.intersectObjects(objects);
 };
 
@@ -75,10 +76,10 @@ PickEvent.prototype.getMousePosition = function (dom, x, y) {
 };
 
 PickEvent.prototype.handleClick = function () {
-    let editor = app.editor;
+    let editor = global.app.editor;
     let objects = editor.objects;
 
-    const selectMode = app.storage.selectMode;
+    const selectMode = global.app.storage.selectMode;
 
     if (this.onDownPosition.distanceTo(this.onUpPosition) === 0) {
         let intersects = this.getIntersects(this.onUpPosition, objects);
@@ -100,7 +101,7 @@ PickEvent.prototype.handleClick = function () {
         }
 
         // objects in sceneHelpers
-        let sceneHelpers = app.editor.sceneHelpers;
+        let sceneHelpers = global.app.editor.sceneHelpers;
 
         intersects = this.getIntersects(this.onUpPosition, sceneHelpers.children);
         if (intersects.length > 0) {

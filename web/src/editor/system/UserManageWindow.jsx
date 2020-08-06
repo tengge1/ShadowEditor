@@ -11,6 +11,7 @@ import './css/UserManageWindow.css';
 import { Window, Content, Toolbar, Button, DataGrid, Column, ToolbarFiller, SearchField, ToolbarSeparator } from '../../ui/index';
 import EditUserWindow from './user/EditUserWindow.jsx';
 import ResetPasswordWindow from './user/ResetPasswordWindow.jsx';
+import global from '../../global';
 
 /**
  * 用户管理窗口
@@ -137,11 +138,11 @@ class UserManageWindow extends React.Component {
         this.setState({
             mask: true
         });
-        fetch(`${app.options.server}/api/User/List?pageSize=${pageSize}&pageNum=${pageNum}&keyword=${keyword}`).then(response => {
+        fetch(`${global.app.options.server}/api/User/List?pageSize=${pageSize}&pageNum=${pageNum}&keyword=${keyword}`).then(response => {
             response.json().then(obj => {
-                app.unmask();
+                global.app.unmask();
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg), 'warn');
+                    global.app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 this.setState({
@@ -157,28 +158,28 @@ class UserManageWindow extends React.Component {
     }
 
     handleAdd() {
-        const win = app.createElement(EditUserWindow, {
+        const win = global.app.createElement(EditUserWindow, {
             callback: this.handleRefresh
         });
-        app.addElement(win);
+        global.app.addElement(win);
     }
 
     handleEdit() {
         const { data, selected } = this.state;
 
         if (!selected) {
-            app.toast(_t('Please select a record.'));
+            global.app.toast(_t('Please select a record.'));
             return;
         }
 
         const record = data.filter(n => n.ID === selected)[0];
 
         if (record.Username === 'admin') {
-            app.toast(_t('Modifying system built-in users is not allowed.'), 'warn');
+            global.app.toast(_t('Modifying system built-in users is not allowed.'), 'warn');
             return;
         }
 
-        const win = app.createElement(EditUserWindow, {
+        const win = global.app.createElement(EditUserWindow, {
             id: record.ID,
             username: record.Username,
             name: record.Name,
@@ -187,25 +188,25 @@ class UserManageWindow extends React.Component {
             deptName: record.DeptName,
             callback: this.handleRefresh
         });
-        app.addElement(win);
+        global.app.addElement(win);
     }
 
     handleDelete() {
         const selected = this.state.selected;
 
         if (!selected) {
-            app.toast(_t('Please select a record.'));
+            global.app.toast(_t('Please select a record.'));
             return;
         }
 
         const record = this.state.data.filter(n => n.ID === selected)[0];
 
         if (record.Username === 'admin') {
-            app.toast(_t('It is not allowed to delete system built-in users.'), 'warn');
+            global.app.toast(_t('It is not allowed to delete system built-in users.'), 'warn');
             return;
         }
 
-        app.confirm({
+        global.app.confirm({
             title: _t('Query'),
             content: _t('Delete the selected record?'),
             onOK: () => {
@@ -218,33 +219,33 @@ class UserManageWindow extends React.Component {
         const { selected } = this.state;
 
         if (!selected) {
-            app.toast(_t('Please select a record.'));
+            global.app.toast(_t('Please select a record.'));
             return;
         }
 
-        const win = app.createElement(ResetPasswordWindow, {
+        const win = global.app.createElement(ResetPasswordWindow, {
             id: selected
         });
-        app.addElement(win);
+        global.app.addElement(win);
     }
 
     commitDelete(id) {
-        fetch(`${app.options.server}/api/User/Delete?ID=${id}`, {
+        fetch(`${global.app.options.server}/api/User/Delete?ID=${id}`, {
             method: 'POST'
         }).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg), 'warn');
+                    global.app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 this.handleRefresh();
-                app.toast(_t(obj.Msg), 'success');
+                global.app.toast(_t(obj.Msg), 'success');
             });
         });
     }
 
     handleClose() {
-        app.removeElement(this);
+        global.app.removeElement(this);
     }
 
     handleSearch(value) {

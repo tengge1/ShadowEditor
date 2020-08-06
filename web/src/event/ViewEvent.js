@@ -9,6 +9,7 @@
  */
 import BaseEvent from './BaseEvent';
 import OrthographicCameraControls from '../controls/OrthographicCameraControls';
+import global from '../global';
 
 /**
  * 视图事件
@@ -24,39 +25,39 @@ ViewEvent.prototype = Object.create(BaseEvent.prototype);
 ViewEvent.prototype.constructor = ViewEvent;
 
 ViewEvent.prototype.start = function () {
-    app.on(`changeView.${this.id}`, this.changeView);
+    global.app.on(`changeView.${this.id}`, this.changeView);
 };
 
 ViewEvent.prototype.stop = function () {
-    app.on(`changeView.${this.id}`, null);
+    global.app.on(`changeView.${this.id}`, null);
 };
 
 ViewEvent.prototype.changeView = function (view) {
-    if (view === app.editor.view) {
+    if (view === global.app.editor.view) {
         return;
     }
 
-    app.editor.view = view;
+    global.app.editor.view = view;
 
     if (this.controls === undefined) {
-        this.controls = new OrthographicCameraControls(app.editor.orthCamera, app.editor.renderer.domElement);
+        this.controls = new OrthographicCameraControls(global.app.editor.orthCamera, global.app.editor.renderer.domElement);
     }
 
     if (view === 'perspective') {
-        app.editor.controls.enable();
-        app.editor.showViewHelper = true;
+        global.app.editor.controls.enable();
+        global.app.editor.showViewHelper = true;
         this.controls.disable();
-        app.call(`viewChanged`, this, view);
+        global.app.call(`viewChanged`, this, view);
         return;
     }
 
-    let camera = app.editor.orthCamera;
+    let camera = global.app.editor.orthCamera;
 
     // 使用透视相机离原点最远距离设置正交相机
     let distance = Math.max(
-        app.editor.camera.position.x,
-        app.editor.camera.position.y,
-        app.editor.camera.position.z
+        global.app.editor.camera.position.x,
+        global.app.editor.camera.position.y,
+        global.app.editor.camera.position.z
     );
 
     switch (view) {
@@ -74,12 +75,12 @@ ViewEvent.prototype.changeView = function (view) {
             break;
     }
 
-    app.editor.select(null);
+    global.app.editor.select(null);
 
-    app.editor.controls.disable();
-    app.editor.showViewHelper = false;
+    global.app.editor.controls.disable();
+    global.app.editor.showViewHelper = false;
     this.controls.enable();
-    app.call(`viewChanged`, this, view);
+    global.app.call(`viewChanged`, this, view);
 };
 
 export default ViewEvent;

@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import { PropertyGroup, TextProperty, DisplayProperty, NumberProperty, SelectProperty } from '../../../ui/index';
+import global from '../../../global';
 
 /**
  * 动画基本信息组件
@@ -65,7 +66,7 @@ class BasicAnimationComponent extends React.Component {
                 name={'target'}
                 value={target ? target : `(${_t('None')})`}
                 btnText={_t('Set Target')}
-                btnShow={app.editor.selected !== null}
+                btnShow={global.app.editor.selected !== null}
                 onClick={this.handleSetTarget}
                 onChange={this.handleChange}
             />
@@ -89,8 +90,8 @@ class BasicAnimationComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`animationSelected.BasicAnimationComponent`, this.handleUpdate.bind(this));
-        app.on(`animationChanged.BasicAnimationComponent`, this.handleUpdate.bind(this));
+        global.app.on(`animationSelected.BasicAnimationComponent`, this.handleUpdate.bind(this));
+        global.app.on(`animationChanged.BasicAnimationComponent`, this.handleUpdate.bind(this));
     }
 
     handleExpand(expanded) {
@@ -120,7 +121,7 @@ class BasicAnimationComponent extends React.Component {
         if (!this.animation.target) {
             state.target = null;
         } else {
-            let obj = app.editor.objectByUuid(this.animation.target);
+            let obj = global.app.editor.objectByUuid(this.animation.target);
             if (obj === null) {
                 state.target = null;
                 console.warn(`BasicAnimationComponent: ${_t('Animation Object')} ${this.animation.target} ${_t('is not existed in the scene.')}`);
@@ -133,7 +134,7 @@ class BasicAnimationComponent extends React.Component {
     }
 
     handleSetTarget() {
-        let selected = app.editor.selected;
+        let selected = global.app.editor.selected;
 
         if (selected === null) {
             this.animation.target = null;
@@ -141,7 +142,7 @@ class BasicAnimationComponent extends React.Component {
             this.animation.target = selected.uuid;
         }
 
-        app.call('animationChanged', this, this.animation);
+        global.app.call('animationChanged', this, this.animation);
     }
 
     handleChange(value, animName) {
@@ -161,7 +162,7 @@ class BasicAnimationComponent extends React.Component {
         this.animation.beginTime = beginTime;
         this.animation.endTime = endTime;
 
-        app.call('animationChanged', this, this.animation);
+        global.app.call('animationChanged', this, this.animation);
     }
 }
 

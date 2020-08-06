@@ -12,6 +12,7 @@ import { classNames, PropTypes } from '../../third_party';
 import { SearchField, ImageList, ContextMenu, MenuItem, IconMenuButton } from '../../ui/index';
 import EditWindow from './window/EditWindow.jsx';
 import AddSkyBoxWindow from './window/AddSkyBoxWindow.jsx';
+import global from '../../global';
 
 /**
  * 贴图面板
@@ -43,7 +44,7 @@ class MapPanel extends React.Component {
     render() {
         const { className, style } = this.props;
         const { data, categoryData, name, categories } = this.state;
-        const { enableAuthority, authorities } = app.server;
+        const { enableAuthority, authorities } = global.app.server;
 
         let list = data;
 
@@ -64,7 +65,7 @@ class MapPanel extends React.Component {
         const imageListData = list.map(n => {
             return Object.assign({}, n, {
                 id: n.ID,
-                src: n.Thumbnail ? `${app.options.server}${n.Thumbnail}` : null,
+                src: n.Thumbnail ? `${global.app.options.server}${n.Thumbnail}` : null,
                 title: n.Name,
                 icon: 'scenes'
             });
@@ -121,10 +122,10 @@ class MapPanel extends React.Component {
     }
 
     update() {
-        fetch(`${app.options.server}/api/Category/List?Type=Map`).then(response => {
+        fetch(`${global.app.options.server}/api/Category/List?Type=Map`).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg), 'warn');
+                    global.app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 this.setState({
@@ -132,10 +133,10 @@ class MapPanel extends React.Component {
                 });
             });
         });
-        fetch(`${app.options.server}/api/Map/List`).then(response => {
+        fetch(`${global.app.options.server}/api/Map/List`).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg), 'warn');
+                    global.app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 this.setState({
@@ -153,81 +154,81 @@ class MapPanel extends React.Component {
     }
 
     handleClick(data) {
-        app.call(`selectMap`, this, data);
+        global.app.call(`selectMap`, this, data);
     }
 
     // ------------------------------- 上传图片 ---------------------------------------
 
     handleAddImage() {
-        app.upload(`${app.options.server}/api/Map/Add`, obj => {
+        global.app.upload(`${global.app.options.server}/api/Map/Add`, obj => {
             if (obj.Code === 200) {
                 this.update();
             }
-            app.toast(_t(obj.Msg));
+            global.app.toast(_t(obj.Msg));
         });
     }
 
     // ---------------------------- 上传天空盒 --------------------------------------
 
     handleAddSkyBox() {
-        const win = app.createElement(AddSkyBoxWindow, {
+        const win = global.app.createElement(AddSkyBoxWindow, {
             callback: this.update
         });
 
-        app.addElement(win);
+        global.app.addElement(win);
     }
 
     // ---------------------------- 上传天空球 ---------------------------------------
 
     handleAddSkyBall() {
-        app.upload(`${app.options.server}/api/Map/Add?type=skyBall`, obj => {
+        global.app.upload(`${global.app.options.server}/api/Map/Add?type=skyBall`, obj => {
             if (obj.Code === 200) {
                 this.update();
             }
-            app.toast(_t(obj.Msg));
+            global.app.toast(_t(obj.Msg));
         });
     }
 
     // ------------------------------ 上传视频 --------------------------------------
 
     handleAddVideo() {
-        app.upload(`${app.options.server}/api/Map/Add`, obj => {
+        global.app.upload(`${global.app.options.server}/api/Map/Add`, obj => {
             if (obj.Code === 200) {
                 this.update();
             }
-            app.toast(_t(obj.Msg));
+            global.app.toast(_t(obj.Msg));
         });
     }
 
     // ------------------------------- 编辑 ---------------------------------------
 
     handleEdit(data) {
-        const win = app.createElement(EditWindow, {
+        const win = global.app.createElement(EditWindow, {
             type: 'Map',
             typeName: _t('Map'),
             data,
-            saveUrl: `${app.options.server}/api/Map/Edit`,
+            saveUrl: `${global.app.options.server}/api/Map/Edit`,
             callback: this.update
         });
 
-        app.addElement(win);
+        global.app.addElement(win);
     }
 
     // ------------------------------ 删除 ----------------------------------------
 
     handleDelete(data) {
-        app.confirm({
+        global.app.confirm({
             title: _t('Confirm'),
             content: `${_t('Delete')} ${data.title}?`,
             onOK: () => {
-                fetch(`${app.options.server}/api/Map/Delete?ID=${data.id}`, {
+                fetch(`${global.app.options.server}/api/Map/Delete?ID=${data.id}`, {
                     method: 'POST'
                 }).then(response => {
                     response.json().then(obj => {
                         if (obj.Code === 200) {
                             this.update();
                         }
-                        app.toast(_t(obj.Msg));
+                        global.app.toast(_t(obj.Msg));
                     });
                 });
             }

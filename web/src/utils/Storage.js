@@ -7,6 +7,8 @@
  * For more information, please visit: https://github.com/tengge1/ShadowEditor
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
+import global from '../global';
+
 /**
  * 存储类
  */
@@ -89,8 +91,8 @@ class Storage {
         let configs = this._getConfigs();
         configs[key] = value;
         this._setConfigs(configs);
-        if (app.call) {
-            app.call(`storageChanged`, this, key, value);
+        if (global.app.call) {
+            global.app.call(`storageChanged`, this, key, value);
         } else {
             console.warn(`Storage: EventDispatcher has not been created.`);
         }

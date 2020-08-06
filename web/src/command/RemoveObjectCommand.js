@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import Command from './Command';
+import global from '../global';
 
 /**
  * 移除物体命令
@@ -45,7 +46,7 @@ Object.assign(RemoveObjectCommand.prototype, {
 			this.editor.select(null);
 		}
 
-		app.call('objectRemoved', this, this.object);
+		global.app.call('objectRemoved', this, this.object);
 	},
 
 	undo: function () {
@@ -55,7 +56,7 @@ Object.assign(RemoveObjectCommand.prototype, {
 		this.object.parent = this.parent;
 		this.editor.select(this.object);
 
-		app.call('objectAdded', this, this.object);
+		global.app.call('objectAdded', this, this.object);
 	},
 
 	toJSON: function () {

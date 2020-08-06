@@ -11,6 +11,7 @@ import { PropertyGroup, CheckBoxProperty, NumberProperty } from '../../ui/index'
 import SetPositionCommand from '../../command/SetPositionCommand';
 import SetRotationCommand from '../../command/SetRotationCommand';
 import SetScaleCommand from '../../command/SetScaleCommand';
+import global from '../../global';
 
 /**
  * 位移组件
@@ -111,8 +112,8 @@ class TransformComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.TransformComponent`, this.handleUpdate);
-        app.on(`objectChanged.TransformComponent`, this.handleUpdate);
+        global.app.on(`objectSelected.TransformComponent`, this.handleUpdate);
+        global.app.on(`objectChanged.TransformComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {
@@ -122,9 +123,9 @@ class TransformComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
-        if (!editor.selected || editor.selected === app.editor.scene || editor.selected.isGlobe) {
+        if (!editor.selected || editor.selected === global.app.editor.scene || editor.selected.isGlobe) {
             this.setState({
                 show: false
             });
@@ -159,13 +160,13 @@ class TransformComponent extends React.Component {
             [name]: value
         });
 
-        app.editor.execute(new SetPositionCommand(this.selected, new THREE.Vector3(
+        global.app.editor.execute(new SetPositionCommand(this.selected, new THREE.Vector3(
             positionX,
             positionY,
             positionZ
         )));
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeRotation(value, name) {
@@ -180,13 +181,13 @@ class TransformComponent extends React.Component {
             [name]: value
         });
 
-        app.editor.execute(new SetRotationCommand(this.selected, new THREE.Euler(
+        global.app.editor.execute(new SetRotationCommand(this.selected, new THREE.Euler(
             rotationX * Math.PI / 180,
             rotationY * Math.PI / 180,
             rotationZ * Math.PI / 180
         )));
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeScale(value, name) {
@@ -202,12 +203,12 @@ class TransformComponent extends React.Component {
         });
 
         if (scaleLocked) {
-            app.editor.execute(new SetScaleCommand(this.selected, new THREE.Vector3(value, value, value)));
+            global.app.editor.execute(new SetScaleCommand(this.selected, new THREE.Vector3(value, value, value)));
         } else {
-            app.editor.execute(new SetScaleCommand(this.selected, new THREE.Vector3(scaleX, scaleY, scaleZ)));
+            global.app.editor.execute(new SetScaleCommand(this.selected, new THREE.Vector3(scaleX, scaleY, scaleZ)));
         }
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeScaleLock(value) {

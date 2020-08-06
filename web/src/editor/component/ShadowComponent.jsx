@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import { PropertyGroup, CheckBoxProperty, NumberProperty, SelectProperty } from '../../ui/index';
+import global from '../../global';
 
 /**
  * 阴影组件
@@ -153,8 +154,8 @@ class ShadowComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.ShadowComponent`, this.handleUpdate);
-        app.on(`objectChanged.ShadowComponent`, this.handleUpdate);
+        global.app.on(`objectSelected.ShadowComponent`, this.handleUpdate);
+        global.app.on(`objectChanged.ShadowComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {
@@ -164,7 +165,7 @@ class ShadowComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || !(editor.selected instanceof THREE.Mesh || editor.selected instanceof THREE.DirectionalLight || editor.selected instanceof THREE.PointLight || editor.selected instanceof THREE.SpotLight)) {
             this.setState({
@@ -226,7 +227,7 @@ class ShadowComponent extends React.Component {
             this.updateMaterial(this.selected.material);
         }
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeReceiveShadow(value, name) {
@@ -243,7 +244,7 @@ class ShadowComponent extends React.Component {
             this.updateMaterial(this.selected.material);
         }
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeShadowRadius(value, name) {
@@ -256,7 +257,7 @@ class ShadowComponent extends React.Component {
 
         this.selected.shadow.radius = value;
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     updateMaterial(material) {
@@ -272,7 +273,7 @@ class ShadowComponent extends React.Component {
     handleChangeMapSize(value) {
         this.selected.shadow.mapSize.x = this.selected.shadow.mapSize.y = parseInt(value);
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeBias(value, name) {
@@ -285,7 +286,7 @@ class ShadowComponent extends React.Component {
 
         this.selected.shadow.bias = value;
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeCameraLeft(value, name) {
@@ -299,7 +300,7 @@ class ShadowComponent extends React.Component {
         this.selected.shadow.camera.left = value;
         this.selected.shadow.camera.updateProjectionMatrix();
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeCameraRight(value, name) {
@@ -313,7 +314,7 @@ class ShadowComponent extends React.Component {
         this.selected.shadow.camera.right = value;
         this.selected.shadow.camera.updateProjectionMatrix();
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeCameraTop(value, name) {
@@ -327,7 +328,7 @@ class ShadowComponent extends React.Component {
         this.selected.shadow.camera.top = value;
         this.selected.shadow.camera.updateProjectionMatrix();
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeCameraBottom(value, name) {
@@ -341,7 +342,7 @@ class ShadowComponent extends React.Component {
         this.selected.shadow.camera.bottom = value;
         this.selected.shadow.camera.updateProjectionMatrix();
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeCameraNear(value, name) {
@@ -355,7 +356,7 @@ class ShadowComponent extends React.Component {
         this.selected.shadow.camera.near = value;
         this.selected.shadow.camera.updateProjectionMatrix();
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeCameraFar(value, name) {
@@ -369,7 +370,7 @@ class ShadowComponent extends React.Component {
         this.selected.shadow.camera.far = value;
         this.selected.shadow.camera.updateProjectionMatrix();
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 }
 

@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import { PropertyGroup, SelectProperty, DisplayProperty } from '../../ui/index';
+import global from '../../global';
 
 /**
  * 多材质组件
@@ -64,8 +65,8 @@ class MultiMaterialComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.MultiMaterialComponent`, this.handleUpdate);
-        app.on(`objectChanged.MultiMaterialComponent`, this.handleUpdate);
+        global.app.on(`objectSelected.MultiMaterialComponent`, this.handleUpdate);
+        global.app.on(`objectChanged.MultiMaterialComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {
@@ -75,7 +76,7 @@ class MultiMaterialComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || !Array.isArray(editor.selected.material)) {
             this.setState({
@@ -89,7 +90,7 @@ class MultiMaterialComponent extends React.Component {
         const index = 0;
         const current = materials[index];
 
-        app.call(`currentMaterialChange`, this, current, index, materials, this.selected);
+        global.app.call(`currentMaterialChange`, this, current, index, materials, this.selected);
 
         let state = {
             show: true,
@@ -106,7 +107,7 @@ class MultiMaterialComponent extends React.Component {
         const index = parseInt(value);
         const current = materials[index];
 
-        app.call(`currentMaterialChange`, this, current, index, materials, this.selected);
+        global.app.call(`currentMaterialChange`, this, current, index, materials, this.selected);
 
         this.setState({
             [name]: value

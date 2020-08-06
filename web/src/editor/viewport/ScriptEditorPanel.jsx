@@ -11,6 +11,7 @@ import './css/ScriptEditorPanel.css';
 import { classNames } from '../../third_party';
 import { Icon } from '../../ui/index';
 import ScriptEditor from '../script/ScriptEditor';
+import global from '../../global';
 
 /**
  * 脚本面板
@@ -68,10 +69,10 @@ class ScriptEditorPanel extends React.Component {
     }
 
     componentDidMount() {
-        app.require(['codemirror', 'codemirror-addon', 'esprima', 'jsonlint', 'glslprep', 'acorn', 'ternjs']).then(() => {
-            app.scriptEditor = new ScriptEditor(this.ref.current);
+        global.app.require(['codemirror', 'codemirror-addon', 'esprima', 'jsonlint', 'glslprep', 'acorn', 'ternjs']).then(() => {
+            global.app.scriptEditor = new ScriptEditor(this.ref.current);
         });
-        app.on(`editScript.ScriptPanel`, this.handleEditScript);
+        global.app.on(`editScript.ScriptPanel`, this.handleEditScript);
     }
 
     handleEditScript(uuid, name, type, source, callback) {
@@ -84,14 +85,14 @@ class ScriptEditorPanel extends React.Component {
             type,
             source
         }, () => {
-            app.scriptEditor.setValue(source, type);
+            global.app.scriptEditor.setValue(source, type);
         });
     }
 
     handleSave() {
         const { uuid, name, type } = this.state;
 
-        const source = app.scriptEditor.getValue();
+        const source = global.app.scriptEditor.getValue();
 
         this.callback && this.callback(uuid, name, type, source);
 

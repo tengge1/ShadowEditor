@@ -10,6 +10,7 @@
 import { ToolbarSeparator, IconButton } from '../../ui/index';
 import DistanceTool from '../tools/DistanceTool';
 import AreaTool from '../tools/AreaTool';
+import global from '../../global';
 
 /**
  * 测量工具
@@ -76,7 +77,7 @@ class MeasureTools extends React.Component {
         this.setState({
             distanceToolEnabled: true
         });
-        app.toast(_t('Start distance measurement.'));
+        global.app.toast(_t('Start distance measurement.'));
     }
 
     handleEndMeasureDistance() {
@@ -96,7 +97,7 @@ class MeasureTools extends React.Component {
         this.setState({
             areaToolEnabled: true
         });
-        app.toast(_t('Start area measurement.'));
+        global.app.toast(_t('Start area measurement.'));
     }
 
     handleEndMeasureArea() {
@@ -114,8 +115,8 @@ class MeasureTools extends React.Component {
     // --------------------------- 清空工具 ---------------------------------------
 
     handleClearTools() {
-        app.call('clearTools', this);
-        app.toast(_t('Clear tools successfully'), 'success');
+        global.app.call('clearTools', this);
+        global.app.toast(_t('Clear tools successfully'), 'success');
     }
 }
 

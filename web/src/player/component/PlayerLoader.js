@@ -9,6 +9,7 @@
  */
 import PlayerComponent from './PlayerComponent';
 import Converter from '../../serialization/Converter';
+import global from '../../global';
 
 /**
  * 播放器下载事件
@@ -23,7 +24,8 @@ PlayerLoader.prototype.constructor = PlayerLoader;
 
 PlayerLoader.prototype.create = function (jsons, options) {
     return new Converter().fromJson(jsons, {
-        server: app.options.server,
+        // TODO: global.app.options.server is not a player config
+        server: global.app.options.server,
         domWidth: options.domWidth,
         domHeight: options.domHeight
     }).then(obj => {

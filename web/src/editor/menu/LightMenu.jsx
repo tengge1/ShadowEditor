@@ -13,6 +13,7 @@ import AddObjectCommand from '../../command/AddObjectCommand';
 import PointLightHelper from '../../object/light/PointLightHelper';
 import HemisphereLightHelper from '../../object/light/HemisphereLightHelper';
 import RectAreaLightHelper from '../../object/light/RectAreaLightHelper';
+import global from '../../global';
 
 /**
  * 光源菜单
@@ -70,7 +71,7 @@ class LightMenu extends React.Component {
     // ------------------------- 环境光 ------------------------------
 
     handleAddAmbientLight() {
-        var editor = app.editor;
+        var editor = global.app.editor;
 
         var color = 0xaaaaaa;
 
@@ -83,7 +84,7 @@ class LightMenu extends React.Component {
     // ------------------------- 平行光 ------------------------------
 
     handleAddDirectionalLight() {
-        var editor = app.editor;
+        var editor = global.app.editor;
 
         var color = 0xffffff;
         var intensity = 1;
@@ -105,7 +106,7 @@ class LightMenu extends React.Component {
     // ------------------------- 点光源 ------------------------------
 
     handleAddPointLight() {
-        var editor = app.editor;
+        var editor = global.app.editor;
 
         var color = 0xffffff;
         var intensity = 1;
@@ -122,7 +123,7 @@ class LightMenu extends React.Component {
     // ------------------------- 聚光灯 ------------------------------
 
     handleAddSpotLight() {
-        var editor = app.editor;
+        var editor = global.app.editor;
 
         var color = 0xffffff;
         var intensity = 1;
@@ -143,7 +144,7 @@ class LightMenu extends React.Component {
     // ------------------------- 半球光 ------------------------------
 
     handleAddHemisphereLight() {
-        var editor = app.editor;
+        var editor = global.app.editor;
         var skyColor = 0x00aaff;
         var groundColor = 0xffaa00;
         var intensity = 1;
@@ -159,7 +160,7 @@ class LightMenu extends React.Component {
     // ------------------------- 矩形光 ------------------------------
 
     handleAddRectAreaLight() {
-        var editor = app.editor;
+        var editor = global.app.editor;
 
         var color = 0xffffff;
         var intensity = 1;
@@ -177,43 +178,43 @@ class LightMenu extends React.Component {
     // -------------------------- 点光源帮助器 -------------------------------
 
     handleAddPointLightHelper() {
-        let selected = app.editor.selected;
+        let selected = global.app.editor.selected;
 
         if (!(selected instanceof THREE.PointLight)) {
-            app.toast(_t('The selected object is not a point light.'), 'warn');
+            global.app.toast(_t('The selected object is not a point light.'), 'warn');
             return;
         }
 
         selected.add(new PointLightHelper(selected.color));
-        app.call('sceneGraphChanged', this);
+        global.app.call('sceneGraphChanged', this);
     }
 
     // --------------------------- 半球光帮助器 --------------------------------
 
     handleAddHemisphereLightHelper() {
-        let selected = app.editor.selected;
+        let selected = global.app.editor.selected;
 
         if (!(selected instanceof THREE.HemisphereLight)) {
-            app.toast(_t('The selected object is not a hemisphere light.'), 'warn');
+            global.app.toast(_t('The selected object is not a hemisphere light.'), 'warn');
             return;
         }
 
         selected.add(new HemisphereLightHelper(selected.color, selected.groundColor));
-        app.call('sceneGraphChanged', this);
+        global.app.call('sceneGraphChanged', this);
     }
 
     // ---------------------------- 矩形光帮助器 -------------------------------------
 
     handleAddRectAreaLightHelper() {
-        let selected = app.editor.selected;
+        let selected = global.app.editor.selected;
 
         if (!(selected instanceof THREE.RectAreaLight)) {
-            app.toast(_t('The selected object is not a rect area light.'), 'warn');
+            global.app.toast(_t('The selected object is not a rect area light.'), 'warn');
             return;
         }
 
         selected.add(new RectAreaLightHelper(selected.width, selected.height));
-        app.call('sceneGraphChanged', this);
+        global.app.call('sceneGraphChanged', this);
     }
 }
 

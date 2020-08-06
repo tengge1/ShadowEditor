@@ -26,6 +26,7 @@ import SystemMenu from './SystemMenu.jsx';
 import HelpMenu from './HelpMenu.jsx';
 // import EditorTabMenu from './EditorTabMenu.jsx';
 import LoginMenu from './LoginMenu.jsx';
+import global from '../../global';
 
 /**
  * 编辑器菜单栏
@@ -34,7 +35,7 @@ import LoginMenu from './LoginMenu.jsx';
 class EditorMenuBar extends React.Component {
     render() {
         const { className } = this.props;
-        const { enableAuthority, isLogin, isAdmin } = app.server;
+        const { enableAuthority, isLogin, isAdmin } = global.app.server;
 
         return <MenuBar className={classNames('EditorMenuBar', className)}>
             {!enableAuthority || isLogin ? <SceneMenu /> : null}

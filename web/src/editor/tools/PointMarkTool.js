@@ -9,6 +9,7 @@
  */
 import BaseTool from './BaseTool';
 import PointMarker from '../../object/mark/PointMarker';
+import global from '../../global';
 
 /**
  * 点标注工具
@@ -23,21 +24,21 @@ class PointMarkTool extends BaseTool {
 
     start() {
         this.marker = new PointMarker('', {
-            domWidth: app.editor.renderer.domElement.width,
-            domHeight: app.editor.renderer.domElement.height
+            domWidth: global.app.editor.renderer.domElement.width,
+            domHeight: global.app.editor.renderer.domElement.height
         });
-        app.editor.sceneHelpers.add(this.marker);
+        global.app.editor.sceneHelpers.add(this.marker);
 
-        app.toast(_t('Please click on the marked position.'));
+        global.app.toast(_t('Please click on the marked position.'));
 
-        app.on(`raycast.${this.id}`, this.onRaycast);
-        app.on(`gpuPick.${this.id}`, this.onGpuPick);
+        global.app.on(`raycast.${this.id}`, this.onRaycast);
+        global.app.on(`gpuPick.${this.id}`, this.onGpuPick);
     }
 
     stop() {
         this.marker = null;
-        app.on(`raycast.${this.id}`, null);
-        app.on(`gpuPick.${this.id}`, null);
+        global.app.on(`raycast.${this.id}`, null);
+        global.app.on(`gpuPick.${this.id}`, null);
     }
 
     onRaycast(obj) { // 点击鼠标，放置标注
@@ -53,7 +54,7 @@ class PointMarkTool extends BaseTool {
             this.marker.lookAt(this.marker.position.clone().add(obj.face.normal));
         }
 
-        app.prompt({
+        global.app.prompt({
             title: _t('Input marker name:'),
             content: _t('Marker name'),
             value,
@@ -61,15 +62,15 @@ class PointMarkTool extends BaseTool {
             onOK: text => {
                 this.marker.setText(text);
 
-                app.editor.sceneHelpers.remove(this.marker);
-                app.editor.addObject(this.marker);
+                global.app.editor.sceneHelpers.remove(this.marker);
+                global.app.editor.addObject(this.marker);
 
                 this.stop();
                 this.call(`end`, this);
             },
             onClose: () => {
                 if (this.marker) {
-                    app.editor.removeObject(this.marker);
+                    global.app.editor.removeObject(this.marker);
                 }
                 this.stop();
                 this.call(`end`, this);

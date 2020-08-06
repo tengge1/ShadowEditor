@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import BaseEvent from './BaseEvent';
+import global from '../global';
 
 /**
  * 脚本改变事件
@@ -20,17 +21,17 @@ class ScriptChangedEvent extends BaseEvent {
     }
 
     start() {
-        app.on(`scriptChanged.${this.id}`, this.handleChange);
+        global.app.on(`scriptChanged.${this.id}`, this.handleChange);
     }
 
     stop() {
-        app.on(`scriptChanged.${this.id}`, null);
+        global.app.on(`scriptChanged.${this.id}`, null);
     }
 
     handleChange() {
-        app.call('send', this, {
+        global.app.call('send', this, {
             type: 'changeScript',
-            scripts: app.editor.scripts
+            scripts: global.app.editor.scripts
         });
     }
 }

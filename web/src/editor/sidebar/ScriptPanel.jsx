@@ -10,6 +10,7 @@
 import './css/ScriptPanel.css';
 import { Tree, IconButton, ToolbarSeparator } from '../../ui/index';
 import ScriptWindow from './window/ScriptWindow.jsx';
+import global from '../../global';
 
 /**
  * 历史面板
@@ -163,27 +164,27 @@ class ScriptPanel extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`scriptChanged.ScriptPanel`, this.update);
+        global.app.on(`scriptChanged.ScriptPanel`, this.update);
     }
 
     update() {
         this.setState({
-            scripts: app.editor.scripts
+            scripts: global.app.editor.scripts
         });
     }
 
     handleAddScript() {
-        const window = app.createElement(ScriptWindow);
-        app.addElement(window);
+        const window = global.app.createElement(ScriptWindow);
+        global.app.addElement(window);
     }
 
     handleAddFolder() {
-        app.prompt({
+        global.app.prompt({
             title: _t('Input Folder Name'),
             content: _t('Folder Name'),
             value: _t('New folder'),
             onOK: value => {
-                app.editor.scripts.push({
+                global.app.editor.scripts.push({
                     id: null,
                     pid: null,
                     name: value,
@@ -192,7 +193,7 @@ class ScriptPanel extends React.Component {
                     sort: 0
                 });
 
-                app.call(`scriptChanged`, this);
+                global.app.call(`scriptChanged`, this);
             }
         });
     }
@@ -202,15 +203,15 @@ class ScriptPanel extends React.Component {
         if (selected === null) {
             return;
         }
-        var script = app.editor.scripts.filter(n => n.uuid === selected)[0];
+        var script = global.app.editor.scripts.filter(n => n.uuid === selected)[0];
 
-        app.prompt({
+        global.app.prompt({
             title: _t('Input New Name'),
             content: _t('Name'),
             value: script.name,
             onOK: value => {
                 script.name = value;
-                app.call('scriptChanged', this);
+                global.app.call('scriptChanged', this);
             }
         });
     }
@@ -234,14 +235,14 @@ class ScriptPanel extends React.Component {
             return;
         }
 
-        const script = app.editor.scripts.filter(n => n.uuid === selected)[0];
+        const script = global.app.editor.scripts.filter(n => n.uuid === selected)[0];
 
-        app.confirm({
+        global.app.confirm({
             title: _t('Confirm'),
             content: `${_t('Delete')} ${script.name}.${this.getExtension(script.type)}?`,
             onOK: () => {
-                delete app.editor.scripts[script.uuid];
-                app.call('scriptChanged', this);
+                delete global.app.editor.scripts[script.uuid];
+                global.app.call('scriptChanged', this);
             }
         });
     }
@@ -251,9 +252,9 @@ class ScriptPanel extends React.Component {
         if (selected === null) {
             return;
         }
-        var script = app.editor.scripts.filter(n => n.uuid === selected)[0];
+        var script = global.app.editor.scripts.filter(n => n.uuid === selected)[0];
         if (script) {
-            app.call(`editScript`, this, script.uuid, script.name, script.type, script.source, this.save);
+            global.app.call(`editScript`, this, script.uuid, script.name, script.type, script.source, this.save);
         }
     }
 
@@ -281,7 +282,7 @@ class ScriptPanel extends React.Component {
         if (newParent) {
             let parent = scripts.filter(n => n.uuid === newParent)[0];
             if (parent.type !== 'folder') {
-                app.toast(_t('It is not allowed to drop on another script.'));
+                global.app.toast(_t('It is not allowed to drop on another script.'));
                 return;
             }
         }
@@ -303,14 +304,14 @@ class ScriptPanel extends React.Component {
             n.sort = i;
         });
 
-        app.call(`scriptChanged`, this);
+        global.app.call(`scriptChanged`, this);
     }
 
     save(uuid, name, type, source) {
-        const index = app.editor.scripts.findIndex(n => n.uuid === uuid);
+        const index = global.app.editor.scripts.findIndex(n => n.uuid === uuid);
 
         if (index > -1) {
-            app.editor.scripts[index] = {
+            global.app.editor.scripts[index] = {
                 id: null,
                 uuid,
                 name,
@@ -318,7 +319,7 @@ class ScriptPanel extends React.Component {
                 source
             };
         } else {
-            app.editor.scripts.push({
+            global.app.editor.scripts.push({
                 id: null,
                 uuid,
                 name,
@@ -327,7 +328,7 @@ class ScriptPanel extends React.Component {
             });
         }
 
-        app.call(`scriptChanged`, this);
+        global.app.call(`scriptChanged`, this);
     }
 }
 

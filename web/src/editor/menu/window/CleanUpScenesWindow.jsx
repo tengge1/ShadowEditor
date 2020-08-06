@@ -9,6 +9,7 @@
  */
 import './css/CleanUpScenesWindow.css';
 import { Window, Content, Buttons, Button } from '../../../ui/index';
+import global from '../../../global';
 
 /**
  * 清理场景窗口
@@ -37,7 +38,7 @@ class CleanUpScenesWindow extends React.Component {
     }
 
     handleClose() {
-        app.removeElement(this);
+        global.app.removeElement(this);
     }
 }
 

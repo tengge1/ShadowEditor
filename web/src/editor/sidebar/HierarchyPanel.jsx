@@ -10,6 +10,7 @@
 import './css/HierarchyPanel.css';
 import { Tree } from '../../ui/index';
 import MoveObjectCommand from '../../command/MoveObjectCommand';
+import global from '../../global';
 
 /**
  * 场景树状图
@@ -59,14 +60,14 @@ class HierarchyPanel extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`sceneGraphChanged.HierarchyPanel`, this.updateUI);
+        global.app.on(`sceneGraphChanged.HierarchyPanel`, this.updateUI);
 
         // bug: https://gitee.com/tengge1/ShadowEditor/issues/ITCA9
-        app.on(`objectChanged.HierarchyPanel`, this.updateUI);
+        global.app.on(`objectChanged.HierarchyPanel`, this.updateUI);
 
-        app.on(`objectRemoved.HierarchyPanel`, this.updateUI);
+        global.app.on(`objectRemoved.HierarchyPanel`, this.updateUI);
 
-        app.on(`objectSelected.HierarchyPanel`, this.handleObjectSelected);
+        global.app.on(`objectSelected.HierarchyPanel`, this.handleObjectSelected);
     }
 
     /**
@@ -77,7 +78,7 @@ class HierarchyPanel extends React.Component {
         this.setState({
             selected: value
         });
-        app.editor.selectByUuid(value);
+        global.app.editor.selectByUuid(value);
     }
 
     handleCheck(value, name) {
@@ -98,15 +99,15 @@ class HierarchyPanel extends React.Component {
         this.setState({
             selected: value
         });
-        app.editor.focusByUUID(value);
+        global.app.editor.focusByUUID(value);
     }
 
     handleClickVisible(value) {
-        let obj = app.editor.objectByUuid(value);
+        let obj = global.app.editor.objectByUuid(value);
 
         if (obj) {
             obj.visible = !obj.visible;
-            app.call(`objectChanged`, this, obj.visible);
+            global.app.call(`objectChanged`, this, obj.visible);
         }
     }
 
@@ -137,8 +138,8 @@ class HierarchyPanel extends React.Component {
      * @param {Boolean} shouldExpandData 是否展开选中物体父节点
      */
     updateUI(shouldExpandData = false) {
-        const scene = app.editor.scene;
-        const camera = app.editor.camera;
+        const scene = global.app.editor.scene;
+        const camera = global.app.editor.camera;
 
         let data = [{
             value: camera.uuid,
@@ -180,8 +181,8 @@ class HierarchyPanel extends React.Component {
     }
 
     _parseData(obj, list) {
-        const scene = app.editor.scene;
-        const camera = app.editor.camera;
+        const scene = global.app.editor.scene;
+        const camera = global.app.editor.camera;
 
         let cls = null;
 
@@ -250,7 +251,7 @@ class HierarchyPanel extends React.Component {
      * @param {*} newBeforeValue 旧的父节点值
      */
     handleDrop(value, newParentValue, newBeforeValue) {
-        var editor = app.editor;
+        var editor = global.app.editor;
 
         let object = editor.objectByUuid(value);
         let newParent = editor.objectByUuid(newParentValue);
@@ -260,7 +261,7 @@ class HierarchyPanel extends React.Component {
             newBefore = editor.objectByUuid(newBeforeValue);
         }
 
-        app.editor.execute(new MoveObjectCommand(object, newParent, newBefore));
+        global.app.editor.execute(new MoveObjectCommand(object, newParent, newBefore));
 
         this.expanded[newParentValue] = true;
 

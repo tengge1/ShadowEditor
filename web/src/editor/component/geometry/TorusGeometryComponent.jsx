@@ -9,6 +9,7 @@
  */
 import { PropertyGroup, NumberProperty, IntegerProperty } from '../../../ui/index';
 import SetGeometryCommand from '../../../command/SetGeometryCommand';
+import global from '../../../global';
 
 /**
  * 花托组件
@@ -76,8 +77,8 @@ class TorusGeometryComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.TorusGeometryComponent`, this.handleUpdate);
-        app.on(`objectChanged.TorusGeometryComponent`, this.handleUpdate);
+        global.app.on(`objectSelected.TorusGeometryComponent`, this.handleUpdate);
+        global.app.on(`objectChanged.TorusGeometryComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {
@@ -87,7 +88,7 @@ class TorusGeometryComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || !(editor.selected instanceof THREE.Mesh) || !(editor.selected.geometry instanceof THREE.TorusBufferGeometry)) {
             this.setState({
@@ -125,7 +126,7 @@ class TorusGeometryComponent extends React.Component {
 
         this.setState(state);
 
-        app.editor.execute(new SetGeometryCommand(this.selected, new THREE.TorusBufferGeometry(
+        global.app.editor.execute(new SetGeometryCommand(this.selected, new THREE.TorusBufferGeometry(
             radius,
             tube,
             radialSegments,
@@ -133,7 +134,7 @@ class TorusGeometryComponent extends React.Component {
             arc
         )));
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 }
 

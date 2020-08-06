@@ -9,6 +9,7 @@
  */
 import './css/TypefaceManagementWindow.css';
 import { Window, Content, Buttons, Button, DataGrid, Column, Toolbar, VBoxLayout } from '../../../ui/index';
+import global from '../../../global';
 
 /**
  * 字体管理器窗口
@@ -77,7 +78,7 @@ class TypefaceManagementWindow extends React.Component {
         this.setState({
             mask: true
         });
-        fetch(`${app.options.server}/api/Typeface/List`).then(response => {
+        fetch(`${global.app.options.server}/api/Typeface/List`).then(response => {
             response.json().then(json => {
                 this.setState({
                     data: json.Data,
@@ -88,11 +89,11 @@ class TypefaceManagementWindow extends React.Component {
     }
 
     handleAdd() {
-        app.upload(`${app.options.server}/api/Typeface/Add`, obj => {
+        global.app.upload(`${global.app.options.server}/api/Typeface/Add`, obj => {
             if (obj.Code === 200) {
                 this.update();
             }
-            app.toast(_t(obj.Msg));
+            global.app.toast(_t(obj.Msg));
         });
     }
 
@@ -100,11 +101,11 @@ class TypefaceManagementWindow extends React.Component {
         const selected = this.state.selected;
 
         if (!selected) {
-            app.toast(_t('Please select a record.'));
+            global.app.toast(_t('Please select a record.'));
             return;
         }
 
-        app.confirm({
+        global.app.confirm({
             title: _t('Query'),
             content: _t('Delete the selected record?'),
             onOK: () => {
@@ -114,16 +115,16 @@ class TypefaceManagementWindow extends React.Component {
     }
 
     commitDelete(id) {
-        fetch(`${app.options.server}/api/Typeface/Delete?ID=${id}`, {
+        fetch(`${global.app.options.server}/api/Typeface/Delete?ID=${id}`, {
             method: 'POST'
         }).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg), 'warn');
+                    global.app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 this.update();
-                app.toast(_t(obj.Msg), 'success');
+                global.app.toast(_t(obj.Msg), 'success');
             });
         });
     }
@@ -135,7 +136,7 @@ class TypefaceManagementWindow extends React.Component {
     }
 
     handleClose() {
-        app.removeElement(this);
+        global.app.removeElement(this);
     }
 }
 

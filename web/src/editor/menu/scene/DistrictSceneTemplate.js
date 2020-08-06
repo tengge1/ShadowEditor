@@ -8,13 +8,14 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import BaseSceneTemplate from './BaseSceneTemplate';
+import global from '../../../global';
 
 /**
  * 小区场景模板
  */
 class DistrictSceneTemplate extends BaseSceneTemplate {
     create() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         // 添加场景物体
         const amlight = new THREE.AmbientLight(0xffffff, 0.24);

@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import Command from './Command';
+import global from '../global';
 
 /**
  * 设置颜色命令
@@ -38,12 +39,12 @@ Object.assign(SetColorCommand.prototype, {
 
 	execute: function () {
 		this.object[this.attributeName].setHex(this.newValue);
-		app.call('objectChanged', this, this.object);
+		global.app.call('objectChanged', this, this.object);
 	},
 
 	undo: function () {
 		this.object[this.attributeName].setHex(this.oldValue);
-		app.call('objectChanged', this, this.object);
+		global.app.call('objectChanged', this, this.object);
 	},
 
 	update: function (cmd) {

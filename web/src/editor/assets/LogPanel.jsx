@@ -10,6 +10,7 @@
 import './css/LogPanel.css';
 import { classNames, PropTypes } from '../../third_party';
 import { Button } from '../../ui/index';
+import global from '../../global';
 
 /**
  * 日志面板
@@ -46,7 +47,7 @@ class LogPanel extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`log.LogPanel`, this.handleLog);
+        global.app.on(`log.LogPanel`, this.handleLog);
     }
 
     handleLog(content, type) {

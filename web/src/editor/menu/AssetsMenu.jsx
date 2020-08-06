@@ -9,6 +9,7 @@
  */
 import { MenuItem, MenuItemSeparator } from '../../ui/index';
 import StringUtils from '../../utils/StringUtils';
+import global from '../../global';
 
 /**
  * 资源菜单
@@ -66,19 +67,19 @@ class AssetsMenu extends React.Component {
     // ------------------------------- 导出几何体 ----------------------------------------
 
     handleExportGeometry() {
-        var editor = app.editor;
+        var editor = global.app.editor;
 
         var object = editor.selected;
 
         if (object === null) {
-            app.toast(_t('Please select object!'), 'warn');
+            global.app.toast(_t('Please select object!'), 'warn');
             return;
         }
 
         var geometry = object.geometry;
 
         if (geometry === undefined) {
-            app.toast(_t('The object you selected is not geometry.'), 'warn');
+            global.app.toast(_t('The object you selected is not geometry.'), 'warn');
             return;
         }
 
@@ -98,12 +99,12 @@ class AssetsMenu extends React.Component {
     // ------------------------------- 导出物体 ------------------------------------------
 
     handleExportObject() {
-        var editor = app.editor;
+        var editor = global.app.editor;
 
         var object = editor.selected;
 
         if (object === null) {
-            app.toast(_t('Please select object!'), 'warn');
+            global.app.toast(_t('Please select object!'), 'warn');
             return;
         }
 
@@ -123,10 +124,10 @@ class AssetsMenu extends React.Component {
     // ------------------------------ 导出Collada文件 ----------------------------------------
 
     handleExportCollada() {
-        app.require('ColladaExporter').then(() => {
+        global.app.require('ColladaExporter').then(() => {
             var exporter = new THREE.ColladaExporter();
 
-            exporter.parse(app.editor.scene, function (result) {
+            exporter.parse(global.app.editor.scene, function (result) {
                 StringUtils.saveString(result.data, 'model.dae');
             });
         });
@@ -135,15 +136,15 @@ class AssetsMenu extends React.Component {
     // ------------------------------ 导出DRACO文件 ----------------------------------------
 
     handleExportDRACO() {
-        if (!(app.editor.selected instanceof THREE.Mesh)) {
-            app.toast(_t('Please select a mesh.'));
+        if (!(global.app.editor.selected instanceof THREE.Mesh)) {
+            global.app.toast(_t('Please select a mesh.'));
             return;
         }
 
-        app.require('DRACOExporter').then(() => {
+        global.app.require('DRACOExporter').then(() => {
             var exporter = new THREE.DRACOExporter();
 
-            var data = exporter.parse(app.editor.selected.geometry);
+            var data = exporter.parse(global.app.editor.selected.geometry);
 
             StringUtils.saveString(data, 'model.drc');
         });
@@ -152,10 +153,10 @@ class AssetsMenu extends React.Component {
     // ------------------------------ 导出gltf文件 ----------------------------------------
 
     handleExportGLTF() {
-        app.require('GLTFExporter').then(() => {
+        global.app.require('GLTFExporter').then(() => {
             var exporter = new THREE.GLTFExporter();
 
-            exporter.parse(app.editor.scene, function (result) {
+            exporter.parse(global.app.editor.scene, function (result) {
                 StringUtils.saveString(JSON.stringify(result), 'model.gltf');
             });
         });
@@ -164,16 +165,16 @@ class AssetsMenu extends React.Component {
     // ------------------------------ 导出obj文件 -----------------------------------------
 
     handleExportOBJ() {
-        var editor = app.editor;
+        var editor = global.app.editor;
 
         var object = editor.selected;
 
         if (object === null) {
-            app.toast(_t('Please select object!'), 'warn');
+            global.app.toast(_t('Please select object!'), 'warn');
             return;
         }
 
-        app.require('OBJExporter').then(() => {
+        global.app.require('OBJExporter').then(() => {
             var exporter = new THREE.OBJExporter();
             StringUtils.saveString(exporter.parse(object), 'model.obj');
         });
@@ -182,16 +183,16 @@ class AssetsMenu extends React.Component {
     // ------------------------------- 导出ply文件 ----------------------------------------
 
     handleExportPLY() {
-        var editor = app.editor;
+        var editor = global.app.editor;
 
         var object = editor.selected;
 
         if (object === null) {
-            app.toast(_t('Please select object!'), 'warn');
+            global.app.toast(_t('Please select object!'), 'warn');
             return;
         }
 
-        app.require('PLYExporter').then(() => {
+        global.app.require('PLYExporter').then(() => {
             var exporter = new THREE.PLYExporter();
             StringUtils.saveString(exporter.parse(object, {
                 excludeAttributes: ['normal', 'uv', 'color', 'index']
@@ -202,9 +203,9 @@ class AssetsMenu extends React.Component {
     // ------------------------------- 导出stl二进制文件 -----------------------------------
 
     handleExportSTLB() {
-        var editor = app.editor;
+        var editor = global.app.editor;
 
-        app.require('STLBinaryExporter').then(() => {
+        global.app.require('STLBinaryExporter').then(() => {
             var exporter = new THREE.STLBinaryExporter();
             StringUtils.saveString(exporter.parse(editor.scene), 'model.stl');
         });
@@ -213,9 +214,9 @@ class AssetsMenu extends React.Component {
     // ------------------------------- 导出stl文件 -----------------------------------------
 
     handleExportSTL() {
-        var editor = app.editor;
+        var editor = global.app.editor;
 
-        app.require('STLExporter').then(() => {
+        global.app.require('STLExporter').then(() => {
             var exporter = new THREE.STLExporter();
             StringUtils.saveString(exporter.parse(editor.scene), 'model.stl');
         });

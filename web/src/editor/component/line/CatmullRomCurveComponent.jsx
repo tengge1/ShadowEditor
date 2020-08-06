@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import { PropertyGroup, CheckBoxProperty, NumberProperty, SelectProperty, ButtonsProperty, Button } from '../../../ui/index';
+import global from '../../../global';
 
 /**
  * CatmullRom曲线组件
@@ -76,8 +77,8 @@ class CatmullRomCurveComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.CatmullRomCurveComponent`, this.handleUpdate.bind(this));
-        app.on(`objectChanged.CatmullRomCurveComponent`, this.handleUpdate.bind(this));
+        global.app.on(`objectSelected.CatmullRomCurveComponent`, this.handleUpdate.bind(this));
+        global.app.on(`objectChanged.CatmullRomCurveComponent`, this.handleUpdate.bind(this));
     }
 
     handleExpand(expanded) {
@@ -87,7 +88,7 @@ class CatmullRomCurveComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || editor.selected.userData.type !== 'CatmullRomCurve') {
             this.setState({
@@ -124,14 +125,14 @@ class CatmullRomCurveComponent extends React.Component {
 
         this.selected.update();
 
-        app.call('objectChanged', this, this.selected);
+        global.app.call('objectChanged', this, this.selected);
     }
 
     handleRemovePoint() {
         let points = this.selected.userData.points;
 
         if (points.length === 3) {
-            app.toast(_t('CatmullRom curve should have at least 3 points.'), 'warn');
+            global.app.toast(_t('CatmullRom curve should have at least 3 points.'), 'warn');
             return;
         }
 
@@ -139,7 +140,7 @@ class CatmullRomCurveComponent extends React.Component {
 
         this.selected.update();
 
-        app.call('objectChanged', this, this.selected);
+        global.app.call('objectChanged', this, this.selected);
     }
 
     handleChange(value, name) {
@@ -160,7 +161,7 @@ class CatmullRomCurveComponent extends React.Component {
 
         this.selected.update();
 
-        app.call('objectChanged', this, this.selected);
+        global.app.call('objectChanged', this, this.selected);
     }
 }
 

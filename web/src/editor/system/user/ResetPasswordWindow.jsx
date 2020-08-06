@@ -10,6 +10,7 @@
 import './css/ResetPasswordWindow.css';
 import { PropTypes } from '../../../third_party';
 import { Window, Content, Buttons, Form, FormControl, Label, Input, Button } from '../../../ui/index';
+import global from '../../../global';
 
 /**
  * 重置密码窗口
@@ -77,21 +78,21 @@ class ResetPasswordWindow extends React.Component {
         const { id, newPassword, confirmPassword } = this.state;
 
         if (!newPassword || newPassword.trim() === '') {
-            app.toast(_t('New password is not allowed to be empty.'), 'warn');
+            global.app.toast(_t('New password is not allowed to be empty.'), 'warn');
             return;
         }
 
         if (!confirmPassword || confirmPassword.trim() === '') {
-            app.toast(_t('Confirm password is not allowed to be empty.'), 'warn');
+            global.app.toast(_t('Confirm password is not allowed to be empty.'), 'warn');
             return;
         }
 
         if (newPassword !== confirmPassword) {
-            app.toast(_t('New password and confirm password is not the same.'), 'warn');
+            global.app.toast(_t('New password and confirm password is not the same.'), 'warn');
             return;
         }
 
-        fetch(`${app.options.server}/api/User/ResetPassword`, {
+        fetch(`${global.app.options.server}/api/User/ResetPassword`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -100,17 +101,17 @@ class ResetPasswordWindow extends React.Component {
         }).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg), 'warn');
+                    global.app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
-                app.toast(_t(obj.Msg), 'success');
+                global.app.toast(_t(obj.Msg), 'success');
                 this.handleClose();
             });
         });
     }
 
     handleClose() {
-        app.removeElement(this);
+        global.app.removeElement(this);
     }
 }
 

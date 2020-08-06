@@ -11,6 +11,7 @@ import './css/DepartmentManagementWindow.css';
 import { Window, Content, Toolbar, Button, ToolbarFiller, Input, HBoxLayout, Tree, Form, FormControl, Label } from '../../ui/index';
 import EditDeptWindow from './dept/EditDeptWindow.jsx';
 import SelectUserWindow from './user/SelectUserWindow.jsx';
+import global from '../../global';
 
 /**
  * 组织机构管理窗口
@@ -115,10 +116,10 @@ class DepartmentManagementWindow extends React.Component {
     }
 
     handleRefresh() {
-        fetch(`${app.options.server}/api/Department/List?pageSize=10000`).then(response => {
+        fetch(`${global.app.options.server}/api/Department/List?pageSize=10000`).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg), 'warn');
+                    global.app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 this.list = obj.Data;
@@ -151,39 +152,39 @@ class DepartmentManagementWindow extends React.Component {
     }
 
     handleAdd() {
-        const win = app.createElement(EditDeptWindow, {
+        const win = global.app.createElement(EditDeptWindow, {
             callback: this.handleRefresh
         });
-        app.addElement(win);
+        global.app.addElement(win);
     }
 
     handleAddChild() {
         const { selected } = this.state;
 
         if (!selected) {
-            app.toast(_t('Pleast select a department.'));
+            global.app.toast(_t('Pleast select a department.'));
             return;
         }
 
         const record = this.list.filter(n => n.ID === selected)[0];
 
-        const win = app.createElement(EditDeptWindow, {
+        const win = global.app.createElement(EditDeptWindow, {
             pid: record.ID,
             pname: record.Name,
             callback: this.handleRefresh
         });
-        app.addElement(win);
+        global.app.addElement(win);
     }
 
     handleDelete() {
         const { selected } = this.state;
 
         if (!selected) {
-            app.toast(_t('Pleast select a department.'));
+            global.app.toast(_t('Pleast select a department.'));
             return;
         }
 
-        app.confirm({
+        global.app.confirm({
             title: _t('Query'),
             content: _t('Delete this department?'),
             onOK: () => {
@@ -193,12 +194,12 @@ class DepartmentManagementWindow extends React.Component {
     }
 
     commitDelete(id) {
-        fetch(`${app.options.server}/api/Department/Delete?ID=${id}`, {
+        fetch(`${global.app.options.server}/api/Department/Delete?ID=${id}`, {
             method: 'POST'
         }).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg), 'warn');
+                    global.app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 this.handleRefresh();
@@ -236,10 +237,10 @@ class DepartmentManagementWindow extends React.Component {
     }
 
     handleSelectUser() {
-        const win = app.createElement(SelectUserWindow, {
+        const win = global.app.createElement(SelectUserWindow, {
             callback: this.commitSelectUser
         });
-        app.addElement(win);
+        global.app.addElement(win);
     }
 
     commitSelectUser(adminID, adminName) {
@@ -253,13 +254,13 @@ class DepartmentManagementWindow extends React.Component {
         const { selected, deptName, adminID } = this.state;
 
         if (!deptName || deptName.trim() === '') {
-            app.toast(_t('Name is not allowed to be empty.'), 'warn');
+            global.app.toast(_t('Name is not allowed to be empty.'), 'warn');
             return;
         }
 
         const item = this.list.filter(n => n.ID === selected)[0];
 
-        fetch(`${app.options.server}/api/Department/Edit`, {
+        fetch(`${global.app.options.server}/api/Department/Edit`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -268,10 +269,10 @@ class DepartmentManagementWindow extends React.Component {
         }).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg), 'warn');
+                    global.app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
-                app.toast(_t(obj.Msg), 'success');
+                global.app.toast(_t(obj.Msg), 'success');
                 this.handleRefresh();
             });
         });
@@ -305,7 +306,7 @@ class DepartmentManagementWindow extends React.Component {
     }
 
     handleClose() {
-        app.removeElement(this);
+        global.app.removeElement(this);
     }
 }
 

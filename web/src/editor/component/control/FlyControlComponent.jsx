@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import { PropertyGroup, CheckBoxProperty, NumberProperty } from '../../../ui/index';
+import global from '../../../global';
 
 /**
  * 音频监听器组件
@@ -69,8 +70,8 @@ class FlyControlComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.FlyControlComponent`, this.handleUpdate.bind(this));
-        app.on(`objectChanged.FlyControlComponent`, this.handleUpdate.bind(this));
+        global.app.on(`objectSelected.FlyControlComponent`, this.handleUpdate.bind(this));
+        global.app.on(`objectChanged.FlyControlComponent`, this.handleUpdate.bind(this));
     }
 
     handleExpand(expanded) {
@@ -80,7 +81,7 @@ class FlyControlComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || editor.selected !== editor.camera || editor.selected.userData.control !== 'FlyControls') {
             this.setState({
@@ -122,7 +123,7 @@ class FlyControlComponent extends React.Component {
             movementSpeed, rollSpeed, dragToLook, autoForward
         });
 
-        app.call('objectChanged', this, this.selected);
+        global.app.call('objectChanged', this, this.selected);
     }
 }
 

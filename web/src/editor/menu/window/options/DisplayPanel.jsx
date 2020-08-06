@@ -9,6 +9,7 @@
  */
 import './css/DisplayPanel.css';
 import { Form, FormControl, Label, Input, CheckBox } from '../../../../ui/index';
+import global from '../../../../global';
 
 /**
  * 显示选项窗口
@@ -23,10 +24,10 @@ class DisplayPanel extends React.Component {
     }
 
     render() {
-        const selectedColor = app.storage.selectedColor;
-        const selectedThickness = app.storage.selectedThickness;
-        const hoverEnabled = app.storage.hoverEnabled;
-        const hoveredColor = app.storage.hoveredColor;
+        const selectedColor = global.app.storage.selectedColor;
+        const selectedThickness = global.app.storage.selectedThickness;
+        const hoverEnabled = global.app.storage.hoverEnabled;
+        const hoveredColor = global.app.storage.hoveredColor;
 
         return <Form className={'DisplayPanel'}>
             <FormControl>
@@ -83,13 +84,13 @@ class DisplayPanel extends React.Component {
 
         if (name === 'hoverEnabled') {
             if (value) {
-                app.editor.gpuPickNum++;
+                global.app.editor.gpuPickNum++;
             } else {
-                app.editor.gpuPickNum--;
+                global.app.editor.gpuPickNum--;
             }
         }
 
-        app.storage[name] = value;
+        global.app.storage[name] = value;
 
         this.handleUpdate();
     }

@@ -10,6 +10,7 @@
 import { PropertyGroup, NumberProperty, SelectProperty } from '../../../ui/index';
 import BoxShapeHelper from './helper/BoxShapeHelper';
 import SphereShapeHelper from './helper/SphereShapeHelper';
+import global from '../../../global';
 
 let physicsShapeHelper = {
     btBoxShape: BoxShapeHelper,
@@ -108,9 +109,9 @@ class RigidBodyComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.RigidBodyComponent`, this.handleUpdate);
-        app.on(`objectChanged.RigidBodyComponent`, this.handleUpdate);
-        app.on(`objectRemoved.RigidBodyComponent`, this.handleRemoved);
+        global.app.on(`objectSelected.RigidBodyComponent`, this.handleUpdate);
+        global.app.on(`objectChanged.RigidBodyComponent`, this.handleUpdate);
+        global.app.on(`objectRemoved.RigidBodyComponent`, this.handleRemoved);
     }
 
     handleExpand(expanded) {
@@ -120,14 +121,14 @@ class RigidBodyComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected ||
             !editor.selected.userData.physics ||
             !editor.selected.userData.physics.enabled ||
             editor.selected.userData.physics.type !== 'rigidBody') {
             if (this.helper !== undefined) {
-                app.editor.removePhysicsHelper(this.helper);
+                global.app.editor.removePhysicsHelper(this.helper);
             }
             this.setState({
                 show: false
@@ -169,12 +170,12 @@ class RigidBodyComponent extends React.Component {
         physics.inertia.y = inertiaY;
         physics.inertia.z = inertiaZ;
 
-        app.call('objectChanged', this, this.selected);
+        global.app.call('objectChanged', this, this.selected);
     }
 
     handleRemoved(object) {
         if (this.helper && this.helper.object === object) {
-            app.editor.removePhysicsHelper(this.helper);
+            global.app.editor.removePhysicsHelper(this.helper);
         }
     }
 
@@ -186,7 +187,7 @@ class RigidBodyComponent extends React.Component {
         }
 
         if (this.helper !== undefined) {
-            app.editor.removePhysicsHelper(this.helper);
+            global.app.editor.removePhysicsHelper(this.helper);
         }
 
         let physics = this.selected.userData.physics;
@@ -203,7 +204,7 @@ class RigidBodyComponent extends React.Component {
         }
 
         this.helper = new helper(this.selected);
-        app.editor.addPhysicsHelper(this.helper);
+        global.app.editor.addPhysicsHelper(this.helper);
     }
 }
 

@@ -11,6 +11,7 @@ import './css/TypefaceConverterWindow.css';
 import { Window, Content, Buttons, Button, Label, Input, CheckBox, Form, FormControl, LinkButton } from '../../../ui/index';
 import TypefaceUtils from '../../../utils/TypefaceUtils';
 import DownloadUtils from '../../../utils/DownloadUtils';
+import global from '../../../global';
 
 /**
  * 字体转换器窗口
@@ -103,20 +104,20 @@ class TypefaceConverterWindow extends React.Component {
         const { font, reverseDirection, characterSet } = this.state;
 
         if (!font) {
-            app.toast(_t('Please select an file.'));
+            global.app.toast(_t('Please select an file.'));
             return;
         }
 
-        app.mask(_t('Waiting...'));
+        global.app.mask(_t('Waiting...'));
 
         const reader = new FileReader();
 
         reader.addEventListener('load', event => {
             TypefaceUtils.convertTtfToJson(event.target.result, reverseDirection, characterSet.trim()).then(obj => {
-                app.unmask();
+                global.app.unmask();
                 this.handleClose();
                 DownloadUtils.download([obj.result], { 'type': 'application/octet-stream' }, `${obj.font.familyName}_${obj.font.styleName}.json`);
-                app.toast(_t('Convert successfully!'), 'success');
+                global.app.toast(_t('Convert successfully!'), 'success');
             });
         }, false);
 
@@ -124,7 +125,7 @@ class TypefaceConverterWindow extends React.Component {
     }
 
     handleClose() {
-        app.removeElement(this);
+        global.app.removeElement(this);
     }
 }
 

@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import Command from './Command';
+import global from '../global';
 
 /**
  * 设置几何体值命令
@@ -37,14 +38,14 @@ Object.assign(SetGeometryValueCommand.prototype, {
 
 	execute: function () {
 		this.object.geometry[this.attributeName] = this.newValue;
-		app.call('objectChanged', this, this.object);
-		app.call('geometryChanged', this);
+		global.app.call('objectChanged', this, this.object);
+		global.app.call('geometryChanged', this);
 	},
 
 	undo: function () {
 		this.object.geometry[this.attributeName] = this.oldValue;
-		app.call('objectChanged', this, this.object);
-		app.call('geometryChanged', this);
+		global.app.call('objectChanged', this, this.object);
+		global.app.call('geometryChanged', this);
 	},
 
 	toJSON: function () {

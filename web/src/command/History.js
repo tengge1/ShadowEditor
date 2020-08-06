@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import Command from './Command';
+import global from '../global';
 
 /**
  * 历史记录
@@ -66,7 +67,7 @@ Object.assign(History.prototype, {
         // clearing all the redo-commands
 
         this.redos = [];
-        app.call('historyChanged', this, cmd);
+        global.app.call('historyChanged', this, cmd);
 
     },
 
@@ -84,7 +85,7 @@ Object.assign(History.prototype, {
         if (cmd !== undefined) {
             cmd.undo();
             this.redos.push(cmd);
-            app.call('historyChanged', this, cmd);
+            global.app.call('historyChanged', this, cmd);
         }
 
         return cmd;
@@ -104,7 +105,7 @@ Object.assign(History.prototype, {
         if (cmd !== undefined) {
             cmd.execute();
             this.undos.push(cmd);
-            app.call('historyChanged', this, cmd);
+            global.app.call('historyChanged', this, cmd);
         }
 
         return cmd;
@@ -160,7 +161,7 @@ Object.assign(History.prototype, {
         }
 
         // Select the last executed undo-command
-        app.call('historyChanged', this, this.undos[this.undos.length - 1]);
+        global.app.call('historyChanged', this, this.undos[this.undos.length - 1]);
     },
 
     clear: function () {
@@ -168,7 +169,7 @@ Object.assign(History.prototype, {
         this.redos = [];
         this.idCounter = 0;
 
-        app.call('historyChanged', this);
+        global.app.call('historyChanged', this);
     },
 
     goToState: function (id) {
@@ -189,7 +190,7 @@ Object.assign(History.prototype, {
             }
         }
 
-        app.call('historyChanged', this, cmd);
+        global.app.call('historyChanged', this, cmd);
     },
 
     enableSerialization: function (id) {

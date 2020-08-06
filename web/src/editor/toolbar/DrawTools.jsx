@@ -10,6 +10,7 @@
 import { ToolbarSeparator, IconButton } from '../../ui/index';
 import AddObjectCommand from '../../command/AddObjectCommand';
 import DigTool from '../tools/DigTool';
+import global from '../../global';
 
 /**
  * 绘制工具
@@ -91,10 +92,10 @@ class DrawTools extends React.Component {
         this.setState({ isAddingPoint });
 
         if (isAddingPoint) {
-            app.editor.gpuPickNum++;
-            app.on(`intersect.EditorToolbarAddPoint`, this.onAddPointIntersect);
+            global.app.editor.gpuPickNum++;
+            global.app.on(`intersect.EditorToolbarAddPoint`, this.onAddPointIntersect);
         } else {
-            app.on(`intersect.EditorToolbarAddPoint`, null);
+            global.app.on(`intersect.EditorToolbarAddPoint`, null);
         }
     }
 
@@ -124,9 +125,9 @@ class DrawTools extends React.Component {
 
         mesh.name = _t('Point');
 
-        app.editor.execute(new AddObjectCommand(mesh));
+        global.app.editor.execute(new AddObjectCommand(mesh));
 
-        app.editor.gpuPickNum--;
+        global.app.editor.gpuPickNum--;
     }
 
     // ---------------------------------- 画线 -----------------------------------------
@@ -134,7 +135,7 @@ class DrawTools extends React.Component {
     handleAddLine() {
         if (this.hasLoadLineScript === undefined) {
             this.hasLoadLineScript = true;
-            app.require('line').then(() => {
+            global.app.require('line').then(() => {
                 this.onAddLine();
             });
         } else {
@@ -148,9 +149,9 @@ class DrawTools extends React.Component {
         this.setState({ isAddingLine });
 
         if (isAddingLine) {
-            app.editor.gpuPickNum++;
-            app.on(`intersect.EditorToolbarAddLine`, this.onAddLineIntersect);
-            app.on(`dblclick.EditorToolbarAddLine`, this.onAddLineDblClick);
+            global.app.editor.gpuPickNum++;
+            global.app.on(`intersect.EditorToolbarAddLine`, this.onAddLineIntersect);
+            global.app.on(`dblclick.EditorToolbarAddLine`, this.onAddLineDblClick);
 
             this.linePositions = [];
             this.lineColors = [];
@@ -166,16 +167,16 @@ class DrawTools extends React.Component {
                 polygonOffsetFactor: -40
             });
 
-            var renderer = app.editor.renderer;
+            var renderer = global.app.editor.renderer;
             material.resolution.set(renderer.domElement.clientWidth, renderer.domElement.clientHeight);
 
             this.line = new THREE.Line2(geometry, material);
             this.line.name = _t('Line');
 
-            app.editor.execute(new AddObjectCommand(this.line));
+            global.app.editor.execute(new AddObjectCommand(this.line));
         } else {
-            app.on(`intersect.EditorToolbarAddLine`, null);
-            app.on(`dblclick.EditorToolbarAddLine`, null);
+            global.app.on(`intersect.EditorToolbarAddLine`, null);
+            global.app.on(`dblclick.EditorToolbarAddLine`, null);
 
             this.linePositions = null;
             this.lineColors = null;
@@ -218,8 +219,8 @@ class DrawTools extends React.Component {
         this.setState({ isAddingPolygon });
 
         if (isAddingPolygon) {
-            app.on(`intersect.EditorToolbarAddPolygon`, this.onAddPolygonIntersect);
-            app.on(`dblclick.EditorToolbarAddPolygon`, this.onAddPolygonDblClick);
+            global.app.on(`intersect.EditorToolbarAddPolygon`, this.onAddPolygonIntersect);
+            global.app.on(`dblclick.EditorToolbarAddPolygon`, this.onAddPolygonDblClick);
 
             var geometry = new THREE.BufferGeometry();
 
@@ -243,12 +244,12 @@ class DrawTools extends React.Component {
             this.polygon.name = _t('Polygon');
             this.polygon.drawMode = THREE.TriangleStripDrawMode;
 
-            app.editor.execute(new AddObjectCommand(this.polygon));
+            global.app.editor.execute(new AddObjectCommand(this.polygon));
 
             this.polygonPoints = [];
         } else {
-            app.on(`intersect.EditorToolbarAddPolygon`, null);
-            app.on(`dblclick.EditorToolbarAddPolygon`, null);
+            global.app.on(`intersect.EditorToolbarAddPolygon`, null);
+            global.app.on(`dblclick.EditorToolbarAddPolygon`, null);
 
             this.polygon = null;
 
@@ -301,9 +302,9 @@ class DrawTools extends React.Component {
         this.setState({ isSpraying });
 
         if (isSpraying) {
-            app.on(`intersect.EditorToolbarSpray`, this.onSprayIntersect);
+            global.app.on(`intersect.EditorToolbarSpray`, this.onSprayIntersect);
         } else {
-            app.on(`intersect.EditorToolbarSpray`, null);
+            global.app.on(`intersect.EditorToolbarSpray`, null);
         }
     }
 
@@ -360,7 +361,7 @@ class DrawTools extends React.Component {
 
         decal.name = _t('Decal');
 
-        app.editor.execute(new AddObjectCommand(decal));
+        global.app.editor.execute(new AddObjectCommand(decal));
     }
 
     // ------------------------------- 挖坑工具 -------------------------------------
@@ -369,7 +370,7 @@ class DrawTools extends React.Component {
         this.setState({ isDigging: true });
 
         if (this.digTool === undefined) {
-            this.digTool = new DigTool(app);
+            this.digTool = new DigTool(global.app);
             this.digTool.on(`end.EditorToolbar`, () => {
                 this.setState({ isDigging: false });
             });

@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import { PropertyGroup,  NumberProperty } from '../../../ui/index';
+import global from '../../../global';
 
 /**
  * 音频监听器组件
@@ -54,8 +55,8 @@ class AudioListenerComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.AudioListenerComponent`, this.handleUpdate.bind(this));
-        app.on(`objectChanged.AudioListenerComponent`, this.handleUpdate.bind(this));
+        global.app.on(`objectSelected.AudioListenerComponent`, this.handleUpdate.bind(this));
+        global.app.on(`objectChanged.AudioListenerComponent`, this.handleUpdate.bind(this));
     }
 
     handleExpand(expanded) {
@@ -65,7 +66,7 @@ class AudioListenerComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || editor.selected !== editor.camera || editor.selected.children.indexOf(editor.audioListener) === -1) {
             this.setState({
@@ -96,11 +97,11 @@ class AudioListenerComponent extends React.Component {
             [name]: value
         });
 
-        let audioListener = app.editor.audioListener;
+        let audioListener = global.app.editor.audioListener;
 
         audioListener.setMasterVolume(masterVolume);
 
-        app.call('objectChanged', this, this.selected);
+        global.app.call('objectChanged', this, this.selected);
     }
 }
 

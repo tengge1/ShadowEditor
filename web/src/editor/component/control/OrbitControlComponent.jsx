@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import { PropertyGroup, CheckBoxProperty, NumberProperty } from '../../../ui/index';
+import global from '../../../global';
 
 /**
  * 轨道控制器组件
@@ -161,8 +162,8 @@ class OrbitControlComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.OrbitControlComponent`, this.handleUpdate.bind(this));
-        app.on(`objectChanged.OrbitControlComponent`, this.handleUpdate.bind(this));
+        global.app.on(`objectSelected.OrbitControlComponent`, this.handleUpdate.bind(this));
+        global.app.on(`objectChanged.OrbitControlComponent`, this.handleUpdate.bind(this));
     }
 
     handleExpand(expanded) {
@@ -172,7 +173,7 @@ class OrbitControlComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || editor.selected !== editor.camera || editor.selected.userData.control !== 'OrbitControls') {
             this.setState({
@@ -233,7 +234,7 @@ class OrbitControlComponent extends React.Component {
             enableKeys
         });
 
-        app.call('objectChanged', this, this.selected);
+        global.app.call('objectChanged', this, this.selected);
     }
 }
 

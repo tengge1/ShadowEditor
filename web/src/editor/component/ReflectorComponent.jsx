@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import { PropertyGroup, CheckBoxProperty, NumberProperty, SelectProperty, ColorProperty } from '../../ui/index';
+import global from '../../global';
 
 /**
  * 反光组件
@@ -92,8 +93,8 @@ class ReflectorComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.ReflectorComponent`, this.handleUpdate);
-        app.on(`objectChanged.ReflectorComponent`, this.handleUpdate);
+        global.app.on(`objectSelected.ReflectorComponent`, this.handleUpdate);
+        global.app.on(`objectChanged.ReflectorComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {
@@ -103,7 +104,7 @@ class ReflectorComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || !(editor.selected instanceof THREE.Mesh)) {
             this.setState({
@@ -155,7 +156,7 @@ class ReflectorComponent extends React.Component {
             [name]: value
         });
 
-        let editor = app.editor;
+        let editor = global.app.editor;
 
         if (reflect) {
             let reflector = new THREE.Reflector(this.selected.geometry, {
@@ -193,8 +194,8 @@ class ReflectorComponent extends React.Component {
                 reflector.parent = this.selected.parent;
                 editor.select(null);
                 this.selected.parent = null;
-                app.call(`objectRemoved`, this, this.selected);
-                app.call(`objectAdded`, this, reflector);
+                global.app.call(`objectRemoved`, this, this.selected);
+                global.app.call(`objectAdded`, this, reflector);
                 editor.select(reflector);
             }
         } else {
@@ -221,8 +222,8 @@ class ReflectorComponent extends React.Component {
                     editor.scene.children[index] = mesh;
                     mesh.parent = this.selected.parent;
                     this.selected.parent = null;
-                    app.call(`objectRemoved`, this, this.selected);
-                    app.call(`objectAdded`, this, mesh);
+                    global.app.call(`objectRemoved`, this, this.selected);
+                    global.app.call(`objectAdded`, this, mesh);
                     editor.select(mesh);
                 }
             }

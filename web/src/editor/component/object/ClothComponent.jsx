@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import { PropertyGroup, ButtonProperty } from '../../../ui/index';
+import global from '../../../global';
 
 /**
  * 布组件
@@ -51,8 +52,8 @@ class ClothComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.ClothComponent`, this.handleUpdate);
-        app.on(`objectChanged.ClothComponent`, this.handleUpdate);
+        global.app.on(`objectSelected.ClothComponent`, this.handleUpdate);
+        global.app.on(`objectChanged.ClothComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {
@@ -62,7 +63,7 @@ class ClothComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || !(editor.selected.userData.type === 'Cloth')) {
             this.setState({
@@ -94,7 +95,7 @@ class ClothComponent extends React.Component {
             previewText: _t('Cancel')
         });
 
-        app.on(`animate.ClothComponent`, this.onAnimate);
+        global.app.on(`animate.ClothComponent`, this.onAnimate);
     }
 
     stopPreview() {
@@ -104,7 +105,7 @@ class ClothComponent extends React.Component {
             previewText: _t('Preview')
         });
 
-        app.on(`animate.ClothComponent`, null);
+        global.app.on(`animate.ClothComponent`, null);
     }
 
     onAnimate() {

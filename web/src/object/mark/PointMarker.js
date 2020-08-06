@@ -10,6 +10,7 @@
 import PointMarkerVertexShader from './shader/point_marker_vertex.glsl';
 import PointMarkerFragmentShader from './shader/point_marker_fragment.glsl';
 import CanvasUtils from '../../utils/CanvasUtils';
+import global from '../../global';
 
 let ID = -1;
 
@@ -52,7 +53,7 @@ class PointMarker extends THREE.Mesh {
         this.userData.type = 'pointMarker';
         this.setText(text);
 
-        app.on(`resize.${this.constructor.name}${ID--}`, this.onResize.bind(this));
+        global.app.on(`resize.${this.constructor.name}${ID--}`, this.onResize.bind(this));
     }
 
     setText(text) {
@@ -116,7 +117,7 @@ class PointMarker extends THREE.Mesh {
 
     onResize() {
         // TODO: 在Player中的情况。
-        const { width, height } = app.editor.renderer.domElement;
+        const { width, height } = global.app.editor.renderer.domElement;
         this.material.uniforms.domWidth.value = width;
         this.material.uniforms.domHeight.value = height;
     }

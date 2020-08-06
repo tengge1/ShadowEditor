@@ -30,8 +30,9 @@
 
     <script src="build/ShadowEditor.js"></script>
     <script>
+        let app = null;
         window.onload = function () {
-            new Shadow.Application(document.getElementById('container'), {
+            app = new Shadow.Application(document.getElementById('container'), {
                 server: location.origin,
                 enableTileCache: false,
             });

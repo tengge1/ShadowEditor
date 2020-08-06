@@ -41,6 +41,7 @@ import VRMLoader from './VRMLoader';
 import VRMLLoader from './VRMLLoader';
 import XLoader from './XLoader';
 import MeshUtils from '../utils/MeshUtils';
+import global from '../global';
 
 const Loaders = {
     '_3ds': _3DSLoader,
@@ -107,7 +108,7 @@ ModelLoader.prototype.load = function (url, options = {}, environment = {}) {
             resolve(null);
             return;
         }
-        new loader(app).load(url, options, environment).then(obj => {
+        new loader(global.app).load(url, options, environment).then(obj => {
             if (!obj || !obj.userData) {
                 resolve(null);
                 return;

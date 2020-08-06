@@ -9,6 +9,7 @@
  */
 import './css/ExtensionWindow.css';
 import { Window, Content, Buttons, DataGrid, Column, Button } from '../../../ui/index';
+import global from '../../../global';
 
 const DESCRIPTIONS = {
     'ANGLE_instanced_arrays': 'The ANGLE_instanced_arrays extension is part of the WebGL API and allows to draw the same object, or groups of similar objects multiple times, if they share the same vertex data, primitive count and type.',
@@ -62,7 +63,7 @@ class ExtensionWindow extends React.Component {
     render() {
         let list = [];
 
-        const context = app.editor.renderer.getContext();
+        const context = global.app.editor.renderer.getContext();
         const extensions = context.getSupportedExtensions();
 
         extensions.forEach(n => {
@@ -117,7 +118,7 @@ class ExtensionWindow extends React.Component {
     }
 
     handleClose() {
-        app.removeElement(this);
+        global.app.removeElement(this);
     }
 }
 

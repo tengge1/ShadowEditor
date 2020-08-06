@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import { PropertyGroup, ButtonProperty, NumberProperty } from '../../ui/index';
+import global from '../../global';
 
 /**
  * 烟组件
@@ -64,8 +65,8 @@ class SmokeComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.SmokeComponent`, this.handleUpdate);
-        app.on(`objectChanged.SmokeComponent`, this.handleUpdate);
+        global.app.on(`objectSelected.SmokeComponent`, this.handleUpdate);
+        global.app.on(`objectChanged.SmokeComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {
@@ -75,7 +76,7 @@ class SmokeComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || !(editor.selected.userData.type === 'Smoke')) {
             this.setState({
@@ -112,7 +113,7 @@ class SmokeComponent extends React.Component {
         this.selected.material.uniforms.size.value = size;
         this.selected.material.uniforms.lifetime.value = lifetime;
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     handlePreview() {
@@ -130,7 +131,7 @@ class SmokeComponent extends React.Component {
             previewText: _t('Cancel')
         });
 
-        app.on(`animate.SmokeComponent`, this.onAnimate);
+        global.app.on(`animate.SmokeComponent`, this.onAnimate);
     }
 
     stopPreview() {
@@ -140,7 +141,7 @@ class SmokeComponent extends React.Component {
             previewText: _t('Preview')
         });
 
-        app.on(`animate.SmokeComponent`, null);
+        global.app.on(`animate.SmokeComponent`, null);
     }
 
     onAnimate(clock) {

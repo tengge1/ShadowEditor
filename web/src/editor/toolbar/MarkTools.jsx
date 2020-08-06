@@ -9,6 +9,7 @@
  */
 import { ToolbarSeparator, IconButton } from '../../ui/index';
 import PointMarkTool from '../tools/PointMarkTool';
+import global from '../../global';
 
 /**
  * 标注工具
@@ -59,14 +60,14 @@ class MarkTools extends React.Component {
         if (this.pointMarkTool === undefined) {
             this.pointMarkTool = new PointMarkTool();
             this.pointMarkTool.on(`end`, () => {
-                app.editor.gpuPickNum--;
+                global.app.editor.gpuPickNum--;
                 this.setState({
                     isAddPointMark: false
                 });
             });
         }
         this.pointMarkTool.start();
-        app.editor.gpuPickNum++;
+        global.app.editor.gpuPickNum++;
         this.setState({
             isAddPointMark: true
         });

@@ -12,6 +12,7 @@ import { PropTypes } from '../../../third_party';
 import { Window, Content, Buttons, Button, DataGrid, Column, VBoxLayout, Toolbar } from '../../../ui/index';
 import Ajax from '../../../utils/Ajax';
 import CategoryEditWindow from './CategoryEditWindow.jsx';
+import global from '../../../global';
 
 /**
  * 类别窗口
@@ -37,7 +38,7 @@ class CategoryWindow extends React.Component {
     render() {
         const { typeName } = this.props;
         const { data, selected } = this.state;
-        const { enableAuthority, authorities } = app.server;
+        const { enableAuthority, authorities } = global.app.server;
 
         return <Window
             className={'CategoryWindow'}
@@ -84,7 +85,7 @@ class CategoryWindow extends React.Component {
     }
 
     updateUI() {
-        Ajax.getJson(`${app.options.server}/api/Category/List?Type=${this.props.type}`, json => {
+        Ajax.getJson(`${global.app.options.server}/api/Category/List?Type=${this.props.type}`, json => {
             this.setState({
                 data: json.Data.map(n => {
                     return {
@@ -100,7 +101,7 @@ class CategoryWindow extends React.Component {
     handleAdd() {
         const { type, typeName } = this.props;
 
-        let window = app.createElement(CategoryEditWindow, {
+        let window = global.app.createElement(CategoryEditWindow, {
             type,
             typeName,
             id: null,
@@ -108,7 +109,7 @@ class CategoryWindow extends React.Component {
             callback: this.updateUI
         });
 
-        app.addElement(window);
+        global.app.addElement(window);
     }
 
     handleEdit() {
@@ -116,11 +117,11 @@ class CategoryWindow extends React.Component {
         const { selected } = this.state;
 
         if (!selected) {
-            app.toast(_t('Please select a record.'), 'warn');
+            global.app.toast(_t('Please select a record.'), 'warn');
             return;
         }
 
-        let window = app.createElement(CategoryEditWindow, {
+        let window = global.app.createElement(CategoryEditWindow, {
             type,
             typeName,
             id: selected.ID,
@@ -128,22 +129,22 @@ class CategoryWindow extends React.Component {
             callback: this.updateUI
         });
 
-        app.addElement(window);
+        global.app.addElement(window);
     }
 
     handleDelete() {
         const { selected } = this.state;
 
         if (!selected) {
-            app.toast(_t('Please select a record.'), 'warn');
+            global.app.toast(_t('Please select a record.'), 'warn');
             return;
         }
 
-        app.confirm({
+        global.app.confirm({
             title: _t('Query'),
             content: _t('Delete this category?'),
             onOK: () => {
-                fetch(`${app.options.server}/api/Category/Delete?ID=${selected.ID}`, {
+                fetch(`${global.app.options.server}/api/Category/Delete?ID=${selected.ID}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
@@ -151,7 +152,7 @@ class CategoryWindow extends React.Component {
                 }).then(response => {
                     response.json().then(obj => {
                         if (obj.Code !== 200) {
-                            app.toast(_t(obj.Msg), 'warn');
+                            global.app.toast(_t(obj.Msg), 'warn');
                             return;
                         }
                         this.updateUI();
@@ -168,7 +169,7 @@ class CategoryWindow extends React.Component {
     }
 
     handleClose() {
-        app.removeElement(this);
+        global.app.removeElement(this);
     }
 }
 

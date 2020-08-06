@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import { PropertyGroup, CheckBoxProperty } from '../../../ui/index';
+import global from '../../../global';
 
 /**
  * 快速近似抗锯齿(FXAA)组件
@@ -52,8 +53,8 @@ class FxaaComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.FxaaComponent`, this.handleUpdate);
-        app.on(`objectChanged.FxaaComponent`, this.handleUpdate);
+        global.app.on(`objectSelected.FxaaComponent`, this.handleUpdate);
+        global.app.on(`objectChanged.FxaaComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {
@@ -63,7 +64,7 @@ class FxaaComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || editor.selected !== editor.scene) {
             this.setState({
@@ -107,8 +108,8 @@ class FxaaComponent extends React.Component {
             }
         });
 
-        app.call(`objectChanged`, this, this.selected);
-        app.call(`postProcessingChanged`, this);
+        global.app.call(`objectChanged`, this, this.selected);
+        global.app.call(`postProcessingChanged`, this);
     }
 }
 

@@ -9,6 +9,7 @@
  */
 import { PropertyGroup, NumberProperty, IntegerProperty } from '../../../ui/index';
 import SetGeometryCommand from '../../../command/SetGeometryCommand';
+import global from '../../../global';
 
 /**
  * 球体组件
@@ -88,8 +89,8 @@ class SphereGeometryComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.SphereGeometryComponent`, this.handleUpdate);
-        app.on(`objectChanged.SphereGeometryComponent`, this.handleUpdate);
+        global.app.on(`objectSelected.SphereGeometryComponent`, this.handleUpdate);
+        global.app.on(`objectChanged.SphereGeometryComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {
@@ -99,7 +100,7 @@ class SphereGeometryComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || !(editor.selected instanceof THREE.Mesh) || !(editor.selected.geometry instanceof THREE.SphereBufferGeometry)) {
             this.setState({
@@ -138,7 +139,7 @@ class SphereGeometryComponent extends React.Component {
             [name]: value
         });
 
-        app.editor.execute(new SetGeometryCommand(this.selected, new THREE.SphereBufferGeometry(
+        global.app.editor.execute(new SetGeometryCommand(this.selected, new THREE.SphereBufferGeometry(
             radius,
             widthSegments,
             heightSegments,
@@ -148,7 +149,7 @@ class SphereGeometryComponent extends React.Component {
             thetaLength
         )));
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 }
 

@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import BaseHelper from '../BaseHelper';
+import global from '../../global';
 
 /**
  * 曲线帮助器基类
@@ -22,13 +23,13 @@ SplineHelper.prototype = Object.create(BaseHelper.prototype);
 SplineHelper.prototype.constructor = SplineHelper;
 
 SplineHelper.prototype.start = function () {
-    app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
-    app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    global.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+    global.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
 };
 
 SplineHelper.prototype.stop = function () {
-    app.on(`objectSelected.${this.id}`, null);
-    app.on(`objectChanged.${this.id}`, null);
+    global.app.on(`objectSelected.${this.id}`, null);
+    global.app.on(`objectChanged.${this.id}`, null);
 };
 
 SplineHelper.prototype.onObjectSelected = function (object) {
@@ -49,7 +50,7 @@ SplineHelper.prototype.onObjectChanged = function (obj) {
         return;
     }
 
-    var scene = app.editor.sceneHelpers;
+    var scene = global.app.editor.sceneHelpers;
     var line = this.box[0].userData.object;
 
     if (obj === line) { // 修改了线
@@ -93,7 +94,7 @@ SplineHelper.prototype.onObjectChanged = function (obj) {
 };
 
 SplineHelper.prototype.onSelectLine = function (object) {
-    var scene = app.editor.sceneHelpers;
+    var scene = global.app.editor.sceneHelpers;
 
     this.onCancelSelectLine();
 
@@ -118,7 +119,7 @@ SplineHelper.prototype.onSelectLine = function (object) {
 };
 
 SplineHelper.prototype.onCancelSelectLine = function () {
-    var scene = app.editor.sceneHelpers;
+    var scene = global.app.editor.sceneHelpers;
 
     this.box.forEach(n => {
         scene.remove(n);

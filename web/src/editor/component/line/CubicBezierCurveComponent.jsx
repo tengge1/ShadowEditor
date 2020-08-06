@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import { PropertyGroup, NumberProperty } from '../../../ui/index';
+import global from '../../../global';
 
 /**
  * 三次贝塞尔曲线组件
@@ -117,8 +118,8 @@ class CubicBezierCurveComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.CubicBezierCurveComponent`, this.handleUpdate.bind(this));
-        app.on(`objectChanged.CubicBezierCurveComponent`, this.handleUpdate.bind(this));
+        global.app.on(`objectSelected.CubicBezierCurveComponent`, this.handleUpdate.bind(this));
+        global.app.on(`objectChanged.CubicBezierCurveComponent`, this.handleUpdate.bind(this));
     }
 
     handleExpand(expanded) {
@@ -128,7 +129,7 @@ class CubicBezierCurveComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || editor.selected.userData.type !== 'CubicBezierCurve') {
             this.setState({
@@ -179,7 +180,7 @@ class CubicBezierCurveComponent extends React.Component {
 
         this.selected.update();
 
-        app.call('objectChanged', this, this.selected);
+        global.app.call('objectChanged', this, this.selected);
     }
 }
 

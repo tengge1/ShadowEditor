@@ -11,6 +11,7 @@ import { MenuItem, MenuItemSeparator } from '../../ui/index';
 import AddObjectCommand from '../../command/AddObjectCommand';
 import RemoveObjectCommand from '../../command/RemoveObjectCommand';
 import MeshUtils from '../../utils/MeshUtils';
+import global from '../../global';
 
 /**
  * 编辑菜单
@@ -68,52 +69,52 @@ class EditMenu extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`undo.EditMenu`, this.handleUndo);
-        app.on(`redo.EditMenu`, this.handleRedo);
-        app.on(`clearHistory.EditMenu`, this.handleClearHistory);
-        app.on(`clone.EditMenu`, this.handleClone);
-        app.on(`delete.EditMenu`, this.handleDelete);
+        global.app.on(`undo.EditMenu`, this.handleUndo);
+        global.app.on(`redo.EditMenu`, this.handleRedo);
+        global.app.on(`clearHistory.EditMenu`, this.handleClearHistory);
+        global.app.on(`clone.EditMenu`, this.handleClone);
+        global.app.on(`delete.EditMenu`, this.handleDelete);
 
-        app.on(`historyChanged.EditMenu`, this.onHistoryChanged);
-        app.on(`objectSelected.EditMenu`, this.onObjectSelected);
-        app.on(`keydown.EditMenu`, this.onKeyDown);
+        global.app.on(`historyChanged.EditMenu`, this.onHistoryChanged);
+        global.app.on(`objectSelected.EditMenu`, this.onObjectSelected);
+        global.app.on(`keydown.EditMenu`, this.onKeyDown);
     }
 
     // --------------------- 撤销 --------------------------
 
     handleUndo() {
-        var history = app.editor.history;
+        var history = global.app.editor.history;
 
         if (history.undos.length === 0) {
             return;
         }
 
-        app.editor.undo();
+        global.app.editor.undo();
     }
 
     // --------------------- 重做 -----------------------------
 
     handleRedo() {
-        var history = app.editor.history;
+        var history = global.app.editor.history;
 
         if (history.redos.length === 0) {
             return;
         }
 
-        app.editor.redo();
+        global.app.editor.redo();
     }
 
     // -------------------- 清空历史记录 --------------------------------
 
     handleClearHistory() {
-        var editor = app.editor;
+        var editor = global.app.editor;
         var history = editor.history;
 
         if (history.undos.length === 0 && history.redos.length === 0) {
             return;
         }
 
-        app.confirm({
+        global.app.confirm({
             title: _t('Confirm'),
             content: _t('Undo/Redo history will be cleared. Are you sure?'),
             onOK: () => {
@@ -125,7 +126,7 @@ class EditMenu extends React.Component {
     // -------------------------- 复制 -----------------------------------
 
     handleClone() {
-        var editor = app.editor;
+        var editor = global.app.editor;
         var object = editor.selected;
 
         if (object === null || object.parent === null) { // 避免复制场景或相机
@@ -146,14 +147,14 @@ class EditMenu extends React.Component {
     // ----------------------- 删除 -----------------------------------
 
     handleDelete() {
-        var editor = app.editor;
+        var editor = global.app.editor;
         var object = editor.selected;
 
         if (object === null || object.parent === null) { // 避免删除场景或相机
             return;
         }
 
-        app.confirm({
+        global.app.confirm({
             title: _t('Confirm'),
             content: _t('Delete') + ' ' + object.name + '?',
             onOK: () => {
@@ -178,7 +179,7 @@ class EditMenu extends React.Component {
     // ---------------------- 事件 -----------------------
 
     onHistoryChanged() {
-        const history = app.editor.history;
+        const history = global.app.editor.history;
 
         this.setState({
             enableUndo: history.undos.length > 0,
@@ -188,7 +189,7 @@ class EditMenu extends React.Component {
     }
 
     onObjectSelected() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         this.setState({
             enableClone: editor.selected && editor.selected.parent !== null,

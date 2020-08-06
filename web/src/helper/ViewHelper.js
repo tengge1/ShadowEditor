@@ -10,6 +10,7 @@
 import BaseHelper from './BaseHelper';
 import ArrowVertex from './view/ArrowVertex.glsl';
 import ArrowFragment from './view/ArrowFragment.glsl';
+import global from '../global';
 
 /**
  * 视角帮助器
@@ -25,11 +26,11 @@ ViewHelper.prototype.constructor = ViewHelper;
 ViewHelper.prototype.start = function () {
     this.scene = new THREE.Scene();
 
-    let show = app.storage.showViewHelper;
+    let show = global.app.storage.showViewHelper;
 
     if (show === undefined) {
         show = true;
-        app.storage.showViewHelper = true;
+        global.app.storage.showViewHelper = true;
     }
 
     this.show = show;
@@ -38,10 +39,10 @@ ViewHelper.prototype.start = function () {
     this.mesh.frustumCulled = false;
     this.scene.add(this.mesh);
 
-    app.on(`storageChanged.${this.id}`, this.onStorageChanged.bind(this));
-    app.on(`afterRender.${this.id}`, this.onAfterRender.bind(this));
-    // app.on(`mousedown.${this.id}`, this.onMouseDown.bind(this));
-    app.on(`resize.${this.id}`, this.onResize.bind(this));
+    global.app.on(`storageChanged.${this.id}`, this.onStorageChanged.bind(this));
+    global.app.on(`afterRender.${this.id}`, this.onAfterRender.bind(this));
+    // global.app.on(`mousedown.${this.id}`, this.onMouseDown.bind(this));
+    global.app.on(`resize.${this.id}`, this.onResize.bind(this));
 };
 
 ViewHelper.prototype.stop = function () {
@@ -49,10 +50,10 @@ ViewHelper.prototype.stop = function () {
     delete this.scene;
     delete this.mesh;
 
-    app.on(`storageChanged.${this.id}`, null);
-    app.on(`afterRender.${this.id}`, null);
-    // app.on(`mousedown.${this.id}`, null);
-    app.on(`resize.${this.id}`, null);
+    global.app.on(`storageChanged.${this.id}`, null);
+    global.app.on(`afterRender.${this.id}`, null);
+    // global.app.on(`mousedown.${this.id}`, null);
+    global.app.on(`resize.${this.id}`, null);
 };
 
 ViewHelper.prototype.createMesh = function () {
@@ -86,12 +87,12 @@ ViewHelper.prototype.createMesh = function () {
         geometryNZ
     ], true);
 
-    var domElement = app.editor.renderer.domElement;
+    var domElement = global.app.editor.renderer.domElement;
     var domWidth = domElement.clientWidth;
     var domHeight = domElement.clientHeight;
     this.z = 16; // 控件中心到相机距离，越远越小
 
-    var fov = app.editor.camera.fov;
+    var fov = global.app.editor.camera.fov;
     var top = this.z * Math.tan(fov * Math.PI / 180 * 0.5); // 到相机垂直距离为z的地方屏幕高度一半
     this.size = (domHeight / (2 * top) + 12) * 2; // 12为留白
 
@@ -178,15 +179,15 @@ ViewHelper.prototype.onAfterRender = function () {
         return;
     }
 
-    if (!app.editor.showViewHelper) {
+    if (!global.app.editor.showViewHelper) {
         return;
     }
 
-    let renderer = app.editor.renderer;
+    let renderer = global.app.editor.renderer;
 
     // 最后绘制而且清空深度缓冲，保证视角控件不会被其他物体遮挡
     renderer.clearDepth();
-    renderer.render(this.scene, app.editor.camera);
+    renderer.render(this.scene, global.app.editor.camera);
 };
 
 ViewHelper.prototype.onMouseDown = function (event) {
@@ -197,12 +198,12 @@ ViewHelper.prototype.onMouseDown = function (event) {
         this.raycaster = new THREE.Raycaster();
     }
 
-    var domElement = app.editor.renderer.domElement;
+    var domElement = global.app.editor.renderer.domElement;
 
     this.mouse.set(
         event.offsetX / domElement.clientWidth * 2 - 1, -event.offsetY / domElement.clientHeight * 2 + 1
     );
-    this.raycaster.setFromCamera(this.mouse, app.editor.camera);
+    this.raycaster.setFromCamera(this.mouse, global.app.editor.camera);
 
     // 设置几何体矩阵，将其转换到左上角
     if (this.matrix === undefined) {
@@ -222,7 +223,7 @@ ViewHelper.prototype.onMouseDown = function (event) {
         (domElement.clientWidth - this.size / 2) / domElement.clientWidth * 2 - 1, -this.size / 2 / domElement.clientHeight * 2 + 1, -this.z
     );
 
-    this.screenXY.unproject(app.editor.camera);
+    this.screenXY.unproject(global.app.editor.camera);
 
     // var obj = this.raycaster.intersectObject(this.mesh)[0];
 
@@ -235,9 +236,9 @@ ViewHelper.prototype.onMouseDown = function (event) {
 
 ViewHelper.prototype.onResize = function () {
     var materials = this.mesh.material;
-    var width = app.editor.renderer.domElement.width;
-    var height = app.editor.renderer.domElement.height;
-    var fov = app.editor.camera.fov;
+    var width = global.app.editor.renderer.domElement.width;
+    var height = global.app.editor.renderer.domElement.height;
+    var fov = global.app.editor.camera.fov;
     var top = this.z * Math.tan(fov * Math.PI / 180 * 0.5); // 到相机垂直距离为z的地方屏幕高度一半
     this.size = (height / (2 * top) + 12) * 2; // 12为留白
 

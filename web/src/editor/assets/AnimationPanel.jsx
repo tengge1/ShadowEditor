@@ -10,6 +10,7 @@
 import { classNames, PropTypes } from '../../third_party';
 import { SearchField, ImageList } from '../../ui/index';
 import EditWindow from './window/EditWindow.jsx';
+import global from '../../global';
 
 /**
  * 动画面板
@@ -38,7 +39,7 @@ class AnimationPanel extends React.Component {
     render() {
         const { className, style } = this.props;
         const { data, categoryData, name, categories } = this.state;
-        const { enableAuthority, authorities } = app.server;
+        const { enableAuthority, authorities } = global.app.server;
 
         let list = data;
 
@@ -59,7 +60,7 @@ class AnimationPanel extends React.Component {
         const imageListData = list.map(n => {
             return Object.assign({}, n, {
                 id: n.ID,
-                src: n.Thumbnail ? `${app.options.server}${n.Thumbnail}` : null,
+                src: n.Thumbnail ? `${global.app.options.server}${n.Thumbnail}` : null,
                 title: n.Name,
                 icon: 'scenes'
                 // cornerText: n.Type,
@@ -96,10 +97,10 @@ class AnimationPanel extends React.Component {
     }
 
     update() {
-        fetch(`${app.options.server}/api/Category/List?Type=Animation`).then(response => {
+        fetch(`${global.app.options.server}/api/Category/List?Type=Animation`).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg), 'warn');
+                    global.app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 this.setState({
@@ -107,10 +108,10 @@ class AnimationPanel extends React.Component {
                 });
             });
         });
-        fetch(`${app.options.server}/api/Animation/List`).then(response => {
+        fetch(`${global.app.options.server}/api/Animation/List`).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg), 'warn');
+                    global.app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 this.setState({
@@ -128,47 +129,47 @@ class AnimationPanel extends React.Component {
     }
 
     handleClick(data) {
-        app.call(`selectAnimation`, this, data);
+        global.app.call(`selectAnimation`, this, data);
     }
 
     // ------------------------------- 上传 ---------------------------------------
 
     handleAdd() {
-        app.upload(`${app.options.server}/api/Animation/Add`, obj => {
+        global.app.upload(`${global.app.options.server}/api/Animation/Add`, obj => {
             if (obj.Code === 200) {
                 this.update();
             }
-            app.toast(_t(obj.Msg));
+            global.app.toast(_t(obj.Msg));
         });
     }
 
     // ------------------------------- 编辑 ---------------------------------------
 
     handleEdit(data) {
-        var win = app.createElement(EditWindow, {
+        var win = global.app.createElement(EditWindow, {
             type: 'Animation',
             typeName: _t('Animation'),
             data,
-            saveUrl: `${app.options.server}/api/Animation/Edit`,
+            saveUrl: `${global.app.options.server}/api/Animation/Edit`,
             callback: this.update
         });
 
-        app.addElement(win);
+        global.app.addElement(win);
     }
 
     // ------------------------------ 删除 ----------------------------------------
 
     handleDelete(data) {
-        app.confirm({
+        global.app.confirm({
             title: _t('Confirm'),
             content: `${_t('Delete')} ${data.title}?`,
             onOK: () => {
-                fetch(`${app.options.server}/api/Animation/Delete?ID=${data.id}`, {
+                fetch(`${global.app.options.server}/api/Animation/Delete?ID=${data.id}`, {
                     method: 'POST'
                 }).then(response => {
                     response.json().then(obj => {
                         if (obj.Code !== 200) {
-                            app.toast(_t(obj.Msg), 'warn');
+                            global.app.toast(_t(obj.Msg), 'warn');
                             return;
                         }
                         this.update();

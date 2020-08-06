@@ -24,6 +24,7 @@ import MaterialUtils from '../../utils/MaterialUtils';
 
 import Ajax from '../../utils/Ajax';
 import Converter from '../../utils/Converter';
+import global from '../../global';
 
 /**
  * 材质组件
@@ -219,7 +220,7 @@ class MaterialComponent extends React.Component {
             displacementScale, showRoughnessMap, roughnessMap, showMetalnessMap, metalnessMap, showSpecularMap, specularMap, showEnvMap, envMap,
             envMapIntensity, showLightMap, lightMap, showAoMap, aoMap, aoScale, showEmissiveMap, emissiveMap, side, flatShading, blending, opacity, transparent,
             alphaTest, wireframe, wireframeLinewidth } = this.state;
-        const { enableAuthority, authorities } = app.server;
+        const { enableAuthority, authorities } = global.app.server;
 
         if (!show) {
             return null;
@@ -465,9 +466,9 @@ class MaterialComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.MaterialComponent`, this.handleUpdate);
-        app.on(`objectChanged.MaterialComponent`, this.handleUpdate);
-        app.on(`currentMaterialChange.MaterialComponent`, this.handleCurrentMaterialChange); // 多材质组件
+        global.app.on(`objectSelected.MaterialComponent`, this.handleUpdate);
+        global.app.on(`objectChanged.MaterialComponent`, this.handleUpdate);
+        global.app.on(`currentMaterialChange.MaterialComponent`, this.handleCurrentMaterialChange); // 多材质组件
     }
 
     handleExpand(expanded) {
@@ -477,7 +478,7 @@ class MaterialComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || !editor.selected.material) {
             this.setState({
@@ -715,7 +716,7 @@ class MaterialComponent extends React.Component {
             return;
         }
 
-        const editor = app.editor;
+        const editor = global.app.editor;
         let object = this.selected;
         let material = this.material;
 
@@ -912,20 +913,20 @@ class MaterialComponent extends React.Component {
             editor.execute(new SetMaterialValueCommand(object, 'wireframeLinewidth', wireframeLinewidth));
         }
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     handleTextureSetting() {
         if (!this.material.map) {
-            app.toast(_t('Please select texture first.'), 'warn');
+            global.app.toast(_t('Please select texture first.'), 'warn');
             return;
         }
 
-        let win = app.createElement(TextureSettingWindow, {
+        let win = global.app.createElement(TextureSettingWindow, {
             map: this.material.map
         });
 
-        app.addElement(win);
+        global.app.addElement(win);
     }
 
     editProgramInfo() {
@@ -937,7 +938,7 @@ class MaterialComponent extends React.Component {
             attributes: material.attributes
         };
 
-        app.call(`editScript`, this, material.uuid, this.selected.name + '-ProgramInfo', 'json', JSON.stringify(obj), this.saveProgramInfo);
+        global.app.call(`editScript`, this, material.uuid, this.selected.name + '-ProgramInfo', 'json', JSON.stringify(obj), this.saveProgramInfo);
     }
 
     saveProgramInfo(uuid, name, type, source) {
@@ -950,14 +951,14 @@ class MaterialComponent extends React.Component {
             material.attributes = obj.attributes;
             material.needsUpdate = true;
         } catch (e) {
-            app.error(this.selected.name + `-${_t('Shader cannot be parsed.')}`);
+            global.app.error(this.selected.name + `-${_t('Shader cannot be parsed.')}`);
         }
     }
 
     editVertexShader() {
         let material = this.material;
 
-        app.call(`editScript`, this, material.uuid, this.selected.name + '-VertexShader', 'vertexShader', material.vertexShader, this.saveVertexShader);
+        global.app.call(`editScript`, this, material.uuid, this.selected.name + '-VertexShader', 'vertexShader', material.vertexShader, this.saveVertexShader);
     }
 
     saveVertexShader(uuid, name, type, source) {
@@ -969,7 +970,7 @@ class MaterialComponent extends React.Component {
     editFragmentShader() {
         let material = this.material;
 
-        app.call(`editScript`, this, material.uuid, this.selected.name + '-FragmentShader', 'fragmentShader', material.fragmentShader, this.saveFragmentShader);
+        global.app.call(`editScript`, this, material.uuid, this.selected.name + '-FragmentShader', 'fragmentShader', material.fragmentShader, this.saveFragmentShader);
     }
 
     saveFragmentShader(uuid, name, type, source) {
@@ -981,7 +982,7 @@ class MaterialComponent extends React.Component {
     // --------------------------------------- 材质保存载入 --------------------------------------------------
 
     onSave() {
-        app.prompt({
+        global.app.prompt({
             title: _t('Please enter material name'),
             content: _t('Name'),
             value: _t('New Material'),
@@ -1001,17 +1002,17 @@ class MaterialComponent extends React.Component {
         const file = Converter.dataURLtoFile(dataURL, name);
 
         // 上传图片
-        Ajax.post(`${app.options.server}/api/Upload/Upload`, {
+        Ajax.post(`${global.app.options.server}/api/Upload/Upload`, {
             file: file
         }, result => {
             let obj = JSON.parse(result);
 
             if (obj.Code === 300) {
-                app.toast(_t(obj.Msg));
+                global.app.toast(_t(obj.Msg));
                 return;
             }
 
-            Ajax.post(`${app.options.server}/api/Material/Save`, {
+            Ajax.post(`${global.app.options.server}/api/Material/Save`, {
                 Name: name,
                 Data: JSON.stringify(data),
                 Thumbnail: obj.Data.url
@@ -1019,21 +1020,21 @@ class MaterialComponent extends React.Component {
                 obj = JSON.parse(result);
                 if (obj.Code === 200) {
                     // TODO: 保存材质时，没有刷新材质面板。
-                    app.call(`showBottomPanel`, this, 'material');
+                    global.app.call(`showBottomPanel`, this, 'material');
                 }
-                app.toast(_t(obj.Msg));
+                global.app.toast(_t(obj.Msg));
             });
         });
     }
 
     onLoad() {
-        app.call(`selectBottomPanel`, this, 'material');
-        app.toast(_t('Please click material on material panel.'));
-        app.on(`selectMaterial.MaterialComponent`, this.onWaitingForMaterial.bind(this));
+        global.app.call(`selectBottomPanel`, this, 'material');
+        global.app.toast(_t('Please click material on material panel.'));
+        global.app.on(`selectMaterial.MaterialComponent`, this.onWaitingForMaterial.bind(this));
     }
 
     onWaitingForMaterial(material) {
-        app.on(`selectMaterial.MaterialComponent`, null);
+        global.app.on(`selectMaterial.MaterialComponent`, null);
 
         if (this.material) {
             this.material.dispose();
@@ -1045,7 +1046,7 @@ class MaterialComponent extends React.Component {
             this.selected.material = material;
         }
 
-        app.call('objectChanged', this, this.selected);
+        global.app.call('objectChanged', this, this.selected);
     }
 }
 

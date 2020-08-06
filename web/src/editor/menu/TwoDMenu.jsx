@@ -32,6 +32,7 @@ import TreeDiagram from '../../visual/component/TreeDiagram';
 import ClusterDiagram from '../../visual/component/ClusterDiagram';
 import PackDiagram from '../../visual/component/PackDiagram';
 import PartitionDiagram from '../../visual/component/PartitionDiagram';
+import global from '../../global';
 
 /**
  * 2D菜单
@@ -69,7 +70,7 @@ class TwoDMenu extends React.Component {
 
     render() {
         return <MenuItem title={_t('2D')}
-            show={app.debug === true}
+            show={global.app.debug === true}
                >
             <MenuItem title={_t('Button')}
                 onClick={this.handleAddButton}
@@ -149,8 +150,8 @@ class TwoDMenu extends React.Component {
     // ------------------------------ 按钮 --------------------------------
 
     handleAddButton() {
-        var visual = app.editor.visual;
-        var svg = app.editor.svg;
+        var visual = global.app.editor.visual;
+        var svg = global.app.editor.svg;
 
         visual.add(new Button());
         visual.render(svg);
@@ -159,8 +160,8 @@ class TwoDMenu extends React.Component {
     // ---------------------------- 标签 -----------------------------------
 
     handleAddLabel() {
-        var visual = app.editor.visual;
-        var svg = app.editor.svg;
+        var visual = global.app.editor.visual;
+        var svg = global.app.editor.svg;
 
         visual.add(new Label());
         visual.render(svg);
@@ -169,8 +170,8 @@ class TwoDMenu extends React.Component {
     // ---------------------------- 面板 ------------------------------------
 
     handleAddPanel() {
-        var visual = app.editor.visual;
-        var svg = app.editor.svg;
+        var visual = global.app.editor.visual;
+        var svg = global.app.editor.svg;
 
         visual.add(new Panel());
         visual.render(svg);
@@ -179,8 +180,8 @@ class TwoDMenu extends React.Component {
     // --------------------------- 水平线 -------------------------------------
 
     handleAddHorizontalLine() {
-        var visual = app.editor.visual;
-        var svg = app.editor.svg;
+        var visual = global.app.editor.visual;
+        var svg = global.app.editor.svg;
 
         visual.add(new HorizontalLine());
         visual.render(svg);
@@ -189,8 +190,8 @@ class TwoDMenu extends React.Component {
     // ---------------------------- 条形图 -------------------------------------
 
     handleAddBarChart() {
-        var visual = app.editor.visual;
-        var svg = app.editor.svg;
+        var visual = global.app.editor.visual;
+        var svg = global.app.editor.svg;
 
         visual.add(new BarChart());
         visual.render(svg);
@@ -199,8 +200,8 @@ class TwoDMenu extends React.Component {
     // --------------------------- 时间标签 --------------------------------------
 
     handleAddTimeLabel() {
-        var visual = app.editor.visual;
-        var svg = app.editor.svg;
+        var visual = global.app.editor.visual;
+        var svg = global.app.editor.svg;
 
         visual.add(new TimeLabel());
         visual.render(svg);
@@ -209,8 +210,8 @@ class TwoDMenu extends React.Component {
     // --------------------------- 垂直线 ------------------------------------------
 
     handleAddVerticalLine() {
-        var visual = app.editor.visual;
-        var svg = app.editor.svg;
+        var visual = global.app.editor.visual;
+        var svg = global.app.editor.svg;
 
         visual.add(new VerticalLine());
         visual.render(svg);
@@ -219,8 +220,8 @@ class TwoDMenu extends React.Component {
     // -------------------------- 日期时间 -------------------------------------------
 
     handleAddDateWeek() {
-        var visual = app.editor.visual;
-        var svg = app.editor.svg;
+        var visual = global.app.editor.visual;
+        var svg = global.app.editor.svg;
 
         visual.add(new DateWeekLabel());
         visual.render(svg);
@@ -229,8 +230,8 @@ class TwoDMenu extends React.Component {
     // ------------------------- 时间圆盘 -----------------------------------------------
 
     handleAddTimeDisk() {
-        var visual = app.editor.visual;
-        var svg = app.editor.svg;
+        var visual = global.app.editor.visual;
+        var svg = global.app.editor.svg;
 
         visual.add(new TimeDisk());
         visual.render(svg);
@@ -239,8 +240,8 @@ class TwoDMenu extends React.Component {
     // -------------------------- 键值标签 -------------------------------------------------
 
     handleAddKeyValueLabel() {
-        var visual = app.editor.visual;
-        var svg = app.editor.svg;
+        var visual = global.app.editor.visual;
+        var svg = global.app.editor.svg;
 
         visual.add(new KeyValueLabel());
         visual.render(svg);
@@ -249,8 +250,8 @@ class TwoDMenu extends React.Component {
     // --------------------------- 表单 ------------------------------------------------------
 
     handleAddFormPanel() {
-        var visual = app.editor.visual;
-        var svg = app.editor.svg;
+        var visual = global.app.editor.visual;
+        var svg = global.app.editor.svg;
 
         visual.add(new FormPanel());
         visual.render(svg);
@@ -259,8 +260,8 @@ class TwoDMenu extends React.Component {
     // ---------------------------- 仪表 --------------------------------------------
 
     handleAddGauge() {
-        var visual = app.editor.visual;
-        var svg = app.editor.svg;
+        var visual = global.app.editor.visual;
+        var svg = global.app.editor.svg;
 
         visual.add(new Gauge());
         visual.render(svg);
@@ -269,8 +270,8 @@ class TwoDMenu extends React.Component {
     // --------------------------- 柱状图 ----------------------------------------------
 
     handleAddHistogram() {
-        var visual = app.editor.visual;
-        var svg = app.editor.svg;
+        var visual = global.app.editor.visual;
+        var svg = global.app.editor.svg;
 
         visual.add(new Histogram());
         visual.render(svg);
@@ -279,8 +280,8 @@ class TwoDMenu extends React.Component {
     // ------------------------------- 折线图 ----------------------------------------------
 
     handleAddLineChart() {
-        var visual = app.editor.visual;
-        var svg = app.editor.svg;
+        var visual = global.app.editor.visual;
+        var svg = global.app.editor.svg;
 
         visual.add(new LineChart());
         visual.render(svg);
@@ -289,8 +290,8 @@ class TwoDMenu extends React.Component {
     // -------------------------------- 侧边栏 ---------------------------------------------
 
     handleAddSideBar() {
-        var visual = app.editor.visual;
-        var svg = app.editor.svg;
+        var visual = global.app.editor.visual;
+        var svg = global.app.editor.svg;
 
         visual.add(new SideBar());
         visual.render(svg);
@@ -299,8 +300,8 @@ class TwoDMenu extends React.Component {
     // ------------------------------- 柱状图2 ------------------------------------------------
 
     handleAddHistogram2() {
-        var visual = app.editor.visual;
-        var svg = app.editor.svg;
+        var visual = global.app.editor.visual;
+        var svg = global.app.editor.svg;
 
         visual.add(new Histogram2());
         visual.render(svg);
@@ -309,8 +310,8 @@ class TwoDMenu extends React.Component {
     // -------------------------------- 散点图 ---------------------------------------------------
 
     handleAddScatterPlot() {
-        var visual = app.editor.visual;
-        var svg = app.editor.svg;
+        var visual = global.app.editor.visual;
+        var svg = global.app.editor.svg;
 
         visual.add(new ScatterPlot());
         visual.render(svg);
@@ -319,8 +320,8 @@ class TwoDMenu extends React.Component {
     // --------------------------------- 饼状图 --------------------------------------------------
 
     handleAddPieChart() {
-        var visual = app.editor.visual;
-        var svg = app.editor.svg;
+        var visual = global.app.editor.visual;
+        var svg = global.app.editor.svg;
 
         visual.add(new PieChart());
         visual.render(svg);
@@ -329,8 +330,8 @@ class TwoDMenu extends React.Component {
     // --------------------------------- 弦图 --------------------------------------------------
 
     handleAddChordGraph() {
-        var visual = app.editor.visual;
-        var svg = app.editor.svg;
+        var visual = global.app.editor.visual;
+        var svg = global.app.editor.svg;
 
         visual.add(new ChordGraph());
         visual.render(svg);
@@ -339,8 +340,8 @@ class TwoDMenu extends React.Component {
     // ----------------------------------- 力导向图 ---------------------------------------------
 
     handleAddForceDirectedGraph() {
-        var visual = app.editor.visual;
-        var svg = app.editor.svg;
+        var visual = global.app.editor.visual;
+        var svg = global.app.editor.svg;
 
         visual.add(new ForceDirectedGraph());
         visual.render(svg);
@@ -349,8 +350,8 @@ class TwoDMenu extends React.Component {
     // ----------------------------------- 树状图 -----------------------------------------------
 
     handleAddTreeDiagram() {
-        var visual = app.editor.visual;
-        var svg = app.editor.svg;
+        var visual = global.app.editor.visual;
+        var svg = global.app.editor.svg;
 
         visual.add(new TreeDiagram());
         visual.render(svg);
@@ -359,8 +360,8 @@ class TwoDMenu extends React.Component {
     // ---------------------------------- 集群图 -----------------------------------------------------
 
     handleAddClusterDiagram() {
-        var visual = app.editor.visual;
-        var svg = app.editor.svg;
+        var visual = global.app.editor.visual;
+        var svg = global.app.editor.svg;
 
         visual.add(new ClusterDiagram());
         visual.render(svg);
@@ -369,8 +370,8 @@ class TwoDMenu extends React.Component {
     // ------------------------------- 包图 -----------------------------------------
 
     handleAddPackDiagram() {
-        var visual = app.editor.visual;
-        var svg = app.editor.svg;
+        var visual = global.app.editor.visual;
+        var svg = global.app.editor.svg;
 
         visual.add(new PackDiagram());
         visual.render(svg);
@@ -379,8 +380,8 @@ class TwoDMenu extends React.Component {
     // --------------------------------- 分区图 --------------------------------------------
 
     handleAddPartitionDiagram() {
-        var visual = app.editor.visual;
-        var svg = app.editor.svg;
+        var visual = global.app.editor.visual;
+        var svg = global.app.editor.svg;
 
         visual.add(new PartitionDiagram());
         visual.render(svg);

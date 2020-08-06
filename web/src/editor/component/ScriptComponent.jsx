@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import { PropertyGroup } from '../../ui/index';
+import global from '../../global';
 
 /**
  * 脚本组件
@@ -43,8 +44,8 @@ class ScriptComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.ScriptComponent`, this.handleUpdate);
-        app.on(`objectChanged.ScriptComponent`, this.handleUpdate);
+        global.app.on(`objectSelected.ScriptComponent`, this.handleUpdate);
+        global.app.on(`objectChanged.ScriptComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {
@@ -54,7 +55,7 @@ class ScriptComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || !editor.selected.userData) {
             this.setState({

@@ -9,6 +9,7 @@
  */
 import BaseEvent from './BaseEvent';
 import EffectRenderer from '../render/EffectRenderer';
+import global from '../global';
 
 /**
  * 渲染事件
@@ -31,52 +32,52 @@ RenderEvent.prototype.constructor = RenderEvent;
 
 RenderEvent.prototype.start = function () {
     this.running = true;
-    app.on(`appStarted.${this.id}`, this.render);
-    app.on(`viewChanged.${this.id}`, this.onViewChanged);
+    global.app.on(`appStarted.${this.id}`, this.render);
+    global.app.on(`viewChanged.${this.id}`, this.onViewChanged);
 };
 
 RenderEvent.prototype.stop = function () {
     this.running = false;
-    app.on(`appStarted.${this.id}`, null);
-    app.on(`viewChanged.${this.id}`, null);
+    global.app.on(`appStarted.${this.id}`, null);
+    global.app.on(`viewChanged.${this.id}`, null);
 };
 
 RenderEvent.prototype.render = function () {
-    if (app.options.sceneType === 'GIS') {
+    if (global.app.options.sceneType === 'GIS') {
         return;
     }
 
-    const { scene, sceneHelpers } = app.editor;
+    const { scene, sceneHelpers } = global.app.editor;
 
     this.clock._getDelta(); // see: ../polyfills.js
 
     const deltaTime = this.clock.getDelta();
 
-    app.call('animate', this, this.clock, deltaTime);
+    global.app.call('animate', this, this.clock, deltaTime);
 
-    app.stats.begin();
+    global.app.stats.begin();
 
     scene.updateMatrixWorld();
     sceneHelpers.updateMatrixWorld();
 
-    app.editor.renderer.clear();
+    global.app.editor.renderer.clear();
 
-    app.call('beforeRender', this, this.clock, deltaTime);
+    global.app.call('beforeRender', this, this.clock, deltaTime);
 
     if (this.renderer === undefined) {
         this.createRenderer().then(() => {
             this.render();
         });
-        app.on(`sceneLoaded.${this.id}`, this.createRenderer);
-        app.on(`postProcessingChanged.${this.id}`, this.createRenderer);
+        global.app.on(`sceneLoaded.${this.id}`, this.createRenderer);
+        global.app.on(`postProcessingChanged.${this.id}`, this.createRenderer);
         return;
     } else {
         this.renderer.render();
     }
 
-    app.call('afterRender', this, this.clock, deltaTime);
+    global.app.call('afterRender', this, this.clock, deltaTime);
 
-    app.stats.end();
+    global.app.stats.end();
 
     if (this.running) {
         requestAnimationFrame(this.render);
@@ -84,13 +85,13 @@ RenderEvent.prototype.render = function () {
 };
 
 RenderEvent.prototype.createRenderer = function () {
-    const { scene, sceneHelpers, camera, renderer } = app.editor;
+    const { scene, sceneHelpers, camera, renderer } = global.app.editor;
 
     this.renderer = new EffectRenderer();
 
     return this.renderer.create(
         [scene, sceneHelpers],
-        app.editor.view === 'perspective' ? camera : app.editor.orthCamera,
+        global.app.editor.view === 'perspective' ? camera : global.app.editor.orthCamera,
         renderer
     );
 };

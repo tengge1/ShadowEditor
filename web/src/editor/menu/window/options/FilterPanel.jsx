@@ -10,6 +10,7 @@
 import './css/FilterPanel.css';
 import { Form, FormControl, Label, Input } from '../../../../ui/index';
 import CssUtils from '../../../../utils/CssUtils';
+import global from '../../../../global';
 
 /**
  * 滤镜选项窗口
@@ -106,7 +107,7 @@ class FilterPanel extends React.Component {
     }
 
     handleUpdate() {
-        const renderer = app.editor.renderer;
+        const renderer = global.app.editor.renderer;
 
         const { hueRotate, saturate, brightness, blur, contrast, grayscale, invert, sepia } = CssUtils.parseFilter(renderer.domElement.style.filter);
 
@@ -145,9 +146,9 @@ class FilterPanel extends React.Component {
             sepia
         };
 
-        Object.assign(app.options, filters);
+        Object.assign(global.app.options, filters);
 
-        const renderer = app.editor.renderer;
+        const renderer = global.app.editor.renderer;
 
         renderer.domElement.style.filter = CssUtils.serializeFilter(filters);
 

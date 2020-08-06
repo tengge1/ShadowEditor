@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import BaseHelper from './BaseHelper';
+import global from '../global';
 
 /**
  * 鼠标移入帮助器
@@ -16,8 +17,8 @@ import BaseHelper from './BaseHelper';
 function HoverHelper() {
     BaseHelper.call(this);
 
-    this.hoverEnabled = app.storage.hoverEnabled;
-    this.hoveredColor = app.storage.hoveredColor;
+    this.hoverEnabled = global.app.storage.hoverEnabled;
+    this.hoveredColor = global.app.storage.hoveredColor;
 
     this.onGpuPick = this.onGpuPick.bind(this);
     this.onObjectRemoved = this.onObjectRemoved.bind(this);
@@ -43,16 +44,16 @@ HoverHelper.prototype.start = function () {
         opacity: 0.5
     });
 
-    app.on(`gpuPick.${this.id}`, this.onGpuPick);
-    app.on(`objectRemoved.${this.id}`, this.onObjectRemoved);
-    app.on(`afterRender.${this.id}`, this.onAfterRender);
-    app.on(`storageChanged.${this.id}`, this.onStorageChanged);
+    global.app.on(`gpuPick.${this.id}`, this.onGpuPick);
+    global.app.on(`objectRemoved.${this.id}`, this.onObjectRemoved);
+    global.app.on(`afterRender.${this.id}`, this.onAfterRender);
+    global.app.on(`storageChanged.${this.id}`, this.onStorageChanged);
 };
 
 HoverHelper.prototype.stop = function () {
-    app.on(`gpuPick.${this.id}`, null);
-    app.on(`objectRemoved.${this.id}`, null);
-    app.on(`afterRender.${this.id}`, null);
+    global.app.on(`gpuPick.${this.id}`, null);
+    global.app.on(`objectRemoved.${this.id}`, null);
+    global.app.on(`afterRender.${this.id}`, null);
 };
 
 HoverHelper.prototype.onGpuPick = function (obj) {
@@ -83,8 +84,8 @@ HoverHelper.prototype.onAfterRender = function () {
         return;
     }
 
-    const renderer = app.editor.renderer;
-    const camera = app.editor.view === 'perspective' ? app.editor.camera : app.editor.orthCamera;
+    const renderer = global.app.editor.renderer;
+    const camera = global.app.editor.view === 'perspective' ? global.app.editor.camera : global.app.editor.orthCamera;
 
     const parent = this.object.parent;
     const index = parent.children.indexOf(this.object);

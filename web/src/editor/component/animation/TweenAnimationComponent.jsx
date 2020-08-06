@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import { PropertyGroup, CheckBoxProperty, NumberProperty, SelectProperty } from '../../../ui/index';
+import global from '../../../global';
 
 /**
  * 补间动画组件
@@ -251,8 +252,8 @@ class TweenAnimationComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`animationSelected.TweenAnimationComponent`, this.handleUpdate.bind(this));
-        app.on(`animationChanged.TweenAnimationComponent`, this.handleUpdate.bind(this));
+        global.app.on(`animationSelected.TweenAnimationComponent`, this.handleUpdate.bind(this));
+        global.app.on(`animationChanged.TweenAnimationComponent`, this.handleUpdate.bind(this));
     }
 
     handleExpand(expanded) {
@@ -345,7 +346,7 @@ class TweenAnimationComponent extends React.Component {
         this.animation.data.endScaleY = endScaleY;
         this.animation.data.endScaleZ = endScaleZ;
 
-        app.call('animationChanged', this, this.animation);
+        global.app.call('animationChanged', this, this.animation);
     }
 }
 

@@ -10,6 +10,7 @@
 import './css/SelectUserWindow.css';
 import { PropTypes } from '../../../third_party';
 import { Window, Content, Buttons, Button, Column, Toolbar, DataGrid, SearchField } from '../../../ui/index';
+import global from '../../../global';
 
 /**
  * 选择用户窗口
@@ -131,11 +132,11 @@ class SelectUserWindow extends React.Component {
         this.setState({
             mask: true
         });
-        fetch(`${app.options.server}/api/User/List?pageSize=${pageSize}&pageNum=${pageNum}&keyword=${keyword}`).then(response => {
+        fetch(`${global.app.options.server}/api/User/List?pageSize=${pageSize}&pageNum=${pageNum}&keyword=${keyword}`).then(response => {
             response.json().then(obj => {
-                app.unmask();
+                global.app.unmask();
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg), 'warn');
+                    global.app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 this.setState({
@@ -229,7 +230,7 @@ class SelectUserWindow extends React.Component {
         const callback = this.props.callback;
 
         if (!selected) {
-            app.toast(_t('Please select a department.'));
+            global.app.toast(_t('Please select a department.'));
             return;
         }
 
@@ -241,7 +242,7 @@ class SelectUserWindow extends React.Component {
     }
 
     handleCancel() {
-        app.removeElement(this);
+        global.app.removeElement(this);
     }
 }
 

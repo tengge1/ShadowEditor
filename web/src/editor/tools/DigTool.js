@@ -8,13 +8,13 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import BaseTool from './BaseTool';
+import global from '../../global';
 
 /**
  * 挖坑工具
- * @param {*} app 应用程序
  */
-function DigTool(app) {
-    BaseTool.call(this, app);
+function DigTool() {
+    BaseTool.call(this);
     this.points = [];
 }
 
@@ -22,17 +22,17 @@ DigTool.prototype = Object.create(BaseTool.prototype);
 DigTool.prototype.constructor = DigTool;
 
 DigTool.prototype.start = function () {
-    app.on(`intersect.${this.id}`, this.onRaycast.bind(this));
-    app.on(`dblclick.${this.id}`, this.onDblClick.bind(this));
-    app.on(`beforeRender.${this.id}`, this.onBeforeRender.bind(this));
-    app.on(`afterRender.${this.id}`, this.onAfterRender.bind(this));
+    global.app.on(`intersect.${this.id}`, this.onRaycast.bind(this));
+    global.app.on(`dblclick.${this.id}`, this.onDblClick.bind(this));
+    global.app.on(`beforeRender.${this.id}`, this.onBeforeRender.bind(this));
+    global.app.on(`afterRender.${this.id}`, this.onAfterRender.bind(this));
 };
 
 DigTool.prototype.stop = function () {
-    app.on(`intersect.${this.id}`, null);
-    app.on(`dblclick.${this.id}`, null);
-    app.on(`beforeRender.${this.id}`, null);
-    app.on(`afterRender.${this.id}`, null);
+    global.app.on(`intersect.${this.id}`, null);
+    global.app.on(`dblclick.${this.id}`, null);
+    global.app.on(`beforeRender.${this.id}`, null);
+    global.app.on(`afterRender.${this.id}`, null);
 };
 
 DigTool.prototype.onRaycast = function (obj) {
@@ -83,7 +83,7 @@ DigTool.prototype.onBeforeRender = function () {
         return;
     }
 
-    var renderer = app.editor.renderer;
+    var renderer = global.app.editor.renderer;
     var context = renderer.getContext();
     var state = renderer.state;
 
@@ -95,7 +95,7 @@ DigTool.prototype.onBeforeRender = function () {
     state.buffers.stencil.setFunc(context.ALWAYS, 1, 0xff);
     state.buffers.stencil.setOp(context.KEEP, context.KEEP, context.REPLACE);
 
-    renderer.render(this.scene, app.editor.camera);
+    renderer.render(this.scene, global.app.editor.camera);
 
     state.buffers.color.setMask(0xff);
     state.buffers.depth.setMask(0xff);
@@ -108,7 +108,7 @@ DigTool.prototype.onAfterRender = function () {
         return;
     }
 
-    var renderer = app.editor.renderer;
+    var renderer = global.app.editor.renderer;
     // var context = renderer.getContext();
     var state = renderer.state;
 

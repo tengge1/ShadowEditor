@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import { PropertyGroup, DisplayProperty } from '../../ui/index';
+import global from '../../global';
 
 /**
  * MMD模型组件
@@ -76,8 +77,8 @@ class MMDComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.MMDComponent`, this.handleUpdate);
-        app.on(`objectChanged.MMDComponent`, this.handleUpdate);
+        global.app.on(`objectSelected.MMDComponent`, this.handleUpdate);
+        global.app.on(`objectChanged.MMDComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {
@@ -87,7 +88,7 @@ class MMDComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || !(editor.selected.userData.Type === 'pmd' || editor.selected.userData.Type === 'pmx')) {
             this.setState({
@@ -111,60 +112,60 @@ class MMDComponent extends React.Component {
     // ----------------------------- 模型动画 ------------------------------------------
 
     handleSelectAnimation() {
-        app.call(`selectBottomPanel`, this, 'animation');
-        app.toast(_t('Please click the animation in the animation panel.'));
-        app.on(`selectAnimation.MMDComponent`, this.onSelectAnimation);
+        global.app.call(`selectBottomPanel`, this, 'animation');
+        global.app.toast(_t('Please click the animation in the animation panel.'));
+        global.app.on(`selectAnimation.MMDComponent`, this.onSelectAnimation);
     }
 
     onSelectAnimation(data) {
         if (data.Type !== 'mmd') {
-            app.toast(_t('Please select MMD animation only.'), 'warn');
+            global.app.toast(_t('Please select MMD animation only.'), 'warn');
             return;
         }
-        app.on(`selectAnimation.MMDComponent`, null);
+        global.app.on(`selectAnimation.MMDComponent`, null);
 
         this.selected.userData.Animation = {};
         Object.assign(this.selected.userData.Animation, data);
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     // ---------------------------- 相机动画 -------------------------------------------
 
     handleSelectCameraAnimation() {
-        app.call(`selectBottomPanel`, this, 'animation');
-        app.toast(_t('Please select camera animation.'));
-        app.on(`selectAnimation.MMDComponent`, this.onSelectCameraAnimation);
+        global.app.call(`selectBottomPanel`, this, 'animation');
+        global.app.toast(_t('Please select camera animation.'));
+        global.app.on(`selectAnimation.MMDComponent`, this.onSelectCameraAnimation);
     }
 
     onSelectCameraAnimation(data) {
         if (data.Type !== 'mmd') {
-            app.toast(_t('Please select camera animation only.'), 'warn');
+            global.app.toast(_t('Please select camera animation only.'), 'warn');
             return;
         }
-        app.on(`selectAnimation.MMDComponent`, null);
+        global.app.on(`selectAnimation.MMDComponent`, null);
 
         this.selected.userData.CameraAnimation = {};
         Object.assign(this.selected.userData.CameraAnimation, data);
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     // ------------------------------ MMD音乐 --------------------------------------------
 
     handleSelectAudio() {
-        app.call(`selectBottomPanel`, this, 'audio');
-        app.toast(_t('Please select MMD audio.'));
-        app.on(`selectAudio.MMDComponent`, this.onSelectAudio.bind(this));
+        global.app.call(`selectBottomPanel`, this, 'audio');
+        global.app.toast(_t('Please select MMD audio.'));
+        global.app.on(`selectAudio.MMDComponent`, this.onSelectAudio.bind(this));
     }
 
     onSelectAudio(data) {
-        app.on(`selectAudio.MMDComponent`, null);
+        global.app.on(`selectAudio.MMDComponent`, null);
 
         this.selected.userData.Audio = {};
         Object.assign(this.selected.userData.Audio, data);
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 }
 

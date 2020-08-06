@@ -9,6 +9,7 @@
  */
 import './css/HelperPanel.css';
 import { Form, FormControl, Label, CheckBox } from '../../../../ui/index';
+import global from '../../../../global';
 
 /**
  * 帮助选项窗口
@@ -98,14 +99,14 @@ class HelperPanel extends React.Component {
 
     handleUpdate() {
         this.setState({
-            showGrid: app.storage.showGrid,
-            showCamera: app.storage.showCamera,
-            showPointLight: app.storage.showPointLight,
-            showDirectionalLight: app.storage.showDirectionalLight,
-            showSpotLight: app.storage.showSpotLight,
-            showHemisphereLight: app.storage.showHemisphereLight,
-            showRectAreaLight: app.storage.showRectAreaLight,
-            showSkeleton: app.storage.showSkeleton
+            showGrid: global.app.storage.showGrid,
+            showCamera: global.app.storage.showCamera,
+            showPointLight: global.app.storage.showPointLight,
+            showDirectionalLight: global.app.storage.showDirectionalLight,
+            showSpotLight: global.app.storage.showSpotLight,
+            showHemisphereLight: global.app.storage.showHemisphereLight,
+            showRectAreaLight: global.app.storage.showRectAreaLight,
+            showSkeleton: global.app.storage.showSkeleton
         });
     }
 
@@ -122,36 +123,36 @@ class HelperPanel extends React.Component {
                 [name]: value
             });
 
-        if (showGrid !== app.storage.showGrid) {
-            app.storage.showGrid = showGrid;
+        if (showGrid !== global.app.storage.showGrid) {
+            global.app.storage.showGrid = showGrid;
         }
 
-        if (showCamera !== app.storage.showCamera) {
-            app.storage.showCamera = showCamera;
+        if (showCamera !== global.app.storage.showCamera) {
+            global.app.storage.showCamera = showCamera;
         }
 
-        if (showPointLight !== app.storage.showPointLight) {
-            app.storage.showPointLight = showPointLight;
+        if (showPointLight !== global.app.storage.showPointLight) {
+            global.app.storage.showPointLight = showPointLight;
         }
 
-        if (showDirectionalLight !== app.storage.showDirectionalLight) {
-            app.storage.showDirectionalLight = showDirectionalLight;
+        if (showDirectionalLight !== global.app.storage.showDirectionalLight) {
+            global.app.storage.showDirectionalLight = showDirectionalLight;
         }
 
-        if (showSpotLight !== app.storage.showSpotLight) {
-            app.storage.showSpotLight = showSpotLight;
+        if (showSpotLight !== global.app.storage.showSpotLight) {
+            global.app.storage.showSpotLight = showSpotLight;
         }
 
-        if (showHemisphereLight !== app.storage.showHemisphereLight) {
-            app.storage.showHemisphereLight = showHemisphereLight;
+        if (showHemisphereLight !== global.app.storage.showHemisphereLight) {
+            global.app.storage.showHemisphereLight = showHemisphereLight;
         }
 
-        if (showRectAreaLight !== app.storage.showRectAreaLight) {
-            app.storage.showRectAreaLight = showRectAreaLight;
+        if (showRectAreaLight !== global.app.storage.showRectAreaLight) {
+            global.app.storage.showRectAreaLight = showRectAreaLight;
         }
 
-        if (showSkeleton !== app.storage.showSkeleton) {
-            app.storage.showSkeleton = showSkeleton;
+        if (showSkeleton !== global.app.storage.showSkeleton) {
+            global.app.storage.showSkeleton = showSkeleton;
         }
 
         this.handleUpdate();

@@ -10,6 +10,7 @@
 import BaseEvent from './BaseEvent';
 import Converter from '../serialization/Converter';
 import TimeUtils from '../utils/TimeUtils';
+import global from '../global';
 
 /**
  * 自动保存事件
@@ -31,9 +32,9 @@ class AutoSaveEvent extends BaseEvent {
     }
 
     start() {
-        this.autoSave = app.storage.autoSave;
-        app.on(`storageChanged.${this.id}`, this.handleStorageChange);
-        app.on(`queryLoadAutoSceneScene.${this.id}`, this.handleLoad);
+        this.autoSave = global.app.storage.autoSave;
+        global.app.on(`storageChanged.${this.id}`, this.handleStorageChange);
+        global.app.on(`queryLoadAutoSceneScene.${this.id}`, this.handleLoad);
 
         if (this.autoSave) {
             this.saveProcess = setTimeout(this.handleSave, this.autoSaveTime);
@@ -41,7 +42,7 @@ class AutoSaveEvent extends BaseEvent {
     }
 
     stop() {
-        app.on(`storageChanged.${this.id}`, null);
+        global.app.on(`storageChanged.${this.id}`, null);
     }
 
     handleSave() {
@@ -57,9 +58,9 @@ class AutoSaveEvent extends BaseEvent {
             return;
         }
 
-        const editor = app.editor;
+        const editor = global.app.editor;
         const obj = new Converter().toJSON({
-            options: app.options,
+            options: global.app.options,
             camera: editor.camera,
             renderer: editor.renderer,
             scripts: editor.scripts,
@@ -72,8 +73,8 @@ class AutoSaveEvent extends BaseEvent {
 
         window.localStorage.setItem('autoSaveData', JSON.stringify(obj));
         window.localStorage.setItem('autoSaveTime', now);
-        window.localStorage.setItem('autoSaveSceneID', app.editor.sceneID);
-        window.localStorage.setItem('autoSaveSceneName', app.editor.sceneName);
+        window.localStorage.setItem('autoSaveSceneID', global.app.editor.sceneID);
+        window.localStorage.setItem('autoSaveSceneName', global.app.editor.sceneName);
 
         console.log(`${now}, scene auto saved.`);
 
@@ -94,7 +95,7 @@ class AutoSaveEvent extends BaseEvent {
 
         this.queryLoad = true;
 
-        app.confirm({
+        global.app.confirm({
             title: _t('Load Scene'),
             content: _t('An auto-save scene was detected. Load?') + ` (${autoSaveTime})`,
             cancelText: _t('Clear'),
@@ -107,7 +108,7 @@ class AutoSaveEvent extends BaseEvent {
                 window.localStorage.removeItem('autoSaveData');
                 window.localStorage.removeItem('autoSaveSceneID');
                 window.localStorage.removeItem('autoSaveSceneName');
-                app.toast(_t('Auto-save scene is cleared.'));
+                global.app.toast(_t('Auto-save scene is cleared.'));
                 this.queryLoad = false;
             }
         });
@@ -116,7 +117,7 @@ class AutoSaveEvent extends BaseEvent {
     commitLoadScene(data, name, id) {
         var obj = JSON.parse(data);
         if (obj) {
-            app.call(`loadSceneList`, this, obj, name, id);
+            global.app.call(`loadSceneList`, this, obj, name, id);
         }
     }
 

@@ -12,6 +12,7 @@ import { SearchField, ImageList } from '../../ui/index';
 import EditWindow from './window/EditWindow.jsx';
 import Ajax from '../../utils/Ajax';
 import MaterialsSerializer from '../../serialization/material/MaterialsSerializer';
+import global from '../../global';
 
 /**
  * 材质面板
@@ -38,7 +39,7 @@ class MaterialPanel extends React.Component {
     render() {
         const { className, style } = this.props;
         const { data, categoryData, name, categories } = this.state;
-        const { enableAuthority, authorities } = app.server;
+        const { enableAuthority, authorities } = global.app.server;
 
         let list = data;
 
@@ -59,7 +60,7 @@ class MaterialPanel extends React.Component {
         const imageListData = list.map(n => {
             return Object.assign({}, n, {
                 id: n.ID,
-                src: n.Thumbnail ? `${app.options.server}${n.Thumbnail}` : null,
+                src: n.Thumbnail ? `${global.app.options.server}${n.Thumbnail}` : null,
                 title: n.Name,
                 icon: 'model',
                 cornerText: n.Type
@@ -94,10 +95,10 @@ class MaterialPanel extends React.Component {
     }
 
     update() {
-        fetch(`${app.options.server}/api/Category/List?Type=Material`).then(response => {
+        fetch(`${global.app.options.server}/api/Category/List?Type=Material`).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg), 'warn');
+                    global.app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 this.setState({
@@ -105,10 +106,10 @@ class MaterialPanel extends React.Component {
                 });
             });
         });
-        fetch(`${app.options.server}/api/Material/List`).then(response => {
+        fetch(`${global.app.options.server}/api/Material/List`).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg), 'warn');
+                    global.app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 this.setState({
@@ -126,11 +127,11 @@ class MaterialPanel extends React.Component {
     }
 
     handleClick(data) {
-        Ajax.get(`${app.options.server}/api/Material/Get?ID=${data.ID}`, result => {
+        Ajax.get(`${global.app.options.server}/api/Material/Get?ID=${data.ID}`, result => {
             var obj = JSON.parse(result);
             if (obj.Code === 200) {
-                var material = new MaterialsSerializer().fromJSON(obj.Data.Data, undefined, app.options.server);
-                app.call(`selectMaterial`, this, material);
+                var material = new MaterialsSerializer().fromJSON(obj.Data.Data, undefined, global.app.options.server);
+                global.app.call(`selectMaterial`, this, material);
             }
         });
     }
@@ -138,30 +139,30 @@ class MaterialPanel extends React.Component {
     // ------------------------------- 编辑 ---------------------------------------
 
     handleEdit(data) {
-        var win = app.createElement(EditWindow, {
+        var win = global.app.createElement(EditWindow, {
             type: 'Material',
             typeName: _t('Material'),
             data,
-            saveUrl: `${app.options.server}/api/Material/Edit`,
+            saveUrl: `${global.app.options.server}/api/Material/Edit`,
             callback: this.update
         });
 
-        app.addElement(win);
+        global.app.addElement(win);
     }
 
     // ------------------------------ 删除 ----------------------------------------
 
     handleDelete(data) {
-        app.confirm({
+        global.app.confirm({
             title: _t('Confirm'),
             content: `${_t('Delete')} ${data.title}?`,
             onOK: () => {
-                fetch(`${app.options.server}/api/Material/Delete?ID=${data.id}`, {
+                fetch(`${global.app.options.server}/api/Material/Delete?ID=${data.id}`, {
                     method: 'POST'
                 }).then(response => {
                     response.json().then(obj => {
                         if (obj.Code !== 200) {
-                            app.toast(_t(obj.Msg), 'warn');
+                            global.app.toast(_t(obj.Msg), 'warn');
                             return;
                         }
                         this.update();

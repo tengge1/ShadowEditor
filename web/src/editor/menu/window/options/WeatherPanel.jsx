@@ -9,6 +9,7 @@
  */
 import './css/WeatherPanel.css';
 import { Form, FormControl, Label, Select } from '../../../../ui/index';
+import global from '../../../../global';
 
 /**
  * 天气选项窗口
@@ -29,7 +30,7 @@ class WeatherPanel extends React.Component {
     }
 
     render() {
-        const weather = app.options.weather;
+        const weather = global.app.options.weather;
 
         return <Form className={'WeatherPanel'}>
             <FormControl>
@@ -49,9 +50,9 @@ class WeatherPanel extends React.Component {
     }
 
     handleChange(value, name) {
-        app.options.weather = value;
+        global.app.options.weather = value;
 
-        app.call(`optionChange`, this, name, value);
+        global.app.call(`optionChange`, this, name, value);
 
         this.handleUpdate();
     }

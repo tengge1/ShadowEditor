@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import { ToolbarSeparator, IconButton } from '../../ui/index';
+import global from '../../global';
 
 /**
  * 编辑工具
@@ -25,7 +26,7 @@ class EditTools extends React.Component {
     }
 
     render() {
-        const editor = app.editor;
+        const editor = global.app.editor;
         const history = editor.history;
 
         const enableUndo = history.undos.length > 0;
@@ -71,28 +72,28 @@ class EditTools extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`historyChanged.EditMenu`, this.onHistoryChanged);
-        app.on(`objectSelected.EditMenu`, this.onObjectSelected);
+        global.app.on(`historyChanged.EditMenu`, this.onHistoryChanged);
+        global.app.on(`objectSelected.EditMenu`, this.onObjectSelected);
     }
 
     handleUndo() {
-        app.call(`undo`, this);
+        global.app.call(`undo`, this);
     }
 
     handleRedo() {
-        app.call(`redo`, this);
+        global.app.call(`redo`, this);
     }
 
     handleClearHistory() {
-        app.call(`clearHistory`, this);
+        global.app.call(`clearHistory`, this);
     }
 
     handleCopy() {
-        app.call(`clone`, this);
+        global.app.call(`clone`, this);
     }
 
     handleDelete() {
-        app.call(`delete`, this);
+        global.app.call(`delete`, this);
     }
 
     onHistoryChanged() {

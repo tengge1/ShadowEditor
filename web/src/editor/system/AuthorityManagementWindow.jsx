@@ -9,6 +9,7 @@
  */
 import './css/AuthorityManagementWindow.css';
 import { Window, Content, Toolbar, Button, DataGrid, Column, ToolbarFiller, HBoxLayout } from '../../ui/index';
+import global from '../../global';
 
 /**
  * 权限管理窗口
@@ -83,10 +84,10 @@ class AuthorityManagementWindow extends React.Component {
     }
 
     componentDidMount() {
-        fetch(`${app.options.server}/api/Role/List?pageSize=10000`).then(response => {
+        fetch(`${global.app.options.server}/api/Role/List?pageSize=10000`).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg), 'warn');
+                    global.app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 this.setState({
@@ -102,10 +103,10 @@ class AuthorityManagementWindow extends React.Component {
             roleID: selected.ID,
             mask: true
         });
-        fetch(`${app.options.server}/api/OperatingAuthority/Get?roleID=${selected.ID}`).then(response => {
+        fetch(`${global.app.options.server}/api/OperatingAuthority/Get?roleID=${selected.ID}`).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg), 'warn');
+                    global.app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 obj.Data.rows.forEach(n => {
@@ -155,7 +156,7 @@ class AuthorityManagementWindow extends React.Component {
             }
         });
 
-        fetch(`${app.options.server}/api/OperatingAuthority/Save`, {
+        fetch(`${global.app.options.server}/api/OperatingAuthority/Save`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -164,10 +165,10 @@ class AuthorityManagementWindow extends React.Component {
         }).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg), 'warn');
+                    global.app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
-                app.toast(_t(obj.Msg), 'success');
+                global.app.toast(_t(obj.Msg), 'success');
                 this.handleSelectRole({
                     ID: roleID
                 });
@@ -176,7 +177,7 @@ class AuthorityManagementWindow extends React.Component {
     }
 
     handleClose() {
-        app.removeElement(this);
+        global.app.removeElement(this);
     }
 
     renderRoleName(value) {

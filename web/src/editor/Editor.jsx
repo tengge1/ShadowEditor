@@ -24,6 +24,7 @@ import Helpers from '../helper/Helpers';
 
 import ControlsManager from '../controls/ControlsManager';
 import EmptySceneTemplate from './menu/scene/EmptySceneTemplate';
+import global from '../global';
 
 /**
  * 编辑器
@@ -37,11 +38,11 @@ class Editor extends React.Component {
             showMask: false,
             maskText: _t('Waiting...'),
             elements: [],
-            assetsPanelShow: app.storage.assetsPanelShow,
-            sidebarShow: app.storage.sidebarShow,
-            toolbarShow: app.storage.toolbarShow,
-            timelinePanelShow: app.storage.timelinePanelShow,
-            statusBarShow: app.storage.statusBarShow
+            assetsPanelShow: global.app.storage.assetsPanelShow,
+            sidebarShow: global.app.storage.sidebarShow,
+            toolbarShow: global.app.storage.toolbarShow,
+            timelinePanelShow: global.app.storage.timelinePanelShow,
+            statusBarShow: global.app.storage.statusBarShow
         };
 
         this.type = 'scene'; // 编辑器类型：scene, mesh, texture, material, terrain, ai
@@ -51,7 +52,7 @@ class Editor extends React.Component {
 
     render() {
         const { showMask, maskText, elements, assetsPanelShow, sidebarShow, toolbarShow, timelinePanelShow, statusBarShow } = this.state;
-        const isLogin = !app.server.enableAuthority || app.server.isLogin;
+        const isLogin = !global.app.server.enableAuthority || global.app.server.isLogin;
 
         return <>
             <BorderLayout className={'Editor'}>
@@ -91,7 +92,7 @@ class Editor extends React.Component {
     }
 
     componentDidMount() {
-        app.editor = this;
+        global.app.editor = this;
 
         // 基础
         this.history = new History(this);
@@ -106,8 +107,8 @@ class Editor extends React.Component {
         this.sceneID = null; // 当前场景ID
         this.sceneName = null; // 当前场景名称
 
-        const width = app.viewport.clientWidth;
-        const height = app.viewport.clientHeight;
+        const width = global.app.viewport.clientWidth;
+        const height = global.app.viewport.clientHeight;
 
         // 相机
         this.DEFAULT_CAMERA = new THREE.PerspectiveCamera(50, width / height, 0.1, 10000);
@@ -145,7 +146,7 @@ class Editor extends React.Component {
         this.renderer.autoUpdateScene = false;
         this.renderer.setPixelRatio(window.devicePixelRatio);
 
-        app.viewport.appendChild(this.renderer.domElement);
+        global.app.viewport.appendChild(this.renderer.domElement);
         this.renderer.setSize(width, height);
 
         // 物体
@@ -170,11 +171,11 @@ class Editor extends React.Component {
         this.selected = null;
 
         // 平移旋转缩放控件
-        this.transformControls = new THREE.TransformControls(this.camera, app.viewport);
+        this.transformControls = new THREE.TransformControls(this.camera, global.app.viewport);
         this.sceneHelpers.add(this.transformControls);
 
         // 编辑器控件
-        this.controls = new ControlsManager(this.camera, app.viewport);
+        this.controls = new ControlsManager(this.camera, global.app.viewport);
 
         // 帮助器场景灯光
         let light = new THREE.DirectionalLight(0xffffff, 1.0);
@@ -184,31 +185,31 @@ class Editor extends React.Component {
         this.showViewHelper = true;
 
         // GPUPick使用数量。为0时，为了提升性能，不启用GPUPick。
-        this.gpuPickNum = app.storage.hoverEnabled ? 1 : 0;
+        this.gpuPickNum = global.app.storage.hoverEnabled ? 1 : 0;
 
         // 事件
-        app.on(`appStarted.Editor`, this.onAppStarted.bind(this));
-        app.on(`showMask.Editor`, this.onShowMask.bind(this));
-        app.on(`storageChanged.Editor`, this.onStorageChanged.bind(this));
+        global.app.on(`appStarted.Editor`, this.onAppStarted.bind(this));
+        global.app.on(`showMask.Editor`, this.onShowMask.bind(this));
+        global.app.on(`storageChanged.Editor`, this.onStorageChanged.bind(this));
 
         // 帮助器
-        this.helpers = new Helpers(app);
+        this.helpers = new Helpers(global.app);
 
-        app.call('appStart', this);
-        app.call('appStarted', this);
+        global.app.call('appStart', this);
+        global.app.call('appStarted', this);
 
-        app.call('resize', this);
+        global.app.call('resize', this);
 
-        app.log(_t('Program started.'));
+        global.app.log(_t('Program started.'));
     }
 
     componentWillUnmount() {
-        app.call('appStop', this);
-        app.call('appStoped', this);
+        global.app.call('appStop', this);
+        global.app.call('appStoped', this);
 
-        app.log(_t('Program stoped.'));
+        global.app.log(_t('Program stoped.'));
 
-        app.event.stop();
+        global.app.event.stop();
     }
 
     onAppStarted() {
@@ -219,11 +220,11 @@ class Editor extends React.Component {
         document.addEventListener('click', this._addAudioListener);
 
         // 如果检测到有自动保存的场景，提示是否载入
-        app.call(`queryLoadAutoSceneScene`, this);
+        global.app.call(`queryLoadAutoSceneScene`, this);
     }
 
     onToggle() {
-        app.call('resize', this);
+        global.app.call('resize', this);
     }
 
     onStorageChanged(key, value) {
@@ -234,7 +235,7 @@ class Editor extends React.Component {
         this.setState({
             [key]: value
         }, () => {
-            app.call(`resize`, this);
+            global.app.call(`resize`, this);
         });
     }
 
@@ -256,7 +257,7 @@ class Editor extends React.Component {
             this.addObject(n);
         });
 
-        app.call('sceneGraphChanged', this);
+        global.app.call('sceneGraphChanged', this);
     }
 
     clear(addObject = true) { // 清空场景
@@ -268,9 +269,9 @@ class Editor extends React.Component {
             template.create();
         }
 
-        app.call('editorCleared', this);
-        app.call('scriptChanged', this);
-        app.call('animationChanged', this);
+        global.app.call('editorCleared', this);
+        global.app.call('scriptChanged', this);
+        global.app.call('animationChanged', this);
     }
 
     // 点击编辑器时才添加AudioListener，避免警告信息
@@ -293,8 +294,8 @@ class Editor extends React.Component {
 
     addObject(object) { // 添加物体
         this.scene.add(object);
-        app.call('objectAdded', this, object);
-        app.call('sceneGraphChanged', this);
+        global.app.call('objectAdded', this, object);
+        global.app.call('sceneGraphChanged', this);
     }
 
     moveObject(object, parent, before) { // 移动物体
@@ -311,7 +312,7 @@ class Editor extends React.Component {
             parent.children.pop();
         }
 
-        app.call('sceneGraphChanged', this);
+        global.app.call('sceneGraphChanged', this);
     }
 
     removeObject(object) { // 移除物体
@@ -321,8 +322,8 @@ class Editor extends React.Component {
 
         object.parent.remove(object);
 
-        app.call('objectRemoved', this, object);
-        app.call('sceneGraphChanged', this);
+        global.app.call('objectRemoved', this, object);
+        global.app.call('sceneGraphChanged', this);
     }
 
     // ------------------------- 帮助 ------------------------------
@@ -367,7 +368,7 @@ class Editor extends React.Component {
             this.transformControls.detach();
         }
 
-        app.call('objectSelected', this, object);
+        global.app.call('objectSelected', this, object);
     }
 
     selectById(id) { // 根据id选中物体
@@ -399,7 +400,7 @@ class Editor extends React.Component {
     // ---------------------- 焦点事件 --------------------------
 
     focus(object) { // 设置焦点
-        app.call('objectFocused', this, object);
+        global.app.call('objectFocused', this, object);
     }
 
     focusById(id) { // 根据id设置交点

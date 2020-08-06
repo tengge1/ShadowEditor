@@ -9,6 +9,7 @@
  */
 import BaseHelper from '../BaseHelper';
 import VolumeHemisphereLightHelper from './VolumeHemisphereLightHelper';
+import global from '../../global';
 
 /**
  * 半球光帮助器
@@ -24,17 +25,17 @@ HemisphereLightHelpers.prototype = Object.create(BaseHelper.prototype);
 HemisphereLightHelpers.prototype.constructor = HemisphereLightHelpers;
 
 HemisphereLightHelpers.prototype.start = function () {
-    app.on(`objectAdded.${this.id}`, this.onObjectAdded.bind(this));
-    app.on(`objectRemoved.${this.id}`, this.onObjectRemoved.bind(this));
-    app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
-    app.on(`storageChanged.${this.id}`, this.onStorageChanged.bind(this));
+    global.app.on(`objectAdded.${this.id}`, this.onObjectAdded.bind(this));
+    global.app.on(`objectRemoved.${this.id}`, this.onObjectRemoved.bind(this));
+    global.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    global.app.on(`storageChanged.${this.id}`, this.onStorageChanged.bind(this));
 };
 
 HemisphereLightHelpers.prototype.stop = function () {
-    app.on(`objectAdded.${this.id}`, null);
-    app.on(`objectRemoved.${this.id}`, null);
-    app.on(`objectChanged.${this.id}`, null);
-    app.on(`storageChanged.${this.id}`, null);
+    global.app.on(`objectAdded.${this.id}`, null);
+    global.app.on(`objectRemoved.${this.id}`, null);
+    global.app.on(`objectChanged.${this.id}`, null);
+    global.app.on(`storageChanged.${this.id}`, null);
 };
 
 HemisphereLightHelpers.prototype.onObjectAdded = function (object) {
@@ -44,11 +45,11 @@ HemisphereLightHelpers.prototype.onObjectAdded = function (object) {
 
     var helper = new VolumeHemisphereLightHelper(object, 1);
 
-    helper.visible = app.storage.showHemisphereLight;
+    helper.visible = global.app.storage.showHemisphereLight;
 
     this.helpers.push(helper);
 
-    app.editor.sceneHelpers.add(helper);
+    global.app.editor.sceneHelpers.add(helper);
 };
 
 HemisphereLightHelpers.prototype.onObjectRemoved = function (object) {
@@ -64,7 +65,7 @@ HemisphereLightHelpers.prototype.onObjectRemoved = function (object) {
         return;
     }
 
-    app.editor.sceneHelpers.remove(this.helpers[index]);
+    global.app.editor.sceneHelpers.remove(this.helpers[index]);
     this.helpers[index].dispose();
 
     this.helpers.splice(index, 1);

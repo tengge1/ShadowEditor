@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import BaseEvent from './BaseEvent';
+import global from '../global';
 
 /**
  * WebSocket事件
@@ -28,11 +29,11 @@ class WebSocketEvent extends BaseEvent {
     }
 
     start() {
-        if (!app.server.enableRemoteEdit) {
+        if (!global.app.server.enableRemoteEdit) {
             return;
         }
 
-        let url = `ws://${new URL(app.options.server).hostname}:${app.server.webSocketServerPort}/RemoteEdit`;
+        let url = `ws://${new URL(global.app.options.server).hostname}:${global.app.server.webSocketServerPort}/RemoteEdit`;
 
         try {
             this.socket = new WebSocket(url);
@@ -40,7 +41,7 @@ class WebSocketEvent extends BaseEvent {
             console.warn(e);
         }
 
-        app.on(`send.${this.id}`, this.handleSend);
+        global.app.on(`send.${this.id}`, this.handleSend);
 
         this.socket.addEventListener('open', this.onOpen);
         this.socket.addEventListener('message', this.onMessage);
@@ -53,7 +54,7 @@ class WebSocketEvent extends BaseEvent {
             return;
         }
 
-        app.on(`send.${this.id}`, null);
+        global.app.on(`send.${this.id}`, null);
 
         this.socket.removeEventListener('open', this.onOpen);
         this.socket.removeEventListener('message', this.onMessage);

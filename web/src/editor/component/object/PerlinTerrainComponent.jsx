@@ -9,6 +9,7 @@
  */
 import { PropertyGroup, NumberProperty, IntegerProperty } from '../../../ui/index';
 import PerlinTerrain from '../../../object/terrain/PerlinTerrain';
+import global from '../../../global';
 
 /**
  * 柏林地形组件
@@ -76,8 +77,8 @@ class PerlinTerrainComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.PerlinTerrainComponent`, this.handleUpdate.bind(this));
-        app.on(`objectChanged.PerlinTerrainComponent`, this.handleUpdate.bind(this));
+        global.app.on(`objectSelected.PerlinTerrainComponent`, this.handleUpdate.bind(this));
+        global.app.on(`objectChanged.PerlinTerrainComponent`, this.handleUpdate.bind(this));
     }
 
     handleExpand(expanded) {
@@ -87,7 +88,7 @@ class PerlinTerrainComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || !(editor.selected instanceof PerlinTerrain)) {
             this.setState({
@@ -124,7 +125,7 @@ class PerlinTerrainComponent extends React.Component {
             width, depth, widthSegments, depthSegments, quality
         );
 
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         const index = editor.scene.children.indexOf(this.selected);
 
@@ -133,8 +134,8 @@ class PerlinTerrainComponent extends React.Component {
             editor.scene.children[index] = terrain;
             terrain.parent = this.selected.parent;
             this.selected.parent = null;
-            app.call(`objectRemoved`, this, this.selected);
-            app.call(`objectAdded`, this, terrain);
+            global.app.call(`objectRemoved`, this, this.selected);
+            global.app.call(`objectAdded`, this, terrain);
             editor.select(terrain);
         }
     }

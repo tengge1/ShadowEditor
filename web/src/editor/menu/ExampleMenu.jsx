@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import { MenuItem } from '../../ui/index';
+import global from '../../global';
 
 /**
  * 示例菜单
@@ -45,23 +46,23 @@ class ExampleMenu extends React.Component {
     }
 
     handleArkanoid() {
-        app.call(`load`, this, 'assets/examples/arkanoid.json', _t('Arkanoid'));
+        global.app.call(`load`, this, 'assets/examples/arkanoid.json', _t('Arkanoid'));
     }
 
     handleCamera() {
-        app.call(`load`, this, 'assets/examples/camera.json', _t('Camera'));
+        global.app.call(`load`, this, 'assets/examples/camera.json', _t('Camera'));
     }
 
     handleParticle() {
-        app.call(`load`, this, 'assets/examples/particle.json', _t('Particle'));
+        global.app.call(`load`, this, 'assets/examples/particle.json', _t('Particle'));
     }
 
     handlePingPong() {
-        app.call(`load`, this, 'assets/examples/pong.json', _t('Ping Pong'));
+        global.app.call(`load`, this, 'assets/examples/pong.json', _t('Ping Pong'));
     }
 
     handleShader() {
-        app.call(`load`, this, 'assets/examples/shader.json', _t('Shader'));
+        global.app.call(`load`, this, 'assets/examples/shader.json', _t('Shader'));
     }
 
     /**
@@ -69,18 +70,18 @@ class ExampleMenu extends React.Component {
      */
     handleOldEditorScene() {
         const loader = new THREE.FileLoader();
-        loader.load('assets/examples/shaders.app.json', text => {
+        loader.load('assets/examples/shaders.global.app.json', text => {
             const json = JSON.parse(text);
 
             const loader = new THREE.ObjectLoader();
 
-            app.editor.clear(false);
+            global.app.editor.clear(false);
 
             const camera = loader.parse(json.camera);
 
-            app.editor.camera.copy(camera);
-            app.editor.camera.aspect = app.editor.DEFAULT_CAMERA.aspect;
-            app.editor.camera.updateProjectionMatrix();
+            global.app.editor.camera.copy(camera);
+            global.app.editor.camera.aspect = global.app.editor.DEFAULT_CAMERA.aspect;
+            global.app.editor.camera.updateProjectionMatrix();
 
             if (json.scripts) {
                 for (const uuid in json.scripts) {
@@ -89,7 +90,7 @@ class ExampleMenu extends React.Component {
                     // 说明: three.js示例中，物体和脚本的uuid是一致的，
                     // 这会导致本编辑器报错。
                     scripts.forEach(script => {
-                        app.editor.scripts.push({
+                        global.app.editor.scripts.push({
                             id: '',
                             name: script.name,
                             type: 'javascript',
@@ -100,7 +101,7 @@ class ExampleMenu extends React.Component {
                 }
             }
 
-            app.editor.setScene(loader.parse(json.scene));
+            global.app.editor.setScene(loader.parse(json.scene));
         });
     }
 }

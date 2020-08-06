@@ -10,6 +10,7 @@
 import BaseTool from './BaseTool';
 import Earcut from '../../utils/Earcut';
 import UnscaledText from '../../object/text/UnscaledText';
+import global from '../../global';
 
 /**
  * 面积测量工具
@@ -30,19 +31,19 @@ class AreaTool extends BaseTool {
             this.polygons = [];
             this.world = new THREE.Vector3();
         }
-        app.editor.gpuPickNum++;
+        global.app.editor.gpuPickNum++;
         this.positions.length = 0;
-        app.on(`mousedown.${this.id}`, this.onMouseDown);
-        app.on(`gpuPick.${this.id}`, this.onGpuPick);
-        app.on(`dblclick.${this.id}`, this.onDblClick);
+        global.app.on(`mousedown.${this.id}`, this.onMouseDown);
+        global.app.on(`gpuPick.${this.id}`, this.onGpuPick);
+        global.app.on(`dblclick.${this.id}`, this.onDblClick);
     }
 
     stop() {
-        app.on(`mousedown.${this.id}`, null);
-        app.on(`gpuPick.${this.id}`, null);
-        app.on(`dblclick.${this.id}`, null);
+        global.app.on(`mousedown.${this.id}`, null);
+        global.app.on(`gpuPick.${this.id}`, null);
+        global.app.on(`dblclick.${this.id}`, null);
 
-        app.editor.gpuPickNum--;
+        global.app.editor.gpuPickNum--;
         this.positions.length = 0;
         delete this.polygon;
     }
@@ -50,7 +51,7 @@ class AreaTool extends BaseTool {
     clear() {
         while (this.polygons.length) {
             let polygon = this.polygons[0];
-            app.editor.sceneHelpers.remove(polygon);
+            global.app.editor.sceneHelpers.remove(polygon);
         }
 
         this.polygons.length = 0;
@@ -63,7 +64,7 @@ class AreaTool extends BaseTool {
             this.polygon = new THREE.Mesh(geometry, material);
             this.polygon.texts = [];
             this.polygons.push(this.polygon);
-            app.editor.sceneHelpers.add(this.polygon);
+            global.app.editor.sceneHelpers.add(this.polygon);
         }
 
         if (this.positions.length === 0) {
@@ -109,7 +110,7 @@ class AreaTool extends BaseTool {
 
         dist = dist.toFixed(2);
 
-        let domElement = app.editor.renderer.domElement;
+        let domElement = global.app.editor.renderer.domElement;
 
         if (this.positions.length === 6 && this.polygon.texts.length === 0) { // 前两个点
             let text1 = new UnscaledText(_t('Start Point'), {
@@ -123,8 +124,8 @@ class AreaTool extends BaseTool {
             });
             text2.position.fromArray(this.positions, 3);
             this.polygon.texts.push(text1, text2);
-            app.editor.sceneHelpers.add(text1);
-            app.editor.sceneHelpers.add(text2);
+            global.app.editor.sceneHelpers.add(text1);
+            global.app.editor.sceneHelpers.add(text2);
         } else if (this.polygon.texts.length < this.positions.length / 3) { // 增加点了
             let text1 = new UnscaledText(_t('{{dist}}m', { dist }), {
                 domWidth: domElement.width,
@@ -132,7 +133,7 @@ class AreaTool extends BaseTool {
             });
             text1.position.fromArray(this.positions, this.positions.length - 3);
             this.polygon.texts.push(text1);
-            app.editor.sceneHelpers.add(text1);
+            global.app.editor.sceneHelpers.add(text1);
         } else { // 更新最后一个点坐标
             let text1 = this.polygon.texts[this.polygon.texts.length - 1];
             text1.position.fromArray(this.positions, this.positions.length - 3);

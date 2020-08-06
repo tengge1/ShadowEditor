@@ -9,6 +9,7 @@
  */
 import { PropertyGroup, CheckBoxProperty, NumberProperty, IntegerProperty } from '../../../ui/index';
 import SetGeometryCommand from '../../../command/SetGeometryCommand';
+import global from '../../../global';
 
 /**
  * 圆柱组件
@@ -94,8 +95,8 @@ class CylinderGeometryComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.CylinderGeometryComponent`, this.handleUpdate);
-        app.on(`objectChanged.CylinderGeometryComponent`, this.handleUpdate);
+        global.app.on(`objectSelected.CylinderGeometryComponent`, this.handleUpdate);
+        global.app.on(`objectChanged.CylinderGeometryComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {
@@ -105,7 +106,7 @@ class CylinderGeometryComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || !(editor.selected instanceof THREE.Mesh) || !(editor.selected.geometry instanceof THREE.CylinderBufferGeometry)) {
             this.setState({
@@ -145,7 +146,7 @@ class CylinderGeometryComponent extends React.Component {
             [name]: value
         });
 
-        app.editor.execute(new SetGeometryCommand(this.selected, new THREE.CylinderBufferGeometry(
+        global.app.editor.execute(new SetGeometryCommand(this.selected, new THREE.CylinderBufferGeometry(
             radiusTop,
             radiusBottom,
             height,
@@ -156,7 +157,7 @@ class CylinderGeometryComponent extends React.Component {
             thetaLength
         )));
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 }
 

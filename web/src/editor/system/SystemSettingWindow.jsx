@@ -9,6 +9,7 @@
  */
 import './css/SystemSettingWindow.css';
 import { Window, Content, Buttons, Form, FormControl, Label, Button, Select } from '../../ui/index';
+import global from '../../global';
 
 /**
  * 系统设置窗口
@@ -61,7 +62,7 @@ class SystemSettingWindow extends React.Component {
         fetch(`/api/Config/Get`).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg), 'warn');
+                    global.app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 this.setState({
@@ -73,7 +74,7 @@ class SystemSettingWindow extends React.Component {
         fetch(`/api/Role/List?pageSize=10000`).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg), 'warn');
+                    global.app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 let roles = {};
@@ -105,17 +106,17 @@ class SystemSettingWindow extends React.Component {
         }).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg), 'warn');
+                    global.app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
-                app.toast(_t(obj.Msg), 'success');
+                global.app.toast(_t(obj.Msg), 'success');
                 this.handleClose();
             });
         });
     }
 
     handleClose() {
-        app.removeElement(this);
+        global.app.removeElement(this);
     }
 
     renderRoleName(value) {

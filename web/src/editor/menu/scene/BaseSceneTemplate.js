@@ -7,6 +7,8 @@
  * For more information, please visit: https://github.com/tengge1/ShadowEditor
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
+import global from '../../../global';
+
 let ID = -1;
 
 /**
@@ -28,9 +30,9 @@ class BaseSceneTemplate {
      * 清空场景
      */
     clear() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
-        app.call('clearTools', this);
+        global.app.call('clearTools', this);
 
         editor.history.clear();
         editor.camera.copy(editor.DEFAULT_CAMERA);
@@ -63,9 +65,9 @@ class BaseSceneTemplate {
         // 场景信息
         editor.sceneID = null;
         editor.sceneName = null;
-        app.options.sceneType = 'Empty';
+        global.app.options.sceneType = 'Empty';
         document.title = _t('No Name');
-        app.editor.camera.userData.control = 'OrbitControls';
+        global.app.editor.camera.userData.control = 'OrbitControls';
     }
 }
 

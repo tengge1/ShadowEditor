@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import Command from './Command';
+import global from '../global';
 
 /**
  * 设置缩放命令
@@ -45,13 +46,13 @@ Object.assign(SetScaleCommand.prototype, {
 	execute: function () {
 		this.object.scale.copy(this.newScale);
 		this.object.updateMatrixWorld(true);
-		app.call('objectChanged', this, this.object);
+		global.app.call('objectChanged', this, this.object);
 	},
 
 	undo: function () {
 		this.object.scale.copy(this.oldScale);
 		this.object.updateMatrixWorld(true);
-		app.call('objectChanged', this, this.object);
+		global.app.call('objectChanged', this, this.object);
 	},
 
 	update: function (command) {

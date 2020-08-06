@@ -9,6 +9,7 @@
  */
 import './css/LoginWindow.css';
 import { Window, Content, Buttons, Form, FormControl, Label, Input, Button } from '../../ui/index';
+import global from '../../global';
 
 /**
  * 登录窗口
@@ -76,7 +77,7 @@ class LoginWindow extends React.Component {
     handleLogin() {
         const { username, password } = this.state;
 
-        app.server.login(username, password).then(succes => {
+        global.app.server.login(username, password).then(succes => {
             if (!succes) {
                 return;
             }
@@ -86,7 +87,7 @@ class LoginWindow extends React.Component {
     }
 
     handleClose() {
-        app.removeElement(this);
+        global.app.removeElement(this);
     }
 }
 

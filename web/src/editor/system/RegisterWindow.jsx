@@ -9,6 +9,7 @@
  */
 import './css/RegisterWindow.css';
 import { Window, Content, Buttons, Form, FormControl, Label, Input, Button } from '../../ui/index';
+import global from '../../global';
 
 /**
  * 注册窗口
@@ -106,17 +107,17 @@ class RegisterWindow extends React.Component {
         }).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg), 'warn');
+                    global.app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
-                app.toast(_t(obj.Msg), 'success');
+                global.app.toast(_t(obj.Msg), 'success');
                 this.handleClose();
             });
         });
     }
 
     handleClose() {
-        app.removeElement(this);
+        global.app.removeElement(this);
     }
 }
 

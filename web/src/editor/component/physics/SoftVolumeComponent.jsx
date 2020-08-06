@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import { PropertyGroup, NumberProperty } from '../../../ui/index';
+import global from '../../../global';
 
 /**
  * 柔软体组件
@@ -57,8 +58,8 @@ class SoftVolumeComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.SoftVolumeComponent`, this.handleUpdate);
-        app.on(`objectChanged.SoftVolumeComponent`, this.handleUpdate);
+        global.app.on(`objectSelected.SoftVolumeComponent`, this.handleUpdate);
+        global.app.on(`objectChanged.SoftVolumeComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {
@@ -68,7 +69,7 @@ class SoftVolumeComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected ||
             !editor.selected.userData.physics ||
@@ -108,7 +109,7 @@ class SoftVolumeComponent extends React.Component {
         physics.mass = mass;
         physics.pressure = pressure;
 
-        app.call('objectChanged', this, this.selected);
+        global.app.call('objectChanged', this, this.selected);
     }
 }
 

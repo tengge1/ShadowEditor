@@ -14,6 +14,7 @@ import LoginWindow from '../system/LoginWindow.jsx';
 import RegisterWindow from '../system/RegisterWindow.jsx';
 import ChangePasswordWindow from '../system/ChangePasswordWindow.jsx';
 // import CookieUtils from '../../utils/CookieUtils';
+import global from '../../global';
 
 /**
  * 登录菜单
@@ -33,7 +34,7 @@ class LoginMenu extends React.Component {
     }
 
     render() {
-        if (!app.server.initialized) { // 系统未初始化
+        if (!global.app.server.initialized) { // 系统未初始化
             return <>
                 <MenuItemSeparator className={'LoginSeparator'}
                     direction={'horizontal'}
@@ -44,13 +45,13 @@ class LoginMenu extends React.Component {
                     >{_t(`Initialize`)}</LinkButton>
                 </li>
             </>;
-        } else if (app.server.isLogin) { // 已经登录
+        } else if (global.app.server.isLogin) { // 已经登录
             return <>
                 <MenuItemSeparator className={'LoginSeparator'}
                     direction={'horizontal'}
                 />
                 <li className={classNames('MenuItem', 'LoginMenuItem')}>
-                    <span className={'welcome'}>{_t(`Welcome, {{Name}}`, { Name: app.server.name === 'Administrator' ? _t(app.server.name) : app.server.name })}</span>
+                    <span className={'welcome'}>{_t(`Welcome, {{Name}}`, { Name: global.app.server.name === 'Administrator' ? _t(global.app.server.name) : global.app.server.name })}</span>
                 </li>
                 <MenuItemSeparator className={'LoginSeparator'}
                     direction={'horizontal'}
@@ -92,7 +93,7 @@ class LoginMenu extends React.Component {
     }
 
     handleInitialize() {
-        app.confirm({
+        global.app.confirm({
             title: _t('Query'),
             content: _t('Are you sure to initialize the roles and users?'),
             onOK: this.commitInitialize
@@ -100,15 +101,15 @@ class LoginMenu extends React.Component {
     }
 
     commitInitialize() {
-        fetch(`${app.options.server}/api/Initialize/Initialize`, {
+        fetch(`${global.app.options.server}/api/Initialize/Initialize`, {
             method: 'POST'
         }).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg), 'warn');
+                    global.app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
-                app.confirm({
+                global.app.confirm({
                     title: _t('Message'),
                     content: _t(obj.Msg) + ' ' + _t('Press OK To refresh.'),
                     onOK: () => {
@@ -120,22 +121,22 @@ class LoginMenu extends React.Component {
     }
 
     handleClickRegister() {
-        const win = app.createElement(RegisterWindow);
-        app.addElement(win);
+        const win = global.app.createElement(RegisterWindow);
+        global.app.addElement(win);
     }
 
     handleClickLogin() {
-        const win = app.createElement(LoginWindow);
-        app.addElement(win);
+        const win = global.app.createElement(LoginWindow);
+        global.app.addElement(win);
     }
 
     handleChangePassword() {
-        const win = app.createElement(ChangePasswordWindow);
-        app.addElement(win);
+        const win = global.app.createElement(ChangePasswordWindow);
+        global.app.addElement(win);
     }
 
     handleClickLogout() {
-        app.confirm({
+        global.app.confirm({
             title: _t('Query'),
             content: _t('Are you sure to log out?'),
             onOK: this.commitLogout
@@ -144,13 +145,13 @@ class LoginMenu extends React.Component {
 
     commitLogout() {
         // 服务端需要设置SameSite=Lax，否则无法清除客户端Cookie。
-        app.server.logout().then(success => {
+        global.app.server.logout().then(success => {
             if (!success) {
                 return;
             }
             // CookieUtils.clearAll();
             window.location.reload();
-            app.toast(_t(obj.Msg));
+            global.app.toast(_t(obj.Msg));
         });
     }
 }

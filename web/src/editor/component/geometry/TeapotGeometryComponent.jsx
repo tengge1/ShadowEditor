@@ -9,6 +9,7 @@
  */
 import { PropertyGroup, CheckBoxProperty, NumberProperty, IntegerProperty } from '../../../ui/index';
 import SetGeometryCommand from '../../../command/SetGeometryCommand';
+import global from '../../../global';
 
 /**
  * 茶壶组件
@@ -88,8 +89,8 @@ class TeapotGeometryComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.TeapotGeometryComponent`, this.handleUpdate);
-        app.on(`objectChanged.TeapotGeometryComponent`, this.handleUpdate);
+        global.app.on(`objectSelected.TeapotGeometryComponent`, this.handleUpdate);
+        global.app.on(`objectChanged.TeapotGeometryComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {
@@ -99,7 +100,7 @@ class TeapotGeometryComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || !(editor.selected instanceof THREE.Mesh) || !(editor.selected.geometry instanceof THREE.TeapotBufferGeometry)) {
             this.setState({
@@ -143,9 +144,9 @@ class TeapotGeometryComponent extends React.Component {
 
         geometry.parameters = { size, segments, bottom, lid, body, fitLid, blinn };
 
-        app.editor.execute(new SetGeometryCommand(this.selected, geometry));
+        global.app.editor.execute(new SetGeometryCommand(this.selected, geometry));
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 }
 

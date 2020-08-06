@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import { PropertyGroup, CheckBoxProperty, SelectProperty } from '../../../ui/index';
+import global from '../../../global';
 
 /**
  * 物理类型组件
@@ -63,8 +64,8 @@ class PhysicsTypeComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.PhysicsTypeComponent`, this.handleUpdate.bind(this));
-        app.on(`objectChanged.PhysicsTypeComponent`, this.handleUpdate.bind(this));
+        global.app.on(`objectSelected.PhysicsTypeComponent`, this.handleUpdate.bind(this));
+        global.app.on(`objectChanged.PhysicsTypeComponent`, this.handleUpdate.bind(this));
     }
 
     handleExpand(expanded) {
@@ -74,7 +75,7 @@ class PhysicsTypeComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || !editor.selected.userData.physics || editor.selected === editor.scene) {
             this.setState({
@@ -115,7 +116,7 @@ class PhysicsTypeComponent extends React.Component {
         physics.enabled = physicsEnabled;
         physics.type = type;
 
-        app.call('objectChanged', this, this.selected);
+        global.app.call('objectChanged', this, this.selected);
     }
 }
 

@@ -9,6 +9,7 @@
  */
 import './css/RendererPanel.css';
 import { Form, FormControl, Label, Input, Select } from '../../../../ui/index';
+import global from '../../../../global';
 
 /**
  * 渲染器窗口
@@ -60,11 +61,11 @@ class RendererPanel extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`rendererChanged.RendererPanel`, this.handleUpdate);
+        global.app.on(`rendererChanged.RendererPanel`, this.handleUpdate);
     }
 
     handleUpdate() {
-        const renderer = app.editor.renderer;
+        const renderer = global.app.editor.renderer;
 
         this.setState({
             shadowMapType: renderer.shadowMap.enabled ? renderer.shadowMap.type : -1,
@@ -80,7 +81,7 @@ class RendererPanel extends React.Component {
             return;
         }
 
-        let renderer = app.editor.renderer;
+        let renderer = global.app.editor.renderer;
 
         const { shadowMapType, gammaFactor } = Object.assign({}, this.state, {
             [name]: value
@@ -97,12 +98,12 @@ class RendererPanel extends React.Component {
 
         renderer.dispose();
 
-        Object.assign(app.options, {
+        Object.assign(global.app.options, {
             shadowMapType,
             gammaFactor
         });
 
-        app.call(`rendererChanged`, this);
+        global.app.call(`rendererChanged`, this);
     }
 }
 

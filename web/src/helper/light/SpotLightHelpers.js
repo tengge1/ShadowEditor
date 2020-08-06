@@ -9,6 +9,7 @@
  */
 import BaseHelper from '../BaseHelper';
 import VolumeSpotLightHelper from './VolumeSpotLightHelper';
+import global from '../../global';
 
 /**
  * 聚光灯帮助器
@@ -24,17 +25,17 @@ SpotLightHelpers.prototype = Object.create(BaseHelper.prototype);
 SpotLightHelpers.prototype.constructor = SpotLightHelpers;
 
 SpotLightHelpers.prototype.start = function () {
-    app.on(`objectAdded.${this.id}`, this.onObjectAdded.bind(this));
-    app.on(`objectRemoved.${this.id}`, this.onObjectRemoved.bind(this));
-    app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
-    app.on(`storageChanged.${this.id}`, this.onStorageChanged.bind(this));
+    global.app.on(`objectAdded.${this.id}`, this.onObjectAdded.bind(this));
+    global.app.on(`objectRemoved.${this.id}`, this.onObjectRemoved.bind(this));
+    global.app.on(`objectChanged.${this.id}`, this.onObjectChanged.bind(this));
+    global.app.on(`storageChanged.${this.id}`, this.onStorageChanged.bind(this));
 };
 
 SpotLightHelpers.prototype.stop = function () {
-    app.on(`objectAdded.${this.id}`, null);
-    app.on(`objectRemoved.${this.id}`, null);
-    app.on(`objectChanged.${this.id}`, null);
-    app.on(`storageChanged.${this.id}`, null);
+    global.app.on(`objectAdded.${this.id}`, null);
+    global.app.on(`objectRemoved.${this.id}`, null);
+    global.app.on(`objectChanged.${this.id}`, null);
+    global.app.on(`storageChanged.${this.id}`, null);
 };
 
 SpotLightHelpers.prototype.onObjectAdded = function (object) {
@@ -44,11 +45,11 @@ SpotLightHelpers.prototype.onObjectAdded = function (object) {
 
     var helper = new VolumeSpotLightHelper(object, 0xffffff);
 
-    helper.visible = app.storage.showSpotLight;
+    helper.visible = global.app.storage.showSpotLight;
 
     this.helpers.push(helper);
 
-    app.editor.sceneHelpers.add(helper);
+    global.app.editor.sceneHelpers.add(helper);
 };
 
 SpotLightHelpers.prototype.onObjectRemoved = function (object) {
@@ -64,7 +65,7 @@ SpotLightHelpers.prototype.onObjectRemoved = function (object) {
         return;
     }
 
-    app.editor.sceneHelpers.remove(this.helpers[index]);
+    global.app.editor.sceneHelpers.remove(this.helpers[index]);
 
     this.helpers[index].dispose();
 

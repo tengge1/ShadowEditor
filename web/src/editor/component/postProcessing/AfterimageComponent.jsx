@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import { PropertyGroup, CheckBoxProperty, NumberProperty } from '../../../ui/index';
+import global from '../../../global';
 
 /**
  * 残影特效组件
@@ -58,8 +59,8 @@ class AfterimageComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.AfterimageComponent`, this.handleUpdate);
-        app.on(`objectChanged.AfterimageComponent`, this.handleUpdate);
+        global.app.on(`objectSelected.AfterimageComponent`, this.handleUpdate);
+        global.app.on(`objectChanged.AfterimageComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {
@@ -69,7 +70,7 @@ class AfterimageComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || editor.selected !== editor.scene) {
             this.setState({
@@ -115,8 +116,8 @@ class AfterimageComponent extends React.Component {
             }
         });
 
-        app.call(`objectChanged`, this, this.selected);
-        app.call(`postProcessingChanged`, this);
+        global.app.call(`objectChanged`, this, this.selected);
+        global.app.call(`postProcessingChanged`, this);
     }
 }
 

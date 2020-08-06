@@ -10,6 +10,7 @@
 import './css/CategoryEditWindow.css';
 import { PropTypes } from '../../../third_party';
 import { Window, Content, Buttons, Form, FormControl, Label, Input, Button } from '../../../ui/index';
+import global from '../../../global';
 
 /**
  * 类别编辑窗口
@@ -72,7 +73,7 @@ class CategoryEditWindow extends React.Component {
             body += `&id=${id}`;
         }
 
-        fetch(`${app.options.server}/api/Category/Save`, {
+        fetch(`${global.app.options.server}/api/Category/Save`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -81,7 +82,7 @@ class CategoryEditWindow extends React.Component {
         }).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg), 'warn');
+                    global.app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 this.handleCancel();
@@ -91,7 +92,7 @@ class CategoryEditWindow extends React.Component {
     }
 
     handleCancel() {
-        app.removeElement(this);
+        global.app.removeElement(this);
     }
 }
 

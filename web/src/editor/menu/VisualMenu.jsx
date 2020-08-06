@@ -17,6 +17,7 @@ import SvgPath from '../../visual/basic/shape/SvgPath.jsx';
 import SvgPolygon from '../../visual/basic/shape/SvgPolygon.jsx';
 import SvgPolyline from '../../visual/basic/shape/SvgPolyline.jsx';
 import SvgRect from '../../visual/basic/shape/SvgRect.jsx';
+import global from '../../global';
 
 /**
  * 数据可视化菜单
@@ -65,37 +66,37 @@ class VisualMenu extends React.Component {
 
     handleAddCircle() {
         const circle = React.createElement(SvgCircle);
-        app.visual.add(circle);
+        global.app.visual.add(circle);
     }
 
     handleAddEllipse() {
         const ellipse = React.createElement(SvgEllipse);
-        app.visual.add(ellipse);
+        global.app.visual.add(ellipse);
     }
 
     handleAddLine() {
         const line = React.createElement(SvgLine);
-        app.visual.add(line);
+        global.app.visual.add(line);
     }
 
     handleAddPath() {
         const path = React.createElement(SvgPath);
-        app.visual.add(path);
+        global.app.visual.add(path);
     }
 
     handleAddPolygon() {
         const polygon = React.createElement(SvgPolygon);
-        app.visual.add(polygon);
+        global.app.visual.add(polygon);
     }
 
     handleAddPolyline() {
         const polyline = React.createElement(SvgPolyline);
-        app.visual.add(polyline);
+        global.app.visual.add(polyline);
     }
 
     handleAddRect() {
         const rect = React.createElement(SvgRect);
-        app.visual.add(rect);
+        global.app.visual.add(rect);
     }
 }
 

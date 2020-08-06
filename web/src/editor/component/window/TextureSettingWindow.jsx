@@ -9,6 +9,7 @@
  */
 import './css/TextureSettingWindow.css';
 import { Window, Content, Buttons, Button, Input, Select, CheckBox, Form, FormControl, Label } from '../../../ui/index';
+import global from '../../../global';
 
 /**
  * 纹理设置窗口
@@ -333,7 +334,7 @@ class TextureSettingWindow extends React.Component {
     }
 
     handleClose() {
-        app.removeElement(this);
+        global.app.removeElement(this);
     }
 }
 

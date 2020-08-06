@@ -9,6 +9,7 @@
  */
 import { MenuItem, MenuItemSeparator } from '../../ui/index';
 import OptionsWindow from './window/OptionsWindow.jsx';
+import global from '../../global';
 
 /**
  * 选项菜单
@@ -36,11 +37,11 @@ class OptionsMenu extends React.Component {
     }
 
     render() {
-        const isLogin = !app.server.enableAuthority || app.server.isLogin;
+        const isLogin = !global.app.server.enableAuthority || global.app.server.isLogin;
 
-        const controlMode = app.storage.controlMode;
-        const selectMode = app.storage.selectMode;
-        const addMode = app.storage.addMode;
+        const controlMode = global.app.storage.controlMode;
+        const selectMode = global.app.storage.selectMode;
+        const addMode = global.app.storage.addMode;
 
         const lang = window.localStorage.getItem('lang');
 
@@ -130,11 +131,11 @@ class OptionsMenu extends React.Component {
             </MenuItem>
             {isLogin && <MenuItem title={_t('Debug Mode')}>
                 <MenuItem title={_t('Enable')}
-                    selected={app.debug}
+                    selected={global.app.debug}
                     onClick={this.handleEnableDebugMode}
                 />
                 <MenuItem title={_t('Disable')}
-                    selected={!app.debug}
+                    selected={!global.app.debug}
                     onClick={this.handleDisableDebugMode}
                 />
             </MenuItem>}
@@ -144,67 +145,67 @@ class OptionsMenu extends React.Component {
     // ---------------------------------- 显示选项 ---------------------------------------
 
     handleDisplayOptions() {
-        let win = app.createElement(OptionsWindow, {
+        let win = global.app.createElement(OptionsWindow, {
             activeTabIndex: 0
         });
-        app.addElement(win);
+        global.app.addElement(win);
     }
 
     // ---------------------------------- 渲染器选项 -------------------------------------
 
     handleRendererOptions() {
-        let win = app.createElement(OptionsWindow, {
+        let win = global.app.createElement(OptionsWindow, {
             activeTabIndex: 1
         });
-        app.addElement(win);
+        global.app.addElement(win);
     }
 
     // ------------------------------- 帮助器选项 -----------------------------------------
 
     handleHelperOptions() {
-        let win = app.createElement(OptionsWindow, {
+        let win = global.app.createElement(OptionsWindow, {
             activeTabIndex: 2
         });
-        app.addElement(win);
+        global.app.addElement(win);
     }
 
     // ------------------------------ 滤镜选项 ---------------------------------------------
 
     handleFilterOptions() {
-        let win = app.createElement(OptionsWindow, {
+        let win = global.app.createElement(OptionsWindow, {
             activeTabIndex: 3
         });
-        app.addElement(win);
+        global.app.addElement(win);
     }
 
     // ------------------------------- 天气选项 ---------------------------------------------
 
     handleWeatherOptions() {
-        let win = app.createElement(OptionsWindow, {
+        let win = global.app.createElement(OptionsWindow, {
             activeTabIndex: 4
         });
-        app.addElement(win);
+        global.app.addElement(win);
     }
 
     // ------------------------------ 控制器模式 ---------------------------------------------
 
     handleChangeControlMode(value) {
-        app.editor.controls.changeMode(value);
-        app.storage.controlMode = value;
+        global.app.editor.controls.changeMode(value);
+        global.app.storage.controlMode = value;
         this.forceUpdate();
     }
 
     // ----------------------------- 添加模式 ------------------------------------------------
 
     handleChangeAddMode(value) {
-        app.storage.addMode = value;
+        global.app.storage.addMode = value;
         this.forceUpdate();
     }
 
     // --------------------------- 选择模式 ----------------------------------------------
 
     handleChangeSelectMode(value) {
-        app.storage.selectMode = value;
+        global.app.storage.selectMode = value;
         this.forceUpdate();
     }
 
@@ -248,12 +249,12 @@ class OptionsMenu extends React.Component {
     // ---------------------------------- 调试模式 -------------------------------
 
     handleEnableDebugMode() {
-        app.storage.debug = true;
+        global.app.storage.debug = true;
         window.location.reload();
     }
 
     handleDisableDebugMode() {
-        app.storage.debug = false;
+        global.app.storage.debug = false;
         window.location.reload();
     }
 }

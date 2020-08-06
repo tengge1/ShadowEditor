@@ -12,6 +12,7 @@ import { SearchField, ImageList } from '../../ui/index';
 import EditModelWindow from './window/EditModelWindow.jsx';
 import ModelLoader from '../../loader/ModelLoader';
 import AddObjectCommand from '../../command/AddObjectCommand';
+import global from '../../global';
 
 /**
  * 模型面板
@@ -40,7 +41,7 @@ class ModelPanel extends React.Component {
     render() {
         const { className, style } = this.props;
         const { data, categoryData, name, categories } = this.state;
-        const { enableAuthority, authorities } = app.server;
+        const { enableAuthority, authorities } = global.app.server;
 
         let list = data;
 
@@ -61,7 +62,7 @@ class ModelPanel extends React.Component {
         const imageListData = list.map(n => {
             return Object.assign({}, n, {
                 id: n.ID,
-                src: n.Thumbnail ? `${app.options.server}${n.Thumbnail}` : null,
+                src: n.Thumbnail ? `${global.app.options.server}${n.Thumbnail}` : null,
                 title: n.Name,
                 icon: 'model',
                 cornerText: n.Type
@@ -98,10 +99,10 @@ class ModelPanel extends React.Component {
     }
 
     update() {
-        fetch(`${app.options.server}/api/Category/List?Type=Mesh`).then(response => {
+        fetch(`${global.app.options.server}/api/Category/List?Type=Mesh`).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg), 'warn');
+                    global.app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 this.setState({
@@ -109,10 +110,10 @@ class ModelPanel extends React.Component {
                 });
             });
         });
-        fetch(`${app.options.server}/api/Mesh/List`).then(response => {
+        fetch(`${global.app.options.server}/api/Mesh/List`).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg), 'warn');
+                    global.app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 this.setState({
@@ -130,20 +131,20 @@ class ModelPanel extends React.Component {
     }
 
     handleClick(model) {
-        let loader = new ModelLoader(app);
+        let loader = new ModelLoader(global.app);
 
         let url = model.Url;
 
         if (model.Url.indexOf(';') > -1) { // 包含多个入口文件
-            url = url.split(';').map(n => app.options.server + n);
+            url = url.split(';').map(n => global.app.options.server + n);
         } else {
-            url = app.options.server + model.Url;
+            url = global.app.options.server + model.Url;
         }
 
         loader.load(url, model, {
-            camera: app.editor.camera,
-            renderer: app.editor.renderer,
-            audioListener: app.editor.audioListener,
+            camera: global.app.editor.camera,
+            renderer: global.app.editor.renderer,
+            audioListener: global.app.editor.audioListener,
             clearChildren: true
         }).then(obj => {
             if (!obj) {
@@ -155,7 +156,7 @@ class ModelPanel extends React.Component {
                 Server: true
             });
 
-            if (app.storage.addMode === 'click') {
+            if (global.app.storage.addMode === 'click') {
                 this.clickSceneToAdd(obj);
             } else {
                 this.addToCenter(obj);
@@ -170,70 +171,70 @@ class ModelPanel extends React.Component {
 
         if (obj.userData.scripts) {
             obj.userData.scripts.forEach(n => {
-                app.editor.scripts.push(n);
+                global.app.editor.scripts.push(n);
             });
-            app.call('scriptChanged', this);
+            global.app.call('scriptChanged', this);
         }
     }
 
     // 点击场景添加
     clickSceneToAdd(obj) {
         let added = false;
-        app.editor.gpuPickNum += 1;
-        app.on(`gpuPick.ModelPanel`, intersect => { // 鼠标移动出现预览效果
+        global.app.editor.gpuPickNum += 1;
+        global.app.on(`gpuPick.ModelPanel`, intersect => { // 鼠标移动出现预览效果
             if (!intersect.point) {
                 return;
             }
             if (!added) {
                 added = true;
-                app.editor.sceneHelpers.add(obj);
+                global.app.editor.sceneHelpers.add(obj);
             }
             obj.position.copy(intersect.point);
         });
-        app.on(`raycast.ModelPanel`, intersect => { // 点击鼠标放置模型
-            app.on(`gpuPick.ModelPanel`, null);
-            app.on(`raycast.ModelPanel`, null);
+        global.app.on(`raycast.ModelPanel`, intersect => { // 点击鼠标放置模型
+            global.app.on(`gpuPick.ModelPanel`, null);
+            global.app.on(`raycast.ModelPanel`, null);
             obj.position.copy(intersect.point);
             this.addToCenter(obj);
-            app.editor.gpuPickNum -= 1;
+            global.app.editor.gpuPickNum -= 1;
         });
     }
 
     // ------------------------------- 上传 ---------------------------------------
 
     handleAdd() {
-        app.upload(`${app.options.server}/api/Mesh/Add`, obj => {
+        global.app.upload(`${global.app.options.server}/api/Mesh/Add`, obj => {
             if (obj.Code === 200) {
                 this.update();
             }
-            app.toast(_t(obj.Msg));
+            global.app.toast(_t(obj.Msg));
         });
     }
 
     // ------------------------------- 编辑 ---------------------------------------
 
     handleEdit(data) {
-        var win = app.createElement(EditModelWindow, {
+        var win = global.app.createElement(EditModelWindow, {
             data,
             callback: this.update
         });
 
-        app.addElement(win);
+        global.app.addElement(win);
     }
 
     // ------------------------------ 删除 ----------------------------------------
 
     handleDelete(data) {
-        app.confirm({
+        global.app.confirm({
             title: _t('Confirm'),
             content: `${_t('Delete')} ${data.title}?`,
             onOK: () => {
-                fetch(`${app.options.server}/api/Mesh/Delete?ID=${data.id}`, {
+                fetch(`${global.app.options.server}/api/Mesh/Delete?ID=${data.id}`, {
                     method: 'POST'
                 }).then(response => {
                     response.json().then(obj => {
                         if (obj.Code !== 200) {
-                            app.toast(_t(obj.Msg), 'warn');
+                            global.app.toast(_t(obj.Msg), 'warn');
                             return;
                         }
                         this.update();

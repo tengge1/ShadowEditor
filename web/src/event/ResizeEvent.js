@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import BaseEvent from './BaseEvent';
+import global from '../global';
 
 /**
  * 窗口大小改变事件
@@ -21,15 +22,15 @@ ResizeEvent.prototype = Object.create(BaseEvent.prototype);
 ResizeEvent.prototype.constructor = ResizeEvent;
 
 ResizeEvent.prototype.start = function () {
-    app.on(`resize.${this.id}`, this.onResize.bind(this));
+    global.app.on(`resize.${this.id}`, this.onResize.bind(this));
 };
 
 ResizeEvent.prototype.stop = function () {
-    app.on(`resize.${this.id}`, null);
+    global.app.on(`resize.${this.id}`, null);
 };
 
 ResizeEvent.prototype.onResize = function () {
-    let { editor, viewport } = app;
+    let { editor, viewport } = global.app;
     let { DEFAULT_CAMERA, camera, orthCamera, renderer } = editor;
 
     const width = viewport.clientWidth;

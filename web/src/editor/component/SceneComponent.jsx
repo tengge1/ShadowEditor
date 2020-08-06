@@ -10,6 +10,7 @@
 import { PropertyGroup, NumberProperty, SelectProperty, ColorProperty, TextureProperty, ButtonsProperty, Button } from '../../ui/index';
 import Converter from '../../utils/Converter';
 import Ajax from '../../utils/Ajax';
+import global from '../../global';
 
 /**
  * 场景组件
@@ -193,8 +194,8 @@ class SceneComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.SceneComponent`, this.handleUpdate);
-        app.on(`objectChanged.SceneComponent`, this.handleUpdate);
+        global.app.on(`objectSelected.SceneComponent`, this.handleUpdate);
+        global.app.on(`objectChanged.SceneComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {
@@ -204,9 +205,9 @@ class SceneComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
-        if (!editor.selected || editor.selected !== app.editor.scene) {
+        if (!editor.selected || editor.selected !== global.app.editor.scene) {
             this.setState({
                 show: false
             });
@@ -304,7 +305,7 @@ class SceneComponent extends React.Component {
                 break;
         }
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeBackgroundColor(value, name) {
@@ -317,7 +318,7 @@ class SceneComponent extends React.Component {
 
         this.selected.background = new THREE.Color(value);
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeBackgroundImage(value, name) {
@@ -332,7 +333,7 @@ class SceneComponent extends React.Component {
 
         this.selected.background = value;
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeBackgroundCubeTexture(value, name) {
@@ -363,7 +364,7 @@ class SceneComponent extends React.Component {
 
             scene.background.needsUpdate = true;
 
-            app.call(`objectChanged`, this, this.selected);
+            global.app.call(`objectChanged`, this, this.selected);
         } else {
             this.setState({
                 [name]: value
@@ -372,21 +373,21 @@ class SceneComponent extends React.Component {
     }
 
     handleLoadCubeTexture() {
-        app.call(`selectBottomPanel`, this, 'map');
+        global.app.call(`selectBottomPanel`, this, 'map');
 
-        app.toast(_t('Please click the map in the Map Panel.'));
+        global.app.toast(_t('Please click the map in the Map Panel.'));
 
-        app.on(`selectMap.SceneComponent`, this.handleSelectCubeMap);
+        global.app.on(`selectMap.SceneComponent`, this.handleSelectCubeMap);
     }
 
     handleSelectCubeMap(model) {
         if (model.Type !== 'cube') {
-            app.toast(_t('You should select Cube Texture.'));
+            global.app.toast(_t('You should select Cube Texture.'));
 
             return;
         }
 
-        app.on(`selectMap.SceneComponent`, null);
+        global.app.on(`selectMap.SceneComponent`, null);
 
         var urls = model.Url.split(';');
 
@@ -394,11 +395,11 @@ class SceneComponent extends React.Component {
 
         var promises = urls.map(url => {
             return new Promise(resolve => {
-                loader.load(`${app.options.server}${url}`, texture => {
+                loader.load(`${global.app.options.server}${url}`, texture => {
                     resolve(texture);
                 }, undefined, error => {
                     console.error(error);
-                    app.toast(_t('Cube Texture fetch failed.'), 'warn');
+                    global.app.toast(_t('Cube Texture fetch failed.'), 'warn');
                 });
             });
         });
@@ -417,7 +418,7 @@ class SceneComponent extends React.Component {
 
             scene.background.needsUpdate = true;
 
-            app.call(`objectChanged`, this, this.selected);
+            global.app.call(`objectChanged`, this, this.selected);
         });
     }
 
@@ -425,7 +426,7 @@ class SceneComponent extends React.Component {
         const { backgroundPosX, backgroundNegX, backgroundPosY, backgroundNegY, backgroundPosZ, backgroundNegZ } = this.state;
 
         if (!backgroundPosX || !backgroundNegX || !backgroundPosY || !backgroundNegY || !backgroundPosZ || !backgroundNegZ) {
-            app.toast(_t('Please upload all the textures before save.'), 'warn');
+            global.app.toast(_t('Please upload all the textures before save.'), 'warn');
             return;
         }
 
@@ -437,7 +438,7 @@ class SceneComponent extends React.Component {
         const negZSrc = backgroundNegZ.image.src;
 
         if (posXSrc.startsWith('http') || negXSrc.startsWith('http') || posYSrc.startsWith('http') || negYSrc.startsWith('http') || posZSrc.startsWith('http') || negZSrc.startsWith('http')) {
-            app.toast(_t('Cube texture has already been uploaded.'), 'warn');
+            global.app.toast(_t('Cube texture has already been uploaded.'), 'warn');
             return;
         }
 
@@ -451,7 +452,7 @@ class SceneComponent extends React.Component {
         ];
 
         Promise.all(promises).then(files => {
-            Ajax.post(`${app.options.server}/api/Map/Add`, {
+            Ajax.post(`${global.app.options.server}/api/Map/Add`, {
                 posX: files[0],
                 negX: files[1],
                 posY: files[2],
@@ -460,7 +461,7 @@ class SceneComponent extends React.Component {
                 negZ: files[5]
             }, result => {
                 let obj = JSON.parse(result);
-                app.toast(_t(obj.Msg));
+                global.app.toast(_t(obj.Msg));
             });
         });
     }
@@ -484,7 +485,7 @@ class SceneComponent extends React.Component {
                 break;
         }
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeFogColor(value, name) {
@@ -497,7 +498,7 @@ class SceneComponent extends React.Component {
 
         this.selected.fog.color.set(value);
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeFogNear(value, name) {
@@ -510,7 +511,7 @@ class SceneComponent extends React.Component {
 
         this.selected.fog.near = value;
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeFogFar(value, name) {
@@ -523,7 +524,7 @@ class SceneComponent extends React.Component {
 
         this.selected.fog.far = value;
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeFogDensity(value, name) {
@@ -536,7 +537,7 @@ class SceneComponent extends React.Component {
 
         this.selected.fog.density = value;
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 }
 

@@ -31,6 +31,7 @@ import WeatherEvent from './WeatherEvent';
 
 // 物理引擎
 import PhysicsEvent from './PhysicsEvent';
+import global from '../global';
 
 // // 可视化
 // import DraggableEvent from './visual/DraggableEvent';
@@ -114,7 +115,7 @@ EventDispatcher.prototype.on = function (eventName, callback) {
  * 监听dom事件
  */
 EventDispatcher.prototype.addDomEventListener = function () {
-    var container = app.container;
+    var container = global.app.container;
     container.addEventListener('click', event => {
         this.dispatch.call('click', this, event);
     });

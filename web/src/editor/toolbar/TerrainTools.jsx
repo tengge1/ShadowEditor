@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import { ToolbarSeparator, IconButton, ImageButton } from '../../ui/index';
+import global from '../../global';
 
 /**
  * 地形工具
@@ -104,49 +105,49 @@ class TerrainTools extends React.Component {
 
     handleEnterSelectMode() {
         this.setState({ mode: 'select' });
-        app.call('changeMode', this, 'select');
+        global.app.call('changeMode', this, 'select');
     }
 
     handleEnterTranslateMode() {
         this.setState({ mode: 'translate' });
-        app.call('changeMode', this, 'translate');
+        global.app.call('changeMode', this, 'translate');
     }
 
     handleEnterRotateMode() {
         this.setState({ mode: 'rotate' });
-        app.call('changeMode', this, 'rotate');
+        global.app.call('changeMode', this, 'rotate');
     }
 
     handleEnterScaleMode() {
         this.setState({ mode: 'scale' });
-        app.call('changeMode', this, 'scale');
+        global.app.call('changeMode', this, 'scale');
     }
 
     // ------------------------------ 视角工具 ------------------------------------------
 
     handlePerspective() {
-        app.call(`changeView`, this, 'perspective');
+        global.app.call(`changeView`, this, 'perspective');
         this.setState({
             view: 'perspective'
         });
     }
 
     handleFrontView() {
-        app.call(`changeView`, this, 'front');
+        global.app.call(`changeView`, this, 'front');
         this.setState({
             view: 'front'
         });
     }
 
     handleSideView() {
-        app.call(`changeView`, this, 'side');
+        global.app.call(`changeView`, this, 'side');
         this.setState({
             view: 'side'
         });
     }
 
     handleTopView() {
-        app.call(`changeView`, this, 'top');
+        global.app.call(`changeView`, this, 'top');
         this.setState({
             view: 'top'
         });
@@ -158,9 +159,9 @@ class TerrainTools extends React.Component {
         const isGridMode = !this.state.isGridMode;
 
         if (isGridMode) {
-            app.editor.scene.overrideMaterial = new THREE.MeshBasicMaterial({ wireframe: true });
+            global.app.editor.scene.overrideMaterial = new THREE.MeshBasicMaterial({ wireframe: true });
         } else {
-            app.editor.scene.overrideMaterial = null;
+            global.app.editor.scene.overrideMaterial = null;
         }
 
         this.setState({

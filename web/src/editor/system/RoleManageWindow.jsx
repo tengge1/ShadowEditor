@@ -10,6 +10,7 @@
 import './css/RoleManageWindow.css';
 import { Window, Content, Toolbar, Button, DataGrid, Column, ToolbarFiller, SearchField } from '../../ui/index';
 import EditRoleWindow from './role/EditRoleWindow.jsx';
+import global from '../../global';
 
 /**
  * 角色管理窗口
@@ -122,11 +123,11 @@ class RoleManageWindow extends React.Component {
         this.setState({
             mask: true
         });
-        fetch(`${app.options.server}/api/Role/List?pageSize=${pageSize}&pageNum=${pageNum}&keyword=${keyword}`).then(response => {
+        fetch(`${global.app.options.server}/api/Role/List?pageSize=${pageSize}&pageNum=${pageNum}&keyword=${keyword}`).then(response => {
             response.json().then(obj => {
-                app.unmask();
+                global.app.unmask();
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg), 'warn');
+                    global.app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 this.setState({
@@ -142,17 +143,17 @@ class RoleManageWindow extends React.Component {
     }
 
     handleAdd() {
-        const win = app.createElement(EditRoleWindow, {
+        const win = global.app.createElement(EditRoleWindow, {
             callback: this.handleRefresh
         });
-        app.addElement(win);
+        global.app.addElement(win);
     }
 
     handleEdit() {
         const { data, selected } = this.state;
 
         if (!selected) {
-            app.toast(_t('Please select a record.'));
+            global.app.toast(_t('Please select a record.'));
             return;
         }
 
@@ -161,22 +162,22 @@ class RoleManageWindow extends React.Component {
         if (record.Name === 'Administrator' ||
             record.Name === 'User' ||
             record.Name === 'Guest') {
-            app.toast(_t('Modifying system built-in roles is not allowed.'), 'warn');
+            global.app.toast(_t('Modifying system built-in roles is not allowed.'), 'warn');
             return;
         }
 
-        const win = app.createElement(EditRoleWindow, {
+        const win = global.app.createElement(EditRoleWindow, {
             id: record.ID,
             name: record.Name,
             callback: this.handleRefresh
         });
-        app.addElement(win);
+        global.app.addElement(win);
     }
 
     handleDelete() {
         const selected = this.state.selected;
         if (!selected) {
-            app.toast(_t('Please select a record.'));
+            global.app.toast(_t('Please select a record.'));
             return;
         }
 
@@ -185,11 +186,11 @@ class RoleManageWindow extends React.Component {
         if (record.Name === 'Administrator' ||
             record.Name === 'User' ||
             record.Name === 'Guest') {
-            app.toast(_t('It is not allowed to delete system built-in roles.'), 'warn');
+            global.app.toast(_t('It is not allowed to delete system built-in roles.'), 'warn');
             return;
         }
 
-        app.confirm({
+        global.app.confirm({
             title: _t('Query'),
             content: _t('Delete the selected record?'),
             onOK: () => {
@@ -199,22 +200,22 @@ class RoleManageWindow extends React.Component {
     }
 
     commitDelete(id) {
-        fetch(`${app.options.server}/api/Role/Delete?ID=${id}`, {
+        fetch(`${global.app.options.server}/api/Role/Delete?ID=${id}`, {
             method: 'POST'
         }).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg), 'warn');
+                    global.app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 this.handleRefresh();
-                app.toast(_t(obj.Msg), 'success');
+                global.app.toast(_t(obj.Msg), 'success');
             });
         });
     }
 
     handleClose() {
-        app.removeElement(this);
+        global.app.removeElement(this);
     }
 
     handleSearch(value) {

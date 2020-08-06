@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import { PropertyGroup, SelectProperty } from '../../../ui/index';
+import global from '../../../global';
 
 /**
  * GIS基本组件
@@ -58,8 +59,8 @@ class GisBasicComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.GisBasicComponent`, this.handleUpdate.bind(this));
-        app.on(`objectChanged.GisBasicComponent`, this.handleUpdate.bind(this));
+        global.app.on(`objectSelected.GisBasicComponent`, this.handleUpdate.bind(this));
+        global.app.on(`objectChanged.GisBasicComponent`, this.handleUpdate.bind(this));
     }
 
     handleExpand(expanded) {
@@ -69,7 +70,7 @@ class GisBasicComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || editor.selected.userData.type !== 'Globe') {
             this.setState({
@@ -100,7 +101,7 @@ class GisBasicComponent extends React.Component {
 
         this.selected.setBackground(bakcground);
 
-        app.call('objectChanged', this, this.selected);
+        global.app.call('objectChanged', this, this.selected);
     }
 }
 

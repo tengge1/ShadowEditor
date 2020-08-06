@@ -9,6 +9,7 @@
  */
 import { MenuItem } from '../../ui/index';
 import Converter from '../../serialization/Converter';
+import global from '../../global';
 
 /**
  * 播放菜单
@@ -30,7 +31,7 @@ class PlayMenu extends React.Component {
     render() {
         const { isPlaying } = this.state;
 
-        const isLogin = !app.server.enableAuthority || app.server.isLogin;
+        const isLogin = !global.app.server.enableAuthority || global.app.server.isLogin;
 
         return <MenuItem title={_t('Play')}>
             <MenuItem title={isPlaying ? _t('Stop') : _t('Play')}
@@ -64,16 +65,16 @@ class PlayMenu extends React.Component {
 
         // 将场景数据转换为字符串
         var jsons = new Converter().toJSON({
-            options: app.options,
-            scene: app.editor.scene,
-            camera: app.editor.camera,
-            renderer: app.editor.renderer,
-            scripts: app.editor.scripts,
-            animations: app.editor.animations,
-            visual: app.editor.visual
+            options: global.app.options,
+            scene: global.app.editor.scene,
+            camera: global.app.editor.camera,
+            renderer: global.app.editor.renderer,
+            scripts: global.app.editor.scripts,
+            animations: global.app.editor.animations,
+            visual: global.app.editor.visual
         });
 
-        app.player.start(JSON.stringify(jsons));
+        global.app.player.start(JSON.stringify(jsons));
     }
 
     handleStopPlay() { // 停止播放
@@ -85,7 +86,7 @@ class PlayMenu extends React.Component {
             isPlaying: false
         });
 
-        app.player.stop();
+        global.app.player.stop();
 
         this.setState;
     }
@@ -95,14 +96,14 @@ class PlayMenu extends React.Component {
             this.handleStartPlay();
         }
 
-        app.playerRef.requestFullscreen();
+        global.app.playerRef.requestFullscreen();
     }
 
     handlePlayNewWindow() { // 新窗口播放
-        let sceneID = app.editor.sceneID;
+        let sceneID = global.app.editor.sceneID;
 
         if (!sceneID) {
-            app.toast(_t('Please save scene first.'), 'warn');
+            global.app.toast(_t('Please save scene first.'), 'warn');
             return;
         }
 

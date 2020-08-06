@@ -9,6 +9,7 @@
  */
 import { PropertyGroup, NumberProperty } from '../../ui/index';
 import SetValueCommand from '../../command/SetValueCommand';
+import global from '../../global';
 
 /**
  * 相机组件
@@ -64,8 +65,8 @@ class CameraComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.CameraComponent`, this.handleUpdate);
-        app.on(`objectChanged.CameraComponent`, this.handleUpdate);
+        global.app.on(`objectSelected.CameraComponent`, this.handleUpdate);
+        global.app.on(`objectChanged.CameraComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {
@@ -75,7 +76,7 @@ class CameraComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         // TODO: 应判断是否等于默认相机
         if (!editor.selected || !(editor.selected instanceof THREE.PerspectiveCamera)) {
@@ -103,7 +104,7 @@ class CameraComponent extends React.Component {
             return;
         }
 
-        app.editor.execute(new SetValueCommand(this.selected, 'fov', value));
+        global.app.editor.execute(new SetValueCommand(this.selected, 'fov', value));
     }
 
     handleChangeNear(value) {
@@ -114,7 +115,7 @@ class CameraComponent extends React.Component {
             return;
         }
 
-        app.editor.execute(new SetValueCommand(this.selected, 'near', value));
+        global.app.editor.execute(new SetValueCommand(this.selected, 'near', value));
     }
 
     handleChangeFar(value) {
@@ -125,7 +126,7 @@ class CameraComponent extends React.Component {
             return;
         }
 
-        app.editor.execute(new SetValueCommand(this.selected, 'far', value));
+        global.app.editor.execute(new SetValueCommand(this.selected, 'far', value));
     }
 }
 

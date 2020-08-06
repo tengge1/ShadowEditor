@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import { PropertyGroup, ButtonProperty, NumberProperty } from '../../ui/index';
+import global from '../../global';
 
 /**
  * 火焰组件
@@ -76,8 +77,8 @@ class FireComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.FireComponent`, this.handleUpdate);
-        app.on(`objectChanged.FireComponent`, this.handleUpdate);
+        global.app.on(`objectSelected.FireComponent`, this.handleUpdate);
+        global.app.on(`objectChanged.FireComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {
@@ -87,7 +88,7 @@ class FireComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || !(editor.selected.userData.type === 'Fire')) {
             this.setState({
@@ -122,7 +123,7 @@ class FireComponent extends React.Component {
 
         VolumetricFire.texturePath = 'assets/textures/VolumetricFire/';
 
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         let fire = new VolumetricFire(width, height, depth, sliceSpacing, editor.camera);
 
@@ -148,8 +149,8 @@ class FireComponent extends React.Component {
             fire.mesh.parent = this.selected.parent;
             this.selected.parent = null;
 
-            app.call(`objectRemoved`, this, this.selected);
-            app.call(`objectAdded`, this, fire.mesh);
+            global.app.call(`objectRemoved`, this, this.selected);
+            global.app.call(`objectAdded`, this, fire.mesh);
             editor.select(fire.mesh);
 
             fire.update(0);
@@ -171,7 +172,7 @@ class FireComponent extends React.Component {
             previewText: _t('Cancel')
         });
 
-        app.on(`animate.FireComponent`, this.onAnimate);
+        global.app.on(`animate.FireComponent`, this.onAnimate);
     }
 
     stopPreview() {
@@ -181,7 +182,7 @@ class FireComponent extends React.Component {
             previewText: _t('Preview')
         });
 
-        app.on(`animate.FireComponent`, null);
+        global.app.on(`animate.FireComponent`, null);
     }
 
     onAnimate(clock) {

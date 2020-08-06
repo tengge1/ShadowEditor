@@ -10,6 +10,7 @@
 import './css/TimelinePanel.css';
 
 import { Timeline } from '../../ui/index';
+import global from '../../global';
 
 /**
  * 时间轴面板
@@ -61,20 +62,20 @@ class TimelinePanel extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`appStarted.TimelinePanel`, this.updateUI);
-        app.on(`animationChanged.TimelinePanel`, this.updateUI);
+        global.app.on(`appStarted.TimelinePanel`, this.updateUI);
+        global.app.on(`animationChanged.TimelinePanel`, this.updateUI);
     }
 
     updateUI() {
         this.setState({
-            animations: app.editor.animations
+            animations: global.app.editor.animations
         });
     }
 
     // ----------------------- 动画层管理 ------------------------------
 
     handleAddLayer() {
-        app.prompt({
+        global.app.prompt({
             title: _t('Input Layer Name'),
             content: _t('Layer Name'),
             value: _t('New Layer'),
@@ -83,7 +84,7 @@ class TimelinePanel extends React.Component {
     }
 
     commitAddLayer(layerName) {
-        let animations = app.editor.animations;
+        let animations = global.app.editor.animations;
         const layer = Math.max.apply(Math, animations.map(n => n.layer)) + 1;
 
         animations.push({
@@ -94,20 +95,20 @@ class TimelinePanel extends React.Component {
             animations: []
         });
 
-        app.call(`animationChanged`, this);
+        global.app.call(`animationChanged`, this);
     }
 
     handleEditLayer(id) {
         if (!id) {
-            app.toast(_t('Please select an animation layer.'));
+            global.app.toast(_t('Please select an animation layer.'));
             return;
         }
 
-        const animations = app.editor.animations;
+        const animations = global.app.editor.animations;
 
         const layer = animations.filter(n => n.uuid === id)[0];
 
-        app.prompt({
+        global.app.prompt({
             title: _t('Edit Layer Name'),
             content: _t('Layer Name'),
             value: layer.layerName,
@@ -116,28 +117,28 @@ class TimelinePanel extends React.Component {
     }
 
     commitEditLayer(layerName) {
-        let animations = app.editor.animations;
+        let animations = global.app.editor.animations;
 
         const index = animations.findIndex(n => n.uuid === this.state.selectedLayer);
 
         if (index > -1) {
             animations[index].layerName = layerName;
 
-            app.call(`animationChanged`, this);
+            global.app.call(`animationChanged`, this);
         }
     }
 
     handleDeleteLayer(id) {
         if (!id) {
-            app.toast(_t('Please select an animation layer.'));
+            global.app.toast(_t('Please select an animation layer.'));
             return;
         }
 
-        const animations = app.editor.animations;
+        const animations = global.app.editor.animations;
 
         const layer = animations.filter(n => n.uuid === id)[0];
 
-        app.confirm({
+        global.app.confirm({
             title: _t('Delete'),
             content: _t(`Delete animation layer {{layerName}}?`, { layerName: layer.layerName }),
             onOK: this.commitDeleteLayer
@@ -145,14 +146,14 @@ class TimelinePanel extends React.Component {
     }
 
     commitDeleteLayer() {
-        let animations = app.editor.animations;
+        let animations = global.app.editor.animations;
 
         const index = animations.findIndex(n => n.uuid === this.state.selectedLayer);
 
         if (index > -1) {
             animations.splice(index, 1);
 
-            app.call(`animationChanged`, this);
+            global.app.call(`animationChanged`, this);
         }
     }
 
@@ -165,7 +166,7 @@ class TimelinePanel extends React.Component {
     // ---------------------------- 动画管理 ---------------------------------
 
     handleAddAnimation(layerID, beginTime, endTime) {
-        let layer = app.editor.animations.filter(n => n.uuid === layerID)[0];
+        let layer = global.app.editor.animations.filter(n => n.uuid === layerID)[0];
 
         if (!layer) {
             console.warn(`TimelinePanel: layer ${layerID} is not defined.`);
@@ -207,18 +208,18 @@ class TimelinePanel extends React.Component {
             }
         });
 
-        app.call(`animationChanged`, this);
+        global.app.call(`animationChanged`, this);
     }
 
     handleDropAnimation(id, oldLayerID, newLayerID, beginTime) {
-        let oldLayer = app.editor.animations.filter(n => n.uuid === oldLayerID)[0];
+        let oldLayer = global.app.editor.animations.filter(n => n.uuid === oldLayerID)[0];
 
         if (!oldLayer) {
             console.warn(`TimelinePanel: layer ${oldLayerID} is not defined.`);
             return;
         }
 
-        let newLayer = app.editor.animations.filter(n => n.uuid === newLayerID)[0];
+        let newLayer = global.app.editor.animations.filter(n => n.uuid === newLayerID)[0];
 
         if (!newLayer) {
             console.warn(`TimelinePanel: layer ${newLayerID} is not defined.`);
@@ -242,11 +243,11 @@ class TimelinePanel extends React.Component {
         oldLayer.animations.splice(index, 1);
         newLayer.animations.push(animation);
 
-        app.call(`animationChanged`, this);
+        global.app.call(`animationChanged`, this);
     }
 
     handleClickAnimation(id, pid) {
-        const layer = app.editor.animations.filter(n => n.uuid === pid)[0];
+        const layer = global.app.editor.animations.filter(n => n.uuid === pid)[0];
 
         if (!layer) {
             console.warn(`TimelinePanel: layer ${pid} is not defined.`);
@@ -260,7 +261,7 @@ class TimelinePanel extends React.Component {
             return;
         }
 
-        app.call('animationSelected', this, animation);
+        global.app.call('animationSelected', this, animation);
 
         this.setState({
             selected: animation.uuid

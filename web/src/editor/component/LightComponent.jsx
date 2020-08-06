@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import { PropertyGroup, NumberProperty, ColorProperty } from '../../ui/index';
+import global from '../../global';
 
 /**
  * 光源组件
@@ -156,8 +157,8 @@ class LightComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.LightComponent`, this.handleUpdate);
-        app.on(`objectChanged.LightComponent`, this.handleUpdate);
+        global.app.on(`objectSelected.LightComponent`, this.handleUpdate);
+        global.app.on(`objectChanged.LightComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {
@@ -167,7 +168,7 @@ class LightComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || !(editor.selected instanceof THREE.Light)) {
             this.setState({
@@ -251,7 +252,7 @@ class LightComponent extends React.Component {
             helper.material.color = this.selected.color;
         }
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeIntensity(value, name) {
@@ -264,7 +265,7 @@ class LightComponent extends React.Component {
 
         this.selected.intensity = value;
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeDistance(value, name) {
@@ -277,7 +278,7 @@ class LightComponent extends React.Component {
 
         this.selected.distance = value;
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeAngle(value, name) {
@@ -290,7 +291,7 @@ class LightComponent extends React.Component {
 
         this.selected.angle = value;
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangePenumbra(value, name) {
@@ -303,7 +304,7 @@ class LightComponent extends React.Component {
 
         this.selected.penumbra = value;
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeDecay(value, name) {
@@ -316,7 +317,7 @@ class LightComponent extends React.Component {
 
         this.selected.decay = value;
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeSkyColor(value, name) {
@@ -335,7 +336,7 @@ class LightComponent extends React.Component {
             sky.material.uniforms.topColor.value = this.selected.color;
         }
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeGroundColor(value, name) {
@@ -354,7 +355,7 @@ class LightComponent extends React.Component {
             ground.material.uniforms.bottomColor.value = this.selected.groundColor;
         }
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeWidth(value, name) {
@@ -367,7 +368,7 @@ class LightComponent extends React.Component {
 
         this.selected.width = value;
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeHeight(value, name) {
@@ -380,7 +381,7 @@ class LightComponent extends React.Component {
 
         this.selected.height = value;
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 }
 

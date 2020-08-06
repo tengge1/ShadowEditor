@@ -13,6 +13,7 @@ import FragmentShaderStarter from '../../script/code/FragmentShaderStarter';
 import JavaScriptStarter from '../../script/code/JavaScriptStarter';
 import JsonStarter from '../../script/code/JsonStarter';
 import VertexShaderStarter from '../../script/code/VertexShaderStarter';
+import global from '../../../global';
 
 /**
  * 脚本窗口
@@ -111,10 +112,10 @@ class ScriptWindow extends React.Component {
                 source = JavaScriptStarter();
         }
 
-        const index = app.editor.scripts.findIndex(n => n.uuid === uuid);
+        const index = global.app.editor.scripts.findIndex(n => n.uuid === uuid);
 
         if (index > -1) {
-            app.editor.scripts[index] = {
+            global.app.editor.scripts[index] = {
                 id: null,
                 name,
                 type,
@@ -122,7 +123,7 @@ class ScriptWindow extends React.Component {
                 uuid
             };
         } else {
-            app.editor.scripts.push({
+            global.app.editor.scripts.push({
                 id: null,
                 name,
                 type,
@@ -131,7 +132,7 @@ class ScriptWindow extends React.Component {
             });
         }
 
-        app.call(`scriptChanged`, this);
+        global.app.call(`scriptChanged`, this);
 
         this.handleClose();
 
@@ -143,14 +144,14 @@ class ScriptWindow extends React.Component {
             source: ''
         });
 
-        app.call(`editScript`, this, uuid, name, type, source, this.handleSaveScript);
+        global.app.call(`editScript`, this, uuid, name, type, source, this.handleSaveScript);
     }
 
     handleSaveScript(uuid, name, type, source) {
-        const index = app.editor.scripts.findIndex(n => n.uuid === uuid);
+        const index = global.app.editor.scripts.findIndex(n => n.uuid === uuid);
 
         if (index > -1) {
-            app.editor.scripts[index] = {
+            global.app.editor.scripts[index] = {
                 id: null,
                 uuid,
                 name,
@@ -158,7 +159,7 @@ class ScriptWindow extends React.Component {
                 source
             };
         } else {
-            app.editor.scripts.push({
+            global.app.editor.scripts.push({
                 id: null,
                 uuid,
                 name,
@@ -167,11 +168,11 @@ class ScriptWindow extends React.Component {
             });
         }
 
-        app.call(`scriptChanged`, this);
+        global.app.call(`scriptChanged`, this);
     }
 
     handleClose() {
-        app.removeElement(this);
+        global.app.removeElement(this);
     }
 }
 

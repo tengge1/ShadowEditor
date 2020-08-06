@@ -12,6 +12,7 @@ import { PropTypes } from '../../../third_party';
 import { Window, TabLayout, Content, Buttons, Form, FormControl, Label, Input, Select, ImageUploader, Button, CheckBox, DataGrid, Column, LinkButton } from '../../../ui/index';
 import Ajax from '../../../utils/Ajax';
 import CategoryWindow from './CategoryWindow.jsx';
+import global from '../../../global';
 
 /**
  * 编辑贴图窗口
@@ -55,7 +56,7 @@ class EditMapWindow extends React.Component {
     render() {
         const { typeName } = this.props;
         const { activeTabIndex, name, categories, categoryID, thumbnail, isPublic, histories, selectedHistory } = this.state;
-        const { enableAuthority, authorities } = app.server;
+        const { enableAuthority, authorities } = global.app.server;
 
         return <Window
             className={'EditMapWindow'}
@@ -90,7 +91,7 @@ class EditMapWindow extends React.Component {
                         <FormControl>
                             <Label>{_t('Thumbnail')}</Label>
                             <ImageUploader
-                                server={app.options.server}
+                                server={global.app.options.server}
                                 url={thumbnail}
                                 noImageText={_t('No Image')}
                                 onChange={this.handleThumbnailChange}
@@ -145,7 +146,7 @@ class EditMapWindow extends React.Component {
     handleActiveTabChange(activeTabIndex) {
         if (activeTabIndex === 1) { // 更新历史数据
             const { data } = this.props;
-            fetch(`${app.options.server}/api/Scene/HistoryList?ID=${data.ID}`).then(response => {
+            fetch(`${global.app.options.server}/api/Scene/HistoryList?ID=${data.ID}`).then(response => {
                 response.json().then(json => {
                     this.setState({
                         histories: json.Data,
@@ -161,7 +162,7 @@ class EditMapWindow extends React.Component {
     }
 
     updateUI() {
-        Ajax.getJson(`${app.options.server}/api/Category/List?Type=${this.props.type}`, json => {
+        Ajax.getJson(`${global.app.options.server}/api/Category/List?Type=${this.props.type}`, json => {
             var options = {
                 '': _t('Not Set')
             };
@@ -187,7 +188,7 @@ class EditMapWindow extends React.Component {
     }
 
     handleThumbnailChange(file) {
-        Ajax.post(`${app.options.server}/api/Upload/Upload`, {
+        Ajax.post(`${global.app.options.server}/api/Upload/Upload`, {
             file
         }, json => {
             var obj = JSON.parse(json);
@@ -196,7 +197,7 @@ class EditMapWindow extends React.Component {
                     thumbnail: obj.Data.url
                 });
             } else {
-                app.toast(_t(obj.Msg), 'warn');
+                global.app.toast(_t(obj.Msg), 'warn');
             }
         });
     }
@@ -208,12 +209,12 @@ class EditMapWindow extends React.Component {
     }
 
     handleEditCategoryList() {
-        const window = app.createElement(CategoryWindow, {
+        const window = global.app.createElement(CategoryWindow, {
             type: this.props.type,
             typeName: `${this.props.typeName}`
         });
 
-        app.addElement(window);
+        global.app.addElement(window);
     }
 
     handleSelectHistory(record) {
@@ -235,13 +236,13 @@ class EditMapWindow extends React.Component {
         const history = this.state.histories.filter(n => n.ID === name)[0];
 
         if (!history) {
-            app.toast(_t('The scene is not existed!'));
+            global.app.toast(_t('The scene is not existed!'));
             return;
         }
 
-        let url = `${app.options.server}/api/Scene/Load?ID=${history.SceneID}&Version=${history.Version}`;
+        let url = `${global.app.options.server}/api/Scene/Load?ID=${history.SceneID}&Version=${history.Version}`;
 
-        app.call(`load`, this, url, history.SceneName, history.ID);
+        global.app.call(`load`, this, url, history.SceneName, history.ID);
     }
 
     handleSave() {
@@ -260,13 +261,13 @@ class EditMapWindow extends React.Component {
                 callback && callback(obj);
                 this.handleClose();
             } else {
-                app.toast(_t(obj.Msg), 'warn');
+                global.app.toast(_t(obj.Msg), 'warn');
             }
         });
     }
 
     handleClose() {
-        app.removeElement(this);
+        global.app.removeElement(this);
     }
 }
 

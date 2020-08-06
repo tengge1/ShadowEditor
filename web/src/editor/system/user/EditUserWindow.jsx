@@ -11,6 +11,7 @@ import './css/EditUserWindow.css';
 import { PropTypes } from '../../../third_party';
 import { Window, Content, Buttons, Form, FormControl, Label, Input, Button, Select } from '../../../ui/index';
 import SelectDeptWindow from '../dept/SelectDeptWindow.jsx';
+import global from '../../../global';
 
 /**
  * 用户编辑窗口
@@ -117,10 +118,10 @@ class EditUserWindow extends React.Component {
     }
 
     componentDidMount() {
-        fetch(`${app.options.server}/api/Role/List?pageSize=10000`).then(response => {
+        fetch(`${global.app.options.server}/api/Role/List?pageSize=10000`).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg), 'warn');
+                    global.app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 const roles = {
@@ -143,10 +144,10 @@ class EditUserWindow extends React.Component {
     }
 
     handleSelectDept() {
-        const win = app.createElement(SelectDeptWindow, {
+        const win = global.app.createElement(SelectDeptWindow, {
             callback: this.commitSelectDept
         });
-        app.addElement(win);
+        global.app.addElement(win);
     }
 
     commitSelectDept(deptID, deptName) {
@@ -160,33 +161,33 @@ class EditUserWindow extends React.Component {
         const { id, username, password, confirmPassword, name, roleID, deptID } = this.state;
 
         if (!username || username.trim() === '') {
-            app.toast(_t('Username is not allowed to be empty.'), 'warn');
+            global.app.toast(_t('Username is not allowed to be empty.'), 'warn');
             return;
         }
 
         if (!id && (!password || password.trim() === '')) {
-            app.toast(_t('Password is not allowed to be empty.'), 'warn');
+            global.app.toast(_t('Password is not allowed to be empty.'), 'warn');
             return;
         }
 
         if (!id && (!confirmPassword || confirmPassword.trim() === '')) {
-            app.toast(_t('Confirm password is not allowed to be empty.'), 'warn');
+            global.app.toast(_t('Confirm password is not allowed to be empty.'), 'warn');
             return;
         }
 
         if (!id && password !== confirmPassword) {
-            app.toast(_t('Password and confirm password is not the same.'), 'warn');
+            global.app.toast(_t('Password and confirm password is not the same.'), 'warn');
             return;
         }
 
         if (!name || name.trim() === '') {
-            app.toast(_t('Nick name is not allowed to be empty.'), 'warn');
+            global.app.toast(_t('Nick name is not allowed to be empty.'), 'warn');
             return;
         }
 
         const url = !id ? `/api/User/Add` : `/api/User/Edit`;
 
-        fetch(`${app.options.server}${url}`, {
+        fetch(`${global.app.options.server}${url}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -195,7 +196,7 @@ class EditUserWindow extends React.Component {
         }).then(response => {
             response.json().then(json => {
                 if (json.Code !== 200) {
-                    app.toast(_t(json.Msg), 'warn');
+                    global.app.toast(_t(json.Msg), 'warn');
                     return;
                 }
                 this.handleClose();
@@ -205,7 +206,7 @@ class EditUserWindow extends React.Component {
     }
 
     handleClose() {
-        app.removeElement(this);
+        global.app.removeElement(this);
     }
 
     renderRoleName(value) {

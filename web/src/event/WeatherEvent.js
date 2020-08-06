@@ -10,6 +10,7 @@
 import BaseEvent from './BaseEvent';
 import Rain from '../object/weather/Rain';
 import Snow from '../object/weather/Snow';
+import global from '../global';
 
 /**
  * 视图事件
@@ -29,12 +30,12 @@ WeatherEvent.prototype = Object.create(BaseEvent.prototype);
 WeatherEvent.prototype.constructor = WeatherEvent;
 
 WeatherEvent.prototype.start = function () {
-    app.on(`optionChange.${this.id}`, this.onOptionChange);
-    app.on(`afterRender.${this.id}`, this.onAfterRender);
+    global.app.on(`optionChange.${this.id}`, this.onOptionChange);
+    global.app.on(`afterRender.${this.id}`, this.onAfterRender);
 };
 
 WeatherEvent.prototype.stop = function () {
-    app.on(`optionChange.${this.id}`, null);
+    global.app.on(`optionChange.${this.id}`, null);
 };
 
 WeatherEvent.prototype.onOptionChange = function (name, value) {
@@ -44,7 +45,7 @@ WeatherEvent.prototype.onOptionChange = function (name, value) {
     this.weather = value;
 
     if (this.object) {
-        app.editor.sceneHelpers.remove(this.object);
+        global.app.editor.sceneHelpers.remove(this.object);
         this.object = null;
     }
 
@@ -53,7 +54,7 @@ WeatherEvent.prototype.onOptionChange = function (name, value) {
             this.rain = new Rain();
         }
         this.object = this.rain;
-        app.editor.sceneHelpers.add(this.rain);
+        global.app.editor.sceneHelpers.add(this.rain);
     }
 
     if (this.weather === 'snow') {
@@ -61,7 +62,7 @@ WeatherEvent.prototype.onOptionChange = function (name, value) {
             this.snow = new Snow();
         }
         this.object = this.snow;
-        app.editor.sceneHelpers.add(this.snow);
+        global.app.editor.sceneHelpers.add(this.snow);
     }
 };
 

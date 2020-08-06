@@ -9,6 +9,7 @@
  */
 import BaseHelper from '../BaseHelper';
 import GodRays from '../../postprocessing/GodRays';
+import global from '../../global';
 
 /**
  * 神光帮助器
@@ -24,16 +25,16 @@ GodRaysHelpers.prototype.constructor = GodRaysHelpers;
 GodRaysHelpers.prototype.start = function () {
     this.ready = false;
     this.ray = new GodRays();
-    this.ray.init(app.editor.scene, app.editor.camera, app.editor.renderer).then(() => {
+    this.ray.init(global.app.editor.scene, global.app.editor.camera, global.app.editor.renderer).then(() => {
         this.ready = true;
     });
-    app.on(`afterRender.${this.id}`, this.onAfterRender.bind(this));
+    global.app.on(`afterRender.${this.id}`, this.onAfterRender.bind(this));
 };
 
 GodRaysHelpers.prototype.stop = function () {
     this.ready = false;
     this.ray.dispose();
-    app.on(`afterRender.${this.id}`, null);
+    global.app.on(`afterRender.${this.id}`, null);
 };
 
 GodRaysHelpers.prototype.onAfterRender = function () {

@@ -9,6 +9,7 @@
  */
 import { PropertyGroup, DisplayProperty, NumberProperty, IntegerProperty } from '../../../ui/index';
 import SetGeometryCommand from '../../../command/SetGeometryCommand';
+import global from '../../../global';
 
 /**
  * 正方体组件
@@ -86,8 +87,8 @@ class BoxGeometryComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.BoxGeometryComponent`, this.handleUpdate);
-        app.on(`objectChanged.BoxGeometryComponent`, this.handleUpdate);
+        global.app.on(`objectSelected.BoxGeometryComponent`, this.handleUpdate);
+        global.app.on(`objectChanged.BoxGeometryComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {
@@ -97,7 +98,7 @@ class BoxGeometryComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || !(editor.selected instanceof THREE.Mesh) || !(editor.selected.geometry instanceof THREE.BoxBufferGeometry)) {
             this.setState({
@@ -135,7 +136,7 @@ class BoxGeometryComponent extends React.Component {
             [name]: value
         });
 
-        app.editor.execute(new SetGeometryCommand(this.selected, new THREE.BoxBufferGeometry(
+        global.app.editor.execute(new SetGeometryCommand(this.selected, new THREE.BoxBufferGeometry(
             width,
             height,
             depth,
@@ -144,7 +145,7 @@ class BoxGeometryComponent extends React.Component {
             depthSegments
         )));
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 }
 

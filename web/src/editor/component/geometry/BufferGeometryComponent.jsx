@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import { PropertyGroup, DisplayProperty, ButtonProperty } from '../../../ui/index';
+import global from '../../../global';
 
 /**
  * BufferGeometry组件
@@ -67,8 +68,8 @@ class BufferGeometryComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.BufferGeometryComponent`, this.handleUpdate);
-        app.on(`objectChanged.BufferGeometryComponent`, this.handleUpdate);
+        global.app.on(`objectSelected.BufferGeometryComponent`, this.handleUpdate);
+        global.app.on(`objectChanged.BufferGeometryComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {
@@ -78,7 +79,7 @@ class BufferGeometryComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || !(editor.selected instanceof THREE.Mesh) || !(editor.selected.geometry instanceof THREE.BufferGeometry)) {
             this.setState({

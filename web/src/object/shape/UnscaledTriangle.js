@@ -10,6 +10,7 @@
 import UnscaledTriangleVertexShader from './shader/unscaled_triangle_vertex.glsl';
 import UnscaledTriangleFragmentShader from './shader/unscaled_triangle_fragment.glsl';
 import CanvasUtils from '../../utils/CanvasUtils';
+import global from '../../global';
 
 /**
  * 不缩放三角形
@@ -64,8 +65,8 @@ class UnscaledTriangle extends THREE.Mesh {
         canvas.width = width2;
         canvas.height = height2;
 
-        const domWidth = app.editor.renderer.domElement.width;
-        const domHeight = app.editor.renderer.domElement.height;
+        const domWidth = global.app.editor.renderer.domElement.width;
+        const domHeight = global.app.editor.renderer.domElement.height;
 
         this.material.uniforms.width.value = width2 / domWidth;
         this.material.uniforms.height.value = height2 / domHeight;

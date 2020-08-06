@@ -15,6 +15,7 @@ import HistoryPanel from './HistoryPanel.jsx';
 import PropertyPanel from './PropertyPanel.jsx';
 import ScriptPanel from './ScriptPanel.jsx';
 import AnimationPropertyPanel from './AnimationPropertyPanel.jsx';
+import global from '../../global';
 
 /**
  * 侧边栏
@@ -58,7 +59,7 @@ class EditorSideBar extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`animationSelected.EditorSideBar`, this.handleAnimationSelected);
+        global.app.on(`animationSelected.EditorSideBar`, this.handleAnimationSelected);
     }
 
     handleTopTabChange(index) {

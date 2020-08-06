@@ -9,6 +9,7 @@
  */
 import { PropertyGroup, NumberProperty, IntegerProperty } from '../../../ui/index';
 import SetGeometryCommand from '../../../command/SetGeometryCommand';
+import global from '../../../global';
 
 /**
  * 环面纽结组件
@@ -82,8 +83,8 @@ class TorusKnotGeometryComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.TorusKnotGeometryComponent`, this.handleUpdate);
-        app.on(`objectChanged.TorusKnotGeometryComponent`, this.handleUpdate);
+        global.app.on(`objectSelected.TorusKnotGeometryComponent`, this.handleUpdate);
+        global.app.on(`objectChanged.TorusKnotGeometryComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {
@@ -93,7 +94,7 @@ class TorusKnotGeometryComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || !(editor.selected instanceof THREE.Mesh) || !(editor.selected.geometry instanceof THREE.TorusKnotBufferGeometry)) {
             this.setState({
@@ -132,7 +133,7 @@ class TorusKnotGeometryComponent extends React.Component {
 
         this.setState(state);
 
-        app.editor.execute(new SetGeometryCommand(this.selected, new THREE.TorusKnotBufferGeometry(
+        global.app.editor.execute(new SetGeometryCommand(this.selected, new THREE.TorusKnotBufferGeometry(
             radius,
             tube,
             tubularSegments,
@@ -141,7 +142,7 @@ class TorusKnotGeometryComponent extends React.Component {
             q
         )));
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 }
 

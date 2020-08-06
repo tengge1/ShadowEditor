@@ -7,6 +7,8 @@
  * For more information, please visit: https://github.com/tengge1/ShadowEditor
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
+import global from '../global';
+
 /**
  * 服务端功能
  * @author tengge / https://github.com/tengge1
@@ -37,7 +39,7 @@ class Server {
             fetch(`${this.origin}/api/Config/Get`).then(response => {
                 response.json().then(obj => {
                     if (obj.Code !== 200) {
-                        app.toast(_t(obj.Msg), 'warn');
+                        global.app.toast(_t(obj.Msg), 'warn');
                         return;
                     }
                     this.enableAuthority = obj.Data.EnableAuthority;
@@ -58,12 +60,12 @@ class Server {
                     resolve();
                 }).catch(e => {
                     console.warn(e);
-                    app.toast(_t('Server configuration acquisition failed.'), 'error');
+                    global.app.toast(_t('Server configuration acquisition failed.'), 'error');
                     resolve();
                 });
             }).catch(e => {
                 console.warn(e);
-                app.toast(_t('Server configuration acquisition failed.'), 'error');
+                global.app.toast(_t('Server configuration acquisition failed.'), 'error');
                 resolve();
             });
         });
@@ -74,13 +76,13 @@ class Server {
             fetch(`${this.origin}/api/Login/Login`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
+                    'Content-Type': 'global.application/x-www-form-urlencoded'
                 },
                 body: `Username=${username}&Password=${password}`
             }).then(response => {
                 response.json().then(obj => {
                     if (obj.Code !== 200) {
-                        app.toast(_t(obj.Msg), 'warn');
+                        global.app.toast(_t(obj.Msg), 'warn');
                         resolve(false);
                         return;
                     }
@@ -96,7 +98,7 @@ class Server {
 
                     // this.isAdmin = false; // 是否是管理员
 
-                    app.call('login', this);
+                    global.app.call('login', this);
                     resolve(true);
                 });
             });
@@ -110,14 +112,14 @@ class Server {
             }).then(response => {
                 response.json().then(obj => {
                     if (obj.Code !== 200) {
-                        app.toast(_t(obj.Msg), 'warn');
+                        global.app.toast(_t(obj.Msg), 'warn');
                         resolve(false);
                         return;
                     }
                     this.isLogin = false;
                     this.username = '';
                     this.name = '';
-                    app.call('logout', this);
+                    global.app.call('logout', this);
                     resolve(true);
                 });
             });

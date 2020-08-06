@@ -12,6 +12,7 @@ import MaskVertex from './shader/mask_vertex.glsl';
 import MaskFragment from './shader/mask_fragment.glsl';
 import EdgeVertex from './shader/edge_vertex.glsl';
 import EdgeFragment from './shader/edge_fragment.glsl';
+import global from '../global';
 
 /**
  * 选择帮助器
@@ -26,17 +27,17 @@ SelectHelper.prototype = Object.create(BaseHelper.prototype);
 SelectHelper.prototype.constructor = SelectHelper;
 
 SelectHelper.prototype.start = function () {
-    app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
-    app.on(`objectRemoved.${this.id}`, this.onObjectRemoved.bind(this));
-    app.on(`afterRender.${this.id}`, this.onAfterRender.bind(this));
-    app.on(`storageChanged.${this.id}`, this.onStorageChanged.bind(this));
+    global.app.on(`objectSelected.${this.id}`, this.onObjectSelected.bind(this));
+    global.app.on(`objectRemoved.${this.id}`, this.onObjectRemoved.bind(this));
+    global.app.on(`afterRender.${this.id}`, this.onAfterRender.bind(this));
+    global.app.on(`storageChanged.${this.id}`, this.onStorageChanged.bind(this));
 };
 
 SelectHelper.prototype.stop = function () {
-    app.on(`objectSelected.${this.id}`, null);
-    app.on(`objectRemoved.${this.id}`, null);
-    app.on(`afterRender.${this.id}`, null);
-    app.on(`storageChanged.${this.id}`, null);
+    global.app.on(`objectSelected.${this.id}`, null);
+    global.app.on(`objectRemoved.${this.id}`, null);
+    global.app.on(`afterRender.${this.id}`, null);
+    global.app.on(`storageChanged.${this.id}`, null);
 };
 
 SelectHelper.prototype.onObjectSelected = function (obj) {
@@ -46,7 +47,7 @@ SelectHelper.prototype.onObjectSelected = function (obj) {
     }
 
     // 禁止选中场景和相机
-    if (obj === app.editor.scene || obj === app.editor.camera) {
+    if (obj === global.app.editor.scene || obj === global.app.editor.camera) {
         return;
     }
 
@@ -60,7 +61,7 @@ SelectHelper.prototype.onObjectSelected = function (obj) {
         this.size = new THREE.Vector2();
     }
 
-    app.editor.renderer.getDrawingBufferSize(this.size);
+    global.app.editor.renderer.getDrawingBufferSize(this.size);
 
     let width = this.size.x * 2;
     let height = this.size.y * 2;
@@ -107,8 +108,8 @@ SelectHelper.prototype.onObjectSelected = function (obj) {
         });
     }
 
-    const selectedColor = app.storage.selectedColor;
-    const selectedThickness = app.storage.selectedThickness;
+    const selectedColor = global.app.storage.selectedColor;
+    const selectedThickness = global.app.storage.selectedThickness;
 
     if (this.edgeMaterial === undefined) {
         this.edgeMaterial = new THREE.ShaderMaterial({
@@ -172,9 +173,9 @@ SelectHelper.prototype.onAfterRender = function () {
         return;
     }
 
-    let renderScene = app.editor.scene;
-    let renderCamera = app.editor.view === 'perspective' ? app.editor.camera : app.editor.orthCamera;
-    let renderer = app.editor.renderer;
+    let renderScene = global.app.editor.scene;
+    let renderCamera = global.app.editor.view === 'perspective' ? global.app.editor.camera : global.app.editor.orthCamera;
+    let renderer = global.app.editor.renderer;
 
     let scene = this.scene;
     let camera = this.camera;

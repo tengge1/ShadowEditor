@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import { Window, Content, Buttons, Form, FormControl, Label, Input, Button } from '../../../ui/index';
+import global from '../../../global';
 
 /**
  * Three.js信息窗口
@@ -45,7 +46,7 @@ class ThreeJsInformationWindow extends React.Component {
     }
 
     handleClose() {
-        app.removeElement(this);
+        global.app.removeElement(this);
     }
 }
 

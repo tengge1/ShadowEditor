@@ -17,6 +17,7 @@ import EmptySceneTemplate from './scene/EmptySceneTemplate';
 // import DistrictSceneTemplate from './scene/DistrictSceneTemplate';
 // import GISSceneTemplate from './scene/GISSceneTemplate';
 import WorldWind from '../../gis/WorldWind';
+import global from '../../global';
 
 /**
  * 场景菜单
@@ -43,7 +44,7 @@ class SceneMenu extends React.Component {
     }
 
     render() {
-        const { enableAuthority, isLogin, authorities } = app.server;
+        const { enableAuthority, isLogin, authorities } = global.app.server;
 
         return <MenuItem title={_t('Scene')}>
             {!enableAuthority || isLogin ? <MenuItem title={_t('New')}>
@@ -91,9 +92,9 @@ class SceneMenu extends React.Component {
     }
 
     componentDidMount() {
-        if (app.debug) {
+        if (global.app.debug) {
             // TODO: just for gis development, and remove this afterwards.
-            app.on(`appStarted.dev-3d-gis`, () => {
+            global.app.on(`appStarted.dev-3d-gis`, () => {
                 setTimeout(() => {
                     this.handleCreateGISScene();
                     // let navigator = window.map.navigator;
@@ -112,13 +113,13 @@ class SceneMenu extends React.Component {
      * @returns {Promise} 是否创建成功
      */
     queryBeforeCreateScene() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         return new Promise(resolve => {
             if (editor.sceneID === null) {
                 resolve();
             } else {
-                app.confirm({
+                global.app.confirm({
                     title: _t('Confirm'),
                     content: _t('All unsaved data will be lost. Are you sure?'),
                     onOK: () => {
@@ -137,10 +138,10 @@ class SceneMenu extends React.Component {
             const scene = new EmptySceneTemplate();
             scene.clear();
             scene.create();
-            app.call('editorCleared', this);
-            app.call('scriptChanged', this);
-            app.call('animationChanged', this);
-            app.toast(_t('Create empty scene successfully.'), 'success');
+            global.app.call('editorCleared', this);
+            global.app.call('scriptChanged', this);
+            global.app.call('animationChanged', this);
+            global.app.toast(_t('Create empty scene successfully.'), 'success');
         });
     }
 
@@ -148,15 +149,15 @@ class SceneMenu extends React.Component {
      * 新建小区和室内
      */
     handleCreateDistrictAndIndoor() {
-        let editor = app.editor;
+        let editor = global.app.editor;
 
         this.queryBeforeCreateScene().then(() => {
             editor.clear();
             editor.sceneID = null;
             editor.sceneName = null;
-            app.options.sceneType = 'Empty';
+            global.app.options.sceneType = 'Empty';
             document.title = _t('District and Indoor');
-            app.editor.camera.userData.control = 'OrbitControls';
+            global.app.editor.camera.userData.control = 'OrbitControls';
 
             // 添加地面
             let geometry = new THREE.PlaneBufferGeometry(100, 100);
@@ -173,9 +174,9 @@ class SceneMenu extends React.Component {
             mesh.rotation.x = -Math.PI / 2;
             mesh.name = _t('Ground');
 
-            app.editor.addObject(mesh);
+            global.app.editor.addObject(mesh);
 
-            app.toast(_t('Create district successfully.'), 'success');
+            global.app.toast(_t('Create district successfully.'), 'success');
         });
     }
 
@@ -183,11 +184,11 @@ class SceneMenu extends React.Component {
      * 新建GIS场景
      */
     handleCreateGISScene() {
-        if (app.editor.gis) {
-            app.editor.gis.stop();
+        if (global.app.editor.gis) {
+            global.app.editor.gis.stop();
         }
 
-        let context = app.editor.renderer.getContext();
+        let context = global.app.editor.renderer.getContext();
         context.activeTexture(context.TEXTURE0);
         let map = new WorldWind.WorldWindow(context);
         map.addLayer(new WorldWind.StarFieldLayer());
@@ -195,40 +196,40 @@ class SceneMenu extends React.Component {
         map.addLayer(new WorldWind.XYZLayer());
         window.map = map;
 
-        app.options.sceneType = 'GIS';
-        app.editor.camera.userData.control = '';
+        global.app.options.sceneType = 'GIS';
+        global.app.editor.camera.userData.control = '';
 
-        app.call(`sceneGraphChanged`, this);
+        global.app.call(`sceneGraphChanged`, this);
     }
 
     // --------------------------- 保存场景 ----------------------------------------
 
     handleSaveScene() { // 保存场景
-        var editor = app.editor;
+        var editor = global.app.editor;
         var id = editor.sceneID;
         var sceneName = editor.sceneName;
 
         if (id) { // 编辑场景
             this.commitSave(id, sceneName);
         } else { // 新建场景
-            const win = app.createElement(SaveSceneWindow);
-            app.addElement(win);
+            const win = global.app.createElement(SaveSceneWindow);
+            global.app.addElement(win);
         }
     }
 
     commitSave(id, sceneName) {
-        var editor = app.editor;
+        var editor = global.app.editor;
 
         // 记录选中物体，以便载入时还原场景选中
-        var selected = app.editor.selected;
+        var selected = global.app.editor.selected;
         if (selected) {
-            app.options.selected = selected.uuid;
+            global.app.options.selected = selected.uuid;
         }
 
-        app.mask(_t('Waiting...'));
+        global.app.mask(_t('Waiting...'));
 
         var obj = new Converter().toJSON({
-            options: app.options,
+            options: global.app.options,
             camera: editor.camera,
             renderer: editor.renderer,
             scripts: editor.scripts,
@@ -246,20 +247,20 @@ class SceneMenu extends React.Component {
             params.ID = id;
         }
 
-        Ajax.post(`${app.options.server}/api/Scene/Save`, params, result => {
+        Ajax.post(`${global.app.options.server}/api/Scene/Save`, params, result => {
             var obj = JSON.parse(result);
 
-            app.unmask();
+            global.app.unmask();
 
             if (obj.Code === 200) {
                 editor.sceneID = obj.ID;
                 editor.sceneName = sceneName;
                 document.title = sceneName;
 
-                app.call(`sceneSaved`, this);
-                app.toast(_t(obj.Msg), 'success');
+                global.app.call(`sceneSaved`, this);
+                global.app.toast(_t(obj.Msg), 'success');
             } else {
-                app.toast(_t(obj.Msg), 'warn');
+                global.app.toast(_t(obj.Msg), 'warn');
             }
         });
     }
@@ -267,21 +268,21 @@ class SceneMenu extends React.Component {
     // --------------------------- 另存为场景 -------------------------------------
 
     handleSaveAsScene() {
-        const win = app.createElement(SaveSceneWindow);
-        app.addElement(win);
+        const win = global.app.createElement(SaveSceneWindow);
+        global.app.addElement(win);
     }
 
     // ---------------------- 导出场景为json文件 --------------------------
 
     querySceneName() {
-        var sceneName = app.editor.sceneName;
+        var sceneName = global.app.editor.sceneName;
 
         if (!sceneName) {
             sceneName = _t(`Scene{{Time}}`, { Time: TimeUtils.getDateTime() });
         }
 
         return new Promise(resolve => {
-            app.prompt({
+            global.app.prompt({
                 title: _t('Input File Name'),
                 content: _t('Name'),
                 value: sceneName,
@@ -294,7 +295,7 @@ class SceneMenu extends React.Component {
 
     handleExportSceneToJson() {
         this.querySceneName().then(name => {
-            var output = app.editor.scene.toJSON();
+            var output = global.app.editor.scene.toJSON();
 
             try {
                 output = JSON.stringify(output, StringUtils.parseNumber, '\t');
@@ -312,10 +313,10 @@ class SceneMenu extends React.Component {
 
     handleExportSceneToCollada() {
         this.querySceneName().then(name => {
-            app.require('ColladaExporter').then(() => {
+            global.app.require('ColladaExporter').then(() => {
                 var exporter = new THREE.ColladaExporter();
 
-                exporter.parse(app.editor.scene, function (result) {
+                exporter.parse(global.app.editor.scene, function (result) {
                     StringUtils.saveString(result.data, `${name}.dae`);
                 });
             });
@@ -326,10 +327,10 @@ class SceneMenu extends React.Component {
 
     handleExportSceneToGltf() {
         this.querySceneName().then(name => {
-            app.require('GLTFExporter').then(() => {
+            global.app.require('GLTFExporter').then(() => {
                 var exporter = new THREE.GLTFExporter();
 
-                exporter.parse(app.editor.scene, result => {
+                exporter.parse(global.app.editor.scene, result => {
                     StringUtils.saveString(JSON.stringify(result), `${name}.gltf`);
                 });
             });
@@ -340,9 +341,9 @@ class SceneMenu extends React.Component {
 
     handleExportSceneToOBJ() {
         this.querySceneName().then(name => {
-            app.require('OBJExporter').then(() => {
+            global.app.require('OBJExporter').then(() => {
                 var exporter = new THREE.OBJExporter();
-                StringUtils.saveString(exporter.parse(app.editor.scene), `${name}.obj`);
+                StringUtils.saveString(exporter.parse(global.app.editor.scene), `${name}.obj`);
             });
         });
     }
@@ -351,9 +352,9 @@ class SceneMenu extends React.Component {
 
     handleExportSceneToPLY() {
         this.querySceneName().then(name => {
-            app.require('PLYExporter').then(() => {
+            global.app.require('PLYExporter').then(() => {
                 var exporter = new THREE.PLYExporter();
-                StringUtils.saveString(exporter.parse(app.editor.scene, {
+                StringUtils.saveString(exporter.parse(global.app.editor.scene, {
                     excludeAttributes: ['normal', 'uv', 'color', 'index']
                 }), `${name}.ply`);
             });
@@ -364,9 +365,9 @@ class SceneMenu extends React.Component {
 
     handleExportSceneToSTL() {
         this.querySceneName().then(name => {
-            app.require('STLExporter').then(() => {
+            global.app.require('STLExporter').then(() => {
                 var exporter = new THREE.STLExporter();
-                StringUtils.saveString(exporter.parse(app.editor.scene), `${name}.stl`);
+                StringUtils.saveString(exporter.parse(global.app.editor.scene), `${name}.stl`);
             });
         });
     }
@@ -374,31 +375,31 @@ class SceneMenu extends React.Component {
     // -------------------------- 发布场景 --------------------------------
 
     handlePublishScene() {
-        var sceneID = app.editor.sceneID;
+        var sceneID = global.app.editor.sceneID;
 
         if (!sceneID) {
-            app.toast(_t('Please open scene first.'), 'warn');
+            global.app.toast(_t('Please open scene first.'), 'warn');
             return;
         }
 
-        app.confirm({
+        global.app.confirm({
             title: _t('Query'),
             content: _t('Are you sure to publish the current scene?'),
             onOK: () => {
-                app.mask(_t('Publishing...'));
+                global.app.mask(_t('Publishing...'));
 
-                fetch(`${app.options.server}/api/ExportScene/Run?ID=${sceneID}`, {
+                fetch(`${global.app.options.server}/api/ExportScene/Run?ID=${sceneID}`, {
                     method: 'POST'
                 }).then(response => {
                     if (response.ok) {
                         response.json().then(obj => {
-                            app.unmask();
+                            global.app.unmask();
                             if (obj.Code !== 200) {
-                                app.toast(_t(obj.Msg), 'warn');
+                                global.app.toast(_t(obj.Msg), 'warn');
                                 return;
                             }
-                            app.toast(_t(obj.Msg), 'success');
-                            window.open(`${app.options.server}${obj.Url}`, 'export');
+                            global.app.toast(_t(obj.Msg), 'success');
+                            window.open(`${global.app.options.server}${obj.Url}`, 'export');
                         });
                     }
                 });

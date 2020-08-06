@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import { PropertyGroup, CheckBoxProperty, NumberProperty } from '../../../ui/index';
+import global from '../../../global';
 
 /**
  * 第一视角控制器组件
@@ -118,8 +119,8 @@ class FirstPersonControlComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.FirstPersonControlComponent`, this.handleUpdate.bind(this));
-        app.on(`objectChanged.FirstPersonControlComponent`, this.handleUpdate.bind(this));
+        global.app.on(`objectSelected.FirstPersonControlComponent`, this.handleUpdate.bind(this));
+        global.app.on(`objectChanged.FirstPersonControlComponent`, this.handleUpdate.bind(this));
     }
 
     handleExpand(expanded) {
@@ -129,7 +130,7 @@ class FirstPersonControlComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || editor.selected !== editor.camera || editor.selected.userData.control !== 'FirstPersonControls') {
             this.setState({
@@ -181,7 +182,7 @@ class FirstPersonControlComponent extends React.Component {
             constrainVertical, verticalMin, verticalMax
         });
 
-        app.call('objectChanged', this, this.selected);
+        global.app.call('objectChanged', this, this.selected);
     }
 }
 

@@ -12,6 +12,7 @@ import { PropTypes } from '../../../third_party';
 import { Window, TabLayout, Content, Buttons, Form, FormControl, Label, Input, Select, ImageUploader, Button, CheckBox, DataGrid, Column, LinkButton } from '../../../ui/index';
 import Ajax from '../../../utils/Ajax';
 import CategoryWindow from './CategoryWindow.jsx';
+import global from '../../../global';
 
 /**
  * 编辑模型窗口
@@ -87,7 +88,7 @@ class EditModelWindow extends React.Component {
                         <FormControl>
                             <Label>{_t('Thumbnail')}</Label>
                             <ImageUploader
-                                server={app.options.server}
+                                server={global.app.options.server}
                                 url={thumbnail}
                                 noImageText={_t('No Image')}
                                 onChange={this.handleThumbnailChange}
@@ -144,7 +145,7 @@ class EditModelWindow extends React.Component {
     handleActiveTabChange(activeTabIndex) {
         if (activeTabIndex === 1) { // 更新历史数据
             const { data } = this.props;
-            fetch(`${app.options.server}/api/Mesh/HistoryList?ID=${data.ID}`).then(response => {
+            fetch(`${global.app.options.server}/api/Mesh/HistoryList?ID=${data.ID}`).then(response => {
                 response.json().then(json => {
                     this.setState({
                         histories: json.Data,
@@ -160,7 +161,7 @@ class EditModelWindow extends React.Component {
     }
 
     updateUI() {
-        Ajax.getJson(`${app.options.server}/api/Category/List?Type=Mesh`, json => {
+        Ajax.getJson(`${global.app.options.server}/api/Category/List?Type=Mesh`, json => {
             var options = {
                 '': _t('Not Set')
             };
@@ -186,7 +187,7 @@ class EditModelWindow extends React.Component {
     }
 
     handleThumbnailChange(file) {
-        Ajax.post(`${app.options.server}/api/Upload/Upload`, {
+        Ajax.post(`${global.app.options.server}/api/Upload/Upload`, {
             file
         }, json => {
             var obj = JSON.parse(json);
@@ -195,7 +196,7 @@ class EditModelWindow extends React.Component {
                     thumbnail: obj.Data.url
                 });
             } else {
-                app.toast(_t(obj.Msg), 'warn');
+                global.app.toast(_t(obj.Msg), 'warn');
             }
         });
     }
@@ -207,12 +208,12 @@ class EditModelWindow extends React.Component {
     }
 
     handleEditCategoryList() {
-        const window = app.createElement(CategoryWindow, {
+        const window = global.app.createElement(CategoryWindow, {
             type: 'Mesh',
             typeName: `${_t('Model')}`
         });
 
-        app.addElement(window);
+        global.app.addElement(window);
     }
 
     handleSelectHistory(record) {
@@ -234,27 +235,27 @@ class EditModelWindow extends React.Component {
         const history = this.state.histories.filter(n => n.ID === name)[0];
 
         if (!history) {
-            app.toast(_t('The mesh is not existed!'));
+            global.app.toast(_t('The mesh is not existed!'));
             return;
         }
 
-        let url = `${app.options.server}/api/Mesh/Load?ID=${history.MeshID}&Version=${history.Version}`;
+        let url = `${global.app.options.server}/api/Mesh/Load?ID=${history.MeshID}&Version=${history.Version}`;
 
-        app.call(`load`, this, url, history.MeshName, history.ID);
+        global.app.call(`load`, this, url, history.MeshName, history.ID);
     }
 
     handleDownload() {
         const { data } = this.props;
 
-        fetch(`${app.options.server}/api/Mesh/Download?ID=${data.ID}`, {
+        fetch(`${global.app.options.server}/api/Mesh/Download?ID=${data.ID}`, {
             method: 'POST'
         }).then(response => {
             response.json().then(json => {
                 if (json.Code !== 200) {
-                    app.toast(_t(json.Msg), 'warn');
+                    global.app.toast(_t(json.Msg), 'warn');
                     return;
                 }
-                window.open(`${app.options.server}${json.Path}`);
+                window.open(`${global.app.options.server}${json.Path}`);
             });
         });
     }
@@ -263,7 +264,7 @@ class EditModelWindow extends React.Component {
         const { data, callback } = this.props;
         const { name, categoryID, thumbnail, isPublic } = this.state;
 
-        Ajax.post(`${app.options.server}/api/Mesh/Edit`, {
+        Ajax.post(`${global.app.options.server}/api/Mesh/Edit`, {
             ID: data.ID,
             Name: name,
             Category: categoryID,
@@ -275,13 +276,13 @@ class EditModelWindow extends React.Component {
                 callback && callback(obj);
                 this.handleClose();
             } else {
-                app.toast(_t(obj.Msg), 'warn');
+                global.app.toast(_t(obj.Msg), 'warn');
             }
         });
     }
 
     handleClose() {
-        app.removeElement(this);
+        global.app.removeElement(this);
     }
 }
 

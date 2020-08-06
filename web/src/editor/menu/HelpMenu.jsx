@@ -12,6 +12,7 @@ import { MenuItem, MenuItemSeparator } from '../../ui/index';
 import RendererAttributesWindow from './window/RendererAttributesWindow.jsx';
 import ThreeJsInformationWindow from './window/ThreeJsInformationWindow.jsx';
 import ExtensionWindow from './window/ExtensionWindow.jsx';
+import global from '../../global';
 
 /**
  * 帮助菜单
@@ -81,18 +82,18 @@ class HelpMenu extends React.Component {
     }
 
     handleRendererAttributes() {
-        const win = app.createElement(RendererAttributesWindow);
-        app.addElement(win);
+        const win = global.app.createElement(RendererAttributesWindow);
+        global.app.addElement(win);
     }
 
     handleThreeJsInformation() {
-        const win = app.createElement(ThreeJsInformationWindow);
-        app.addElement(win);
+        const win = global.app.createElement(ThreeJsInformationWindow);
+        global.app.addElement(win);
     }
 
     handleExtension() {
-        const win = app.createElement(ExtensionWindow);
-        app.addElement(win);
+        const win = global.app.createElement(ExtensionWindow);
+        global.app.addElement(win);
     }
 
     handleVisitSketchfab() {
@@ -124,7 +125,7 @@ class HelpMenu extends React.Component {
     }
 
     handleAbout() {
-        app.alert({
+        global.app.alert({
             title: _t('About'),
             className: 'About',
             content: <>

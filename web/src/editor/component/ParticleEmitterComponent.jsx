@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import { PropertyGroup, ButtonProperty, NumberProperty, ColorProperty, TextureProperty, IntegerProperty } from '../../ui/index';
+import global from '../../global';
 
 /**
  * 粒子发射器组件
@@ -251,8 +252,8 @@ class ParticleEmitterComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.ParticleEmitterComponent`, this.handleUpdate);
-        app.on(`objectChanged.ParticleEmitterComponent`, this.handleUpdate);
+        global.app.on(`objectSelected.ParticleEmitterComponent`, this.handleUpdate);
+        global.app.on(`objectChanged.ParticleEmitterComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {
@@ -262,7 +263,7 @@ class ParticleEmitterComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || !(editor.selected.userData.type === 'ParticleEmitter')) {
             this.setState({
@@ -347,7 +348,7 @@ class ParticleEmitterComponent extends React.Component {
 
         emitter.updateFlags.position = true;
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeVelocity(value, name) {
@@ -376,7 +377,7 @@ class ParticleEmitterComponent extends React.Component {
 
         emitter.updateFlags.velocity = true;
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeAcceleration(value, name) {
@@ -404,7 +405,7 @@ class ParticleEmitterComponent extends React.Component {
 
         emitter.updateFlags.acceleration = true;
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeColor(value, name) {
@@ -429,7 +430,7 @@ class ParticleEmitterComponent extends React.Component {
 
         emitter.updateFlags.color = true;
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeSize(value, name) {
@@ -454,7 +455,7 @@ class ParticleEmitterComponent extends React.Component {
 
         emitter.updateFlags.size = true;
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeTexture(value, name) {
@@ -476,7 +477,7 @@ class ParticleEmitterComponent extends React.Component {
         group.texture = texture;
         group.material.uniforms.texture.value = texture;
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeParticleCount(value, name) {
@@ -498,7 +499,7 @@ class ParticleEmitterComponent extends React.Component {
 
         emitter.updateFlags.params = true;
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeMaxAge(value, name) {
@@ -520,7 +521,7 @@ class ParticleEmitterComponent extends React.Component {
 
         emitter.updateFlags.params = true;
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     handleChangeMaxAgeSpread(value, name) {
@@ -542,7 +543,7 @@ class ParticleEmitterComponent extends React.Component {
 
         emitter.updateFlags.params = true;
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 
     handlePreview() {
@@ -560,7 +561,7 @@ class ParticleEmitterComponent extends React.Component {
             previewText: _t('Cancel')
         });
 
-        app.on(`animate.ParticleEmitterComponent`, this.onAnimate);
+        global.app.on(`animate.ParticleEmitterComponent`, this.onAnimate);
     }
 
     stopPreview() {
@@ -577,7 +578,7 @@ class ParticleEmitterComponent extends React.Component {
         group.addEmitter(emitter);
         group.tick(0);
 
-        app.on(`animate.ParticleEmitterComponent`, null);
+        global.app.on(`animate.ParticleEmitterComponent`, null);
     }
 
     onAnimate(clock, deltaTime) {

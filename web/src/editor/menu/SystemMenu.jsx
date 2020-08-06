@@ -13,6 +13,7 @@ import UserManageWindow from '../system/UserManageWindow.jsx';
 import RoleManageWindow from '../system/RoleManageWindow.jsx';
 import AuthorityManagementWindow from '../system/AuthorityManagementWindow.jsx';
 import SystemSettingWindow from '../system/SystemSettingWindow.jsx';
+import global from '../../global';
 
 /**
  * 系统菜单
@@ -32,7 +33,7 @@ class SystemMenu extends React.Component {
     }
 
     render() {
-        const { initialized } = app.server;
+        const { initialized } = global.app.server;
 
         return <MenuItem title={_t('System')}>
             <MenuItem title={_t('Department Management')}
@@ -65,32 +66,32 @@ class SystemMenu extends React.Component {
     }
 
     handleDepartment() {
-        const win = app.createElement(DepartmentManagementWindow);
-        app.addElement(win);
+        const win = global.app.createElement(DepartmentManagementWindow);
+        global.app.addElement(win);
     }
 
     handleUser() {
-        const win = app.createElement(UserManageWindow);
-        app.addElement(win);
+        const win = global.app.createElement(UserManageWindow);
+        global.app.addElement(win);
     }
 
     handleRole() {
-        const win = app.createElement(RoleManageWindow);
-        app.addElement(win);
+        const win = global.app.createElement(RoleManageWindow);
+        global.app.addElement(win);
     }
 
     handleAuthority() {
-        const win = app.createElement(AuthorityManagementWindow);
-        app.addElement(win);
+        const win = global.app.createElement(AuthorityManagementWindow);
+        global.app.addElement(win);
     }
 
     handleSystemSetting() {
-        const win = app.createElement(SystemSettingWindow);
-        app.addElement(win);
+        const win = global.app.createElement(SystemSettingWindow);
+        global.app.addElement(win);
     }
 
     handleResetSystem() {
-        app.confirm({
+        global.app.confirm({
             title: _t('Query'),
             content: _t('All roles and users will be deleted and the pre-initial state will be restored. Is it reset?'),
             onOK: this.commitResetSystem
@@ -98,15 +99,15 @@ class SystemMenu extends React.Component {
     }
 
     commitResetSystem() {
-        fetch(`${app.options.server}/api/Initialize/Reset`, {
+        fetch(`${global.app.options.server}/api/Initialize/Reset`, {
             method: 'POST'
         }).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg), 'warn');
+                    global.app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
-                app.confirm({
+                global.app.confirm({
                     title: _t('Message'),
                     content: _t(obj.Msg) + ' ' + _t('Press OK To refresh.'),
                     onOK: () => {

@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import { PropertyGroup, CheckBoxProperty, NumberProperty, SelectProperty } from '../../../ui/index';
+import global from '../../../global';
 
 /**
  * 可扩展环境光遮挡(SAO)组件
@@ -122,8 +123,8 @@ class SaoComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.SaoComponent`, this.handleUpdate);
-        app.on(`objectChanged.SaoComponent`, this.handleUpdate);
+        global.app.on(`objectSelected.SaoComponent`, this.handleUpdate);
+        global.app.on(`objectChanged.SaoComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {
@@ -133,7 +134,7 @@ class SaoComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || editor.selected !== editor.scene) {
             this.setState({
@@ -198,8 +199,8 @@ class SaoComponent extends React.Component {
             }
         });
 
-        app.call(`objectChanged`, this, this.selected);
-        app.call(`postProcessingChanged`, this);
+        global.app.call(`objectChanged`, this, this.selected);
+        global.app.call(`postProcessingChanged`, this);
     }
 }
 

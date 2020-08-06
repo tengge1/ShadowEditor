@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import { PropertyGroup, CheckBoxProperty } from '../../../ui/index';
+import global from '../../../global';
 
 /**
  * 指针锁定控制器组件
@@ -51,8 +52,8 @@ class PointerLockControlComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.PointerLockControlComponent`, this.handleUpdate.bind(this));
-        app.on(`objectChanged.PointerLockControlComponent`, this.handleUpdate.bind(this));
+        global.app.on(`objectSelected.PointerLockControlComponent`, this.handleUpdate.bind(this));
+        global.app.on(`objectChanged.PointerLockControlComponent`, this.handleUpdate.bind(this));
     }
 
     handleExpand(expanded) {
@@ -62,7 +63,7 @@ class PointerLockControlComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || editor.selected !== editor.camera || editor.selected.userData.control !== 'PointerLockControls') {
             this.setState({
@@ -101,7 +102,7 @@ class PointerLockControlComponent extends React.Component {
             isLocked
         });
 
-        app.call('objectChanged', this, this.selected);
+        global.app.call('objectChanged', this, this.selected);
     }
 }
 

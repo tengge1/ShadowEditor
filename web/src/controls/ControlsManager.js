@@ -12,6 +12,7 @@ import BaseControls from './BaseControls';
 import EditorControls from './EditorControls';
 import FreeControls from './FreeControls';
 import FirstPersonControls from './FirstPersonControls';
+import global from '../global';
 
 const Controls = {
     EditorControls,
@@ -30,7 +31,7 @@ class ControlsManager extends BaseControls {
         this.handleUpdate = this.handleUpdate.bind(this);
         this.handleEnd = this.handleEnd.bind(this);
 
-        const mode = app.storage.controlMode;
+        const mode = global.app.storage.controlMode;
         this.changeMode(mode);
 
         // 记录上次控制器，以便按Esc退出第一视角，返回原来的模式。
@@ -39,8 +40,8 @@ class ControlsManager extends BaseControls {
         // 记录上次相机的平移、旋转和缩放
         this.lastCamera = new THREE.Object3D();
 
-        app.on(`animate.${this.id}`, this.update.bind(this));
-        app.on(`gpuPick.${this.id}`, this.onGPUPick.bind(this));
+        global.app.on(`animate.${this.id}`, this.update.bind(this));
+        global.app.on(`gpuPick.${this.id}`, this.onGPUPick.bind(this));
     }
 
     /**
@@ -57,7 +58,7 @@ class ControlsManager extends BaseControls {
 
     changeControl(control) {
         if (this.current) {
-            let camera = app.editor.camera;
+            let camera = global.app.editor.camera;
 
             // 第一视角模式不能作为原来的模式
             if (!(this.current instanceof FirstPersonControls)) {
@@ -110,7 +111,7 @@ class ControlsManager extends BaseControls {
 
     handleUpdate() {
         // TODO: 太卡，待优化。
-        // app.call('cameraChanged', this, app.editor.camera);
+        // global.app.call('cameraChanged', this, global.app.editor.camera);
     }
 
     /**
@@ -119,7 +120,7 @@ class ControlsManager extends BaseControls {
     handleEnd() {
         this.changeControl(this.lastControl);
 
-        let camera = app.editor.camera;
+        let camera = global.app.editor.camera;
 
         camera.position.copy(this.lastCamera.position);
         camera.rotation.copy(this.lastCamera.rotation);

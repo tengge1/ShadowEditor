@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import Command from './Command';
+import global from '../global';
 
 /**
  * 设置uuid命令
@@ -36,12 +37,12 @@ Object.assign(SetUuidCommand.prototype, {
 
 	execute: function () {
 		this.object.uuid = this.newUuid;
-		app.call('objectChanged', this, this.object);
+		global.app.call('objectChanged', this, this.object);
 	},
 
 	undo: function () {
 		this.object.uuid = this.oldUuid;
-		app.call('objectChanged', this, this.object);
+		global.app.call('objectChanged', this, this.object);
 	},
 
 	toJSON: function () {

@@ -12,6 +12,7 @@ import { Window, Content, Buttons, Form, FormControl, Label, Input, Button, Chec
 import ThreeDText from '../../../object/text/ThreeDText';
 import AddObjectCommand from '../../../command/AddObjectCommand';
 import TypefaceUtils from '../../../utils/TypefaceUtils';
+import global from '../../../global';
 
 /**
  * 添加3D文字窗口
@@ -129,17 +130,17 @@ class Add3DTextWindow extends React.Component {
     }
 
     updateFonts() {
-        fetch(`${app.options.server}/api/Typeface/List`).then(response => {
+        fetch(`${global.app.options.server}/api/Typeface/List`).then(response => {
             response.json().then(json => {
                 if (json.Code !== 200) {
-                    app.toast(_t(json.Msg), 'warn');
+                    global.app.toast(_t(json.Msg), 'warn');
                     return;
                 }
 
                 this.fonts = json.Data;
 
                 if (this.fonts.length === 0) {
-                    app.toast(_t('Pleast upload typeface first.'), 'warn');
+                    global.app.toast(_t('Pleast upload typeface first.'), 'warn');
                     return;
                 }
 
@@ -167,18 +168,18 @@ class Add3DTextWindow extends React.Component {
         const { text, font, size, color, height, bevelEnabled, bevelSize, bevelThickness } = this.state;
 
         if (font === '') {
-            app.toast(_t('Pleast upload typeface first.'), 'warn');
+            global.app.toast(_t('Pleast upload typeface first.'), 'warn');
             return;
         }
 
-        app.mask();
+        global.app.mask();
 
         const fontData = this.fonts.filter(n => n.ID === font)[0];
 
-        fetch(`${app.options.server}${fontData.Url}`).then(response => {
+        fetch(`${global.app.options.server}${fontData.Url}`).then(response => {
             response.arrayBuffer().then(buffer => {
                 TypefaceUtils.convertTtfToJson(buffer, false, text).then(obj => {
-                    app.editor.execute(new AddObjectCommand(new ThreeDText(text, {
+                    global.app.editor.execute(new AddObjectCommand(new ThreeDText(text, {
                         font: obj.result,
                         size,
                         color,
@@ -187,7 +188,7 @@ class Add3DTextWindow extends React.Component {
                         bevelSize,
                         bevelThickness
                     })));
-                    app.unmask();
+                    global.app.unmask();
                     this.handleClose();
                 });
             });
@@ -195,7 +196,7 @@ class Add3DTextWindow extends React.Component {
     }
 
     handleClose() {
-        app.removeElement(this);
+        global.app.removeElement(this);
     }
 }
 

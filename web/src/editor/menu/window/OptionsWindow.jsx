@@ -15,6 +15,7 @@ import RendererPanel from './options/RendererPanel.jsx';
 import HelperPanel from './options/HelperPanel.jsx';
 import FilterPanel from './options/FilterPanel.jsx';
 import WeatherPanel from './options/WeatherPanel.jsx';
+import global from '../../../global';
 
 /**
  * 选项窗口
@@ -82,7 +83,7 @@ class OptionsWindow extends React.Component {
     }
 
     handleClose() {
-        app.removeElement(this);
+        global.app.removeElement(this);
     }
 
     handleActiveTabChange(index) {

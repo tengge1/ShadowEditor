@@ -10,6 +10,7 @@
 import './css/SelectDeptWindow.css';
 import { PropTypes } from '../../../third_party';
 import { Window, Content, Toolbar, Button, Tree, Buttons } from '../../../ui/index';
+import global from '../../../global';
 
 /**
  * 选择组织机构窗口
@@ -69,10 +70,10 @@ class SelectDeptWindow extends React.Component {
     }
 
     handleRefresh() {
-        fetch(`${app.options.server}/api/Department/List?pageSize=10000`).then(response => {
+        fetch(`${global.app.options.server}/api/Department/List?pageSize=10000`).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg), 'warn');
+                    global.app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
                 this.list = obj.Data;
@@ -137,7 +138,7 @@ class SelectDeptWindow extends React.Component {
         const callback = this.props.callback;
 
         if (!selected) {
-            app.toast(_t('Please select a department.'));
+            global.app.toast(_t('Please select a department.'));
             return;
         }
 
@@ -149,7 +150,7 @@ class SelectDeptWindow extends React.Component {
     }
 
     handleCancel() {
-        app.removeElement(this);
+        global.app.removeElement(this);
     }
 }
 

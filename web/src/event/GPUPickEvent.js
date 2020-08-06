@@ -13,6 +13,7 @@ import PickFragmentShader from './shader/pick_fragment.glsl';
 import DepthVertexShader from './shader/depth_vertex.glsl';
 import DepthFragmentShader from './shader/depth_fragment.glsl';
 import MeshUtils from '../utils/MeshUtils';
+import global from '../global';
 
 let maxHexColor = 1;
 
@@ -41,27 +42,27 @@ GPUPickEvent.prototype = Object.create(BaseEvent.prototype);
 GPUPickEvent.prototype.constructor = GPUPickEvent;
 
 GPUPickEvent.prototype.start = function () {
-    app.on(`mousemove.${this.id}`, this.onMouseMove);
-    app.on(`afterRender.${this.id}`, this.onAfterRender);
-    app.on(`resize.${this.id}`, this.onResize);
-    app.on(`storageChanged.${this.id}`, this.onStorageChanged);
+    global.app.on(`mousemove.${this.id}`, this.onMouseMove);
+    global.app.on(`afterRender.${this.id}`, this.onAfterRender);
+    global.app.on(`resize.${this.id}`, this.onResize);
+    global.app.on(`storageChanged.${this.id}`, this.onStorageChanged);
 
-    this.selectMode = app.storage.selectMode;
+    this.selectMode = global.app.storage.selectMode;
 };
 
 GPUPickEvent.prototype.stop = function () {
-    app.on(`mousemove.${this.id}`, null);
-    app.on(`afterRender.${this.id}`, null);
-    app.on(`resize.${this.id}`, null);
-    app.on(`storageChanged.${this.id}`, null);
+    global.app.on(`mousemove.${this.id}`, null);
+    global.app.on(`afterRender.${this.id}`, null);
+    global.app.on(`resize.${this.id}`, null);
+    global.app.on(`storageChanged.${this.id}`, null);
 
     this.selectMode = 'whole';
 };
 
 GPUPickEvent.prototype.onMouseMove = function (event) {
-    if (event.target !== app.editor.renderer.domElement) { // 鼠标不在画布上
+    if (event.target !== global.app.editor.renderer.domElement) { // 鼠标不在画布上
         this.isIn = false;
-        app.call(`gpuPick`, this, {
+        global.app.call(`gpuPick`, this, {
             object: null,
             point: null,
             distance: 0
@@ -77,7 +78,7 @@ GPUPickEvent.prototype.onMouseMove = function (event) {
  * 由于需要较高性能，所以尽量不要拆分函数。
  */
 GPUPickEvent.prototype.onAfterRender = function () {
-    if (!this.isIn || app.editor.gpuPickNum === 0) {
+    if (!this.isIn || global.app.editor.gpuPickNum === 0) {
         return;
     }
 
@@ -88,8 +89,8 @@ GPUPickEvent.prototype.onAfterRender = function () {
     }
     this.oldTime = now;
 
-    let { scene, renderer } = app.editor;
-    const camera = app.editor.view === 'perspective' ? app.editor.camera : app.editor.orthCamera;
+    let { scene, renderer } = global.app.editor;
+    const camera = global.app.editor.view === 'perspective' ? global.app.editor.camera : global.app.editor.orthCamera;
 
     const { width, height } = renderer.domElement;
 
@@ -229,7 +230,7 @@ GPUPickEvent.prototype.onAfterRender = function () {
         selected = MeshUtils.partToMesh(selected);
     }
 
-    app.call(`gpuPick`, this, {
+    global.app.call(`gpuPick`, this, {
         object: selected, // 碰撞到的物体，没碰到为null
         point: this.world, // 碰撞点坐标，没碰到物体与y=0平面碰撞
         distance: cameraDepth // 相机到碰撞点距离
@@ -240,7 +241,7 @@ GPUPickEvent.prototype.onResize = function () {
     if (!this.renderTarget) {
         return;
     }
-    const { width, height } = app.editor.renderer.domElement;
+    const { width, height } = global.app.editor.renderer.domElement;
     this.renderTarget.setSize(width, height);
 };
 

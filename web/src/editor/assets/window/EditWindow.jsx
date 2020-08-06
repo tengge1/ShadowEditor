@@ -12,6 +12,7 @@ import { PropTypes } from '../../../third_party';
 import { Window, Content, Buttons, Form, FormControl, Label, Input, Select, ImageUploader, Button, CheckBox } from '../../../ui/index';
 import Ajax from '../../../utils/Ajax';
 import CategoryWindow from './CategoryWindow.jsx';
+import global from '../../../global';
 
 /**
  * 编辑窗口
@@ -73,7 +74,7 @@ class EditWindow extends React.Component {
                     <FormControl>
                         <Label>{_t('Thumbnail')}</Label>
                         <ImageUploader
-                            server={app.options.server}
+                            server={global.app.options.server}
                             url={thumbnail}
                             noImageText={_t('No Image')}
                             onChange={this.handleThumbnailChange}
@@ -100,7 +101,7 @@ class EditWindow extends React.Component {
     }
 
     updateUI() {
-        Ajax.getJson(`${app.options.server}/api/Category/List?Type=${this.props.type}`, json => {
+        Ajax.getJson(`${global.app.options.server}/api/Category/List?Type=${this.props.type}`, json => {
             var options = {
                 '': _t('Not Set')
             };
@@ -126,7 +127,7 @@ class EditWindow extends React.Component {
     }
 
     handleThumbnailChange(file) {
-        Ajax.post(`${app.options.server}/api/Upload/Upload`, {
+        Ajax.post(`${global.app.options.server}/api/Upload/Upload`, {
             file
         }, json => {
             var obj = JSON.parse(json);
@@ -135,7 +136,7 @@ class EditWindow extends React.Component {
                     thumbnail: obj.Data.url
                 });
             } else {
-                app.toast(_t(obj.Msg), 'warn');
+                global.app.toast(_t(obj.Msg), 'warn');
             }
         });
     }
@@ -147,12 +148,12 @@ class EditWindow extends React.Component {
     }
 
     handleEditCategoryList() {
-        const window = app.createElement(CategoryWindow, {
+        const window = global.app.createElement(CategoryWindow, {
             type: this.props.type,
             typeName: `${this.props.typeName}`
         });
 
-        app.addElement(window);
+        global.app.addElement(window);
     }
 
     handleSave() {
@@ -171,13 +172,13 @@ class EditWindow extends React.Component {
                 callback && callback(obj);
                 this.handleClose();
             } else {
-                app.toast(_t(obj.Msg), 'warn');
+                global.app.toast(_t(obj.Msg), 'warn');
             }
         });
     }
 
     handleClose() {
-        app.removeElement(this);
+        global.app.removeElement(this);
     }
 }
 

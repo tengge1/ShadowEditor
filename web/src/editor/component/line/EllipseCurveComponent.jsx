@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import { PropertyGroup, CheckBoxProperty, NumberProperty } from '../../../ui/index';
+import global from '../../../global';
 
 /**
  * 椭圆曲线组件
@@ -93,8 +94,8 @@ class EllipseCurveComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.EllipseCurveComponent`, this.handleUpdate.bind(this));
-        app.on(`objectChanged.EllipseCurveComponent`, this.handleUpdate.bind(this));
+        global.app.on(`objectSelected.EllipseCurveComponent`, this.handleUpdate.bind(this));
+        global.app.on(`objectChanged.EllipseCurveComponent`, this.handleUpdate.bind(this));
     }
 
     handleExpand(expanded) {
@@ -104,7 +105,7 @@ class EllipseCurveComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || editor.selected.userData.type !== 'EllipseCurve') {
             this.setState({
@@ -146,7 +147,7 @@ class EllipseCurveComponent extends React.Component {
 
         this.selected.update();
 
-        app.call('objectChanged', this, this.selected);
+        global.app.call('objectChanged', this, this.selected);
     }
 }
 

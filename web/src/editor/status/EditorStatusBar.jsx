@@ -9,6 +9,7 @@
  */
 import './css/EditorStatusBar.css';
 import { Toolbar, ToolbarSeparator, Label, CheckBox } from '../../ui/index';
+import global from '../../global';
 
 /**
  * 状态栏
@@ -35,7 +36,7 @@ class EditorStatusBar extends React.Component {
     render() {
         const { x, y, objects, vertices, triangles } = this.state;
 
-        const autoSave = app.storage.autoSave;
+        const autoSave = global.app.storage.autoSave;
 
         return <Toolbar className={'EditorStatusBar'}>
             <Label>{`r${THREE.REVISION}`}</Label>
@@ -66,14 +67,14 @@ class EditorStatusBar extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`mousemove.EditorStatusBar`, this.handleUpdateMousePosition);
-        app.on(`objectAdded.EditorStatusBar`, this.handleUpdateSceneInfo);
-        app.on(`objectRemoved.EditorStatusBar`, this.handleUpdateSceneInfo);
-        app.on(`geometryChanged.EditorStatusBar`, this.handleUpdateSceneInfo);
+        global.app.on(`mousemove.EditorStatusBar`, this.handleUpdateMousePosition);
+        global.app.on(`objectAdded.EditorStatusBar`, this.handleUpdateSceneInfo);
+        global.app.on(`objectRemoved.EditorStatusBar`, this.handleUpdateSceneInfo);
+        global.app.on(`geometryChanged.EditorStatusBar`, this.handleUpdateSceneInfo);
     }
 
     handleUpdateMousePosition(event) {
-        if (event.target !== app.editor.renderer.domElement) {
+        if (event.target !== global.app.editor.renderer.domElement) {
             this.setState({
                 x: 0,
                 y: 0
@@ -87,7 +88,7 @@ class EditorStatusBar extends React.Component {
     }
 
     handleUpdateSceneInfo() {
-        var editor = app.editor;
+        var editor = global.app.editor;
 
         var scene = editor.scene;
 
@@ -128,9 +129,9 @@ class EditorStatusBar extends React.Component {
     }
 
     handleAutoSaveChange(value, name) {
-        app.storage.autoSave = value;
+        global.app.storage.autoSave = value;
         this.forceUpdate();
-        app.call('storageChanged', this, name, value);
+        global.app.call('storageChanged', this, name, value);
     }
 }
 

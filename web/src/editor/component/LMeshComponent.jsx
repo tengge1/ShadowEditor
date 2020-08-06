@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import { PropertyGroup, ButtonProperty, SelectProperty } from '../../ui/index';
+import global from '../../global';
 
 /**
  * LMesh组件
@@ -60,8 +61,8 @@ class LMeshComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.LMeshComponent`, this.handleUpdate);
-        app.on(`objectChanged.LMeshComponent`, this.handleUpdate);
+        global.app.on(`objectSelected.LMeshComponent`, this.handleUpdate);
+        global.app.on(`objectChanged.LMeshComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {
@@ -71,7 +72,7 @@ class LMeshComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || !(editor.selected.userData.type === 'lol')) {
             this.setState({
@@ -121,7 +122,7 @@ class LMeshComponent extends React.Component {
         const animation = this.state.animation;
 
         if (!animation) {
-            app.toast(`Please select animation.`);
+            global.app.toast(`Please select animation.`);
             return;
         }
 
@@ -134,7 +135,7 @@ class LMeshComponent extends React.Component {
         const model = this.selected.userData.model;
         model.setAnimation(animation);
 
-        app.on(`animate.LMeshComponent`, this.onAnimate);
+        global.app.on(`animate.LMeshComponent`, this.onAnimate);
     }
 
     stopPreview() {
@@ -144,7 +145,7 @@ class LMeshComponent extends React.Component {
             previewText: _t('Preview')
         });
 
-        app.on(`animate.LMeshComponent`, null);
+        global.app.on(`animate.LMeshComponent`, null);
     }
 
     onAnimate(clock) {

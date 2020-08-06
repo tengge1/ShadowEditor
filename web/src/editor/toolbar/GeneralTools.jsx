@@ -11,6 +11,7 @@ import { ToolbarSeparator, IconButton, ImageButton } from '../../ui/index';
 import Converter from '../../utils/Converter';
 import TimeUtils from '../../utils/TimeUtils';
 import VideoRecorder from '../../utils/VideoRecorder';
+import global from '../../global';
 
 let recorder = null;
 
@@ -51,7 +52,7 @@ class GeneralTools extends React.Component {
 
     render() {
         const { mode, view, isGridMode, isRecording, isFirstPerspective } = this.state;
-        const { enableAuthority, authorities } = app.server;
+        const { enableAuthority, authorities } = global.app.server;
 
         return <>
             <IconButton
@@ -138,49 +139,49 @@ class GeneralTools extends React.Component {
 
     handleEnterSelectMode() {
         this.setState({ mode: 'select' });
-        app.call('changeMode', this, 'select');
+        global.app.call('changeMode', this, 'select');
     }
 
     handleEnterTranslateMode() {
         this.setState({ mode: 'translate' });
-        app.call('changeMode', this, 'translate');
+        global.app.call('changeMode', this, 'translate');
     }
 
     handleEnterRotateMode() {
         this.setState({ mode: 'rotate' });
-        app.call('changeMode', this, 'rotate');
+        global.app.call('changeMode', this, 'rotate');
     }
 
     handleEnterScaleMode() {
         this.setState({ mode: 'scale' });
-        app.call('changeMode', this, 'scale');
+        global.app.call('changeMode', this, 'scale');
     }
 
     // ------------------------------ 视角工具 ------------------------------------------
 
     handlePerspective() {
-        app.call(`changeView`, this, 'perspective');
+        global.app.call(`changeView`, this, 'perspective');
         this.setState({
             view: 'perspective'
         });
     }
 
     handleFrontView() {
-        app.call(`changeView`, this, 'front');
+        global.app.call(`changeView`, this, 'front');
         this.setState({
             view: 'front'
         });
     }
 
     handleSideView() {
-        app.call(`changeView`, this, 'side');
+        global.app.call(`changeView`, this, 'side');
         this.setState({
             view: 'side'
         });
     }
 
     handleTopView() {
-        app.call(`changeView`, this, 'top');
+        global.app.call(`changeView`, this, 'top');
         this.setState({
             view: 'top'
         });
@@ -192,9 +193,9 @@ class GeneralTools extends React.Component {
         const isGridMode = !this.state.isGridMode;
 
         if (isGridMode) {
-            app.editor.scene.overrideMaterial = new THREE.MeshBasicMaterial({ wireframe: true });
+            global.app.editor.scene.overrideMaterial = new THREE.MeshBasicMaterial({ wireframe: true });
         } else {
-            app.editor.scene.overrideMaterial = null;
+            global.app.editor.scene.overrideMaterial = null;
         }
 
         this.setState({
@@ -205,13 +206,13 @@ class GeneralTools extends React.Component {
     // ---------------------------- 截图 ----------------------------------------------
 
     handleScreenshot() {
-        app.on(`afterRender.Screenshot`, this.commitScreenshot);
+        global.app.on(`afterRender.Screenshot`, this.commitScreenshot);
     }
 
     commitScreenshot() {
-        app.on(`afterRender.Screenshot`, null);
+        global.app.on(`afterRender.Screenshot`, null);
 
-        const canvas = app.editor.renderer.domElement;
+        const canvas = global.app.editor.renderer.domElement;
         const dataUrl = Converter.canvasToDataURL(canvas);
         const file = Converter.dataURLtoFile(dataUrl, TimeUtils.getDateTime());
 
@@ -224,10 +225,10 @@ class GeneralTools extends React.Component {
         }).then(response => {
             response.json().then(obj => {
                 if (obj.Code !== 200) {
-                    app.toast(_t(obj.Msg), 'warn');
+                    global.app.toast(_t(obj.Msg), 'warn');
                     return;
                 }
-                app.toast(_t(obj.Msg), 'success');
+                global.app.toast(_t(obj.Msg), 'success');
             });
         });
     }
@@ -271,7 +272,7 @@ class GeneralTools extends React.Component {
     // --------------------------- 第一视角 ------------------------------
 
     handleFirstPerspective() {
-        let controls = app.editor.controls;
+        let controls = global.app.editor.controls;
 
         controls.on(`change.FirstPerspective`, (enabled, controlName) => {
             if (controlName !== 'FirstPersonControls') {

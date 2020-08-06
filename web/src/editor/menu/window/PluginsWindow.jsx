@@ -9,6 +9,7 @@
  */
 import './css/PluginsWindow.css';
 import { Window, Content, Buttons, Form, FormControl, Label, Input, Button } from '../../../ui/index';
+import global from '../../../global';
 
 /**
  * 插件窗口
@@ -21,7 +22,7 @@ class PluginsWindow extends React.Component {
     }
 
     render() {
-        const attributes = app.editor.renderer.getContextAttributes();
+        const attributes = global.app.editor.renderer.getContextAttributes();
 
         return <Window
             className={'PluginsWindow'}
@@ -51,7 +52,7 @@ class PluginsWindow extends React.Component {
     }
 
     handleClose() {
-        app.removeElement(this);
+        global.app.removeElement(this);
     }
 }
 

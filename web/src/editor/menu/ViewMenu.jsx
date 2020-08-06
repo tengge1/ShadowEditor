@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import { MenuItem, MenuItemSeparator } from '../../ui/index';
+import global from '../../global';
 
 /**
  * 视图菜单
@@ -18,16 +19,16 @@ class ViewMenu extends React.Component {
         super(props);
 
         this.state = {
-            assetsPanelShow: app.storage.assetsPanelShow,
-            sidebarShow: app.storage.sidebarShow,
-            toolbarShow: app.storage.toolbarShow,
-            timelinePanelShow: app.storage.timelinePanelShow,
-            statusBarShow: app.storage.statusBarShow,
+            assetsPanelShow: global.app.storage.assetsPanelShow,
+            sidebarShow: global.app.storage.sidebarShow,
+            toolbarShow: global.app.storage.toolbarShow,
+            timelinePanelShow: global.app.storage.timelinePanelShow,
+            statusBarShow: global.app.storage.statusBarShow,
 
-            showStats: app.storage.showStats,
-            showGrid: app.storage.showGrid,
-            showViewHelper: app.storage.showViewHelper,
-            enablePhysics: app.options.enablePhysics,
+            showStats: global.app.storage.showStats,
+            showGrid: global.app.storage.showGrid,
+            showViewHelper: global.app.storage.showViewHelper,
+            enablePhysics: global.app.options.enablePhysics,
             isThrowBall: false
         };
 
@@ -95,8 +96,8 @@ class ViewMenu extends React.Component {
     }
 
     handleShowAssetsPanel() {
-        const assetsPanelShow = !app.storage.assetsPanelShow;
-        app.storage.assetsPanelShow = assetsPanelShow;
+        const assetsPanelShow = !global.app.storage.assetsPanelShow;
+        global.app.storage.assetsPanelShow = assetsPanelShow;
 
         this.setState({
             assetsPanelShow
@@ -104,8 +105,8 @@ class ViewMenu extends React.Component {
     }
 
     handleShowSidebar() {
-        const sidebarShow = !app.storage.sidebarShow;
-        app.storage.sidebarShow = sidebarShow;
+        const sidebarShow = !global.app.storage.sidebarShow;
+        global.app.storage.sidebarShow = sidebarShow;
 
         this.setState({
             sidebarShow
@@ -113,8 +114,8 @@ class ViewMenu extends React.Component {
     }
 
     handleShowToolbar() {
-        const toolbarShow = !app.storage.toolbarShow;
-        app.storage.toolbarShow = toolbarShow;
+        const toolbarShow = !global.app.storage.toolbarShow;
+        global.app.storage.toolbarShow = toolbarShow;
 
         this.setState({
             toolbarShow
@@ -122,8 +123,8 @@ class ViewMenu extends React.Component {
     }
 
     handleShowTimelinePanel() {
-        const timelinePanelShow = !app.storage.timelinePanelShow;
-        app.storage.timelinePanelShow = timelinePanelShow;
+        const timelinePanelShow = !global.app.storage.timelinePanelShow;
+        global.app.storage.timelinePanelShow = timelinePanelShow;
 
         this.setState({
             timelinePanelShow
@@ -131,8 +132,8 @@ class ViewMenu extends React.Component {
     }
 
     handleShowStatusBar() {
-        const statusBarShow = !app.storage.statusBarShow;
-        app.storage.statusBarShow = statusBarShow;
+        const statusBarShow = !global.app.storage.statusBarShow;
+        global.app.storage.statusBarShow = statusBarShow;
 
         this.setState({
             statusBarShow
@@ -140,10 +141,10 @@ class ViewMenu extends React.Component {
     }
 
     handleShowStats() {
-        const showStats = !app.storage.showStats;
-        app.storage.showStats = showStats;
+        const showStats = !global.app.storage.showStats;
+        global.app.storage.showStats = showStats;
 
-        Object.assign(app.stats.dom.style, {
+        Object.assign(global.app.stats.dom.style, {
             display: showStats ? 'block' : 'none'
         });
 
@@ -153,8 +154,8 @@ class ViewMenu extends React.Component {
     }
 
     handleShowGrid() {
-        const showGrid = !app.storage.showGrid;
-        app.storage.showGrid = showGrid;
+        const showGrid = !global.app.storage.showGrid;
+        global.app.storage.showGrid = showGrid;
 
         this.setState({
             showGrid
@@ -162,8 +163,8 @@ class ViewMenu extends React.Component {
     }
 
     handleShowViewHelper() {
-        const showViewHelper = !app.storage.showViewHelper;
-        app.storage.showViewHelper = showViewHelper;
+        const showViewHelper = !global.app.storage.showViewHelper;
+        global.app.storage.showViewHelper = showViewHelper;
 
         this.setState({
             showViewHelper
@@ -171,9 +172,9 @@ class ViewMenu extends React.Component {
     }
 
     handleEnablePhysics() {
-        const enablePhysics = !app.options.enablePhysics;
-        app.options.enablePhysics = enablePhysics;
-        app.call('optionChange', this, 'enablePhysics', enablePhysics);
+        const enablePhysics = !global.app.options.enablePhysics;
+        global.app.options.enablePhysics = enablePhysics;
+        global.app.call('optionChange', this, 'enablePhysics', enablePhysics);
         this.setState({
             enablePhysics
         });
@@ -181,7 +182,7 @@ class ViewMenu extends React.Component {
 
     handleEnableThrowBall() {
         const isThrowBall = !this.state.isThrowBall;
-        app.call('enableThrowBall', this, isThrowBall);
+        global.app.call('enableThrowBall', this, isThrowBall);
         this.setState({
             isThrowBall
         });

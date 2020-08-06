@@ -9,6 +9,7 @@
  */
 import './css/TextureGeneratorWindow.css';
 import { Window, Content, Buttons, Button } from '../../../ui/index';
+import global from '../../../global';
 
 /**
  * 纹理生成器窗口
@@ -448,7 +449,7 @@ class TextureGeneratorWindow extends React.Component {
     }
 
     handleClose() {
-        app.removeElement(this);
+        global.app.removeElement(this);
     }
 }
 

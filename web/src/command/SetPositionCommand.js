@@ -8,6 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import Command from './Command';
+import global from '../global';
 
 /**
  * 设置位置命令
@@ -45,13 +46,13 @@ Object.assign(SetPositionCommand.prototype, {
 	execute: function () {
 		this.object.position.copy(this.newPosition);
 		this.object.updateMatrixWorld(true);
-		app.call('objectChanged', this, this.object);
+		global.app.call('objectChanged', this, this.object);
 	},
 
 	undo: function () {
 		this.object.position.copy(this.oldPosition);
 		this.object.updateMatrixWorld(true);
-		app.call('objectChanged', this, this.object);
+		global.app.call('objectChanged', this, this.object);
 	},
 
 	update: function (command) {

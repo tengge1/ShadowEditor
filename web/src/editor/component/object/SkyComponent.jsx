@@ -9,6 +9,7 @@
  */
 import { PropertyGroup, NumberProperty } from '../../../ui/index';
 import Sky from '../../../object/component/Sky';
+import global from '../../../global';
 
 /**
  * 天空组件
@@ -76,8 +77,8 @@ class SkyComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.SkyComponent`, this.handleUpdate.bind(this));
-        app.on(`objectChanged.SkyComponent`, this.handleUpdate.bind(this));
+        global.app.on(`objectSelected.SkyComponent`, this.handleUpdate.bind(this));
+        global.app.on(`objectChanged.SkyComponent`, this.handleUpdate.bind(this));
     }
 
     handleExpand(expanded) {
@@ -87,7 +88,7 @@ class SkyComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || !(editor.selected instanceof Sky)) {
             this.setState({
@@ -142,7 +143,7 @@ class SkyComponent extends React.Component {
             sky.material.needsUpdate = true;
         }
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 }
 

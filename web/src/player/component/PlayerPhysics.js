@@ -81,7 +81,7 @@ PlayerPhysics.prototype.initPhysicsWorld = function () {
     this.softBodyHelpers = new Ammo.btSoftBodyHelpers();
 
     this.events = [
-        new ThrowBallEvent(app, this.world, this.rigidBodies)
+        new ThrowBallEvent(this.app, this.world, this.rigidBodies)
     ];
 
     // api函数

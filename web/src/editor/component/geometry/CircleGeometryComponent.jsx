@@ -9,6 +9,7 @@
  */
 import { PropertyGroup, NumberProperty, IntegerProperty } from '../../../ui/index';
 import SetGeometryCommand from '../../../command/SetGeometryCommand';
+import global from '../../../global';
 
 /**
  * 圆形组件
@@ -70,8 +71,8 @@ class CircleGeometryComponent extends React.Component {
     }
 
     componentDidMount() {
-        app.on(`objectSelected.CircleGeometryComponent`, this.handleUpdate);
-        app.on(`objectChanged.CircleGeometryComponent`, this.handleUpdate);
+        global.app.on(`objectSelected.CircleGeometryComponent`, this.handleUpdate);
+        global.app.on(`objectChanged.CircleGeometryComponent`, this.handleUpdate);
     }
 
     handleExpand(expanded) {
@@ -81,7 +82,7 @@ class CircleGeometryComponent extends React.Component {
     }
 
     handleUpdate() {
-        const editor = app.editor;
+        const editor = global.app.editor;
 
         if (!editor.selected || !(editor.selected instanceof THREE.Mesh) || !(editor.selected.geometry instanceof THREE.CircleBufferGeometry)) {
             this.setState({
@@ -117,14 +118,14 @@ class CircleGeometryComponent extends React.Component {
             [name]: value
         });
 
-        app.editor.execute(new SetGeometryCommand(this.selected, new THREE.CircleBufferGeometry(
+        global.app.editor.execute(new SetGeometryCommand(this.selected, new THREE.CircleBufferGeometry(
             radius,
             segments,
             thetaStart,
             thetaLength
         )));
 
-        app.call(`objectChanged`, this, this.selected);
+        global.app.call(`objectChanged`, this, this.selected);
     }
 }
 
