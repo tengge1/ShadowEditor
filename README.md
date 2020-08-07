@@ -138,6 +138,9 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
   - [ ] 3D plotting, 3D cartography
   - [ ] Other tools
     - [ ] Coordinate system conversion, Data correction
+      - [ ] wgs84, cgcs2000, beijing54、xi'an80、gcj-02、bd-09
+      - [ ] Mercator projection, gaussian projection
+      - [ ] Seven parameter conversion, four parameter conversion
     - [ ] Resource downloader, pyramid slice, mesh resampling
 - [ ] Data visualization
   - [ ] Real-time data access
