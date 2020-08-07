@@ -217,6 +217,7 @@ TiledElevationCoverage.prototype.minAndMaxElevationsForSector = function (sector
 
 // Documented in super class
 TiledElevationCoverage.prototype.elevationAtLocation = function (latitude, longitude) {
+    latitude = WWMath.mercatorLat(latitude);
     if (!this.coverageSector.containsLocation(latitude, longitude)) {
         return null; // location is outside the coverage's coverage
     }
