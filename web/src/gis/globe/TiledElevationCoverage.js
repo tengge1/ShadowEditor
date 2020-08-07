@@ -205,7 +205,7 @@ TiledElevationCoverage.prototype.minAndMaxElevationsForSector = function (sector
     var tileKey = Tile.computeTileKey(levelNumber, row, column);
 
     var image = this.imageCache.entryForKey(tileKey);
-    if (!image || !image.hasData || image.hasMissingData) {
+    if (!image || !image.hasData) {
         return false;
     }
 

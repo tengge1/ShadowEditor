@@ -70,6 +70,7 @@ ArcgisElevationCoverage.prototype.retrieveTileImage = function (tile) {
 
 ArcgisElevationCoverage.prototype.handleMessage = function (evt) {
     let { result, tileKey, url, data, msg } = evt.data;
+    this.removeFromCurrentRetrievals(tileKey);
     let tile = this.tileCache.entryForKey(tileKey);
     if (!tile) {
         // tile has been released
@@ -89,11 +90,9 @@ ArcgisElevationCoverage.prototype.handleMessage = function (evt) {
         Logger.log(Logger.LEVEL_WARNING,
             "Elevations retrieval failed (" + msg + "): " + url);
     } else if (result === 'error') {
-        this.removeFromCurrentRetrievals(tileKey);
         this.absentResourceList.markResourceAbsent(tileKey);
         Logger.log(Logger.LEVEL_WARNING, "Elevations retrieval failed: " + url);
     } else if (result === 'timeout') {
-        this.removeFromCurrentRetrievals(tileKey);
         this.absentResourceList.markResourceAbsent(tileKey);
         Logger.log(Logger.LEVEL_WARNING, "Elevations retrieval timed out: " + url);
     }

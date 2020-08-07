@@ -73,13 +73,6 @@ function ElevationImage(sector, imageWidth, imageHeight) {
      * @ignore
      */
     this.hasData = true;
-
-    /**
-     * Internal use only
-     * true if any pixel in the image has a NO_DATA value, false otherwise.
-     * @ignore
-     */
-    this.hasMissingData = false;
 }
 
 /**
@@ -335,9 +328,9 @@ ElevationImage.prototype.minAndMaxElevationsForSector = function (sector) {
  */
 ElevationImage.prototype.findMinAndMaxElevation = function () {
     this.hasData = false;
-    this.hasMissingData = false;
 
     if (this.imageData && this.imageData.length > 0) {
+        this.hasData = true;
         this.minElevation = Number.MAX_VALUE;
         this.maxElevation = -Number.MAX_VALUE;
 
@@ -349,16 +342,10 @@ ElevationImage.prototype.findMinAndMaxElevation = function () {
             if (this.minElevation > p) {
                 this.minElevation = p;
             }
-
             if (this.maxElevation < p) {
                 this.maxElevation = p;
             }
         }
-    }
-
-    if (!this.hasData) {
-        this.minElevation = 0;
-        this.maxElevation = 0;
     }
 };
 
