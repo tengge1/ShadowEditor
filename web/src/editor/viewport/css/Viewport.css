@@ -13,13 +13,22 @@
     height: 100%;
 }
 
+.Viewport>.cesium {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
 .Viewport>.svg {
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    pointer-events: none;
+    display: none;
 }
 
 .Viewport>.player {

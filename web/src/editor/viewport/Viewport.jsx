@@ -23,8 +23,11 @@ class Viewport extends React.Component {
 
         this.viewportRef = React.createRef();
         this.editorRef = React.createRef();
+        this.cesiumRef = React.createRef();
         this.svgRef = React.createRef();
         this.playerRef = React.createRef();
+
+        this.handleOptionChanged = this.handleOptionChanged.bind(this);
     }
 
     render() {
@@ -34,6 +37,10 @@ class Viewport extends React.Component {
             <div className={'editor'}
                 ref={this.editorRef}
                 tabIndex={0}
+            />
+            <div className={'cesium'}
+                ref={this.cesiumRef}
+                tabIndex={10}
             />
             <VisualDOM className={'svg'}
                 ref={this.svgRef}
@@ -48,6 +55,7 @@ class Viewport extends React.Component {
     componentDidMount() {
         global.app.viewportRef = this.viewportRef.current;
         global.app.editorRef = this.editorRef.current;
+        global.app.cesiumRef = this.cesiumRef.current;
         global.app.svgRef = this.svgRef.current;
         global.app.visual = this.svgRef.current;
         global.app.playerRef = this.playerRef.current;
@@ -78,6 +86,21 @@ class Viewport extends React.Component {
             enableThrowBall: false,
             showStats: false
         });
+
+        global.app.on(`optionChange.Viewport`, this.handleOptionChanged);
+    }
+
+    handleOptionChanged(key, value) {
+        if (key !== 'sceneType') {
+            return;
+        }
+        if (value === 'GIS') { // GIS
+            this.editorRef.current.style.display = 'none';
+            this.cesiumRef.current.style.display = 'block';
+        } else { // Empty
+            this.cesiumRef.current.style.display = 'none';
+            this.editorRef.current.style.display = 'block';
+        }
     }
 }
 

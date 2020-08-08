@@ -11,6 +11,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"mime"
 	"net/http"
 	"os"
 	"os/signal"
@@ -40,6 +41,9 @@ func init() {
 // Then, we use `httptreemux` to map route to the handler.
 func Start() {
 	log.Printf("starting shadoweditor server on port %v", Config.Server.Port)
+
+	// register custom mime-type
+	mime.AddExtensionType(".js", "application/javascript; charset=UTF-8")
 
 	recovery := negroni.NewRecovery()
 	logger := negroni.NewLogger()

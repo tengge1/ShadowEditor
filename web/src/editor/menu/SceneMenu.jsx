@@ -16,7 +16,6 @@ import SaveSceneWindow from './window/SaveSceneWindow.jsx';
 import EmptySceneTemplate from './scene/EmptySceneTemplate';
 // import DistrictSceneTemplate from './scene/DistrictSceneTemplate';
 // import GISSceneTemplate from './scene/GISSceneTemplate';
-import WorldWind from '../../gis/WorldWind';
 import global from '../../global';
 
 /**
@@ -187,19 +186,18 @@ class SceneMenu extends React.Component {
         if (global.app.editor.gis) {
             global.app.editor.gis.stop();
         }
-
-        let context = global.app.editor.renderer.getContext();
-        context.activeTexture(context.TEXTURE0);
-        let map = new WorldWind.WorldWindow(context);
-        map.addLayer(new WorldWind.StarFieldLayer());
-        map.addLayer(new WorldWind.AtmosphereLayer());
-        map.addLayer(new WorldWind.XYZLayer());
-        window.map = map;
-
         global.app.options.sceneType = 'GIS';
         global.app.editor.camera.userData.control = '';
-
+        global.app.call(`optionChange`, this, 'sceneType', 'GIS');
         global.app.call(`sceneGraphChanged`, this);
+
+        setTimeout(() => {
+            var viewer = new Cesium.Viewer(global.app.cesiumRef);
+            var terrainProvider = new Cesium.ArcGISTiledElevationTerrainProvider({
+                url: 'https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer'
+            });
+            viewer.terrainProvider = terrainProvider;
+        });
     }
 
     // --------------------------- 保存场景 ----------------------------------------
