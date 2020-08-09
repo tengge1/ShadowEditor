@@ -23,13 +23,13 @@ import (
 
 var (
 	// mux maps request url to handler.
-	mux *httptreemux.TreeMux
+	mux *httptreemux.ContextMux
 	// apiAuthorities means the authority that api requires.
 	apiAuthorities = map[string]Authority{}
 )
 
 func init() {
-	mux = httptreemux.New()
+	mux = httptreemux.NewContextMux()
 	mux.OptionsHandler = corsHandler
 }
 

@@ -22,6 +22,10 @@ function Options(options = {}) {
 
     this.sceneType = options.sceneType === undefined ? 'Empty' : options.sceneType; // 场景类型：Empty, GIS
 
+    // whether to fetch satellite and terrain tile from server.
+    // TODO: replace `||` with `??` some day in the future.
+    this.enableCache = options.enableCache || false;
+
     // 场景优化选项
 
     // 是否保存模型内部子组件

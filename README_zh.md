@@ -26,6 +26,7 @@
 2. 当创建新场景或点击清空工具按钮时，自动清空距离测量工具。
 3. 删除分支 `origin/v0.4.6-csharp`。
 4. 使用CesiumJS代替WebWorldWind进行GIS编辑。
+5. Arcgis地形缓存服务。
 
 ## v0.5.6发布
 

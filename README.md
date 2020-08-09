@@ -26,6 +26,7 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
 2. When create new scene or click clear tool, automatically clear distance measurement tools.
 3. Delete branch `origin/v0.4.6-csharp`.
 4. Use CesiumJS instead of WebWorldWind for GIS editing.
+5. Arcgis elevation cache service.
 
 ## v0.5.6 has Released
 
