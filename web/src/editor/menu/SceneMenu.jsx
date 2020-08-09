@@ -17,6 +17,7 @@ import EmptySceneTemplate from './scene/EmptySceneTemplate';
 // import DistrictSceneTemplate from './scene/DistrictSceneTemplate';
 // import GISSceneTemplate from './scene/GISSceneTemplate';
 import global from '../../global';
+import GISApplication from '../../gis/GISApplication';
 
 /**
  * 场景菜单
@@ -96,12 +97,6 @@ class SceneMenu extends React.Component {
             global.app.on(`appStarted.dev-3d-gis`, () => {
                 setTimeout(() => {
                     this.handleCreateGISScene();
-                    // let navigator = window.map.navigator;
-                    // navigator.lookAtLocation.longitude = 117.10127241777573;
-                    // navigator.lookAtLocation.latitude = 36.252883073248505;
-                    // navigator.range = 8213.599866566046;
-                    // navigator.heading = -4.154778165537195;
-                    // navigator.tilt = 75.51000478580939;
                 });
             });
         }
@@ -192,11 +187,8 @@ class SceneMenu extends React.Component {
         global.app.call(`sceneGraphChanged`, this);
 
         setTimeout(() => {
-            var viewer = new Cesium.Viewer(global.app.cesiumRef);
-            var terrainProvider = new Cesium.ArcGISTiledElevationTerrainProvider({
-                url: 'https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer'
-            });
-            viewer.terrainProvider = terrainProvider;
+            var gis = new GISApplication();
+            gis.start();
         });
     }
 
