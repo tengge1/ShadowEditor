@@ -11,7 +11,7 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
 [![image](https://travis-ci.org/tengge1/ShadowEditor.svg?branch=master)](https://travis-ci.org/github/tengge1/ShadowEditor)
 
 * Name: Shadow Editor
-* Version: v0.5.7 (Coming Soon)
+* Version: v0.5.7
 * Description: Cross-platform 3D scene editor based on three.js, golang and mongodb.
 * Source: [GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | Document: [Gitee](https://gitee.com/tengge1/ShadowEditor/wikis/pages) | Demo: [GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) | Video: [Weibo](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) | Assets: [BaiduNetdisk](https://pan.baidu.com/s/1IxJVM6fFLoIAJG-GKHjVTA)
 * Technology Stack: html, css, javascript, rollup, react.js, webgl, three.js, golang, mongodb, nodejs, electron, CesiumJS.
@@ -20,24 +20,16 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
 <img src="https://gitee.com/tengge1/ShadowEditor/raw/master/images/scene20200503_en.jpg" />  
 <img src="https://gitee.com/tengge1/ShadowEditor/raw/master/images/scene20200705.jpg" />  
 
-## v0.5.7 is Coming Soon
+## v0.5.7 has Released
+
+* Release Date: August 9, 2020
+* Update Logs:
 
 1. 3D GIS. (In development)
 2. When create new scene or click clear tool, automatically clear distance measurement tools.
 3. Delete branch `origin/v0.4.6-csharp`.
 4. Use CesiumJS instead of WebWorldWind for GIS editing.
 5. Arcgis elevation cache service.
-
-## v0.5.6 has Released
-
-* Release Date: July 26, 2020
-* Update Logs:
-
-1. 3D GIS. (In development)
-2. The `v0.4.6-csharp` branch will be deleted on August 1.
-3. Fix the bug that it says "Only jpg, png, mp4 file is allowed to upload!" when uploading a mesh after uploading an image.
-4. Fix the bug that it says "Only zip file is allowed!" when uploading an image after uploading a mesh.
-5. The check box in front of the texture property is changed to enable and disable the texture, and add a delete button after the texture.
 
 ## Feature List
 
