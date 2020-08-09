@@ -20,10 +20,11 @@ class GISApplication {
         if (global.app.options.enableCache) {
             url = `${global.app.options.server}/api/Map/Elevation`;
         }
-        var terrainProvider = new Cesium.ArcGISTiledElevationTerrainProvider({
-            url
-        });
-        viewer.terrainProvider = terrainProvider;
+        viewer.terrainProvider = Cesium.createWorldTerrain();
+        // var terrainProvider = new Cesium.ArcGISTiledElevationTerrainProvider({
+        //     url
+        // });
+        // viewer.terrainProvider = terrainProvider;
     }
 
     createLayers(viewer) {
