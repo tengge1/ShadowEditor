@@ -10,7 +10,7 @@
         "build-desktop": "node scripts/build_desktop.js",
         "start-desktop": "cd build && electron .",
         "dev": "cd web && rollup -c rollup.config.js --watch",
-        "start": "cd build && ./ShadowEditor serve --config ./config.toml",
+        "start": "node scripts/start.js",
         "set-proxy": "node scripts/set_proxy.js",
         "unset-proxy": "node scripts/unset_proxy.js",
         "install-dev": "node scripts/install_dev.js",
