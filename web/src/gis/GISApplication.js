@@ -8,6 +8,7 @@ class GISApplication {
         var viewer = new Cesium.Viewer(global.app.cesiumRef);
         window.viewer = viewer;
         this.createTerrain(viewer);
+        this.createLayers(viewer);
     }
 
     createTerrain(viewer) {
@@ -19,6 +20,18 @@ class GISApplication {
             url
         });
         viewer.terrainProvider = terrainProvider;
+    }
+
+    createLayers(viewer) {
+        viewer.imageryLayers.removeAll();
+        // bing
+        var bing = new Cesium.BingMapsImageryProvider({
+            url: 'https://dev.virtualearth.net',
+            key: 'Amvk_1DmXPpb7VB7JIXtWHBIpXdK8ABDN7E2xiK8olFovcy5KcVjVfpsW8rxoeVZ',
+            mapStyle: Cesium.BingMapsStyle.AERIAL
+        });
+        var layer = new Cesium.ImageryLayer(bing);
+        viewer.imageryLayers.add(layer);
     }
 }
 
