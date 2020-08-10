@@ -120,9 +120,8 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
     - [ ] Terrain editing
   - [ ] Ground features editing
     - [ ] Draw point, line and polygon
-    - [ ] Style editing
-    - [ ] Pipe network editing
-    - [ ] District editing
+    - [ ] Layer editing, style editing
+    - [ ] Pipe network editing, district editing
     - [ ] Data query
   - [ ] Data Service
     - [ ] WMTS, WMS, MVT service
