@@ -259,6 +259,7 @@ npm run build-server:   只构建服务端。(用于开发)
 npm run build-web:      只构建web客户端。(用于开发)
 npm run build-desktop:  构建桌面版。
 npm run dev:            文件改变后自动构建web客户端。(用于开发)
+npm run copy:           将资源从web文件夹拷贝到build文件夹。
 npm run start:          启动web服务端。
 npm run set-proxy:      设置golang和nodejs代理。(仅在国内使用)
 npm run unset-proxy:    取消设置golang和nodejs代理。
