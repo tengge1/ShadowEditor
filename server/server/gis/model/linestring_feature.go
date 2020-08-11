@@ -7,18 +7,18 @@
 
 package model
 
-// PointFeature represents a point.
-type PointFeature struct {
+// LineStringFeature represents a LineString.
+type LineStringFeature struct {
 	// Type should always be `Feature`.
 	Type       string                 `json:"type"`
 	ID         string                 `json:"id"`
-	Geometry   PointGeometry          `json:"geometry"`
+	Geometry   LineStringGeometry     `json:"geometry"`
 	Properties map[string]interface{} `json:"properties"`
 }
 
-// PointGeometry is the geometry of a PointFeature.
-type PointGeometry struct {
-	// Type should always be `Point`;
+// LineStringGeometry is the geometry of a LineStringFeature.
+type LineStringGeometry struct {
+	// Type should always be `LineString`.
 	Type        GeometryType `json:"type"`
-	Coordinates []float64    `json:"coordinates"`
+	Coordinates [][]float64  `json:"coordinates"`
 }
