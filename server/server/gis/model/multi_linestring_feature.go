@@ -12,6 +12,7 @@ type MultiLineStringFeature struct {
 	// Type should always be `Feature`.
 	Type       string                  `json:"type"`
 	ID         string                  `json:"id"`
+	BBox       []float64               `json:"bbox"`
 	Geometry   MultiLineStringGeometry `json:"geometry"`
 	Properties map[string]interface{}  `json:"properties"`
 }

@@ -11,5 +11,6 @@ package model
 type FeatureCollection struct {
 	// Type should always be `FeatureCollection`.
 	Type     string        `json:"type"`
+	BBox     []float64     `json:"bbox"`
 	Features []interface{} `json:"features"`
 }
