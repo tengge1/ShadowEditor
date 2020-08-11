@@ -19,6 +19,6 @@ type MultiLineStringFeature struct {
 // MultiLineStringGeometry is the geometry of a MultiLineStringFeature.
 type MultiLineStringGeometry struct {
 	// Type should always be `MultiLineString`.
-	Type        GeometryType `json:"type"`
-	Coordinates [][]float64  `json:"coordinates"`
+	Type        GeometryType  `json:"type"`
+	Coordinates [][][]float64 `json:"coordinates"`
 }
