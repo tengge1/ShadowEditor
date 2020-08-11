@@ -25,13 +25,20 @@ class GISApplication {
         //     url
         // });
         // viewer.terrainProvider = terrainProvider;
+
+        var tileset = viewer.scene.primitives.add(
+            new Cesium.Cesium3DTileset({
+                url: Cesium.IonResource.fromAssetId(139214)
+            })
+        );
+        viewer.zoomTo(tileset);
     }
 
     createLayers(viewer) {
         viewer.imageryLayers.removeAll();
         // bing
         var provider = new Cesium.BingMapsImageryProvider({
-            url: 'https://dev.virtualearth.net',
+            url: 'https://dev.virtualearth.net', // https://dev.virtualearth.net
             key: 'Amvk_1DmXPpb7VB7JIXtWHBIpXdK8ABDN7E2xiK8olFovcy5KcVjVfpsW8rxoeVZ',
             mapStyle: Cesium.BingMapsStyle.AERIAL
         });
