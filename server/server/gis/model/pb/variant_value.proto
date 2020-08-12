@@ -1,0 +1,31 @@
+// Copyright 2017-2020 The ShadowEditor Authors. All rights reserved.
+// Use of this source code is governed by a MIT-style
+// license that can be found in the LICENSE file.
+//
+// For more information, please visit: https://github.com/tengge1/ShadowEditor
+// You can also visit: https://gitee.com/tengge1/ShadowEditor
+
+syntax = "proto3";
+
+option go_package = "./pb";
+
+// VariantValue is a value that has different types.
+message VariantValue {
+    oneof {
+        double Double = 1;
+        float Float = 2;
+        int32 Int32 = 3;
+        int64 Int64 = 4;
+        uint32 Uint32 = 5;
+        uint64 Uint64 = 6;
+        sint32 Sint32 = 7;
+        sint64 Sint64 = 8;
+        fixed32 Fixed32 = 9;
+        fixed64 Fixed64 = 10;
+        sfixed32 Sfixed32 = 11;
+        sfixed64 Sfixed64 = 12;
+        bool Bool = 13;
+        string String = 14;
+        bytes Bytes = 15;
+    }
+}

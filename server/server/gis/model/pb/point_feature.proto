@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+option go_package = "./pb";
+
+message PointFeature {
+    string id = 1;
+    repeated double bbox = 2;
+    PointGeometry geometry = 3;
+    map<string, Property> properties = 4;
+}
+
+message PointGeometry {
+
+}
