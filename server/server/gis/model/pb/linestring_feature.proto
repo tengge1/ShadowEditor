@@ -1,0 +1,29 @@
+// Copyright 2017-2020 The ShadowEditor Authors. All rights reserved.
+// Use of this source code is governed by a MIT-style
+// license that can be found in the LICENSE file.
+//
+// For more information, please visit: https://github.com/tengge1/ShadowEditor
+// You can also visit: https://gitee.com/tengge1/ShadowEditor
+
+syntax = "proto3";
+
+package pb;
+
+import 'coordinate.proto';
+import 'variant_value.proto';
+
+option go_package = "./pb";
+
+// LineStringFeature represent a line element.
+message LineStringFeature {
+    string id = 1;
+    repeated double bbox = 2;
+    LineStringGeometry geometry = 3;
+    map<string, VariantValue> properties = 4;
+}
+
+// LineStringGeometry is the geometry on a LineStringFeature.
+message LineStringGeometry {
+    string type = 1;
+    repeated Coordinate coordinates = 2;
+}

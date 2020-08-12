@@ -9,10 +9,12 @@ syntax = "proto3";
 
 package pb;
 
+import 'coordinate.proto';
 import 'variant_value.proto';
 
 option go_package = "./pb";
 
+// PointFeature represent a point element.
 message PointFeature {
     string id = 1;
     repeated double bbox = 2;
@@ -20,7 +22,8 @@ message PointFeature {
     map<string, VariantValue> properties = 4;
 }
 
+// PointGeometry is the geometry structure on a PointFeature.
 message PointGeometry {
     string type = 1;
-    repeated double coordinates = 2;
+    Coordinate coordinates = 2;
 }
