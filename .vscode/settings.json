@@ -1,7 +1,7 @@
 {
     "protoc": {
         "options": [
-            "--proto_path=${workspaceRoot}/server/gis/model/pb"
+            "--proto_path=${workspaceRoot}/server/gis/model/pb/proto"
         ]
     }
 }

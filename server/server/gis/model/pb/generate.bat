@@ -1,1 +1,0 @@
-protoc -I=. --go_out=../ ./point_feature.proto
