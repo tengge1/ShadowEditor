@@ -7,11 +7,13 @@
 
 syntax = "proto3";
 
+package pb;
+
 option go_package = "./pb";
 
 // VariantValue is a value that has different types.
 message VariantValue {
-    oneof {
+    oneof Value {
         double Double = 1;
         float Float = 2;
         int32 Int32 = 3;

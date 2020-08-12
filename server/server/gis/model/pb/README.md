@@ -27,3 +27,9 @@ protoc -I=$SRC_DIR --go_out=$DST_DIR $SRC_DIR/addressbook.proto
 ```
 
 Because you want Go code, you use the --go_out option – similar options are provided for other supported languages.
+
+4. Install proto package.
+
+```
+go get -u github.com/golang/protobuf/proto
+```

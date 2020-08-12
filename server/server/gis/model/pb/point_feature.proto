@@ -1,14 +1,19 @@
 syntax = "proto3";
 
+package pb;
+
+import 'variant_value.proto';
+
 option go_package = "./pb";
 
 message PointFeature {
     string id = 1;
     repeated double bbox = 2;
     PointGeometry geometry = 3;
-    map<string, Property> properties = 4;
+    map<string, VariantValue> properties = 4;
 }
 
 message PointGeometry {
-
+    string type = 1;
+    repeated double coordinates = 2;
 }
