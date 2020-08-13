@@ -383,8 +383,8 @@ ElevationModel.prototype.elevationsForGrid = function (sector, numLat, numLon, t
         throw new ArgumentError(
             Logger.logMessage(Logger.LEVEL_SEVERE, "ElevationModel", "elevationsForGrid", "missingResult"));
     }
-
-    result.fill(NaN);
+    // TODO: 有这一行无法显示地形
+    // result.fill(NaN);
     var resolution = Number.MAX_VALUE,
         resultFilled = false,
         preferredIndex = this.preferredCoverageIndex(sector, null, targetResolution);

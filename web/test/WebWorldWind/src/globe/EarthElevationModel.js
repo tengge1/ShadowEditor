@@ -17,11 +17,7 @@
 /**
  * @exports EarthElevationModel
  */
-import AsterV2ElevationCoverage from '../globe/AsterV2ElevationCoverage';
 import ElevationModel from '../globe/ElevationModel';
-import GebcoElevationCoverage from '../globe/GebcoElevationCoverage';
-import UsgsNedElevationCoverage from '../globe/UsgsNedElevationCoverage';
-import UsgsNedHiElevationCoverage from '../globe/UsgsNedHiElevationCoverage';
 import ArcgisElevationCoverage from './ArcgisElevationCoverage';
 
 /**
@@ -31,12 +27,7 @@ import ArcgisElevationCoverage from './ArcgisElevationCoverage';
  */
 function EarthElevationModel() {
     ElevationModel.call(this);
-
     this.addCoverage(new ArcgisElevationCoverage());
-    // this.addCoverage(new GebcoElevationCoverage());
-    // this.addCoverage(new AsterV2ElevationCoverage());
-    // this.addCoverage(new UsgsNedElevationCoverage());
-    // this.addCoverage(new UsgsNedHiElevationCoverage());
 }
 
 EarthElevationModel.prototype = Object.create(ElevationModel.prototype);
