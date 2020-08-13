@@ -20,7 +20,9 @@
         "eslint": "cd web && eslint src --fix",
         "clean": "node scripts/clean.js",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "clear": "npm prune"
+        "clear": "npm prune",
+        "build-wind": "cd web/test/WebWorldWind && rollup -c rollup.config.js",
+        "dev-wind": "cd web/test/WebWorldWind && rollup -c rollup.config.js --watch"
     },
     "dependencies": {
         "@tweenjs/tween.js": "^18.5.0",
