@@ -363,54 +363,8 @@ ElevationModel.prototype.bestCoverageAtLocation = function (latitude, longitude,
  * specified numLat or numLon values is less than one.
  */
 ElevationModel.prototype.elevationsForGrid = function (sector, numLat, numLon, targetResolution, result) {
-    if (!sector) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "ElevationModel", "elevationsForGrid", "missingSector"));
-    }
-
-    if (!numLat || !numLon || numLat < 1 || numLon < 1) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "ElevationModel", "elevationsForGrid",
-                "The specified number of latitudinal or longitudinal positions is less than one."));
-    }
-
-    if (!targetResolution) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "ElevationModel", "elevationsForGrid", "missingTargetResolution"));
-    }
-
-    if (!result) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "ElevationModel", "elevationsForGrid", "missingResult"));
-    }
-    // TODO: 有这一行无法显示地形
-    // result.fill(NaN);
-    var resolution = Number.MAX_VALUE,
-        resultFilled = false,
-        preferredIndex = this.preferredCoverageIndex(sector, null, targetResolution);
-
-    if (preferredIndex >= 0) {
-        for (var i = preferredIndex; !resultFilled && i >= 0; i--) {
-            var coverage = this.coverages[i];
-            if (coverage.enabled && coverage.coverageSector.intersects(sector)) {
-                resultFilled = coverage.elevationsForGrid(sector, numLat, numLon, result);
-                if (resultFilled) {
-                    resolution = coverage.resolution;
-                }
-            }
-        }
-    }
-
-    if (!resultFilled) {
-        var n = result.length;
-        for (i = 0; i < n; i++) {
-            if (isNaN(result[i])) {
-                result[i] = 0;
-            }
-        }
-    }
-
-    return resolution;
+    this.coverages[0].elevationsForGrid(sector, numLat, numLon, result);
+    return targetResolution;
 };
 
 export default ElevationModel;

@@ -39,17 +39,17 @@ import WWMath from './util/WWMath';
 
 
 /**
-         * Constructs a WorldWind window for an HTML canvas.
-         * @alias WorldWindow
-         * @constructor
-         * @classdesc Represents a WorldWind window for an HTML canvas.
-         * @param {String|HTMLCanvasElement} canvasElem The ID assigned to the HTML canvas in the document or the canvas
-         * element itself.
-         * @param {ElevationModel} elevationModel An optional argument indicating the elevation model to use for the World
-         * Window. If missing or null, a default elevation model is used.
-         * @throws {ArgumentError} If there is no HTML element with the specified ID in the document, or if the
-         * HTML canvas does not support WebGL.
-         */
+ * Constructs a WorldWind window for an HTML canvas.
+ * @alias WorldWindow
+ * @constructor
+ * @classdesc Represents a WorldWind window for an HTML canvas.
+ * @param {String|HTMLCanvasElement} canvasElem The ID assigned to the HTML canvas in the document or the canvas
+ * element itself.
+ * @param {ElevationModel} elevationModel An optional argument indicating the elevation model to use for the World
+ * Window. If missing or null, a default elevation model is used.
+ * @throws {ArgumentError} If there is no HTML element with the specified ID in the document, or if the
+ * HTML canvas does not support WebGL.
+ */
 function WorldWindow(canvasElem, elevationModel) {
     if (!window.WebGLRenderingContext) {
         throw new ArgumentError(
@@ -600,24 +600,18 @@ WorldWindow.prototype.redrawIfNeeded = function () {
         return;
     }
 
-    try {
-        // Prepare to redraw and notify the redraw callbacks that a redraw is about to occur.
-        this.redrawRequested = false;
-        this.drawContext.previousRedrawTimestamp = this.drawContext.timestamp;
-        this.callRedrawCallbacks(WorldWind.BEFORE_REDRAW);
-        // Redraw the WebGL drawing buffer.
-        this.resetDrawContext();
-        this.drawFrame();
-    } catch (e) {
-        Logger.logMessage(Logger.LEVEL_SEVERE, "WorldWindow", "redrawIfNeeded",
-            "Exception occurred during redrawing.\n" + e.toString());
-    } finally {
-        // Notify the redraw callbacks that a redraw has completed.
-        this.callRedrawCallbacks(WorldWind.AFTER_REDRAW);
-        // Handle rendering code redraw requests.
-        if (this.drawContext.redrawRequested) {
-            this.redrawRequested = true;
-        }
+    // Prepare to redraw and notify the redraw callbacks that a redraw is about to occur.
+    this.redrawRequested = false;
+    this.drawContext.previousRedrawTimestamp = this.drawContext.timestamp;
+    this.callRedrawCallbacks(WorldWind.BEFORE_REDRAW);
+    // Redraw the WebGL drawing buffer.
+    this.resetDrawContext();
+    this.drawFrame();
+    // Notify the redraw callbacks that a redraw has completed.
+    this.callRedrawCallbacks(WorldWind.AFTER_REDRAW);
+    // Handle rendering code redraw requests.
+    if (this.drawContext.redrawRequested) {
+        this.redrawRequested = true;
     }
 };
 

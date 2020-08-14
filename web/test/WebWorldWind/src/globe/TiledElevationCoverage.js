@@ -227,17 +227,6 @@ TiledElevationCoverage.prototype.elevationAtLocation = function (latitude, longi
 
 // Documented in super class
 TiledElevationCoverage.prototype.elevationsForGrid = function (sector, numLat, numLon, result) {
-    if (!sector) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "TiledElevationCoverage", "elevationsForGrid", "missingSector"));
-    }
-
-    if (!numLat || !numLon || numLat < 1 || numLon < 1) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "TiledElevationCoverage", "elevationsForGrid",
-                "The specified number of latitudinal or longitudinal positions is less than one."));
-    }
-
     var gridResolution = sector.deltaLatitude() / (numLat - 1) * Angle.DEGREES_TO_RADIANS;
     var level = this.levels.levelForTexelSize(gridResolution);
     if (this.pixelIsPoint) {
