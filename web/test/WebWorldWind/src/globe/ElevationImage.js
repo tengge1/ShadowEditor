@@ -215,7 +215,7 @@ ElevationImage.prototype.elevationsForGrid = function (sector, numLat, numLon, r
                     lon = maxLon; // explicitly set the last lon to the max longitude to ensure alignment
                 }
 
-                if (lon >= minLonSelf && lon <= maxLonSelf && isNaN(result[index])) {
+                if (lon >= minLonSelf && lon <= maxLonSelf && result[index] === 0) {
                     // Image x-coordinate of the specified location, given an image origin in the top-left corner.
                     var x = (this.imageWidth - 1) * (lon - minLonSelf) / deltaLonSelf,
                         x0 = Math.floor(WWMath.clamp(x, 0, this.imageWidth - 1)),
@@ -228,7 +228,7 @@ ElevationImage.prototype.elevationsForGrid = function (sector, numLat, numLon, r
                         x1y1 = pixels[x1 + y1 * this.imageWidth];
 
                     if (ElevationImage.isNoData(x0y0, x1y0, x0y1, x1y1)) {
-                        result[index] = NaN;
+                        result[index] = 0;
                     }
                     else {
                         result[index] = (1 - xf) * (1 - yf) * x0y0 +
