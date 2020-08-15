@@ -27,7 +27,6 @@ import Location from '../geom/Location';
 import Logger from '../util/Logger';
 import Matrix from '../geom/Matrix';
 import MemoryCache from '../cache/MemoryCache';
-import NotYetImplementedError from '../error/NotYetImplementedError';
 import PickedObject from '../pick/PickedObject';
 import Rectangle from '../geom/Rectangle';
 import Sector from '../geom/Sector';

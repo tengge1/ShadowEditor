@@ -25,7 +25,6 @@ import Color from '../util/Color';
 import Location from '../geom/Location';
 import Logger from '../util/Logger';
 import MemoryCache from '../cache/MemoryCache';
-import NotYetImplementedError from '../error/NotYetImplementedError';
 import PickedObject from '../pick/PickedObject';
 import PolygonSplitter from '../util/PolygonSplitter';
 import Renderable from '../render/Renderable';
