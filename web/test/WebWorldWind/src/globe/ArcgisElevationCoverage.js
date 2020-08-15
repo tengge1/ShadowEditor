@@ -52,6 +52,19 @@ function ArcgisElevationCoverage() {
 ArcgisElevationCoverage.prototype = Object.create(TiledElevationCoverage.prototype);
 
 ArcgisElevationCoverage.prototype.retrieveTileImage = function (tile) {
+    var z = tile.level.levelNumber;
+    if (z !== 7 && z !== 11 && z !== 13) {
+        this.loadElevationImage(tile, {
+            width: 257,
+            height: 257,
+            pixelData: null
+        });
+        // Send an event to request a redraw.
+        var e = document.createEvent('Event');
+        e.initEvent(WorldWind.REDRAW_EVENT_TYPE, true, true);
+        window.dispatchEvent(e);
+        return;
+    }
     if (this.currentRetrievals.indexOf(tile.tileKey) < 0) {
         if (this.currentRetrievals.length > this.retrievalQueueSize) {
             return;
@@ -61,7 +74,7 @@ ArcgisElevationCoverage.prototype.retrieveTileImage = function (tile) {
             tileKey: tile.tileKey,
             x: tile.column,
             y: tile.row,
-            z: tile.level.levelNumber
+            z: z
         });
 
         this.currentRetrievals.push(tile.tileKey);
@@ -103,9 +116,9 @@ ArcgisElevationCoverage.prototype.loadElevationImage = function (tile, data) {
     var elevationImage = new ElevationImage(tile.sector, data.width, data.height);
 
     elevationImage.imageData = data.pixelData;
-    elevationImage.size = elevationImage.imageData.length * 4;
 
     if (elevationImage.imageData) {
+        elevationImage.size = elevationImage.imageData.length * 4;
         elevationImage.findMinAndMaxElevation();
         this.imageCache.putEntry(tile.tileKey, elevationImage, elevationImage.size);
         this.timestamp = Date.now();
