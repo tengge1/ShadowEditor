@@ -63,7 +63,7 @@ function Tessellator() {
      * @type {Number}
      * @default 1.75
      */
-    this.detailControl = 1.75;
+    this.detailControl = 8.0;
 
     this.levels = new LevelSet(
         Sector.FULL_SPHERE,

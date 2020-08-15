@@ -140,7 +140,7 @@ function TiledElevationCoverage(config) {
      * @type {MemoryCache}
      * @ignore
      */
-    this.tileCache = new MemoryCache(1000000, 800000);
+    this.tileCache = new MemoryCache(10000000, 8000000);
 
     /**
      * Internal use only
@@ -148,7 +148,7 @@ function TiledElevationCoverage(config) {
      * @type {MemoryCache}
      * @ignore
      */
-    this.imageCache = new MemoryCache(10000000, 8000000);
+    this.imageCache = new MemoryCache(100000000, 80000000);
 
     /**
      * Controls how many concurrent tile requests are allowed for this coverage.
