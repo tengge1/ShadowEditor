@@ -23,7 +23,6 @@ import Matrix from '../geom/Matrix';
 import MemoryCache from '../cache/MemoryCache';
 import Renderable from '../render/Renderable';
 import ShapeAttributes from '../shapes/ShapeAttributes';
-import UnsupportedOperationError from '../error/UnsupportedOperationError';
 import Vec3 from '../geom/Vec3';
 
 

@@ -31,7 +31,6 @@ import PolygonSplitter from '../util/PolygonSplitter';
 import Renderable from '../render/Renderable';
 import Sector from '../geom/Sector';
 import ShapeAttributes from '../shapes/ShapeAttributes';
-import UnsupportedOperationError from '../error/UnsupportedOperationError';
 import Vec3 from '../geom/Vec3';
 
 

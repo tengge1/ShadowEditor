@@ -26,7 +26,6 @@ import Matrix from '../geom/Matrix';
 import PickedObject from '../pick/PickedObject';
 import Renderable from '../render/Renderable';
 import TextAttributes from '../shapes/TextAttributes';
-import UnsupportedOperationError from '../error/UnsupportedOperationError';
 import Vec2 from '../geom/Vec2';
 import Vec3 from '../geom/Vec3';
 import WWMath from '../util/WWMath';

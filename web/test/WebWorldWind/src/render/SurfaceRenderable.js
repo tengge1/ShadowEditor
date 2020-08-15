@@ -18,7 +18,6 @@
  * @exports SurfaceRenderable
  */
 import Logger from '../util/Logger';
-import UnsupportedOperationError from '../error/UnsupportedOperationError';
 
 
 /**
