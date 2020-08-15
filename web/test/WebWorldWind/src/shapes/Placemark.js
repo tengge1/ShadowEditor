@@ -59,11 +59,6 @@ import WWMath from '../util/WWMath';
  * @throws {ArgumentError} If the specified position is null or undefined.
  */
 function Placemark(position, eyeDistanceScaling, attributes) {
-    if (!position) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Placemark", "constructor", "missingPosition"));
-    }
-
     Renderable.call(this);
 
     /**

@@ -36,11 +36,6 @@ import Logger from '../util/Logger';
  * @throws {ArgumentError} If any specified plane is null or undefined.
  */
 function Frustum(left, right, bottom, top, near, far) {
-    if (!left || !right || !bottom || !top || !near || !far) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Frustum", "constructor", "missingPlane"));
-    }
-
     // Internal. Intentionally not documented. See property accessors below for public interface.
     this._left = left;
     this._right = right;
@@ -131,11 +126,6 @@ Object.defineProperties(Frustum.prototype, {
  * @throws {ArgumentError} If the specified matrix is null or undefined.
  */
 Frustum.prototype.transformByMatrix = function (matrix) {
-    if (!matrix) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Frustum", "transformByMatrix", "missingMatrix"));
-    }
-
     this._left.transformByMatrix(matrix);
     this._right.transformByMatrix(matrix);
     this._bottom.transformByMatrix(matrix);
@@ -190,11 +180,6 @@ Frustum.unitFrustum = function () {
  * @throws {ArgumentError} If the specified matrix is null or undefined.
  */
 Frustum.fromProjectionMatrix = function (matrix) {
-    if (!matrix) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Frustum", "fromProjectionMatrix", "missingMatrix"));
-    }
-
     var x, y, z, w, d, left, right, top, bottom, near, far;
 
     // Left Plane = row 4 + row 1:
@@ -249,11 +234,6 @@ Frustum.fromProjectionMatrix = function (matrix) {
 };
 
 Frustum.prototype.containsPoint = function (point) {
-    if (!point) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Frustum", "containsPoint", "missingPoint"));
-    }
-
     // See if the point is entirely within the frustum. The dot product of the point with each plane's vector
     // provides a distance to each plane. If this distance is less than 0, the point is clipped by that plane and
     // neither intersects nor is contained by the space enclosed by this Frustum.
@@ -286,11 +266,6 @@ Frustum.prototype.containsPoint = function (point) {
  * @throws {ArgumentError} If either point is null or undefined.
  */
 Frustum.prototype.intersectsSegment = function (pointA, pointB) {
-    if (!pointA || !pointB) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Frustum", "containsPoint", "missingPoint"));
-    }
-
     // First do a trivial accept test.
     if (this.containsPoint(pointA) || this.containsPoint(pointB))
         return true;

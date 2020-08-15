@@ -49,16 +49,6 @@ import SurfaceShape from '../shapes/SurfaceShape';
  * is negative.
  */
 function SurfaceCircle(center, radius, attributes) {
-    if (!center) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "SurfaceCircle", "constructor", "missingLocation"));
-    }
-
-    if (radius < 0) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "SurfaceCircle", "constructor", "Radius is negative"));
-    }
-
     SurfaceShape.call(this, attributes);
 
     // All these are documented with their property accessors below.

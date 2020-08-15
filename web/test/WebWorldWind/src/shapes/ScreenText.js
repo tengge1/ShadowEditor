@@ -39,11 +39,6 @@ import Text from '../shapes/Text';
  * @throws {ArgumentError} If either the specified screen offset or text is null or undefined.
  */
 function ScreenText(screenOffset, text) {
-    if (!screenOffset) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Text", "constructor", "missingOffset"));
-    }
-
     Text.call(this, text);
 
     /**

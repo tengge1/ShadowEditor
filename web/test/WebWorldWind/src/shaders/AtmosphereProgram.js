@@ -190,11 +190,6 @@ AtmosphereProgram.prototype.getAltitude = function () {
  * @throws {ArgumentError} If the specified number is null or undefined.
  */
 AtmosphereProgram.prototype.loadFragMode = function (gl, fragMode) {
-    if (!fragMode) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "AtmosphereProgram", "loadFragMode", "missingFragMode"));
-    }
-
     gl.uniform1i(this.fragModeLocation, fragMode);
 };
 
@@ -206,12 +201,6 @@ AtmosphereProgram.prototype.loadFragMode = function (gl, fragMode) {
  * @throws {ArgumentError} If the specified matrix is null or undefined.
  */
 AtmosphereProgram.prototype.loadModelviewProjection = function (gl, matrix) {
-    if (!matrix) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "AtmosphereProgram", "loadModelviewProjection",
-                "missingMatrix"));
-    }
-
     this.loadUniformMatrix(gl, matrix, this.mvpMatrixLocation);
 };
 
@@ -223,11 +212,6 @@ AtmosphereProgram.prototype.loadModelviewProjection = function (gl, matrix) {
  * @throws {ArgumentError} If the specified vector is null or undefined.
  */
 AtmosphereProgram.prototype.loadVertexOrigin = function (gl, vector) {
-    if (!vector) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "AtmosphereProgram", "loadVertexOrigin", "missingVector"));
-    }
-
     gl.uniform3f(this.vertexOriginLocation, vector[0], vector[1], vector[2]);
 };
 
@@ -239,11 +223,6 @@ AtmosphereProgram.prototype.loadVertexOrigin = function (gl, vector) {
  * @throws {ArgumentError} If the specified vector is null or undefined.
  */
 AtmosphereProgram.prototype.loadLightDirection = function (gl, vector) {
-    if (!vector) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "AtmosphereProgram", "loadLightDirection", "missingVector"));
-    }
-
     gl.uniform3f(this.lightDirectionLocation, vector[0], vector[1], vector[2]);
 };
 
@@ -257,11 +236,6 @@ AtmosphereProgram.prototype.loadLightDirection = function (gl, vector) {
  * @throws {ArgumentError} If the specified vector is null or undefined.
  */
 AtmosphereProgram.prototype.loadEyePoint = function (gl, vector) {
-    if (!vector) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "AtmosphereProgram", "loadEyePoint", "missingVector"));
-    }
-
     gl.uniform3f(this.eyePointLocation, vector[0], vector[1], vector[2]);
     gl.uniform1f(this.eyeMagnitudeLocation, vector.magnitude());
     gl.uniform1f(this.eyeMagnitude2Location, vector.magnitudeSquared());
@@ -276,12 +250,6 @@ AtmosphereProgram.prototype.loadEyePoint = function (gl, vector) {
  * @throws {ArgumentError} If the specified number is null or undefined.
  */
 AtmosphereProgram.prototype.loadGlobeRadius = function (gl, globeRadius) {
-    if (!globeRadius) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "AtmosphereProgram", "loadGlobeRadius",
-                "missingGlobeRadius"));
-    }
-
     var gr = globeRadius;
     var ar = gr + this.altitude;
 
@@ -307,12 +275,6 @@ AtmosphereProgram.prototype.setScale = function (gl) {
  * @param {Matrix3} matrix The texture coordinate matrix.
  */
 AtmosphereProgram.prototype.loadTexMatrix = function (gl, matrix) {
-    if (!matrix) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "AtmosphereProgram", "loadTexMatrix",
-                "missingMatrix"));
-    }
-
     matrix.columnMajorComponents(this.scratchArray9);
     gl.uniformMatrix3fv(this.texCoordMatrixLocation, false, this.scratchArray9);
 };

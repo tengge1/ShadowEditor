@@ -40,16 +40,7 @@ function Font(size, style, variant, weight, family, horizontalAlignment) {
     /*
      * All properties of Font are intended to be private and must be accessed via public getters and setters.
      */
-
-    if (!size) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Font", "constructor",
-            "missingSize"));
-    }
-    else if (size <= 0) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Font", "constructor",
-            "invalidSize"));
-    }
-    else {
+    if(size > 0) {
         this._size = size;
     }
 

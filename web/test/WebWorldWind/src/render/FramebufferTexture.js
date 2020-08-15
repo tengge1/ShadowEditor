@@ -41,16 +41,6 @@ import '../util/WWMath';
  * than zero.
  */
 function FramebufferTexture(gl, width, height, depth) {
-    if (!gl) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "FramebufferTexture", "constructor",
-            "missingGlContext"));
-    }
-
-    if (width < 0 || height < 0) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "FramebufferTexture", "constructor",
-            "The framebuffer width or height is less than zero."));
-    }
-
     /**
      * The width of this framebuffer, in pixels.
      * @type {Number}

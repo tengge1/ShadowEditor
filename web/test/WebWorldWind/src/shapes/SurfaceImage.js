@@ -36,16 +36,6 @@ import SurfaceTile from '../render/SurfaceTile';
  * @throws {ArgumentError} If either the specified sector or image source is null or undefined.
  */
 function SurfaceImage(sector, imageSource) {
-    if (!sector) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "SurfaceImage", "constructor",
-            "missingSector"));
-    }
-
-    if (!imageSource) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "SurfaceImage", "constructor",
-            "missingImage"));
-    }
-
     SurfaceTile.call(this, sector);
 
     /**
@@ -105,11 +95,6 @@ Object.defineProperties(SurfaceImage.prototype, {
             return this._imageSource;
         },
         set: function (imageSource) {
-            if (!imageSource) {
-                throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "SurfaceImage", "imageSource",
-                    "missingImage"));
-            }
-
             this._imageSource = imageSource;
             this.imageSourceWasUpdated = true;
         }

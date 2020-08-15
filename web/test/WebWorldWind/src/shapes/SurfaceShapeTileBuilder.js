@@ -252,11 +252,6 @@ SurfaceShapeTileBuilder.prototype.doDeepPickingRender = function (dc) {
  * @throws {ArgumentError} If the draw context is null.
  */
 SurfaceShapeTileBuilder.prototype.buildTiles = function (dc) {
-    if (!dc) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "SurfaceShapeTileBuilder", "buildTiles", "missingDc"));
-    }
-
     if (!this.surfaceShapes || this.surfaceShapes.length < 1) {
         return;
     }

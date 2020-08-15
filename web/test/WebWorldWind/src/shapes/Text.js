@@ -45,11 +45,6 @@ import WWMath from '../util/WWMath';
  * @throws {ArgumentError} If the specified text is null or undefined.
  */
 function Text(text) {
-    if (!text) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Text", "constructor", "missingText"));
-    }
-
     Renderable.call(this);
 
     /**
@@ -324,8 +319,6 @@ Text.prototype.makeOrderedRenderable = function (dc) {
  * @protected
  */
 Text.prototype.computeScreenPointAndEyeDistance = function (dc) {
-    throw new UnsupportedOperationError(
-        Logger.logMessage(Logger.LEVEL_SEVERE, "Renderable", "render", "abstractInvocation"));
 };
 
 // Internal. Intentionally not documented.

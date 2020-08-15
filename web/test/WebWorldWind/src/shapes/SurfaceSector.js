@@ -49,11 +49,6 @@ import SurfaceShape from '../shapes/SurfaceShape';
  * @throws {ArgumentError} If the specified boundaries are null or undefined.
  */
 function SurfaceSector(sector, attributes) {
-    if (!sector) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "SurfaceSector", "constructor", "missingSector"));
-    }
-
     SurfaceShape.call(this, attributes);
 
     /**

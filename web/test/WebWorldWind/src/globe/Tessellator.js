@@ -148,11 +148,6 @@ function Tessellator() {
  * @throws {ArgumentError} If the dc is null or undefined.
  */
 Tessellator.prototype.tessellate = function (dc) {
-    if (!dc) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Tessellator", "tessellate", "missingDC"));
-    }
-
     var lastElevationsChange = dc.globe.elevationTimestamp();
     if (this.lastGlobeStateKey === dc.globeStateKey
         && this.lastVerticalExaggeration === dc.verticalExaggeration
@@ -196,23 +191,6 @@ Tessellator.prototype.tessellate = function (dc) {
 };
 
 Tessellator.prototype.createTile = function (tileSector, level, row, column) {
-    if (!tileSector) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Tile", "constructor", "missingSector"));
-    }
-
-    if (!level) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Tile", "constructor",
-                "The specified level is null or undefined."));
-    }
-
-    if (row < 0 || column < 0) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Tile", "constructor",
-                "The specified row or column is less than zero."));
-    }
-
     return new TerrainTile(tileSector, level, row, column);
 };
 
@@ -278,11 +256,6 @@ Tessellator.prototype.endRendering = function (dc) {
  * @throws {ArgumentError} If the specified tile is null or undefined.
  */
 Tessellator.prototype.beginRenderingTile = function (dc, terrainTile) {
-    if (!terrainTile) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Tessellator", "beginRenderingTile", "missingTile"));
-    }
-
     var gl = dc.currentGlContext,
         gpuResourceCache = dc.gpuResourceCache;
 
@@ -329,11 +302,6 @@ Tessellator.prototype.endRenderingTile = function (dc, terrainTile) {
  * @throws {ArgumentError} If the specified tile is null or undefined.
  */
 Tessellator.prototype.renderTile = function (dc, terrainTile) {
-    if (!terrainTile) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Tessellator", "renderTile", "missingTile"));
-    }
-
     var gl = dc.currentGlContext,
         prim = gl.TRIANGLE_STRIP; // replace TRIANGLE_STRIP with LINE_STRIP to debug borders
 
@@ -437,11 +405,6 @@ Tessellator.prototype.renderTile = function (dc, terrainTile) {
  * @throws {ArgumentError} If the specified tile is null or undefined.
  */
 Tessellator.prototype.renderWireframeTile = function (dc, terrainTile) {
-    if (!terrainTile) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Tessellator", "renderWireframeTile", "missingTile"));
-    }
-
     var gl = dc.currentGlContext;
 
     // Must turn off texture coordinates, which were turned on in beginRendering.
@@ -463,11 +426,6 @@ Tessellator.prototype.renderWireframeTile = function (dc, terrainTile) {
  * @throws {ArgumentError} If the specified tile is null or undefined.
  */
 Tessellator.prototype.renderTileOutline = function (dc, terrainTile) {
-    if (!terrainTile) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Tessellator", "renderTileOutline", "missingTile"));
-    }
-
     var gl = dc.currentGlContext;
 
     // Must turn off texture coordinates, which were turned on in beginRendering.
@@ -494,16 +452,6 @@ Tessellator.prototype.renderTileOutline = function (dc, terrainTile) {
  * @throws {ArgumentError} If either the draw context or the tile list are null or undefined.
  */
 Tessellator.prototype.pick = function (dc, tileList, pickDelegate) {
-    if (!dc) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Tessellator", "pick", "missingDc"));
-    }
-
-    if (!tileList) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Tessellator", "pick", "missingList"));
-    }
-
     var color = null,
         userObject = pickDelegate || this,
         position = new Position(0, 0, 0),

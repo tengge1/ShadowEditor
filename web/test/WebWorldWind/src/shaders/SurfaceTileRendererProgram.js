@@ -114,12 +114,6 @@ SurfaceTileRendererProgram.prototype = Object.create(GpuProgram.prototype);
  * @throws {ArgumentError} If the specified matrix is null or undefined.
  */
 SurfaceTileRendererProgram.prototype.loadModelviewProjection = function (gl, matrix) {
-    if (!matrix) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "SurfaceTileRendererProgram", "loadModelviewProjection",
-                "missingMatrix"));
-    }
-
     this.loadUniformMatrix(gl, matrix, this.mvpMatrixLocation);
 };
 
@@ -131,12 +125,6 @@ SurfaceTileRendererProgram.prototype.loadModelviewProjection = function (gl, mat
  * @throws {ArgumentError} If the specified matrix is null or undefined.
  */
 SurfaceTileRendererProgram.prototype.loadTexSamplerMatrix = function (gl, matrix) {
-    if (!matrix) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "SurfaceTileRendererProgram", "loadTexSamplerMatrix",
-                "missingMatrix"));
-    }
-
     this.loadUniformMatrix(gl, matrix, this.texSamplerMatrixLocation);
 };
 
@@ -148,12 +136,6 @@ SurfaceTileRendererProgram.prototype.loadTexSamplerMatrix = function (gl, matrix
  * @throws {ArgumentError} If the specified matrix is null or undefined.
  */
 SurfaceTileRendererProgram.prototype.loadTexMaskMatrix = function (gl, matrix) {
-    if (!matrix) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "SurfaceTileRendererProgram", "loadTexMaskMatrix",
-                "missingMatrix"));
-    }
-
     this.loadUniformMatrix(gl, matrix, this.texMaskMatrixLocation);
 };
 
@@ -187,11 +169,6 @@ SurfaceTileRendererProgram.prototype.loadOpacity = function (gl, opacity) {
  * @throws {ArgumentError} If the specified color is null or undefined.
  */
 SurfaceTileRendererProgram.prototype.loadColor = function (gl, color) {
-    if (!color) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "SurfaceTileRendererProgram", "loadColor", "missingColor"));
-    }
-
     this.loadUniformColor(gl, color, this.colorLocation);
 };
 

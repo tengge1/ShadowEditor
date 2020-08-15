@@ -80,11 +80,6 @@ Position.fromRadians = function (latitudeRadians, longitudeRadians, altitude) {
  * @throws {ArgumentError} If the specified position is null or undefined.
  */
 Position.prototype.copy = function (position) {
-    if (!position) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Position", "copy", "missingPosition"));
-    }
-
     this.latitude = position.latitude;
     this.longitude = position.longitude;
     this.altitude = position.altitude;
@@ -115,16 +110,6 @@ Position.prototype.equals = function (position) {
  * @throws {ArgumentError} If either specified position or the result argument is null or undefined.
  */
 Position.interpolateGreatCircle = function (amount, position1, position2, result) {
-    if (!position1 || !position2) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Position", "interpolateGreatCircle", "missingPosition"));
-    }
-
-    if (!result) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Position", "interpolateGreatCircle", "missingResult"));
-    }
-
     var t = WWMath.clamp(amount, 0, 1);
     result.altitude = WWMath.interpolate(t, position1.altitude, position2.altitude);
 
@@ -145,16 +130,6 @@ Position.interpolateGreatCircle = function (amount, position1, position2, result
  * @throws {ArgumentError} If either specified position or the result argument is null or undefined.
  */
 Position.interpolateRhumb = function (amount, position1, position2, result) {
-    if (!position1 || !position2) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Position", "interpolateRhumb", "missingPosition"));
-    }
-
-    if (!result) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Position", "interpolateRhumb", "missingResult"));
-    }
-
     var t = WWMath.clamp(amount, 0, 1);
     result.altitude = WWMath.interpolate(t, position1.altitude, position2.altitude);
 
@@ -175,16 +150,6 @@ Position.interpolateRhumb = function (amount, position1, position2, result) {
  * @throws {ArgumentError} If either specified position or the result argument is null or undefined.
  */
 Position.interpolateLinear = function (amount, position1, position2, result) {
-    if (!position1 || !position2) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Position", "interpolateLinear", "missingPosition"));
-    }
-
-    if (!result) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Position", "interpolateLinear", "missingResult"));
-    }
-
     var t = WWMath.clamp(amount, 0, 1);
     result.altitude = WWMath.interpolate(t, position1.altitude, position2.altitude);
 

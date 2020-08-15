@@ -29,12 +29,6 @@ import Logger from '../util/Logger';
  * @constructor
  */
 function Insets(top, left, bottom, right) {
-
-    if (arguments.length !== 4) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Insets", "constructor", "invalidArgumentCount"));
-    }
-
     // These are all documented with their property accessors below.
     this._top = top;
     this._left = left;

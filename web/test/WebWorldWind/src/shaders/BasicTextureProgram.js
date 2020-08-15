@@ -154,11 +154,6 @@ BasicTextureProgram.prototype = Object.create(GpuProgram.prototype);
  * @throws {ArgumentError} If the specified matrix is null or undefined.
  */
 BasicTextureProgram.prototype.loadModelviewInverse = function (gl, matrix) {
-    if (!matrix) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "BasicTextureProgram", "loadModelviewInverse", "missingMatrix"));
-    }
-
     this.loadUniformMatrix(gl, matrix, this.mvInverseMatrixLocation);
 };
 
@@ -170,11 +165,6 @@ BasicTextureProgram.prototype.loadModelviewInverse = function (gl, matrix) {
  * @throws {ArgumentError} If the specified matrix is null or undefined.
  */
 BasicTextureProgram.prototype.loadModelviewProjection = function (gl, matrix) {
-    if (!matrix) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "BasicTextureProgram", "loadModelviewProjection", "missingMatrix"));
-    }
-
     this.loadUniformMatrix(gl, matrix, this.mvpMatrixLocation);
 };
 
@@ -186,11 +176,6 @@ BasicTextureProgram.prototype.loadModelviewProjection = function (gl, matrix) {
  * @throws {ArgumentError} If the specified color is null or undefined.
  */
 BasicTextureProgram.prototype.loadColor = function (gl, color) {
-    if (!color) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "BasicTextureProgram", "loadColor", "missingColor"));
-    }
-
     this.loadUniformColor(gl, color, this.colorLocation);
 };
 

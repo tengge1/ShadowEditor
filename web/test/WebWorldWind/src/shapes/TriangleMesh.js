@@ -71,34 +71,6 @@ import Vec3 from '../geom/Vec3';
  * is less than 3 or too many positions are specified (limit is 65536).
  */
 function TriangleMesh(positions, indices, attributes) {
-    if (!positions) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "TriangleMesh", "constructor", "missingPositions"));
-    }
-
-    if (positions.length < 1) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "TriangleMesh", "constructor", "missingPositions"));
-    }
-
-    // Check for size limit, which is the max number of available indices for a 16-bit unsigned int.
-    if (positions.length > 65536) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "TriangleMesh", "constructor",
-                "Too many positions. Must be fewer than 65537. Use TriangleMesh.split to split the shape."));
-    }
-
-    if (!indices) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "TriangleMesh", "constructor",
-                "Indices array is null or undefined"));
-    }
-
-    if (indices.length < 3) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "TriangleMesh", "constructor", "Too few indices."));
-    }
-
     AbstractMesh.call(this, attributes);
 
     // Private. Documentation is with the defined property below and the constructor description above.
@@ -124,11 +96,6 @@ Object.defineProperties(TriangleMesh.prototype, {
             return this._positions;
         },
         set: function (positions) {
-            if (!positions) {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "TriangleMesh", "positions", "missingPositions"));
-            }
-
             this._positions = positions;
             this.referencePosition = this._positions[0];
             this.reset();
@@ -149,12 +116,6 @@ Object.defineProperties(TriangleMesh.prototype, {
             return this._indices;
         },
         set: function (indices) {
-            if (!indices) {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "TriangleMesh", "indices",
-                        "Indices array is null or undefined"));
-            }
-
             this._indices = indices;
             this.meshIndices = null;
             this.reset();
@@ -196,13 +157,6 @@ Object.defineProperties(TriangleMesh.prototype, {
             return this._textureCoordinates;
         },
         set: function (coords) {
-
-            if (coords && coords.length != this._positions.length) {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "TriangleMesh", "textureCoordinates",
-                        "Number of texture coordinates is inconsistent with the currently specified positions."));
-            }
-
             this._textureCoordinates = coords;
             this.reset();
             this.texCoords = null;

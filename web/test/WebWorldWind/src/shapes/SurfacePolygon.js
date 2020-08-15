@@ -50,12 +50,6 @@ import SurfaceShape from '../shapes/SurfaceShape';
  * @throws {ArgumentError} If the specified boundaries are null or undefined.
  */
 function SurfacePolygon(boundaries, attributes) {
-    if (!Array.isArray(boundaries)) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "SurfacePolygon", "constructor",
-                "The specified boundary is not an array."));
-    }
-
     SurfaceShape.call(this, attributes);
 
     this._boundaries = boundaries;
@@ -78,11 +72,6 @@ Object.defineProperties(SurfacePolygon.prototype, {
             return this._boundaries;
         },
         set: function (boundaries) {
-            if (!Array.isArray(boundaries)) {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "SurfacePolygon", "set boundaries",
-                        "The specified value is not an array."));
-            }
             this.resetBoundaries();
             this._boundaries = boundaries;
             this._stateId = SurfacePolygon.stateId++;

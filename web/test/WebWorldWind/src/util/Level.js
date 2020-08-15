@@ -31,18 +31,6 @@ import Logger from '../util/Logger';
  * @throws {ArgumentError} If either the specified tile delta or parent level set is null or undefined.
  */
 function Level(levelNumber, tileDelta, parent) {
-    if (!tileDelta) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Level", "constructor",
-                "The specified tile delta is null or undefined"));
-    }
-
-    if (!parent) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Level", "constructor",
-                "The specified parent level set is null or undefined"));
-    }
-
     /**
      * The level's ordinal in its parent level set.
      * @type {Number}
@@ -130,12 +118,6 @@ Level.prototype.nextLevel = function () {
  * @throws {ArgumentError} If the specified level is null or undefined.
  */
 Level.prototype.compare = function (that) {
-    if (!that) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Level", "compare",
-                "The specified level is null or undefined"));
-    }
-
     if (this.levelNumber < that.levelNumber)
         return -1;
 

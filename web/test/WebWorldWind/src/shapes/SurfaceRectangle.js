@@ -53,16 +53,6 @@ import WWMath from '../util/WWMath';
  * or height is negative.
  */
 function SurfaceRectangle(center, width, height, heading, attributes) {
-    if (!center) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "SurfaceRectangle", "constructor", "missingLocation"));
-    }
-
-    if (width < 0 || height < 0) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "SurfaceRectangle", "constructor", "Size is negative."));
-    }
-
     SurfaceShape.call(this, attributes);
 
     // All these are documented with their property accessors below.

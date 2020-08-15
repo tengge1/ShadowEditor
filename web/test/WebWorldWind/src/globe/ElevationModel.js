@@ -174,11 +174,6 @@ ElevationModel.prototype.performCoverageListChangedActions = function () {
  * @throws ArgumentError if the specified elevation coverage is null.
  */
 ElevationModel.prototype.addCoverage = function (coverage) {
-    if (!coverage) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "ElevationModel", "addCoverage", "missingCoverage"));
-    }
-
     if (!this.containsCoverage(coverage)) {
         this.coverages.push(coverage);
         this.performCoverageListChangedActions();
@@ -206,11 +201,6 @@ ElevationModel.prototype.removeAllCoverages = function () {
  * @throws ArgumentError if the specified elevation coverage is null.
  */
 ElevationModel.prototype.removeCoverage = function (coverage) {
-    if (!coverage) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "ElevationModel", "removeCoverage", "missingCoverage"));
-    }
-
     var index = this.coverages.indexOf(coverage);
     if (index >= 0) {
         this.coverages.splice(index, 1);
@@ -226,10 +216,6 @@ ElevationModel.prototype.removeCoverage = function (coverage) {
  * @throws ArgumentError if the ElevationCoverage is null.
  */
 ElevationModel.prototype.containsCoverage = function (coverage) {
-    if (!coverage) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "ElevationModel", "containsCoverage", "missingCoverage"));
-    }
     var index = this.coverages.indexOf(coverage);
     return index >= 0;
 };
@@ -242,11 +228,6 @@ ElevationModel.prototype.containsCoverage = function (coverage) {
  * @throws {ArgumentError} If the specified sector is null or undefined.
  */
 ElevationModel.prototype.minAndMaxElevationsForSector = function (sector) {
-    if (!sector) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "ElevationModel", "minAndMaxElevationsForSector", "missingSector"));
-    }
-
     // Initialize the min and max elevations to the largest and smallest numbers, respectively. This has the
     // effect of moving the extremes with each subsequent coverage as needed, without unintentionally capturing
     // zero elevation. If we initialized this array with zeros the result would always contain zero, even when
@@ -334,12 +315,6 @@ ElevationModel.prototype.preferredCoverageIndex = function (sector, location, ta
  * @throws {ArgumentError} If the specified resolution is not positive.
  */
 ElevationModel.prototype.bestCoverageAtLocation = function (latitude, longitude, targetResolution) {
-
-    if (!targetResolution || targetResolution < 0) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "ElevationModel", "bestCoverageAtLocation", "invalidResolution"));
-    }
-
     this.scratchLocation.set(latitude, longitude);
     var preferredIndex = this.preferredCoverageIndex(null, this.scratchLocation, targetResolution);
     if (preferredIndex >= 0) {

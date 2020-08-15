@@ -37,18 +37,6 @@ import Logger from '../util/Logger';
  *
  */
 function WmsUrlBuilder(serviceAddress, layerNames, styleNames, wmsVersion, timeString) {
-    if (!serviceAddress || serviceAddress.length === 0) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "WmsUrlBuilder", "constructor",
-                "The WMS service address is missing."));
-    }
-
-    if (!layerNames || layerNames.length === 0) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "WmsUrlBuilder", "constructor",
-                "The WMS layer names are not specified."));
-    }
-
     /**
      * The address of the WMS server.
      * @type {String}
@@ -103,17 +91,6 @@ function WmsUrlBuilder(serviceAddress, layerNames, styleNames, wmsVersion, timeS
  * @throws {ArgumentError} If the specified tile or image format are null or undefined.
  */
 WmsUrlBuilder.prototype.urlForTile = function (tile, imageFormat) {
-    if (!tile) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "WmsUrlBuilder", "urlForTile", "missingTile"));
-    }
-
-    if (!imageFormat) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "WmsUrlBuilder", "urlForTile",
-                "The image format is null or undefined."));
-    }
-
     var sector = tile.sector;
 
     var sb = WmsUrlBuilder.fixGetMapString(this.serviceAddress);
@@ -159,12 +136,6 @@ WmsUrlBuilder.prototype.urlForTile = function (tile, imageFormat) {
 
 // Intentionally not documented.
 WmsUrlBuilder.fixGetMapString = function (serviceAddress) {
-    if (!serviceAddress) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "WmsUrlBuilder", "fixGetMapString",
-                "The specified service address is null or undefined."));
-    }
-
     var index = serviceAddress.indexOf("?");
 
     if (index < 0) { // if string contains no question mark

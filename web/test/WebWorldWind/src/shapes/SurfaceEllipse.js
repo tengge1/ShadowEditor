@@ -53,16 +53,6 @@ import WWMath from '../util/WWMath';
  * is negative.
  */
 function SurfaceEllipse(center, majorRadius, minorRadius, heading, attributes) {
-    if (!center) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "SurfaceEllipse", "constructor", "missingLocation"));
-    }
-
-    if (majorRadius < 0 || minorRadius < 0) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "SurfaceEllipse", "constructor", "Radius is negative."));
-    }
-
     SurfaceShape.call(this, attributes);
 
     // All these are documented with their property accessors below.

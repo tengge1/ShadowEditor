@@ -91,11 +91,6 @@ import libtessDummy from '../util/libtess';
  * @throws {ArgumentError} If the specified boundaries array is null or undefined.
  */
 function Polygon(boundaries, attributes) {
-    if (!boundaries) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Polygon", "constructor", "missingBoundaries"));
-    }
-
     AbstractShape.call(this, attributes);
 
     if (boundaries.length > 0 && boundaries[0].latitude) {
@@ -130,11 +125,6 @@ Object.defineProperties(Polygon.prototype, {
             return this._boundariesSpecifiedSimply ? this._boundaries[0] : this._boundaries;
         },
         set: function (boundaries) {
-            if (!boundaries) {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "Polygon", "boundaries", "missingBoundaries"));
-            }
-
             if (boundaries.length > 0 && boundaries[0].latitude) {
                 boundaries = [boundaries];
                 this._boundariesSpecifiedSimply = true;

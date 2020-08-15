@@ -32,16 +32,6 @@ import Vec3 from '../geom/Vec3';
  * @throws {ArgumentError} If either the origin or the direction are null or undefined.
  */
 function Line(origin, direction) {
-    if (!origin) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Line", "constructor",
-            "Origin is null or undefined."));
-    }
-
-    if (!direction) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Line", "constructor",
-            "Direction is null or undefined."));
-    }
-
     /**
      * This line's origin.
      * @type {Vec3}
@@ -63,11 +53,6 @@ function Line(origin, direction) {
  * @throws {ArgumentError} If either endpoint is null or undefined.
  */
 Line.fromSegment = function (pointA, pointB) {
-    if (!pointA || !pointB) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Line", "fromSegment", "missingPoint"));
-    }
-
     var origin = new Vec3(pointA[0], pointA[1], pointA[2]),
         direction = new Vec3(pointB[0] - pointA[0], pointB[1] - pointA[1], pointB[2] - pointA[2]);
 
@@ -82,10 +67,6 @@ Line.fromSegment = function (pointA, pointB) {
  * @throws {ArgumentError} If the specified result argument is null or undefined.
  */
 Line.prototype.pointAt = function (distance, result) {
-    if (!result) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Line", "pointAt", "missingResult."));
-    }
-
     result[0] = this.origin[0] + this.direction[0] * distance;
     result[1] = this.origin[1] + this.direction[1] * distance;
     result[2] = this.origin[2] + this.direction[2] * distance;
@@ -126,11 +107,6 @@ Line.prototype.clone = function () {
  * @throws {ArgumentError} If the specified line is null or undefined.
  */
 Line.prototype.copy = function (copyLine) {
-    if (!copyLine) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Line", "copy", "missingLine"));
-    }
-
     this.origin.copy(copyLine.origin);
     this.direction.copy(copyLine.direction);
 

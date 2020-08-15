@@ -184,8 +184,6 @@ AbstractMesh.prototype.doMakeOrderedRenderable = function (dc) {
  * @protected
  */
 AbstractMesh.prototype.computeMeshPoints = function (dc, currentData) {
-    throw new UnsupportedOperationError(
-        Logger.logMessage(Logger.LEVEL_SEVERE, "AbstractMesh", "computeMeshPoints", "abstractInvocation"));
 };
 
 // Intentionally not documented.
@@ -209,8 +207,6 @@ AbstractMesh.prototype.computeTexCoords = function () {
  * @protected
  */
 AbstractMesh.prototype.computeMeshIndices = function (currentData) {
-    throw new UnsupportedOperationError(
-        Logger.logMessage(Logger.LEVEL_SEVERE, "AbstractMesh", "computeMeshIndices", "abstractInvocation"));
 };
 
 /**

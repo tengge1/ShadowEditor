@@ -32,10 +32,6 @@ import Sector from '../geom/Sector';
  *
  */
 function TerrainTileList(tessellator) {
-    if (!tessellator) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "TerrainTileList", "TerrainTileList", "missingTessellator"));
-    }
     this.tessellator = tessellator;
     this.sector = null;
     this.tileArray = [];
@@ -56,11 +52,6 @@ Object.defineProperties(TerrainTileList.prototype, {
 });
 
 TerrainTileList.prototype.addTile = function (tile) {
-    if (!tile) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "TerrainTileList", "addTile", "missingTile"));
-    }
-
     if (this.tileArray.indexOf(tile) == -1) {
         this.tileArray.push(tile);
 

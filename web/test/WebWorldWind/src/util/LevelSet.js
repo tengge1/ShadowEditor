@@ -41,35 +41,6 @@ import Logger from '../util/Logger';
  * arguments are less than 1.
  */
 function LevelSet(sector, levelZeroDelta, numLevels, tileWidth, tileHeight) {
-    if (!sector) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "LevelSet", "constructor", "missingSector"));
-    }
-
-    if (!levelZeroDelta) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "LevelSet", "constructor",
-                "The specified level zero delta is null or undefined"));
-    }
-
-    if (levelZeroDelta.latitude <= 0 || levelZeroDelta.longitude <= 0) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "LevelSet", "constructor",
-                "The specified level zero delta is less than or equal to zero."));
-    }
-
-    if (numLevels < 1) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "LevelSet", "constructor",
-                "The specified number of levels is less than one."));
-    }
-
-    if (tileWidth < 1 || tileHeight < 1) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "LevelSet", "constructor",
-                "The specified tile width or tile height is less than one."));
-    }
-
     /**
      * The sector spanned by this level set.
      * @type {Sector}
@@ -140,11 +111,6 @@ function LevelSet(sector, levelZeroDelta, numLevels, tileWidth, tileHeight) {
  * @throws {ArgumentError} If either resolution is null, undefined, or zero
  */
 LevelSet.numLevelsForResolution = function (firstLevelResolution, lastLevelResolution) {
-    if (!firstLevelResolution || !lastLevelResolution) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "LevelSet", "numLevelsForResolution", "missingResolution"));
-    }
-
     var lastLevel = Math.log(firstLevelResolution / lastLevelResolution) / Math.log(2); // fractional level address
 
     if (lastLevel < 0) {

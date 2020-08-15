@@ -41,23 +41,6 @@ import WWUtil from '../util/WWUtil';
  * are less than zero.
  */
 function Tile(sector, level, row, column) {
-    if (!sector) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Tile", "constructor", "missingSector"));
-    }
-
-    if (!level) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Tile", "constructor",
-                "The specified level is null or undefined."));
-    }
-
-    if (row < 0 || column < 0) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Tile", "constructor",
-                "The specified row or column is less than zero."));
-    }
-
     /**
      * The sector represented by this tile.
      * @type {Sector}
@@ -187,11 +170,6 @@ Tile.prototype.size = function () {
  * @throws {ArgumentError} If the specified vector is null or undefined.
  */
 Tile.prototype.distanceTo = function (vector) {
-    if (!vector) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Tile", "distanceTo", "missingVector"));
-    }
-
     var px = vector[0], py = vector[1], pz = vector[2],
         dx, dy, dz,
         points = this.samplePoints,
@@ -215,18 +193,6 @@ Tile.prototype.distanceTo = function (vector) {
  * @throws {ArgumentError} If the specified tile factory or level is null or undefined.
  */
 Tile.prototype.subdivide = function (level, tileFactory) {
-    if (!level) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Tile", "subdivide",
-                "The specified level is null or undefined."));
-    }
-
-    if (!tileFactory) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Tile", "subdivide",
-                "The specified tile factory is null or undefined."));
-    }
-
     var latMin = this.sector.minLatitude,
         latMax = this.sector.maxLatitude,
         latMid = this.sector.centroidLatitude(),
@@ -276,18 +242,6 @@ Tile.prototype.subdivide = function (level, tileFactory) {
  * @throws {ArgumentError} If the specified tile factory or level is null or undefined.
  */
 Tile.prototype.subdivideToCache = function (level, tileFactory, cache) {
-    if (!level) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Tile", "subdivideToCache",
-                "The specified level is null or undefined."));
-    }
-
-    if (!tileFactory) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Tile", "subdivideToCache",
-                "The specified tile factory is null or undefined."));
-    }
-
     var childList = cache ? cache.entryForKey(this.tileKey) : null;
     if (!childList) {
         childList = this.subdivide(level, tileFactory);
@@ -486,17 +440,6 @@ Tile.computeLastColumn = function (delta, maxLongitude) {
  * @throws {ArgumentError} If the specified level is null or undefined or the row or column are less than zero.
  */
 Tile.computeSector = function (level, row, column) {
-    if (!level) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Tile", "computeSector", "missingLevel"));
-    }
-
-    if (row < 0 || column < 0) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Tile", "computeSector",
-                "The specified row or column is less than zero."));
-    }
-
     var deltaLat = level.tileDelta.latitude,
         deltaLon = level.tileDelta.longitude,
 
@@ -516,22 +459,6 @@ Tile.computeSector = function (level, row, column) {
  * @throws {ArgumentError} If any argument is null or undefined.
  */
 Tile.createTilesForLevel = function (level, tileFactory, result) {
-    if (!level) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Tile", "createTilesForLevel", "missingLevel"));
-    }
-
-    if (!tileFactory) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Tile", "createTilesForLevel",
-                "The specified tile factory is null or undefined"));
-    }
-
-    if (!result) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Tile", "createTilesForLevel", "missingResult"));
-    }
-
     var deltaLat = level.tileDelta.latitude,
         deltaLon = level.tileDelta.longitude,
 

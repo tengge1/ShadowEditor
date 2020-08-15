@@ -50,11 +50,6 @@ import WWMath from '../util/WWMath';
  * @throws {ArgumentError} If the specified WebGL rendering context is null or undefined.
  */
 function DrawContext(gl) {
-    if (!gl) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Texture", "constructor",
-            "missingGlContext"));
-    }
-
     /**
      * The current WebGL rendering context.
      * @type {WebGLRenderingContext}
@@ -517,12 +512,6 @@ DrawContext.prototype.bindProgram = function (program) {
  * @throws {ArgumentError} If the specified constructor is null or undefined.
  */
 DrawContext.prototype.findAndBindProgram = function (programConstructor) {
-    if (!programConstructor) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "DrawContext", "findAndBindProgram",
-                "The specified program constructor is null or undefined."));
-    }
-
     var program = this.gpuResourceCache.resourceForKey(programConstructor.key);
     if (program) {
         this.bindProgram(program);
@@ -1244,11 +1233,6 @@ DrawContext.prototype.unitQuadBuffer3 = function () {
  * @throws {ArgumentError} If the specified result argument is null or undefined.
  */
 DrawContext.prototype.surfacePointForMode = function (latitude, longitude, offset, altitudeMode, result) {
-    if (!result) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "DrawContext", "surfacePointForMode", "missingResult"));
-    }
-
     if (this.terrain) {
         this.terrain.surfacePointForMode(latitude, longitude, offset, altitudeMode, result);
     } else {
@@ -1276,16 +1260,6 @@ DrawContext.prototype.surfacePointForMode = function (latitude, longitude, offse
  * @throws {ArgumentError} If either the specified point or result argument is null or undefined.
  */
 DrawContext.prototype.project = function (modelPoint, result) {
-    if (!modelPoint) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "DrawContext", "project",
-            "missingPoint"));
-    }
-
-    if (!result) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "DrawContext", "project",
-            "missingResult"));
-    }
-
     // Transform the model point from model coordinates to eye coordinates then to clip coordinates. This
     // inverts the Z axis and stores the negative of the eye coordinate Z value in the W coordinate.
     var mx = modelPoint[0],
@@ -1357,16 +1331,6 @@ DrawContext.prototype.project = function (modelPoint, result) {
  * @throws {ArgumentError} If either the specified point or result argument is null or undefined.
  */
 DrawContext.prototype.projectWithDepth = function (modelPoint, depthOffset, result) {
-    if (!modelPoint) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "DrawContext", "projectWithDepth",
-            "missingPoint"));
-    }
-
-    if (!result) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "DrawContext", "projectWithDepth",
-            "missingResult"));
-    }
-
     // Transform the model point from model coordinates to eye coordinates. The eye coordinate and the clip
     // coordinate are transformed separately in order to reuse the eye coordinate below.
     var mx = modelPoint[0],
@@ -1445,16 +1409,6 @@ DrawContext.prototype.projectWithDepth = function (modelPoint, depthOffset, resu
  * @throws {ArgumentError} If either argument is null or undefined.
  */
 DrawContext.prototype.convertPointToViewport = function (point, result) {
-    if (!point) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "DrawContext", "convertPointToViewport",
-            "missingPoint"));
-    }
-
-    if (!result) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "DrawContext", "convertPointToViewport",
-            "missingResult"));
-    }
-
     result[0] = point[0];
     result[1] = this.viewport.height - point[1];
 
@@ -1552,11 +1506,6 @@ DrawContext.prototype.computeTextTextureStateKey = function (text, attributes) {
  * @throws {ArgumentError} If the argument is null or undefined.
  */
 DrawContext.prototype.getExtension = function (extensionName) {
-    if (!extensionName) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "DrawContext", "getExtension",
-            "missingExtensionName"));
-    }
-
     if (!(extensionName in this.glExtensionsCache)) {
         this.glExtensionsCache[extensionName] = this.currentGlContext.getExtension(extensionName) || null;
     }

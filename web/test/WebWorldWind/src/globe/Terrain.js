@@ -84,11 +84,6 @@ Terrain.scratchPoint = new Vec3(0, 0, 0);
  * @throws {ArgumentError} If the specified result argument is null or undefined.
  */
 Terrain.prototype.surfacePoint = function (latitude, longitude, offset, result) {
-    if (!result) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Terrain", "surfacePoint", "missingResult"));
-    }
-
     for (var i = 0, len = this.surfaceGeometry.length; i < len; i++) {
         if (this.surfaceGeometry[i].sector.containsLocation(latitude, longitude)) {
             this.surfaceGeometry[i].surfacePoint(latitude, longitude, result);
@@ -127,11 +122,6 @@ Terrain.prototype.surfacePoint = function (latitude, longitude, offset, result) 
  * @throws {ArgumentError} If the specified result argument is null or undefined.
  */
 Terrain.prototype.surfacePointForMode = function (latitude, longitude, offset, altitudeMode, result) {
-    if (!result) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Terrain", "surfacePointForMode", "missingResult"));
-    }
-
     if (!altitudeMode)
         altitudeMode = WorldWind.ABSOLUTE;
 
@@ -173,11 +163,6 @@ Terrain.prototype.endRendering = function (dc) {
  * @throws {ArgumentError} If the specified tile is null or undefined.
  */
 Terrain.prototype.beginRenderingTile = function (dc, terrainTile) {
-    if (!terrainTile) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Terrain", "beginRenderingTile", "missingTile"));
-    }
-
     if (this.globe && this.globe.tessellator) {
         this.globe.tessellator.beginRenderingTile(dc, terrainTile);
     }
@@ -201,11 +186,6 @@ Terrain.prototype.endRenderingTile = function (dc, terrainTile) {
  * @throws {ArgumentError} If the specified tile is null or undefined.
  */
 Terrain.prototype.renderTile = function (dc, terrainTile) {
-    if (!terrainTile) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Terrain", "renderTile", "missingTile"));
-    }
-
     if (this.globe && this.globe.tessellator) {
         this.globe.tessellator.renderTile(dc, terrainTile);
     }

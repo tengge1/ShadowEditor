@@ -63,11 +63,6 @@ Object.defineProperties(ProjectionWgs84.prototype, {
 // Documented in base class.
 ProjectionWgs84.prototype.geographicToCartesian = function (globe, latitude, longitude, altitude, offset,
     result) {
-    if (!globe) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "ProjectionWgs84",
-            "geographicToCartesian", "missingGlobe"));
-    }
-
     // latitude = WWMath._mercatorLatInvert(latitude); // TODO
 
     var cosLat = Math.cos(latitude * Angle.DEGREES_TO_RADIANS),
@@ -86,11 +81,6 @@ ProjectionWgs84.prototype.geographicToCartesian = function (globe, latitude, lon
 // Documented in base class.
 ProjectionWgs84.prototype.geographicToCartesianGrid = function (globe, sector, numLat, numLon, elevations,
     referencePoint, offset, result) {
-    if (!globe) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "ProjectionWgs84",
-            "geographicToCartesianGrid", "missingGlobe"));
-    }
-
     var minLat = sector.minLatitude * Angle.DEGREES_TO_RADIANS,
         maxLat = sector.maxLatitude * Angle.DEGREES_TO_RADIANS,
         minLon = sector.minLongitude * Angle.DEGREES_TO_RADIANS,
@@ -142,11 +132,6 @@ ProjectionWgs84.prototype.geographicToCartesianGrid = function (globe, sector, n
 
 // Documented in base class.
 ProjectionWgs84.prototype.cartesianToGeographic = function (globe, x, y, z, offset, result) {
-    if (!globe) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "ProjectionWgs84",
-            "cartesianToGeographic", "missingGlobe"));
-    }
-
     // According to H. Vermeille, "An analytical method to transform geocentric into geodetic coordinates"
     // http://www.springerlink.com/content/3t6837t27t351227/fulltext.pdf
     // Journal of Geodesy, accepted 10/2010, not yet published
@@ -293,11 +278,6 @@ ProjectionWgs84.prototype.surfaceNormalAtLocation = function (globe, latitude, l
 };
 
 ProjectionWgs84.prototype.surfaceNormalAtPoint = function (globe, x, y, z, result) {
-    if (!globe) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "ProjectionWgs84",
-            "surfaceNormalAtPoint", "missingGlobe"));
-    }
-
     var a2 = globe.equatorialRadius * globe.equatorialRadius,
         b2 = globe.polarRadius * globe.polarRadius;
 

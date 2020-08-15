@@ -158,11 +158,6 @@ Object.defineProperties(AbstractShape.prototype, {
             return this._altitudeMode;
         },
         set: function (altitudeMode) {
-            if (!altitudeMode) {
-                throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "AbstractShape",
-                    "altitudeMode", "missingAltitudeMode"));
-            }
-
             this._altitudeMode = altitudeMode;
             this.reset();
         }
@@ -286,8 +281,6 @@ AbstractShape.prototype.makeOrderedRenderable = function (dc) {
  * @protected
  */
 AbstractShape.prototype.doMakeOrderedRenderable = function (dc) {
-    throw new UnsupportedOperationError(
-        Logger.logMessage(Logger.LEVEL_SEVERE, "AbstractShape", "makeOrderedRenderable", "abstractInvocation"));
 };
 
 /**
@@ -297,8 +290,6 @@ AbstractShape.prototype.doMakeOrderedRenderable = function (dc) {
  * @protected
  */
 AbstractShape.prototype.doRenderOrdered = function (dc) {
-    throw new UnsupportedOperationError(
-        Logger.logMessage(Logger.LEVEL_SEVERE, "AbstractShape", "doRenderOrdered", "abstractInvocation"));
 };
 
 /**

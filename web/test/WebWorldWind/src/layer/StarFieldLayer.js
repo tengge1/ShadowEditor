@@ -347,23 +347,7 @@ StarFieldLayer.prototype.fetchStarData = function () {
 // Internal. Intentionally not documented.
 StarFieldLayer.prototype.createStarsGeometry = function () {
     var indexes = this.parseStarsMetadata(this._starData.metadata);
-
-    if (indexes.raIndex === -1) {
-        throw new Error(
-            Logger.logMessage(Logger.LEVEL_SEVERE, 'StarFieldLayer', 'createStarsGeometry',
-                'Missing ra field in star data.'));
-    }
-    if (indexes.decIndex === -1) {
-        throw new Error(
-            Logger.logMessage(Logger.LEVEL_SEVERE, 'StarFieldLayer', 'createStarsGeometry',
-                'Missing dec field in star data.'));
-    }
-    if (indexes.magIndex === -1) {
-        throw new Error(
-            Logger.logMessage(Logger.LEVEL_SEVERE, 'StarFieldLayer', 'createStarsGeometry',
-                'Missing vmag field in star data.'));
-    }
-
+    
     var data = this._starData.data;
     var positions = [];
 

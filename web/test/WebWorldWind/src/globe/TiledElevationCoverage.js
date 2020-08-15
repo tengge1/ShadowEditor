@@ -47,26 +47,6 @@ import WWMath from '../util/WWMath';
  * @throws {ArgumentError} If any required configuration parameter is null or undefined.
  */
 function TiledElevationCoverage(config) {
-    if (!config) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "TiledElevationCoverage", "constructor", "missingConfig"));
-    }
-
-    if (!config.coverageSector) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "TiledElevationCoverage", "constructor", "missingSector"));
-    }
-
-    if (!config.resolution) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "TiledElevationCoverage", "constructor", "missingResolution"));
-    }
-
-    if (!config.retrievalImageFormat) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "TiledElevationCoverage", "constructor", "missingImageFormat"));
-    }
-
     ElevationCoverage.call(this, config.resolution);
 
     var firstLevelDelta = 360,
@@ -188,16 +168,6 @@ TiledElevationCoverage.prototype = Object.create(ElevationCoverage.prototype);
 
 // Documented in super class
 TiledElevationCoverage.prototype.minAndMaxElevationsForSector = function (sector, result) {
-    if (!sector) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "TiledElevationCoverage", "minAndMaxElevationsForSector", "missingSector"));
-    }
-
-    if (!result) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "TiledElevationCoverage", "minAndMaxElevationsForSector", "missingResult"));
-    }
-
     var levelNumber = Math.log2(360 / (sector.maxLongitude - sector.minLongitude));
     var tileSize = 360 / 2 ** levelNumber;
     var column = (180 + sector.minLongitude) / tileSize;

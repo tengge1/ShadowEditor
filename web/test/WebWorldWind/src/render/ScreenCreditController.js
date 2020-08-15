@@ -74,16 +74,6 @@ ScreenCreditController.prototype.clear = function () {
  * @throws {ArgumentError} If either the specified string or color is null or undefined.
  */
 ScreenCreditController.prototype.addCredit = function (creditString, color, hyperlinkUrl) {
-    if (!creditString) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "ScreenCreditController", "addCredit", "missingText"));
-    }
-
-    if (!color) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "ScreenCreditController", "addCredit", "missingColor"));
-    }
-
     // Verify if text credit is not already in controller, if it is, don't add it.
     for (var i = 0, len = this.credits.length; i < len; i++) {
         if (this.credits[i].text === creditString) {

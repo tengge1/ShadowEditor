@@ -93,11 +93,6 @@ FramebufferTileController.keyPool = 0; // source of unique ids
  * @throws {ArgumentError} If the specified sector is null.
  */
 FramebufferTileController.prototype.selectTiles = function (dc, sector) {
-    if (!sector) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "FramebufferTileController",
-            "selectTiles", "missingSector"));
-    }
-
     // Assemble a set of global tiles appropriate for the draw context.
     this.assembleTiles(dc);
 

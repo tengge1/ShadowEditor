@@ -421,16 +421,10 @@ SurfaceShape.prototype.computeStateKey = function () {
  * projected area.
  */
 SurfaceShape.prototype.area = function (globe, terrainConformant) {
-    throw new NotYetImplementedError(
-        Logger.logMessage(Logger.LEVEL_SEVERE, "SurfaceShape", "area", "notYetImplemented"));
 };
 
 // Internal function. Intentionally not documented.
 SurfaceShape.prototype.computeBoundaries = function (globe) {
-    // This method is in the base class and should be overridden if the boundaries are generated.
-    // TODO: Incorrect error class
-    throw new AbstractError(
-        Logger.logMessage(Logger.LEVEL_SEVERE, "SurfaceShape", "computeBoundaries", "abstractInvocation"));
 };
 
 // Internal. Intentionally not documented.

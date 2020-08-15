@@ -34,16 +34,6 @@ import Logger from '../util/Logger';
  * or equal to the capacity or less than 1.
  */
 function MemoryCache(capacity, lowWater) {
-    if (!capacity || capacity < 1) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "MemoryCache", "constructor",
-            "The specified capacity is undefined, zero or negative"));
-    }
-
-    if (!lowWater || lowWater >= capacity || lowWater < 0) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "MemoryCache", "constructor",
-            "The specified low-water value is undefined, greater than or equal to the capacity, or less than 1"));
-    }
-
     // Documented with its property accessor below.
     this._capacity = capacity;
 
@@ -84,12 +74,6 @@ Object.defineProperties(MemoryCache.prototype, {
             return this._capacity;
         },
         set: function (value) {
-            if (!value || value < 1) {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "MemoryCache", "capacity",
-                        "Specified cache capacity is undefined, 0 or negative."));
-            }
-
             var oldCapacity = this._capacity;
 
             this._capacity = value;
@@ -116,12 +100,6 @@ Object.defineProperties(MemoryCache.prototype, {
             return this._lowWater;
         },
         set: function (value) {
-            if (!value || value >= this._capacity || value < 0) {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "MemoryCache", "lowWater",
-                        "Specified cache low-water value is undefined, negative or not less than the current capacity."));
-            }
-
             this._lowWater = value;
         }
     }
@@ -155,22 +133,6 @@ MemoryCache.prototype.entryForKey = function (key) {
  * than 1.
  */
 MemoryCache.prototype.putEntry = function (key, entry, size) {
-    if (!key) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "MemoryCache", "putEntry", "missingKey."));
-    }
-
-    if (!entry) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "MemoryCache", "putEntry", "missingEntry."));
-    }
-
-    if (size < 1) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "MemoryCache", "putEntry",
-                "The specified entry size is less than 1."));
-    }
-
     var existing = this.entries[key],
         cacheEntry;
 
@@ -285,17 +247,6 @@ MemoryCache.prototype.containsKey = function (key) {
  * entryRemoved and removalError functions.
  */
 MemoryCache.prototype.addCacheListener = function (listener) {
-    if (!listener) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "MemoryCache", "addCacheListener", "missingListener"));
-    }
-
-    if (typeof listener.entryRemoved !== "function" || typeof listener.removalError !== "function") {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "MemoryCache", "addCacheListener",
-                "The specified listener does not implement the required functions."));
-    }
-
     this.listeners.push(listener);
 };
 
@@ -305,11 +256,6 @@ MemoryCache.prototype.addCacheListener = function (listener) {
  * @throws {ArgumentError} If the specified listener is null or undefined.
  */
 MemoryCache.prototype.removeCacheListener = function (listener) {
-    if (!listener) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "MemoryCache", "removeCacheListener", "missingListener"));
-    }
-
     var index = this.listeners.indexOf(listener);
     if (index > -1) {
         this.listeners.splice(index, 1);

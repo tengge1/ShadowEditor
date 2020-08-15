@@ -137,11 +137,6 @@ TerrainTile.prototype.setNeighborLevel = function (direction, level) {
  * @throws {ArgumentError} If the specified result argument is null or undefined.
  */
 TerrainTile.prototype.surfacePoint = function (latitude, longitude, result) {
-    if (!result) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "TerrainTile", "surfacePoint", "missingResult"));
-    }
-
     var tileSector = this.sector,
         minLat = tileSector.minLatitude,
         maxLat = tileSector.maxLatitude,

@@ -69,8 +69,6 @@ function Renderable() {
  * @param {DrawContext} dc The current draw context.
  */
 Renderable.prototype.render = function (dc) {
-    throw new UnsupportedOperationError(
-        Logger.logMessage(Logger.LEVEL_SEVERE, "Renderable", "render", "abstractInvocation"));
 };
 
 export default Renderable;

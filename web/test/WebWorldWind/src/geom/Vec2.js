@@ -57,11 +57,6 @@ Vec2.prototype.set = function (x, y) {
  * @throws {ArgumentError} If the specified vector is null or undefined.
  */
 Vec2.prototype.copy = function (vector) {
-    if (!vector) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Vec2", "copy", "missingVector"));
-    }
-
     this[0] = vector[0];
     this[1] = vector[1];
 
@@ -87,16 +82,6 @@ Vec2.prototype.equals = function (vector) {
  * result argument is null or undefined.
  */
 Vec2.average = function (vectors, result) {
-    if (!vectors || vectors.length < 1) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Vec2", "average", "missingArray"));
-    }
-
-    if (!result) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Vec2", "average", "missingResult"));
-    }
-
     var count = vectors.length,
         vec;
 
@@ -120,11 +105,6 @@ Vec2.average = function (vectors, result) {
  * @throws {ArgumentError} If the specified addend is null or undefined.
  */
 Vec2.prototype.add = function (addend) {
-    if (!addend) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Vec2", "add", "missingVector"));
-    }
-
     this[0] += addend[0];
     this[1] += addend[1];
 
@@ -138,11 +118,6 @@ Vec2.prototype.add = function (addend) {
  * @throws {ArgumentError} If the subtrahend is null or undefined.
  */
 Vec2.prototype.subtract = function (subtrahend) {
-    if (!subtrahend) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Vec2", "subtract", "missingVector"));
-    }
-
     this[0] -= subtrahend[0];
     this[1] -= subtrahend[1];
 
@@ -181,11 +156,6 @@ Vec2.prototype.divide = function (divisor) {
  * @throws {ArgumentError} If the specified vector is null or undefined.
  */
 Vec2.prototype.mix = function (vector, weight) {
-    if (!vector) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Vec2", "mix", "missingVector"));
-    }
-
     var w0 = 1 - weight,
         w1 = weight;
 
@@ -213,11 +183,6 @@ Vec2.prototype.negate = function () {
  * @throws {ArgumentError} If the specified vector is null or undefined.
  */
 Vec2.prototype.dot = function (vector) {
-    if (!vector) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Vec2", "dot", "missingVector"));
-    }
-
     return this[0] * vector[0] + this[1] * vector[1];
 };
 
@@ -258,11 +223,6 @@ Vec2.prototype.normalize = function () {
  * @throws {ArgumentError} If the specified vector is null or undefined.
  */
 Vec2.prototype.distanceToSquared = function (vector) {
-    if (!vector) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Vec2", "distanceToSquared", "missingVector"));
-    }
-
     var dx = this[0] - vector[0],
         dy = this[1] - vector[1];
 
@@ -276,11 +236,6 @@ Vec2.prototype.distanceToSquared = function (vector) {
  * @throws {ArgumentError} If the specified vector is null or undefined.
  */
 Vec2.prototype.distanceTo = function (vector) {
-    if (!vector) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Vec2", "distanceTo", "missingVector"));
-    }
-
     return Math.sqrt(this.distanceToSquared(vector));
 };
 

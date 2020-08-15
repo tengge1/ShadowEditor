@@ -31,11 +31,6 @@ import Vec3 from '../geom/Vec3';
  * @throws {ArgumentError} If the specified WorldWindow is null or undefined.
  */
 function GoToAnimator(worldWindow) {
-    if (!worldWindow) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "GoToAnimator", "constructor",
-            "missingWorldWindow"));
-    }
-
     /**
      * The WorldWindow associated with this animator.
      * @type {WorldWindow}
@@ -84,11 +79,6 @@ GoToAnimator.prototype.cancel = function () {
  * @throws {ArgumentError} If the specified location or position is null or undefined.
  */
 GoToAnimator.prototype.goTo = function (position, completionCallback) {
-    if (!position) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "GoToAnimator", "goTo",
-            "missingPosition"));
-    }
-
     this.completionCallback = completionCallback;
 
     // Reset the cancellation flag.

@@ -87,11 +87,6 @@ BasicProgram.prototype = Object.create(GpuProgram.prototype);
  * @throws {ArgumentError} If the specified matrix is null or undefined.
  */
 BasicProgram.prototype.loadModelviewProjection = function (gl, matrix) {
-    if (!matrix) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "BasicProgram", "loadModelviewProjection", "missingMatrix"));
-    }
-
     this.loadUniformMatrix(gl, matrix, this.mvpMatrixLocation);
 };
 
@@ -103,11 +98,6 @@ BasicProgram.prototype.loadModelviewProjection = function (gl, matrix) {
  * @throws {ArgumentError} If the specified color is null or undefined.
  */
 BasicProgram.prototype.loadColor = function (gl, color) {
-    if (!color) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "BasicProgram", "loadColor", "missingColor"));
-    }
-
     this.loadUniformColor(gl, color, this.colorLocation);
 };
 

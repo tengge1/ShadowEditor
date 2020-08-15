@@ -65,41 +65,6 @@ import WWMath from '../util/WWMath';
  *
  */
 function TiledImageLayer(sector, levelZeroDelta, numLevels, imageFormat, cachePath, tileWidth, tileHeight) {
-    if (!sector) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "TiledImageLayer", "constructor", "missingSector"));
-    }
-
-    if (!levelZeroDelta) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "TiledImageLayer", "constructor",
-                "The specified level-zero delta is null or undefined."));
-    }
-
-    if (!imageFormat) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "TiledImageLayer", "constructor",
-                "The specified image format is null or undefined."));
-    }
-
-    if (!cachePath) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "TiledImageLayer", "constructor",
-                "The specified cache path is null or undefined."));
-    }
-
-    if (!numLevels || numLevels < 1) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "TiledImageLayer", "constructor",
-                "The specified number of levels is less than one."));
-    }
-
-    if (!tileWidth || !tileHeight || tileWidth < 1 || tileHeight < 1) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "TiledImageLayer", "constructor",
-                "The specified tile width or height is less than one."));
-    }
-
     Layer.call(this, "Tiled Image Layer");
 
     this.retrievalImageFormat = imageFormat;
@@ -172,11 +137,6 @@ TiledImageLayer.prototype.refresh = function () {
  * @throws {ArgumentError} If the specified WorldWindow is null or undefined.
  */
 TiledImageLayer.prototype.prePopulate = function (wwd) {
-    if (!wwd) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "TiledImageLayer", "prePopulate", "missingWorldWindow"));
-    }
-
     var dc = wwd.drawContext;
 
     if (!this.topLevelTiles || this.topLevelTiles.length === 0) {
@@ -199,11 +159,6 @@ TiledImageLayer.prototype.prePopulate = function (wwd) {
  * @throws {ArgumentError} If the specified WorldWindow is null or undefined.
  */
 TiledImageLayer.prototype.prePopulateCurrentTiles = function (wwd) {
-    if (!wwd) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "TiledImageLayer", "prePopulate", "missingWorldWindow"));
-    }
-
     var dc = wwd.drawContext;
     this.assembleTiles(dc);
 
@@ -224,11 +179,6 @@ TiledImageLayer.prototype.prePopulateCurrentTiles = function (wwd) {
  * @throws {ArgumentError} If the specified WorldWindow is null or undefined.
  */
 TiledImageLayer.prototype.isPrePopulated = function (wwd) {
-    if (!wwd) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "TiledImageLayer", "isPrePopulated", "missingWorldWindow"));
-    }
-
     for (var i = 0; i < this.topLevelTiles.length; i++) {
         if (!this.isTileTextureInMemory(wwd.drawContext, this.topLevelTiles[i])) {
             return false;

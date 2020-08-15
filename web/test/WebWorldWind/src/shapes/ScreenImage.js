@@ -47,16 +47,6 @@ import WWMath from '../util/WWMath';
  * @throws {ArgumentError} If the specified screen offset or image source is null or undefined.
  */
 function ScreenImage(screenOffset, imageSource) {
-    if (!screenOffset) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "ScreenImage", "constructor", "missingOffset"));
-    }
-
-    if (!imageSource) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "ScreenImage", "constructor", "missingImage"));
-    }
-
     Renderable.call(this);
 
     /**
@@ -163,11 +153,6 @@ Object.defineProperties(ScreenImage.prototype, {
             return this._imageSource;
         },
         set: function (imageSource) {
-            if (!imageSource) {
-                throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "ScreenImage", "imageSource",
-                    "missingImage"));
-            }
-
             this._imageSource = imageSource;
             this.imageSourceWasUpdated = true;
         }

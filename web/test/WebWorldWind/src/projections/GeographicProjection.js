@@ -85,8 +85,6 @@ function GeographicProjection(displayName, continuous, projectionLimits) {
  */
 GeographicProjection.prototype.geographicToCartesian = function (globe, latitude, longitude, elevation,
     offset, result) {
-    throw new UnsupportedOperationError(
-        Logger.logMessage(Logger.LEVEL_SEVERE, "GeographicProjection", "geographicToCartesian", "abstractInvocation"));
 };
 
 /**
@@ -123,8 +121,6 @@ GeographicProjection.prototype.geographicToCartesian = function (globe, latitude
  */
 GeographicProjection.prototype.geographicToCartesianGrid = function (globe, sector, numLat, numLon, elevations,
     referencePoint, offset, result) {
-    throw new UnsupportedOperationError(
-        Logger.logMessage(Logger.LEVEL_SEVERE, "GeographicProjection", "geographicToCartesianGrid", "abstractInvocation"));
 };
 
 /**
@@ -142,8 +138,6 @@ GeographicProjection.prototype.geographicToCartesianGrid = function (globe, sect
  * @throws {ArgumentError} If either the specified globe or result argument is null or undefined.
  */
 GeographicProjection.prototype.cartesianToGeographic = function (globe, x, y, z, offset, result) {
-    throw new UnsupportedOperationError(
-        Logger.logMessage(Logger.LEVEL_SEVERE, "GeographicProjection", "cartesianToGeographic", "abstractInvocation"));
 };
 
 /**
@@ -159,11 +153,6 @@ GeographicProjection.prototype.cartesianToGeographic = function (globe, x, y, z,
  * @throws {ArgumentError} If either the specified globe or result argument is null or undefined.
  */
 GeographicProjection.prototype.northTangentAtLocation = function (globe, latitude, longitude, result) {
-    if (!result) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "GeographicProjection",
-            "northTangentAtLocation", "missingResult"));
-    }
-
     result[0] = 0;
     result[1] = 1;
     result[2] = 0;
@@ -188,11 +177,6 @@ GeographicProjection.prototype.northTangentAtLocation = function (globe, latitud
  * @throws {ArgumentError} If either the specified globe or result argument is null or undefined.
  */
 GeographicProjection.prototype.northTangentAtPoint = function (globe, x, y, z, offset, result) {
-    if (!result) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "GeographicProjection",
-            "northTangentAtPoint", "missingResult"));
-    }
-
     result[0] = 0;
     result[1] = 1;
     result[2] = 0;
@@ -212,11 +196,6 @@ GeographicProjection.prototype.northTangentAtPoint = function (globe, x, y, z, o
  * @throws {ArgumentError} If either the specified globe or result argument is null or undefined.
  */
 GeographicProjection.prototype.surfaceNormalAtLocation = function (globe, latitude, longitude, result) {
-    if (!result) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "GeographicProjection", "surfaceNormalAtLocation",
-            "missingResult"));
-    }
-
     result[0] = 0;
     result[1] = 0;
     result[2] = 1;
@@ -237,11 +216,6 @@ GeographicProjection.prototype.surfaceNormalAtLocation = function (globe, latitu
  * @throws {ArgumentError} If either the specified globe or result argument is null or undefined.
  */
 GeographicProjection.prototype.surfaceNormalAtPoint = function (globe, x, y, z, result) {
-    if (!result) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "GeographicProjection", "surfaceNormalAtPoint",
-            "missingResult"));
-    }
-
     result[0] = 0;
     result[1] = 0;
     result[2] = 1;

@@ -50,11 +50,6 @@ import Logger from '../util/Logger';
  * the compiled shaders into a program fails.
  */
 function GpuProgram(gl, vertexShaderSource, fragmentShaderSource, attributeBindings) {
-    if (!vertexShaderSource || !fragmentShaderSource) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "GpuProgram", "constructor",
-            "The specified shader source is null or undefined."));
-    }
-
     var program, vShader, fShader;
 
     try {
@@ -70,11 +65,6 @@ function GpuProgram(gl, vertexShaderSource, fragmentShaderSource, attributeBindi
     }
 
     program = gl.createProgram();
-    if (!program) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "GpuProgram", "constructor",
-            "Unable to create shader program."));
-    }
-
     gl.attachShader(program, vShader.shaderId);
     gl.attachShader(program, fShader.shaderId);
 
@@ -94,8 +84,7 @@ function GpuProgram(gl, vertexShaderSource, fragmentShaderSource, attributeBindi
         vShader.dispose(gl);
         fShader.dispose(gl);
 
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "GpuProgram", "constructor",
-            "Unable to link shader program: " + infoLog));
+        console.warn(infoLog);
     }
 
     /**
@@ -165,11 +154,6 @@ GpuProgram.prototype.dispose = function (gl) {
  * @throws {ArgumentError} If the specified attribute name is null, empty or undefined.
  */
 GpuProgram.prototype.attributeLocation = function (gl, attributeName) {
-    if (!attributeName || attributeName.length == 0) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "GpuProgram", "attributeLocation",
-            "The specified attribute name is null, undefined or empty."));
-    }
-
     var location = this.attributeLocations[attributeName];
     if (!location) {
         location = gl.getAttribLocation(this.programId, attributeName);
@@ -189,11 +173,6 @@ GpuProgram.prototype.attributeLocation = function (gl, attributeName) {
  * @throws {ArgumentError} If the specified uniform name is null, empty or undefined.
  */
 GpuProgram.prototype.uniformLocation = function (gl, uniformName) {
-    if (!uniformName || uniformName.length == 0) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "GpuProgram", "uniformLocation",
-            "The specified uniform name is null, undefined or empty."));
-    }
-
     var location = this.uniformLocations[uniformName];
     if (!location) {
         location = gl.getUniformLocation(this.programId, uniformName);
@@ -230,11 +209,6 @@ GpuProgram.prototype.link = function (gl, program) {
  * @throws {ArgumentError} If the specified matrix is null or undefined.
  */
 GpuProgram.prototype.loadUniformMatrix = function (gl, matrix, location) {
-    if (!matrix) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "GpuProgram", "loadUniformMatrix",
-            "missingMatrix"));
-    }
-
     var columnMajorArray = matrix.columnMajorComponents(this.scratchArray);
     gl.uniformMatrix4fv(location, false, columnMajorArray);
 };
@@ -251,11 +225,6 @@ GpuProgram.prototype.loadUniformMatrix = function (gl, matrix, location) {
  * @throws {ArgumentError} If the specified color is null or undefined.
  */
 GpuProgram.prototype.loadUniformColor = function (gl, color, location) {
-    if (!color) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "GpuProgram", "loadUniformColor",
-            "missingColor"));
-    }
-
     var premul = color.premultipliedComponents(this.scratchArray);
     gl.uniform4f(location, premul[0], premul[1], premul[2], premul[3]);
 };

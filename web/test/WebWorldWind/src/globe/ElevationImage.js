@@ -34,11 +34,6 @@ import WWMath from '../util/WWMath';
  * @throws {ArgumentError} If the sector is null or undefined
  */
 function ElevationImage(sector, imageWidth, imageHeight) {
-    if (!sector) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "ElevationImage", "constructor", "missingSector"));
-    }
-
     /**
      * The sector spanned by this elevation image.
      * @type {Sector}
@@ -165,22 +160,6 @@ ElevationImage.prototype.elevationAtLocation = function (latitude, longitude) {
  * specified number of sample points in either direction is less than 1.
  */
 ElevationImage.prototype.elevationsForGrid = function (sector, numLat, numLon, result) {
-    if (!sector) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "ElevationImage", "elevationsForGrid", "missingSector"));
-    }
-
-    if (numLat < 1 || numLon < 1) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "ElevationImage", "elevationsForGrid",
-                "The specified number of sample points is less than 1."));
-    }
-
-    if (!result) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "ElevationImage", "elevationsForGrid", "missingResult"));
-    }
-
     var minLatSelf = this.sector.minLatitude,
         maxLatSelf = this.sector.maxLatitude,
         minLonSelf = this.sector.minLongitude,

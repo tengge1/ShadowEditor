@@ -38,20 +38,9 @@ import Logger from '../util/Logger';
  * compilation fails. If the compilation fails the error thrown contains any compilation messages.
  */
 function GpuShader(gl, shaderType, shaderSource) {
-    if (!(shaderType === gl.VERTEX_SHADER
-        || shaderType === gl.FRAGMENT_SHADER)) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "GpuShader", "constructor",
-            "The specified shader type is unrecognized."));
-    }
-
-    if (!shaderSource) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "GpuShader", "constructor",
-            "The specified shader source is null or undefined."));
-    }
-
     var shader = gl.createShader(shaderType);
     if (!shader) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "GpuShader", "constructor",
+        console.warn(Logger.logMessage(Logger.LEVEL_SEVERE, "GpuShader", "constructor",
             "Unable to create shader of type " +
             (shaderType == gl.VERTEX_SHADER ? "VERTEX_SHADER." : "FRAGMENT_SHADER.")));
     }
@@ -61,7 +50,7 @@ function GpuShader(gl, shaderType, shaderSource) {
 
         gl.deleteShader(shader);
 
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "GpuShader", "constructor",
+        console.warn(Logger.logMessage(Logger.LEVEL_SEVERE, "GpuShader", "constructor",
             "Unable to compile shader: " + infoLog));
     }
 

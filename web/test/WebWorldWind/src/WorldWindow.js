@@ -51,11 +51,6 @@ import WWMath from './util/WWMath';
  * HTML canvas does not support WebGL.
  */
 function WorldWindow(canvasElem, elevationModel) {
-    if (!window.WebGLRenderingContext) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "WorldWindow", "constructor", "webglNotSupported"));
-    }
-
     // Get the actual canvas element either directly or by ID.
     var canvas;
     if (canvasElem instanceof HTMLCanvasElement) {
@@ -63,21 +58,10 @@ function WorldWindow(canvasElem, elevationModel) {
     } else {
         // Attempt to get the HTML canvas with the specified ID.
         canvas = document.getElementById(canvasElem);
-
-        if (!canvas) {
-            throw new ArgumentError(
-                Logger.logMessage(Logger.LEVEL_SEVERE, "WorldWindow", "constructor",
-                    "The specified canvas ID is not in the document."));
-        }
     }
 
     // Create the WebGL context associated with the HTML canvas.
     var gl = this.createContext(canvas);
-    if (!gl) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "WorldWindow", "constructor", "webglNotSupported"));
-    }
-
 
     // Internal. Intentionally not documented.
     this.drawContext = new DrawContext(gl);
@@ -358,16 +342,6 @@ WorldWindow.prototype.onGestureEvent = function (event) {
  * @throws {ArgumentError} If any argument is null or undefined.
  */
 WorldWindow.prototype.addEventListener = function (type, listener) {
-    if (!type) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "WorldWindow", "addEventListener", "missingType"));
-    }
-
-    if (!listener) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "WorldWindow", "addEventListener", "missingListener"));
-    }
-
     var thisWorldWindow = this;
     var entry = this.eventListeners[type];
     if (!entry) {
@@ -403,16 +377,6 @@ WorldWindow.prototype.addEventListener = function (type, listener) {
  * @throws {ArgumentError} If any argument is null or undefined.
  */
 WorldWindow.prototype.removeEventListener = function (type, listener) {
-    if (!type) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "WorldWindow", "removeEventListener", "missingType"));
-    }
-
-    if (!listener) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "WorldWindow", "removeEventListener", "missingListener"));
-    }
-
     var entry = this.eventListeners[type];
     if (!entry) {
         return; // no entry for the specified type
@@ -449,11 +413,6 @@ WorldWindow.prototype.redraw = function () {
  * @throws {ArgumentError} If the specified pick point is null or undefined.
  */
 WorldWindow.prototype.pick = function (pickPoint) {
-    if (!pickPoint) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "WorldWindow", "pick", "missingPoint"));
-    }
-
     // Suppress the picking operation and return an empty list when the WebGL context has been lost.
     if (this.drawContext.currentGlContext.isContextLost()) {
         return new PickedObjectList();
@@ -479,11 +438,6 @@ WorldWindow.prototype.pick = function (pickPoint) {
  * @throws {ArgumentError} If the specified pick point is null or undefined.
  */
 WorldWindow.prototype.pickTerrain = function (pickPoint) {
-    if (!pickPoint) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "WorldWindow", "pickTerrain", "missingPoint"));
-    }
-
     // Suppress the picking operation and return an empty list when the WebGL context has been lost.
     if (this.drawContext.currentGlContext.isContextLost()) {
         return new PickedObjectList();
@@ -509,11 +463,6 @@ WorldWindow.prototype.pickTerrain = function (pickPoint) {
  * @throws {ArgumentError} If the specified rectangle is null or undefined.
  */
 WorldWindow.prototype.pickShapesInRegion = function (rectangle) {
-    if (!rectangle) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "WorldWindow", "pickShapesInRegion", "missingRectangle"));
-    }
-
     // Suppress the picking operation and return an empty list when the WebGL context has been lost.
     if (this.drawContext.currentGlContext.isContextLost()) {
         return new PickedObjectList();
@@ -639,11 +588,6 @@ WorldWindow.prototype.resize = function () {
 
 // Internal. Intentionally not documented.
 WorldWindow.prototype.computeViewingTransform = function (projection, modelview) {
-    if (!modelview) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "WorldWindow", "computeViewingTransform", "missingModelview"));
-    }
-
     modelview.setToIdentity();
     this.worldWindowController.applyLimits();
     var globe = this.globe;
@@ -1424,12 +1368,6 @@ WorldWindow.prototype.goTo = function (position, completionCallback) {
  * @throws {ArgumentError} If the specified group ID is null, undefined or 0.
  */
 WorldWindow.prototype.declutter = function (dc, groupId) {
-    if (!groupId) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "WorldWindow", "declutter",
-                "Group ID is null, undefined or 0."));
-    }
-
     // Collect all the declutterables in the specified group.
     var declutterables = [];
     for (var i = 0; i < dc.orderedRenderables.length; i++) {
@@ -1472,11 +1410,6 @@ WorldWindow.prototype.declutter = function (dc, groupId) {
  * ray could not be computed.
  */
 WorldWindow.prototype.rayThroughScreenPoint = function (point) {
-    if (!point) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "WorldWindow", "rayThroughScreenPoint",
-            "missingPoint"));
-    }
-
     // Convert the point's xy coordinates from window coordinates to WebGL screen coordinates.
     var screenPoint = new Vec3(point[0], this.viewport.height - point[1], 0),
         nearPoint = new Vec3(0, 0, 0),

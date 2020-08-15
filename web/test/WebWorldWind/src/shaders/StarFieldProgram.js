@@ -107,11 +107,6 @@ StarFieldProgram.prototype = Object.create(GpuProgram.prototype);
  * @throws {ArgumentError} If the specified matrix is null or undefined.
  */
 StarFieldProgram.prototype.loadModelviewProjection = function (gl, matrix) {
-    if (!matrix) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "StarFieldProgram", "loadModelviewProjection", "missingMatrix"));
-    }
-
     this.loadUniformMatrix(gl, matrix, this.mvpMatrixLocation);
 };
 
@@ -124,10 +119,6 @@ StarFieldProgram.prototype.loadModelviewProjection = function (gl, matrix) {
  * @throws {ArgumentError} If the specified number is null or undefined.
  */
 StarFieldProgram.prototype.loadNumDays = function (gl, numDays) {
-    if (numDays == null) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "StarFieldProgram", "loadNumDays", "missingNumDays"));
-    }
     gl.uniform1f(this.numDaysLocation, numDays);
 };
 
@@ -140,14 +131,6 @@ StarFieldProgram.prototype.loadNumDays = function (gl, numDays) {
  * @throws {ArgumentError} If the specified numbers are null or undefined.
  */
 StarFieldProgram.prototype.loadMagnitudeRange = function (gl, minMag, maxMag) {
-    if (minMag == null) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "StarFieldProgram", "loadMagRange", "missingMinMag"));
-    }
-    if (maxMag == null) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "StarFieldProgram", "loadMagRange", "missingMaxMag"));
-    }
     gl.uniform2f(this.magnitudeRangeLocation, minMag, maxMag);
 };
 

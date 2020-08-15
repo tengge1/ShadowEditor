@@ -34,11 +34,6 @@ import UnsupportedOperationError from '../error/UnsupportedOperationError';
  * @throws {ArgumentError} If the specified sector is null or undefined.
  */
 function SurfaceTile(sector) {
-    if (!sector) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "SurfaceTile", "constructor",
-            "missingSector"));
-    }
-
     /**
      * The sector spanned by this surface tile.
      * @type {Sector}
@@ -53,8 +48,6 @@ function SurfaceTile(sector) {
  * @returns {Boolean} true if the resource was successfully bound, otherwise false.
  */
 SurfaceTile.prototype.bind = function (dc) {
-    throw new UnsupportedOperationError(
-        Logger.logMessage(Logger.LEVEL_SEVERE, "SurfaceTile", "bind", "abstractInvocation"));
 };
 
 /**
@@ -65,8 +58,6 @@ SurfaceTile.prototype.bind = function (dc) {
  * @param {Matrix} matrix The transform to apply.
  */
 SurfaceTile.prototype.applyInternalTransform = function (dc, matrix) {
-    throw new UnsupportedOperationError(
-        Logger.logMessage(Logger.LEVEL_SEVERE, "SurfaceTile", "applyInternalTransform", "abstractInvocation"));
 };
 
 export default SurfaceTile;

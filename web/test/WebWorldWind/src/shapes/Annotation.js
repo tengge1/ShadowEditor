@@ -43,12 +43,6 @@ import WWMath from '../util/WWMath';
  * @throws {ArgumentError} If the specified position is null or undefined.
  */
 function Annotation(position, attributes) {
-
-    if (!position) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Annotation", "constructor", "missingPosition"));
-    }
-
     Renderable.call(this);
 
     /**

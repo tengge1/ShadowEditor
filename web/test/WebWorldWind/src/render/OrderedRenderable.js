@@ -58,9 +58,6 @@ function OrderedRenderable() {
      * @default 0
      */
     this.insertionTime = 0;
-
-    throw new UnsupportedOperationError(
-        Logger.logMessage(Logger.LEVEL_SEVERE, "OrderedRenderable", "constructor", "abstractInvocation"));
 }
 
 /**
@@ -68,8 +65,6 @@ function OrderedRenderable() {
  * @param {DrawContext} dc The current draw context.
  */
 OrderedRenderable.prototype.renderOrdered = function (dc) {
-    throw new UnsupportedOperationError(
-        Logger.logMessage(Logger.LEVEL_SEVERE, "OrderedRenderable", "renderOrdered", "abstractInvocation"));
 };
 
 export default OrderedRenderable;

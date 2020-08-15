@@ -96,16 +96,6 @@ Matrix.fromIdentity = function () {
  * specified axes arguments is null or undefined.
  */
 Matrix.principalAxesFromPoints = function (points, axis1, axis2, axis3) {
-    if (!points || points.length < 1) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Matrix", "principalAxesFromPoints",
-            "missingPoints"));
-    }
-
-    if (!axis1 || !axis2 || !axis3) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Matrix", "principalAxesFromPoints",
-            "An axis argument is null or undefined."));
-    }
-
     // Compute the covariance matrix.
     var covariance = Matrix.fromIdentity();
     covariance.setToCovarianceOfPoints(points);
@@ -194,11 +184,6 @@ Matrix.prototype.setToIdentity = function () {
  * @throws {ArgumentError} If the specified matrix is null or undefined.
  */
 Matrix.prototype.copy = function (matrix) {
-    if (!matrix) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Matrix", "copy", "missingMatrix"));
-    }
-
     this[0] = matrix[0];
     this[1] = matrix[1];
     this[2] = matrix[2];
@@ -267,11 +252,6 @@ Matrix.prototype.equals = function (matrix) {
  * @throws {ArgumentError} If the specified result array in null or undefined.
  */
 Matrix.prototype.columnMajorComponents = function (result) {
-    if (!result) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Matrix", "columnMajorComponents", "missingResult"));
-    }
-
     // Column 1
     result[0] = this[0];
     result[1] = this[4];
@@ -393,11 +373,6 @@ Matrix.prototype.setScale = function (xScale, yScale, zScale) {
  * @throws {ArgumentError} If the specified matrix in null or undefined.
  */
 Matrix.prototype.setToTransposeOfMatrix = function (matrix) {
-    if (!matrix) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Matrix", "setToTransposeOfMatrix", "missingMatrix"));
-    }
-
     this[0] = matrix[0];
     this[1] = matrix[4];
     this[2] = matrix[8];
@@ -426,11 +401,6 @@ Matrix.prototype.setToTransposeOfMatrix = function (matrix) {
  * @throws {ArgumentError} If either specified matrix is null or undefined.
  */
 Matrix.prototype.setToMultiply = function (matrixA, matrixB) {
-    if (!matrixA || !matrixB) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Matrix", "setToMultiply", "missingMatrix"));
-    }
-
     var ma = matrixA,
         mb = matrixB;
 
@@ -475,11 +445,6 @@ Matrix.prototype.setToMultiply = function (matrixA, matrixB) {
  * @throws {ArgumentError} If the specified array of points is null, undefined or empty.
  */
 Matrix.prototype.setToCovarianceOfPoints = function (points) {
-    if (!points || points.length < 1) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Matrix", "setToCovarianceOfPoints", "missingArray"));
-    }
-
     var mean,
         dx,
         dy,
@@ -642,18 +607,6 @@ Matrix.prototype.setToUnitYFlip = function () {
  * @throws {ArgumentError} If either argument is null or undefined.
  */
 Matrix.prototype.multiplyByLocalCoordinateTransform = function (origin, globe) {
-    if (!origin) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Matrix", "multiplyByLocalCoordinateTransform",
-                "Origin vector is null or undefined"));
-    }
-
-    if (!globe) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Matrix", "multiplyByLocalCoordinateTransform",
-                "missingGlobe"));
-    }
-
     var xAxis = new Vec3(0, 0, 0),
         yAxis = new Vec3(0, 0, 0),
         zAxis = new Vec3(0, 0, 0);
@@ -681,12 +634,6 @@ Matrix.prototype.multiplyByLocalCoordinateTransform = function (origin, globe) {
  * @throws {ArgumentError} If the texture is null or undefined.
  */
 Matrix.prototype.multiplyByTextureTransform = function (texture) {
-    if (!texture) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Matrix", "multiplyByTextureTransform",
-                "missingTexture"));
-    }
-
     // Compute the scale necessary to map the edge of the image data to the range [0,1]. When the texture contains
     // power-of-two image data the scale is 1 and has no effect. Otherwise, the scale is computed such that the portion
     // of the texture containing image data maps to the range [0,1].
@@ -711,11 +658,6 @@ Matrix.prototype.multiplyByTextureTransform = function (texture) {
  * @throws {ArgumentError} If the specified result argument is null or undefined.
  */
 Matrix.prototype.extractTranslation = function (result) {
-    if (!result) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Matrix", "extractTranslation", "missingResult"));
-    }
-
     result[0] = this[3];
     result[1] = this[7];
     result[2] = this[11];
@@ -731,11 +673,6 @@ Matrix.prototype.extractTranslation = function (result) {
  * @throws {ArgumentError} If the specified result argument is null or undefined.
  */
 Matrix.prototype.extractRotationAngles = function (result) {
-    if (!result) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Matrix", "extractRotationAngles", "missingResult"));
-    }
-
     // Taken from Extracting Euler Angles from a Rotation Matrix by Mike Day, Insomniac Games.
     // http://www.insomniacgames.com/mike-day-extracting-euler-angles-from-a-rotation-matrix/
 
@@ -780,16 +717,6 @@ Matrix.prototype.extractRotationAngles = function (result) {
  * @throws {ArgumentError} If the specified position or globe is null or undefined.
  */
 Matrix.prototype.multiplyByFirstPersonModelview = function (eyePosition, heading, tilt, roll, globe) {
-    if (!eyePosition) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Matrix", "multiplyByFirstPersonModelview", "missingPosition"));
-    }
-
-    if (!globe) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Matrix", "multiplyByFirstPersonModelview", "missingGlobe"));
-    }
-
     var c,
         s,
         ex, ey, ez,
@@ -891,22 +818,6 @@ Matrix.prototype.multiplyByFirstPersonModelview = function (eyePosition, heading
  * specified range is less than zero.
  */
 Matrix.prototype.multiplyByLookAtModelview = function (lookAtPosition, range, heading, tilt, roll, globe) {
-    if (!lookAtPosition) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Matrix", "multiplyByLookAtModelview", "missingPosition"));
-    }
-
-    if (range < 0) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Matrix", "multiplyByLookAtModelview",
-                "Range is less than zero"));
-    }
-
-    if (!globe) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Matrix", "multiplyByLookAtModelview", "missingGlobe"));
-    }
-
     // Translate the eye point along the positive z axis while keeping the look at point in the center of the viewport.
     this.multiplyByTranslation(0, 0, -range);
 
@@ -935,26 +846,6 @@ Matrix.prototype.multiplyByLookAtModelview = function (lookAtPosition, range, he
  * distances are equal, or if either the near or far distance are less than or equal to zero.
  */
 Matrix.prototype.setToPerspectiveProjection = function (viewportWidth, viewportHeight, nearDistance, farDistance) {
-    if (viewportWidth <= 0) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Matrix", "setToPerspectiveProjection",
-            "invalidWidth"));
-    }
-
-    if (viewportHeight <= 0) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Matrix", "setToPerspectiveProjection",
-            "invalidHeight"));
-    }
-
-    if (nearDistance === farDistance) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Matrix", "setToPerspectiveProjection",
-            "Near and far distance are the same."));
-    }
-
-    if (nearDistance <= 0 || farDistance <= 0) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Matrix", "setToPerspectiveProjection",
-            "Near or far distance is less than or equal to zero."));
-    }
-
     // Compute the dimensions of the viewport rectangle at the near distance.
     var nearRect = WWMath.perspectiveFrustumRectangle(viewportWidth, viewportHeight, nearDistance),
         left = nearRect.getMinX(),
@@ -1003,16 +894,6 @@ Matrix.prototype.setToPerspectiveProjection = function (viewportWidth, viewportH
  * @throws {ArgumentError} If the specified width or height is less than or equal to zero.
  */
 Matrix.prototype.setToScreenProjection = function (viewportWidth, viewportHeight) {
-    if (viewportWidth <= 0) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Matrix", "setToScreenProjection",
-            "invalidWidth"));
-    }
-
-    if (viewportHeight <= 0) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Matrix", "setToScreenProjection",
-            "invalidHeight"));
-    }
-
     // Taken from Mathematics for 3D Game Programming and Computer Graphics, Second Edition, equation 4.57.
     // Simplified to assume that the viewport origin is (0, 0).
     //
@@ -1068,11 +949,6 @@ Matrix.prototype.setToScreenProjection = function (viewportWidth, viewportHeight
  * @throws {ArgumentError} If the specified result argument is null or undefined.
  */
 Matrix.prototype.extractEyePoint = function (result) {
-    if (!result) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Matrix", "extractEyePoint", "missingResult"));
-    }
-
     // The eye point of a modelview matrix is computed by transforming the origin (0, 0, 0, 1) by the matrix's inverse.
     // This is equivalent to transforming the inverse of this matrix's translation components in the rightmost column by
     // the transpose of its upper 3x3 components.
@@ -1094,11 +970,6 @@ Matrix.prototype.extractEyePoint = function (result) {
  * @throws {ArgumentError} If the specified result argument is null or undefined.
  */
 Matrix.prototype.extractForwardVector = function (result) {
-    if (!result) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Matrix", "extractForwardVector", "missingResult"));
-    }
-
     // The forward vector of a modelview matrix is computed by transforming the negative Z axis (0, 0, -1, 0) by the
     // matrix's inverse. We have pre-computed the result inline here to simplify this computation.
     result[0] = -this[8];
@@ -1139,22 +1010,6 @@ Matrix.prototype.extractForwardVector = function (result) {
  * result argument is null or undefined.
  */
 Matrix.prototype.extractViewingParameters = function (origin, roll, globe, result) {
-    if (!origin) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Matrix", "extractViewingParameters",
-                "The specified origin is null or undefined."));
-    }
-
-    if (!globe) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Matrix", "extractViewingParameters", "missingGlobe"));
-    }
-
-    if (!result) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Matrix", "extractViewingParameters", "missingResult"));
-    }
-
     var originPos = new Position(0, 0, 0),
         modelviewLocal = Matrix.fromIdentity(),
         range,
@@ -1241,11 +1096,6 @@ Matrix.prototype.offsetProjectionDepth = function (depthOffset) {
  * @throws {ArgumentError} if the specified matrix is null or undefined.
  */
 Matrix.prototype.multiplyMatrix = function (matrix) {
-    if (!matrix) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Matrix", "multiplyMatrix", "missingMatrix"));
-    }
-
     var ma = this,
         mb = matrix,
         ma0, ma1, ma2, ma3;
@@ -1378,11 +1228,6 @@ Matrix.prototype.multiply = function (m00, m01, m02, m03,
  * @throws {ArgumentError} If the specified matrix is null, undefined or cannot be inverted.
  */
 Matrix.prototype.invertMatrix = function (matrix) {
-    if (!matrix) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Matrix", "invertMatrix", "missingMatrix"));
-    }
-
     // Copy the specified matrix into a mutable two-dimensional array.
     var A = [[], [], [], []];
     A[0][0] = matrix[0];
@@ -1596,11 +1441,6 @@ Matrix.ludcmp = function (A, index) {
  * @throws {ArgumentError} If the specified matrix is null or undefined.
  */
 Matrix.prototype.invertOrthonormalMatrix = function (matrix) {
-    if (!matrix) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Matrix", "invertOrthonormalMatrix", "missingMatrix"));
-    }
-
     // 'a' is assumed to contain a 3D transformation matrix.
     // Upper-3x3 is inverted, translation is transformed by inverted-upper-3x3 and negated.
 
@@ -1642,17 +1482,6 @@ Matrix.prototype.invertOrthonormalMatrix = function (matrix) {
  * @throws {ArgumentError} if any argument is null or undefined or if this matrix is not symmetric.
  */
 Matrix.prototype.eigensystemFromSymmetricMatrix = function (result1, result2, result3) {
-    if (!result1 || !result2 || !result3) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Matrix", "eigensystemFromSymmetricMatrix", "missingResult"));
-    }
-
-    if (this[1] != this[4] || this[2] != this[8] || this[6] != this[9]) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Matrix", "eigensystemFromSymmetricMatrix",
-                "Matrix is not symmetric"));
-    }
-
     // Taken from Mathematics for 3D Game Programming and Computer Graphics, Second Edition, listing 14.6.
 
     var epsilon = 1.0e-10,
@@ -1848,21 +1677,6 @@ Matrix.prototype.upper3By3 = function () {
  * @throws {ArgumentError} If either the specified point or result argument is null or undefined.
  */
 Matrix.prototype.unProject = function (screenPoint, viewport, result) {
-    if (!screenPoint) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Matrix", "unProject",
-            "missingPoint"));
-    }
-
-    if (!viewport) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Matrix", "unProject",
-            "missingViewport"));
-    }
-
-    if (!result) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Matrix", "unProject",
-            "missingResult"));
-    }
-
     var sx = screenPoint[0],
         sy = screenPoint[1],
         sz = screenPoint[2];

@@ -143,11 +143,6 @@ BoundingBox.prototype.getCorners = function () {
  * @throws {ArgumentError} If the specified list of points is null, undefined or empty.
  */
 BoundingBox.prototype.setToPoints = function (points) {
-    if (!points || points.length < 3) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "BoundingBox", "setToPoints", "missingArray"));
-    }
-
     var rMin = +Number.MAX_VALUE,
         rMax = -Number.MAX_VALUE,
         sMin = +Number.MAX_VALUE,
@@ -235,11 +230,6 @@ BoundingBox.prototype.setToPoints = function (points) {
  * @throws {ArgumentError} If the specified list of points is null, undefined or empty.
  */
 BoundingBox.prototype.setToVec3Points = function (points) {
-    if (!points || points.length === 0) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "BoundingBox", "setToVec3Points", "missingArray"));
-    }
-
     var pointList = new Float32Array(points.length * 3);
     for (var i = 0; i < points.length; i++) {
         var point = points[i];
@@ -266,16 +256,6 @@ BoundingBox.prototype.setToVec3Points = function (points) {
  * @throws {ArgumentError} If either the specified sector or globe is null or undefined.
  */
 BoundingBox.prototype.setToSector = function (sector, globe, minElevation, maxElevation) {
-    if (!sector) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "BoundingBox", "setToSector", "missingSector"));
-    }
-
-    if (!globe) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "BoundingBox", "setToSector", "missingGlobe"));
-    }
-
     // Compute the cartesian points for a 3x3 geographic grid. This grid captures enough detail to bound the
     // sector. Use minimum elevation at the corners and max elevation everywhere else.
     var elevations = this.scratchElevations,
@@ -359,11 +339,6 @@ BoundingBox.prototype.setToSector = function (sector, globe, minElevation, maxEl
  * @throws {ArgumentError} If the specified translation vector is null or undefined.
  */
 BoundingBox.prototype.translate = function (translation) {
-    if (!translation) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "BoundingBox", "translate", "missingVector"));
-    }
-
     this.bottomCenter.add(translation);
     this.topCenter.add(translation);
     this.center.add(translation);
@@ -380,11 +355,6 @@ BoundingBox.prototype.translate = function (translation) {
  * @throws {ArgumentError} If the specified point is null or undefined.
  */
 BoundingBox.prototype.distanceTo = function (point) {
-    if (!point) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "BoundingBox", "distanceTo", "missingPoint"));
-    }
-
     var d = this.center.distanceTo(point) - this.radius;
 
     return d >= 0 ? d : -d;
@@ -397,11 +367,6 @@ BoundingBox.prototype.distanceTo = function (point) {
  * @throws {ArgumentError} If the specified plane is null or undefined.
  */
 BoundingBox.prototype.effectiveRadius = function (plane) {
-    if (!plane) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "BoundingBox", "effectiveRadius", "missingPlane"));
-    }
-
     var n = plane.normal;
 
     return 0.5 * (WWMath.fabs(this.r.dot(n)) + WWMath.fabs(this.s.dot(n)) + WWMath.fabs(this.t.dot(n)));
@@ -414,11 +379,6 @@ BoundingBox.prototype.effectiveRadius = function (plane) {
  * @throws {ArgumentError} If the specified frustum is null or undefined.
  */
 BoundingBox.prototype.intersectsFrustum = function (frustum) {
-    if (!frustum) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "BoundingBox", "intersectsFrustum", "missingFrustum"));
-    }
-
     this.tmp1.copy(this.bottomCenter);
     this.tmp2.copy(this.topCenter);
 

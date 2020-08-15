@@ -37,11 +37,6 @@ import Vec3 from '../geom/Vec3';
  * @throws {ArgumentError} If either the specified position or text is null or undefined.
  */
 function GeographicText(position, text) {
-    if (!position) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Text", "constructor", "missingPosition"));
-    }
-
     Text.call(this, text);
 
     /**

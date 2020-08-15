@@ -53,16 +53,6 @@ Vec3.ZERO = new Vec3(0, 0, 0);
  * result argument is null or undefined.
  */
 Vec3.average = function (vectors, result) {
-    if (!vectors || vectors.length < 1) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Vec3", "average", "missingArray"));
-    }
-
-    if (!result) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Vec3", "average", "missingResult"));
-    }
-
     var count = vectors.length,
         vec;
 
@@ -90,16 +80,6 @@ Vec3.average = function (vectors, result) {
  * is null or undefined.
  */
 Vec3.averageOfBuffer = function (points, result) {
-    if (!points || points.length < 1) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Vec3", "averageBuffer", "missingArray"));
-    }
-
-    if (!result) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Vec3", "averageBuffer", "missingResult"));
-    }
-
     var count = points.length / 3;
 
     result[0] = 0;
@@ -124,11 +104,6 @@ Vec3.averageOfBuffer = function (points, result) {
  * @throws {ArgumentError} If any of the specified vectors are null or undefined.
  */
 Vec3.areColinear = function (a, b, c) {
-    if (!a || !b || !c) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Vec3", "areColinear", "missingVector"));
-    }
-
     var ab = new Vec3(a[0] - b[0], a[1] - b[1], a[2] - b[2]).normalize(),
         bc = new Vec3(c[0] - b[0], c[1] - b[1], c[2] - b[2]).normalize();
 
@@ -146,11 +121,6 @@ Vec3.areColinear = function (a, b, c) {
  * @throws {ArgumentError} If any of the specified vectors are null or undefined.
  */
 Vec3.computeTriangleNormal = function (a, b, c) {
-    if (!a || !b || !c) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Vec3", "areColinear", "missingVector"));
-    }
-
     var x = (b[1] - a[1]) * (c[2] - a[2]) - (b[2] - a[2]) * (c[1] - a[1]),
         y = (b[2] - a[2]) * (c[0] - a[0]) - (b[0] - a[0]) * (c[2] - a[2]),
         z = (b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0]),
@@ -253,11 +223,6 @@ Vec3.prototype.set = function (x, y, z) {
  * @throws {ArgumentError} If the specified vector is null or undefined.
  */
 Vec3.prototype.copy = function (vector) {
-    if (!vector) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Vec3", "copy", "missingVector"));
-    }
-
     this[0] = vector[0];
     this[1] = vector[1];
     this[2] = vector[2];
@@ -282,11 +247,6 @@ Vec3.prototype.equals = function (vector) {
  * @throws {ArgumentError} If the addend is null or undefined.
  */
 Vec3.prototype.add = function (addend) {
-    if (!addend) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Vec3", "add", "missingVector"));
-    }
-
     this[0] += addend[0];
     this[1] += addend[1];
     this[2] += addend[2];
@@ -301,11 +261,6 @@ Vec3.prototype.add = function (addend) {
  * @throws {ArgumentError} If the subtrahend is null or undefined.
  */
 Vec3.prototype.subtract = function (subtrahend) {
-    if (!subtrahend) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Vec3", "subtract", "missingVector"));
-    }
-
     this[0] -= subtrahend[0];
     this[1] -= subtrahend[1];
     this[2] -= subtrahend[2];
@@ -348,11 +303,6 @@ Vec3.prototype.divide = function (divisor) {
  * @throws ArgumentError If the specified matrix is null or undefined.
  */
 Vec3.prototype.multiplyByMatrix = function (matrix) {
-    if (!matrix) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Vec3", "multiplyByMatrix", "missingMatrix"));
-    }
-
     var x = matrix[0] * this[0] + matrix[1] * this[1] + matrix[2] * this[2] + matrix[3],
         y = matrix[4] * this[0] + matrix[5] * this[1] + matrix[6] * this[2] + matrix[7],
         z = matrix[8] * this[0] + matrix[9] * this[1] + matrix[10] * this[2] + matrix[11],
@@ -373,11 +323,6 @@ Vec3.prototype.multiplyByMatrix = function (matrix) {
  * @throws {ArgumentError} If the specified vector is null or undefined.
  */
 Vec3.prototype.mix = function (vector, weight) {
-    if (!vector) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Vec3", "mix", "missingVector"));
-    }
-
     var w0 = 1 - weight,
         w1 = weight;
 
@@ -407,11 +352,6 @@ Vec3.prototype.negate = function () {
  * @throws {ArgumentError} If the specified vector is null or undefined.
  */
 Vec3.prototype.dot = function (vector) {
-    if (!vector) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Vec3", "dot", "missingVector"));
-    }
-
     return this[0] * vector[0] +
         this[1] * vector[1] +
         this[2] * vector[2];
@@ -424,11 +364,6 @@ Vec3.prototype.dot = function (vector) {
  * @throws {ArgumentError} If the specified vector is null or undefined.
  */
 Vec3.prototype.cross = function (vector) {
-    if (!vector) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Vec3", "cross", "missingVector"));
-    }
-
     var x = this[1] * vector[2] - this[2] * vector[1],
         y = this[2] * vector[0] - this[0] * vector[2],
         z = this[0] * vector[1] - this[1] * vector[0];
@@ -478,11 +413,6 @@ Vec3.prototype.normalize = function () {
  * @throws {ArgumentError} If the specified vector is null or undefined.
  */
 Vec3.prototype.distanceToSquared = function (vector) {
-    if (!vector) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Vec3", "distanceToSquared", "missingVector"));
-    }
-
     var dx = this[0] - vector[0],
         dy = this[1] - vector[1],
         dz = this[2] - vector[2];
@@ -497,11 +427,6 @@ Vec3.prototype.distanceToSquared = function (vector) {
  * @throws {ArgumentError} If the specified vector is null or undefined.
  */
 Vec3.prototype.distanceTo = function (vector) {
-    if (!vector) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Vec3", "distanceTo", "missingVector"));
-    }
-
     return Math.sqrt(this.distanceToSquared(vector));
 };
 

@@ -37,8 +37,6 @@ function MemoryCacheListener() {
  * @param {Object} entry The entry removed.
  */
 MemoryCacheListener.prototype.entryRemoved = function (key, entry) {
-    throw new UnsupportedOperationError(
-        Logger.logMessage(Logger.LEVEL_SEVERE, "MemoryCacheListener", "entryRemoved", "abstractInvocation"));
 };
 
 /**
@@ -49,8 +47,6 @@ MemoryCacheListener.prototype.entryRemoved = function (key, entry) {
  * @param {Object} entry The entry being removed.
  */
 MemoryCacheListener.prototype.removalError = function (error, key, entry) {
-    throw new UnsupportedOperationError(
-        Logger.logMessage(Logger.LEVEL_SEVERE, "MemoryCacheListener", "removalError", "abstractInvocation"));
 };
 
 export default MemoryCacheListener;

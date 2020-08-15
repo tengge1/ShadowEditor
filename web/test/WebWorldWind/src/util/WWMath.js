@@ -75,16 +75,6 @@ var WWMath = {
      * @deprecated utilize the Globe.intersectsLine method attached implementation
      */
     computeEllipsoidalGlobeIntersection: function (line, equatorialRadius, polarRadius, result) {
-        if (!line) {
-            throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "WWMath",
-                "computeEllipsoidalGlobeIntersection", "missingLine"));
-        }
-
-        if (!result) {
-            throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "WWMath",
-                "computeEllipsoidalGlobeIntersection", "missingResult"));
-        }
-
         // Taken from "Mathematics for 3D Game Programming and Computer Graphics, Second Edition", Section 5.2.3.
         //
         // Note that the parameter n from in equations 5.70 and 5.71 is omitted here. For an ellipsoidal globe this
@@ -128,21 +118,6 @@ var WWMath = {
      * @throws {ArgumentError} If the specified line, vertex or result is null or undefined.
      */
     computeTriangleIntersection: function (line, vertex0, vertex1, vertex2, result) {
-        if (!line) {
-            throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "WWMath",
-                "computeTriangleIntersection", "missingLine"));
-        }
-
-        if (!vertex0 || !vertex1 || !vertex2) {
-            throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "WWMath",
-                "computeTriangleIntersection", "missingVertex"));
-        }
-
-        if (!result) {
-            throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "WWMath",
-                "computeTriangleIntersection", "missingResult"));
-        }
-
         // Taken from Moller and Trumbore
         // https://www.cs.virginia.edu/~gfx/Courses/2003/ImageSynthesis/papers/Acceleration/Fast%20MinimumStorage%20RayTriangle%20Intersection.pdf
 
@@ -210,26 +185,6 @@ var WWMath = {
     },
 
     computeIndexedTrianglesIntersection: function (line, points, indices, results) {
-        if (!line) {
-            throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "WWMath",
-                "computeIndexedTrianglesIntersection", "missingLine"));
-        }
-
-        if (!points) {
-            throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "WWMath",
-                "computeIndexedTrianglesIntersection", "missingPoints"));
-        }
-
-        if (!indices) {
-            throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "WWMath",
-                "computeIndexedTrianglesIntersection", "missingIndices"));
-        }
-
-        if (!results) {
-            throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "WWMath",
-                "computeIndexedTrianglesIntersection", "missingResults"));
-        }
-
         var v0 = new Vec3(0, 0, 0),
             v1 = new Vec3(0, 0, 0),
             v2 = new Vec3(0, 0, 0),
@@ -277,26 +232,6 @@ var WWMath = {
      * @throws {ArgumentError} If the specified line, points, indices or results is null or undefined.
      */
     computeTriStripIntersections: function (line, points, indices, results) {
-        if (!line) {
-            throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "WWMath",
-                "computeTriStripIntersections", "missingLine"));
-        }
-
-        if (!points) {
-            throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "WWMath",
-                "computeTriStripIntersections", "missingPoints"));
-        }
-
-        if (!indices) {
-            throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "WWMath",
-                "computeTriStripIntersections", "missingIndices"));
-        }
-
-        if (!results) {
-            throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "WWMath",
-                "computeTriStripIntersections", "missingResults"));
-        }
-
         // Taken from Moller and Trumbore
         // https://www.cs.virginia.edu/~gfx/Courses/2003/ImageSynthesis/papers/Acceleration/Fast%20MinimumStorage%20RayTriangle%20Intersection.pdf
 
@@ -475,21 +410,6 @@ var WWMath = {
      * @throws {ArgumentError} If any argument is null or undefined.
      */
     localCoordinateAxesAtPoint: function (origin, globe, xAxisResult, yAxisResult, zAxisResult) {
-        if (!origin) {
-            throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "WWMath",
-                "localCoordinateAxesAtPoint", "missingVector"));
-        }
-
-        if (!globe) {
-            throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "WWMath",
-                "localCoordinateAxesAtPoint", "missingGlobe"));
-        }
-
-        if (!xAxisResult || !yAxisResult || !zAxisResult) {
-            throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "WWMath",
-                "localCoordinateAxesAtPoint", "missingResult"));
-        }
-
         var x = origin[0],
             y = origin[1],
             z = origin[2];
@@ -527,11 +447,6 @@ var WWMath = {
      * @throws {ArgumentError} If the specified globe radius is negative.
      */
     horizonDistanceForGlobeRadius: function (radius, altitude) {
-        if (radius < 0) {
-            throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "WWMath",
-                "horizontalDistanceForGlobeRadius", "The specified globe radius is negative."));
-        }
-
         return radius > 0 && altitude > 0 ? Math.sqrt(altitude * (2 * radius + altitude)) : 0;
     },
 
@@ -551,21 +466,6 @@ var WWMath = {
      * than one.
      */
     perspectiveNearDistanceForFarDistance: function (farDistance, farResolution, depthBits) {
-        if (farDistance < 0) {
-            throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "WWMath", "perspectiveNearDistanceForFarDistance",
-                "The specified distance is negative."));
-        }
-
-        if (farResolution < 0) {
-            throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "WWMath", "perspectiveNearDistanceForFarDistance",
-                "The specified resolution is negative."));
-        }
-
-        if (depthBits < 1) {
-            throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "WWMath", "perspectiveNearDistanceForFarDistance",
-                "The specified depth bits is negative."));
-        }
-
         var maxDepthValue = (1 << depthBits) - 1;
 
         return farDistance / (maxDepthValue / (1 - farResolution / farDistance) - maxDepthValue + 1);
@@ -588,21 +488,6 @@ var WWMath = {
      * specified distance is negative.
      */
     perspectiveNearDistance: function (viewportWidth, viewportHeight, distanceToSurface) {
-        if (viewportWidth <= 0) {
-            throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "WWMath", "perspectiveNearDistance",
-                "invalidWidth"));
-        }
-
-        if (viewportHeight <= 0) {
-            throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "WWMath", "perspectiveNearDistance",
-                "invalidHeight"));
-        }
-
-        if (distanceToSurface < 0) {
-            throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "WWMath", "perspectiveNearDistance",
-                "The specified distance is negative."));
-        }
-
         // Compute the maximum near clip distance that avoids clipping an object at the specified distance from
         // the eye. Since the furthest points on the near clip rectangle are the four corners, we compute a near
         // distance that puts any one of these corners exactly at the given distance. The distance to one of the
@@ -640,21 +525,6 @@ var WWMath = {
      * specified distance is negative.
      */
     perspectiveFrustumRectangle: function (viewportWidth, viewportHeight, distance) {
-        if (viewportWidth <= 0) {
-            throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "WWMath", "perspectiveFrustumRectangle",
-                "invalidWidth"));
-        }
-
-        if (viewportHeight <= 0) {
-            throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "WWMath", "perspectiveFrustumRectangle",
-                "invalidHeight"));
-        }
-
-        if (distance < 0) {
-            throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "WWMath", "perspectiveFrustumRectangle",
-                "The specified distance is negative."));
-        }
-
         // Assumes a 45 degree horizontal field of view.
         var width = distance,
             height = distance * viewportHeight / viewportWidth;
@@ -681,21 +551,6 @@ var WWMath = {
      * specified distance is negative.
      */
     perspectivePixelSize: function (viewportWidth, viewportHeight, distance) {
-        if (viewportWidth <= 0) {
-            throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "WWMath", "perspectivePixelSize",
-                "invalidWidth"));
-        }
-
-        if (viewportHeight <= 0) {
-            throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "WWMath", "perspectivePixelSize",
-                "invalidHeight"));
-        }
-
-        if (distance < 0) {
-            throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "WWMath", "perspectivePixelSize",
-                "The specified distance is negative."));
-        }
-
         var frustumHeight = WWMath.perspectiveFrustumRectangle(viewportWidth, viewportHeight, distance).height;
         return frustumHeight / viewportHeight;
     },
@@ -707,11 +562,6 @@ var WWMath = {
      * @returns {Rectangle} The computed bounding rectangle.
      */
     boundingRectForUnitQuad: function (transformMatrix) {
-        if (!transformMatrix) {
-            throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "WWMath", "boundingRectForUnitQuad",
-                "missingMatrix"));
-        }
-
         var m = transformMatrix,
             // transform of (0, 0)
             x1 = m[3],

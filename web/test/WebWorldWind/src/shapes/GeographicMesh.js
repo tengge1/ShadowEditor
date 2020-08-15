@@ -69,33 +69,6 @@ import Vec3 from '../geom/Vec3';
  * specified (limit is 65536).
  */
 function GeographicMesh(positions, attributes) {
-    if (!positions) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "GeographicMesh", "constructor", "missingPositions"));
-    }
-
-    if (positions.length < 2 || positions[0].length < 2) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "GeographicMesh", "constructor",
-                "Number of positions is insufficient."));
-    }
-
-    // Check for size limit, which is the max number of available indices for a 16-bit unsigned int.
-    if (positions.length * positions[0].length > 65536) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "GeographicMesh", "constructor",
-                "Too many positions. Must be fewer than 65536. Try using multiple meshes."));
-    }
-
-    var length = positions[0].length;
-    for (var i = 1; i < positions.length; i++) {
-        if (positions[i].length !== length) {
-            throw new ArgumentError(
-                Logger.logMessage(Logger.LEVEL_SEVERE, "GeographicMesh", "constructor",
-                    "Array lengths are inconsistent."));
-        }
-    }
-
     var numRows = positions.length,
         numCols = positions[0].length;
 
@@ -143,26 +116,6 @@ Object.defineProperties(GeographicMesh.prototype, {
             return this._positions;
         },
         set: function (positions) {
-            if (!positions) {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "GeographicMesh", "positions", "missingPositions"));
-            }
-
-            if (positions.length < 2 || positions[0].length < 2) {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "GeographicMesh", "positions",
-                        "Number of positions is insufficient."));
-            }
-
-            var length = positions[0].length;
-            for (var i = 1; i < positions.length; i++) {
-                if (positions[i].length !== length) {
-                    throw new ArgumentError(
-                        Logger.logMessage(Logger.LEVEL_SEVERE, "GeographicMesh", "positions",
-                            "Array lengths are inconsistent."));
-                }
-            }
-
             this.numRows = positions.length;
             this.numColumns = positions[0].length;
 
@@ -191,21 +144,6 @@ Object.defineProperties(GeographicMesh.prototype, {
             return this._textureCoordinates;
         },
         set: function (coords) {
-
-            if (coords && coords.length != this.numRows) {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "GeographicMesh", "textureCoordinates",
-                        "Number of texture coordinate rows is inconsistent with the currently specified positions."));
-            }
-
-            for (var i = 0; i < this.numRows; i++) {
-                if (coords[i].length !== this.numColumns) {
-                    throw new ArgumentError(
-                        Logger.logMessage(Logger.LEVEL_SEVERE, "GeographicMesh", "textureCoordinates",
-                            "Texture coordinate row lengths are inconsistent with the currently specified positions."));
-                }
-            }
-
             this._textureCoordinates = coords;
             this.reset();
             this.texCoords = null;

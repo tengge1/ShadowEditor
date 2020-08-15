@@ -51,12 +51,6 @@ function SurfaceTileRenderer() {
  * @throws {ArgumentError} If the specified surface tiles array is null or undefined.
  */
 SurfaceTileRenderer.prototype.renderTiles = function (dc, surfaceTiles, opacity, tilesHaveOpacity) {
-    if (!surfaceTiles) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "SurfaceTileRenderer", "renderTiles",
-                "Specified surface tiles array is null or undefined."));
-    }
-
     if (surfaceTiles.length < 1)
         return;
 

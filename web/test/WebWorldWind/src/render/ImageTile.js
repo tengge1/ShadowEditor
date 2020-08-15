@@ -40,12 +40,6 @@ import Tile from '../util/Tile';
  *
  */
 function ImageTile(sector, level, row, column, imagePath) {
-    if (!imagePath || imagePath.length < 1) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "ImageTile", "constructor",
-                "The specified image path is null, undefined or zero length."));
-    }
-
     TextureTile.call(this, sector, level, row, column); // args are checked in the superclass' constructor
 
     /**

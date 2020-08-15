@@ -40,11 +40,6 @@ import Touch from '../gesture/Touch';
  */
 // TODO: evaluate target usage
 function GestureRecognizer(target, callback) {
-    if (!target) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "GestureRecognizer", "constructor", "missingTarget"));
-    }
-
     /**
      * Indicates the document element this gesture recognizer observes for UI events.
      * @type {EventTarget}
@@ -251,11 +246,6 @@ Object.defineProperties(GestureRecognizer.prototype, {
  * @throws {ArgumentError} If the index is out of range.
  */
 GestureRecognizer.prototype.touch = function (index) {
-    if (index < 0 || index >= this._touches.length) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "GestureRecognizer", "touch", "indexOutOfRange"));
-    }
-
     return this._touches[index];
 };
 
@@ -264,12 +254,6 @@ GestureRecognizer.prototype.touch = function (index) {
  * @param recognizer
  */
 GestureRecognizer.prototype.recognizeSimultaneouslyWith = function (recognizer) {
-    if (!recognizer) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "GestureRecognizer", "recognizeSimultaneouslyWith",
-                "The specified gesture recognizer is null or undefined."));
-    }
-
     var index = this._canRecognizeWith.indexOf(recognizer);
     if (index == -1) {
         this._canRecognizeWith.push(recognizer);
@@ -292,12 +276,6 @@ GestureRecognizer.prototype.canRecognizeSimultaneouslyWith = function (recognize
  * @param recognizer
  */
 GestureRecognizer.prototype.requireRecognizerToFail = function (recognizer) {
-    if (!recognizer) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "GestureRecognizer", "requireRecognizerToFail",
-                "The specified gesture recognizer is null or undefined"));
-    }
-
     var index = this._requiresFailureOf.indexOf(recognizer);
     if (index == -1) {
         this._requiresFailureOf.push(recognizer);
@@ -508,10 +486,6 @@ GestureRecognizer.prototype.isWaitingForRecognizerToFail = function (that) {
  * @throws {ArgumentError} If any argument is null or undefined.
  */
 GestureRecognizer.prototype.addListener = function (listener) {
-    if (!listener) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "GestureRecognizer", "addListener", "missingListener"));
-    }
     this.listenerList.push(listener);
 };
 
@@ -524,11 +498,6 @@ GestureRecognizer.prototype.addListener = function (listener) {
  * @throws {ArgumentError} If any argument is null or undefined.
  */
 GestureRecognizer.prototype.removeListener = function (listener) {
-    if (!listener) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "GestureRecognizer", "removeListener", "missingListener"));
-    }
-
     var index = this.listenerList.indexOf(listener);
     if (index !== -1) {
         this.listenerList.splice(index, 1); // remove the listener from the list

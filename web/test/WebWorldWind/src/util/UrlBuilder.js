@@ -39,8 +39,6 @@ function UrlBuilder() {
  * @throws {ArgumentError} If either the specified tile or format is null or undefined.
  */
 UrlBuilder.prototype.urlForTile = function (tile, format) {
-    throw new UnsupportedOperationError(
-        Logger.logMessage(Logger.LEVEL_SEVERE, "UrlBuilder", "urlForTile", "abstractInvocation"));
 };
 
 export default UrlBuilder;

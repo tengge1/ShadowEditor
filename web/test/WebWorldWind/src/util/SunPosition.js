@@ -34,12 +34,6 @@ var SunPosition = {
      * @return {{latitude: Number, longitude: Number}} the geographic location
      */
     getAsGeographicLocation: function (date) {
-        if (date instanceof Date === false) {
-            throw new ArgumentError(
-                Logger.logMessage(Logger.LEVEL_SEVERE, "SunPosition", "getAsGeographicLocation",
-                    "missingDate"));
-        }
-
         var celestialLocation = this.getAsCelestialLocation(date);
         return this.celestialToGeographic(celestialLocation, date);
     },
@@ -51,12 +45,6 @@ var SunPosition = {
      * @return {{declination: Number, rightAscension: Number}} the celestial location
      */
     getAsCelestialLocation: function (date) {
-        if (date instanceof Date === false) {
-            throw new ArgumentError(
-                Logger.logMessage(Logger.LEVEL_SEVERE, "SunPosition", "getAsCelestialLocation",
-                    "missingDate"));
-        }
-
         var julianDate = this.computeJulianDate(date);
 
         //number of days (positive or negative) since Greenwich noon, Terrestrial Time, on 1 January 2000 (J2000.0)
@@ -98,16 +86,6 @@ var SunPosition = {
      * @return {{latitude: Number, longitude: Number}} the geographic location
      */
     celestialToGeographic: function (celestialLocation, date) {
-        if (!celestialLocation) {
-            throw new ArgumentError(
-                Logger.logMessage(Logger.LEVEL_SEVERE, "SunPosition", "celestialToGeographic",
-                    "missingCelestialLocation"));
-        }
-        if (date instanceof Date === false) {
-            throw new ArgumentError(
-                Logger.logMessage(Logger.LEVEL_SEVERE, "SunPosition", "celestialToGeographic", "missingDate"));
-        }
-
         var julianDate = this.computeJulianDate(date);
 
         //number of days (positive or negative) since Greenwich noon, Terrestrial Time, on 1 January 2000 (J2000.0)
@@ -134,11 +112,6 @@ var SunPosition = {
      * @return {Number} the julian date
      */
     computeJulianDate: function (date) {
-        if (date instanceof Date === false) {
-            throw new ArgumentError(
-                Logger.logMessage(Logger.LEVEL_SEVERE, "SunPosition", "computeJulianDate", "missingDate"));
-        }
-
         var year = date.getUTCFullYear();
         var month = date.getUTCMonth() + 1;
         var day = date.getUTCDate();

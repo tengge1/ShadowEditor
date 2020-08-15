@@ -66,11 +66,6 @@ function Plane(x, y, z, distance) {
  * @throws {ArgumentError} if pa, pb, or pc is null or undefined.
  */
 Plane.fromPoints = function (pa, pb, pc) {
-    if (!pa || !pb || !pc) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Plane", "fromPoints", "missingVector"));
-    }
-
     var vab = new Vec3(pb[0], pb[1], pb[2]);
     vab.subtract(pa);
     var vac = new Vec3(pc[0], pc[1], pc[2]);
@@ -91,11 +86,6 @@ Plane.fromPoints = function (pa, pb, pc) {
  * @throws {ArgumentError} If the specified vector is null or undefined.
  */
 Plane.prototype.dot = function (vector) {
-    if (!vector) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Plane", "dot", "missingVector"));
-    }
-
     return this.normal.dot(vector) + this.distance;
 };
 
@@ -116,11 +106,6 @@ Plane.prototype.distanceToPoint = function (point) {
  * @throws {ArgumentError} If the specified matrix is null or undefined.
  */
 Plane.prototype.transformByMatrix = function (matrix) {
-    if (!matrix) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Plane", "transformByMatrix", "missingMatrix"));
-    }
-
     var x = matrix[0] * this.normal[0] + matrix[1] * this.normal[1] + matrix[2] * this.normal[2] + matrix[3] * this.distance,
         y = matrix[4] * this.normal[0] + matrix[5] * this.normal[1] + matrix[6] * this.normal[2] + matrix[7] * this.distance,
         z = matrix[8] * this.normal[0] + matrix[9] * this.normal[1] + matrix[10] * this.normal[2] + matrix[11] * this.distance,
@@ -213,11 +198,6 @@ Plane.prototype.intersectsSegmentAt = function (endPoint1, endPoint2, result) {
  * @throws {ArgumentError} If either point is null or undefined.
  */
 Plane.prototype.onSameSide = function (pointA, pointB) {
-    if (!pointA || !pointB) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Plane", "onSameSide", "missingPoint"));
-    }
-
     var da = this.distanceToPoint(pointA),
         db = this.distanceToPoint(pointB);
 
@@ -246,11 +226,6 @@ Plane.prototype.onSameSide = function (pointA, pointB) {
  * @throws {ArgumentError} If either point is null or undefined.
  */
 Plane.prototype.clip = function (pointA, pointB) {
-    if (!pointA || !pointB) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Plane", "clip", "missingPoint"));
-    }
-
     if (pointA.equals(pointB)) {
         return null;
     }

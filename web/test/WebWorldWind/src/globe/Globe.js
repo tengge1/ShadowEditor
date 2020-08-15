@@ -48,10 +48,6 @@ import Vec3 from '../geom/Vec3';
  * @throws {ArgumentError} If the specified elevation model is null or undefined.
  */
 function Globe(elevationModel, projection) {
-    if (!elevationModel) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Globe",
-            "constructor", "Elevation model is null or undefined."));
-    }
     /**
      * This globe's elevation model.
      * @type {ElevationModel}
@@ -144,11 +140,6 @@ Object.defineProperties(Globe.prototype, {
             return this._projection;
         },
         set: function (projection) {
-            if (!projection) {
-                throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Globe",
-                    "projection", "missingProjection"));
-            }
-
             if (this.projection != projection) {
                 this.tessellator = new Tessellator();
             }
@@ -205,11 +196,6 @@ Globe.prototype.is2D = function () {
  * @throws {ArgumentError} If the specified result argument is null or undefined.
  */
 Globe.prototype.computePointFromPosition = function (latitude, longitude, altitude, result) {
-    if (!result) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Globe", "computePointFromPosition",
-            "missingResult"));
-    }
-
     return this.projection.geographicToCartesian(this, latitude, longitude, altitude, this.offsetVector, result);
 };
 
@@ -224,11 +210,6 @@ Globe.prototype.computePointFromPosition = function (latitude, longitude, altitu
  * @throws {ArgumentError} If the specified result argument is null or undefined.
  */
 Globe.prototype.computePointFromLocation = function (latitude, longitude, result) {
-    if (!result) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Globe", "computePointFromLocation",
-            "missingResult"));
-    }
-
     return this.computePointFromPosition(latitude, longitude, 0, result);
 };
 
@@ -259,27 +240,6 @@ Globe.prototype.computePointFromLocation = function (latitude, longitude, result
  * if the lengths of any of the arrays are insufficient.
  */
 Globe.prototype.computePointsForGrid = function (sector, numLat, numLon, elevations, referencePoint, result) {
-    if (!sector) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Globe",
-            "computePointsFromPositions", "missingSector"));
-    }
-
-    if (numLat < 1 || numLon < 1) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Globe", "computePointsFromPositions",
-            "Number of latitude or longitude locations is less than one."));
-    }
-
-    var numPoints = numLat * numLon;
-    if (!elevations || elevations.length < numPoints) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Globe", "computePointsFromPositions",
-            "Elevations array is null, undefined or insufficient length."));
-    }
-
-    if (!result || result.length < numPoints) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Globe", "computePointsFromPositions",
-            "Result array is null, undefined or insufficient length."));
-    }
-
     return this.projection.geographicToCartesianGrid(this, sector, numLat, numLon, elevations, referencePoint,
         this.offsetVector, result);
 };
@@ -297,11 +257,6 @@ Globe.prototype.computePointsForGrid = function (sector, numLat, numLon, elevati
  * @throws {ArgumentError} If the specified result argument is null or undefined.
  */
 Globe.prototype.computePositionFromPoint = function (x, y, z, result) {
-    if (!result) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Globe", "computePositionFromPoint",
-            "missingResult"));
-    }
-
     this.projection.cartesianToGeographic(this, x, y, z, this.offsetVector, result);
 
     // Wrap if the globe is continuous.
@@ -339,11 +294,6 @@ Globe.prototype.radiusAt = function (latitude, longitude) {
  * @throws {ArgumentError} If the specified result argument is null or undefined.
  */
 Globe.prototype.surfaceNormalAtLocation = function (latitude, longitude, result) {
-    if (!result) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Globe", "surfaceNormalAtLocation",
-            "missingResult"));
-    }
-
     // For backwards compatibility, check whether the projection defines a surfaceNormalAtLocation function
     // before calling it. If it's not available, use the old code to compute the normal.
     if (this.projection.surfaceNormalAtLocation) {
@@ -381,11 +331,6 @@ Globe.prototype.surfaceNormalAtLocation = function (latitude, longitude, result)
  * @throws {ArgumentError} If the specified result argument is null or undefined.
  */
 Globe.prototype.surfaceNormalAtPoint = function (x, y, z, result) {
-    if (!result) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Globe", "surfaceNormalAtPoint",
-            "missingResult"));
-    }
-
     // For backwards compatibility, check whether the projection defines a surfaceNormalAtPoint function
     // before calling it. If it's not available, use the old code to compute the normal.
     if (this.projection.surfaceNormalAtPoint) {
@@ -420,11 +365,6 @@ Globe.prototype.surfaceNormalAtPoint = function (x, y, z, result) {
  * @throws {ArgumentError} If the specified result argument is null or undefined.
  */
 Globe.prototype.northTangentAtLocation = function (latitude, longitude, result) {
-    if (!result) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Globe", "northTangentAtLocation",
-            "missingResult"));
-    }
-
     return this.projection.northTangentAtLocation(this, latitude, longitude, result);
 };
 
@@ -439,11 +379,6 @@ Globe.prototype.northTangentAtLocation = function (latitude, longitude, result) 
  * @throws {ArgumentError} If the specified result argument is null or undefined.
  */
 Globe.prototype.northTangentAtPoint = function (x, y, z, result) {
-    if (!result) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Globe", "northTangentAtPoint",
-            "missingResult"));
-    }
-
     return this.projection.northTangentAtPoint(this, x, y, z, this.offsetVector, result);
 };
 
@@ -454,11 +389,6 @@ Globe.prototype.northTangentAtPoint = function (x, y, z, result) {
  * @throws {ArgumentError} If the specified frustum is null or undefined.
  */
 Globe.prototype.intersectsFrustum = function (frustum) {
-    if (!frustum) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Globe", "intersectsFrustum", "missingFrustum"));
-    }
-
     if (this.is2D()) {
         var bbox = new BoundingBox();
         bbox.setToSector(Sector.FULL_SPHERE, this, this.elevationModel.minElevation,
@@ -492,15 +422,6 @@ Globe.prototype.intersectsFrustum = function (frustum) {
  * @throws {ArgumentError} If the specified line or result argument is null or undefined.
  */
 Globe.prototype.intersectsLine = function (line, result) {
-    if (!line) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Globe", "intersectWithRay", "missingLine"));
-    }
-
-    if (!result) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Globe", "intersectsLine", "missingResult"));
-    }
-
     // Taken from "Mathematics for 3D Game Programming and Computer Graphics, Third Edition", Section 6.2.3.
     //
     // Note that the parameter n from equations 6.70 and 6.71 is omitted here. For an ellipsoidal globe this
@@ -595,12 +516,6 @@ Globe.prototype.maxElevation = function () {
  * @throws {ArgumentError} If the specified sector is null or undefined.
  */
 Globe.prototype.minAndMaxElevationsForSector = function (sector) {
-    if (!sector) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Globe", "minAndMaxElevationsForSector",
-                "missingSector"));
-    }
-
     return this.elevationModel.minAndMaxElevationsForSector(sector);
 };
 
@@ -629,21 +544,6 @@ Globe.prototype.elevationAtLocation = function (latitude, longitude) {
  * specified numLat or numLon values is less than one.
  */
 Globe.prototype.elevationsForGrid = function (sector, numLat, numLon, targetResolution, result) {
-    if (!sector) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Globe", "elevationsForSector", "missingSector"));
-    }
-
-    if (numLat <= 0 || numLon <= 0) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Globe",
-            "elevationsForSector", "numLat or numLon is less than 1"));
-    }
-
-    if (!result || result.length < numLat * numLon) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Globe",
-            "elevationsForSector", "missingArray"));
-    }
-
     return this.elevationModel.elevationsForGrid(sector, numLat, numLon, targetResolution, result);
 };
 

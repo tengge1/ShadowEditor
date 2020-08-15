@@ -161,11 +161,6 @@ Color.prototype.set = function (red, green, blue, alpha) {
  * @throws {ArgumentError} If the specified color is null or undefined.
  */
 Color.prototype.copy = function (color) {
-    if (!color) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Color", "copy", "missingColor"));
-    }
-
     this.red = color.red;
     this.green = color.green;
     this.blue = color.blue;

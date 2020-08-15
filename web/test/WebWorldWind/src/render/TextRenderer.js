@@ -39,11 +39,6 @@ import Vec2 from '../geom/Vec2';
  * @throws {ArgumentError} If the specified draw context is null or undefined.
  */
 function TextRenderer(drawContext) {
-    if (!drawContext) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "TextRenderer", "constructor",
-            "missingDc"));
-    }
-
     // Internal use only. Intentionally not documented.
     this.canvas2D = document.createElement("canvas");
 
@@ -193,11 +188,6 @@ TextRenderer.prototype.getMaxLineHeight = function () {
  * @returns {String} The wrapped text.
  */
 TextRenderer.prototype.wrap = function (text, width, height) {
-    if (!text) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.WARNING, "TextRenderer", "wrap", "missing text"));
-    }
-
     var i;
 
     var lines = text.split("\n");

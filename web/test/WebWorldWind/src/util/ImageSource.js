@@ -33,11 +33,6 @@ import Logger from '../util/Logger';
  * @throws {ArgumentError} If the specified image is null or undefined.
  */
 function ImageSource(image) {
-    if (!image) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "ImageSource", "constructor",
-            "missingImage"));
-    }
-
     /**
      * This image source's image
      * @type {Image}

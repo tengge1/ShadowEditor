@@ -70,11 +70,6 @@ Location.fromRadians = function (latitudeRadians, longitudeRadians) {
  * @throws {ArgumentError} If the specified location is null or undefined.
  */
 Location.prototype.copy = function (location) {
-    if (!location) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Location", "copy", "missingLocation"));
-    }
-
     this.latitude = location.latitude;
     this.longitude = location.longitude;
 
@@ -121,16 +116,6 @@ Location.prototype.equals = function (location) {
  * @throws {ArgumentError} If either specified location or the result argument is null or undefined.
  */
 Location.interpolateAlongPath = function (pathType, amount, location1, location2, result) {
-    if (!location1 || !location2) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Location", "interpolateAlongPath", "missingLocation"));
-    }
-
-    if (!result) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Location", "interpolateAlongPath", "missingResult"));
-    }
-
     if (pathType === WorldWind.GREAT_CIRCLE) {
         return this.interpolateGreatCircle(amount, location1, location2, result);
     } else if (pathType && pathType === WorldWind.RHUMB_LINE) {
@@ -152,15 +137,6 @@ Location.interpolateAlongPath = function (pathType, amount, location1, location2
  * @throws {ArgumentError} If either specified location or the result argument is null or undefined.
  */
 Location.interpolateGreatCircle = function (amount, location1, location2, result) {
-    if (!location1 || !location2) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Location", "interpolateGreatCircle", "missingLocation"));
-    }
-    if (!result) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Location", "interpolateGreatCircle", "missingResult"));
-    }
-
     if (location1.equals(location2)) {
         result.latitude = location1.latitude;
         result.longitude = location1.longitude;
@@ -185,11 +161,6 @@ Location.interpolateGreatCircle = function (amount, location1, location2, result
  * @throws {ArgumentError} If either specified location is null or undefined.
  */
 Location.greatCircleAzimuth = function (location1, location2) {
-    if (!location1 || !location2) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Location", "greatCircleAzimuth", "missingLocation"));
-    }
-
     var lat1 = location1.latitude * Angle.DEGREES_TO_RADIANS,
         lat2 = location2.latitude * Angle.DEGREES_TO_RADIANS,
         lon1 = location1.longitude * Angle.DEGREES_TO_RADIANS,
@@ -228,11 +199,6 @@ Location.greatCircleAzimuth = function (location1, location2) {
  * @throws {ArgumentError} If either specified location is null or undefined.
  */
 Location.greatCircleDistance = function (location1, location2) {
-    if (!location1 || !location2) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Location", "greatCircleDistance", "missingLocation"));
-    }
-
     var lat1Radians = location1.latitude * Angle.DEGREES_TO_RADIANS,
         lat2Radians = location2.latitude * Angle.DEGREES_TO_RADIANS,
         lon1Radians = location1.longitude * Angle.DEGREES_TO_RADIANS,
@@ -268,15 +234,6 @@ Location.greatCircleDistance = function (location1, location2) {
  * @throws {ArgumentError} If the specified location or the result argument is null or undefined.
  */
 Location.greatCircleLocation = function (location, greatCircleAzimuthDegrees, pathLengthRadians, result) {
-    if (!location) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Location", "greatCircleLocation", "missingLocation"));
-    }
-    if (!result) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Location", "greatCircleLocation", "missingResult"));
-    }
-
     if (pathLengthRadians == 0) {
         result.latitude = location.latitude;
         result.longitude = location.longitude;
@@ -320,15 +277,6 @@ Location.greatCircleLocation = function (location, greatCircleAzimuthDegrees, pa
  * @throws {ArgumentError} If either specified location or the result argument is null or undefined.
  */
 Location.interpolateRhumb = function (amount, location1, location2, result) {
-    if (!location1 || !location2) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Location", "interpolateRhumb", "missingLocation"));
-    }
-    if (!result) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Location", "interpolateRhumb", "missingResult"));
-    }
-
     if (location1.equals(location2)) {
         result.latitude = location1.latitude;
         result.longitude = location1.longitude;
@@ -353,11 +301,6 @@ Location.interpolateRhumb = function (amount, location1, location2, result) {
  * @throws {ArgumentError} If either specified location is null or undefined.
  */
 Location.rhumbAzimuth = function (location1, location2) {
-    if (!location1 || !location2) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Location", "rhumbAzimuth", "missingLocation"));
-    }
-
     var lat1 = location1.latitude * Angle.DEGREES_TO_RADIANS,
         lat2 = location2.latitude * Angle.DEGREES_TO_RADIANS,
         lon1 = location1.longitude * Angle.DEGREES_TO_RADIANS,
@@ -396,11 +339,6 @@ Location.rhumbAzimuth = function (location1, location2) {
  * @throws {ArgumentError} If either specified location is null or undefined.
  */
 Location.rhumbDistance = function (location1, location2) {
-    if (!location1 || !location2) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Location", "rhumbDistance", "missingLocation"));
-    }
-
     var lat1 = location1.latitude * Angle.DEGREES_TO_RADIANS,
         lat2 = location2.latitude * Angle.DEGREES_TO_RADIANS,
         lon1 = location1.longitude * Angle.DEGREES_TO_RADIANS,
@@ -446,15 +384,6 @@ Location.rhumbDistance = function (location1, location2) {
  * @throws {ArgumentError} If the specified location or the result argument is null or undefined.
  */
 Location.rhumbLocation = function (location, azimuthDegrees, pathLengthRadians, result) {
-    if (!location) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Location", "rhumbLocation", "missingLocation"));
-    }
-    if (!result) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Location", "rhumbLocation", "missingResult"));
-    }
-
     if (pathLengthRadians == 0) {
         result.latitude = location.latitude;
         result.longitude = location.longitude;
@@ -505,15 +434,6 @@ Location.rhumbLocation = function (location, azimuthDegrees, pathLengthRadians, 
  * @throws {ArgumentError} If either specified location or the result argument is null or undefined.
  */
 Location.interpolateLinear = function (amount, location1, location2, result) {
-    if (!location1 || !location2) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Location", "interpolateLinear", "missingLocation"));
-    }
-    if (!result) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Location", "interpolateLinear", "missingResult"));
-    }
-
     if (location1.equals(location2)) {
         result.latitude = location1.latitude;
         result.longitude = location1.longitude;
@@ -537,11 +457,6 @@ Location.interpolateLinear = function (amount, location1, location2, result) {
  * @throws {ArgumentError} If either specified location is null or undefined.
  */
 Location.linearAzimuth = function (location1, location2) {
-    if (!location1 || !location2) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Location", "linearAzimuth", "missingLocation"));
-    }
-
     var lat1 = location1.latitude * Angle.DEGREES_TO_RADIANS,
         lat2 = location2.latitude * Angle.DEGREES_TO_RADIANS,
         lon1 = location1.longitude * Angle.DEGREES_TO_RADIANS,
@@ -579,11 +494,6 @@ Location.linearAzimuth = function (location1, location2) {
  * @throws {ArgumentError} If either specified location is null or undefined.
  */
 Location.linearDistance = function (location1, location2) {
-    if (!location1 || !location2) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Location", "linearDistance", "missingLocation"));
-    }
-
     var lat1 = location1.latitude * Angle.DEGREES_TO_RADIANS,
         lat2 = location2.latitude * Angle.DEGREES_TO_RADIANS,
         lon1 = location1.longitude * Angle.DEGREES_TO_RADIANS,
@@ -620,15 +530,6 @@ Location.linearDistance = function (location1, location2) {
  * @throws {ArgumentError} If the specified location or the result argument is null or undefined.
  */
 Location.linearLocation = function (location, azimuthDegrees, pathLengthRadians, result) {
-    if (!location) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Location", "linearLocation", "missingLocation"));
-    }
-    if (!result) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Location", "linearLocation", "missingResult"));
-    }
-
     if (pathLengthRadians == 0) {
         result.latitude = location.latitude;
         result.longitude = location.longitude;
@@ -667,11 +568,6 @@ Location.linearLocation = function (location, azimuthDegrees, pathLengthRadians,
  * @throws {ArgumentError} If the locations list is null.
  */
 Location.locationsCrossDateLine = function (locations) {
-    if (!locations) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Location", "locationsCrossDateline", "missingLocation"));
-    }
-
     var pos = null;
     for (var idx = 0, len = locations.length; idx < len; idx += 1) {
         var posNext = locations[idx];
@@ -702,11 +598,6 @@ Location.locationsCrossDateLine = function (locations) {
  * @throws IllegalArgumentException if locations is null.
  */
 Location.greatCircleArcExtremeLocations = function (locations) {
-    if (!locations) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Location", "greatCircleArcExtremeLocations", "missingLocation"));
-    }
-
     var minLatLocation = null;
     var maxLatLocation = null;
 
@@ -747,11 +638,6 @@ Location.greatCircleArcExtremeLocations = function (locations) {
  * @throws {ArgumentError} If either begin or end are null.
  */
 Location.greatCircleArcExtremeForTwoLocations = function (begin, end) {
-    if (!begin || !end) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Location", "greatCircleArcExtremeForTwoLocations", "missingLocation"));
-    }
-
     var idx, len, location; // Iteration variables.
     var minLatLocation = null;
     var maxLatLocation = null;
@@ -824,11 +710,6 @@ Location.greatCircleArcExtremeForTwoLocations = function (begin, end) {
  * @throws {ArgumentError} If location is null.
  */
 Location.greatCircleExtremeLocationsUsingAzimuth = function (location, azimuth) {
-    if (!location) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Location", "greatCircleArcExtremeLocationsUsingAzimuth", "missingLocation"));
-    }
-
     var lat0 = location.latitude;
     var az = azimuth * Angle.DEGREES_TO_RADIANS;
 

@@ -33,11 +33,6 @@ import UnsupportedOperationError from './error/UnsupportedOperationError';
  * @throws {ArgumentError} If the specified WorldWindow is null or undefined.
  */
 function WorldWindowController(worldWindow) {
-    if (!worldWindow) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "WorldWindowController", "constructor", "missingWorldWindow"));
-    }
-
     /**
      * The WorldWindow associated with this controller.
      * @type {WorldWindow}
@@ -62,8 +57,6 @@ WorldWindowController.prototype.onGestureEvent = function (event) {
 
 // Intentionally not documented.
 WorldWindowController.prototype.gestureStateChanged = function (recognizer) {
-    throw new UnsupportedOperationError(
-        Logger.logMessage(Logger.LEVEL_SEVERE, "WorldWindowController", "gestureStateChanged", "abstractInvocation"));
 };
 
 /**
@@ -80,11 +73,6 @@ WorldWindowController.prototype.gestureStateChanged = function (recognizer) {
  * @throws {ArgumentError} If any argument is null or undefined.
  */
 WorldWindowController.prototype.addGestureListener = function (listener) {
-    if (!listener) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "WorldWindowController", "addGestureListener", "missingListener"));
-    }
-
     this.allGestureListeners.push(listener);
 };
 
@@ -97,11 +85,6 @@ WorldWindowController.prototype.addGestureListener = function (listener) {
  * @throws {ArgumentError} If any argument is null or undefined.
  */
 WorldWindowController.prototype.removeGestureListener = function (listener) {
-    if (!listener) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "WorldWindowController", "removeGestureListener", "missingListener"));
-    }
-
     var index = this.allGestureListeners.indexOf(listener);
     if (index !== -1) {
         this.allGestureListeners.splice(index, 1); // remove the listener from the list

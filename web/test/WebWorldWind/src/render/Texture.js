@@ -33,17 +33,6 @@ import WWMath from '../util/WWMath';
  * @throws {ArgumentError} If the specified WebGL context or image is null or undefined.
  */
 function Texture(gl, image, wrapMode) {
-
-    if (!gl) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Texture", "constructor",
-            "missingGlContext"));
-    }
-
-    if (!image) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Texture", "constructor",
-            "missingImage"));
-    }
-
     if (!wrapMode) {
         wrapMode = gl.CLAMP_TO_EDGE;
     }

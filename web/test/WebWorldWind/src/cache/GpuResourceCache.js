@@ -37,18 +37,6 @@ import Texture from '../render/Texture';
  * undefined, negative or not less than the capacity.
  */
 function GpuResourceCache(capacity, lowWater) {
-    if (!capacity || capacity < 1) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "GpuResourceCache", "constructor",
-                "Specified cache capacity is undefined, 0 or negative."));
-    }
-
-    if (!lowWater || lowWater < 0 || lowWater >= capacity) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "GpuResourceCache", "constructor",
-                "Specified cache low-water value is undefined, negative or not less than the capacity."));
-    }
-
     // Private. Holds the actual cache entries.
     this.entries = new MemoryCache(capacity, lowWater);
 
@@ -131,22 +119,6 @@ GpuResourceCache.prototype.generateCacheKey = function () {
  * or if the specified size is less than 1.
  */
 GpuResourceCache.prototype.putResource = function (key, resource, size) {
-    if (!key) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "GpuResourceCache", "putResource", "missingKey."));
-    }
-
-    if (!resource) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "GpuResourceCache", "putResource", "missingResource."));
-    }
-
-    if (!size || size < 1) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "GpuResourceCache", "putResource",
-                "The specified resource size is undefined or less than 1."));
-    }
-
     var entry = {
         resource: resource
     };

@@ -72,11 +72,6 @@ import Vec3 from '../geom/Vec3';
  * @throws {ArgumentError} If the specified positions array is null or undefined.
  */
 function Path(positions, attributes) {
-    if (!positions) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Path", "constructor", "missingPositions"));
-    }
-
     AbstractShape.call(this, attributes);
 
     // Private. Documentation is with the defined property below.
@@ -109,11 +104,6 @@ Object.defineProperties(Path.prototype, {
             return this._positions;
         },
         set: function (positions) {
-            if (!positions) {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "Path", "constructor", "missingPositions"));
-            }
-
             this._positions = positions;
             this.referencePosition = this.determineReferencePosition(this._positions);
             this.reset();

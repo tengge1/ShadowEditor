@@ -44,12 +44,6 @@ import SurfaceShape from '../shapes/SurfaceShape';
  * @throws {ArgumentError} If the specified locations are null or undefined.
  */
 function SurfacePolyline(locations, attributes) {
-    if (!locations) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "SurfacePolyline", "constructor",
-                "The specified locations array is null or undefined."));
-    }
-
     SurfaceShape.call(this, attributes);
 
     /**
@@ -77,11 +71,6 @@ Object.defineProperties(SurfacePolyline.prototype, {
             return this._boundaries;
         },
         set: function (boundaries) {
-            if (!Array.isArray(boundaries)) {
-                throw new ArgumentError(
-                    Logger.logMessage(Logger.LEVEL_SEVERE, "SurfacePolyline", "set boundaries",
-                        "The specified value is not an array."));
-            }
             this.resetBoundaries();
             this._boundaries = boundaries;
             this._stateId = SurfacePolyline.stateId++;

@@ -79,10 +79,6 @@ Sector.FULL_SPHERE = new Sector(-WWMath.MAX_LAT, WWMath.MAX_LAT, -180, 180);
  * @throws {ArgumentError} If the specified sector is null or undefined.
  */
 Sector.prototype.copy = function (sector) {
-    if (!sector) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Sector", "copy", "missingSector"));
-    }
-
     this.minLatitude = sector.minLatitude;
     this.maxLatitude = sector.maxLatitude;
     this.minLongitude = sector.minLongitude;
@@ -140,11 +136,6 @@ Sector.prototype.centroidLongitude = function () {
  * @throws {ArgumentError} If the result argument is null or undefined.
  */
 Sector.prototype.centroid = function (result) {
-    if (!result) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Sector", "centroid", "missingResult"));
-    }
-
     result.latitude = this.centroidLatitude();
     result.longitude = this.centroidLongitude();
 
@@ -190,11 +181,6 @@ Sector.prototype.maxLongitudeRadians = function () {
  * @throws {ArgumentError} If the specified array is null, undefined or empty or has fewer than two locations.
  */
 Sector.prototype.setToBoundingSector = function (locations) {
-    if (!locations || locations.length < 2) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Sector", "setToBoundingSector",
-            "missingArray"));
-    }
-
     var minLatitude = 90,
         maxLatitude = -90,
         minLongitude = 180,
@@ -230,11 +216,6 @@ Sector.prototype.setToBoundingSector = function (locations) {
  * is less than 2.
  */
 Sector.splitBoundingSectors = function (locations) {
-    if (!locations || locations.length < 2) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "Sector", "splitBoundingSectors",
-            "missingArray"));
-    }
-
     var minLat = 90;
     var minLon = 180;
     var maxLat = -90;
@@ -361,11 +342,6 @@ Sector.prototype.containsLocation = function (latitude, longitude) {
  * @throws {ArgumentError} If the specified sector is null or undefined.
  */
 Sector.prototype.intersection = function (sector) {
-    if (!sector instanceof Sector) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Sector", "intersection", "missingSector"));
-    }
-
     // Assumes normalized angles: [-180, 180], [-90, 90].
     if (this.minLatitude < sector.minLatitude)
         this.minLatitude = sector.minLatitude;
@@ -422,11 +398,6 @@ Sector.prototype.computeBoundingPoints = function (globe, verticalExaggeration) 
     // This method was originally computeBoundingBox and returned a BoundingBox. This created a circular dependency between
     // Sector and BoundingBox that the Karma unit test suite doesn't appear to like. If we discover a way to make Karma handle this
     // situation, we should refactor this method.
-    if (globe === null) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Sector", "computeBoundingBox", "missingGlobe"));
-    }
-
     var minAndMaxElevations = globe.minAndMaxElevationsForSector(this);
 
     // Compute the exaggerated minimum and maximum heights.
@@ -515,11 +486,6 @@ Sector.prototype.computeBoundingPoints = function (globe, verticalExaggeration) 
  * @throws {ArgumentError} if the specified sector is null or undefined.
  */
 Sector.prototype.union = function (sector) {
-    if (!sector instanceof Sector) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "Sector", "union", "missingSector"));
-    }
-
     // Assumes normalized angles: [-180, 180], [-90, 90].
     if (this.minLatitude > sector.minLatitude)
         this.minLatitude = sector.minLatitude;

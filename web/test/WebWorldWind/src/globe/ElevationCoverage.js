@@ -33,12 +33,6 @@ import Sector from '../geom/Sector';
  * @throws {ArgumentError} If the resolution argument is null, undefined, or zero.
  */
 function ElevationCoverage(resolution) {
-    if (!resolution) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "ElevationCoverage", "constructor",
-                "missingResolution"));
-    }
-
     /**
      * Indicates the last time this coverage changed, in milliseconds since midnight Jan 1, 1970.
      * @type {Number}
@@ -100,16 +94,6 @@ Object.defineProperties(ElevationCoverage.prototype, {
  * @throws {ArgumentError} If any argument is null or undefined
  */
 ElevationCoverage.prototype.minAndMaxElevationsForSector = function (sector, result) {
-    if (!sector) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "ElevationCoverage", "minAndMaxElevationsForSector", "missingSector"));
-    }
-
-    if (!result) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "ElevationCoverage", "minAndMaxElevationsForSector", "missingResult"));
-    }
-
     if (result[0] > 0) { // min elevation
         result[0] = 0;
     }
@@ -143,21 +127,6 @@ ElevationCoverage.prototype.elevationAtLocation = function (latitude, longitude)
  * specified numLat or numLon values is less than one.
  */
 ElevationCoverage.prototype.elevationsForGrid = function (sector, numLat, numLon, result) {
-    if (!sector) {
-        throw new ArgumentError(
-            Logger.logMessage(Logger.LEVEL_SEVERE, "ElevationCoverage", "elevationsForGrid", "missingSector"));
-    }
-
-    if (numLat <= 0 || numLon <= 0) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "ElevationCoverage",
-            "elevationsForGrid", "numLat or numLon is less than 1"));
-    }
-
-    if (!result || result.length < numLat * numLon) {
-        throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "ElevationCoverage",
-            "elevationsForGrid", "missingArray"));
-    }
-
     for (var i = 0, len = result.length; i < len; i++) {
         result[i] = 0;
     }

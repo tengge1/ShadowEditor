@@ -43,8 +43,6 @@ function TileFactory() {
  * @throws {ArgumentError} If the specified sector is null or undefined.
  */
 TileFactory.prototype.createTile = function (sector, level, row, column) {
-    throw new UnsupportedOperationError(
-        Logger.logMessage(Logger.LEVEL_SEVERE, "TileFactory", "createTile", "abstractInvocation"));
 };
 
 export default TileFactory;

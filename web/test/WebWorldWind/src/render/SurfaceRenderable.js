@@ -44,9 +44,6 @@ function SurfaceRenderable() {
      * @default true
      */
     this.enabled = true;
-
-    throw new UnsupportedOperationError(
-        Logger.logMessage(Logger.LEVEL_SEVERE, "SurfaceRenderable", "constructor", "abstractInvocation"));
 }
 
 /**
@@ -54,8 +51,6 @@ function SurfaceRenderable() {
  * @param {DrawContext} dc The current draw context.
  */
 SurfaceRenderable.prototype.renderSurface = function (dc) {
-    throw new UnsupportedOperationError(
-        Logger.logMessage(Logger.LEVEL_SEVERE, "SurfaceRenderable", "renderSurface", "abstractInvocation"));
 };
 
 export default SurfaceRenderable;
