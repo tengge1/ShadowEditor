@@ -17,7 +17,6 @@
 /**
  * @exports SurfaceShape
  */
-import AbstractError from '../error/AbstractError';
 import Angle from '../geom/Angle';
 import BoundingBox from '../geom/BoundingBox';
 import Color from '../util/Color';

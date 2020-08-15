@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import AbstractError from './error/AbstractError';
 import Annotation from './shapes/Annotation';
 import AnnotationAttributes from './shapes/AnnotationAttributes';
 import AtmosphereLayer from './layer/AtmosphereLayer';
@@ -359,7 +358,6 @@ var WorldWind = {
     WGS84_INVERSE_FLATTENING: 298.257223563
 };
 
-WorldWind['AbstractError'] = AbstractError;
 WorldWind['Annotation'] = Annotation;
 WorldWind['AnnotationAttributes'] = AnnotationAttributes;
 WorldWind['AtmosphereLayer'] = AtmosphereLayer;
