@@ -108,7 +108,6 @@ ElevationImage.isNoData = function (x0y0, x1y0, x0y1, x1y1) {
  * Returns 0 if the coordinate indicates a pixel outside of this elevation image.
  */
 ElevationImage.prototype.pixel = function (x, y) {
-    debugger;
     if (x < 0 || x >= this.imageWidth) {
         return 0;
     }
@@ -255,7 +254,6 @@ ElevationImage.prototype.elevationsForGrid = function (sector, numLat, numLon, r
  * NO_DATA values.
  */
 ElevationImage.prototype.minAndMaxElevationsForSector = function (sector) {
-    debugger;
     if (!this.hasData) {
         return null;
     }
