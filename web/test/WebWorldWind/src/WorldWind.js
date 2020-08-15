@@ -17,7 +17,6 @@
 import AbstractError from './error/AbstractError';
 import Annotation from './shapes/Annotation';
 import AnnotationAttributes from './shapes/AnnotationAttributes';
-import ArgumentError from './error/ArgumentError';
 import AtmosphereLayer from './layer/AtmosphereLayer';
 import AtmosphereProgram from './shaders/AtmosphereProgram';
 import BasicProgram from './shaders/BasicProgram';
@@ -363,7 +362,6 @@ var WorldWind = {
 WorldWind['AbstractError'] = AbstractError;
 WorldWind['Annotation'] = Annotation;
 WorldWind['AnnotationAttributes'] = AnnotationAttributes;
-WorldWind['ArgumentError'] = ArgumentError;
 WorldWind['AtmosphereLayer'] = AtmosphereLayer;
 WorldWind['AtmosphereProgram'] = AtmosphereProgram;
 WorldWind['BasicProgram'] = BasicProgram;

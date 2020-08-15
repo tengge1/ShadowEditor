@@ -40,8 +40,6 @@ import WWMath from '../util/WWMath';
  * @param {String} cachePath A string uniquely identifying this layer relative to other layers.
  * @param {Number} tileWidth The horizontal size of image tiles in pixels.
  * @param {Number} tileHeight The vertical size of image tiles in pixels.
- * @throws {ArgumentError} If any of the specified sector, level-zero delta, cache path or image format arguments are
- * null or undefined, or if the specified number of levels, tile width or tile height is less than 1.
  */
 function MercatorTiledImageLayer(sector, levelZeroDelta, numLevels, imageFormat, cachePath,
     tileWidth, tileHeight) {

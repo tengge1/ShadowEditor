@@ -18,7 +18,6 @@
  * @exports Location
  */
 import Angle from '../geom/Angle';
-import ArgumentError from '../error/ArgumentError';
 import Logger from '../util/Logger';
 import Plane from '../geom/Plane';
 import Vec3 from '../geom/Vec3';
@@ -67,7 +66,6 @@ Location.fromRadians = function (latitudeRadians, longitudeRadians) {
  * Copies this location to the latitude and longitude of a specified location.
  * @param {Location} location The location to copy.
  * @returns {Location} This location, set to the values of the specified location.
- * @throws {ArgumentError} If the specified location is null or undefined.
  */
 Location.prototype.copy = function (location) {
     this.latitude = location.latitude;
@@ -113,7 +111,6 @@ Location.prototype.equals = function (location) {
  * @param {Location} location2 The ending location.
  * @param {Location} result A Location in which to return the result.
  * @returns {Location} The specified result location.
- * @throws {ArgumentError} If either specified location or the result argument is null or undefined.
  */
 Location.interpolateAlongPath = function (pathType, amount, location1, location2, result) {
     if (pathType === WorldWind.GREAT_CIRCLE) {
@@ -134,7 +131,6 @@ Location.interpolateAlongPath = function (pathType, amount, location1, location2
  * @param {Location} location2 The ending location.
  * @param {Location} result A Location in which to return the result.
  * @returns {Location} The specified result location.
- * @throws {ArgumentError} If either specified location or the result argument is null or undefined.
  */
 Location.interpolateGreatCircle = function (amount, location1, location2, result) {
     if (location1.equals(location2)) {
@@ -158,7 +154,6 @@ Location.interpolateGreatCircle = function (amount, location1, location2, result
  * @param {Location} location1 The starting location.
  * @param {Location} location2 The ending location.
  * @returns {Number} The computed azimuth, in degrees.
- * @throws {ArgumentError} If either specified location is null or undefined.
  */
 Location.greatCircleAzimuth = function (location1, location2) {
     var lat1 = location1.latitude * Angle.DEGREES_TO_RADIANS,
@@ -196,7 +191,6 @@ Location.greatCircleAzimuth = function (location1, location2) {
  * @param {Location} location1 The starting location.
  * @param {Location} location2 The ending location.
  * @returns {Number} The computed distance, in radians.
- * @throws {ArgumentError} If either specified location is null or undefined.
  */
 Location.greatCircleDistance = function (location1, location2) {
     var lat1Radians = location1.latitude * Angle.DEGREES_TO_RADIANS,
@@ -231,7 +225,6 @@ Location.greatCircleDistance = function (location1, location2) {
  * @param {Number} pathLengthRadians The radian distance along the path at which to compute the end location.
  * @param {Location} result A Location in which to return the result.
  * @returns {Location} The specified result location.
- * @throws {ArgumentError} If the specified location or the result argument is null or undefined.
  */
 Location.greatCircleLocation = function (location, greatCircleAzimuthDegrees, pathLengthRadians, result) {
     if (pathLengthRadians == 0) {
@@ -274,7 +267,6 @@ Location.greatCircleLocation = function (location, greatCircleAzimuthDegrees, pa
  * @param {Location} location2 The ending location.
  * @param {Location} result A Location in which to return the result.
  * @returns {Location} The specified result location.
- * @throws {ArgumentError} If either specified location or the result argument is null or undefined.
  */
 Location.interpolateRhumb = function (amount, location1, location2, result) {
     if (location1.equals(location2)) {
@@ -298,7 +290,6 @@ Location.interpolateRhumb = function (amount, location1, location2, result) {
  * @param {Location} location1 The starting location.
  * @param {Location} location2 The ending location.
  * @returns {Number} The computed azimuth, in degrees.
- * @throws {ArgumentError} If either specified location is null or undefined.
  */
 Location.rhumbAzimuth = function (location1, location2) {
     var lat1 = location1.latitude * Angle.DEGREES_TO_RADIANS,
@@ -336,7 +327,6 @@ Location.rhumbAzimuth = function (location1, location2) {
  * @param {Location} location1 The starting location.
  * @param {Location} location2 The ending location.
  * @returns {Number} The computed distance, in radians.
- * @throws {ArgumentError} If either specified location is null or undefined.
  */
 Location.rhumbDistance = function (location1, location2) {
     var lat1 = location1.latitude * Angle.DEGREES_TO_RADIANS,
@@ -381,7 +371,6 @@ Location.rhumbDistance = function (location1, location2) {
  * @param {Number} pathLengthRadians The radian distance along the path at which to compute the location.
  * @param {Location} result A Location in which to return the result.
  * @returns {Location} The specified result location.
- * @throws {ArgumentError} If the specified location or the result argument is null or undefined.
  */
 Location.rhumbLocation = function (location, azimuthDegrees, pathLengthRadians, result) {
     if (pathLengthRadians == 0) {
@@ -431,7 +420,6 @@ Location.rhumbLocation = function (location, azimuthDegrees, pathLengthRadians, 
  * @param {Location} location2 The ending location.
  * @param {Location} result A Location in which to return the result.
  * @returns {Location} The specified result location.
- * @throws {ArgumentError} If either specified location or the result argument is null or undefined.
  */
 Location.interpolateLinear = function (amount, location1, location2, result) {
     if (location1.equals(location2)) {
@@ -454,7 +442,6 @@ Location.interpolateLinear = function (amount, location1, location2, result) {
  * @param {Location} location1 The starting location.
  * @param {Location} location2 The ending location.
  * @returns {Number} The computed azimuth, in degrees.
- * @throws {ArgumentError} If either specified location is null or undefined.
  */
 Location.linearAzimuth = function (location1, location2) {
     var lat1 = location1.latitude * Angle.DEGREES_TO_RADIANS,
@@ -491,7 +478,6 @@ Location.linearAzimuth = function (location1, location2) {
  * @param {Location} location1 The starting location.
  * @param {Location} location2 The ending location.
  * @returns {Number} The computed distance, in radians.
- * @throws {ArgumentError} If either specified location is null or undefined.
  */
 Location.linearDistance = function (location1, location2) {
     var lat1 = location1.latitude * Angle.DEGREES_TO_RADIANS,
@@ -527,7 +513,6 @@ Location.linearDistance = function (location1, location2) {
  * @param {Number} pathLengthRadians The radian distance along the path at which to compute the location.
  * @param {Location} result A Location in which to return the result.
  * @returns {Location} The specified result location.
- * @throws {ArgumentError} If the specified location or the result argument is null or undefined.
  */
 Location.linearLocation = function (location, azimuthDegrees, pathLengthRadians, result) {
     if (pathLengthRadians == 0) {
@@ -565,7 +550,6 @@ Location.linearLocation = function (location, azimuthDegrees, pathLengthRadians,
  * Determine whether a list of locations crosses the dateline.
  * @param {Location[]} locations The locations to test.
  * @returns {boolean} True if the dateline is crossed, else false.
- * @throws {ArgumentError} If the locations list is null.
  */
 Location.locationsCrossDateLine = function (locations) {
     var pos = null;
@@ -634,8 +618,6 @@ Location.greatCircleArcExtremeLocations = function (locations) {
  * @param {Location} end   Ending location on the great circle arc.
  *
  * @return {Location[]} Two locations with the most extreme latitudes on the great circle arc.
- *
- * @throws {ArgumentError} If either begin or end are null.
  */
 Location.greatCircleArcExtremeForTwoLocations = function (begin, end) {
     var idx, len, location; // Iteration variables.
@@ -706,8 +688,6 @@ Location.greatCircleArcExtremeForTwoLocations = function (begin, end) {
  * @param {number} azimuth  Great circle azimuth angle (clockwise from North).
  *
  * @return {Location[]} Two locations where the great circle has its extreme latitudes.
- *
- * @throws {ArgumentError} If location is null.
  */
 Location.greatCircleExtremeLocationsUsingAzimuth = function (location, azimuth) {
     var lat0 = location.latitude;

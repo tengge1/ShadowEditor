@@ -15,7 +15,6 @@
  * limitations under the License.
  */
 import Angle from '../geom/Angle';
-import ArgumentError from '../error/ArgumentError';
 import Logger from '../util/Logger';
 import Rectangle from '../geom/Rectangle';
 import Vec3 from '../geom/Vec3';
@@ -71,7 +70,6 @@ var WWMath = {
      * @param {Number} polarRadius The ellipsoid's minor radius.
      * @param {Vec3} result A pre-allocated Vec3 instance in which to return the computed point.
      * @returns {boolean} true if the line intersects the ellipsoid, otherwise false
-     * @throws {ArgumentError} If the specified line or result is null or undefined.
      * @deprecated utilize the Globe.intersectsLine method attached implementation
      */
     computeEllipsoidalGlobeIntersection: function (line, equatorialRadius, polarRadius, result) {
@@ -115,7 +113,6 @@ var WWMath = {
      * @param {Vec3} vertex2 The triangle's third vertex.
      * @param {Vec3} result A pre-allocated Vec3 instance in which to return the computed point.
      * @returns {boolean} true if the line intersects the triangle, otherwise false
-     * @throws {ArgumentError} If the specified line, vertex or result is null or undefined.
      */
     computeTriangleIntersection: function (line, vertex0, vertex1, vertex2, result) {
         // Taken from Moller and Trumbore
@@ -229,7 +226,6 @@ var WWMath = {
      * @param {Array} indices The list of triangle strip indices, organized as a list of vertex positions.
      * @param {Array} results A pre-allocated array instance in which to return the intersection points as
      * {@link Vec3} instances.
-     * @throws {ArgumentError} If the specified line, points, indices or results is null or undefined.
      */
     computeTriStripIntersections: function (line, points, indices, results) {
         // Taken from Moller and Trumbore
@@ -407,7 +403,6 @@ var WWMath = {
      * @param {Vec3} xAxisResult A pre-allocated Vec3 in which to return the computed X axis.
      * @param {Vec3} yAxisResult A pre-allocated Vec3 in which to return the computed Y axis.
      * @param {Vec3} zAxisResult A pre-allocated Vec3 in which to return the computed Z axis.
-     * @throws {ArgumentError} If any argument is null or undefined.
      */
     localCoordinateAxesAtPoint: function (origin, globe, xAxisResult, yAxisResult, zAxisResult) {
         var x = origin[0],
@@ -444,7 +439,6 @@ var WWMath = {
      * @param {Number} radius The globe's radius, in meters.
      * @param {Number} altitude The viewer's altitude above the globe, in meters.
      * @returns {Number} The distance to the horizon, in model coordinates.
-     * @throws {ArgumentError} If the specified globe radius is negative.
      */
     horizonDistanceForGlobeRadius: function (radius, altitude) {
         return radius > 0 && altitude > 0 ? Math.sqrt(altitude * (2 * radius + altitude)) : 0;
@@ -462,8 +456,6 @@ var WWMath = {
      * @param {Number} farResolution The depth resolution at the far clip plane, in meters.
      * @param {Number} depthBits The number of bit-planes in the depth buffer.
      * @returns {Number} The near clip distance, in meters.
-     * @throws {ArgumentError} If either the distance or resolution is negative, or if the depth bits is less
-     * than one.
      */
     perspectiveNearDistanceForFarDistance: function (farDistance, farResolution, depthBits) {
         var maxDepthValue = (1 << depthBits) - 1;
@@ -484,8 +476,6 @@ var WWMath = {
      * @param {Number} distanceToSurface The distance from the perspective eye point to the nearest object, in
      * meters.
      * @returns {Number} The maximum near clip distance, in meters.
-     * @throws {ArgumentError} If the specified width or height is less than or equal to zero, or if the
-     * specified distance is negative.
      */
     perspectiveNearDistance: function (viewportWidth, viewportHeight, distanceToSurface) {
         // Compute the maximum near clip distance that avoids clipping an object at the specified distance from
@@ -521,8 +511,6 @@ var WWMath = {
      * @param {Number} viewportHeight The viewport height, in screen coordinates.
      * @param {Number} distance The distance along the negative Z axis, in model coordinates.
      * @returns {Rectangle} The frustum rectangle, in model coordinates.
-     * @throws {ArgumentError} If the specified width or height is less than or equal to zero, or if the
-     * specified distance is negative.
      */
     perspectiveFrustumRectangle: function (viewportWidth, viewportHeight, distance) {
         // Assumes a 45 degree horizontal field of view.
@@ -547,8 +535,6 @@ var WWMath = {
      * model coordinates.
      * @returns {Number} The pixel size at the specified distance from the eye point, in model coordinates per
      * pixel.
-     * @throws {ArgumentError} If the specified width or height is less than or equal to zero, or if the
-     * specified distance is negative.
      */
     perspectivePixelSize: function (viewportWidth, viewportHeight, distance) {
         var frustumHeight = WWMath.perspectiveFrustumRectangle(viewportWidth, viewportHeight, distance).height;

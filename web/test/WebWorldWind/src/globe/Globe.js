@@ -18,7 +18,6 @@
  * @exports Globe
  */
 import Angle from '../geom/Angle';
-import ArgumentError from '../error/ArgumentError';
 import BoundingBox from '../geom/BoundingBox';
 import Logger from '../util/Logger';
 import ProjectionWgs84 from '../projections/ProjectionWgs84';
@@ -45,7 +44,6 @@ import Vec3 from '../geom/Vec3';
  * @param {ElevationModel} elevationModel The elevation model to use for this globe.
  * @param {GeographicProjection} projection The projection to apply to the globe. May be null or undefined,
  * in which case no projection is applied and the globe is a WGS84 ellipsoid.
- * @throws {ArgumentError} If the specified elevation model is null or undefined.
  */
 function Globe(elevationModel, projection) {
     /**
@@ -193,7 +191,6 @@ Globe.prototype.is2D = function () {
  * @param {Vec3} result A reference to a pre-allocated {@link Vec3} in which to return the computed X,
  * Y and Z Cartesian coordinates.
  * @returns {Vec3} The result argument.
- * @throws {ArgumentError} If the specified result argument is null or undefined.
  */
 Globe.prototype.computePointFromPosition = function (latitude, longitude, altitude, result) {
     return this.projection.geographicToCartesian(this, latitude, longitude, altitude, this.offsetVector, result);
@@ -207,7 +204,6 @@ Globe.prototype.computePointFromPosition = function (latitude, longitude, altitu
  * @param {Vec3} result A reference to a pre-allocated {@link Vec3} in which to return the computed X,
  * Y and Z Cartesian coordinates.
  * @returns {Vec3} The result argument.
- * @throws {ArgumentError} If the specified result argument is null or undefined.
  */
 Globe.prototype.computePointFromLocation = function (latitude, longitude, result) {
     return this.computePointFromPosition(latitude, longitude, 0, result);
@@ -236,8 +232,6 @@ Globe.prototype.computePointFromLocation = function (latitude, longitude, result
  * @param {Float32Array} result A typed array to hold the computed coordinates. It must be at least of
  * size numLat x numLon. The points are returned in row major order, beginning with the row of minimum latitude.
  * @returns {Float32Array} The specified result argument.
- * @throws {ArgumentError} if the specified sector, elevations array or results arrays are null or undefined, or
- * if the lengths of any of the arrays are insufficient.
  */
 Globe.prototype.computePointsForGrid = function (sector, numLat, numLon, elevations, referencePoint, result) {
     return this.projection.geographicToCartesianGrid(this, sector, numLat, numLon, elevations, referencePoint,
@@ -254,7 +248,6 @@ Globe.prototype.computePointsForGrid = function (sector, numLat, numLon, elevati
  * @param {Number} z The Z coordinate.
  * @param {Position} result A pre-allocated {@link Position} instance in which to return the computed position.
  * @returns {Position} The specified result position.
- * @throws {ArgumentError} If the specified result argument is null or undefined.
  */
 Globe.prototype.computePositionFromPoint = function (x, y, z, result) {
     this.projection.cartesianToGeographic(this, x, y, z, this.offsetVector, result);
@@ -290,8 +283,6 @@ Globe.prototype.radiusAt = function (latitude, longitude) {
  * @param {Number} longitude The location's longitude.
  * @param {Vec3} result A pre-allocated {@Link Vec3} instance in which to return the computed vector. The returned
  * normal vector is unit length.
- * @returns {Vec3} The specified result vector.  The returned normal vector is unit length.
- * @throws {ArgumentError} If the specified result argument is null or undefined.
  */
 Globe.prototype.surfaceNormalAtLocation = function (latitude, longitude, result) {
     // For backwards compatibility, check whether the projection defines a surfaceNormalAtLocation function
@@ -328,7 +319,6 @@ Globe.prototype.surfaceNormalAtLocation = function (latitude, longitude, result)
  * @param {Vec3} result A pre-allocated {@Link Vec3} instance in which to return the computed vector. The returned
  * normal vector is unit length.
  * @returns {Vec3} The specified result vector.
- * @throws {ArgumentError} If the specified result argument is null or undefined.
  */
 Globe.prototype.surfaceNormalAtPoint = function (x, y, z, result) {
     // For backwards compatibility, check whether the projection defines a surfaceNormalAtPoint function
@@ -362,7 +352,6 @@ Globe.prototype.surfaceNormalAtPoint = function (x, y, z, result) {
  * @param {Vec3} result A pre-allocated {@Link Vec3} instance in which to return the computed vector. The returned
  * tangent vector is unit length.
  * @returns {Vec3} The specified result vector.
- * @throws {ArgumentError} If the specified result argument is null or undefined.
  */
 Globe.prototype.northTangentAtLocation = function (latitude, longitude, result) {
     return this.projection.northTangentAtLocation(this, latitude, longitude, result);
@@ -376,7 +365,6 @@ Globe.prototype.northTangentAtLocation = function (latitude, longitude, result) 
  * @param {Vec3} result A pre-allocated {@Link Vec3} instance in which to return the computed vector. The returned
  * tangent vector is unit length.
  * @returns {Vec3} The specified result vector.
- * @throws {ArgumentError} If the specified result argument is null or undefined.
  */
 Globe.prototype.northTangentAtPoint = function (x, y, z, result) {
     return this.projection.northTangentAtPoint(this, x, y, z, this.offsetVector, result);
@@ -386,7 +374,6 @@ Globe.prototype.northTangentAtPoint = function (x, y, z, result) {
  * Indicates whether this globe intersects a specified frustum.
  * @param {Frustum} frustum The frustum to test.
  * @returns {Boolean} true if this globe intersects the frustum, otherwise false.
- * @throws {ArgumentError} If the specified frustum is null or undefined.
  */
 Globe.prototype.intersectsFrustum = function (frustum) {
     if (this.is2D()) {
@@ -419,7 +406,6 @@ Globe.prototype.intersectsFrustum = function (frustum) {
  * @param {Line} line The line to intersect with this globe.
  * @param {Vec3} result A pre-allocated Vec3 in which to return the computed point.
  * @returns {boolean} true If the ray intersects the globe, otherwise false.
- * @throws {ArgumentError} If the specified line or result argument is null or undefined.
  */
 Globe.prototype.intersectsLine = function (line, result) {
     // Taken from "Mathematics for 3D Game Programming and Computer Graphics, Third Edition", Section 6.2.3.
@@ -513,7 +499,6 @@ Globe.prototype.maxElevation = function () {
  * Returns the minimum and maximum elevations within a specified sector of this globe.
  * @param {Sector} sector The sector for which to determine extreme elevations.
  * @returns {Number[]} The An array containing the minimum and maximum elevations.
- * @throws {ArgumentError} If the specified sector is null or undefined.
  */
 Globe.prototype.minAndMaxElevationsForSector = function (sector) {
     return this.elevationModel.minAndMaxElevationsForSector(sector);
@@ -540,8 +525,6 @@ Globe.prototype.elevationAtLocation = function (latitude, longitude) {
  * @param {Number[]} result An array in which to return the requested elevations.
  * @returns {Number} The resolution actually achieved, which may be greater than that requested if the
  * elevation data for the requested resolution is not currently available.
- * @throws {ArgumentError} If the specified sector or result array is null or undefined, or if either of the
- * specified numLat or numLon values is less than one.
  */
 Globe.prototype.elevationsForGrid = function (sector, numLat, numLon, targetResolution, result) {
     return this.elevationModel.elevationsForGrid(sector, numLat, numLon, targetResolution, result);

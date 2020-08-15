@@ -17,7 +17,6 @@
 /**
  * @exports DrawContext
  */
-import ArgumentError from '../error/ArgumentError';
 import Color from '../util/Color';
 import FramebufferTexture from '../render/FramebufferTexture';
 import FramebufferTileController from '../render/FramebufferTileController';
@@ -47,7 +46,6 @@ import WWMath from '../util/WWMath';
  * @classdesc Provides current state during rendering. The current draw context is passed to most rendering
  * methods in order to make those methods aware of current state.
  * @param {WebGLRenderingContext} gl The WebGL rendering context this draw context is associated with.
- * @throws {ArgumentError} If the specified WebGL rendering context is null or undefined.
  */
 function DrawContext(gl) {
     /**
@@ -509,7 +507,6 @@ DrawContext.prototype.bindProgram = function (program) {
  * This function also makes the program the current program.
  * @param {function} programConstructor The constructor to use to create the program.
  * @returns {GpuProgram} The bound program.
- * @throws {ArgumentError} If the specified constructor is null or undefined.
  */
 DrawContext.prototype.findAndBindProgram = function (programConstructor) {
     var program = this.gpuResourceCache.resourceForKey(programConstructor.key);
@@ -1230,7 +1227,6 @@ DrawContext.prototype.unitQuadBuffer3 = function () {
  * specified mode is null, undefined or unrecognized, or if the specified location is outside this terrain.
  * @param {Vec3} result A pre-allocated Vec3 in which to return the computed point.
  * @returns {Vec3} The specified result parameter, set to the coordinates of the computed point.
- * @throws {ArgumentError} If the specified result argument is null or undefined.
  */
 DrawContext.prototype.surfacePointForMode = function (latitude, longitude, offset, altitudeMode, result) {
     if (this.terrain) {
@@ -1257,7 +1253,6 @@ DrawContext.prototype.surfacePointForMode = function (latitude, longitude, offse
  * @param {Vec3} modelPoint The model coordinate point to project.
  * @param {Vec3} result A pre-allocated vector in which to return the projected point.
  * @returns {boolean} true if the transformation is successful, otherwise false.
- * @throws {ArgumentError} If either the specified point or result argument is null or undefined.
  */
 DrawContext.prototype.project = function (modelPoint, result) {
     // Transform the model point from model coordinates to eye coordinates then to clip coordinates. This
@@ -1328,7 +1323,6 @@ DrawContext.prototype.project = function (modelPoint, result) {
  * @param {Number} depthOffset The amount of offset to apply.
  * @param {Vec3} result A pre-allocated vector in which to return the projected point.
  * @returns {boolean} true if the transformation is successful, otherwise false.
- * @throws {ArgumentError} If either the specified point or result argument is null or undefined.
  */
 DrawContext.prototype.projectWithDepth = function (modelPoint, depthOffset, result) {
     // Transform the model point from model coordinates to eye coordinates. The eye coordinate and the clip
@@ -1406,7 +1400,6 @@ DrawContext.prototype.projectWithDepth = function (modelPoint, depthOffset, resu
  * @param {Vec2} point The window-coordinate point to convert.
  * @param {Vec2} result A pre-allocated {@link Vec2} in which to return the computed point.
  * @returns {Vec2} The specified result argument set to the computed point.
- * @throws {ArgumentError} If either argument is null or undefined.
  */
 DrawContext.prototype.convertPointToViewport = function (point, result) {
     result[0] = point[0];
@@ -1503,7 +1496,6 @@ DrawContext.prototype.computeTextTextureStateKey = function (text, attributes) {
  *
  * @param {String} extensionName The name of the WebGL extension.
  * @returns {Object|null} A WebGL extension object, or null if the extension is not available.
- * @throws {ArgumentError} If the argument is null or undefined.
  */
 DrawContext.prototype.getExtension = function (extensionName) {
     if (!(extensionName in this.glExtensionsCache)) {

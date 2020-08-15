@@ -17,7 +17,6 @@
 /**
  * @exports ScreenText
  */
-import ArgumentError from '../error/ArgumentError';
 import Logger from '../util/Logger';
 import Offset from '../util/Offset';
 import Text from '../shapes/Text';
@@ -36,7 +35,6 @@ import Text from '../shapes/Text';
  * Use [TextAttributes.offset]{@link TextAttributes#offset} to position the text relative to the specified
  * screen offset.
  * @param {String} text The text to display.
- * @throws {ArgumentError} If either the specified screen offset or text is null or undefined.
  */
 function ScreenText(screenOffset, text) {
     Text.call(this, text);

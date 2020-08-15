@@ -17,7 +17,6 @@
 /**
  * @exports Plane
  */
-import ArgumentError from '../error/ArgumentError';
 import Line from '../geom/Line';
 import Logger from '../util/Logger';
 import Vec3 from '../geom/Vec3';
@@ -62,8 +61,6 @@ function Plane(x, y, z, distance) {
  * @param {Vec3} pc The third point.
  *
  * @return {Plane} A plane passing through the specified points.
- *
- * @throws {ArgumentError} if pa, pb, or pc is null or undefined.
  */
 Plane.fromPoints = function (pa, pb, pc) {
     var vab = new Vec3(pb[0], pb[1], pb[2]);
@@ -83,7 +80,6 @@ Plane.fromPoints = function (pa, pb, pc) {
  * the plane.
  * @param {Vec3} vector The vector to dot with this plane's normal vector.
  * @returns {Number} The computed dot product.
- * @throws {ArgumentError} If the specified vector is null or undefined.
  */
 Plane.prototype.dot = function (vector) {
     return this.normal.dot(vector) + this.distance;
@@ -93,7 +89,6 @@ Plane.prototype.dot = function (vector) {
  * Computes the distance between this plane and a point.
  * @param {Vec3} point The point whose distance to compute.
  * @returns {Number} The computed distance.
- * @throws {ArgumentError} If the specified point is null or undefined.
  */
 Plane.prototype.distanceToPoint = function (point) {
     return this.dot(point);
@@ -103,7 +98,6 @@ Plane.prototype.distanceToPoint = function (point) {
  * Transforms this plane by a specified matrix.
  * @param {Matrix} matrix The matrix to apply to this plane.
  * @returns {Plane} This plane transformed by the specified matrix.
- * @throws {ArgumentError} If the specified matrix is null or undefined.
  */
 Plane.prototype.transformByMatrix = function (matrix) {
     var x = matrix[0] * this.normal[0] + matrix[1] * this.normal[1] + matrix[2] * this.normal[2] + matrix[3] * this.distance,
@@ -194,8 +188,6 @@ Plane.prototype.intersectsSegmentAt = function (endPoint1, endPoint2, result) {
  *
  * @return {Number} -1 If both points are on the negative side of this plane, +1 if both points are on the
  * positive side of this plane, 0 if the points are on opposite sides of this plane.
- *
- * @throws {ArgumentError} If either point is null or undefined.
  */
 Plane.prototype.onSameSide = function (pointA, pointB) {
     var da = this.distanceToPoint(pointA),
@@ -222,8 +214,6 @@ Plane.prototype.onSameSide = function (pointA, pointB) {
  *         array will be the original segment's begin point, and the second point will be the intersection point on
  *         the plane. If the segment does not intersect the plane, null is returned. If the segment is coincident
  *         with the plane, the input points are returned, in their input order.
- *
- * @throws {ArgumentError} If either point is null or undefined.
  */
 Plane.prototype.clip = function (pointA, pointB) {
     if (pointA.equals(pointB)) {

@@ -15,7 +15,6 @@
  * limitations under the License.
  */
 import Logger from '../util/Logger';
-import ArgumentError from '../error/ArgumentError';
 import Vec3 from '../geom/Vec3';
 
 
@@ -54,7 +53,6 @@ Vec2.prototype.set = function (x, y) {
  * Copies the components of a specified vector to this vector.
  * @param {Vec2} vector The vector to copy.
  * @returns {Vec2} This vector set to the values of the specified vector.
- * @throws {ArgumentError} If the specified vector is null or undefined.
  */
 Vec2.prototype.copy = function (vector) {
     this[0] = vector[0];
@@ -78,8 +76,6 @@ Vec2.prototype.equals = function (vector) {
  * @param {Vec2[]} vectors The vectors whose average to compute.
  * @param {Vec2} result A pre-allocated Vec2 in which to return the computed average.
  * @returns {Vec2} The result argument set to the average of the specified lists of vectors.
- * @throws {ArgumentError} If the specified array of vectors is null, undefined or empty, or the specified
- * result argument is null or undefined.
  */
 Vec2.average = function (vectors, result) {
     var count = vectors.length,
@@ -102,7 +98,6 @@ Vec2.average = function (vectors, result) {
  * Adds a vector to this vector.
  * @param {Vec2} addend The vector to add to this one.
  * @returns {Vec2} This vector after adding the specified vector to it.
- * @throws {ArgumentError} If the specified addend is null or undefined.
  */
 Vec2.prototype.add = function (addend) {
     this[0] += addend[0];
@@ -115,7 +110,6 @@ Vec2.prototype.add = function (addend) {
  * Subtracts a vector from this vector.
  * @param {Vec2} subtrahend The vector to subtract from this one.
  * @returns {Vec2} This vector after subtracting the specified vector from it.
- * @throws {ArgumentError} If the subtrahend is null or undefined.
  */
 Vec2.prototype.subtract = function (subtrahend) {
     this[0] -= subtrahend[0];
@@ -153,7 +147,6 @@ Vec2.prototype.divide = function (divisor) {
  * @param {Vec2} vector The vector to mix.
  * @param {Number} weight The relative weight of this vector.
  * @returns {Vec2} This vector modified to the mix of itself and the specified vector.
- * @throws {ArgumentError} If the specified vector is null or undefined.
  */
 Vec2.prototype.mix = function (vector, weight) {
     var w0 = 1 - weight,
@@ -180,7 +173,6 @@ Vec2.prototype.negate = function () {
  * Computes the scalar dot product of this vector and a specified vector.
  * @param {Vec2} vector The vector to multiply.
  * @returns {Number} The scalar dot product of the vectors.
- * @throws {ArgumentError} If the specified vector is null or undefined.
  */
 Vec2.prototype.dot = function (vector) {
     return this[0] * vector[0] + this[1] * vector[1];
@@ -220,7 +212,6 @@ Vec2.prototype.normalize = function () {
  * Computes the squared distance from this vector to a specified vector.
  * @param {Vec2} vector The vector to compute the distance to.
  * @returns {Number} The squared distance between the vectors.
- * @throws {ArgumentError} If the specified vector is null or undefined.
  */
 Vec2.prototype.distanceToSquared = function (vector) {
     var dx = this[0] - vector[0],
@@ -233,7 +224,6 @@ Vec2.prototype.distanceToSquared = function (vector) {
  * Computes the distance from this vector to a specified vector.
  * @param {Vec2} vector The vector to compute the distance to.
  * @returns {Number} The distance between the vectors.
- * @throws {ArgumentError} If the specified vector is null or undefined.
  */
 Vec2.prototype.distanceTo = function (vector) {
     return Math.sqrt(this.distanceToSquared(vector));

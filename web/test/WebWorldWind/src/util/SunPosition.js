@@ -16,7 +16,6 @@
  */
 
 import Angle from '../geom/Angle';
-import ArgumentError from '../error/ArgumentError';
 import Logger from './Logger';
 import WWMath from './WWMath';
 
@@ -30,7 +29,6 @@ var SunPosition = {
     /**
      * Computes the geographic location of the sun for a given date
      * @param {Date} date
-     * @throws {ArgumentError} if the date is missing
      * @return {{latitude: Number, longitude: Number}} the geographic location
      */
     getAsGeographicLocation: function (date) {
@@ -41,7 +39,6 @@ var SunPosition = {
     /**
      * Computes the celestial location of the sun for a given julianDate
      * @param {Date} date
-     * @throws {ArgumentError} if the date is missing
      * @return {{declination: Number, rightAscension: Number}} the celestial location
      */
     getAsCelestialLocation: function (date) {
@@ -82,7 +79,6 @@ var SunPosition = {
      * (latitude, longitude) for a given julian date
      * @param {{declination: Number, rightAscension: Number}} celestialLocation
      * @param {Date} date
-     * @throws {ArgumentError} if celestialLocation or julianDate are missing
      * @return {{latitude: Number, longitude: Number}} the geographic location
      */
     celestialToGeographic: function (celestialLocation, date) {
@@ -108,7 +104,6 @@ var SunPosition = {
     /**
      * Computes the julian date from a javascript date object
      * @param {Date} date
-     * @throws {ArgumentError} if the date is missing
      * @return {Number} the julian date
      */
     computeJulianDate: function (date) {

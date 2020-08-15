@@ -15,8 +15,6 @@
  * limitations under the License.
  */
 import Logger from '../util/Logger';
-import ArgumentError from '../error/ArgumentError';
-
 
 /**
  * Constructs a three-component vector.
@@ -49,8 +47,6 @@ Vec3.ZERO = new Vec3(0, 0, 0);
  * @param {Vec3[]} vectors The vectors whose average to compute.
  * @param {Vec3} result A pre-allocated Vec3 in which to return the computed average.
  * @returns {Vec3} The result argument set to the average of the specified array of vectors.
- * @throws {ArgumentError} If the specified array of vectors is null, undefined or empty or the specified
- * result argument is null or undefined.
  */
 Vec3.average = function (vectors, result) {
     var count = vectors.length,
@@ -76,8 +72,6 @@ Vec3.average = function (vectors, result) {
  * @param {Float32Array | Float64Array | Number[]} points The points whose average to compute.
  * @param {Vec3} result A pre-allocated Vec3 in which to return the computed average.
  * @returns {Vec3} The result argument set to the average of the specified array of points.
- * @throws {ArgumentError} If the specified array of points is null, undefined or empty or the result argument
- * is null or undefined.
  */
 Vec3.averageOfBuffer = function (points, result) {
     var count = points.length / 3;
@@ -101,7 +95,6 @@ Vec3.averageOfBuffer = function (points, result) {
  * @param {Vec3} b The second vector.
  * @param {Vec3} c The third vector.
  * @returns {Boolean} true if the vectors are colinear, otherwise false.
- * @throws {ArgumentError} If any of the specified vectors are null or undefined.
  */
 Vec3.areColinear = function (a, b, c) {
     var ab = new Vec3(a[0] - b[0], a[1] - b[1], a[2] - b[2]).normalize(),
@@ -118,7 +111,6 @@ Vec3.areColinear = function (a, b, c) {
  * @param {Vec3} b The triangle's second vertex.
  * @param {Vec3} c The triangle's third vertex.
  * @returns {Vec3} The triangle's unit-normal vector.
- * @throws {ArgumentError} If any of the specified vectors are null or undefined.
  */
 Vec3.computeTriangleNormal = function (a, b, c) {
     var x = (b[1] - a[1]) * (c[2] - a[2]) - (b[2] - a[2]) * (c[1] - a[1]),
@@ -220,7 +212,6 @@ Vec3.prototype.set = function (x, y, z) {
  * Copies the components of a specified vector to this vector.
  * @param {Vec3} vector The vector to copy.
  * @returns {Vec3} This vector set to the X, Y and Z values of the specified vector.
- * @throws {ArgumentError} If the specified vector is null or undefined.
  */
 Vec3.prototype.copy = function (vector) {
     this[0] = vector[0];
@@ -244,7 +235,6 @@ Vec3.prototype.equals = function (vector) {
  * Adds a specified vector to this vector.
  * @param {Vec3} addend The vector to add.
  * @returns {Vec3} This vector after adding the specified vector to it.
- * @throws {ArgumentError} If the addend is null or undefined.
  */
 Vec3.prototype.add = function (addend) {
     this[0] += addend[0];
@@ -258,7 +248,6 @@ Vec3.prototype.add = function (addend) {
  * Subtracts a specified vector from this vector.
  * @param {Vec3} subtrahend The vector to subtract
  * @returns {Vec3} This vector after subtracting the specified vector from it.
- * @throws {ArgumentError} If the subtrahend is null or undefined.
  */
 Vec3.prototype.subtract = function (subtrahend) {
     this[0] -= subtrahend[0];
@@ -300,7 +289,6 @@ Vec3.prototype.divide = function (divisor) {
  *
  * @param {Matrix} matrix The matrix to multiply this vector by.
  * @returns {Vec3} This vector multiplied by the specified matrix.
- * @throws ArgumentError If the specified matrix is null or undefined.
  */
 Vec3.prototype.multiplyByMatrix = function (matrix) {
     var x = matrix[0] * this[0] + matrix[1] * this[1] + matrix[2] * this[2] + matrix[3],
@@ -320,7 +308,6 @@ Vec3.prototype.multiplyByMatrix = function (matrix) {
  * @param {Vec3} vector The vector to mix with this one.
  * @param {Number} weight The relative weight of this vector.
  * @returns {Vec3} This vector modified to the mix of itself and the specified vector.
- * @throws {ArgumentError} If the specified vector is null or undefined.
  */
 Vec3.prototype.mix = function (vector, weight) {
     var w0 = 1 - weight,
@@ -349,7 +336,6 @@ Vec3.prototype.negate = function () {
  * Computes the scalar dot product of this vector and a specified vector.
  * @param {Vec3} vector The vector to multiply.
  * @returns {Number} The dot product of the two vectors.
- * @throws {ArgumentError} If the specified vector is null or undefined.
  */
 Vec3.prototype.dot = function (vector) {
     return this[0] * vector[0] +
@@ -361,7 +347,6 @@ Vec3.prototype.dot = function (vector) {
  * Computes the cross product of this vector and a specified vector, modifying this vector.
  * @param {Vec3} vector The vector to cross with this vector.
  * @returns {Vec3} This vector set to the cross product of itself and the specified vector.
- * @throws {ArgumentError} If the specified vector is null or undefined.
  */
 Vec3.prototype.cross = function (vector) {
     var x = this[1] * vector[2] - this[2] * vector[1],
@@ -410,7 +395,6 @@ Vec3.prototype.normalize = function () {
  * Computes the squared distance from this vector to a specified vector.
  * @param {Vec3} vector The vector to compute the distance to.
  * @returns {Number} The squared distance between the vectors.
- * @throws {ArgumentError} If the specified vector is null or undefined.
  */
 Vec3.prototype.distanceToSquared = function (vector) {
     var dx = this[0] - vector[0],
@@ -424,7 +408,6 @@ Vec3.prototype.distanceToSquared = function (vector) {
  * Computes the distance from this vector to another vector.
  * @param {Vec3} vector The vector to compute the distance to.
  * @returns {number} The distance between the vectors.
- * @throws {ArgumentError} If the specified vector is null or undefined.
  */
 Vec3.prototype.distanceTo = function (vector) {
     return Math.sqrt(this.distanceToSquared(vector));

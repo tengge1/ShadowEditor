@@ -17,7 +17,6 @@
 /**
  * @exports Terrain
  */
-import ArgumentError from '../error/ArgumentError';
 import Logger from '../util/Logger';
 import Vec3 from '../geom/Vec3';
 
@@ -81,7 +80,6 @@ Terrain.scratchPoint = new Vec3(0, 0, 0);
  * @param {Vec3} result A pre-allocated Vec3 in which to return the computed point.
  * @returns {Vec3} The specified result parameter, set to the coordinates of the computed point. If the
  * specfied location is not within this terrain, the associated globe is used to compute the point.
- * @throws {ArgumentError} If the specified result argument is null or undefined.
  */
 Terrain.prototype.surfacePoint = function (latitude, longitude, offset, result) {
     for (var i = 0, len = this.surfaceGeometry.length; i < len; i++) {
@@ -119,7 +117,6 @@ Terrain.prototype.surfacePoint = function (latitude, longitude, offset, result) 
  * specified mode is null, undefined or unrecognized, or if the specified location is outside this terrain.
  * @param {Vec3} result A pre-allocated Vec3 in which to return the computed point.
  * @returns {Vec3} The specified result parameter, set to the coordinates of the computed point.
- * @throws {ArgumentError} If the specified result argument is null or undefined.
  */
 Terrain.prototype.surfacePointForMode = function (latitude, longitude, offset, altitudeMode, result) {
     if (!altitudeMode)
@@ -160,7 +157,6 @@ Terrain.prototype.endRendering = function (dc) {
  * Initializes rendering state for drawing a specified terrain tile.
  * @param {DrawContext} dc The current draw context.
  * @param {TerrainTile} terrainTile The terrain tile subsequently drawn via this tessellator's render function.
- * @throws {ArgumentError} If the specified tile is null or undefined.
  */
 Terrain.prototype.beginRenderingTile = function (dc, terrainTile) {
     if (this.globe && this.globe.tessellator) {
@@ -173,7 +169,6 @@ Terrain.prototype.beginRenderingTile = function (dc, terrainTile) {
  * [beginRenderingTile]{@link Terrain#beginRenderingTile}.
  * @param {DrawContext} dc The current draw context.
  * @param {TerrainTile} terrainTile The terrain tile most recently rendered.
- * @throws {ArgumentError} If the specified tile is null or undefined.
  */
 Terrain.prototype.endRenderingTile = function (dc, terrainTile) {
     // Intentionally empty.
@@ -183,7 +178,6 @@ Terrain.prototype.endRenderingTile = function (dc, terrainTile) {
  * Renders a specified terrain tile.
  * @param {DrawContext} dc The current draw context.
  * @param {TerrainTile} terrainTile The terrain tile to render.
- * @throws {ArgumentError} If the specified tile is null or undefined.
  */
 Terrain.prototype.renderTile = function (dc, terrainTile) {
     if (this.globe && this.globe.tessellator) {

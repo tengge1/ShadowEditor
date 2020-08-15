@@ -17,7 +17,6 @@
 /**
  * @exports FramebufferTexture
  */
-import ArgumentError from '../error/ArgumentError';
 import Logger from '../util/Logger';
 import '../util/WWMath';
 
@@ -37,8 +36,6 @@ import '../util/WWMath';
  * @param {Number} height The height of the framebuffer, in pixels.
  * @param {Boolean} depth true to configure the framebuffer with a depth buffer of at least 16 bits, false to
  * disable depth buffering.
- * @throws {ArgumentError} If the specified draw context is null or undefined, or if the width or height is less
- * than zero.
  */
 function FramebufferTexture(gl, width, height, depth) {
     /**

@@ -18,8 +18,6 @@
  * @exports Matrix
  */
 import Angle from '../geom/Angle';
-import ArgumentError from '../error/ArgumentError';
-import Logger from '../util/Logger';
 import Position from '../geom/Position';
 import Vec3 from '../geom/Vec3';
 import WWMath from '../util/WWMath';
@@ -92,8 +90,6 @@ Matrix.fromIdentity = function () {
  * @param {Vec3} axis1 A vector in which to return the first (longest) principal axis.
  * @param {Vec3} axis2 A vector in which to return the second (mid-length) principal axis.
  * @param {Vec3} axis3 A vector in which to return the third (shortest) principal axis.
- * @throws {ArgumentError} If the specified points array is null, undefined or empty, or one of the
- * specified axes arguments is null or undefined.
  */
 Matrix.principalAxesFromPoints = function (points, axis1, axis2, axis3) {
     // Compute the covariance matrix.
@@ -181,7 +177,6 @@ Matrix.prototype.setToIdentity = function () {
  * Copies the components of a specified matrix to this matrix.
  * @param {Matrix} matrix The matrix to copy.
  * @returns {Matrix} This matrix set to the values of the specified matrix.
- * @throws {ArgumentError} If the specified matrix is null or undefined.
  */
 Matrix.prototype.copy = function (matrix) {
     this[0] = matrix[0];
@@ -249,7 +244,6 @@ Matrix.prototype.equals = function (matrix) {
  * @param {Float32Array | Float64Array | Number[]} result An array of at least 16 elements. Upon return,
  * contains this matrix's components in column-major.
  * @returns {Float32Array} The specified result array.
- * @throws {ArgumentError} If the specified result array in null or undefined.
  */
 Matrix.prototype.columnMajorComponents = function (result) {
     // Column 1
@@ -370,7 +364,6 @@ Matrix.prototype.setScale = function (xScale, yScale, zScale) {
  * Sets this matrix to the transpose of a specified matrix.
  * @param {Matrix} matrix The matrix whose transpose is to be copied.
  * @returns {Matrix} This matrix, with its values set to the transpose of the specified matrix.
- * @throws {ArgumentError} If the specified matrix in null or undefined.
  */
 Matrix.prototype.setToTransposeOfMatrix = function (matrix) {
     this[0] = matrix[0];
@@ -398,7 +391,6 @@ Matrix.prototype.setToTransposeOfMatrix = function (matrix) {
  * @param {Matrix} matrixA The first matrix multiplicand.
  * @param {Matrix} matrixB The second matrix multiplicand.
  * @returns {Matrix} This matrix set to the product of matrixA x matrixB.
- * @throws {ArgumentError} If either specified matrix is null or undefined.
  */
 Matrix.prototype.setToMultiply = function (matrixA, matrixB) {
     var ma = matrixA,
@@ -442,7 +434,6 @@ Matrix.prototype.setToMultiply = function (matrixA, matrixB) {
  * distributed evenly about its mean point.
  * @param {Float32Array | Float64Array | Number[]} points The points to consider.
  * @returns {Matrix} This matrix set to the covariance matrix for the specified list of points.
- * @throws {ArgumentError} If the specified array of points is null, undefined or empty.
  */
 Matrix.prototype.setToCovarianceOfPoints = function (points) {
     var mean,
@@ -603,8 +594,6 @@ Matrix.prototype.setToUnitYFlip = function () {
  *
  * @param {Vec3} origin The local coordinate system origin, in model coordinates.
  * @param {Globe} globe The globe the coordinate system is relative to.
- *
- * @throws {ArgumentError} If either argument is null or undefined.
  */
 Matrix.prototype.multiplyByLocalCoordinateTransform = function (origin, globe) {
     var xAxis = new Vec3(0, 0, 0),
@@ -630,8 +619,6 @@ Matrix.prototype.multiplyByLocalCoordinateTransform = function (origin, globe) {
  * non-power-of-two dimensions, and correctly orients textures whose image data has its origin in the upper-left corner.
  *
  * @param {Texture} texture The texture to multiply a transform for.
- *
- * @throws {ArgumentError} If the texture is null or undefined.
  */
 Matrix.prototype.multiplyByTextureTransform = function (texture) {
     // Compute the scale necessary to map the edge of the image data to the range [0,1]. When the texture contains
@@ -655,7 +642,6 @@ Matrix.prototype.multiplyByTextureTransform = function (texture) {
  * Returns the translation components of this matrix.
  * @param {Vec3} result A pre-allocated {@link Vec3} in which to return the translation components.
  * @returns {Vec3} The specified result argument set to the translation components of this matrix.
- * @throws {ArgumentError} If the specified result argument is null or undefined.
  */
 Matrix.prototype.extractTranslation = function (result) {
     result[0] = this[3];
@@ -670,7 +656,6 @@ Matrix.prototype.extractTranslation = function (result) {
  * @param {Vec3} result A pre-allocated {@link Vec3} in which to return the rotation angles.
  * @returns {Vec3} The specified result argument set to the rotation angles of this matrix. The angles are in
  * degrees.
- * @throws {ArgumentError} If the specified result argument is null or undefined.
  */
 Matrix.prototype.extractRotationAngles = function (result) {
     // Taken from Extracting Euler Angles from a Rotation Matrix by Mike Day, Insomniac Games.
@@ -713,8 +698,6 @@ Matrix.prototype.extractRotationAngles = function (result) {
  * @param {Number} tilt The viewer's angle relative to the surface, in degrees.
  * @param {Number} roll The viewer's angle relative to the horizon, in degrees.
  * @param {Globe} globe The globe the viewer is looking at.
- *
- * @throws {ArgumentError} If the specified position or globe is null or undefined.
  */
 Matrix.prototype.multiplyByFirstPersonModelview = function (eyePosition, heading, tilt, roll, globe) {
     var c,
@@ -813,9 +796,6 @@ Matrix.prototype.multiplyByFirstPersonModelview = function (eyePosition, heading
  * @param {Number} tilt The viewer's angle relative to the surface, in degrees.
  * @param {Number} roll The viewer's angle relative to the horizon, in degrees.
  * @param {Globe} globe The globe the viewer is looking at.
- *
- * @throws {ArgumentError} If either the specified look-at position or globe is null or undefined, or the
- * specified range is less than zero.
  */
 Matrix.prototype.multiplyByLookAtModelview = function (lookAtPosition, range, heading, tilt, roll, globe) {
     // Translate the eye point along the positive z axis while keeping the look at point in the center of the viewport.
@@ -842,8 +822,6 @@ Matrix.prototype.multiplyByLookAtModelview = function (lookAtPosition, range, he
  * @param {Number} viewportHeight The viewport height, in screen coordinates.
  * @param {Number} nearDistance The near clip plane distance, in model coordinates.
  * @param {Number} farDistance The far clip plane distance, in model coordinates.
- * @throws {ArgumentError} If the specified width or height is less than or equal to zero, if the near and far
- * distances are equal, or if either the near or far distance are less than or equal to zero.
  */
 Matrix.prototype.setToPerspectiveProjection = function (viewportWidth, viewportHeight, nearDistance, farDistance) {
     // Compute the dimensions of the viewport rectangle at the near distance.
@@ -891,7 +869,6 @@ Matrix.prototype.setToPerspectiveProjection = function (viewportWidth, viewportH
  *
  * @param {Number} viewportWidth The viewport width, in screen coordinates.
  * @param {Number} viewportHeight The viewport height, in screen coordinates.
- * @throws {ArgumentError} If the specified width or height is less than or equal to zero.
  */
 Matrix.prototype.setToScreenProjection = function (viewportWidth, viewportHeight) {
     // Taken from Mathematics for 3D Game Programming and Computer Graphics, Second Edition, equation 4.57.
@@ -946,7 +923,6 @@ Matrix.prototype.setToScreenProjection = function (viewportWidth, viewportHeight
  *
  * @param {Vec3} result A pre-allocated {@link Vec3} in which to return the extracted values.
  * @return {Vec3} The specified result argument containing the viewing matrix's eye point, in model coordinates.
- * @throws {ArgumentError} If the specified result argument is null or undefined.
  */
 Matrix.prototype.extractEyePoint = function (result) {
     // The eye point of a modelview matrix is computed by transforming the origin (0, 0, 0, 1) by the matrix's inverse.
@@ -967,7 +943,6 @@ Matrix.prototype.extractEyePoint = function (result) {
  *
  * @param {Vec3} result A pre-allocated {@link Vec3} in which to return the extracted values.
  * @return {Vec3} The specified result argument containing the viewing matrix's forward vector, in model coordinates.
- * @throws {ArgumentError} If the specified result argument is null or undefined.
  */
 Matrix.prototype.extractForwardVector = function (result) {
     // The forward vector of a modelview matrix is computed by transforming the negative Z axis (0, 0, -1, 0) by the
@@ -1005,9 +980,6 @@ Matrix.prototype.extractForwardVector = function (result) {
  * @param {Object} result A pre-allocated object in which to return the viewing parameters.
  *
  * @return {Object} The specified result argument containing a parameterization of this viewing matrix.
- *
- * @throws {ArgumentError} If either the specified origin or globe are null or undefined or the specified
- * result argument is null or undefined.
  */
 Matrix.prototype.extractViewingParameters = function (origin, roll, globe, result) {
     var originPos = new Position(0, 0, 0),
@@ -1093,7 +1065,6 @@ Matrix.prototype.offsetProjectionDepth = function (depthOffset) {
  *
  * @param {Matrix} matrix The matrix to multiply with this matrix.
  * @returns {Matrix} This matrix after multiplying it by the specified matrix.
- * @throws {ArgumentError} if the specified matrix is null or undefined.
  */
 Matrix.prototype.multiplyMatrix = function (matrix) {
     var ma = this,
@@ -1224,8 +1195,6 @@ Matrix.prototype.multiply = function (m00, m01, m02, m03,
  *
  * @param {Matrix} matrix The matrix whose inverse is computed.
  * @returns {Matrix} This matrix set to the inverse of the specified matrix.
- *
- * @throws {ArgumentError} If the specified matrix is null, undefined or cannot be inverted.
  */
 Matrix.prototype.invertMatrix = function (matrix) {
     // Copy the specified matrix into a mutable two-dimensional array.
@@ -1437,8 +1406,6 @@ Matrix.ludcmp = function (A, index) {
  * @param {Matrix} matrix The matrix whose inverse is computed. This matrix is assumed to represent an
  * orthonormal transform matrix.
  * @returns {Matrix} This matrix set to the inverse of the specified matrix.
- *
- * @throws {ArgumentError} If the specified matrix is null or undefined.
  */
 Matrix.prototype.invertOrthonormalMatrix = function (matrix) {
     // 'a' is assumed to contain a 3D transformation matrix.
@@ -1478,8 +1445,6 @@ Matrix.prototype.invertOrthonormalMatrix = function (matrix) {
  * @param {Vec3} result1 A pre-allocated vector in which to return the most prominent eigenvector.
  * @param {Vec3} result2 A pre-allocated vector in which to return the second most prominent eigenvector.
  * @param {Vec3} result3 A pre-allocated vector in which to return the least prominent eigenvector.
- *
- * @throws {ArgumentError} if any argument is null or undefined or if this matrix is not symmetric.
  */
 Matrix.prototype.eigensystemFromSymmetricMatrix = function (result1, result2, result3) {
     // Taken from Mathematics for 3D Game Programming and Computer Graphics, Second Edition, listing 14.6.
@@ -1674,7 +1639,6 @@ Matrix.prototype.upper3By3 = function () {
  * @param {Rectangle} viewport The viewport defining the screen point's coordinate system
  * @param {Vec3} result A pre-allocated vector in which to return the unprojected point.
  * @returns {boolean} true if the transformation is successful, otherwise false.
- * @throws {ArgumentError} If either the specified point or result argument is null or undefined.
  */
 Matrix.prototype.unProject = function (screenPoint, viewport, result) {
     var sx = screenPoint[0],

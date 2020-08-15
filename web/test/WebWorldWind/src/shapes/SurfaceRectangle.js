@@ -18,7 +18,6 @@
  * @exports SurfaceRectangle
  */
 import Angle from '../geom/Angle';
-import ArgumentError from '../error/ArgumentError';
 import Location from '../geom/Location';
 import Logger from '../util/Logger';
 import ShapeAttributes from '../shapes/ShapeAttributes';
@@ -49,8 +48,6 @@ import WWMath from '../util/WWMath';
  * @param {Number} heading The rectangle's heading.
  * @param {ShapeAttributes} attributes The attributes to apply to this shape. May be null, in which case
  * attributes must be set directly before the shape is drawn.
- * @throws {ArgumentError} If the specified center location is null or undefined or if either specified width
- * or height is negative.
  */
 function SurfaceRectangle(center, width, height, heading, attributes) {
     SurfaceShape.call(this, attributes);

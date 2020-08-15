@@ -17,7 +17,6 @@
 /**
  * @exports TextRenderer
  */
-import ArgumentError from '../error/ArgumentError';
 import BasicTextureProgram from '../shaders/BasicTextureProgram';
 import Color from '../util/Color';
 import Font from '../util/Font';
@@ -36,7 +35,6 @@ import Vec2 from '../geom/Vec2';
  * not create instances of this class.
  * @param {drawContext} drawContext The current draw context. Typically the same draw context that TextRenderer
  * is attached to.
- * @throws {ArgumentError} If the specified draw context is null or undefined.
  */
 function TextRenderer(drawContext) {
     // Internal use only. Intentionally not documented.

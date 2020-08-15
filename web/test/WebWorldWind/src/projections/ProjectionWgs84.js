@@ -18,7 +18,6 @@
  * @exports ProjectionWgs84
  */
 import Angle from '../geom/Angle';
-import ArgumentError from '../error/ArgumentError';
 import GeographicProjection from '../projections/GeographicProjection';
 import Logger from '../util/Logger';
 import Position from '../geom/Position';

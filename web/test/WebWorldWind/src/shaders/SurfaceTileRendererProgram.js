@@ -17,7 +17,6 @@
 /**
  * @exports SurfaceTileRendererProgram
  */
-import ArgumentError from '../error/ArgumentError';
 import Color from '../util/Color';
 import GpuProgram from '../shaders/GpuProgram';
 import Logger from '../util/Logger';
@@ -111,7 +110,6 @@ SurfaceTileRendererProgram.prototype = Object.create(GpuProgram.prototype);
  *
  * @param {WebGLRenderingContext} gl The current WebGL context.
  * @param {Matrix} matrix The matrix to load.
- * @throws {ArgumentError} If the specified matrix is null or undefined.
  */
 SurfaceTileRendererProgram.prototype.loadModelviewProjection = function (gl, matrix) {
     this.loadUniformMatrix(gl, matrix, this.mvpMatrixLocation);
@@ -122,7 +120,6 @@ SurfaceTileRendererProgram.prototype.loadModelviewProjection = function (gl, mat
  *
  * @param {WebGLRenderingContext} gl The current WebGL context.
  * @param {Matrix} matrix The matrix to load.
- * @throws {ArgumentError} If the specified matrix is null or undefined.
  */
 SurfaceTileRendererProgram.prototype.loadTexSamplerMatrix = function (gl, matrix) {
     this.loadUniformMatrix(gl, matrix, this.texSamplerMatrixLocation);
@@ -133,7 +130,6 @@ SurfaceTileRendererProgram.prototype.loadTexSamplerMatrix = function (gl, matrix
  *
  * @param {WebGLRenderingContext} gl The current WebGL context.
  * @param {Matrix} matrix The matrix to load.
- * @throws {ArgumentError} If the specified matrix is null or undefined.
  */
 SurfaceTileRendererProgram.prototype.loadTexMaskMatrix = function (gl, matrix) {
     this.loadUniformMatrix(gl, matrix, this.texMaskMatrixLocation);
@@ -166,7 +162,6 @@ SurfaceTileRendererProgram.prototype.loadOpacity = function (gl, opacity) {
  *
  * @param {WebGLRenderingContext} gl The current WebGL context.
  * @param {Color} color The color to load.
- * @throws {ArgumentError} If the specified color is null or undefined.
  */
 SurfaceTileRendererProgram.prototype.loadColor = function (gl, color) {
     this.loadUniformColor(gl, color, this.colorLocation);

@@ -15,7 +15,6 @@
  * limitations under the License.
  */
 import AnnotationAttributes from '../shapes/AnnotationAttributes';
-import ArgumentError from '../error/ArgumentError';
 import BasicTextureProgram from '../shaders/BasicTextureProgram';
 import Color from '../util/Color';
 import Font from '../util/Font';
@@ -40,7 +39,6 @@ import WWMath from '../util/WWMath';
  * the annotation's geographic position to the ground.
  * @param {Position} position The annotations's geographic position.
  * @param {AnnotationAttributes} attributes The attributes to associate with this annotation.
- * @throws {ArgumentError} If the specified position is null or undefined.
  */
 function Annotation(position, attributes) {
     Renderable.call(this);

@@ -18,7 +18,6 @@
  * @exports Position
  */
 import Angle from '../geom/Angle';
-import ArgumentError from '../error/ArgumentError';
 import Location from '../geom/Location';
 import Logger from '../util/Logger';
 import WWMath from '../util/WWMath';
@@ -77,7 +76,6 @@ Position.fromRadians = function (latitudeRadians, longitudeRadians, altitude) {
  * Sets this position to the latitude, longitude and altitude of a specified position.
  * @param {Position} position The position to copy.
  * @returns {Position} This position, set to the values of the specified position.
- * @throws {ArgumentError} If the specified position is null or undefined.
  */
 Position.prototype.copy = function (position) {
     this.latitude = position.latitude;
@@ -107,7 +105,6 @@ Position.prototype.equals = function (position) {
  * @param {Position} position2 The ending position.
  * @param {Position} result A Position in which to return the result.
  * @returns {Position} The specified result position.
- * @throws {ArgumentError} If either specified position or the result argument is null or undefined.
  */
 Position.interpolateGreatCircle = function (amount, position1, position2, result) {
     var t = WWMath.clamp(amount, 0, 1);
@@ -127,7 +124,6 @@ Position.interpolateGreatCircle = function (amount, position1, position2, result
  * @param {Position} position2 The ending position.
  * @param {Position} result A Position in which to return the result.
  * @returns {Position} The specified result position.
- * @throws {ArgumentError} If either specified position or the result argument is null or undefined.
  */
 Position.interpolateRhumb = function (amount, position1, position2, result) {
     var t = WWMath.clamp(amount, 0, 1);
@@ -147,7 +143,6 @@ Position.interpolateRhumb = function (amount, position1, position2, result) {
  * @param {Position} position2 The ending position.
  * @param {Position} result A Position in which to return the result.
  * @returns {Position} The specified result position.
- * @throws {ArgumentError} If either specified position or the result argument is null or undefined.
  */
 Position.interpolateLinear = function (amount, position1, position2, result) {
     var t = WWMath.clamp(amount, 0, 1);

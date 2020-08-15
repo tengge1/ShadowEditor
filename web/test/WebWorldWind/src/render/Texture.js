@@ -17,7 +17,6 @@
 /**
  * @exports Texture
  */
-import ArgumentError from '../error/ArgumentError';
 import Logger from '../util/Logger';
 import WWMath from '../util/WWMath';
 
@@ -30,7 +29,6 @@ import WWMath from '../util/WWMath';
  * @param {WebGLRenderingContext} gl The current WebGL rendering context.
  * @param {Image} image The texture's image.
  * @param {GLenum} wrapMode Optional. Specifies the wrap mode of the texture. Defaults to gl.CLAMP_TO_EDGE
- * @throws {ArgumentError} If the specified WebGL context or image is null or undefined.
  */
 function Texture(gl, image, wrapMode) {
     if (!wrapMode) {

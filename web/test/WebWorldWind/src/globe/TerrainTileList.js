@@ -17,7 +17,6 @@
 /**
  * @exports TerrainTileList
  */
-import ArgumentError from '../error/ArgumentError';
 import Logger from '../util/Logger';
 import Sector from '../geom/Sector';
 

@@ -17,7 +17,6 @@
 /**
  * @exports StarFieldProgram
  */
-import ArgumentError from '../error/ArgumentError';
 import GpuProgram from '../shaders/GpuProgram';
 import Logger from '../util/Logger';
 import StarFieldVertex from './glsl/star_field_vertex.glsl';
@@ -36,8 +35,6 @@ import StarFieldFragment from './glsl/star_field_fragment.glsl';
  * @augments GpuProgram
  * @classdesc StarFieldProgram is a GLSL program that draws points representing stars.
  * @param {WebGLRenderingContext} gl The current WebGL context.
- * @throws {ArgumentError} If the shaders cannot be compiled, or linking of the compiled shaders into a program
- * fails.
  */
 function StarFieldProgram(gl) {
     var vertexShaderSource = StarFieldVertex,
@@ -104,7 +101,6 @@ StarFieldProgram.prototype = Object.create(GpuProgram.prototype);
  *
  * @param {WebGLRenderingContext} gl The current WebGL context.
  * @param {Matrix} matrix The matrix to load.
- * @throws {ArgumentError} If the specified matrix is null or undefined.
  */
 StarFieldProgram.prototype.loadModelviewProjection = function (gl, matrix) {
     this.loadUniformMatrix(gl, matrix, this.mvpMatrixLocation);
@@ -116,7 +112,6 @@ StarFieldProgram.prototype.loadModelviewProjection = function (gl, matrix) {
  * @param {WebGLRenderingContext} gl The current WebGL context.
  * @param {Number} numDays The number of days (positive or negative) since Greenwich noon, Terrestrial Time,
  * on 1 January 2000 (J2000.0)
- * @throws {ArgumentError} If the specified number is null or undefined.
  */
 StarFieldProgram.prototype.loadNumDays = function (gl, numDays) {
     gl.uniform1f(this.numDaysLocation, numDays);
@@ -128,7 +123,6 @@ StarFieldProgram.prototype.loadNumDays = function (gl, numDays) {
  * @param {WebGLRenderingContext} gl The current WebGL context.
  * @param {Number} minMag
  * @param {Number} maxMag
- * @throws {ArgumentError} If the specified numbers are null or undefined.
  */
 StarFieldProgram.prototype.loadMagnitudeRange = function (gl, minMag, maxMag) {
     gl.uniform2f(this.magnitudeRangeLocation, minMag, maxMag);

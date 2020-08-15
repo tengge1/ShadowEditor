@@ -19,7 +19,6 @@
  */
 import AbsentResourceList from '../util/AbsentResourceList';
 import Angle from '../geom/Angle';
-import ArgumentError from '../error/ArgumentError';
 import ElevationCoverage from '../globe/ElevationCoverage';
 import ElevationImage from '../globe/ElevationImage';
 import LevelSet from '../util/LevelSet';
@@ -44,7 +43,6 @@ import WWMath from '../util/WWMath';
  *     <li>maxElevation (optional): {Number} Te coverage's maximum elevation in meters.</li>
  *     <li>urlBuilder (optional): {UrlBuilder} The factory to create URLs for elevation data requests.</li>
  * <ul>
- * @throws {ArgumentError} If any required configuration parameter is null or undefined.
  */
 function TiledElevationCoverage(config) {
     ElevationCoverage.call(this, config.resolution);

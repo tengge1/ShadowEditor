@@ -34,8 +34,6 @@ import SkyFragment from './glsl/sky_fragment.glsl';
  * @augments AtmosphereProgram
  * @classdesc SkyProgram is a GLSL program that draws the sky component of the atmosphere.
  * @param {WebGLRenderingContext} gl The current WebGL context.
- * @throws {ArgumentError} If the shaders cannot be compiled, or linking of
- * the compiled shaders into a program fails.
  */
 function SkyProgram(gl) {
     var vertexShaderSource = SkyVertex,

@@ -18,7 +18,6 @@
  * @exports Tessellator
  */
 import Angle from '../geom/Angle';
-import ArgumentError from '../error/ArgumentError';
 import BasicProgram from '../shaders/BasicProgram';
 import LevelSet from '../util/LevelSet';
 import Location from '../geom/Location';
@@ -145,7 +144,6 @@ function Tessellator() {
  * Creates the visible terrain of the globe associated with the current draw context.
  * @param {DrawContext} dc The draw context.
  * @returns {Terrain} The computed terrain, or null if terrain could not be computed.
- * @throws {ArgumentError} If the dc is null or undefined.
  */
 Tessellator.prototype.tessellate = function (dc) {
     var lastElevationsChange = dc.globe.elevationTimestamp();
@@ -253,7 +251,6 @@ Tessellator.prototype.endRendering = function (dc) {
  * Initializes rendering state for drawing a specified terrain tile.
  * @param {DrawContext} dc The draw context.
  * @param {TerrainTile} terrainTile The terrain tile subsequently drawn via this tessellator's render function.
- * @throws {ArgumentError} If the specified tile is null or undefined.
  */
 Tessellator.prototype.beginRenderingTile = function (dc, terrainTile) {
     var gl = dc.currentGlContext,
@@ -289,7 +286,6 @@ Tessellator.prototype.beginRenderingTile = function (dc, terrainTile) {
  * [beginRenderingTile]{@link Tessellator#beginRenderingTile}.
  * @param {DrawContext} dc The draw context.
  * @param {TerrainTile} terrainTile The terrain tile most recently rendered.
- * @throws {ArgumentError} If the specified tile is null or undefined.
  */
 Tessellator.prototype.endRenderingTile = function (dc, terrainTile) {
     // Intentionally empty until there's some reason to add code here.
@@ -299,7 +295,6 @@ Tessellator.prototype.endRenderingTile = function (dc, terrainTile) {
  * Renders a specified terrain tile.
  * @param {DrawContext} dc The draw context.
  * @param {TerrainTile} terrainTile The terrain tile to render.
- * @throws {ArgumentError} If the specified tile is null or undefined.
  */
 Tessellator.prototype.renderTile = function (dc, terrainTile) {
     var gl = dc.currentGlContext,
@@ -402,7 +397,6 @@ Tessellator.prototype.renderTile = function (dc, terrainTile) {
  * Draws outlines of the triangles composing the tile.
  * @param {DrawContext} dc The current draw context.
  * @param {TerrainTile} terrainTile The tile to draw.
- * @throws {ArgumentError} If the specified tile is null or undefined.
  */
 Tessellator.prototype.renderWireframeTile = function (dc, terrainTile) {
     var gl = dc.currentGlContext;
@@ -423,7 +417,6 @@ Tessellator.prototype.renderWireframeTile = function (dc, terrainTile) {
  * Draws the outer boundary of a specified terrain tile.
  * @param {DrawContext} dc The current draw context.
  * @param {TerrainTile} terrainTile The tile whose outer boundary to draw.
- * @throws {ArgumentError} If the specified tile is null or undefined.
  */
 Tessellator.prototype.renderTileOutline = function (dc, terrainTile) {
     var gl = dc.currentGlContext;
@@ -449,7 +442,6 @@ Tessellator.prototype.renderTileOutline = function (dc, terrainTile) {
  * @param {Array} tileList The list of tiles to pick.
  * @param {Object} pickDelegate Indicates the object to use as the picked object's <code>userObject</code>.
  * If null, then this tessellator is used as the <code>userObject</code>.
- * @throws {ArgumentError} If either the draw context or the tile list are null or undefined.
  */
 Tessellator.prototype.pick = function (dc, tileList, pickDelegate) {
     var color = null,

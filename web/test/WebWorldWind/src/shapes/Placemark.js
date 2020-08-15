@@ -17,7 +17,6 @@
 /**
  * @exports Placemark
  */
-import ArgumentError from '../error/ArgumentError';
 import BasicTextureProgram from '../shaders/BasicTextureProgram';
 import Color from '../util/Color';
 import Font from '../util/Font';
@@ -56,7 +55,6 @@ import WWMath from '../util/WWMath';
  * [eyeDistanceScalingLabelThreshold]{@link Placemark#eyeDistanceScalingLabelThreshold}.
  * @param {PlacemarkAttributes} attributes The attributes to associate with this placemark. May be null,
  * in which case default attributes are associated.
- * @throws {ArgumentError} If the specified position is null or undefined.
  */
 function Placemark(position, eyeDistanceScaling, attributes) {
     Renderable.call(this);

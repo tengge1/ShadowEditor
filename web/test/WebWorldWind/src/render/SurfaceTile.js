@@ -17,7 +17,6 @@
 /**
  * @exports SurfaceTile
  */
-import ArgumentError from '../error/ArgumentError';
 import Logger from '../util/Logger';
 import Matrix from '../geom/Matrix';
 import Sector from '../geom/Sector';
@@ -30,7 +29,6 @@ import Sector from '../geom/Sector';
  * @classdesc Defines an abstract base class for imagery to be rendered on terrain. Applications typically
  * do not interact with this class.
  * @param {Sector} sector The sector of this surface tile.
- * @throws {ArgumentError} If the specified sector is null or undefined.
  */
 function SurfaceTile(sector) {
     /**

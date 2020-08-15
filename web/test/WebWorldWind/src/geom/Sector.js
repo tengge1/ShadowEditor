@@ -18,7 +18,6 @@
  * @exports Sector
  */
 import Angle from '../geom/Angle';
-import ArgumentError from '../error/ArgumentError';
 import Location from '../geom/Location';
 import Logger from '../util/Logger';
 import Vec3 from '../geom/Vec3';
@@ -76,7 +75,6 @@ Sector.FULL_SPHERE = new Sector(-WWMath.MAX_LAT, WWMath.MAX_LAT, -180, 180);
  * Sets this sector's latitudes and longitudes to those of a specified sector.
  * @param {Sector} sector The sector to copy.
  * @returns {Sector} This sector, set to the values of the specified sector.
- * @throws {ArgumentError} If the specified sector is null or undefined.
  */
 Sector.prototype.copy = function (sector) {
     this.minLatitude = sector.minLatitude;
@@ -133,7 +131,6 @@ Sector.prototype.centroidLongitude = function () {
  * latitude and longitude dimensions.
  * @param {Location} result A pre-allocated {@link Location} in which to return the computed centroid.
  * @returns {Location} The specified result argument containing the computed centroid.
- * @throws {ArgumentError} If the result argument is null or undefined.
  */
 Sector.prototype.centroid = function (result) {
     result.latitude = this.centroidLatitude();
@@ -178,7 +175,6 @@ Sector.prototype.maxLongitudeRadians = function () {
  * Modifies this sector to encompass an array of specified locations.
  * @param {Location[]} locations An array of locations. The array may be sparse.
  * @returns {Sector} This sector, modified to encompass all locations in the specified array.
- * @throws {ArgumentError} If the specified array is null, undefined or empty or has fewer than two locations.
  */
 Sector.prototype.setToBoundingSector = function (locations) {
     var minLatitude = 90,
@@ -212,8 +208,6 @@ Sector.prototype.setToBoundingSector = function (locations) {
  * @param {Location[]} locations The locations to bound.
  * @returns {Sector[]} Two sectors, one in the eastern hemisphere and one in the western hemisphere.
  * Returns null if the computed bounding sector has zero width or height.
- * @throws {ArgumentError} If the specified array is null, undefined or empty or the number of locations
- * is less than 2.
  */
 Sector.splitBoundingSectors = function (locations) {
     var minLat = 90;
@@ -339,7 +333,6 @@ Sector.prototype.containsLocation = function (latitude, longitude) {
  * Sets this sector to the intersection of itself and a specified sector.
  * @param {Sector} sector The sector to intersect with this one.
  * @returns {Sector} This sector, set to its intersection with the specified sector.
- * @throws {ArgumentError} If the specified sector is null or undefined.
  */
 Sector.prototype.intersection = function (sector) {
     // Assumes normalized angles: [-180, 180], [-90, 90].
@@ -390,8 +383,6 @@ Sector.prototype.getCorners = function () {
  *
  * @returns {Vec3} a set of points that enclose the globe's surface on the specified sector. Can be turned into a {@link BoundingBox}
  * with the setToVec3Points method.
- *
- * @throws {ArgumentError} if the globe is null.
  */
 Sector.prototype.computeBoundingPoints = function (globe, verticalExaggeration) {
     // TODO: Refactor this method back to computeBoundingBox.
@@ -483,7 +474,6 @@ Sector.prototype.computeBoundingPoints = function (globe, verticalExaggeration) 
  * Sets this sector to the union of itself and a specified sector.
  * @param {Sector} sector The sector to union with this one.
  * @returns {Sector} This sector, set to its union with the specified sector.
- * @throws {ArgumentError} if the specified sector is null or undefined.
  */
 Sector.prototype.union = function (sector) {
     // Assumes normalized angles: [-180, 180], [-90, 90].

@@ -17,7 +17,6 @@
 /**
  * @exports Font
  */
-import ArgumentError from '../error/ArgumentError';
 import Color from '../util/Color';
 import Logger from '../util/Logger';
 

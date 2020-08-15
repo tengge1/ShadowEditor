@@ -17,7 +17,6 @@
 /**
  * @exports BasicTextureProgram
  */
-import ArgumentError from '../error/ArgumentError';
 import Color from '../util/Color';
 import GpuProgram from '../shaders/GpuProgram';
 import Logger from '../util/Logger';
@@ -37,8 +36,6 @@ import BasicTextureFragment from './glsl/basic_texture_fragment.glsl';
  * @augments GpuProgram
  * @classdesc BasicTextureProgram is a GLSL program that draws textured or untextured geometry.
  * @param {WebGLRenderingContext} gl The current WebGL context.
- * @throws {ArgumentError} If the shaders cannot be compiled, or if linking of
- * the compiled shaders into a program fails.
  */
 function BasicTextureProgram(gl) {
     var vertexShaderSource = BasicTextureVertex,
@@ -151,7 +148,6 @@ BasicTextureProgram.prototype = Object.create(GpuProgram.prototype);
  *
  * @param {WebGLRenderingContext} gl The current WebGL context.
  * @param {Matrix} matrix The matrix to load.
- * @throws {ArgumentError} If the specified matrix is null or undefined.
  */
 BasicTextureProgram.prototype.loadModelviewInverse = function (gl, matrix) {
     this.loadUniformMatrix(gl, matrix, this.mvInverseMatrixLocation);
@@ -162,7 +158,6 @@ BasicTextureProgram.prototype.loadModelviewInverse = function (gl, matrix) {
  *
  * @param {WebGLRenderingContext} gl The current WebGL context.
  * @param {Matrix} matrix The matrix to load.
- * @throws {ArgumentError} If the specified matrix is null or undefined.
  */
 BasicTextureProgram.prototype.loadModelviewProjection = function (gl, matrix) {
     this.loadUniformMatrix(gl, matrix, this.mvpMatrixLocation);
@@ -173,7 +168,6 @@ BasicTextureProgram.prototype.loadModelviewProjection = function (gl, matrix) {
  *
  * @param {WebGLRenderingContext} gl The current WebGL context.
  * @param {Color} color The color to load.
- * @throws {ArgumentError} If the specified color is null or undefined.
  */
 BasicTextureProgram.prototype.loadColor = function (gl, color) {
     this.loadUniformColor(gl, color, this.colorLocation);

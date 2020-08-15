@@ -17,7 +17,6 @@
 /**
  * @exports Text
  */
-import ArgumentError from '../error/ArgumentError';
 import BasicTextureProgram from '../shaders/BasicTextureProgram';
 import Color from '../util/Color';
 import Font from '../util/Font';
@@ -41,7 +40,6 @@ import WWMath from '../util/WWMath';
  * See {@link GeographicText} and {@link ScreenText} for concrete classes.
  *
  * @param {String} text The text to display.
- * @throws {ArgumentError} If the specified text is null or undefined.
  */
 function Text(text) {
     Renderable.call(this);

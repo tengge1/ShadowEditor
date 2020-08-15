@@ -17,7 +17,6 @@
 /**
  * @exports AtmosphereProgram
  */
-import ArgumentError from '../error/ArgumentError';
 import GpuProgram from '../shaders/GpuProgram';
 import Logger from '../util/Logger';
 
@@ -34,8 +33,6 @@ import Logger from '../util/Logger';
  * @augments GpuProgram
  * @classdesc AtmosphereProgram is a GLSL program that draws the atmosphere.
  * @param {WebGLRenderingContext} gl The current WebGL context.
- * @throws {ArgumentError} If the shaders cannot be compiled, or linking of
- * the compiled shaders into a program fails.
  */
 function AtmosphereProgram(gl, vertexShaderSource, fragmentShaderSource, attribute) {
 
@@ -187,7 +184,6 @@ AtmosphereProgram.prototype.getAltitude = function () {
  *
  * @param {WebGLRenderingContext} gl The current WebGL context.
  * @param {Number} fragMode The frag mode value.
- * @throws {ArgumentError} If the specified number is null or undefined.
  */
 AtmosphereProgram.prototype.loadFragMode = function (gl, fragMode) {
     gl.uniform1i(this.fragModeLocation, fragMode);
@@ -198,7 +194,6 @@ AtmosphereProgram.prototype.loadFragMode = function (gl, fragMode) {
  *
  * @param {WebGLRenderingContext} gl The current WebGL context.
  * @param {Matrix} matrix The matrix to load.
- * @throws {ArgumentError} If the specified matrix is null or undefined.
  */
 AtmosphereProgram.prototype.loadModelviewProjection = function (gl, matrix) {
     this.loadUniformMatrix(gl, matrix, this.mvpMatrixLocation);
@@ -209,7 +204,6 @@ AtmosphereProgram.prototype.loadModelviewProjection = function (gl, matrix) {
  *
  * @param {WebGLRenderingContext} gl The current WebGL context.
  * @param {Vec3} vector The vector to load.
- * @throws {ArgumentError} If the specified vector is null or undefined.
  */
 AtmosphereProgram.prototype.loadVertexOrigin = function (gl, vector) {
     gl.uniform3f(this.vertexOriginLocation, vector[0], vector[1], vector[2]);
@@ -220,7 +214,6 @@ AtmosphereProgram.prototype.loadVertexOrigin = function (gl, vector) {
  *
  * @param {WebGLRenderingContext} gl The current WebGL context.
  * @param {Vec3} vector The vector to load.
- * @throws {ArgumentError} If the specified vector is null or undefined.
  */
 AtmosphereProgram.prototype.loadLightDirection = function (gl, vector) {
     gl.uniform3f(this.lightDirectionLocation, vector[0], vector[1], vector[2]);
@@ -233,7 +226,6 @@ AtmosphereProgram.prototype.loadLightDirection = function (gl, vector) {
  *
  * @param {WebGLRenderingContext} gl The current WebGL context.
  * @param {Vec3} vector The vector to load.
- * @throws {ArgumentError} If the specified vector is null or undefined.
  */
 AtmosphereProgram.prototype.loadEyePoint = function (gl, vector) {
     gl.uniform3f(this.eyePointLocation, vector[0], vector[1], vector[2]);
@@ -247,7 +239,6 @@ AtmosphereProgram.prototype.loadEyePoint = function (gl, vector) {
  *
  * @param {WebGLRenderingContext} gl The current WebGL context.
  * @param {Number} globeRadius The globe radius value.
- * @throws {ArgumentError} If the specified number is null or undefined.
  */
 AtmosphereProgram.prototype.loadGlobeRadius = function (gl, globeRadius) {
     var gr = globeRadius;

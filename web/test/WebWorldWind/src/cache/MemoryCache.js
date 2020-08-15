@@ -17,7 +17,6 @@
 /**
  * @exports MemoryCache
  */
-import ArgumentError from '../error/ArgumentError';
 import Logger from '../util/Logger';
 
 
@@ -30,8 +29,6 @@ import Logger from '../util/Logger';
  * specific use to determine the size units.
  * @param {Number} capacity The cache's capacity.
  * @param {Number} lowWater The size to clear the cache to when its capacity is exceeded.
- * @throws {ArgumentError} If either the capacity is 0 or negative or the low-water value is greater than
- * or equal to the capacity or less than 1.
  */
 function MemoryCache(capacity, lowWater) {
     // Documented with its property accessor below.
@@ -129,8 +126,6 @@ MemoryCache.prototype.entryForKey = function (key) {
  * @param {String} key The entry's key.
  * @param {Object} entry The entry.
  * @param {Number} size The entry's size.
- * @throws {ArgumentError} If the specified key or entry is null or undefined or the specified size is less
- * than 1.
  */
 MemoryCache.prototype.putEntry = function (key, entry, size) {
     var existing = this.entries[key],
@@ -243,8 +238,6 @@ MemoryCache.prototype.containsKey = function (key) {
 /**
  * Adds a cache listener to this cache.
  * @param {MemoryCacheListener} listener The listener to add.
- * @throws {ArgumentError} If the specified listener is null or undefined or does not implement both the
- * entryRemoved and removalError functions.
  */
 MemoryCache.prototype.addCacheListener = function (listener) {
     this.listeners.push(listener);
@@ -253,7 +246,6 @@ MemoryCache.prototype.addCacheListener = function (listener) {
 /**
  * Removes a cache listener from this cache.
  * @param {MemoryCacheListener} listener The listener to remove.
- * @throws {ArgumentError} If the specified listener is null or undefined.
  */
 MemoryCache.prototype.removeCacheListener = function (listener) {
     var index = this.listeners.indexOf(listener);

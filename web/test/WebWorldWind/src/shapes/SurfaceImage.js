@@ -17,7 +17,6 @@
 /**
  * @exports SurfaceImage
  */
-import ArgumentError from '../error/ArgumentError';
 import Logger from '../util/Logger';
 import PickedObject from '../pick/PickedObject';
 import SurfaceTile from '../render/SurfaceTile';
@@ -33,7 +32,6 @@ import SurfaceTile from '../render/SurfaceTile';
  * @param {String|ImageSource} imageSource The image source of the image to draw on the terrain.
  * May be either a string identifying the URL of the image, or an {@link ImageSource} object identifying a
  * dynamically created image.
- * @throws {ArgumentError} If either the specified sector or image source is null or undefined.
  */
 function SurfaceImage(sector, imageSource) {
     SurfaceTile.call(this, sector);

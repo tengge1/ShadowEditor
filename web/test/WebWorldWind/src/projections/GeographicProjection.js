@@ -17,7 +17,6 @@
 /**
  * @exports GeographicProjection
  */
-import ArgumentError from '../error/ArgumentError';
 import Logger from '../util/Logger';
 
 
@@ -80,7 +79,6 @@ function GeographicProjection(displayName, continuous, projectionLimits) {
  * @param {Vec3} result A variable in which to store the computed Cartesian point.
  *
  * @returns {Vec3} The specified result argument containing the computed point.
- * @throws {ArgumentError} If the specified globe or result is null or undefined.
  */
 GeographicProjection.prototype.geographicToCartesian = function (globe, latitude, longitude, elevation,
     offset, result) {
@@ -115,8 +113,6 @@ GeographicProjection.prototype.geographicToCartesian = function (globe, latitude
  * size (tileWidth + 1) x (tileHeight + 1) * 3.
  * The points are returned in row major order, beginning with the row of minimum latitude.
  * @returns {Float32Array} The specified result argument, populated with the computed Cartesian coordinates.
- * @throws {ArgumentError} if any of the specified globe, sector, elevations array or results arrays is null or
- * undefined.
  */
 GeographicProjection.prototype.geographicToCartesianGrid = function (globe, sector, numLat, numLon, elevations,
     referencePoint, offset, result) {
@@ -134,7 +130,6 @@ GeographicProjection.prototype.geographicToCartesianGrid = function (globe, sect
  * @param {Position} result A variable in which to return the computed position.
  *
  * @returns {Position} The specified result argument containing the computed position.
- * @throws {ArgumentError} If either the specified globe or result argument is null or undefined.
  */
 GeographicProjection.prototype.cartesianToGeographic = function (globe, x, y, z, offset, result) {
 };
@@ -149,7 +144,6 @@ GeographicProjection.prototype.cartesianToGeographic = function (globe, x, y, z,
  * @param {Vec3} result A variable in which to return the computed vector.
  *
  * @returns{Vec3} The specified result argument containing the computed vector.
- * @throws {ArgumentError} If either the specified globe or result argument is null or undefined.
  */
 GeographicProjection.prototype.northTangentAtLocation = function (globe, latitude, longitude, result) {
     result[0] = 0;
@@ -173,7 +167,6 @@ GeographicProjection.prototype.northTangentAtLocation = function (globe, latitud
  * @param {Vec3} result A variable in which to return the computed vector.
  *
  * @returns{Vec3} The specified result argument containing the computed vector.
- * @throws {ArgumentError} If either the specified globe or result argument is null or undefined.
  */
 GeographicProjection.prototype.northTangentAtPoint = function (globe, x, y, z, offset, result) {
     result[0] = 0;
@@ -192,7 +185,6 @@ GeographicProjection.prototype.northTangentAtPoint = function (globe, x, y, z, o
  * @param {Vec3} result A variable in which to return the computed vector.
  *
  * @returns{Vec3} The specified result argument containing the computed vector.
- * @throws {ArgumentError} If either the specified globe or result argument is null or undefined.
  */
 GeographicProjection.prototype.surfaceNormalAtLocation = function (globe, latitude, longitude, result) {
     result[0] = 0;
@@ -212,7 +204,6 @@ GeographicProjection.prototype.surfaceNormalAtLocation = function (globe, latitu
  * @param {Vec3} result A variable in which to return the computed vector.
  *
  * @returns{Vec3} The specified result argument containing the computed vector.
- * @throws {ArgumentError} If either the specified globe or result argument is null or undefined.
  */
 GeographicProjection.prototype.surfaceNormalAtPoint = function (globe, x, y, z, result) {
     result[0] = 0;

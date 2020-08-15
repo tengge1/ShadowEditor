@@ -18,7 +18,6 @@
  * @exports GpuResourceCache
  */
 import AbsentResourceList from '../util/AbsentResourceList';
-import ArgumentError from '../error/ArgumentError';
 import ImageSource from '../util/ImageSource';
 import Logger from '../util/Logger';
 import MemoryCache from '../cache/MemoryCache';
@@ -33,8 +32,6 @@ import Texture from '../render/Texture';
  * Applications typically do not interact with this class unless they create their own shapes.
  * @param {Number} capacity The cache capacity, in bytes.
  * @param {Number} lowWater The number of bytes to clear the cache to when it exceeds its capacity.
- * @throws {ArgumentError} If the specified capacity is undefined, 0 or negative or the low-water value is
- * undefined, negative or not less than the capacity.
  */
 function GpuResourceCache(capacity, lowWater) {
     // Private. Holds the actual cache entries.
@@ -115,8 +112,6 @@ GpuResourceCache.prototype.generateCacheKey = function () {
  * @param {String|ImageSource} key The key or image source of the resource to add.
  * @param {Object} resource The resource to add to the cache.
  * @param {Number} size The resource's size in bytes. Must be greater than 0.
- * @throws {ArgumentError} If either the key or resource arguments is null or undefined
- * or if the specified size is less than 1.
  */
 GpuResourceCache.prototype.putResource = function (key, resource, size) {
     var entry = {

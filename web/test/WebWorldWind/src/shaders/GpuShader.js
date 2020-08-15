@@ -17,7 +17,6 @@
 /**
  * @exports GpuShader
  */
-import ArgumentError from '../error/ArgumentError';
 import Logger from '../util/Logger';
 
 
@@ -34,8 +33,6 @@ import Logger from '../util/Logger';
  * @param {Number} shaderType The type of shader, either WebGLRenderingContext.VERTEX_SHADER
  * or WebGLRenderingContext.FRAGMENT_SHADER.
  * @param {String} shaderSource The shader's source code.
- * @throws {ArgumentError} If the shader type is unrecognized, the shader source is null or undefined or shader
- * compilation fails. If the compilation fails the error thrown contains any compilation messages.
  */
 function GpuShader(gl, shaderType, shaderSource) {
     var shader = gl.createShader(shaderType);

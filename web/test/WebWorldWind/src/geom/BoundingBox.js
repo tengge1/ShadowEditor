@@ -17,7 +17,6 @@
 /**
  * @exports BoundingBox
  */
-import ArgumentError from '../error/ArgumentError';
 import BasicProgram from '../shaders/BasicProgram';
 import Logger from '../util/Logger';
 import Matrix from '../geom/Matrix';
@@ -140,7 +139,6 @@ BoundingBox.prototype.getCorners = function () {
  * Sets this bounding box such that it minimally encloses a specified collection of points.
  * @param {Float32Array} points The points to contain.
  * @returns {BoundingBox} This bounding box set to contain the specified points.
- * @throws {ArgumentError} If the specified list of points is null, undefined or empty.
  */
 BoundingBox.prototype.setToPoints = function (points) {
     var rMin = +Number.MAX_VALUE,
@@ -227,7 +225,6 @@ BoundingBox.prototype.setToPoints = function (points) {
  * Sets this bounding box such that it minimally encloses a specified collection of points.
  * @param {Vec3} points The points to contain.
  * @returns {BoundingBox} This bounding box set to contain the specified points.
- * @throws {ArgumentError} If the specified list of points is null, undefined or empty.
  */
 BoundingBox.prototype.setToVec3Points = function (points) {
     var pointList = new Float32Array(points.length * 3);
@@ -253,7 +250,6 @@ BoundingBox.prototype.setToVec3Points = function (points) {
  * @param {Number} minElevation The minimum elevation within the sector.
  * @param {Number} maxElevation The maximum elevation within the sector.
  * @returns {BoundingBox} This bounding box set to contain the specified sector.
- * @throws {ArgumentError} If either the specified sector or globe is null or undefined.
  */
 BoundingBox.prototype.setToSector = function (sector, globe, minElevation, maxElevation) {
     // Compute the cartesian points for a 3x3 geographic grid. This grid captures enough detail to bound the
@@ -336,7 +332,6 @@ BoundingBox.prototype.setToSector = function (sector, globe, minElevation, maxEl
  * Translates this bounding box by a specified translation vector.
  * @param {Vec3} translation The translation vector.
  * @returns {BoundingBox} This bounding box translated by the specified translation vector.
- * @throws {ArgumentError} If the specified translation vector is null or undefined.
  */
 BoundingBox.prototype.translate = function (translation) {
     this.bottomCenter.add(translation);
@@ -352,7 +347,6 @@ BoundingBox.prototype.translate = function (translation) {
  * This calculation treats the bounding box as a sphere with the same radius as the box.
  * @param {Vec3} point The point to compute the distance to.
  * @returns {Number} The distance from the edge of this bounding box to the specified point.
- * @throws {ArgumentError} If the specified point is null or undefined.
  */
 BoundingBox.prototype.distanceTo = function (point) {
     var d = this.center.distanceTo(point) - this.radius;
@@ -364,7 +358,6 @@ BoundingBox.prototype.distanceTo = function (point) {
  * Computes the effective radius of this bounding box relative to a specified plane.
  * @param {Plane} plane The plane of interest.
  * @returns {Number} The effective radius of this bounding box to the specified plane.
- * @throws {ArgumentError} If the specified plane is null or undefined.
  */
 BoundingBox.prototype.effectiveRadius = function (plane) {
     var n = plane.normal;
@@ -376,7 +369,6 @@ BoundingBox.prototype.effectiveRadius = function (plane) {
  * Indicates whether this bounding box intersects a specified frustum.
  * @param {Frustum} frustum The frustum of interest.
  * @returns {boolean} true if the specified frustum intersects this bounding box, otherwise false.
- * @throws {ArgumentError} If the specified frustum is null or undefined.
  */
 BoundingBox.prototype.intersectsFrustum = function (frustum) {
     this.tmp1.copy(this.bottomCenter);

@@ -17,7 +17,6 @@
 /**
  * @exports SurfaceCircle
  */
-import ArgumentError from '../error/ArgumentError';
 import Location from '../geom/Location';
 import Logger from '../util/Logger';
 import ShapeAttributes from '../shapes/ShapeAttributes';
@@ -45,8 +44,6 @@ import SurfaceShape from '../shapes/SurfaceShape';
  * @param {Number} radius The circle's radius in meters.
  * @param {ShapeAttributes} attributes The attributes to apply to this shape. May be null, in which case
  * attributes must be set directly before the shape is drawn.
- * @throws {ArgumentError} If the specified center location is null or undefined or the specified radius
- * is negative.
  */
 function SurfaceCircle(center, radius, attributes) {
     SurfaceShape.call(this, attributes);

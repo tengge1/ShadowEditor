@@ -17,7 +17,6 @@
 /**
  * @exports TerrainTile
  */
-import ArgumentError from '../error/ArgumentError';
 import Logger from '../util/Logger';
 import Matrix from '../geom/Matrix';
 import Tile from '../util/Tile';
@@ -34,8 +33,6 @@ import Tile from '../util/Tile';
  * @param {Level} level The level this tile is associated with.
  * @param {Number} row This tile's row in the associated level.
  * @param {Number} column This tile's column in the associated level.
- * @throws {ArgumentError} If the specified sector or level is null or undefined or the row or column arguments
- * are less than zero.
  */
 function TerrainTile(sector, level, row, column) {
     Tile.call(this, sector, level, row, column); // args are checked in the superclass' constructor
@@ -134,7 +131,6 @@ TerrainTile.prototype.setNeighborLevel = function (direction, level) {
  * @param {Number} longitude The location's longitude.
  * @param {Vec3} result A pre-allocated Vec3 in which to return the computed point.
  * @returns {Vec3} The result argument set to the computed point.
- * @throws {ArgumentError} If the specified result argument is null or undefined.
  */
 TerrainTile.prototype.surfacePoint = function (latitude, longitude, result) {
     var tileSector = this.sector,

@@ -18,7 +18,6 @@
  * @exports GeographicMesh
  */
 import AbstractMesh from '../shapes/AbstractMesh';
-import ArgumentError from '../error/ArgumentError';
 import BasicTextureProgram from '../shaders/BasicTextureProgram';
 import BoundingBox from '../geom/BoundingBox';
 import Color from '../util/Color';
@@ -63,10 +62,6 @@ import Vec3 from '../geom/Vec3';
  * There must be no more than 65536 positions.
  * @param {ShapeAttributes} attributes The attributes to associate with this mesh. May be null, in which case
  * default attributes are associated.
- *
- * @throws {ArgumentError} If the specified positions array is null or undefined, the number of rows or the
- * number of vertices per row is less than 2, the array lengths are inconsistent, or too many positions are
- * specified (limit is 65536).
  */
 function GeographicMesh(positions, attributes) {
     var numRows = positions.length,

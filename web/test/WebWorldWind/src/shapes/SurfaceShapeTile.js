@@ -18,7 +18,6 @@
  * @exports SurfaceShapeTile
  */
 import Angle from '../geom/Angle';
-import ArgumentError from '../error/ArgumentError';
 import Level from '../util/Level';
 import Logger from '../util/Logger';
 import Sector from '../geom/Sector';
@@ -35,8 +34,6 @@ import TextureTile from '../render/TextureTile';
  * @param {Level} level The level this tile is associated with.
  * @param {number} row This tile's row in the associated level.
  * @param {number} column This tile's column in the associated level.
- * @throws {ArgumentError} If the specified sector or level is null or undefined, the row or column arguments
- * are less than zero, or the specified image path is null, undefined or empty.
  *
  */
 function SurfaceShapeTile(sector, level, row, column) {

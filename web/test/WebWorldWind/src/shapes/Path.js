@@ -18,7 +18,6 @@
  * @exports Path
  */
 import AbstractShape from '../shapes/AbstractShape';
-import ArgumentError from '../error/ArgumentError';
 import BasicTextureProgram from '../shaders/BasicTextureProgram';
 import BoundingBox from '../geom/BoundingBox';
 import Color from '../util/Color';
@@ -69,7 +68,6 @@ import Vec3 from '../geom/Vec3';
  * @param {Position[]} positions An array containing the path positions.
  * @param {ShapeAttributes} attributes The attributes to associate with this path. May be null, in which case
  * default attributes are associated.
- * @throws {ArgumentError} If the specified positions array is null or undefined.
  */
 function Path(positions, attributes) {
     AbstractShape.call(this, attributes);

@@ -17,7 +17,6 @@
 /**
  * @exports ElevationModel
  */
-import ArgumentError from '../error/ArgumentError';
 import Location from '../geom/Location';
 import Logger from '../util/Logger';
 
@@ -171,7 +170,6 @@ ElevationModel.prototype.performCoverageListChangedActions = function () {
  *
  * @param coverage The elevation coverage to add.
  * @return {Boolean} true if the ElevationCoverage as added; false if the coverage was a duplicate.
- * @throws ArgumentError if the specified elevation coverage is null.
  */
 ElevationModel.prototype.addCoverage = function (coverage) {
     if (!this.containsCoverage(coverage)) {
@@ -197,8 +195,6 @@ ElevationModel.prototype.removeAllCoverages = function () {
  * Removes a specific elevation coverage from this elevation model.
  *
  * @param coverage The elevation model to remove.
- *
- * @throws ArgumentError if the specified elevation coverage is null.
  */
 ElevationModel.prototype.removeCoverage = function (coverage) {
     var index = this.coverages.indexOf(coverage);
@@ -213,7 +209,6 @@ ElevationModel.prototype.removeCoverage = function (coverage) {
  *
  * @param coverage the ElevationCoverage to test.
  * @return {Boolean} true if the ElevationCoverage is in this ElevationModel; false otherwise.
- * @throws ArgumentError if the ElevationCoverage is null.
  */
 ElevationModel.prototype.containsCoverage = function (coverage) {
     var index = this.coverages.indexOf(coverage);
@@ -225,7 +220,6 @@ ElevationModel.prototype.containsCoverage = function (coverage) {
  * @param {Sector} sector The sector for which to determine extreme elevations.
  * @returns {Number[]} An array containing the minimum and maximum elevations within the specified sector. If no coverage
  * can satisfy the request, a min and max of zero is returned.
- * @throws {ArgumentError} If the specified sector is null or undefined.
  */
 ElevationModel.prototype.minAndMaxElevationsForSector = function (sector) {
     // Initialize the min and max elevations to the largest and smallest numbers, respectively. This has the
@@ -312,7 +306,6 @@ ElevationModel.prototype.preferredCoverageIndex = function (sector, location, ta
  * meters, divide the number of meters by the globe's radius to obtain radians and convert the result to degrees.)
  * @returns {ElevationCoverage} The coverage most closely matching the requested resolution. Returns null if no coverage is available at this
  * location.
- * @throws {ArgumentError} If the specified resolution is not positive.
  */
 ElevationModel.prototype.bestCoverageAtLocation = function (latitude, longitude, targetResolution) {
     this.scratchLocation.set(latitude, longitude);
@@ -334,8 +327,6 @@ ElevationModel.prototype.bestCoverageAtLocation = function (latitude, longitude,
  * @param {Number[]} result An array in which to return the requested elevations.
  * @returns {Number} The resolution actually achieved, which may be greater than that requested if the
  * elevation data for the requested resolution is not currently available.
- * @throws {ArgumentError} If the specified sector, targetResolution, or result array is null or undefined, or if either of the
- * specified numLat or numLon values is less than one.
  */
 ElevationModel.prototype.elevationsForGrid = function (sector, numLat, numLon, targetResolution, result) {
     this.coverages[0].elevationsForGrid(sector, numLat, numLon, result);

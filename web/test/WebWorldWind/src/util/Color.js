@@ -158,7 +158,6 @@ Color.prototype.set = function (red, green, blue, alpha) {
  * Copies the components of a specified color to this color.
  * @param {Color} color The color to copy.
  * @returns {Color} This color set to the red, green, blue and alpha values of the specified color.
- * @throws {ArgumentError} If the specified color is null or undefined.
  */
 Color.prototype.copy = function (color) {
     this.red = color.red;

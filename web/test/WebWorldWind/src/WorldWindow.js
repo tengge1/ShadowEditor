@@ -17,7 +17,6 @@
 /**
  * @exports WorldWindow
  */
-import ArgumentError from './error/ArgumentError';
 import BasicWorldWindowController from './BasicWorldWindowController';
 import DrawContext from './render/DrawContext';
 import EarthElevationModel from './globe/EarthElevationModel';
@@ -47,8 +46,6 @@ import WWMath from './util/WWMath';
  * element itself.
  * @param {ElevationModel} elevationModel An optional argument indicating the elevation model to use for the World
  * Window. If missing or null, a default elevation model is used.
- * @throws {ArgumentError} If there is no HTML element with the specified ID in the document, or if the
- * HTML canvas does not support WebGL.
  */
 function WorldWindow(canvasElem, elevationModel) {
     // Get the actual canvas element either directly or by ID.
@@ -339,7 +336,6 @@ WorldWindow.prototype.onGestureEvent = function (event) {
  *
  * @param type The event type to listen for.
  * @param listener The function to call when the event occurs.
- * @throws {ArgumentError} If any argument is null or undefined.
  */
 WorldWindow.prototype.addEventListener = function (type, listener) {
     var thisWorldWindow = this;
@@ -374,7 +370,6 @@ WorldWindow.prototype.addEventListener = function (type, listener) {
  *
  * @param type Indicates the event type the listener registered for.
  * @param listener The listener to remove. Must be the same function object passed to addEventListener.
- * @throws {ArgumentError} If any argument is null or undefined.
  */
 WorldWindow.prototype.removeEventListener = function (type, listener) {
     var entry = this.eventListeners[type];
@@ -410,7 +405,6 @@ WorldWindow.prototype.redraw = function () {
  *
  * @param pickPoint The point to examine in this WorldWindow's screen coordinates.
  * @returns {PickedObjectList} A list of picked WorldWind objects at the specified pick point.
- * @throws {ArgumentError} If the specified pick point is null or undefined.
  */
 WorldWindow.prototype.pick = function (pickPoint) {
     // Suppress the picking operation and return an empty list when the WebGL context has been lost.
@@ -435,7 +429,6 @@ WorldWindow.prototype.pick = function (pickPoint) {
  * @param pickPoint The point to examine in this WorldWindow's screen coordinates.
  * @returns {PickedObjectList} A list containing the picked WorldWind terrain position at the specified point,
  * or an empty list if the point does not intersect the terrain.
- * @throws {ArgumentError} If the specified pick point is null or undefined.
  */
 WorldWindow.prototype.pickTerrain = function (pickPoint) {
     // Suppress the picking operation and return an empty list when the WebGL context has been lost.
@@ -460,7 +453,6 @@ WorldWindow.prototype.pickTerrain = function (pickPoint) {
  * marks objects that are visible as on top.
  * @param {Rectangle} rectangle The screen coordinate rectangle identifying the region to search.
  * @returns {PickedObjectList} A list of visible WorldWind objects within the specified region.
- * @throws {ArgumentError} If the specified rectangle is null or undefined.
  */
 WorldWindow.prototype.pickShapesInRegion = function (rectangle) {
     // Suppress the picking operation and return an empty list when the WebGL context has been lost.
@@ -1351,7 +1343,6 @@ WorldWindow.prototype.callRedrawCallbacks = function (stage) {
  * It's cancel method can also be used to cancel the move initiated by this function.
  * @param {Function} completionCallback If not null or undefined, specifies a function to call when the
  * animation completes. The completion callback is called with a single argument, this animator.
- * @throws {ArgumentError} If the specified location or position is null or undefined.
  */
 WorldWindow.prototype.goTo = function (position, completionCallback) {
     this.goToAnimator.goTo(position, completionCallback);
@@ -1365,7 +1356,6 @@ WorldWindow.prototype.goTo = function (position, completionCallback) {
  * The function operates by setting the target visibility of occluded shapes to 0 and unoccluded shapes to 1.
  * @param {DrawContext} dc The current draw context.
  * @param {Number} groupId The ID of the group to declutter. Must not be null, undefined or 0.
- * @throws {ArgumentError} If the specified group ID is null, undefined or 0.
  */
 WorldWindow.prototype.declutter = function (dc, groupId) {
     // Collect all the declutterables in the specified group.

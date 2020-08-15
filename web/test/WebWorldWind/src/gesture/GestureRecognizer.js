@@ -17,7 +17,6 @@
 /**
  * @exports GestureRecognizer
  */
-import ArgumentError from '../error/ArgumentError';
 import Logger from '../util/Logger';
 import Touch from '../gesture/Touch';
 
@@ -36,7 +35,6 @@ import Touch from '../gesture/Touch';
  * @param {Function} callback An optional function to call when this gesture is recognized. If non-null, the
  * function is called when this gesture is recognized, and is passed a single argument: this gesture recognizer,
  * e.g., <code>gestureCallback(recognizer)</code>.
- * @throws {ArgumentError} If the specified target is null or undefined.
  */
 // TODO: evaluate target usage
 function GestureRecognizer(target, callback) {
@@ -243,7 +241,6 @@ Object.defineProperties(GestureRecognizer.prototype, {
  *
  * @param index
  * @returns {Touch}
- * @throws {ArgumentError} If the index is out of range.
  */
 GestureRecognizer.prototype.touch = function (index) {
     return this._touches[index];
@@ -483,7 +480,6 @@ GestureRecognizer.prototype.isWaitingForRecognizerToFail = function (that) {
  * receive one parameter containing a reference to the recognizer that changed state.
  *
  * @param listener The function to call when the event occurs.
- * @throws {ArgumentError} If any argument is null or undefined.
  */
 GestureRecognizer.prototype.addListener = function (listener) {
     this.listenerList.push(listener);
@@ -495,7 +491,6 @@ GestureRecognizer.prototype.addListener = function (listener) {
  * listener has no effect.
  *
  * @param listener The listener to remove. Must be the same object passed to addListener.
- * @throws {ArgumentError} If any argument is null or undefined.
  */
 GestureRecognizer.prototype.removeListener = function (listener) {
     var index = this.listenerList.indexOf(listener);

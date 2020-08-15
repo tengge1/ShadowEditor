@@ -17,7 +17,6 @@
 /**
  * @exports ElevationCoverage
  */
-import ArgumentError from '../error/ArgumentError';
 import Logger from '../util/Logger';
 import Sector from '../geom/Sector';
 
@@ -30,7 +29,6 @@ import Sector from '../geom/Sector';
  * whose elevations are zero at all locations.
  * @param {Number} resolution The resolution of the coverage, in degrees. (To compute degrees from
  * meters, divide the number of meters by the globe's radius to obtain radians and convert the result to degrees.)
- * @throws {ArgumentError} If the resolution argument is null, undefined, or zero.
  */
 function ElevationCoverage(resolution) {
     /**
@@ -91,7 +89,6 @@ Object.defineProperties(ElevationCoverage.prototype, {
  * @param {Sector} sector The sector for which to determine extreme elevations.
  * @param {Number[]} result An array in which to return the requested minimum and maximum elevations.
  * @returns {Boolean} true if the coverage completely fills the sector with data, false otherwise.
- * @throws {ArgumentError} If any argument is null or undefined
  */
 ElevationCoverage.prototype.minAndMaxElevationsForSector = function (sector, result) {
     if (result[0] > 0) { // min elevation
@@ -123,8 +120,6 @@ ElevationCoverage.prototype.elevationAtLocation = function (latitude, longitude)
  * @param {Number} numLon The number of longitudinal sample locations within the sector.
  * @param {Number[]} result An array in which to return the requested elevations.
  * @returns {Boolean} true if the result array was completely filled with elevation data, false otherwise.
- * @throws {ArgumentError} If the specified sector or result array is null or undefined, or if either of the
- * specified numLat or numLon values is less than one.
  */
 ElevationCoverage.prototype.elevationsForGrid = function (sector, numLat, numLon, result) {
     for (var i = 0, len = result.length; i < len; i++) {

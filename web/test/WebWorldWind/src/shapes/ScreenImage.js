@@ -17,7 +17,6 @@
 /**
  * @exports ScreenImage
  */
-import ArgumentError from '../error/ArgumentError';
 import BasicTextureProgram from '../shaders/BasicTextureProgram';
 import Color from '../util/Color';
 import ImageSource from '../util/ImageSource';
@@ -44,7 +43,6 @@ import WWMath from '../util/WWMath';
  * @param {String|ImageSource} imageSource The source of the image to display.
  * May be either a string identifying the URL of the image, or an {@link ImageSource} object identifying a
  * dynamically created image.
- * @throws {ArgumentError} If the specified screen offset or image source is null or undefined.
  */
 function ScreenImage(screenOffset, imageSource) {
     Renderable.call(this);

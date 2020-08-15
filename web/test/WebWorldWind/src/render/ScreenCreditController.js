@@ -17,7 +17,6 @@
 /**
  * @exports ScreenCreditController
  */
-import ArgumentError from '../error/ArgumentError';
 import Color from '../util/Color';
 import Font from '../util/Font';
 import Layer from '../layer/Layer';
@@ -71,7 +70,6 @@ ScreenCreditController.prototype.clear = function () {
  * @param {String} creditString The text to display in the credits area.
  * @param {Color} color The color with which to draw the string.
  * @param {String} hyperlinkUrl Optional argument if screen credit is intended to work as a hyperlink.
- * @throws {ArgumentError} If either the specified string or color is null or undefined.
  */
 ScreenCreditController.prototype.addCredit = function (creditString, color, hyperlinkUrl) {
     // Verify if text credit is not already in controller, if it is, don't add it.

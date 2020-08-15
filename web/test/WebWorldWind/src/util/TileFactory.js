@@ -39,7 +39,6 @@ function TileFactory() {
  * @param {Level} level The level the tile is a member of.
  * @param {Number} row The tile's row within the specified level.
  * @param {Number} column The tile's column within the specified level.
- * @throws {ArgumentError} If the specified sector is null or undefined.
  */
 TileFactory.prototype.createTile = function (sector, level, row, column) {
 };

@@ -17,7 +17,6 @@
 /**
  * @exports GpuProgram
  */
-import ArgumentError from '../error/ArgumentError';
 import Color from '../util/Color';
 import GpuShader from '../shaders/GpuShader';
 import Logger from '../util/Logger';
@@ -46,8 +45,6 @@ import Logger from '../util/Logger';
  * @param {String[]} attributeBindings An array of attribute variable names whose bindings are to be explicitly
  * specified. Each name is bound to its corresponding index in the array. May be null, in which case the
  * linker determines all the bindings.
- * @throws {ArgumentError} If either source is null or undefined, the shaders cannot be compiled, or linking of
- * the compiled shaders into a program fails.
  */
 function GpuProgram(gl, vertexShaderSource, fragmentShaderSource, attributeBindings) {
     var program, vShader, fShader;
@@ -151,7 +148,6 @@ GpuProgram.prototype.dispose = function (gl) {
  * @param {String} attributeName The name of the attribute whose location is determined.
  * @returns {Number} The WebGL attribute location of the specified attribute, or -1 if the attribute is not
  * found.
- * @throws {ArgumentError} If the specified attribute name is null, empty or undefined.
  */
 GpuProgram.prototype.attributeLocation = function (gl, attributeName) {
     var location = this.attributeLocations[attributeName];
@@ -170,7 +166,6 @@ GpuProgram.prototype.attributeLocation = function (gl, attributeName) {
  * @param {String} uniformName The name of the uniform variable whose location is determined.
  * @returns {WebGLUniformLocation} The WebGL uniform location of the specified uniform variable,
  * or -1 if the uniform is not found.
- * @throws {ArgumentError} If the specified uniform name is null, empty or undefined.
  */
 GpuProgram.prototype.uniformLocation = function (gl, uniformName) {
     var location = this.uniformLocations[uniformName];
@@ -206,7 +201,6 @@ GpuProgram.prototype.link = function (gl, program) {
  * @param {WebGLRenderingContext} gl The current WebGL context.
  * @param {Matrix} matrix The matrix to load.
  * @param {WebGLUniformLocation} location The location of the uniform variable in the currently bound GLSL program.
- * @throws {ArgumentError} If the specified matrix is null or undefined.
  */
 GpuProgram.prototype.loadUniformMatrix = function (gl, matrix, location) {
     var columnMajorArray = matrix.columnMajorComponents(this.scratchArray);
@@ -222,7 +216,6 @@ GpuProgram.prototype.loadUniformMatrix = function (gl, matrix, location) {
  * @param {WebGLRenderingContext} gl The current WebGL context.
  * @param {Color} color The color to load.
  * @param {WebGLUniformLocation} location The location of the uniform variable in the currently bound GLSL program.
- * @throws {ArgumentError} If the specified color is null or undefined.
  */
 GpuProgram.prototype.loadUniformColor = function (gl, color, location) {
     var premul = color.premultipliedComponents(this.scratchArray);

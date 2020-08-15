@@ -17,7 +17,6 @@
 /**
  * @exports SurfacePolyline
  */
-import ArgumentError from '../error/ArgumentError';
 import Logger from '../util/Logger';
 import ShapeAttributes from '../shapes/ShapeAttributes';
 import SurfaceShape from '../shapes/SurfaceShape';
@@ -41,7 +40,6 @@ import SurfaceShape from '../shapes/SurfaceShape';
  * @param {Location[]} locations This polyline's locations.
  * @param {ShapeAttributes} attributes The attributes to apply to this shape. May be null, in which case
  * attributes must be set directly before the shape is drawn.
- * @throws {ArgumentError} If the specified locations are null or undefined.
  */
 function SurfacePolyline(locations, attributes) {
     SurfaceShape.call(this, attributes);

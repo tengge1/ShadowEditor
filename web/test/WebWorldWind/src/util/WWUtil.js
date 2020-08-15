@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import ArgumentError from '../error/ArgumentError';
 import Line from '../geom/Line';
 import Logger from '../util/Logger';
 import Rectangle from '../geom/Rectangle';
@@ -210,7 +209,7 @@ var WWUtil = {
     },
 
     arrayEquals: function (array1, array2) {
-        return (array1.length == array2.length) && array1.every(function (element, index) {
+        return array1.length == array2.length && array1.every(function (element, index) {
             return element === array2[index] || element.equals && element.equals(array2[index]);
         });
     },

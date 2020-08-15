@@ -18,7 +18,6 @@
  * @exports TriangleMesh
  */
 import AbstractMesh from '../shapes/AbstractMesh';
-import ArgumentError from '../error/ArgumentError';
 import BasicTextureProgram from '../shaders/BasicTextureProgram';
 import BoundingBox from '../geom/BoundingBox';
 import Color from '../util/Color';
@@ -66,9 +65,6 @@ import Vec3 from '../geom/Vec3';
  * order to identify the triangles as front-facing.
  * @param {ShapeAttributes} attributes The attributes to associate with this mesh. May be null, in which case
  * default attributes are associated.
- *
- * @throws {ArgumentError} If the specified positions array is null, empty or undefined, the number of indices
- * is less than 3 or too many positions are specified (limit is 65536).
  */
 function TriangleMesh(positions, indices, attributes) {
     AbstractMesh.call(this, attributes);

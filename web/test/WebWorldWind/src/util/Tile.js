@@ -17,7 +17,6 @@
 /**
  * @exports Tile
  */
-import ArgumentError from '../error/ArgumentError';
 import BoundingBox from '../geom/BoundingBox';
 import Logger from '../util/Logger';
 import Sector from '../geom/Sector';
@@ -37,8 +36,6 @@ import WWUtil from '../util/WWUtil';
  * @param {Level} level This tile's level in a tile pyramid.
  * @param {Number} row This tile's row in the specified level in a tile pyramid.
  * @param {Number} column This tile's column in the specified level in a tile pyramid.
- * @throws {ArgumentError} If the specified sector or level is null or undefined or the row or column arguments
- * are less than zero.
  */
 function Tile(sector, level, row, column) {
     /**
@@ -167,7 +164,6 @@ Tile.prototype.size = function () {
  * Computes an approximate distance from this tile to a specified vector.
  * @param {Vec3} vector The vector to compute the distance to.
  * @returns {number} The distance between this tile and the vector.
- * @throws {ArgumentError} If the specified vector is null or undefined.
  */
 Tile.prototype.distanceTo = function (vector) {
     var px = vector[0], py = vector[1], pz = vector[2],
@@ -190,7 +186,6 @@ Tile.prototype.distanceTo = function (vector) {
  * @param {Level} level The level of the children.
  * @param {TileFactory} tileFactory The tile factory to use to create the children.
  * @returns {Tile[]} An array containing the four child tiles.
- * @throws {ArgumentError} If the specified tile factory or level is null or undefined.
  */
 Tile.prototype.subdivide = function (level, tileFactory) {
     var latMin = this.sector.minLatitude,
@@ -239,7 +234,6 @@ Tile.prototype.subdivide = function (level, tileFactory) {
  * in the cache it is returned rather than creating a new collection of children. If a new collection is
  * created, it is added to the cache.
  * @returns {Tile[]} An array containing the four tiles.
- * @throws {ArgumentError} If the specified tile factory or level is null or undefined.
  */
 Tile.prototype.subdivideToCache = function (level, tileFactory, cache) {
     var childList = cache ? cache.entryForKey(this.tileKey) : null;
@@ -437,7 +431,6 @@ Tile.computeLastColumn = function (delta, maxLongitude) {
  * @param {Number} row The tile's row number.
  * @param {Number} column The tile's column number.
  * @returns {Sector} The sector spanned by the tile.
- * @throws {ArgumentError} If the specified level is null or undefined or the row or column are less than zero.
  */
 Tile.computeSector = function (level, row, column) {
     var deltaLat = level.tileDelta.latitude,
@@ -456,7 +449,6 @@ Tile.computeSector = function (level, row, column) {
  * @param {Level} level The level to create the tiles for.
  * @param {TileFactory} tileFactory The tile factory to use for creating tiles.
  * @param {Tile[]} result An array in which to return the results.
- * @throws {ArgumentError} If any argument is null or undefined.
  */
 Tile.createTilesForLevel = function (level, tileFactory, result) {
     var deltaLat = level.tileDelta.latitude,

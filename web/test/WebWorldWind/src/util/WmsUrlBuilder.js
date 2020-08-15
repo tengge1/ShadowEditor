@@ -17,7 +17,6 @@
 /**
  * @exports WmsUrlBuilder
  */
-import ArgumentError from '../error/ArgumentError';
 import Logger from '../util/Logger';
 
 
@@ -33,8 +32,6 @@ import Logger from '../util/Logger';
  * assumed.
  * @param {String} timeString The time parameter included in GetMap requests.
  * May be null, in which case no time parameter is included in the request.
- * @throws {ArgumentError} If the service address or layer names are null or empty.
- *
  */
 function WmsUrlBuilder(serviceAddress, layerNames, styleNames, wmsVersion, timeString) {
     /**
@@ -88,7 +85,6 @@ function WmsUrlBuilder(serviceAddress, layerNames, styleNames, wmsVersion, timeS
  * Creates the URL string for a WMS Get Map request.
  * @param {Tile} tile The tile for which to create the URL.
  * @param {String} imageFormat The image format to request.
- * @throws {ArgumentError} If the specified tile or image format are null or undefined.
  */
 WmsUrlBuilder.prototype.urlForTile = function (tile, imageFormat) {
     var sector = tile.sector;

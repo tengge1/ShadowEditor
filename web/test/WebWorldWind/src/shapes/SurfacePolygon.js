@@ -17,7 +17,6 @@
 /**
  * @exports SurfacePolygon
  */
-import ArgumentError from '../error/ArgumentError';
 import Logger from '../util/Logger';
 import ShapeAttributes from '../shapes/ShapeAttributes';
 import SurfaceShape from '../shapes/SurfaceShape';
@@ -46,8 +45,6 @@ import SurfaceShape from '../shapes/SurfaceShape';
  * Locations then each array entry defines one of this polygon's boundaries.
  * @param {ShapeAttributes} attributes The attributes to apply to this shape. May be null, in which case
  * attributes must be set directly before the shape is drawn.
- *
- * @throws {ArgumentError} If the specified boundaries are null or undefined.
  */
 function SurfacePolygon(boundaries, attributes) {
     SurfaceShape.call(this, attributes);

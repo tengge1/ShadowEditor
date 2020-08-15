@@ -17,7 +17,6 @@
 /**
  * @exports TextureTile
  */
-import ArgumentError from '../error/ArgumentError';
 import Logger from '../util/Logger';
 import Tile from '../util/Tile';
 
@@ -33,8 +32,6 @@ import Tile from '../util/Tile';
  * @param {Level} level The level this tile is associated with.
  * @param {Number} row This tile's row in the associated level.
  * @param {Number} column This tile's column in the associated level.
- * @throws {ArgumentError} If the specified sector or level is null or undefined, the row or column arguments
- * are less than zero, or the specified image path is null, undefined or empty.
  *
  */
 function TextureTile(sector, level, row, column) {

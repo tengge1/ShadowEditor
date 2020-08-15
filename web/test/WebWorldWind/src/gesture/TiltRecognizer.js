@@ -30,7 +30,6 @@ import PanRecognizer from '../gesture/PanRecognizer';
  * @param {Function} callback An optional function to call when this gesture is recognized. If non-null, the
  * function is called when this gesture is recognized, and is passed a single argument: this gesture recognizer,
  * e.g., <code>gestureCallback(recognizer)</code>.
- * @throws {ArgumentError} If the specified target is null or undefined.
  */
 function TiltRecognizer(target, callback) {
     PanRecognizer.call(this, target, callback);

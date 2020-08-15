@@ -34,8 +34,6 @@ import GroundFragment from './glsl/ground_fragment.glsl';
  * @augments AtmosphereProgram
  * @classdesc GroundProgram is a GLSL program that draws the ground component of the atmosphere.
  * @param {WebGLRenderingContext} gl The current WebGL context.
- * @throws {ArgumentError} If the shaders cannot be compiled, or linking of
- * the compiled shaders into a program fails.
  */
 function GroundProgram(gl) {
     var vertexShaderSource = GroundVertex,

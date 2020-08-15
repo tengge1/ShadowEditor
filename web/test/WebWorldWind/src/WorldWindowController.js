@@ -17,7 +17,6 @@
 /**
  * @exports WorldWindowController
  */
-import ArgumentError from './error/ArgumentError';
 import Logger from './util/Logger';
 
 
@@ -29,7 +28,6 @@ import Logger from './util/Logger';
  * @classDesc This class provides a base window controller with required properties and methods which sub-classes may
  * inherit from to create custom window controllers for controlling the globe via user interaction.
  * @param {WorldWindow} worldWindow The WorldWindow associated with this layer.
- * @throws {ArgumentError} If the specified WorldWindow is null or undefined.
  */
 function WorldWindowController(worldWindow) {
     /**
@@ -69,7 +67,6 @@ WorldWindowController.prototype.gestureStateChanged = function (recognizer) {
  * When an event occurs, application event listeners are called before WorldWindowController event listeners.
  *
  * @param listener The function to call when the event occurs.
- * @throws {ArgumentError} If any argument is null or undefined.
  */
 WorldWindowController.prototype.addGestureListener = function (listener) {
     this.allGestureListeners.push(listener);
@@ -81,7 +78,6 @@ WorldWindowController.prototype.addGestureListener = function (listener) {
  * listener has no effect.
  *
  * @param listener The listener to remove. Must be the same object passed to addGestureListener.
- * @throws {ArgumentError} If any argument is null or undefined.
  */
 WorldWindowController.prototype.removeGestureListener = function (listener) {
     var index = this.allGestureListeners.indexOf(listener);

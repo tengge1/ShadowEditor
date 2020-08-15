@@ -17,7 +17,6 @@
 /**
  * @exports ElevationImage
  */
-import ArgumentError from '../error/ArgumentError';
 import Logger from '../util/Logger';
 import WWMath from '../util/WWMath';
 
@@ -31,7 +30,6 @@ import WWMath from '../util/WWMath';
  * @param {Sector} sector The sector spanned by this elevation image.
  * @param {Number} imageWidth The number of longitudinal sample points in this elevation image.
  * @param {Number} imageHeight The number of latitudinal sample points in this elevation image.
- * @throws {ArgumentError} If the sector is null or undefined
  */
 function ElevationImage(sector, imageWidth, imageHeight) {
     /**
@@ -156,8 +154,6 @@ ElevationImage.prototype.elevationAtLocation = function (latitude, longitude) {
  * @param {Number} numLat The number of sample points in the longitudinal direction.
  * @param {Number} numLon The number of sample points in the latitudinal direction.
  * @param {Number[]} result An array in which to return the computed elevations.
- * @throws {ArgumentError} If either the specified sector or result argument is null or undefined, or if the
- * specified number of sample points in either direction is less than 1.
  */
 ElevationImage.prototype.elevationsForGrid = function (sector, numLat, numLon, result) {
     var minLatSelf = this.sector.minLatitude,

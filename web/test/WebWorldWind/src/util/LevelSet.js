@@ -17,7 +17,6 @@
 /**
  * @exports LevelSet
  */
-import ArgumentError from '../error/ArgumentError';
 import Level from '../util/Level';
 import Location from '../geom/Location';
 import Logger from '../util/Logger';
@@ -36,9 +35,6 @@ import Logger from '../util/Logger';
  * points in the longitudinal direction of elevation tiles associate with this level set.
  * @param {Number} tileHeight The height in pixels of images associated with tiles in this level set, or the number of sample
  * points in the latitudinal direction of elevation tiles associate with this level set.
- * @throws {ArgumentError} If the specified sector or level-zero-delta is null or undefined, the level zero
- * delta values are less than or equal to zero, or any of the number-of-levels, tile-width or tile-height
- * arguments are less than 1.
  */
 function LevelSet(sector, levelZeroDelta, numLevels, tileWidth, tileHeight) {
     /**
@@ -107,8 +103,6 @@ function LevelSet(sector, levelZeroDelta, numLevels, tileWidth, tileHeight) {
  * @param {Number} lastLevelResolution the desired resolution of the last level in degrees per pixel
  *
  * @return {Number} the number of levels as a fractional level count
- *
- * @throws {ArgumentError} If either resolution is null, undefined, or zero
  */
 LevelSet.numLevelsForResolution = function (firstLevelResolution, lastLevelResolution) {
     var lastLevel = Math.log(firstLevelResolution / lastLevelResolution) / Math.log(2); // fractional level address

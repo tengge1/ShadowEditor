@@ -17,7 +17,6 @@
 /**
  * @exports FramebufferTileController
  */
-import ArgumentError from '../error/ArgumentError';
 import FramebufferTile from '../render/FramebufferTile';
 import LevelSet from '../util/LevelSet';
 import Location from '../geom/Location';
@@ -90,7 +89,6 @@ FramebufferTileController.keyPool = 0; // source of unique ids
  * @param {DrawContext} dc The current draw context.
  * @param {Sector} sector The geographic region of interest.
  * @returns {Array} The set of multi-resolution framebuffer tiles that overlap the sector.
- * @throws {ArgumentError} If the specified sector is null.
  */
 FramebufferTileController.prototype.selectTiles = function (dc, sector) {
     // Assemble a set of global tiles appropriate for the draw context.

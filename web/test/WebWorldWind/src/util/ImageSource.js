@@ -17,7 +17,6 @@
 /**
  * @exports ImageSource
  */
-import ArgumentError from '../error/ArgumentError';
 import Logger from '../util/Logger';
 
 
@@ -30,7 +29,6 @@ import Logger from '../util/Logger';
  * specify dynamically created image sources for {@link Placemark}, {@link SurfaceImage},
  * {@link Polygon} textures and other shapes that display imagery.
  * @param {Image} image The image for this image source.
- * @throws {ArgumentError} If the specified image is null or undefined.
  */
 function ImageSource(image) {
     /**

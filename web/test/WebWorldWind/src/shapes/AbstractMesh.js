@@ -18,7 +18,6 @@
  * @exports AbstractMesh
  */
 import AbstractShape from '../shapes/AbstractShape';
-import ArgumentError from '../error/ArgumentError';
 import BasicTextureProgram from '../shaders/BasicTextureProgram';
 import BoundingBox from '../geom/BoundingBox';
 import Color from '../util/Color';

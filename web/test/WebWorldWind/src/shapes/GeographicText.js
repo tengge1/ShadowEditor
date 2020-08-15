@@ -17,7 +17,6 @@
 /**
  * @exports GeographicText
  */
-import ArgumentError from '../error/ArgumentError';
 import Logger from '../util/Logger';
 import Text from '../shapes/Text';
 import Vec3 from '../geom/Vec3';
@@ -34,7 +33,6 @@ import Vec3 from '../geom/Vec3';
  *
  * @param {Position} position The text's geographic position.
  * @param {String} text The text to display.
- * @throws {ArgumentError} If either the specified position or text is null or undefined.
  */
 function GeographicText(position, text) {
     Text.call(this, text);

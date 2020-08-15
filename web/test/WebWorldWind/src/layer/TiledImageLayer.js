@@ -18,7 +18,6 @@
  * @exports TiledImageLayer
  */
 import AbsentResourceList from '../util/AbsentResourceList';
-import ArgumentError from '../error/ArgumentError';
 import ImageTile from '../render/ImageTile';
 import Layer from '../layer/Layer';
 import LevelSet from '../util/LevelSet';
@@ -60,8 +59,6 @@ import WWMath from '../util/WWMath';
  * @param {String} cachePath A string uniquely identifying this layer relative to other layers.
  * @param {Number} tileWidth The horizontal size of image tiles in pixels.
  * @param {Number} tileHeight The vertical size of image tiles in pixels.
- * @throws {ArgumentError} If any of the specified sector, level-zero delta, cache path or image format arguments are
- * null or undefined, or if the specified number of levels, tile width or tile height is less than 1.
  *
  */
 function TiledImageLayer(sector, levelZeroDelta, numLevels, imageFormat, cachePath, tileWidth, tileHeight) {
@@ -134,7 +131,6 @@ TiledImageLayer.prototype.refresh = function () {
  * but only for level 0 tiles. An application might pre-populate a layer in order to delay displaying it
  * within a time series until all the level 0 images have been retrieved and added to memory.
  * @param {WorldWindow} wwd The WorldWindow for which to pre-populate this layer.
- * @throws {ArgumentError} If the specified WorldWindow is null or undefined.
  */
 TiledImageLayer.prototype.prePopulate = function (wwd) {
     var dc = wwd.drawContext;
@@ -156,7 +152,6 @@ TiledImageLayer.prototype.prePopulate = function (wwd) {
  * Initiates retrieval of this layer's tiles that are visible in the specified WorldWindow. Pre-populating is
  * not required. It is used to eliminate the visual effect of loading tiles incrementally.
  * @param {WorldWindow} wwd The WorldWindow for which to pre-populate this layer.
- * @throws {ArgumentError} If the specified WorldWindow is null or undefined.
  */
 TiledImageLayer.prototype.prePopulateCurrentTiles = function (wwd) {
     var dc = wwd.drawContext;
@@ -176,7 +171,6 @@ TiledImageLayer.prototype.prePopulateCurrentTiles = function (wwd) {
  * Use [prePopulate]{@link TiledImageLayer#prePopulate} to initiate retrieval of level 0 images.
  * @param {WorldWindow} wwd The WorldWindow associated with this layer.
  * @returns {Boolean} true if all level 0 images have been retrieved, otherwise false.
- * @throws {ArgumentError} If the specified WorldWindow is null or undefined.
  */
 TiledImageLayer.prototype.isPrePopulated = function (wwd) {
     for (var i = 0; i < this.topLevelTiles.length; i++) {

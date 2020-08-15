@@ -19,7 +19,6 @@
  */
 import AbstractError from '../error/AbstractError';
 import Angle from '../geom/Angle';
-import ArgumentError from '../error/ArgumentError';
 import BoundingBox from '../geom/BoundingBox';
 import Color from '../util/Color';
 import Location from '../geom/Location';

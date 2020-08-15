@@ -28,7 +28,6 @@ import Vec3 from '../geom/Vec3';
  * @constructor
  * @classdesc Incrementally and smoothly moves a {@link Navigator} to a specified position.
  * @param {WorldWindow} worldWindow The WorldWindow in which to perform the animation.
- * @throws {ArgumentError} If the specified WorldWindow is null or undefined.
  */
 function GoToAnimator(worldWindow) {
     /**
@@ -76,7 +75,6 @@ GoToAnimator.prototype.cancel = function () {
  * at the specified altitude. Otherwise the end point is at the current altitude of the navigator.
  * @param {Function} completionCallback If not null or undefined, specifies a function to call when the
  * animation completes. The completion callback is called with a single argument, this animator.
- * @throws {ArgumentError} If the specified location or position is null or undefined.
  */
 GoToAnimator.prototype.goTo = function (position, completionCallback) {
     this.completionCallback = completionCallback;

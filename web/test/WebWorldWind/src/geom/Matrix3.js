@@ -18,7 +18,6 @@
  * @exports Matrix3
  */
 
-import ArgumentError from '../error/ArgumentError';
 import Logger from '../util/Logger';
 
 
@@ -93,7 +92,6 @@ Matrix3.prototype.setToUnitYFlip = function () {
  *
  * @param {Matrix3} matrix The matrix to multiply with this matrix.
  * @returns {Matrix3} This matrix after multiplying it by the specified matrix.
- * @throws {ArgumentError} if the specified matrix is null or undefined.
  */
 Matrix3.prototype.multiplyMatrix = function (matrix) {
     var ma = this,
@@ -193,7 +191,6 @@ Matrix3.prototype.multiplyByTileTransform = function (src, dst) {
  * @param {Float32Array | Float64Array | Number[]} result An array of at least 9 elements. Upon return,
  * contains this matrix's components in column-major.
  * @returns {Float32Array} The specified result array.
- * @throws {ArgumentError} If the specified result array in null or undefined.
  */
 Matrix3.prototype.columnMajorComponents = function (result) {
     // Column 1

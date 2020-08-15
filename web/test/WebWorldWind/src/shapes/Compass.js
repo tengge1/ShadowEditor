@@ -17,7 +17,6 @@
 /**
  * @exports Compass
  */
-import ArgumentError from '../error/ArgumentError';
 import Logger from '../util/Logger';
 import Offset from '../util/Offset';
 import ScreenImage from '../shapes/ScreenImage';

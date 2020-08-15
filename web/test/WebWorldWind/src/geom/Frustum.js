@@ -17,7 +17,6 @@
 /**
  * @exports Frustum
  */
-import ArgumentError from '../error/ArgumentError';
 import Plane from '../geom/Plane';
 import Logger from '../util/Logger';
 
@@ -33,7 +32,6 @@ import Logger from '../util/Logger';
  * @param {Plane} top The frustum's top plane.
  * @param {Plane} near The frustum's near plane.
  * @param {Plane} far The frustum's far plane.
- * @throws {ArgumentError} If any specified plane is null or undefined.
  */
 function Frustum(left, right, bottom, top, near, far) {
     // Internal. Intentionally not documented. See property accessors below for public interface.
@@ -123,7 +121,6 @@ Object.defineProperties(Frustum.prototype, {
  * Transforms this frustum by a specified matrix.
  * @param {Matrix} matrix The matrix to apply to this frustum.
  * @returns {Frustum} This frustum set to its original value multiplied by the specified matrix.
- * @throws {ArgumentError} If the specified matrix is null or undefined.
  */
 Frustum.prototype.transformByMatrix = function (matrix) {
     this._left.transformByMatrix(matrix);
@@ -177,7 +174,6 @@ Frustum.unitFrustum = function () {
  *
  * @param {Matrix} matrix The projection matrix to extract the frustum from.
  * @return {Frustum} A new frustum containing the projection matrix's view frustum, in eye coordinates.
- * @throws {ArgumentError} If the specified matrix is null or undefined.
  */
 Frustum.fromProjectionMatrix = function (matrix) {
     var x, y, z, w, d, left, right, top, bottom, near, far;
@@ -262,8 +258,6 @@ Frustum.prototype.containsPoint = function (point) {
  *
  * @return {boolean} <code>true</code> if the segment intersects or is contained in this frustum,
  * otherwise <code>false</code>.
- *
- * @throws {ArgumentError} If either point is null or undefined.
  */
 Frustum.prototype.intersectsSegment = function (pointA, pointB) {
     // First do a trivial accept test.

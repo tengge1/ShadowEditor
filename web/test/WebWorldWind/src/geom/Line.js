@@ -17,7 +17,6 @@
 /**
  * @exports Line
  */
-import ArgumentError from '../error/ArgumentError';
 import Logger from '../util/Logger';
 import Vec3 from '../geom/Vec3';
 
@@ -29,7 +28,6 @@ import Vec3 from '../geom/Vec3';
  * @classdesc Represents a line in Cartesian coordinates.
  * @param {Vec3} origin The line's origin.
  * @param {Vec3} direction The line's direction.
- * @throws {ArgumentError} If either the origin or the direction are null or undefined.
  */
 function Line(origin, direction) {
     /**
@@ -50,7 +48,6 @@ function Line(origin, direction) {
  * @param {Vec3} pointA The first endpoint.
  * @param {Vec3} pointB The second endpoint.
  * @return {Line} The new line.
- * @throws {ArgumentError} If either endpoint is null or undefined.
  */
 Line.fromSegment = function (pointA, pointB) {
     var origin = new Vec3(pointA[0], pointA[1], pointA[2]),
@@ -64,7 +61,6 @@ Line.fromSegment = function (pointA, pointB) {
  * @param {Number} distance The distance from this line's origin at which to compute the point.
  * @param {Vec3} result A pre-allocated {@Link Vec3} instance in which to return the computed point.
  * @return {Vec3} The specified result argument containing the computed point.
- * @throws {ArgumentError} If the specified result argument is null or undefined.
  */
 Line.prototype.pointAt = function (distance, result) {
     result[0] = this.origin[0] + this.direction[0] * distance;
@@ -104,7 +100,6 @@ Line.prototype.clone = function () {
  * Copies the components of a specified line to this line.
  * @param {Line} copyLine The line to copy.
  * @returns {Line} A copy of this line equal to otherLine.
- * @throws {ArgumentError} If the specified line is null or undefined.
  */
 Line.prototype.copy = function (copyLine) {
     this.origin.copy(copyLine.origin);

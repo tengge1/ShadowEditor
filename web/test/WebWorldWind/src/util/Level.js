@@ -18,7 +18,6 @@
  * @exports Level
  */
 import Angle from '../geom/Angle';
-import ArgumentError from '../error/ArgumentError';
 import Logger from '../util/Logger';
 
 
@@ -28,7 +27,6 @@ import Logger from '../util/Logger';
  * @alias Level
  * @constructor
  * @classdesc Represents a level in a tile pyramid.
- * @throws {ArgumentError} If either the specified tile delta or parent level set is null or undefined.
  */
 function Level(levelNumber, tileDelta, parent) {
     /**
@@ -115,7 +113,6 @@ Level.prototype.nextLevel = function () {
  * @param {Level} that The level to compare this one to.
  * @returns {Number} 0 if the two ordinals are equivalent. -1 if this level's ordinal is less than the specified
  * level's ordinal. 1 if this level's ordinal is greater than the specified level's ordinal.
- * @throws {ArgumentError} If the specified level is null or undefined.
  */
 Level.prototype.compare = function (that) {
     if (this.levelNumber < that.levelNumber)

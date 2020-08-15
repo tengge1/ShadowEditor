@@ -18,7 +18,6 @@
  * @exports Polygon
  */
 import AbstractShape from '../shapes/AbstractShape';
-import ArgumentError from '../error/ArgumentError';
 import BasicTextureProgram from '../shaders/BasicTextureProgram';
 import BoundingBox from '../geom/BoundingBox';
 import Color from '../util/Color';
@@ -87,8 +86,6 @@ import libtessDummy from '../util/libtess';
  * duplicate the first position of the boundary.
  * @param {ShapeAttributes} attributes The attributes to associate with this polygon. May be null, in which case
  * default attributes are associated.
- *
- * @throws {ArgumentError} If the specified boundaries array is null or undefined.
  */
 function Polygon(boundaries, attributes) {
     AbstractShape.call(this, attributes);

@@ -17,7 +17,6 @@
 /**
  * @exports SurfaceTileRenderer
  */
-import ArgumentError from '../error/ArgumentError';
 import Logger from '../util/Logger';
 import Matrix from '../geom/Matrix';
 import SurfaceShapeTile from '../shapes/SurfaceShapeTile';
@@ -48,7 +47,6 @@ function SurfaceTileRenderer() {
  * @param {Number} opacity The opacity at which to draw the surface tiles.
  * @param {Boolean} tilesHaveOpacity If true, incoming tiles each have their own opacity property and
  * it's value is applied when the tile is drawn.
- * @throws {ArgumentError} If the specified surface tiles array is null or undefined.
  */
 SurfaceTileRenderer.prototype.renderTiles = function (dc, surfaceTiles, opacity, tilesHaveOpacity) {
     if (surfaceTiles.length < 1)

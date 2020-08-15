@@ -17,7 +17,6 @@
 /**
  * @exports BasicProgram
  */
-import ArgumentError from '../error/ArgumentError';
 import Color from '../util/Color';
 import GpuProgram from '../shaders/GpuProgram';
 import Logger from '../util/Logger';
@@ -37,8 +36,6 @@ import BasicFragment from './glsl/basic_fragment.glsl';
  * @augments GpuProgram
  * @classdesc BasicProgram is a GLSL program that draws geometry in a solid color.
  * @param {WebGLRenderingContext} gl The current WebGL context.
- * @throws {ArgumentError} If the shaders cannot be compiled, or linking of
- * the compiled shaders into a program fails.
  */
 function BasicProgram(gl) {
     var vertexShaderSource = BasicVertex,
@@ -84,7 +81,6 @@ BasicProgram.prototype = Object.create(GpuProgram.prototype);
  *
  * @param {WebGLRenderingContext} gl The current WebGL context.
  * @param {Matrix} matrix The matrix to load.
- * @throws {ArgumentError} If the specified matrix is null or undefined.
  */
 BasicProgram.prototype.loadModelviewProjection = function (gl, matrix) {
     this.loadUniformMatrix(gl, matrix, this.mvpMatrixLocation);
@@ -95,7 +91,6 @@ BasicProgram.prototype.loadModelviewProjection = function (gl, matrix) {
  *
  * @param {WebGLRenderingContext} gl The current WebGL context.
  * @param {Color} color The color to load.
- * @throws {ArgumentError} If the specified color is null or undefined.
  */
 BasicProgram.prototype.loadColor = function (gl, color) {
     this.loadUniformColor(gl, color, this.colorLocation);

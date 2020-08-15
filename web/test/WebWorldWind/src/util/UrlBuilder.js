@@ -35,7 +35,6 @@ function UrlBuilder() {
  * @param {Tile} tile The tile for which to create the URL.
  * @param {String} format The format to request.
  * @returns {String} A string identifying the URL for the specified tile's resource.
- * @throws {ArgumentError} If either the specified tile or format is null or undefined.
  */
 UrlBuilder.prototype.urlForTile = function (tile, format) {
 };

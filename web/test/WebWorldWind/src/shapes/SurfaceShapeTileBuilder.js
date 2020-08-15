@@ -17,7 +17,6 @@
 /**
  * @exports SurfaceShapeTileBuilder
  */
-import ArgumentError from '../error/ArgumentError';
 import DrawContext from '../render/DrawContext';
 import Globe from '../globe/Globe';
 import GpuProgram from '../shaders/GpuProgram';
@@ -247,8 +246,6 @@ SurfaceShapeTileBuilder.prototype.doDeepPickingRender = function (dc) {
  * This does nothing if there are no surface shapes associated with this builder.
  *
  * @param {DrawContext} dc The draw context to build tiles for.
- *
- * @throws {ArgumentError} If the draw context is null.
  */
 SurfaceShapeTileBuilder.prototype.buildTiles = function (dc) {
     if (!this.surfaceShapes || this.surfaceShapes.length < 1) {
