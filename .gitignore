@@ -76,3 +76,4 @@ utils/mongodb/*
 utils/mongodb/db/*
 !utils/mongodb/db/README.md
 .idea
+web/test/ShadowGIS
