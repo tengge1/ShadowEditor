@@ -146,18 +146,20 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
       - [ ] Seven parameter conversion, four parameter conversion
     - [ ] Resource downloader, pyramid slice, mesh resampling
 - [ ] Data visualization
-  - [ ] Real-time data access
-    - [ ] WebSocket
-    - [ ] Ajax
   - [ ] UI
-    - [ ] Form
-      - [ ] Button, radio, checkbox, dropdown
-    - [ ] Panel
-    - [ ] Datagrid
-  - [ ] Chart
+    - [ ] Panel, tab panel
+    - [ ] Button, radio, checkbox, dropdown, slider
+    - [ ] Data table
+  - [ ] Charts
     - [ ] Histogram
     - [ ] Pie chart
     - [ ] Line chart
+  - [ ] Visualization config
+    - [ ] Layout management
+    - [ ] data source config
+  - [ ] Real-time data
+    - [ ] WebSocket
+    - [ ] Ajax
 
 ## Requirements
 
