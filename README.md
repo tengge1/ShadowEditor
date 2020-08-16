@@ -119,13 +119,14 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
     - [ ] Google satellite tiles
     - [ ] Tianditu satellite tiles
   - [ ] 3D terrain
-    - [ ] Arcgis elevation
+    - [x] Arcgis elevation
     - [ ] Cesium elevation
     - [ ] Terrain editing
   - [ ] Ground features editing
     - [ ] Draw point, line and polygon
     - [ ] Layer editing, style editing
     - [ ] Pipe network editing, district editing
+    - [ ] computer room editing, pipe gallery editing
     - [ ] Data query
   - [ ] Data Service
     - [ ] WMTS, WMS, MVT service
