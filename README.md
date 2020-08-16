@@ -104,7 +104,7 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
     - [x] Measure distance
   - [ ] Others
     - [ ] Bullet physics engine
-    - [ ] Ray tracing rendering
+    - [ ] Ray tracing rendering, voxel rendering
     - [ ] UV unwrap
     - [ ] Automatic pathfinding
     - [ ] Batch rendering
