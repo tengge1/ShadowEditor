@@ -111,12 +111,16 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
     - [ ] Occlusion culling
     - [ ] Split screen display
 - [ ] GIS scene editing
+  - [ ] Vector imagery
+    - [ ] Google vector tiles
+    - [ ] Tianditu vector tiles
   - [ ] Satellite imagery
-    - [x] Bing satellite image
-    - [ ] Google satellite image
-    - [ ] Tianditu satellite image
+    - [x] Bing satellite tiles
+    - [ ] Google satellite tiles
+    - [ ] Tianditu satellite tiles
   - [ ] 3D terrain
-    - [ ] Arcgis Elevation
+    - [ ] Arcgis elevation
+    - [ ] Cesium elevation
     - [ ] Terrain editing
   - [ ] Ground features editing
     - [ ] Draw point, line and polygon
@@ -125,7 +129,8 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
     - [ ] Data query
   - [ ] Data Service
     - [ ] WMTS, WMS, MVT service
-    - [ ] Support data for openLayers, mapbox gl js and cesiumjs
+    - [ ] Mapbox-gl-js styles，mvt data
+    - [ ] Cesium 3dtiles
   - [ ] Data processing and import
     - [ ] OSM, sharp, dxf, excel, BIM, point cloud, oblique photography
   - [ ] Analysis
