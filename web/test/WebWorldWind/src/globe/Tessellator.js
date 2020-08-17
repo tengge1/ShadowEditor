@@ -277,6 +277,10 @@ Tessellator.prototype.beginRenderingTile = function (dc, terrainTile) {
     else {
         dc.currentGlContext.bindBuffer(gl.ARRAY_BUFFER, vbo);
     }
+    
+    // dc.currentProgram.setColumn(terrainTile.column);
+    // dc.currentProgram.setRow(terrainTile.row);
+    // dc.currentProgram.setLevel(terrainTile.level.levelNumber);
 
     gl.vertexAttribPointer(this.vertexPointLocation, 3, gl.FLOAT, false, 0, 0);
 };

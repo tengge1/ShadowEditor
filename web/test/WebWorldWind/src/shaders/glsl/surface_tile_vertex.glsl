@@ -29,7 +29,12 @@ uniform sampler2D heightmap;
 varying vec2 texSamplerCoord;
 varying vec2 texMaskCoord;
 
+int add(int x, int y, int z) {
+    return x + y + z;
+}
+
 void main() {
+    add(x, y, z);
     gl_Position = mvpMatrix * vertexPoint;
     /* Transform the vertex texture coordinate into sampler texture coordinates. */
     texSamplerCoord = (texSamplerMatrix * vertexTexCoord).st;
