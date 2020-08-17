@@ -88,6 +88,9 @@ function SurfaceTileRendererProgram(gl) {
     this.texSamplerLocation = this.uniformLocation(gl, "texSampler");
     this.opacityLocation = this.uniformLocation(gl, "opacity");
 
+    this.columnLocation = this.uniformLocation(gl, "column");
+    this.rowLocation = this.uniformLocation(gl, "row");
+    this.levelLocation = this.uniformLocation(gl, "level");
     this.heightmapLocation = this.uniformLocation(gl, "heightmap");
 
     /**
@@ -183,8 +186,20 @@ SurfaceTileRendererProgram.prototype.loadModulateColor = function (gl, enable) {
     gl.uniform1i(this.modulateColorLocation, enable ? 1 : 0);
 };
 
-SurfaceTileRendererProgram.prototype.loadHeightmap = function (gl, image) {
-    this.loadUniformMatrix(gl, image, this.heightmapLocation);
+SurfaceTileRendererProgram.prototype.setColumn = function (gl, column) {
+    gl.uniform1i(this.columnLocation, column);
+};
+
+SurfaceTileRendererProgram.prototype.setRow = function (gl, row) {
+    gl.uniform1i(this.rowLocation, row);
+};
+
+SurfaceTileRendererProgram.prototype.setLevel = function (gl, level) {
+    gl.uniform1i(this.levelLocation, level);
+};
+
+SurfaceTileRendererProgram.prototype.loadHeightmap = function (gl, unit) {
+    gl.uniform1i(gl, unit - WebGLRenderingContext.TEXTURE0);
 };
 
 export default SurfaceTileRendererProgram;
