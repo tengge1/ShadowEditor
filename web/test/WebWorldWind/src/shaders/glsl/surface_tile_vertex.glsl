@@ -21,6 +21,8 @@ uniform mat4 mvpMatrix;
 uniform mat4 texSamplerMatrix;
 uniform mat4 texMaskMatrix;
 
+uniform sampler2D heightmap;
+
 varying vec2 texSamplerCoord;
 varying vec2 texMaskCoord;
 

@@ -88,6 +88,8 @@ function SurfaceTileRendererProgram(gl) {
     this.texSamplerLocation = this.uniformLocation(gl, "texSampler");
     this.opacityLocation = this.uniformLocation(gl, "opacity");
 
+    this.heightmapLocation = this.uniformLocation(gl, "heightmap");
+
     /**
      * The WebGL location for this program's 'vertexTexCoord' attribute.
      * @type {Number}
@@ -179,6 +181,10 @@ SurfaceTileRendererProgram.prototype.loadColor = function (gl, color) {
  */
 SurfaceTileRendererProgram.prototype.loadModulateColor = function (gl, enable) {
     gl.uniform1i(this.modulateColorLocation, enable ? 1 : 0);
+};
+
+SurfaceTileRendererProgram.prototype.loadHeightmap = function (gl, image) {
+    this.loadUniformMatrix(gl, image, this.heightmapLocation);
 };
 
 export default SurfaceTileRendererProgram;
