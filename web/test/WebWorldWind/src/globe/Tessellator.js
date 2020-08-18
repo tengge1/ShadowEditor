@@ -277,7 +277,7 @@ Tessellator.prototype.beginRenderingTile = function (dc, terrainTile) {
     else {
         dc.currentGlContext.bindBuffer(gl.ARRAY_BUFFER, vbo);
     }
-    
+
     // dc.currentProgram.setColumn(terrainTile.column);
     // dc.currentProgram.setRow(terrainTile.row);
     // dc.currentProgram.setLevel(terrainTile.level.levelNumber);
@@ -303,6 +303,14 @@ Tessellator.prototype.endRenderingTile = function (dc, terrainTile) {
 Tessellator.prototype.renderTile = function (dc, terrainTile) {
     var gl = dc.currentGlContext,
         prim = gl.TRIANGLE_STRIP; // replace TRIANGLE_STRIP with LINE_STRIP to debug borders
+
+    var heightmap = dc.globe.elevationModel.coverages[0].imageCache.entryForKey(terrainTile.tileKey);
+    if (heightmap) {
+        debugger;
+        gl.activeTexture(gl.TEXTURE1);
+        gl.bindTexture(gl.TEXTURE_2D, heightmap.imageData);
+        gl.activeTexture(gl.TEXTURE0);
+    }
 
     /*
      * Indices order in the buffer:

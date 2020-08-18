@@ -82,6 +82,7 @@ SurfaceTileRenderer.prototype.renderTiles = function (dc, surfaceTiles, opacity,
                 for (var j = 0, stLen = surfaceTiles.length; j < stLen; j++) {
                     surfaceTile = surfaceTiles[j];
                     if (surfaceTile.sector.overlaps(terrainTileSector)) {
+                        //gl.activeTexture(gl.TEXTURE0);
                         if (surfaceTile.bind(dc)) {
                             if (dc.pickingMode) {
                                 if (surfaceTile.pickColor) {
