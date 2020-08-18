@@ -128,6 +128,7 @@ SurfaceTileRenderer.prototype.beginRendering = function (dc, opacity) {
         program = dc.findAndBindProgram(SurfaceTileRendererProgram);
 
     program.loadTexSampler(gl, gl.TEXTURE0);
+    program.loadHeightmap(gl, gl.TEXTURE1);
 
     if (dc.pickingMode && !this.isSurfaceShapeTileRendering) {
         program.loadModulateColor(gl, true);

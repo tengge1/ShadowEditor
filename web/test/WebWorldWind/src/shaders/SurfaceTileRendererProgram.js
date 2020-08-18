@@ -199,7 +199,7 @@ SurfaceTileRendererProgram.prototype.setLevel = function (gl, level) {
 };
 
 SurfaceTileRendererProgram.prototype.loadHeightmap = function (gl, unit) {
-    gl.uniform1i(gl, unit - WebGLRenderingContext.TEXTURE0);
+    gl.uniform1i(gl.heightmapLocation, unit - WebGLRenderingContext.TEXTURE0);
 };
 
 export default SurfaceTileRendererProgram;
