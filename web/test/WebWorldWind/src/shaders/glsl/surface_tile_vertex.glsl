@@ -34,7 +34,7 @@ int add(int x, int y, int z) {
 }
 
 void main() {
-    add(x, y, z);
+    add(column, row, level);
     gl_Position = mvpMatrix * vertexPoint;
     /* Transform the vertex texture coordinate into sampler texture coordinates. */
     texSamplerCoord = (texSamplerMatrix * vertexTexCoord).st;
