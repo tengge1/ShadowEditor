@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <title>Image Data</title>
+</head>
+
+<body>
+    <img src="../../assets/textures/wood.jpg" width="256" height="256" id="img" onload="handleLoad()" />
+    <canvas width="256" height="256" id="canvas"></canvas>
+    <script>
+        var img = document.querySelector('#img');
+        var canvas = document.querySelector('#canvas');
+
+        window.onmessage = function (evt) {
+            console.log(evt);
+        }
+
+        function handleLoad() {
+            var ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0);
+            var data = ctx.getImageData(0, 0, 256, 256);
+            postMessage(data)
+        }
+    </script>
+</body>
+
+</html>
