@@ -2176,13 +2176,15 @@ var maxElevation = 8700;
 function parseData(data) {
     // var imageData = new ImageData(data.width, data.height, data.imgData);
     // data.imgData = new Uint8ClampedArray(data.width * data.height * 4);
-    var imgData = new Uint8ClampedArray(data.width * data.height * 2);
+    var imgData = new Uint8ClampedArray(data.width * data.height * 4);
     data.pixelData.forEach((n, i) => {
         var rate = 65536 / (maxElevation - minElevation) * (n - minElevation);
         var high = parseInt(rate / 256);
         var low = parseInt(rate - high * 256);
-        imgData[i*2] = high;
-        imgData[i*2+1] = low;
+        imgData[i*4] = high;
+        imgData[i*4+1] = high;
+        imgData[i*4+2] = high;
+        imgData[i*4+3] = low;
     });
     data.imgData = imgData;
     return data;

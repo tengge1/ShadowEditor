@@ -306,9 +306,19 @@ Tessellator.prototype.renderTile = function (dc, terrainTile) {
 
     var heightmap = dc.globe.elevationModel.coverages[0].imageCache.entryForKey(terrainTile.tileKey);
     if (heightmap) {
-        debugger;
+        if(!heightmap.texture) {
+            var texture = gl.createTexture();
+            gl.bindTexture(gl.TEXTURE_2D, texture);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, heightmap.imageWidth, 
+                heightmap.imageHeight, 0, gl.RGBA, gl.UNSIGNED_BYTE, heightmap.imgData);
+            heightmap.texture = texture;
+        }
         gl.activeTexture(gl.TEXTURE1);
-        gl.bindTexture(gl.TEXTURE_2D, heightmap.imageData);
+        gl.bindTexture(gl.TEXTURE_2D, heightmap.texture);
         gl.activeTexture(gl.TEXTURE0);
     }
 
