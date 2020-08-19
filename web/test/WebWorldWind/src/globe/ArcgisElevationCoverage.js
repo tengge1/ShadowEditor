@@ -119,6 +119,7 @@ ArcgisElevationCoverage.prototype.loadElevationImage = function (tile, data) {
 
     if (elevationImage.imageData) {
         elevationImage.size = elevationImage.imageData.length * 4;
+        elevationImage.imgData = data.imgData;
         elevationImage.findMinAndMaxElevation();
         this.imageCache.putEntry(tile.tileKey, elevationImage, elevationImage.size);
         this.timestamp = Date.now();
