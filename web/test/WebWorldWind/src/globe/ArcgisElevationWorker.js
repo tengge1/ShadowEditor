@@ -2170,6 +2170,11 @@ var Lerc = {
     }
 };
 
+function parseData(data) {
+    debugger;
+    return data;
+}
+
 // Download and translate arcgis terrain data.
 self.onmessage = e => {
     let { tileKey, x, y, z } = e.data;
@@ -2186,7 +2191,7 @@ self.onmessage = e => {
                     result: 'success',
                     tileKey,
                     url,
-                    data: LercDecode.decode(xhr.response)
+                    data: parseData(LercDecode.decode(xhr.response))
                 });
             } else {
                 self.postMessage({
