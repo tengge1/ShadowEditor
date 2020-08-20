@@ -71,56 +71,46 @@ SurfaceTileRenderer.prototype.renderTiles = function (dc, surfaceTiles, opacity,
     // For each terrain tile, render it for each overlapping surface tile.
     program = this.beginRendering(dc, opacity);
     terrain.beginRendering(dc);
-    try {
-        for (var i = 0, ttLen = terrain.surfaceGeometry.length; i < ttLen; i++) {
-            terrainTile = terrain.surfaceGeometry[i];
-            terrainTileSector = terrainTile.sector;
 
-            terrain.beginRenderingTile(dc, terrainTile);
-            try {
-                // Render the terrain tile for each overlapping surface tile.
-                for (var j = 0, stLen = surfaceTiles.length; j < stLen; j++) {
-                    surfaceTile = surfaceTiles[j];
-                    if (surfaceTile.sector.overlaps(terrainTileSector)) {
-                        //gl.activeTexture(gl.TEXTURE0);
-                        if (surfaceTile.bind(dc)) {
-                            if (dc.pickingMode) {
-                                if (surfaceTile.pickColor) {
-                                    program.loadColor(gl, surfaceTile.pickColor);
-                                } else {
-                                    // Surface shape tiles don't use a pick color. Pick colors are encoded into
-                                    // the colors of the individual shapes drawn into the tile.
-                                }
-                            } else {
-                                if (tilesHaveOpacity && surfaceTile.opacity != currentTileOpacity) {
-                                    program.loadOpacity(gl, opacity * surfaceTile.opacity);
-                                    currentTileOpacity = surfaceTile.opacity;
-                                }
-                            }
+    for (var i = 0, ttLen = terrain.surfaceGeometry.length; i < ttLen; i++) {
+        terrainTile = terrain.surfaceGeometry[i];
+        terrainTileSector = terrainTile.sector;
 
-                            this.applyTileState(dc, terrainTile, surfaceTile);
-                            terrain.renderTile(dc, terrainTile);
-                            ++tileCount;
+        terrain.beginRenderingTile(dc, terrainTile);
+
+        // Render the terrain tile for each overlapping surface tile.
+        for (var j = 0, stLen = surfaceTiles.length; j < stLen; j++) {
+            surfaceTile = surfaceTiles[j];
+            if (surfaceTile.sector.overlaps(terrainTileSector)) {
+                //gl.activeTexture(gl.TEXTURE0);
+                if (surfaceTile.bind(dc)) {
+                    if (dc.pickingMode) {
+                        if (surfaceTile.pickColor) {
+                            program.loadColor(gl, surfaceTile.pickColor);
+                        } else {
+                            // Surface shape tiles don't use a pick color. Pick colors are encoded into
+                            // the colors of the individual shapes drawn into the tile.
+                        }
+                    } else {
+                        if (tilesHaveOpacity && surfaceTile.opacity != currentTileOpacity) {
+                            program.loadOpacity(gl, opacity * surfaceTile.opacity);
+                            currentTileOpacity = surfaceTile.opacity;
                         }
                     }
+
+                    this.applyTileState(dc, terrainTile, surfaceTile);
+                    terrain.renderTile(dc, terrainTile);
+                    ++tileCount;
                 }
             }
-            catch (e) {
-                console.log(e);
-            }
-            finally {
-                terrain.endRenderingTile(dc, terrainTile);
-            }
         }
+
+        terrain.endRenderingTile(dc, terrainTile);
     }
-    catch (e) {
-        console.log(e);
-    }
-    finally {
-        terrain.endRendering(dc);
-        this.endRendering(dc);
-        dc.frameStatistics.incrementRenderedTileCount(tileCount);
-    }
+
+    terrain.endRendering(dc);
+    this.endRendering(dc);
+    dc.frameStatistics.incrementRenderedTileCount(tileCount);
 };
 
 // Intentionally not documented.

@@ -20,6 +20,7 @@ uniform sampler2D texSampler;
 uniform float opacity;
 uniform vec4 color;
 uniform bool modulateColor;
+uniform sampler2D heightmap;
 
 varying vec2 texSamplerCoord;
 varying vec2 texMaskCoord;
@@ -40,9 +41,9 @@ bool isInsideTextureImage(const vec2 coord) {
 void main(void) {
     float mask = float(isInsideTextureImage(texMaskCoord));
     if (modulateColor) {
-        gl_FragColor = color * mask * floor(texture2D(texSampler, texSamplerCoord).a + 0.5);
+        gl_FragColor = color * mask * floor(texture2D(heightmap, texSamplerCoord).a + 0.5);
     } else {
         /* Return either the sampled texture2D color multiplied by opacity or transparent black. */
-        gl_FragColor = texture2D(texSampler, texSamplerCoord) * mask * opacity;
+        gl_FragColor = texture2D(heightmap, texSamplerCoord) * mask * opacity;
     }
 }

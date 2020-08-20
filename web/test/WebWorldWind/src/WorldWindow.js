@@ -1102,13 +1102,7 @@ WorldWindow.prototype.drawLayers = function (accumulateOrderedRenderables) {
         layer = layers[i];
         if (layer) {
             dc.currentLayer = layer;
-            try {
-                layer.render(dc);
-            } catch (e) {
-                Logger.log(Logger.LEVEL_SEVERE, "Error while rendering layer " + layer.displayName + ".\n"
-                    + e.toString());
-                // Keep going. Render the rest of the layers.
-            }
+            layer.render(dc);
         }
     }
     dc.currentLayer = null;
