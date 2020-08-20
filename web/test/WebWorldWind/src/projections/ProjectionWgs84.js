@@ -120,7 +120,6 @@ ProjectionWgs84.prototype.geographicToCartesianGrid = function (globe, sector, n
 
         for (lonIndex = 0; lonIndex < numLon; lonIndex++) {
             elev = elevations[elevIndex++];
-            elev = 0;
             result[resultIndex++] = (rpm + elev) * cosLat * sinLon[lonIndex] - refCenter[0];
             result[resultIndex++] = (rpm * (1.0 - globe.eccentricitySquared) + elev) * sinLat - refCenter[1];
             result[resultIndex++] = (rpm + elev) * cosLat * cosLon[lonIndex] - refCenter[2];
