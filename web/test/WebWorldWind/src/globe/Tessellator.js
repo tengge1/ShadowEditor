@@ -307,6 +307,7 @@ Tessellator.prototype.renderTile = function (dc, terrainTile) {
     var heightmap = dc.globe.elevationModel.coverages[0].imageCache.entryForKey(terrainTile.tileKey);
     if (heightmap) {
         if(!heightmap.texture) {
+            gl.activeTexture(gl.TEXTURE1);
             var texture = gl.createTexture();
             gl.bindTexture(gl.TEXTURE_2D, texture);
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
@@ -347,72 +348,73 @@ Tessellator.prototype.renderTile = function (dc, terrainTile) {
         gl.UNSIGNED_SHORT,
         this.baseIndicesOffset * 2);
 
-    var level = terrainTile.level,
-        neighborLevel;
+    // TODO: 适应不同切图的瓦片。
+    // var level = terrainTile.level,
+    //     neighborLevel;
 
-    neighborLevel = terrainTile.neighborLevel(WorldWind.NORTH);
-    if (neighborLevel && neighborLevel.compare(level) < 0) {
-        gl.drawElements(
-            prim,
-            this.numIndicesLoresNorth,
-            gl.UNSIGNED_SHORT,
-            this.indicesLoresNorthOffset * 2);
-    }
-    else {
-        gl.drawElements(
-            prim,
-            this.numIndicesNorth,
-            gl.UNSIGNED_SHORT,
-            this.indicesNorthOffset * 2);
-    }
+    // neighborLevel = terrainTile.neighborLevel(WorldWind.NORTH);
+    // if (neighborLevel && neighborLevel.compare(level) < 0) {
+    //     gl.drawElements(
+    //         prim,
+    //         this.numIndicesLoresNorth,
+    //         gl.UNSIGNED_SHORT,
+    //         this.indicesLoresNorthOffset * 2);
+    // }
+    // else {
+    //     gl.drawElements(
+    //         prim,
+    //         this.numIndicesNorth,
+    //         gl.UNSIGNED_SHORT,
+    //         this.indicesNorthOffset * 2);
+    // }
 
-    neighborLevel = terrainTile.neighborLevel(WorldWind.SOUTH);
-    if (neighborLevel && neighborLevel.compare(level) < 0) {
-        gl.drawElements(
-            prim,
-            this.numIndicesLoresSouth,
-            gl.UNSIGNED_SHORT,
-            this.indicesLoresSouthOffset * 2);
-    }
-    else {
-        gl.drawElements(
-            prim,
-            this.numIndicesSouth,
-            gl.UNSIGNED_SHORT,
-            this.indicesSouthOffset * 2);
-    }
+    // neighborLevel = terrainTile.neighborLevel(WorldWind.SOUTH);
+    // if (neighborLevel && neighborLevel.compare(level) < 0) {
+    //     gl.drawElements(
+    //         prim,
+    //         this.numIndicesLoresSouth,
+    //         gl.UNSIGNED_SHORT,
+    //         this.indicesLoresSouthOffset * 2);
+    // }
+    // else {
+    //     gl.drawElements(
+    //         prim,
+    //         this.numIndicesSouth,
+    //         gl.UNSIGNED_SHORT,
+    //         this.indicesSouthOffset * 2);
+    // }
 
-    neighborLevel = terrainTile.neighborLevel(WorldWind.WEST);
-    if (neighborLevel && neighborLevel.compare(level) < 0) {
-        gl.drawElements(
-            prim,
-            this.numIndicesLoresWest,
-            gl.UNSIGNED_SHORT,
-            this.indicesLoresWestOffset * 2);
-    }
-    else {
-        gl.drawElements(
-            prim,
-            this.numIndicesWest,
-            gl.UNSIGNED_SHORT,
-            this.indicesWestOffset * 2);
-    }
+    // neighborLevel = terrainTile.neighborLevel(WorldWind.WEST);
+    // if (neighborLevel && neighborLevel.compare(level) < 0) {
+    //     gl.drawElements(
+    //         prim,
+    //         this.numIndicesLoresWest,
+    //         gl.UNSIGNED_SHORT,
+    //         this.indicesLoresWestOffset * 2);
+    // }
+    // else {
+    //     gl.drawElements(
+    //         prim,
+    //         this.numIndicesWest,
+    //         gl.UNSIGNED_SHORT,
+    //         this.indicesWestOffset * 2);
+    // }
 
-    neighborLevel = terrainTile.neighborLevel(WorldWind.EAST);
-    if (neighborLevel && neighborLevel.compare(level) < 0) {
-        gl.drawElements(
-            prim,
-            this.numIndicesLoresEast,
-            gl.UNSIGNED_SHORT,
-            this.indicesLoresEastOffset * 2);
-    }
-    else {
-        gl.drawElements(
-            prim,
-            this.numIndicesEast,
-            gl.UNSIGNED_SHORT,
-            this.indicesEastOffset * 2);
-    }
+    // neighborLevel = terrainTile.neighborLevel(WorldWind.EAST);
+    // if (neighborLevel && neighborLevel.compare(level) < 0) {
+    //     gl.drawElements(
+    //         prim,
+    //         this.numIndicesLoresEast,
+    //         gl.UNSIGNED_SHORT,
+    //         this.indicesLoresEastOffset * 2);
+    // }
+    // else {
+    //     gl.drawElements(
+    //         prim,
+    //         this.numIndicesEast,
+    //         gl.UNSIGNED_SHORT,
+    //         this.indicesEastOffset * 2);
+    // }
 };
 
 /**
