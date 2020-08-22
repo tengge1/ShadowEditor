@@ -83,7 +83,7 @@ function TiledImageLayer(sector, levelZeroDelta, numLevels, imageFormat, cachePa
      * @type {Number}
      * @default 1.75
      */
-    this.detailControl = 1.75;
+    this.detailControl = 3.5;
 
     /**
      * Indicates whether credentials are sent when requesting images from a different origin.
