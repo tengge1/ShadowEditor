@@ -49,8 +49,9 @@ func Start() {
 	logger := negroni.NewLogger()
 	static := negroni.NewStatic(http.Dir("public"))
 
-	handler := negroni.New(recovery, logger, static)
+	handler := negroni.New(recovery, logger)
 	handler.Use(negroni.HandlerFunc(CrossOriginMiddleware))
+	handler.Use(static)
 	handler.Use(negroni.HandlerFunc(GZipMiddleware))
 	handler.Use(negroni.HandlerFunc(ValidateTokenMiddleware))
 	handler.UseHandler(mux)
