@@ -235,25 +235,6 @@ MemoryCache.prototype.containsKey = function (key) {
     return key && this.entries[key];
 };
 
-/**
- * Adds a cache listener to this cache.
- * @param {MemoryCacheListener} listener The listener to add.
- */
-MemoryCache.prototype.addCacheListener = function (listener) {
-    this.listeners.push(listener);
-};
-
-/**
- * Removes a cache listener from this cache.
- * @param {MemoryCacheListener} listener The listener to remove.
- */
-MemoryCache.prototype.removeCacheListener = function (listener) {
-    var index = this.listeners.indexOf(listener);
-    if (index > -1) {
-        this.listeners.splice(index, 1);
-    }
-};
-
 // Private. Clears this cache to that necessary to contain a specified amount of free space.
 MemoryCache.prototype.makeSpace = function (spaceRequired) {
     var sortedEntries = [],

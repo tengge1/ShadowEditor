@@ -24,10 +24,10 @@ import ElevationImage from '../globe/ElevationImage';
 import LevelSet from '../util/LevelSet';
 import Location from '../geom/Location';
 import Logger from '../util/Logger';
-import MemoryCache from '../cache/MemoryCache';
 import Sector from '../geom/Sector';
 import Tile from '../util/Tile';
 import WWMath from '../util/WWMath';
+import TileCache from '../cache/TileCache';
 
 /**
  * Constructs a TiledElevationCoverage
@@ -80,14 +80,6 @@ function TiledElevationCoverage(config) {
     this.maxElevation = config.maxElevation || 0;
 
     /**
-     * Indicates whether the data associated with this coverage is point data. A value of false
-     * indicates that the data is area data (pixel is area).
-     * @type {Boolean}
-     * @default true
-     */
-    this.pixelIsPoint = true;
-
-    /**
      * The {@link LevelSet} dividing this coverage's geographic domain into a multi-resolution, hierarchical
      * collection of tiles.
      * @type {LevelSet}
@@ -115,18 +107,18 @@ function TiledElevationCoverage(config) {
     /**
      * Internal use only
      * A cache of elevation tiles.
-     * @type {MemoryCache}
+     * @type {TileCache}
      * @ignore
      */
-    this.tileCache = new MemoryCache(9e8, 8e8);
+    this.tileCache = new TileCache();
 
     /**
      * Internal use only
      * A cache of elevations.
-     * @type {MemoryCache}
+     * @type {TileCache}
      * @ignore
      */
-    this.imageCache = new MemoryCache(9e8, 8e8);
+    this.imageCache = new TileCache();
 
     /**
      * Controls how many concurrent tile requests are allowed for this coverage.
@@ -170,9 +162,8 @@ TiledElevationCoverage.prototype.minAndMaxElevationsForSector = function (sector
     var tileSize = 360 / 2 ** levelNumber;
     var column = (180 + sector.minLongitude) / tileSize;
     var row = (180 - sector.maxLatitude) / tileSize;
-    var tileKey = Tile.computeTileKey(levelNumber, row, column);
 
-    var image = this.imageCache.entryForKey(tileKey);
+    var image = this.imageCache.get(levelNumber, row, column);
     if (!image || !image.hasData) {
         return false;
     }
@@ -197,11 +188,7 @@ TiledElevationCoverage.prototype.elevationAtLocation = function (latitude, longi
 TiledElevationCoverage.prototype.elevationsForGrid = function (sector, numLat, numLon, result) {
     var gridResolution = sector.deltaLatitude() / (numLat - 1) * Angle.DEGREES_TO_RADIANS;
     var level = this.levels.levelForTexelSize(gridResolution);
-    if (this.pixelIsPoint) {
-        return this.pointElevationsForGrid(sector, numLat, numLon, level, result);
-    } else {
-        return this.areaElevationsForGrid(sector, numLat, numLon, level, result);
-    }
+    return this.pointElevationsForGrid(sector, numLat, numLon, level, result);
 };
 
 // Intentionally not documented.
@@ -211,12 +198,10 @@ TiledElevationCoverage.prototype.pointElevationForLocation = function (latitude,
         deltaLon = level.tileDelta.longitude,
         r = Tile.computeRow(deltaLat, latitude),
         c = Tile.computeColumn(deltaLon, longitude),
-        tileKey,
         image = null;
 
     for (var i = level.levelNumber; i >= 0; i--) {
-        tileKey = Tile.computeTileKey(i, r, c);
-        image = this.imageCache.entryForKey(tileKey);
+        image = this.imageCache.get(i, r, c);
         if (image) {
             var elevation = image.elevationAtLocation(latitude, longitude);
             return isNaN(elevation) ? null : elevation;
@@ -243,95 +228,16 @@ TiledElevationCoverage.prototype.pointElevationsForGrid = function (sector, numL
     });
 
     for (var i = 0, len = this.currentTiles.length; i < len; i++) {
-        var image = this.imageCache.entryForKey(this.currentTiles[i].tileKey);
+        var levelNumber = this.currentTiles[i].level.levelNumber;
+        var row = this.currentTiles[i].row;
+        var column = this.currentTiles[i].column;
+        var image = this.imageCache.get(levelNumber, row, column);
         if (image) {
             image.elevationsForGrid(sector, numLat, numLon, result);
         }
     }
 
     return !result.includes(NaN); // true if the result array is fully populated.
-};
-
-// Internal. Returns elevations for a grid assuming pixel-is-area.
-TiledElevationCoverage.prototype.areaElevationsForGrid = function (sector, numLat, numLon, level, result) {
-    var minLat = sector.minLatitude,
-        maxLat = sector.maxLatitude,
-        minLon = sector.minLongitude,
-        maxLon = sector.maxLongitude,
-        deltaLat = sector.deltaLatitude() / (numLat > 1 ? numLat - 1 : 1),
-        deltaLon = sector.deltaLongitude() / (numLon > 1 ? numLon - 1 : 1),
-        lat, lon, s, t,
-        latIndex, lonIndex, resultIndex = 0;
-
-    for (latIndex = 0, lat = minLat; latIndex < numLat; latIndex += 1, lat += deltaLat) {
-        if (latIndex === numLat - 1) {
-            lat = maxLat; // explicitly set the last lat to the max latitude ensure alignment
-        }
-
-        for (lonIndex = 0, lon = minLon; lonIndex < numLon; lonIndex += 1, lon += deltaLon) {
-            if (lonIndex === numLon - 1) {
-                lon = maxLon; // explicitly set the last lon to the max longitude ensure alignment
-            }
-
-            if (isNaN(result[resultIndex])) {
-                if (this.coverageSector.containsLocation(lat, lon)) { // ignore locations outside of the model
-                    s = (lon + 180) / 360;
-                    t = (lat + 180) / 360;
-                    this.areaElevationForCoord(s, t, level.levelNumber, result, resultIndex);
-                }
-            }
-
-            resultIndex++;
-        }
-    }
-
-    return !result.includes(NaN); // true if the result array is fully populated.
-};
-
-// Internal. Returns an elevation for a location assuming pixel-is-area.
-TiledElevationCoverage.prototype.areaElevationForCoord = function (s, t, levelNumber, result, resultIndex) {
-    var level, levelWidth, levelHeight,
-        tMin, tMax,
-        vMin, vMax,
-        u, v,
-        x0, x1, y0, y1,
-        xf, yf,
-        retrieveTiles,
-        pixels = new Float64Array(4);
-
-    for (var i = levelNumber; i >= 0; i--) {
-        level = this.levels.level(i);
-        levelWidth = Math.round(level.tileWidth * 360 / level.tileDelta.longitude);
-        levelHeight = Math.round(level.tileHeight * 360 / level.tileDelta.latitude);
-        tMin = 1 / (2 * levelHeight);
-        tMax = 1 - tMin;
-        vMin = 0;
-        vMax = levelHeight - 1;
-        u = levelWidth * WWMath.fract(s); // wrap the horizontal coordinate
-        v = levelHeight * WWMath.clamp(t, tMin, tMax); // clamp the vertical coordinate to the level edge
-        x0 = WWMath.mod(Math.floor(u - 0.5), levelWidth);
-        x1 = WWMath.mod(x0 + 1, levelWidth);
-        y0 = WWMath.clamp(Math.floor(v - 0.5), vMin, vMax);
-        y1 = WWMath.clamp(y0 + 1, vMin, vMax);
-        xf = WWMath.fract(u - 0.5);
-        yf = WWMath.fract(v - 0.5);
-        retrieveTiles = i == levelNumber || i == 0;
-
-        if (this.lookupPixels(x0, x1, y0, y1, level, retrieveTiles, pixels)) {
-            if (ElevationImage.isNoData(pixels[0], pixels[1], pixels[2], pixels[3])) {
-                return false;
-            }
-            else {
-                result[resultIndex] = (1 - xf) * (1 - yf) * pixels[0] +
-                    xf * (1 - yf) * pixels[1] +
-                    (1 - xf) * yf * pixels[2] +
-                    xf * yf * pixels[3];
-                return true;
-            }
-        }
-    }
-
-    return false;
 };
 
 // Internal. Bilinearly interpolates tile-image elevations.
@@ -373,10 +279,9 @@ TiledElevationCoverage.prototype.lookupPixels = function (x0, x1, y0, y1, level,
 
 // Internal. Intentionally not documented.
 TiledElevationCoverage.prototype.lookupImage = function (levelNumber, row, column, retrieveTiles) {
-    var tileKey = Tile.computeTileKey(levelNumber, row, column),
-        image = this.imageCache.entryForKey(tileKey);
+    var image = this.imageCache.get(levelNumber, row, column);
 
-    if (image == null && retrieveTiles) {
+    if (!image && retrieveTiles) {
         var tile = this.tileForLevel(levelNumber, row, column);
         this.retrieveTileImage(tile);
     }
@@ -463,9 +368,7 @@ TiledElevationCoverage.prototype.addToCurrentTiles = function (tile) {
 
 // Intentionally not documented.
 TiledElevationCoverage.prototype.tileForLevel = function (levelNumber, row, column) {
-    var tileKey = Tile.computeTileKey(levelNumber, row, column),
-        tile = this.tileCache.entryForKey(tileKey);
-
+    var tile = this.tileCache.get(levelNumber, row, column);
     if (tile) {
         return tile;
     }
@@ -474,14 +377,14 @@ TiledElevationCoverage.prototype.tileForLevel = function (levelNumber, row, colu
         sector = Tile.computeSector(level, row, column);
 
     tile = new Tile(sector, level, row, column);
-    this.tileCache.putEntry(tileKey, tile, tile.size());
+    this.tileCache.set(levelNumber, row, column, tile);
 
     return tile;
 };
 
 // Intentionally not documented.
 TiledElevationCoverage.prototype.isTileImageInMemory = function (tile) {
-    return this.imageCache.containsKey(tile.tileKey);
+    return !!this.imageCache.get(tile.level.levelNumber, tile.row, tile.column);
 };
 
 // Intentionally not documented.
@@ -584,7 +487,7 @@ TiledElevationCoverage.prototype.loadElevationImage = function (tile, xhr) {
 
     if (elevationImage.imageData) {
         elevationImage.findMinAndMaxElevation();
-        this.imageCache.putEntry(tile.tileKey, elevationImage, elevationImage.size);
+        this.imageCache.set(tile.level.levelNumber, tile.row, tile.column, elevationImage);
         this.timestamp = Date.now();
     }
 };

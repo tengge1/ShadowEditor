@@ -304,7 +304,11 @@ Tessellator.prototype.renderTile = function (dc, terrainTile) {
     var gl = dc.currentGlContext,
         prim = gl.TRIANGLE_STRIP; // replace TRIANGLE_STRIP with LINE_STRIP to debug borders
 
-    var heightmap = dc.globe.elevationModel.coverages[0].imageCache.entryForKey(terrainTile.tileKey);
+    var heightmap = dc.globe.elevationModel.coverages[0].imageCache.get(
+        terrainTile.level.levelNumber,
+        terrainTile.row,
+        terrainTile.column
+    );
     if (heightmap) {
         if(!heightmap.texture) {
             gl.activeTexture(gl.TEXTURE1);

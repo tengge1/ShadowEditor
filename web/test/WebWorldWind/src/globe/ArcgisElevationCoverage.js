@@ -84,7 +84,8 @@ ArcgisElevationCoverage.prototype.retrieveTileImage = function (tile) {
 ArcgisElevationCoverage.prototype.handleMessage = function (evt) {
     let { result, tileKey, url, data, msg } = evt.data;
     this.removeFromCurrentRetrievals(tileKey);
-    let tile = this.tileCache.entryForKey(tileKey);
+    var keys = tileKey.split('.');
+    let tile = this.tileCache.get(keys[0], keys[1], keys[2]);
     if (!tile) {
         // tile has been released
         return;
@@ -121,7 +122,7 @@ ArcgisElevationCoverage.prototype.loadElevationImage = function (tile, data) {
         elevationImage.size = elevationImage.imageData.length * 4;
         elevationImage.imgData = data.imgData;
         elevationImage.findMinAndMaxElevation();
-        this.imageCache.putEntry(tile.tileKey, elevationImage, elevationImage.size);
+        this.imageCache.set(tile.level.levelNumber, tile.row, tile.column, elevationImage);
         this.timestamp = Date.now();
     }
 };
