@@ -24,15 +24,15 @@ import ElevationImage from './ElevationImage';
 import Logger from '../util/Logger';
 import WWMath from '../util/WWMath';
 import ArcgisElevationWorker from 'worker!./ArcgisElevationWorker.js';
+import global from '../global';
 
 /**
  * Constructs an Earth elevation coverage using Arcgis data.
  * @alias ArcgisElevationCoverage
  * @constructor
  * @augments TiledElevationCoverage
- * @param {worldWindow} worldWindow WorldWindow
  */
-function ArcgisElevationCoverage(worldWindow) {
+function ArcgisElevationCoverage() {
     // see: http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer
     TiledElevationCoverage.call(this, {
         coverageSector: new Sector(-WWMath.MAX_LAT, WWMath.MAX_LAT, -180, 180),
@@ -42,8 +42,6 @@ function ArcgisElevationCoverage(worldWindow) {
         maxElevation: 8700,
         urlBuilder: new WmsUrlBuilder("http://localhost:2020/api/Map/Elev", "WorldElevation3D", "", "1.3.0")
     });
-
-    this.worldWindow = worldWindow;
     this.worker = new ArcgisElevationWorker();
     this.worker.onmessage = this.handleMessage.bind(this);
 }
@@ -58,7 +56,7 @@ ArcgisElevationCoverage.prototype.retrieveTileImage = function (tile) {
             height: 257,
             pixelData: null
         });
-        this.worldWindow.redraw();
+        global.worldWindow.redraw();
         return;
     }
     if (this.currentRetrievals.indexOf(tile.tileKey) < 0) {
@@ -90,11 +88,7 @@ ArcgisElevationCoverage.prototype.handleMessage = function (evt) {
         Logger.log(Logger.LEVEL_INFO, "Elevations retrieval succeeded: " + url);
         this.loadElevationImage(tile, data);
         this.absentResourceList.unmarkResourceAbsent(tileKey);
-
-        // Send an event to request a redraw.
-        var e = document.createEvent('Event');
-        e.initEvent(WorldWind.REDRAW_EVENT_TYPE, true, true);
-        window.dispatchEvent(e);
+        global.worldWindow.redraw();
     } else if (result === 'fail') {
         this.absentResourceList.markResourceAbsent(tileKey);
         Logger.log(Logger.LEVEL_WARNING,

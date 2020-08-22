@@ -28,6 +28,7 @@ import Sector from '../geom/Sector';
 import Tile from '../util/Tile';
 import WWMath from '../util/WWMath';
 import TileCache from '../cache/TileCache';
+import global from '../global';
 
 /**
  * Constructs a TiledElevationCoverage
@@ -423,10 +424,7 @@ TiledElevationCoverage.prototype.retrieveTileImage = function (tile) {
                         elevationCoverage.loadElevationImage(tile, xhr);
                         elevationCoverage.absentResourceList.unmarkResourceAbsent(tile.tileKey);
 
-                        // Send an event to request a redraw.
-                        var e = document.createEvent('Event');
-                        e.initEvent(WorldWind.REDRAW_EVENT_TYPE, true, true);
-                        window.dispatchEvent(e);
+                        global.worldWindow.redraw();
                     } else if (contentType === "text/xml") {
                         elevationCoverage.absentResourceList.markResourceAbsent(tile.tileKey);
                         Logger.log(Logger.LEVEL_WARNING,

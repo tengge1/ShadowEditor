@@ -28,7 +28,7 @@ import Texture from '../render/Texture';
 import Tile from '../util/Tile';
 import WWUtil from '../util/WWUtil';
 import WWMath from '../util/WWMath';
-
+import global from '../global';
 
 /**
  * Constructs a tiled image layer.
@@ -435,10 +435,7 @@ TiledImageLayer.prototype.retrieveTileImage = function (dc, tile, suppressRedraw
                 layer.absentResourceList.unmarkResourceAbsent(imagePath);
 
                 if (!suppressRedraw) {
-                    // Send an event to request a redraw.
-                    var e = document.createEvent('Event');
-                    e.initEvent(WorldWind.REDRAW_EVENT_TYPE, true, true);
-                    canvas.dispatchEvent(e);
+                    global.worldWindow.redraw();
                 }
             }
         };

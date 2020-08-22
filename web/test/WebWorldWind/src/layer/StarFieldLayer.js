@@ -22,7 +22,7 @@ import Logger from '../util/Logger';
 import Matrix from '../geom/Matrix';
 import StarFieldProgram from '../shaders/StarFieldProgram';
 import SunPosition from '../util/SunPosition';
-
+import global from '../global';
 
 /**
  * Constructs a layer showing stars and the Sun around the Earth.
@@ -316,7 +316,7 @@ StarFieldLayer.prototype.fetchStarData = function () {
         if (this.status >= 200 && this.status < 300) {
             try {
                 self._starData = JSON.parse(this.response);
-                self.sendRedrawRequest();
+                global.worldWindow.redraw();
             }
             catch (e) {
                 Logger.log(Logger.LEVEL_SEVERE, 'StarFieldLayer unable to parse JSON for star data ' +
@@ -399,13 +399,6 @@ StarFieldLayer.prototype.parseStarsMetadata = function (metadata) {
 StarFieldLayer.prototype.invalidateStarData = function () {
     this._starData = null;
     this._starsPositionsVboCacheKey = null;
-};
-
-// Internal. Intentionally not documented.
-StarFieldLayer.prototype.sendRedrawRequest = function () {
-    var e = document.createEvent('Event');
-    e.initEvent(WorldWind.REDRAW_EVENT_TYPE, true, true);
-    window.dispatchEvent(e);
 };
 
 export default StarFieldLayer;

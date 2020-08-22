@@ -302,11 +302,6 @@ var WorldWind = {
     RECOGNIZED: "recognized",
 
     /**
-     * The event name of WorldWind redraw events.
-     */
-    REDRAW_EVENT_TYPE: "WorldWindRedraw",
-
-    /**
      * Indicates that the related value is specified relative to the globe.
      * @constant
      */

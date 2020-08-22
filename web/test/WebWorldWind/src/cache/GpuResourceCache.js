@@ -22,7 +22,7 @@ import ImageSource from '../util/ImageSource';
 import Logger from '../util/Logger';
 import MemoryCache from '../cache/MemoryCache';
 import Texture from '../render/Texture';
-
+import global from '../global';
 
 /**
  * Constructs a GPU resource cache for a specified size and low-water value.
@@ -217,10 +217,7 @@ GpuResourceCache.prototype.retrieveTexture = function (gl, imageSource, wrapMode
         delete cache.currentRetrievals[imageSource];
         cache.absentResourceList.unmarkResourceAbsent(imageSource);
 
-        // Send an event to request a redraw.
-        var e = document.createEvent('Event');
-        e.initEvent(WorldWind.REDRAW_EVENT_TYPE, true, true);
-        window.dispatchEvent(e);
+        global.worldWindow.redraw();
     };
 
     image.onerror = function () {

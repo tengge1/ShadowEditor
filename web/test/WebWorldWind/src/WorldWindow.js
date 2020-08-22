@@ -35,7 +35,7 @@ import SurfaceShape from './shapes/SurfaceShape';
 import Vec2 from './geom/Vec2';
 import Vec3 from './geom/Vec3';
 import WWMath from './util/WWMath';
-
+import global from './global';
 
 /**
  * Constructs a WorldWind window for an HTML canvas.
@@ -44,10 +44,10 @@ import WWMath from './util/WWMath';
  * @classdesc Represents a WorldWind window for an HTML canvas.
  * @param {String|HTMLCanvasElement} canvasElem The ID assigned to the HTML canvas in the document or the canvas
  * element itself.
- * @param {ElevationModel} elevationModel An optional argument indicating the elevation model to use for the World
- * Window. If missing or null, a default elevation model is used.
  */
-function WorldWindow(canvasElem, elevationModel) {
+function WorldWindow(canvasElem) {
+    global.worldWindow = this;
+
     // Get the actual canvas element either directly or by ID.
     var canvas;
     if (canvasElem instanceof HTMLCanvasElement) {
@@ -106,7 +106,7 @@ function WorldWindow(canvasElem, elevationModel) {
      * The globe displayed.
      * @type {Globe}
      */
-    this.globe = new Globe(new EarthElevationModel(this));
+    this.globe = new Globe(new EarthElevationModel());
 
     /**
      * The layers to display in this WorldWindow.
@@ -250,16 +250,6 @@ function WorldWindow(canvasElem, elevationModel) {
     }
 
     this.canvas.addEventListener("webglcontextrestored", handleContextRestored, false);
-
-    // Set up to handle WebGL context events and WorldWind redraw request events. Imagery uses the canvas
-    // redraw events because images are generally specific to the WebGL context associated with the canvas.
-    // Elevation models use the global window redraw events because they can be shared among WorldWindows.
-    function handleRedrawEvent(event) {
-        thisWindow.handleRedrawEvent(event);
-    }
-
-    this.canvas.addEventListener(WorldWind.REDRAW_EVENT_TYPE, handleRedrawEvent, false);
-    window.addEventListener(WorldWind.REDRAW_EVENT_TYPE, handleRedrawEvent, false);
 
     // Render to the WebGL context in an animation frame loop until the WebGL context is lost.
     this.animationFrameLoop();
@@ -509,11 +499,6 @@ WorldWindow.prototype.handleContextRestored = function (event) {
     // Resume the rendering animation frame loop until the WebGL context is lost.
     this.redraw();
     this.animationFrameLoop();
-};
-
-// Internal function. Intentionally not documented.
-WorldWindow.prototype.handleRedrawEvent = function (event) {
-    this.redraw(); // redraw in the next animation frame
 };
 
 // Internal function. Intentionally not documented.
