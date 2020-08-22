@@ -30,9 +30,9 @@ import ArcgisElevationWorker from 'worker!./ArcgisElevationWorker.js';
  * @alias ArcgisElevationCoverage
  * @constructor
  * @augments TiledElevationCoverage
- * @classdesc Provides elevations for Earth. Elevations are drawn from the NASA WorldWind elevation service.
+ * @param {worldWindow} worldWindow WorldWindow
  */
-function ArcgisElevationCoverage() {
+function ArcgisElevationCoverage(worldWindow) {
     // see: http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer
     TiledElevationCoverage.call(this, {
         coverageSector: new Sector(-WWMath.MAX_LAT, WWMath.MAX_LAT, -180, 180),
@@ -43,8 +43,7 @@ function ArcgisElevationCoverage() {
         urlBuilder: new WmsUrlBuilder("http://localhost:2020/api/Map/Elev", "WorldElevation3D", "", "1.3.0")
     });
 
-    this.displayName = "Arcgis Elevation Coverage";
-
+    this.worldWindow = worldWindow;
     this.worker = new ArcgisElevationWorker();
     this.worker.onmessage = this.handleMessage.bind(this);
 }
@@ -59,10 +58,7 @@ ArcgisElevationCoverage.prototype.retrieveTileImage = function (tile) {
             height: 257,
             pixelData: null
         });
-        // Send an event to request a redraw.
-        var e = document.createEvent('Event');
-        e.initEvent(WorldWind.REDRAW_EVENT_TYPE, true, true);
-        window.dispatchEvent(e);
+        this.worldWindow.redraw();
         return;
     }
     if (this.currentRetrievals.indexOf(tile.tileKey) < 0) {

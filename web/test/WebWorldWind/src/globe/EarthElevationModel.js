@@ -24,10 +24,11 @@ import ArcgisElevationCoverage from './ArcgisElevationCoverage';
  * Constructs an EarthElevationModel consisting of three elevation coverages GEBCO, Aster V2, and USGS NED.
  * @alias EarthElevationModel
  * @constructor
+ * @param {WorldWindow} worldWindow WorldWindow
  */
-function EarthElevationModel() {
+function EarthElevationModel(worldWindow) {
     ElevationModel.call(this);
-    this.addCoverage(new ArcgisElevationCoverage());
+    this.addCoverage(new ArcgisElevationCoverage(worldWindow));
 }
 
 EarthElevationModel.prototype = Object.create(ElevationModel.prototype);
