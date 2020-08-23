@@ -24,6 +24,8 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
 
 1. 3D GIS. (In development)
 2. Fix the bug that `npm start` is not working on Ubuntu and Mac.
+3. Added `npm run serve` script to monitor other file changes during hot update.
+4. Fix the bug that error occurs when playing in new window.
 
 ## v0.5.7 has Released
 
