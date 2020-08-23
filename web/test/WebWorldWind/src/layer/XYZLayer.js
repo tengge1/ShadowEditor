@@ -23,7 +23,11 @@ class XYZLayer extends MercatorTiledImageLayer {
     createTopLevelTiles(dc) {
         this.topLevelTiles = [];
 
-        this.topLevelTiles.push(this.createTile(null, this.levels.firstLevel(), 0, 0));
+        let level = this.levels.levels[1];
+        this.topLevelTiles.push(this.createTile(null, level, 0, 0));
+        this.topLevelTiles.push(this.createTile(null, level, 0, 1));
+        this.topLevelTiles.push(this.createTile(null, level, 1, 0));
+        this.topLevelTiles.push(this.createTile(null, level, 1, 1));
     }
 }
 
