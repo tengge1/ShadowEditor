@@ -65,6 +65,12 @@ func HandleBing(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
+	if resp.StatusCode != http.StatusOK {
+		server.Logger.Errorf("url: %v status: %v", url, resp.StatusCode)
+		w.WriteHeader(resp.StatusCode)
+		return
+	}
+
 	defer resp.Body.Close()
 
 	byts, err := ioutil.ReadAll(resp.Body)
