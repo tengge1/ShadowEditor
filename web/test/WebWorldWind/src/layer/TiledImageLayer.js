@@ -423,7 +423,6 @@ TiledImageLayer.prototype.retrieveTileImage = function (dc, tile, suppressRedraw
         }
 
         image.onload = function () {
-            console.log("Image retrieval succeeded: " + url);
             var texture = layer.createTexture(dc, tile, image);
             layer.removeFromCurrentRetrievals(imagePath);
 

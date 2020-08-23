@@ -84,7 +84,6 @@ ArcgisElevationCoverage.prototype.handleMessage = function (evt) {
         return;
     }
     if (result === 'success') {
-        console.log("Elevations retrieval succeeded: " + url);
         this.loadElevationImage(tile, data);
         this.absentResourceList.unmarkResourceAbsent(tileKey);
         global.worldWindow.redraw();

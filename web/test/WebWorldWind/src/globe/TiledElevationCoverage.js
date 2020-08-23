@@ -419,7 +419,6 @@ TiledElevationCoverage.prototype.retrieveTileImage = function (tile) {
                     if (contentType === elevationCoverage.retrievalImageFormat
                         || contentType === "text/plain"
                         || contentType === "application/octet-stream") {
-                        console.log("Elevations retrieval succeeded: " + url);
                         elevationCoverage.loadElevationImage(tile, xhr);
                         elevationCoverage.absentResourceList.unmarkResourceAbsent(tile.tileKey);
 

@@ -207,8 +207,6 @@ GpuResourceCache.prototype.retrieveTexture = function (gl, imageSource, wrapMode
         image = new Image();
 
     image.onload = function () {
-        console.log("Image retrieval succeeded: " + imageSource);
-
         var texture = new Texture(gl, image, wrapMode);
 
         cache.putResource(imageSource, texture, texture.size);
