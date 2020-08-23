@@ -414,7 +414,6 @@ TiledImageLayer.prototype.retrieveTileImage = function (dc, tile, suppressRedraw
             image = new Image(),
             imagePath = tile.imagePath,
             cache = dc.gpuResourceCache,
-            canvas = dc.currentGlContext.canvas,
             layer = this;
 
         if (!url) {

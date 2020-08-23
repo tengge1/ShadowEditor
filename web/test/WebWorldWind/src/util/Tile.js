@@ -316,10 +316,6 @@ Tile.prototype.doUpdate = function (dc) {
         minHeight = extremes[0] * verticalExaggeration,
         maxHeight = extremes[1] * verticalExaggeration;
 
-    if (minHeight === maxHeight) {
-        minHeight = maxHeight + 10; // TODO: Determine if this is necessary.
-    }
-
     // Compute a bounding box for this tile that contains the terrain surface in the tile's coverage area.
     if (!this.extent) {
         this.extent = new BoundingBox();
