@@ -36,14 +36,14 @@ function LookAtNavigator() {
      * The geographic location at the center of the viewport.
      * @type {Location}
      */
-    this.lookAtLocation = new Location(36.4, 117);
+    this.lookAtLocation = new Location(37.145952371394245, 110.05951598184991);
 
     /**
      * The distance from this navigator's eye point to its look-at location.
      * @type {Number}
      * @default 10,000 kilometers
      */
-    this.range = 10e6; // TODO: Compute initial range to fit globe in viewport.
+    this.range = 67043860.7580466; // TODO: Compute initial range to fit globe in viewport.
 
     // Development testing only. Set this to false to suppress default navigator limits on 2D globes.
     this.enable2DLimits = true;
