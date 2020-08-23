@@ -17,7 +17,6 @@
 /**
  * @exports ImageTile
  */
-import Logger from '../util/Logger';
 import TextureTile from '../render/TextureTile';
 import Tile from '../util/Tile';
 

@@ -17,7 +17,6 @@
 /**
  * @exports TerrainTile
  */
-import Logger from '../util/Logger';
 import Matrix from '../geom/Matrix';
 import Tile from '../util/Tile';
 

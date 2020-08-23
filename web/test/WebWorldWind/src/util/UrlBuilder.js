@@ -17,7 +17,6 @@
 /**
  * @exports UrlBuilder
  */
-import Logger from '../util/Logger';
 
 
 /**

@@ -18,7 +18,6 @@
  * @exports FramebufferTile
  */
 import FramebufferTexture from '../render/FramebufferTexture';
-import Logger from '../util/Logger';
 import Matrix from '../geom/Matrix';
 import Rectangle from '../geom/Rectangle';
 import TextureTile from '../render/TextureTile';

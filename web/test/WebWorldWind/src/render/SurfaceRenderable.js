@@ -17,7 +17,6 @@
 /**
  * @exports SurfaceRenderable
  */
-import Logger from '../util/Logger';
 
 
 /**

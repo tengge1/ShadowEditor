@@ -20,7 +20,6 @@
 import BasicTextureProgram from '../shaders/BasicTextureProgram';
 import Color from '../util/Color';
 import Font from '../util/Font';
-import Logger from '../util/Logger';
 import Matrix from '../geom/Matrix';
 import PickedObject from '../pick/PickedObject';
 import PlacemarkAttributes from '../shapes/PlacemarkAttributes';
@@ -542,7 +541,7 @@ Placemark.prototype.drawBatchOrderedPlacemarks = function (dc) {
         try {
             or.doDrawOrderedPlacemark(dc);
         } catch (e) {
-            Logger.logMessage(Logger.LEVEL_WARNING, 'Placemark', 'drawBatchOrderedPlacemarks',
+            console.warn('Placemark', 'drawBatchOrderedPlacemarks',
                 "Error occurred while rendering placemark using batching: " + e.message);
         }
         // Keep going. Render the rest of the ordered renderables.

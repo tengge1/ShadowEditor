@@ -17,7 +17,6 @@
 /**
  * @exports SurfaceTileRenderer
  */
-import Logger from '../util/Logger';
 import Matrix from '../geom/Matrix';
 import SurfaceShapeTile from '../shapes/SurfaceShapeTile';
 import SurfaceTileRendererProgram from '../shaders/SurfaceTileRendererProgram';

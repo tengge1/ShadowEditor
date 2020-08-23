@@ -18,7 +18,6 @@
  * @exports Level
  */
 import Angle from '../geom/Angle';
-import Logger from '../util/Logger';
 
 
 /**

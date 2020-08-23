@@ -23,7 +23,6 @@ import ElevationCoverage from '../globe/ElevationCoverage';
 import ElevationImage from '../globe/ElevationImage';
 import LevelSet from '../util/LevelSet';
 import Location from '../geom/Location';
-import Logger from '../util/Logger';
 import Sector from '../geom/Sector';
 import Tile from '../util/Tile';
 import WWMath from '../util/WWMath';
@@ -420,26 +419,23 @@ TiledElevationCoverage.prototype.retrieveTileImage = function (tile) {
                     if (contentType === elevationCoverage.retrievalImageFormat
                         || contentType === "text/plain"
                         || contentType === "application/octet-stream") {
-                        Logger.log(Logger.LEVEL_INFO, "Elevations retrieval succeeded: " + url);
+                        console.log("Elevations retrieval succeeded: " + url);
                         elevationCoverage.loadElevationImage(tile, xhr);
                         elevationCoverage.absentResourceList.unmarkResourceAbsent(tile.tileKey);
 
                         global.worldWindow.redraw();
                     } else if (contentType === "text/xml") {
                         elevationCoverage.absentResourceList.markResourceAbsent(tile.tileKey);
-                        Logger.log(Logger.LEVEL_WARNING,
-                            "Elevations retrieval failed (" + xhr.statusText + "): " + url + ".\n "
+                        console.warn("Elevations retrieval failed (" + xhr.statusText + "): " + url + ".\n "
                             + String.fromCharCode.apply(null, new Uint8Array(xhr.response)));
                     } else {
                         elevationCoverage.absentResourceList.markResourceAbsent(tile.tileKey);
-                        Logger.log(Logger.LEVEL_WARNING,
-                            "Elevations retrieval failed: " + url + ". " + "Unexpected content type "
+                        console.warn("Elevations retrieval failed: " + url + ". " + "Unexpected content type "
                             + contentType);
                     }
                 } else {
                     elevationCoverage.absentResourceList.markResourceAbsent(tile.tileKey);
-                    Logger.log(Logger.LEVEL_WARNING,
-                        "Elevations retrieval failed (" + xhr.statusText + "): " + url);
+                    console.warn("Elevations retrieval failed (" + xhr.statusText + "): " + url);
                 }
             }
         };
@@ -447,13 +443,13 @@ TiledElevationCoverage.prototype.retrieveTileImage = function (tile) {
         xhr.onerror = function () {
             elevationCoverage.removeFromCurrentRetrievals(tile.tileKey);
             elevationCoverage.absentResourceList.markResourceAbsent(tile.tileKey);
-            Logger.log(Logger.LEVEL_WARNING, "Elevations retrieval failed: " + url);
+            console.warn("Elevations retrieval failed: " + url);
         };
 
         xhr.ontimeout = function () {
             elevationCoverage.removeFromCurrentRetrievals(tile.tileKey);
             elevationCoverage.absentResourceList.markResourceAbsent(tile.tileKey);
-            Logger.log(Logger.LEVEL_WARNING, "Elevations retrieval timed out: " + url);
+            console.warn("Elevations retrieval timed out: " + url);
         };
 
         xhr.send(null);

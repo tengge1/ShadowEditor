@@ -18,7 +18,6 @@
  * @exports StarFieldProgram
  */
 import GpuProgram from '../shaders/GpuProgram';
-import Logger from '../util/Logger';
 import StarFieldVertex from './glsl/star_field_vertex.glsl';
 import StarFieldFragment from './glsl/star_field_fragment.glsl';
 

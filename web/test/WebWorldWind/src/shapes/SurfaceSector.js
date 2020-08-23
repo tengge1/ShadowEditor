@@ -18,7 +18,6 @@
  * @exports SurfaceSector
  */
 import Location from '../geom/Location';
-import Logger from '../util/Logger';
 import ShapeAttributes from '../shapes/ShapeAttributes';
 import SurfaceShape from '../shapes/SurfaceShape';
 

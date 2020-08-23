@@ -21,7 +21,6 @@ import Sector from '../geom/Sector';
 import TiledElevationCoverage from '../globe/TiledElevationCoverage';
 import WmsUrlBuilder from '../util/WmsUrlBuilder';
 import ElevationImage from './ElevationImage';
-import Logger from '../util/Logger';
 import WWMath from '../util/WWMath';
 import ArcgisElevationWorker from 'worker!./ArcgisElevationWorker.js';
 import global from '../global';
@@ -85,20 +84,19 @@ ArcgisElevationCoverage.prototype.handleMessage = function (evt) {
         return;
     }
     if (result === 'success') {
-        Logger.log(Logger.LEVEL_INFO, "Elevations retrieval succeeded: " + url);
+        console.log("Elevations retrieval succeeded: " + url);
         this.loadElevationImage(tile, data);
         this.absentResourceList.unmarkResourceAbsent(tileKey);
         global.worldWindow.redraw();
     } else if (result === 'fail') {
         this.absentResourceList.markResourceAbsent(tileKey);
-        Logger.log(Logger.LEVEL_WARNING,
-            "Elevations retrieval failed (" + msg + "): " + url);
+        console.warn("Elevations retrieval failed (" + msg + "): " + url);
     } else if (result === 'error') {
         this.absentResourceList.markResourceAbsent(tileKey);
-        Logger.log(Logger.LEVEL_WARNING, "Elevations retrieval failed: " + url);
+        console.warn("Elevations retrieval failed: " + url);
     } else if (result === 'timeout') {
         this.absentResourceList.markResourceAbsent(tileKey);
-        Logger.log(Logger.LEVEL_WARNING, "Elevations retrieval timed out: " + url);
+        console.warn("Elevations retrieval timed out: " + url);
     }
 };
 

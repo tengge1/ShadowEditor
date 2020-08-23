@@ -16,7 +16,6 @@
  */
 
 import Angle from '../geom/Angle';
-import Logger from './Logger';
 import WWMath from './WWMath';
 
 

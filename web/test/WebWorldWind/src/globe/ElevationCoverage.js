@@ -17,7 +17,6 @@
 /**
  * @exports ElevationCoverage
  */
-import Logger from '../util/Logger';
 import Sector from '../geom/Sector';
 
 

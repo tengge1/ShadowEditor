@@ -19,7 +19,6 @@
  */
 import AbsentResourceList from '../util/AbsentResourceList';
 import ImageSource from '../util/ImageSource';
-import Logger from '../util/Logger';
 import MemoryCache from '../cache/MemoryCache';
 import Texture from '../render/Texture';
 import global from '../global';
@@ -208,7 +207,7 @@ GpuResourceCache.prototype.retrieveTexture = function (gl, imageSource, wrapMode
         image = new Image();
 
     image.onload = function () {
-        Logger.log(Logger.LEVEL_INFO, "Image retrieval succeeded: " + imageSource);
+        console.log("Image retrieval succeeded: " + imageSource);
 
         var texture = new Texture(gl, image, wrapMode);
 
@@ -223,7 +222,7 @@ GpuResourceCache.prototype.retrieveTexture = function (gl, imageSource, wrapMode
     image.onerror = function () {
         delete cache.currentRetrievals[imageSource];
         cache.absentResourceList.markResourceAbsent(imageSource);
-        Logger.log(Logger.LEVEL_WARNING, "Image retrieval failed: " + imageSource);
+        console.warn("Image retrieval failed: " + imageSource);
     };
 
     this.currentRetrievals[imageSource] = imageSource;

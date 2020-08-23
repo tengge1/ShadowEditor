@@ -18,7 +18,6 @@
  * @exports Matrix3
  */
 
-import Logger from '../util/Logger';
 
 
 /**

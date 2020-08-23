@@ -17,7 +17,6 @@
 /**
  * @exports Color
  */
-import Logger from '../util/Logger';
 
 
 /**

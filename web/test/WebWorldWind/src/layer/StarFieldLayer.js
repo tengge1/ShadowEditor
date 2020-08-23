@@ -18,7 +18,6 @@
  * @exports StarFieldLayer
  */
 import Layer from './Layer';
-import Logger from '../util/Logger';
 import Matrix from '../geom/Matrix';
 import StarFieldProgram from '../shaders/StarFieldProgram';
 import SunPosition from '../util/SunPosition';
@@ -255,7 +254,7 @@ StarFieldLayer.prototype.renderSun = function (dc) {
         this._MAX_GL_POINT_SIZE = gl.getParameter(gl.ALIASED_POINT_SIZE_RANGE)[1];
     }
     if (this.sunSize > this._MAX_GL_POINT_SIZE) {
-        Logger.log(Logger.LEVEL_WARNING, 'StarFieldLayer - sunSize is to big, max size allowed is: ' +
+        console.warn('StarFieldLayer - sunSize is to big, max size allowed is: ' +
             this._MAX_GL_POINT_SIZE);
     }
 
@@ -319,24 +318,24 @@ StarFieldLayer.prototype.fetchStarData = function () {
                 global.worldWindow.redraw();
             }
             catch (e) {
-                Logger.log(Logger.LEVEL_SEVERE, 'StarFieldLayer unable to parse JSON for star data ' +
+                console.error('StarFieldLayer unable to parse JSON for star data ' +
                     e.toString());
             }
         }
         else {
-            Logger.log(Logger.LEVEL_SEVERE, 'StarFieldLayer unable to fetch star data. Status: ' +
+            console.error('StarFieldLayer unable to fetch star data. Status: ' +
                 this.status + ' ' + this.statusText);
         }
         self._loadStarted = false;
     };
 
     xhr.onerror = function () {
-        Logger.log(Logger.LEVEL_SEVERE, 'StarFieldLayer unable to fetch star data');
+        console.error('StarFieldLayer unable to fetch star data');
         self._loadStarted = false;
     };
 
     xhr.ontimeout = function () {
-        Logger.log(Logger.LEVEL_SEVERE, 'StarFieldLayer fetch star data has timeout');
+        console.error('StarFieldLayer fetch star data has timeout');
         self._loadStarted = false;
     };
 

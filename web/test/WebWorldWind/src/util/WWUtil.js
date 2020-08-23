@@ -15,7 +15,6 @@
  * limitations under the License.
  */
 import Line from '../geom/Line';
-import Logger from '../util/Logger';
 import Rectangle from '../geom/Rectangle';
 import Vec3 from '../geom/Vec3';
 

@@ -17,7 +17,6 @@
 /**
  * @exports Terrain
  */
-import Logger from '../util/Logger';
 import Vec3 from '../geom/Vec3';
 
 

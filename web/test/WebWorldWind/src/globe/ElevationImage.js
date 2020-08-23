@@ -17,7 +17,6 @@
 /**
  * @exports ElevationImage
  */
-import Logger from '../util/Logger';
 import WWMath from '../util/WWMath';
 
 

@@ -17,7 +17,6 @@
 /**
  * @exports GeographicProjection
  */
-import Logger from '../util/Logger';
 
 
 /**

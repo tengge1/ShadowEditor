@@ -18,7 +18,6 @@
  * @exports BoundingBox
  */
 import BasicProgram from '../shaders/BasicProgram';
-import Logger from '../util/Logger';
 import Matrix from '../geom/Matrix';
 import Vec3 from '../geom/Vec3';
 import WWMath from '../util/WWMath';

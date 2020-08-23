@@ -22,7 +22,6 @@ import FramebufferTexture from '../render/FramebufferTexture';
 import FramebufferTileController from '../render/FramebufferTileController';
 import Frustum from '../geom/Frustum';
 import GpuResourceCache from '../cache/GpuResourceCache';
-import Logger from '../util/Logger';
 import Matrix from '../geom/Matrix';
 import PickedObjectList from '../pick/PickedObjectList';
 import Plane from '../geom/Plane';
@@ -518,7 +517,7 @@ DrawContext.prototype.findAndBindProgram = function (programConstructor) {
             this.bindProgram(program);
             this.gpuResourceCache.putResource(programConstructor.key, program, program.size);
         } catch (e) {
-            Logger.log(Logger.LEVEL_SEVERE, "Error attempting to create GPU program.");
+            console.error("Error attempting to create GPU program.");
         }
     }
 

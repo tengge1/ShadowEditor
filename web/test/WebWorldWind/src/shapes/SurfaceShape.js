@@ -21,7 +21,6 @@ import Angle from '../geom/Angle';
 import BoundingBox from '../geom/BoundingBox';
 import Color from '../util/Color';
 import Location from '../geom/Location';
-import Logger from '../util/Logger';
 import MemoryCache from '../cache/MemoryCache';
 import PickedObject from '../pick/PickedObject';
 import PolygonSplitter from '../util/PolygonSplitter';

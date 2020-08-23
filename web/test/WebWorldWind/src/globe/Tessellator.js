@@ -21,7 +21,6 @@ import Angle from '../geom/Angle';
 import BasicProgram from '../shaders/BasicProgram';
 import LevelSet from '../util/LevelSet';
 import Location from '../geom/Location';
-import Logger from '../util/Logger';
 import Matrix from '../geom/Matrix';
 import MemoryCache from '../cache/MemoryCache';
 import PickedObject from '../pick/PickedObject';
@@ -199,7 +198,7 @@ Tessellator.prototype.createTile = function (tileSector, level, row, column) {
 Tessellator.prototype.beginRendering = function (dc) {
     var program = dc.currentProgram; // use the current program; the caller configures other program state
     if (!program) {
-        Logger.logMessage(Logger.LEVEL_INFO, "Tessellator", "beginRendering", "Current Program is empty");
+        console.info("Tessellator", "beginRendering", "Current Program is empty");
         return;
     }
 

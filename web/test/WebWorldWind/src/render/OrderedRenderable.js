@@ -17,7 +17,6 @@
 /**
  * @exports OrderedRenderable
  */
-import Logger from '../util/Logger';
 
 
 /**

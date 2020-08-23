@@ -19,7 +19,6 @@
  */
 import Angle from '../geom/Angle';
 import GeographicProjection from '../projections/GeographicProjection';
-import Logger from '../util/Logger';
 import Position from '../geom/Position';
 import Vec3 from '../geom/Vec3';
 import WWMath from '../util/WWMath';

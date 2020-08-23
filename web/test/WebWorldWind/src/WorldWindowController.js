@@ -17,7 +17,6 @@
 /**
  * @exports WorldWindowController
  */
-import Logger from './util/Logger';
 
 
 /**

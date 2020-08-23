@@ -17,7 +17,6 @@
 /**
  * @exports GestureRecognizer
  */
-import Logger from '../util/Logger';
 import Touch from '../gesture/Touch';
 
 
@@ -566,11 +565,11 @@ GestureRecognizer.prototype.onGestureEvent = function (event) {
         } else if (event.type === "pointerup" && event.pointerType === "touch") {
             this.handleTouchEnd(event);
         } else {
-            Logger.logMessage(Logger.LEVEL_INFO, "GestureRecognizer", "handleEvent",
+            console.info("GestureRecognizer", "handleEvent",
                 "Unrecognized event type: " + event.type);
         }
     } catch (e) {
-        Logger.logMessage(Logger.LEVEL_SEVERE, "GestureRecognizer", "handleEvent",
+        console.error("GestureRecognizer", "handleEvent",
             "Error handling event.\n" + e.toString());
     }
 };

@@ -17,7 +17,6 @@
 /**
  * @exports ScreenText
  */
-import Logger from '../util/Logger';
 import Offset from '../util/Offset';
 import Text from '../shapes/Text';
 

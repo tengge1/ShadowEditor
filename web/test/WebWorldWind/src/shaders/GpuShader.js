@@ -17,7 +17,6 @@
 /**
  * @exports GpuShader
  */
-import Logger from '../util/Logger';
 
 
 /**
@@ -37,9 +36,9 @@ import Logger from '../util/Logger';
 function GpuShader(gl, shaderType, shaderSource) {
     var shader = gl.createShader(shaderType);
     if (!shader) {
-        console.warn(Logger.logMessage(Logger.LEVEL_SEVERE, "GpuShader", "constructor",
+        console.warn("GpuShader", "constructor",
             "Unable to create shader of type " +
-            (shaderType == gl.VERTEX_SHADER ? "VERTEX_SHADER." : "FRAGMENT_SHADER.")));
+            (shaderType == gl.VERTEX_SHADER ? "VERTEX_SHADER." : "FRAGMENT_SHADER."));
     }
 
     if (!this.compile(gl, shader, shaderType, shaderSource)) {
@@ -47,8 +46,8 @@ function GpuShader(gl, shaderType, shaderSource) {
 
         gl.deleteShader(shader);
 
-        console.warn(Logger.logMessage(Logger.LEVEL_SEVERE, "GpuShader", "constructor",
-            "Unable to compile shader: " + infoLog));
+        console.error("GpuShader", "constructor",
+            "Unable to compile shader: " + infoLog);
     }
 
     this.shaderId = shader;

@@ -17,7 +17,6 @@
 /**
  * @exports Renderable
  */
-import Logger from '../util/Logger';
 
 
 /**

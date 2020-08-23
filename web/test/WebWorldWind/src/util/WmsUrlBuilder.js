@@ -17,7 +17,6 @@
 /**
  * @exports WmsUrlBuilder
  */
-import Logger from '../util/Logger';
 
 
 /**

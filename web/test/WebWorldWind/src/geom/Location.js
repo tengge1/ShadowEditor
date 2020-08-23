@@ -18,7 +18,6 @@
  * @exports Location
  */
 import Angle from '../geom/Angle';
-import Logger from '../util/Logger';
 import Plane from '../geom/Plane';
 import Vec3 from '../geom/Vec3';
 import WWMath from '../util/WWMath';

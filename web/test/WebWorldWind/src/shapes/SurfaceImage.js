@@ -17,7 +17,6 @@
 /**
  * @exports SurfaceImage
  */
-import Logger from '../util/Logger';
 import PickedObject from '../pick/PickedObject';
 import SurfaceTile from '../render/SurfaceTile';
 

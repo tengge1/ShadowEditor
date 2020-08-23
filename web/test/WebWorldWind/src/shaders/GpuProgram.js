@@ -19,7 +19,6 @@
  */
 import Color from '../util/Color';
 import GpuShader from '../shaders/GpuShader';
-import Logger from '../util/Logger';
 
 
 /**

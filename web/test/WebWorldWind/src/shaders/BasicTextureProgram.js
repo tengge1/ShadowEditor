@@ -19,7 +19,6 @@
  */
 import Color from '../util/Color';
 import GpuProgram from '../shaders/GpuProgram';
-import Logger from '../util/Logger';
 import BasicTextureVertex from './glsl/basic_texture_vertex.glsl';
 import BasicTextureFragment from './glsl/basic_texture_fragment.glsl';
 

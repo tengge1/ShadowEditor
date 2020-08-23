@@ -18,7 +18,6 @@
  * @exports GoToAnimator
  */
 import Location from '../geom/Location';
-import Logger from '../util/Logger';
 import Position from '../geom/Position';
 import Vec3 from '../geom/Vec3';
 

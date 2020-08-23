@@ -23,7 +23,6 @@ import BoundingBox from '../geom/BoundingBox';
 import Color from '../util/Color';
 import ImageSource from '../util/ImageSource';
 import Location from '../geom/Location';
-import Logger from '../util/Logger';
 import Matrix from '../geom/Matrix';
 import PickedObject from '../pick/PickedObject';
 import Position from '../geom/Position';

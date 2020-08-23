@@ -20,7 +20,6 @@
 import BasicTextureProgram from '../shaders/BasicTextureProgram';
 import Color from '../util/Color';
 import Font from '../util/Font';
-import Logger from '../util/Logger';
 import Matrix from '../geom/Matrix';
 import PickedObject from '../pick/PickedObject';
 import Renderable from '../render/Renderable';
@@ -363,7 +362,7 @@ Text.prototype.drawBatchOrderedText = function (dc) {
         try {
             or.doDrawOrderedText(dc);
         } catch (e) {
-            Logger.logMessage(Logger.LEVEL_WARNING, 'Text', 'drawBatchOrderedText',
+            console.warn('Text', 'drawBatchOrderedText',
                 "Error occurred while rendering text using batching: " + e.message);
         }
         // Keep going. Render the rest of the ordered renderables.

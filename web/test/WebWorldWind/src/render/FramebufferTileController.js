@@ -20,7 +20,6 @@
 import FramebufferTile from '../render/FramebufferTile';
 import LevelSet from '../util/LevelSet';
 import Location from '../geom/Location';
-import Logger from '../util/Logger';
 import MemoryCache from '../cache/MemoryCache';
 import Sector from '../geom/Sector';
 import Tile from '../util/Tile';

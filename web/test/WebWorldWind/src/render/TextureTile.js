@@ -17,7 +17,6 @@
 /**
  * @exports TextureTile
  */
-import Logger from '../util/Logger';
 import Tile from '../util/Tile';
 
 

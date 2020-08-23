@@ -17,7 +17,6 @@
 /**
  * @exports AbstractShape
  */
-import Logger from '../util/Logger';
 import Matrix from '../geom/Matrix';
 import MemoryCache from '../cache/MemoryCache';
 import Renderable from '../render/Renderable';

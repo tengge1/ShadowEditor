@@ -20,7 +20,6 @@
 import BasicTextureProgram from '../shaders/BasicTextureProgram';
 import Color from '../util/Color';
 import Font from '../util/Font';
-import Logger from '../util/Logger';
 import Matrix from '../geom/Matrix';
 import Texture from '../render/Texture';
 import Vec2 from '../geom/Vec2';

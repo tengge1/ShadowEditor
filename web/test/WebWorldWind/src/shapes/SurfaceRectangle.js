@@ -19,7 +19,6 @@
  */
 import Angle from '../geom/Angle';
 import Location from '../geom/Location';
-import Logger from '../util/Logger';
 import ShapeAttributes from '../shapes/ShapeAttributes';
 import SurfaceShape from '../shapes/SurfaceShape';
 import WWMath from '../util/WWMath';

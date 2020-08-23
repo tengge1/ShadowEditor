@@ -18,7 +18,6 @@
  * @exports AtmosphereProgram
  */
 import GpuProgram from '../shaders/GpuProgram';
-import Logger from '../util/Logger';
 
 
 /**

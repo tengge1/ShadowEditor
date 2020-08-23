@@ -19,7 +19,6 @@
  */
 import Angle from '../geom/Angle';
 import Level from '../util/Level';
-import Logger from '../util/Logger';
 import Sector from '../geom/Sector';
 import Texture from '../render/Texture';
 import TextureTile from '../render/TextureTile';

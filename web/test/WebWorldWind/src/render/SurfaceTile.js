@@ -17,7 +17,6 @@
 /**
  * @exports SurfaceTile
  */
-import Logger from '../util/Logger';
 import Matrix from '../geom/Matrix';
 import Sector from '../geom/Sector';
 

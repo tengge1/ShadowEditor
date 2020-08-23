@@ -20,7 +20,6 @@
 import BasicTextureProgram from '../shaders/BasicTextureProgram';
 import Color from '../util/Color';
 import ImageSource from '../util/ImageSource';
-import Logger from '../util/Logger';
 import Matrix from '../geom/Matrix';
 import Offset from '../util/Offset';
 import PickedObject from '../pick/PickedObject';

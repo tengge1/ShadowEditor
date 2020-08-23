@@ -18,7 +18,6 @@
  * @exports ElevationModel
  */
 import Location from '../geom/Location';
-import Logger from '../util/Logger';
 
 
 /**

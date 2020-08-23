@@ -17,7 +17,6 @@
 /**
  * @exports FramebufferTexture
  */
-import Logger from '../util/Logger';
 import '../util/WWMath';
 
 
@@ -103,7 +102,7 @@ function FramebufferTexture(gl, width, height, depth) {
 
     var e = gl.checkFramebufferStatus(gl.FRAMEBUFFER);
     if (e != gl.FRAMEBUFFER_COMPLETE) {
-        Logger.logMessage(Logger.LEVEL_WARNING, "FramebufferTexture", "constructor",
+        console.warn("FramebufferTexture", "constructor",
             "Error creating framebuffer: " + e);
         this.framebufferId = null;
         this.texture = null;

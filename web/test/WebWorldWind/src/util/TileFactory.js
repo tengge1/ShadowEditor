@@ -17,7 +17,6 @@
 /**
  * @exports TileFactory
  */
-import Logger from '../util/Logger';
 
 
 /**

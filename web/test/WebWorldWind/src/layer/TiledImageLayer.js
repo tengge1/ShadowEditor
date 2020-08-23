@@ -21,7 +21,6 @@ import AbsentResourceList from '../util/AbsentResourceList';
 import ImageTile from '../render/ImageTile';
 import Layer from '../layer/Layer';
 import LevelSet from '../util/LevelSet';
-import Logger from '../util/Logger';
 import Matrix from '../geom/Matrix';
 import MemoryCache from '../cache/MemoryCache';
 import Texture from '../render/Texture';
@@ -424,7 +423,7 @@ TiledImageLayer.prototype.retrieveTileImage = function (dc, tile, suppressRedraw
         }
 
         image.onload = function () {
-            Logger.log(Logger.LEVEL_INFO, "Image retrieval succeeded: " + url);
+            console.log("Image retrieval succeeded: " + url);
             var texture = layer.createTexture(dc, tile, image);
             layer.removeFromCurrentRetrievals(imagePath);
 
@@ -443,7 +442,7 @@ TiledImageLayer.prototype.retrieveTileImage = function (dc, tile, suppressRedraw
         image.onerror = function () {
             layer.removeFromCurrentRetrievals(imagePath);
             layer.absentResourceList.markResourceAbsent(imagePath);
-            Logger.log(Logger.LEVEL_WARNING, "Image retrieval failed: " + url);
+            console.warn("Image retrieval failed: " + url);
         };
 
         this.currentRetrievals.push(imagePath);

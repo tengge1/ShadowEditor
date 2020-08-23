@@ -17,7 +17,6 @@
 /**
  * @exports MemoryCache
  */
-import Logger from '../util/Logger';
 
 
 /**

@@ -17,7 +17,6 @@
 /**
  * @exports GeographicText
  */
-import Logger from '../util/Logger';
 import Text from '../shapes/Text';
 import Vec3 from '../geom/Vec3';
 

@@ -19,7 +19,6 @@
  */
 import Angle from '../geom/Angle';
 import BoundingBox from '../geom/BoundingBox';
-import Logger from '../util/Logger';
 import ProjectionWgs84 from '../projections/ProjectionWgs84';
 import Sector from '../geom/Sector';
 import Tessellator from '../globe/Tessellator';

@@ -17,7 +17,6 @@
 /**
  * @exports Compass
  */
-import Logger from '../util/Logger';
 import Offset from '../util/Offset';
 import ScreenImage from '../shapes/ScreenImage';
 

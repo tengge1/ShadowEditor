@@ -25,7 +25,6 @@ import Frustum from './geom/Frustum';
 import Globe from './globe/Globe';
 import GoToAnimator from './util/GoToAnimator';
 import Line from './geom/Line';
-import Logger from './util/Logger';
 import LookAtNavigator from './navigate/LookAtNavigator';
 import Matrix from './geom/Matrix';
 import PickedObjectList from './pick/PickedObjectList';
@@ -482,7 +481,7 @@ WorldWindow.prototype.createContext = function (canvas) {
 
 // Internal function. Intentionally not documented.
 WorldWindow.prototype.handleContextLost = function (event) {
-    Logger.log(Logger.LEVEL_INFO, "WebGL context event: " + event.statusMessage);
+    console.log("WebGL context event: " + event.statusMessage);
     // Inform WebGL that we handle context restoration, enabling the context restored event to be delivered.
     event.preventDefault();
     // Notify the draw context that the WebGL rendering context has been lost.
@@ -493,7 +492,7 @@ WorldWindow.prototype.handleContextLost = function (event) {
 
 // Internal function. Intentionally not documented.
 WorldWindow.prototype.handleContextRestored = function (event) {
-    Logger.log(Logger.LEVEL_INFO, "WebGL context event: " + event.statusMessage);
+    console.log("WebGL context event: " + event.statusMessage);
     // Notify the draw context that the WebGL rendering context has been restored.
     this.drawContext.contextRestored();
     // Resume the rendering animation frame loop until the WebGL context is lost.
@@ -1152,7 +1151,7 @@ WorldWindow.prototype.drawSurfaceRenderables = function () {
         try {
             sr.renderSurface(dc);
         } catch (e) {
-            Logger.logMessage(Logger.LEVEL_WARNING, "WorldWindow", "drawSurfaceRenderables",
+            console.warn("WorldWindow", "drawSurfaceRenderables",
                 "Error while rendering a surface renderable.\n" + e.message);
             // Keep going. Render the rest of the surface renderables.
         }
@@ -1179,7 +1178,7 @@ WorldWindow.prototype.drawOrderedRenderables = function () {
         try {
             or.renderOrdered(dc);
         } catch (e) {
-            Logger.logMessage(Logger.LEVEL_WARNING, "WorldWindow", "drawOrderedRenderables",
+            console.warn("WorldWindow", "drawOrderedRenderables",
                 "Error while rendering an ordered renderable.\n" + e.message);
             // Keep going. Render the rest of the ordered renderables.
         }
@@ -1197,7 +1196,7 @@ WorldWindow.prototype.drawScreenRenderables = function () {
         try {
             or.renderOrdered(dc);
         } catch (e) {
-            Logger.logMessage(Logger.LEVEL_WARNING, "WorldWindow", "drawOrderedRenderables",
+            console.warn("WorldWindow", "drawOrderedRenderables",
                 "Error while rendering a screen renderable.\n" + e.message);
             // Keep going. Render the rest of the screen renderables.
         }
@@ -1305,7 +1304,7 @@ WorldWindow.prototype.callRedrawCallbacks = function (stage) {
         try {
             this._redrawCallbacks[i](this, stage);
         } catch (e) {
-            Logger.log(Logger.LEVEL_SEVERE, "Exception calling redraw callback.\n" + e.toString());
+            console.error("Exception calling redraw callback.\n" + e.toString());
             // Keep going. Execute the rest of the callbacks.
         }
     }

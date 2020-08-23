@@ -18,7 +18,6 @@
  * @exports Tile
  */
 import BoundingBox from '../geom/BoundingBox';
-import Logger from '../util/Logger';
 import Sector from '../geom/Sector';
 import Vec3 from '../geom/Vec3';
 import WWMath from '../util/WWMath';

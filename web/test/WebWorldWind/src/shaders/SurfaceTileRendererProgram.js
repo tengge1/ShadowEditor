@@ -19,7 +19,6 @@
  */
 import Color from '../util/Color';
 import GpuProgram from '../shaders/GpuProgram';
-import Logger from '../util/Logger';
 import SurfaceTileVertex from './glsl/surface_tile_vertex.glsl';
 import SurfaceTileFragment from './glsl/surface_tile_fragment.glsl';
 

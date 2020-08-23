@@ -17,7 +17,6 @@
 /**
  * @exports ImageSource
  */
-import Logger from '../util/Logger';
 
 
 /**

@@ -18,7 +18,6 @@
  * @exports Frustum
  */
 import Plane from '../geom/Plane';
-import Logger from '../util/Logger';
 
 
 /**
