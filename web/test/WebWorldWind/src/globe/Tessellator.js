@@ -44,8 +44,8 @@ function Tessellator() {
     // Parameterize top level subdivision in one place.
 
     // TilesInTopLevel describes the most coarse tile structure.
-    this.numRowsTilesInTopLevel = 1; // baseline: 4
-    this.numColumnsTilesInTopLevel = 1; // baseline: 8
+    this.numRowsTilesInTopLevel = 2; // baseline: 4
+    this.numColumnsTilesInTopLevel = 2; // baseline: 8
 
     // The maximum number of levels that will ever be tessellated.
     this.maximumSubdivisionDepth = 16; // baseline: 15
@@ -177,8 +177,6 @@ Tessellator.prototype.tessellate = function (dc) {
             this.addTileOrDescendants(dc, tile);
         }
     }
-
-    this.refineNeighbors(dc);
     this.finishTessellating(dc);
 
     this.lastTerrain = this.currentTiles.length === 0 ? null
@@ -421,46 +419,6 @@ Tessellator.prototype.renderTile = function (dc, terrainTile) {
 };
 
 /**
- * Draws outlines of the triangles composing the tile.
- * @param {DrawContext} dc The current draw context.
- * @param {TerrainTile} terrainTile The tile to draw.
- */
-Tessellator.prototype.renderWireframeTile = function (dc, terrainTile) {
-    var gl = dc.currentGlContext;
-
-    // Must turn off texture coordinates, which were turned on in beginRendering.
-    if (this.vertexTexCoordLocation >= 0) {
-        gl.disableVertexAttribArray(this.vertexTexCoordLocation);
-    }
-
-    gl.drawElements(
-        gl.LINES,
-        this.numWireframeIndices,
-        gl.UNSIGNED_SHORT,
-        this.wireframeIndicesOffset * 2);
-};
-
-/**
- * Draws the outer boundary of a specified terrain tile.
- * @param {DrawContext} dc The current draw context.
- * @param {TerrainTile} terrainTile The tile whose outer boundary to draw.
- */
-Tessellator.prototype.renderTileOutline = function (dc, terrainTile) {
-    var gl = dc.currentGlContext;
-
-    // Must turn off texture coordinates, which were turned on in beginRendering.
-    if (this.vertexTexCoordLocation >= 0) {
-        gl.disableVertexAttribArray(this.vertexTexCoordLocation);
-    }
-
-    gl.drawElements(
-        gl.LINE_LOOP,
-        this.numOutlineIndices,
-        gl.UNSIGNED_SHORT,
-        this.outlineIndicesOffset * 2);
-};
-
-/**
  * Causes this terrain to perform the picking operations on the specified tiles, as appropriate for the draw
  * context's pick settings. Normally, this draws the terrain in a unique pick color and computes the picked
  * terrain position. When the draw context is set to region picking mode, this omits the computation of a picked
@@ -681,199 +639,12 @@ Tessellator.prototype.addTile = function (dc, tile) {
     }
 };
 
-Tessellator.prototype.refineNeighbors = function (dc) {
-    var tileRefinementSet = {};
-
-    for (var idx = 0, len = this.tiles.length; idx < len; idx += 1) {
-        var tile = this.tiles[idx],
-            levelNumber = tile.level.levelNumber,
-            sector = tile.sector,
-            corner,
-            neighbor,
-            idx,
-            len;
-
-        // Corners of the tile.
-        var neTileCorner = [sector.maxLatitude, sector.maxLongitude].toString(),
-            seTileCorner = [sector.minLatitude, sector.maxLongitude].toString(),
-            nwTileCorner = [sector.maxLatitude, sector.minLongitude].toString(),
-            swTileCorner = [sector.minLatitude, sector.minLongitude].toString();
-
-        corner = this.corners[neTileCorner];
-        // assert(corner, "northeast corner not found");
-        if (corner.hasOwnProperty('se')) {
-            neighbor = corner.se;
-            if (this.tiles[neighbor].level.levelNumber < levelNumber - 1) {
-                if (!tileRefinementSet[neighbor]) {
-                    tileRefinementSet[neighbor] = true;
-                }
-            }
-        }
-        if (corner.hasOwnProperty('nw')) {
-            neighbor = corner.nw;
-            if (this.tiles[neighbor].level.levelNumber < levelNumber - 1) {
-                if (!tileRefinementSet[neighbor]) {
-                    tileRefinementSet[neighbor] = true;
-                }
-            }
-        }
-
-        corner = this.corners[seTileCorner];
-        // assert(corner, "southeast corner not found");
-        if (corner.hasOwnProperty('ne')) {
-            neighbor = corner.ne;
-            if (this.tiles[neighbor].level.levelNumber < levelNumber - 1) {
-                if (!tileRefinementSet[neighbor]) {
-                    tileRefinementSet[neighbor] = true;
-                }
-            }
-        }
-        if (corner.hasOwnProperty('sw')) {
-            neighbor = corner.sw;
-            if (this.tiles[neighbor].level.levelNumber < levelNumber - 1) {
-                if (!tileRefinementSet[neighbor]) {
-                    tileRefinementSet[neighbor] = true;
-                }
-            }
-        }
-
-        corner = this.corners[nwTileCorner];
-        // assert(corner, "northwest corner not found");
-        if (corner.hasOwnProperty('ne')) {
-            neighbor = corner.ne;
-            if (this.tiles[neighbor].level.levelNumber < levelNumber - 1) {
-                if (!tileRefinementSet[neighbor]) {
-                    tileRefinementSet[neighbor] = true;
-                }
-            }
-        }
-        if (corner.hasOwnProperty('sw')) {
-            neighbor = corner.sw;
-            if (this.tiles[neighbor].level.levelNumber < levelNumber - 1) {
-                if (!tileRefinementSet[neighbor]) {
-                    tileRefinementSet[neighbor] = true;
-                }
-            }
-        }
-
-        corner = this.corners[swTileCorner];
-        // assert(corner, "southwest corner not found");
-        if (corner.hasOwnProperty('se')) {
-            neighbor = corner.se;
-            if (this.tiles[neighbor].level.levelNumber < levelNumber - 1) {
-                if (!tileRefinementSet[neighbor]) {
-                    tileRefinementSet[neighbor] = true;
-                }
-            }
-        }
-        if (corner.hasOwnProperty('nw')) {
-            neighbor = corner.nw;
-            if (this.tiles[neighbor].level.levelNumber < levelNumber - 1) {
-                if (!tileRefinementSet[neighbor]) {
-                    tileRefinementSet[neighbor] = true;
-                }
-            }
-        }
-    }
-
-    // Partition tiles into those requiring refinement and those that don't need refinement.
-    var tilesNeedingRefinement = [],
-        tilesNotNeedingRefinement = [];
-    for (idx = 0, len = this.tiles.length; idx < len; idx += 1) {
-        tile = this.tiles[idx];
-        if (tileRefinementSet[idx]) {
-            tilesNeedingRefinement.push(tile);
-        }
-        else {
-            tilesNotNeedingRefinement.push(tile);
-        }
-    }
-
-    // When tiles need refinement, recur.
-    if (tilesNeedingRefinement.length > 0) {
-        // Reset refinement state.
-        this.tiles = [];
-        this.corners = {};
-
-        // For tiles that don't need refinement, simply add the tile.
-        for (idx = 0, len = tilesNotNeedingRefinement.length; idx < len; idx += 1) {
-            tile = tilesNotNeedingRefinement[idx];
-
-            this.addTile(dc, tile);
-        }
-
-        // For tiles that do need refinement, subdivide the tile and add its descendants.
-        for (idx = 0, len = tilesNeedingRefinement.length; idx < len; idx += 1) {
-            var tile = tilesNeedingRefinement[idx];
-
-            this.addTileDescendants(dc, tile);
-        }
-
-        // Recur.
-        this.refineNeighbors(dc);
-    }
-};
-
 Tessellator.prototype.finishTessellating = function (dc) {
     for (var idx = 0, len = this.tiles.length; idx < len; idx += 1) {
         var tile = this.tiles[idx];
-        this.setNeighbors(tile);
         this.regenerateTileGeometryIfNeeded(dc, tile);
         this.currentTiles.addTile(tile);
     }
-};
-
-Tessellator.prototype.setNeighbors = function (tile) {
-    var sector = tile.sector;
-
-    // Corners of the tile.
-    var neTileCorner = [sector.maxLatitude, sector.maxLongitude].toString(),
-        seTileCorner = [sector.minLatitude, sector.maxLongitude].toString(),
-        nwTileCorner = [sector.maxLatitude, sector.minLongitude].toString(),
-        swTileCorner = [sector.minLatitude, sector.minLongitude].toString();
-
-    var neCorner = this.corners[neTileCorner],
-        seCorner = this.corners[seTileCorner],
-        nwCorner = this.corners[nwTileCorner],
-        swCorner = this.corners[swTileCorner];
-
-    var northIdx = -1, // neCorner.hasOwnProperty('se') ? neCorner.se : nwCorner.hasOwnProperty('sw') ? nwCorner.sw : -1,
-        southIdx = -1, // seCorner.hasOwnProperty('ne') ? seCorner.ne : swCorner.hasOwnProperty('nw') ? swCorner.nw : -1,
-        eastIdx = -1, // neCorner.hasOwnProperty('nw') ? neCorner.nw : seCorner.hasOwnProperty('sw') ? seCorner.sw : -1,
-        westIdx = -1; //nwCorner.hasOwnProperty('ne') ? nwCorner.ne : swCorner.hasOwnProperty('se') ? swCorner.se : -1;
-
-    if (neCorner.hasOwnProperty('se')) {
-        northIdx = neCorner.se;
-    }
-    else if (nwCorner.hasOwnProperty('sw')) {
-        northIdx = nwCorner.sw;
-    }
-
-    if (seCorner.hasOwnProperty('ne')) {
-        southIdx = seCorner.ne;
-    }
-    else if (swCorner.hasOwnProperty('nw')) {
-        southIdx = swCorner.nw;
-    }
-
-    if (neCorner.hasOwnProperty('nw')) {
-        eastIdx = neCorner.nw;
-    }
-    else if (seCorner.hasOwnProperty('sw')) {
-        eastIdx = seCorner.sw;
-    }
-
-    if (nwCorner.hasOwnProperty('ne')) {
-        westIdx = nwCorner.ne;
-    }
-    else if (swCorner.hasOwnProperty('se')) {
-        westIdx = swCorner.se;
-    }
-
-    tile.setNeighborLevel(WorldWind.NORTH, northIdx >= 0 ? this.tiles[northIdx].level : null);
-    tile.setNeighborLevel(WorldWind.SOUTH, southIdx >= 0 ? this.tiles[southIdx].level : null);
-    tile.setNeighborLevel(WorldWind.EAST, eastIdx >= 0 ? this.tiles[eastIdx].level : null);
-    tile.setNeighborLevel(WorldWind.WEST, westIdx >= 0 ? this.tiles[westIdx].level : null);
 };
 
 Tessellator.prototype.isTileVisible = function (dc, tile) {
@@ -936,105 +707,12 @@ Tessellator.prototype.regenerateTileGeometry = function (dc, tile) {
 
     dc.globe.elevationsForGrid(tile.sector, numLat, numLon, this.coverageTargetResolution(tile.texelSize), elevations);
 
-    // Modify the elevations around the tile's border to match neighbors of lower resolution, if any.
-    if (this.mustAlignNeighborElevations(dc, tile)) {
-        this.alignNeighborElevations(dc, tile, elevations);
-    }
-
     // Compute the tile's Cartesian coordinates relative to a local origin, called the reference point.
     WWUtil.multiplyArray(elevations, dc.verticalExaggeration);
     dc.globe.computePointsForGrid(tile.sector, numLat, numLon, elevations, refPoint, tile.points);
 
     // Establish a transform that is used later to move the tile coordinates into place relative to the globe.
     tile.transformationMatrix.setTranslation(refPoint[0], refPoint[1], refPoint[2]);
-};
-
-Tessellator.prototype.mustAlignNeighborElevations = function (dc, tile) {
-    var level = tile.level,
-        northLevel = tile.neighborLevel(WorldWind.NORTH),
-        southLevel = tile.neighborLevel(WorldWind.SOUTH),
-        eastLevel = tile.neighborLevel(WorldWind.EAST),
-        westLevel = tile.neighborLevel(WorldWind.WEST);
-
-    return northLevel && northLevel.compare(level) < 0 ||
-        southLevel && southLevel.compare(level) < 0 ||
-        eastLevel && eastLevel.compare(level) < 0 ||
-        westLevel && westLevel.compare(level) < 0;
-};
-
-Tessellator.prototype.alignNeighborElevations = function (dc, tile, elevations) {
-    var numLat = tile.tileHeight + 1, // num points in each dimension is 1 more than the number of tile cells
-        numLon = tile.tileWidth + 1,
-        level = tile.level,
-        prevNumLat = Math.floor(numLat / 2) + 1, // num prev level points is 1 more than 1/2 the number of cells
-        prevNumLon = Math.floor(numLon / 2) + 1,
-        prevLevel = level.previousLevel(),
-        prevElevations = this.scratchPrevElevations,
-        neighborLevel,
-        i, index, prevIndex;
-
-    // Allocate space for the previous level elevations.
-    if (!prevElevations) {
-        prevElevations = new Float64Array(prevNumLat * prevNumLon);
-        this.scratchPrevElevations = prevElevations;
-    }
-
-    // Retrieve the previous level elevations, using 1/2 the number of tile cells.
-    WWUtil.fillArray(prevElevations, 0);
-
-    dc.globe.elevationsForGrid(tile.sector, prevNumLat, prevNumLon, this.coverageTargetResolution(prevLevel.texelSize), prevElevations);
-
-    // Use previous level elevations along the north edge when the northern neighbor is lower resolution.
-    neighborLevel = tile.neighborLevel(WorldWind.NORTH);
-    if (neighborLevel && neighborLevel.compare(level) < 0) {
-        index = (numLat - 1) * numLon;
-        prevIndex = (prevNumLat - 1) * prevNumLon;
-        for (i = 0; i < prevNumLon; i++, index += 2, prevIndex += 1) {
-            elevations[index] = prevElevations[prevIndex];
-            if (i < prevNumLon - 1) {
-                elevations[index + 1] = 0.5 * (prevElevations[prevIndex] + prevElevations[prevIndex + 1]);
-            }
-        }
-    }
-
-    // Use previous level elevations along the south edge when the southern neighbor is lower resolution.
-    neighborLevel = tile.neighborLevel(WorldWind.SOUTH);
-    if (neighborLevel && neighborLevel.compare(level) < 0) {
-        index = 0;
-        prevIndex = 0;
-        for (i = 0; i < prevNumLon; i++, index += 2, prevIndex += 1) {
-            elevations[index] = prevElevations[prevIndex];
-            if (i < prevNumLon - 1) {
-                elevations[index + 1] = 0.5 * (prevElevations[prevIndex] + prevElevations[prevIndex + 1]);
-            }
-        }
-    }
-
-    // Use previous level elevations along the east edge when the eastern neighbor is lower resolution.
-    neighborLevel = tile.neighborLevel(WorldWind.EAST);
-    if (neighborLevel && neighborLevel.compare(level) < 0) {
-        index = numLon - 1;
-        prevIndex = prevNumLon - 1;
-        for (i = 0; i < prevNumLat; i++, index += 2 * numLon, prevIndex += prevNumLon) {
-            elevations[index] = prevElevations[prevIndex];
-            if (i < prevNumLat - 1) {
-                elevations[index + numLon] = 0.5 * (prevElevations[prevIndex] + prevElevations[prevIndex + prevNumLon]);
-            }
-        }
-    }
-
-    // Use previous level elevations along the west edge when the western neighbor is lower resolution.
-    neighborLevel = tile.neighborLevel(WorldWind.WEST);
-    if (neighborLevel && neighborLevel.compare(level) < 0) {
-        index = 0;
-        prevIndex = 0;
-        for (i = 0; i < prevNumLat; i++, index += 2 * numLon, prevIndex += prevNumLon) {
-            elevations[index] = prevElevations[prevIndex];
-            if (i < prevNumLat - 1) {
-                elevations[index + numLon] = 0.5 * (prevElevations[prevIndex] + prevElevations[prevIndex + prevNumLon]);
-            }
-        }
-    }
 };
 
 Tessellator.prototype.buildSharedGeometry = function () {
@@ -1361,112 +1039,7 @@ Tessellator.prototype.buildIndices = function (tileWidth, tileHeight) {
     this.indicesLoresEast = new Uint16Array(indices.slice(this.indicesLoresEastOffset));
     this.numIndicesLoresEast = numIndices;
 
-    var wireframeIndices = this.buildWireframeIndices(tileWidth, tileHeight);
-    var outlineIndices = this.buildOutlineIndices(tileWidth, tileHeight);
-
-    indices = indices.concat(wireframeIndices);
-    this.wireframeIndicesOffset = indices.length - this.numWireframeIndices;
-
-    indices = indices.concat(outlineIndices);
-    this.outlineIndicesOffset = indices.length - this.numOutlineIndices;
-
     this.indices = new Uint16Array(indices);
-};
-
-Tessellator.prototype.buildWireframeIndices = function (tileWidth, tileHeight) {
-    // The wireframe representation draws the vertices that appear on the surface.
-
-    // The number of vertices in each dimension is 1 more than the number of cells.
-    var numLatVertices = tileHeight + 1;
-    var numLonVertices = tileWidth + 1;
-
-    // Allocate an array to hold the computed indices.
-    var numIndices = 2 * tileWidth * numLatVertices + 2 * tileHeight * numLonVertices;
-    var indices = [];
-
-    var rowStride = numLonVertices;
-
-    var index = 0,
-        lonIndex,
-        latIndex,
-        vertexIndex;
-
-    // Add a line between each row to define the horizontal cell outlines.
-    for (latIndex = 0; latIndex < numLatVertices; latIndex += 1) {
-        for (lonIndex = 0; lonIndex < tileWidth; lonIndex += 1) {
-            vertexIndex = lonIndex + latIndex * rowStride;
-            indices[index] = vertexIndex;
-            indices[index + 1] = vertexIndex + 1;
-            index += 2;
-        }
-    }
-
-    // Add a line between each column to define the vertical cell outlines.
-    for (lonIndex = 0; lonIndex < numLonVertices; lonIndex += 1) {
-        for (latIndex = 0; latIndex < tileHeight; latIndex += 1) {
-            vertexIndex = lonIndex + latIndex * rowStride;
-            indices[index] = vertexIndex;
-            indices[index + 1] = vertexIndex + rowStride;
-            index += 2;
-        }
-    }
-
-    this.numWireframeIndices = numIndices;
-    return indices;
-};
-
-Tessellator.prototype.buildOutlineIndices = function (tileWidth, tileHeight) {
-    // The outline representation traces the tile's outer edge on the surface.
-
-    // The number of vertices in each dimension is 1 more than the number of cells.
-    var numLatVertices = tileHeight + 1;
-    var numLonVertices = tileWidth + 1;
-
-    // Allocate an array to hold the computed indices.
-    var numIndices = 2 * (numLatVertices - 2) + 2 * numLonVertices + 1;
-    var indices = [];
-
-    var rowStride = numLatVertices;
-
-    var index = 0,
-        lonIndex,
-        latIndex,
-        vertexIndex;
-
-    // Bottom row, starting at the left and going right.
-    latIndex = 0;
-    for (lonIndex = 0; lonIndex < numLonVertices; lonIndex += 1) {
-        vertexIndex = lonIndex + latIndex * numLonVertices;
-        indices[index] = vertexIndex;
-        index += 1;
-    }
-
-    // Right column, starting at the bottom and going up.
-    lonIndex = numLonVertices - 1;
-    for (latIndex = 1; latIndex < numLatVertices; latIndex += 1) {
-        vertexIndex = lonIndex + latIndex * numLonVertices;
-        indices[index] = vertexIndex;
-        index += 1;
-    }
-
-    // Top row, starting on the right and going to the left.
-    latIndex = numLatVertices - 1;
-    for (lonIndex = numLonVertices - 1; lonIndex >= 0; lonIndex -= 1) {
-        vertexIndex = lonIndex + latIndex * numLonVertices;
-        indices[index] = vertexIndex;
-        index += 1;
-    }
-
-    // Leftmost column, starting at the top and going down.
-    lonIndex = 0;
-    for (latIndex = numLatVertices - 1; latIndex >= 0; latIndex -= 1) {
-        vertexIndex = lonIndex + latIndex * numLonVertices;
-        indices[index] = vertexIndex;
-        index += 1;
-    }
-
-    this.numOutlineIndices = numIndices;
-    return indices;
 };
 
 Tessellator.prototype.cacheSharedGeometryVBOs = function (dc) {
