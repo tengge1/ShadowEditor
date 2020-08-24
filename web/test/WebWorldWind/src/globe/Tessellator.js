@@ -307,7 +307,7 @@ Tessellator.prototype.renderTile = function (dc, terrainTile) {
         terrainTile.column
     );
     if (heightmap) {
-        if(!heightmap.texture) {
+        if (!heightmap.texture) {
             gl.activeTexture(gl.TEXTURE1);
             var texture = gl.createTexture();
             gl.bindTexture(gl.TEXTURE_2D, texture);
@@ -315,7 +315,7 @@ Tessellator.prototype.renderTile = function (dc, terrainTile) {
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, heightmap.imageWidth, 
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, heightmap.imageWidth,
                 heightmap.imageHeight, 0, gl.RGBA, gl.UNSIGNED_BYTE, heightmap.imgData);
             heightmap.texture = texture;
         }
@@ -686,6 +686,14 @@ Tessellator.prototype.coverageTargetResolution = function (texelSize) {
 };
 
 Tessellator.prototype.regenerateTileGeometry = function (dc, tile) {
+    var plane = new THREE.PlaneBufferGeometry(1, 1, 16, 16);
+    tile.points = plane.attributes.position.array;
+    this.texCoords = plane.attributes.uv.array;
+    this.indices = plane.index.array;
+    // tile.transformationMatrix.setTranslation(refPoint[0], refPoint[1], refPoint[2]);
+};
+
+Tessellator.prototype.regenerateTileGeometry1 = function (dc, tile) {
     var numLat = tile.tileHeight + 1, // num points in each dimension is 1 more than the number of tile cells
         numLon = tile.tileWidth + 1,
         refPoint = tile.referencePoint,
