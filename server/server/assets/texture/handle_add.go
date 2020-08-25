@@ -95,7 +95,7 @@ func Add(w http.ResponseWriter, r *http.Request) {
 	// Cute Texture: File info use posX except url.
 	var file *multipart.FileHeader = nil
 	if len(files) == 6 {
-		file = files["PosX"][0]
+		file = files["posX"][0]
 	} else {
 		file = files["file"][0]
 	}
