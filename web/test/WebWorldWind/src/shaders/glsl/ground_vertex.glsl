@@ -31,6 +31,9 @@ const float KrESun = Kr * ESun;
 const vec3 invWavelength = vec3(5.60204474633241, 9.473284437923038, 19.643802610477206);
 const float rayleighScaleDepth = 0.25;
 
+uniform int x;
+uniform int y;
+uniform int z;
 uniform int fragMode;
 uniform mat4 mvpMatrix;
 uniform mat3 texCoordMatrix;
@@ -54,15 +57,49 @@ varying vec3 primaryColor;
 varying vec3 secondaryColor;
 varying vec2 texCoord;
 
+#define EARTH_RADIUS 6378137.0
+#define MIN_LATITUDE -180.0
+#define MAX_LATITUDE 180.0
+#define MIN_LONGITUDE -180.0
+#define MAX_LONGITUDE 180.0
+#define PI 3.141592653589793
+
 float scaleFunc(float cos) {
     float x = 1.0 - cos;
     return scaleDepth * exp(-0.00287 + x*(0.459 + x*(3.83 + x*(-6.80 + x*5.25))));
 }
 
 void sampleGround() {
+    // 每个瓦片位置
+    float size = pow(2.0, float(z));
+    float dlon = (MAX_LONGITUDE - MIN_LONGITUDE) / size;
+    float dlat = (MAX_LATITUDE - MIN_LATITUDE) / size;
+
+    float left = MIN_LONGITUDE + dlon * float(x);
+    float top = MAX_LATITUDE - dlat * float(y);
+    float right = left + dlon;
+    float bottom = top - dlat;
+
+    // 瓦片上每个小格位置
+    // +0.5的原因是：position范围是-0.5到0.5
+    float lon = left + (right - left) * (0.5 + vertexPoint.x);
+    float lat = top - (top - bottom) * (0.5 + vertexPoint.y);
+
+    lon = lon * PI / 180.0;
+    lat = lat * PI / 180.0;
+
+    // 墨卡托投影反算
+    lat = 2.0 * atan(exp(lat)) - PI / 2.0;
+
+    vec3 transformed = vec3(
+        EARTH_RADIUS * cos(lat) * cos(lon),
+        EARTH_RADIUS * sin(lat),
+        -EARTH_RADIUS * cos(lat) * sin(lon)
+    );
+
     /* Get the ray from the camera to the vertex and its length (which is the far point of the ray passing through the
          atmosphere) */
-    vec3 point = vertexPoint.xyz + vertexOrigin;
+    vec3 point = transformed.xyz + vertexOrigin;
     vec3 ray = point - eyePoint;
     float far = length(ray);
     ray /= far;

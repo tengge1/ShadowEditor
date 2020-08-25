@@ -59,6 +59,10 @@ function AtmosphereProgram(gl, vertexShaderSource, fragmentShaderSource, attribu
      */
     this.rayleighScaleDepth = 0.25;
 
+    this.xLocation = this.uniformLocation(gl, "x");
+    this.yLocation = this.uniformLocation(gl, "y");
+    this.zLocation = this.uniformLocation(gl, "z");
+
     /**
      * The WebGL location for this program's 'fragMode' uniform.
      * @type {WebGLUniformLocation}
@@ -240,6 +244,7 @@ AtmosphereProgram.prototype.loadEyePoint = function (gl, vector) {
  * @param {Number} globeRadius The globe radius value.
  */
 AtmosphereProgram.prototype.loadGlobeRadius = function (gl, globeRadius) {
+    debugger;
     var gr = globeRadius;
     var ar = gr + this.altitude;
 
