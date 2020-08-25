@@ -59,9 +59,9 @@ function AtmosphereProgram(gl, vertexShaderSource, fragmentShaderSource, attribu
      */
     this.rayleighScaleDepth = 0.25;
 
-    this.xLocation = this.uniformLocation(gl, "x");
-    this.yLocation = this.uniformLocation(gl, "y");
-    this.zLocation = this.uniformLocation(gl, "z");
+    this.columnLocation = this.uniformLocation(gl, "column");
+    this.rowLocation = this.uniformLocation(gl, "row");
+    this.levelLocation = this.uniformLocation(gl, "level");
 
     /**
      * The WebGL location for this program's 'fragMode' uniform.
@@ -244,7 +244,6 @@ AtmosphereProgram.prototype.loadEyePoint = function (gl, vector) {
  * @param {Number} globeRadius The globe radius value.
  */
 AtmosphereProgram.prototype.loadGlobeRadius = function (gl, globeRadius) {
-    debugger;
     var gr = globeRadius;
     var ar = gr + this.altitude;
 
@@ -272,6 +271,18 @@ AtmosphereProgram.prototype.setScale = function (gl) {
 AtmosphereProgram.prototype.loadTexMatrix = function (gl, matrix) {
     matrix.columnMajorComponents(this.scratchArray9);
     gl.uniformMatrix3fv(this.texCoordMatrixLocation, false, this.scratchArray9);
+};
+
+AtmosphereProgram.prototype.setColumn = function (gl, column) {
+    gl.uniform1i(this.columnLocation, column);
+};
+
+AtmosphereProgram.prototype.setRow = function (gl, row) {
+    gl.uniform1i(this.rowLocation, row);
+};
+
+AtmosphereProgram.prototype.setLevel = function (gl, level) {
+    gl.uniform1i(this.levelLocation, level);
 };
 
 export default AtmosphereProgram;

@@ -31,9 +31,9 @@ const float KrESun = Kr * ESun;
 const vec3 invWavelength = vec3(5.60204474633241, 9.473284437923038, 19.643802610477206);
 const float rayleighScaleDepth = 0.25;
 
-uniform int x;
-uniform int y;
-uniform int z;
+uniform int column;
+uniform int row;
+uniform int level;
 uniform int fragMode;
 uniform mat4 mvpMatrix;
 uniform mat3 texCoordMatrix;
@@ -71,12 +71,12 @@ float scaleFunc(float cos) {
 
 void sampleGround() {
     // 每个瓦片位置
-    float size = pow(2.0, float(z));
+    float size = pow(2.0, float(level));
     float dlon = (MAX_LONGITUDE - MIN_LONGITUDE) / size;
     float dlat = (MAX_LATITUDE - MIN_LATITUDE) / size;
 
-    float left = MIN_LONGITUDE + dlon * float(x);
-    float top = MAX_LATITUDE - dlat * float(y);
+    float left = MIN_LONGITUDE + dlon * float(column);
+    float top = MAX_LATITUDE - dlat * float(row);
     float right = left + dlon;
     float bottom = top - dlat;
 
