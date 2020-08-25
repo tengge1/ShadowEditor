@@ -138,7 +138,7 @@ func Add(w http.ResponseWriter, r *http.Request) {
 	}
 
 	doc["TotalPinYin"] = pinyin.TotalPinYin
-
+	textureType := r.FormValue("type")
 	if len(files) == 6 { // Cute Texture
 		doc["Type"] = Cube
 
@@ -155,7 +155,7 @@ func Add(w http.ResponseWriter, r *http.Request) {
 	} else if strings.ToLower(filepath.Ext(file.Filename)) == ".mp4" { // 视频贴图
 		doc["Type"] = Video
 		doc["Url"] = fmt.Sprintf("%v/%v", savePath, fileName)
-	} else if fileType == "skyBall" {
+	} else if textureType == "skyBall" {
 		doc["Type"] = SkyBall
 		doc["Url"] = fmt.Sprintf("%v/%v", savePath, fileName)
 	} else {
