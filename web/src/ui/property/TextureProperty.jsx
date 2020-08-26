@@ -96,7 +96,7 @@ class TextureProperty extends React.Component {
     }
 
     handleSelect() {
-        global.app.toast(_t('Please click the image in the Mglobal.appanel.'));
+        global.app.toast(_t('Please click the image in the MapPanel.'));
         global.app.on(`selectMap.TextureProperty`, this.handleChange);
     }
 
