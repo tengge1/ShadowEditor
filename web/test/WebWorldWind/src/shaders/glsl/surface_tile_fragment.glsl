@@ -44,6 +44,6 @@ void main(void) {
         gl_FragColor = color * mask * floor(texture2D(heightmap, texSamplerCoord).a + 0.5);
     } else {
         /* Return either the sampled texture2D color multiplied by opacity or transparent black. */
-        gl_FragColor = texture2D(heightmap, texSamplerCoord) * mask * opacity;
+        gl_FragColor = texture2D(texSampler, texSamplerCoord) * mask * opacity;
     }
 }
