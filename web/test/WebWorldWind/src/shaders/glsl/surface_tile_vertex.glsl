@@ -65,7 +65,7 @@ void main() {
         1.0
     );
 
-    gl_Position = mvpMatrix * transformed;
+    gl_Position = mvpMatrix * vertexPoint;
     /* Transform the vertex texture coordinate into sampler texture coordinates. */
     texSamplerCoord = (texSamplerMatrix * vertexTexCoord).st;
     /* Transform the vertex texture coordinate into mask texture coordinates. */
