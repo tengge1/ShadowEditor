@@ -35,6 +35,7 @@ import Vec2 from './geom/Vec2';
 import Vec3 from './geom/Vec3';
 import WWMath from './util/WWMath';
 import global from './global';
+import './third_party';
 
 /**
  * Constructs a WorldWind window for an HTML canvas.
@@ -571,7 +572,9 @@ WorldWindow.prototype.computeViewingTransform = function () {
         var globe = this.globe;
         var navigator = this.navigator;
         var lookAtPosition = new Position(navigator.lookAtLocation.latitude, navigator.lookAtLocation.longitude, 0);
-        modelview.multiplyByLookAtModelview(lookAtPosition, navigator.range, navigator.heading, navigator.tilt, navigator.roll, globe);
+        mat4.multiplyByLookAtModelview(lookAtPosition, navigator.range, navigator.heading, navigator.tilt, navigator.roll, globe);
+        mat4.transpose();
+        modelview.copy(mat4.elements);
 
         if (projection) {
             projection.setToIdentity();
