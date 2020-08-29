@@ -181,8 +181,8 @@ BasicWorldWindowController.prototype.handlePanOrDrag3D = function (recognizer) {
             globeRadius = WWMath.max(globe.equatorialRadius, globe.polarRadius),
             distance = WWMath.max(1, navigator.range),
             metersPerPixel = WWMath.perspectivePixelSize(canvas.clientWidth, canvas.clientHeight, distance),
-            forwardMeters = (ty - this.lastPoint[1]) * metersPerPixel,
-            sideMeters = -(tx - this.lastPoint[0]) * metersPerPixel,
+            forwardMeters = (ty - this.lastPoint.y) * metersPerPixel,
+            sideMeters = -(tx - this.lastPoint.x) * metersPerPixel,
             forwardDegrees = forwardMeters / globeRadius * Angle.RADIANS_TO_DEGREES,
             sideDegrees = sideMeters / globeRadius * Angle.RADIANS_TO_DEGREES;
 
