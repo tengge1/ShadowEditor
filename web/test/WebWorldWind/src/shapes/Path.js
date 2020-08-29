@@ -26,7 +26,6 @@ import PickedObject from '../pick/PickedObject';
 import Position from '../geom/Position';
 import ShapeAttributes from '../shapes/ShapeAttributes';
 import SurfacePolyline from '../shapes/SurfacePolyline';
-import Vec2 from '../geom/Vec2';
 import Vec3 from '../geom/Vec3';
 
 

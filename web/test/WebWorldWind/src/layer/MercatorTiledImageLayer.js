@@ -19,8 +19,6 @@
  */
 import Sector from '../geom/Sector';
 import TiledImageLayer from '../layer/TiledImageLayer';
-import Vec2 from '../geom/Vec2';
-import WWMath from '../util/WWMath';
 
 
 /**

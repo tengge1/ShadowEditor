@@ -18,10 +18,7 @@
  * @exports GeographicMesh
  */
 import AbstractMesh from '../shapes/AbstractMesh';
-import Position from '../geom/Position';
-import ShapeAttributes from '../shapes/ShapeAttributes';
 import SurfacePolygon from '../shapes/SurfacePolygon';
-import Vec2 from '../geom/Vec2';
 import Vec3 from '../geom/Vec3';
 
 
@@ -119,10 +116,10 @@ Object.defineProperties(GeographicMesh.prototype, {
      * This mesh's texture coordinates if this mesh is textured. A texture coordinate must be
      * provided for each mesh position. The texture coordinates are specified as a two-dimensional array,
      * each entry of which specifies the texture coordinates for one row of the mesh. Each texture coordinate
-     * is a {@link Vec2} containing the s and t coordinates. If no texture coordinates are specified and
+     * is a {@link THREE.Vector2} containing the s and t coordinates. If no texture coordinates are specified and
      * the attributes associated with this mesh indicate an image source, then texture coordinates are
      * automatically generated for the mesh.
-     * @type {Vec2[][]}
+     * @type {THREE.Vector2[][]}
      * @default null
      * @memberof GeographicMesh.prototype
      */

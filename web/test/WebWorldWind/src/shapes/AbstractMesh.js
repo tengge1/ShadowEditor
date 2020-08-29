@@ -23,8 +23,6 @@ import BoundingBox from '../geom/BoundingBox';
 import Line from '../geom/Line';
 import PickedObject from '../pick/PickedObject';
 import Position from '../geom/Position';
-import ShapeAttributes from '../shapes/ShapeAttributes';
-import Vec2 from '../geom/Vec2';
 import Vec3 from '../geom/Vec3';
 import WWMath from '../util/WWMath';
 

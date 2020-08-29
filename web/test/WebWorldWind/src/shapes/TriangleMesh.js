@@ -18,10 +18,7 @@
  * @exports TriangleMesh
  */
 import AbstractMesh from '../shapes/AbstractMesh';
-import Position from '../geom/Position';
-import ShapeAttributes from '../shapes/ShapeAttributes';
 import SurfacePolygon from '../shapes/SurfacePolygon';
-import Vec2 from '../geom/Vec2';
 import Vec3 from '../geom/Vec3';
 
 
@@ -133,10 +130,10 @@ Object.defineProperties(TriangleMesh.prototype, {
 
     /**
      * This mesh's texture coordinates if this mesh is textured. A texture coordinate must be
-     * provided for each mesh position. Each texture coordinate is a {@link Vec2} containing the s and t
+     * provided for each mesh position. Each texture coordinate is a {@link THREE.Vector2} containing the s and t
      * coordinates, in that order. If no texture coordinates are specified then texture is not applied to
      * this mesh.
-     * @type {Vec2[]}
+     * @type {THREE.Vector2[]}
      * @default null
      * @memberof TriangleMesh.prototype
      */
@@ -253,7 +250,7 @@ TriangleMesh.prototype.computeOutlineIndices = function () {
  * @param {Number[]} indices An array of integers identifying the positions of each mesh triangle.
  * Each sequence of three indices defines one triangle in the mesh. The indices identify the index of the
  * position in the associated positions array.
- * @param {Vec2[]} textureCoords The mesh's texture coordinates.
+ * @param {THREE.Vector2[]} textureCoords The mesh's texture coordinates.
  * @param {Number[]} outlineIndices The mesh's outline indices.
  * @returns {Object[]} An array of objects, each of which defines one subdivision of the full mesh. Each object
  * in the array has the properties of the same name as the input arguments.

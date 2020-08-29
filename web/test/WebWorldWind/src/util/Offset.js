@@ -17,7 +17,6 @@
 /**
  * @exports Offset
  */
-import Vec2 from '../geom/Vec2';
 
 
 /**
@@ -85,7 +84,7 @@ Offset.prototype.clone = function () {
  * system used by the caller.
  * @param {Number} width The rectangle's width in pixels.
  * @param {Number} height The rectangles height in pixels.
- * @returns {Vec2} The computed offset relative to the rectangle's origin.
+ * @returns {THREE.Vector2} The computed offset relative to the rectangle's origin.
  */
 Offset.prototype.offsetForSize = function (width, height) {
     var x, y;
@@ -106,7 +105,7 @@ Offset.prototype.offsetForSize = function (width, height) {
         y = this.y;
     }
 
-    return new Vec2(x, y);
+    return new THREE.Vector2(x, y);
 };
 
 /**

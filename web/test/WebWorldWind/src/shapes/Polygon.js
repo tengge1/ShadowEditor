@@ -26,7 +26,6 @@ import PickedObject from '../pick/PickedObject';
 import Position from '../geom/Position';
 import ShapeAttributes from '../shapes/ShapeAttributes';
 import SurfacePolygon from '../shapes/SurfacePolygon';
-import Vec2 from '../geom/Vec2';
 import Vec3 from '../geom/Vec3';
 import libtessDummy from '../util/libtess';
 
@@ -134,8 +133,8 @@ Object.defineProperties(Polygon.prototype, {
      * This polygon's texture coordinates if this polygon is to be textured. A texture coordinate must be
      * provided for each boundary position. The texture coordinates are specified as a two-dimensional array,
      * each entry of which specifies the texture coordinates for one boundary. Each texture coordinate is a
-     * {@link Vec2} containing the s and t coordinates.
-     * @type {Vec2[][]}
+     * {@link THREE.Vector2} containing the s and t coordinates.
+     * @type {THREE.Vector2[][]}
      * @default null
      * @memberof Polygon.prototype
      */
@@ -708,10 +707,10 @@ Polygon.prototype.makeSidesBuffer = function (numSides) {
     v3 = new Vec3(0, 0, 0);
 
     if (hasSideTextures) {
-        t0 = new Vec2(0, 1);
-        t1 = new Vec2(0, 0);
-        t2 = new Vec2(1, 1);
-        t3 = new Vec2(1, 0);
+        t0 = new THREE.Vector2(0, 1);
+        t1 = new THREE.Vector2(0, 0);
+        t2 = new THREE.Vector2(1, 1);
+        t3 = new THREE.Vector2(1, 0);
     } else {
         t0 = t1 = t2 = t3 = null;
     }

@@ -20,7 +20,6 @@
 import Color from '../util/Color';
 import Font from '../util/Font';
 import Texture from '../render/Texture';
-import Vec2 from '../geom/Vec2';
 
 
 /**
@@ -81,11 +80,11 @@ function TextRenderer(drawContext) {
 /**
  * Returns the width and height of a specified text string considering the current typeFace and outline usage.
  * @param {string} text The text string.
- * @returns {Vec2} A vector indicating the text's width and height, respectively, in pixels.
+ * @returns {THREE.Vector2} A vector indicating the text's width and height, respectively, in pixels.
  */
 TextRenderer.prototype.textSize = function (text) {
     if (text.length === 0) {
-        return new Vec2(0, 0);
+        return new THREE.Vector2(0, 0);
     }
 
     this.ctx2D.font = this.typeFace.fontString;
@@ -103,7 +102,7 @@ TextRenderer.prototype.textSize = function (text) {
         height += this.outlineWidth;
     }
 
-    return new Vec2(maxWidth, height);
+    return new THREE.Vector2(maxWidth, height);
 };
 
 /**
@@ -168,7 +167,7 @@ TextRenderer.prototype.drawText = function (text) {
 
 /**
  * Calculates maximum line height based on the current typeFace and outline usage of TextRenderer.
- * @returns {Vec2} A vector indicating the text's width and height, respectively, in pixels.
+ * @returns {THREE.Vector2} A vector indicating the text's width and height, respectively, in pixels.
  */
 TextRenderer.prototype.getMaxLineHeight = function () {
     // Check underscore + capital E with acute accent

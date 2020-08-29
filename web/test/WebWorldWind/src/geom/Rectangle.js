@@ -103,7 +103,7 @@ Rectangle.prototype.getMaxY = function () {
 
 /**
  * Indicates whether this rectangle contains a specified point.
- * @param {Vec2} point The point to test.
+ * @param {THREE.Vector2} point The point to test.
  * @returns {Boolean} true if this rectangle contains the specified point, otherwise false.
  */
 Rectangle.prototype.containsPoint = function (point) {

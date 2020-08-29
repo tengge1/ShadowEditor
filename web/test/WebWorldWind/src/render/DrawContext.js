@@ -31,7 +31,6 @@ import SurfaceShape from '../shapes/SurfaceShape';
 import SurfaceShapeTileBuilder from '../shapes/SurfaceShapeTileBuilder';
 import SurfaceTileRenderer from '../render/SurfaceTileRenderer';
 import TextRenderer from '../render/TextRenderer';
-import Vec2 from '../geom/Vec2';
 import Vec3 from '../geom/Vec3';
 import WWMath from '../util/WWMath';
 
@@ -277,7 +276,7 @@ function DrawContext(gl) {
 
     /**
      * The current pick point, in screen coordinates.
-     * @type {Vec2}
+     * @type {THREE.Vector2}
      */
     this.pickPoint = null;
 
@@ -688,11 +687,11 @@ DrawContext.prototype.sortOrderedRenderables = function () {
 /**
  * Reads the color from the current render buffer at a specified point. Used during picking to identify the item most
  * recently affecting the pixel at the specified point.
- * @param {Vec2} pickPoint The current pick point.
+ * @param {THREE.Vector2} pickPoint The current pick point.
  * @returns {Color} The color at the pick point.
  */
 DrawContext.prototype.readPickColor = function (pickPoint) {
-    var glPickPoint = this.convertPointToViewport(pickPoint, new Vec2(0, 0)),
+    var glPickPoint = this.convertPointToViewport(pickPoint, new THREE.Vector2(0, 0)),
         colorBytes = new Uint8Array(4);
 
     this.currentGlContext.readPixels(glPickPoint[0], glPickPoint[1], 1, 1, this.currentGlContext.RGBA,
@@ -829,7 +828,7 @@ DrawContext.prototype.makePickFrustum = function () {
 
     // Compute the pick rectangle if necessary.
     if (!pickRectangle) {
-        pickPoint = this.convertPointToViewport(this.pickPoint, new Vec2(0, 0));
+        pickPoint = this.convertPointToViewport(this.pickPoint, new THREE.Vector2(0, 0));
         pickRectangle = new Rectangle(
             pickPoint[0] - apertureRadius,
             pickPoint[1] - apertureRadius,
@@ -1374,9 +1373,9 @@ DrawContext.prototype.projectWithDepth = function (modelPoint, depthOffset, resu
  * The returned point is in WebGL screen coordinates, with the origin in the bottom-left corner and axes that
  * extend up and to the right from the origin point.
  *
- * @param {Vec2} point The window-coordinate point to convert.
- * @param {Vec2} result A pre-allocated {@link Vec2} in which to return the computed point.
- * @returns {Vec2} The specified result argument set to the computed point.
+ * @param {THREE.Vector2} point The window-coordinate point to convert.
+ * @param {THREE.Vector2} result A pre-allocated {@link THREE.Vector2} in which to return the computed point.
+ * @returns {THREE.Vector2} The specified result argument set to the computed point.
  */
 DrawContext.prototype.convertPointToViewport = function (point, result) {
     result[0] = point[0];

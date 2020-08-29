@@ -19,8 +19,6 @@ import BasicTextureProgram from '../shaders/BasicTextureProgram';
 import Color from '../util/Color';
 import PickedObject from '../pick/PickedObject';
 import Renderable from '../render/Renderable';
-import TextAttributes from '../shapes/TextAttributes';
-import Vec2 from '../geom/Vec2';
 import Vec3 from '../geom/Vec3';
 import WWMath from '../util/WWMath';
 

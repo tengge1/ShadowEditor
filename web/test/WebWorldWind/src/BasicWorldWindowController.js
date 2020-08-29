@@ -24,7 +24,6 @@ import PanRecognizer from './gesture/PanRecognizer';
 import PinchRecognizer from './gesture/PinchRecognizer';
 import RotationRecognizer from './gesture/RotationRecognizer';
 import TiltRecognizer from './gesture/TiltRecognizer';
-import Vec2 from './geom/Vec2';
 import WorldWindowController from './WorldWindowController';
 import WWMath from './util/WWMath';
 
@@ -87,8 +86,8 @@ function BasicWorldWindowController(worldWindow) {
     // this.clickRecognizer.addListener(this);
 
     // Intentionally not documented.
-    this.beginPoint = new Vec2(0, 0);
-    this.lastPoint = new Vec2(0, 0);
+    this.beginPoint = new THREE.Vector2(0, 0);
+    this.lastPoint = new THREE.Vector2(0, 0);
     this.beginHeading = 0;
     this.beginTilt = 0;
     this.beginRange = 0;

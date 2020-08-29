@@ -29,7 +29,6 @@ import PickedObjectList from './pick/PickedObjectList';
 import Position from './geom/Position';
 import Rectangle from './geom/Rectangle';
 import SurfaceShape from './shapes/SurfaceShape';
-import Vec2 from './geom/Vec2';
 import Vec3 from './geom/Vec3';
 import WWMath from './util/WWMath';
 import global from './global';
@@ -294,14 +293,14 @@ Object.defineProperties(WorldWindow.prototype, {
  * Converts window coordinates to coordinates relative to this WorldWindow's canvas.
  * @param {Number} x The X coordinate to convert.
  * @param {Number} y The Y coordinate to convert.
- * @returns {Vec2} The converted coordinates.
+ * @returns {THREE.Vector2} The converted coordinates.
  */
 WorldWindow.prototype.canvasCoordinates = function (x, y) {
     var bbox = this.canvas.getBoundingClientRect(),
         xc = x - (bbox.left + this.canvas.clientLeft),// * (this.canvas.width / bbox.width),
         yc = y - (bbox.top + this.canvas.clientTop);// * (this.canvas.height / bbox.height);
 
-    return new Vec2(xc, yc);
+    return new THREE.Vector2(xc, yc);
 };
 
 WorldWindow.prototype.onGestureEvent = function (event) {
@@ -1256,7 +1255,7 @@ WorldWindow.prototype.declutter = function (dc, groupId) {
  * The results of this method are undefined if the specified point is outside of the WorldWindow's
  * bounds.
  *
- * @param {Vec2} point The window coordinates point to compute a ray for.
+ * @param {THREE.Vector2} point The window coordinates point to compute a ray for.
  * @returns {Line} A new Line initialized to the origin and direction of the computed ray, or null if the
  * ray could not be computed.
  */
