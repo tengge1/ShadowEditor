@@ -266,11 +266,10 @@ AtmosphereProgram.prototype.setScale = function (gl) {
 /**
  * Loads the specified matrix as the value of this program's 'texCoordMatrix' uniform variable.
  * @param {WebGLRenderingContext} gl The current WebGL context.
- * @param {Matrix3} matrix The texture coordinate matrix.
+ * @param {THREE.Matrix3} matrix The texture coordinate matrix.
  */
 AtmosphereProgram.prototype.loadTexMatrix = function (gl, matrix) {
-    matrix.columnMajorComponents(this.scratchArray9);
-    gl.uniformMatrix3fv(this.texCoordMatrixLocation, false, this.scratchArray9);
+    gl.uniformMatrix3fv(this.texCoordMatrixLocation, false, matrix.elements);
 };
 
 AtmosphereProgram.prototype.setColumn = function (gl, column) {

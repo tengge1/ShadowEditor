@@ -19,7 +19,6 @@
  */
 import GroundProgram from '../shaders/GroundProgram';
 import Layer from '../layer/Layer';
-import Matrix3 from '../geom/Matrix3';
 import Sector from '../geom/Sector';
 import SkyProgram from '../shaders/SkyProgram';
 import SunPosition from '../util/SunPosition';
@@ -64,7 +63,7 @@ function AtmosphereLayer(nightImageSource) {
     this._numIndices = 0;
 
     //Internal use only. Texture coordinate matrix used for the night texture.
-    this._texMatrix = Matrix3.fromIdentity();
+    this._texMatrix = new THREE.Matrix3();
 
     //Internal use only. The night texture.
     this._activeTexture = null;

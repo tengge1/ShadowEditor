@@ -14,9 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import Line from '../geom/Line';
-import Rectangle from '../geom/Rectangle';
-import Vec3 from '../geom/Vec3';
 
 /**
  * Provides math constants and functions.
