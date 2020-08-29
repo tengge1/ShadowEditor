@@ -204,13 +204,13 @@ function DrawContext(gl) {
      * @type {Vec3}
      * @readonly
      */
-    this.eyePoint = new Vec3(0, 0, 0);
+    this.eyePoint = new THREE.Vector3();
 
     /**
      * The current screen projection matrix.
      * @type {Matrix}
      */
-    this.screenProjection = Matrix.fromIdentity();
+    this.screenProjection = new THREE.Matrix4();
 
     /**
      * The terrain for the current frame.
@@ -324,29 +324,9 @@ function DrawContext(gl) {
     // TODO: replace with camera in the next phase of navigator refactoring
     this.navigator = null;
 
-    /**
-     * The model-view matrix. The model-view matrix transforms points from model coordinates to eye
-     * coordinates.
-     * @type {Matrix}
-     * @readonly
-     */
-    this.modelview = Matrix.fromIdentity();
-
-    /**
-     * The projection matrix. The projection matrix transforms points from eye coordinates to clip
-     * coordinates.
-     * @type {Matrix}
-     * @readonly
-     */
-    this.projection = Matrix.fromIdentity();
-
-    /**
-     * The concatenation of the DrawContext's model-view and projection matrices. This matrix transforms points
-     * from model coordinates to clip coordinates.
-     * @type {Matrix}
-     * @readonly
-     */
-    this.modelviewProjection = Matrix.fromIdentity();
+    this.modelview = new THREE.Matrix4();
+    this.projection = new THREE.Matrix4();
+    this.modelviewProjection = new THREE.Matrix4();
 
     /**
      * The viewing frustum in model coordinates. The frustum originates at the eyePoint and extends
@@ -355,7 +335,7 @@ function DrawContext(gl) {
      * @type {Frustum}
      * @readonly
      */
-    this.frustumInModelCoordinates = null;
+    this.frustumInModelCoordinates = new THREE.Frustum();
 
     /**
      * The matrix that transforms normal vectors in model coordinates to normal vectors in eye coordinates.
@@ -363,7 +343,7 @@ function DrawContext(gl) {
      * @type {Matrix}
      * @readonly
      */
-    this.modelviewNormalTransform = Matrix.fromIdentity();
+    this.modelviewNormalTransform = new THREE.Matrix4();
 
     /**
      * The current viewport.
@@ -430,11 +410,10 @@ DrawContext.prototype.reset = function () {
     this.objectsAtPickPoint.clear();
 
     this.eyePoint.set(0, 0, 0);
-    this.modelview.setToIdentity();
-    this.projection.setToIdentity();
-    this.modelviewProjection.setToIdentity();
-    this.frustumInModelCoordinates = null;
-    this.modelviewNormalTransform.setToIdentity();
+    this.modelview.identity();
+    this.projection.identity();
+    this.modelviewProjection.identity();
+    this.modelviewNormalTransform.identity();
 };
 
 /**
@@ -446,7 +425,8 @@ DrawContext.prototype.update = function () {
         eyePoint = this.eyePoint;
 
     this.globeStateKey = this.globe.stateKey;
-    this.globe.computePositionFromPoint(eyePoint[0], eyePoint[1], eyePoint[2], this.eyePosition);
+    debugger;
+    this.globe.computePositionFromPoint(eyePoint.x, eyePoint.y, eyePoint.z, this.eyePosition);
     this.screenProjection.setToScreenProjection(gl.drawingBufferWidth, gl.drawingBufferHeight);
 };
 

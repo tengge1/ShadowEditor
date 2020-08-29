@@ -566,21 +566,19 @@ WorldWindow.prototype.resize = function () {
 // Internal. Intentionally not documented.
 WorldWindow.prototype.computeViewingTransform = function () {
     var mat4 = new THREE.Matrix4();
+    var eyePoint = new THREE.Vector3();
     return function (projection, modelview) {
-        modelview.setToIdentity();
         this.worldWindowController.applyLimits();
         var globe = this.globe;
         var navigator = this.navigator;
         var lookAtPosition = new Position(navigator.lookAtLocation.latitude, navigator.lookAtLocation.longitude, 0);
         mat4.multiplyByLookAtModelview(lookAtPosition, navigator.range, navigator.heading, navigator.tilt, navigator.roll, globe);
-        mat4.transpose();
-        modelview.copy(mat4.elements);
+        modelview.copy(mat4);
 
         if (projection) {
-            projection.setToIdentity();
-            var globeRadius = WWMath.max(globe.equatorialRadius, globe.polarRadius),
-                eyePoint = modelview.extractEyePoint(new Vec3(0, 0, 0)),
-                eyePos = globe.computePositionFromPoint(eyePoint[0], eyePoint[1], eyePoint[2], new Position(0, 0, 0)),
+            var globeRadius = WWMath.max(globe.equatorialRadius, globe.polarRadius);
+            eyePoint.setFromMatrixPosition(modelview);
+            var eyePos = globe.computePositionFromPoint(eyePoint.x, eyePoint.y, eyePoint.z, new Position(0, 0, 0)),
                 eyeHorizon = WWMath.horizonDistanceForGlobeRadius(globeRadius, eyePos.altitude),
                 atmosphereHorizon = WWMath.horizonDistanceForGlobeRadius(globeRadius, 160000),
                 viewport = this.viewport;
@@ -622,48 +620,43 @@ WorldWindow.prototype.computeViewingTransform = function () {
                 nearDistance,
                 farDistance
             );
-            mat4.transpose(); // WebWorldWind是行优先矩阵
-            projection.copy(mat4.elements);
+            projection.copy(mat4);
         }
     };
 }();
 
-// Internal. Intentionally not documented.
-WorldWindow.prototype.computePixelMetrics = function (projection) {
-    var projectionInv = Matrix.fromIdentity();
-    projectionInv.invertMatrix(projection);
+WorldWindow.prototype.computePixelMetrics = function () {
+    var projectionInv = new THREE.Matrix4();
+    var nbl = new THREE.Vector3(-1, -1, -1);
+    var ntr = new THREE.Vector3(+1, +1, -1);
+    var fbl = new THREE.Vector3(-1, -1, +1);
+    var ftr = new THREE.Vector3(+1, +1, +1);
 
-    // Compute the eye coordinate rectangles carved out of the frustum by the near and far clipping planes, and
-    // the distance between those planes and the eye point along the -Z axis. The rectangles are determined by
-    // transforming the bottom-left and top-right points of the frustum from clip coordinates to eye
-    // coordinates.
-    var nbl = new Vec3(-1, -1, -1),
-        ntr = new Vec3(+1, +1, -1),
-        fbl = new Vec3(-1, -1, +1),
-        ftr = new Vec3(+1, +1, +1);
-    // Convert each frustum corner from clip coordinates to eye coordinates by multiplying by the inverse
-    // projection matrix.
-    nbl.multiplyByMatrix(projectionInv);
-    ntr.multiplyByMatrix(projectionInv);
-    fbl.multiplyByMatrix(projectionInv);
-    ftr.multiplyByMatrix(projectionInv);
+    return function(projection) {
+        projectionInv.getInverse(projection);
 
-    var nrRectWidth = WWMath.fabs(ntr[0] - nbl[0]),
-        frRectWidth = WWMath.fabs(ftr[0] - fbl[0]),
-        nrDistance = -nbl[2],
-        frDistance = -fbl[2];
-
-    // Compute the scale and offset used to determine the width of a pixel on a rectangle carved out of the
-    // frustum at a distance along the -Z axis in eye coordinates. These values are found by computing the scale
-    // and offset of a frustum rectangle at a given distance, then dividing each by the viewport width.
-    var frustumWidthScale = (frRectWidth - nrRectWidth) / (frDistance - nrDistance),
-        frustumWidthOffset = nrRectWidth - frustumWidthScale * nrDistance;
-
-    return {
-        pixelSizeFactor: frustumWidthScale / this.viewport.width,
-        pixelSizeOffset: frustumWidthOffset / this.viewport.height
+        nbl.applyMatrix4(projectionInv);
+        ntr.applyMatrix4(projectionInv);
+        fbl.applyMatrix4(projectionInv);
+        ftr.applyMatrix4(projectionInv);
+    
+        var nrRectWidth = Math.abs(ntr.x - nbl.x),
+            frRectWidth = Math.abs(ftr.x - fbl.x),
+            nrDistance = -nbl.z,
+            frDistance = -fbl.z;
+    
+        // Compute the scale and offset used to determine the width of a pixel on a rectangle carved out of the
+        // frustum at a distance along the -Z axis in eye coordinates. These values are found by computing the scale
+        // and offset of a frustum rectangle at a given distance, then dividing each by the viewport width.
+        var frustumWidthScale = (frRectWidth - nrRectWidth) / (frDistance - nrDistance),
+            frustumWidthOffset = nrRectWidth - frustumWidthScale * nrDistance;
+    
+        return {
+            pixelSizeFactor: frustumWidthScale / this.viewport.width,
+            pixelSizeOffset: frustumWidthOffset / this.viewport.height
+        };
     };
-};
+}();
 
 /**
  * Computes the approximate size of a pixel at a specified distance from the eye point.
@@ -686,37 +679,31 @@ WorldWindow.prototype.pixelSizeAtDistance = function (distance) {
 
 // Internal. Intentionally not documented.
 WorldWindow.prototype.computeDrawContext = function () {
-    var dc = this.drawContext;
+    var modelviewInv = new THREE.Matrix4();
+    var mat3By3 = new THREE.Matrix4();
+    var modelviewTranspose = new THREE.Matrix4();
+    return function() {
+        var dc = this.drawContext;
 
-    this.computeViewingTransform(dc.projection, dc.modelview);
-    dc.viewport = this.viewport;
-    dc.eyePoint = dc.modelview.extractEyePoint(new Vec3(0, 0, 0));
+        this.computeViewingTransform(dc.projection, dc.modelview);
+        dc.viewport = this.viewport;
+        dc.eyePoint.copyEyePoint(dc.modelview);
+        dc.modelviewProjection.multiplyMatrices(dc.projection, dc.modelview);
+    
+        var pixelMetrics = this.computePixelMetrics(dc.projection);
+        dc.pixelSizeFactor = pixelMetrics.pixelSizeFactor;
+        dc.pixelSizeOffset = pixelMetrics.pixelSizeOffset;
 
-    dc.modelviewProjection.setToIdentity();
-    dc.modelviewProjection.setToMultiply(dc.projection, dc.modelview);
-
-    var pixelMetrics = this.computePixelMetrics(dc.projection);
-    dc.pixelSizeFactor = pixelMetrics.pixelSizeFactor;
-    dc.pixelSizeOffset = pixelMetrics.pixelSizeOffset;
-
-    // Compute the inverse of the modelview, projection, and modelview-projection matrices. The inverse matrices
-    // are used to support operations on navigator state.
-    var modelviewInv = Matrix.fromIdentity();
-    modelviewInv.invertOrthonormalMatrix(dc.modelview);
-
-    dc.modelviewNormalTransform = Matrix.fromIdentity().setToTransposeOfMatrix(modelviewInv.upper3By3());
-
-    // Compute the frustum in model coordinates. Start by computing the frustum in eye coordinates from the
-    // projection matrix, then transform this frustum to model coordinates by multiplying its planes by the
-    // transpose of the modelview matrix. We use the transpose of the modelview matrix because planes are
-    // transformed by the inverse transpose of a matrix, and we want to transform from eye coordinates to model
-    // coordinates.
-    var modelviewTranspose = Matrix.fromIdentity();
-    modelviewTranspose.setToTransposeOfMatrix(dc.modelview);
-    dc.frustumInModelCoordinates = Frustum.fromProjectionMatrix(dc.projection);
-    dc.frustumInModelCoordinates.transformByMatrix(modelviewTranspose);
-    dc.frustumInModelCoordinates.normalize();
-};
+        modelviewInv.getInverse(dc.modelview);
+        modelviewInv.upper3By3(mat3By3);
+        dc.modelviewNormalTransform.copy(mat3By3).transpose();
+        modelviewTranspose.copy(dc.modelview).transpose();
+        
+        dc.frustumInModelCoordinates.setFromProjectionMatrix(dc.projection);
+        dc.frustumInModelCoordinates.applyMatrix4(modelviewTranspose);
+        dc.frustumInModelCoordinates.normalize();
+    };
+}();
 
 // Internal. Intentionally not documented.
 WorldWindow.prototype.resetDrawContext = function () {
