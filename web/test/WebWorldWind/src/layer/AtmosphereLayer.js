@@ -92,10 +92,6 @@ Object.defineProperties(AtmosphereLayer.prototype, {
 
 // Documented in superclass.
 AtmosphereLayer.prototype.doRender = function (dc) {
-    if (dc.globe.is2D()) {
-        return;
-    }
-
     this.determineLightDirection(dc);
     this.drawSky(dc);
     this.drawGround(dc);

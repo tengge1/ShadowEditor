@@ -163,11 +163,7 @@ BasicWorldWindowController.prototype.gestureStateChanged = function (recognizer)
 
 // Intentionally not documented.
 BasicWorldWindowController.prototype.handlePanOrDrag = function (recognizer) {
-    if (this.wwd.globe.is2D()) {
-        this.handlePanOrDrag2D(recognizer);
-    } else {
-        this.handlePanOrDrag3D(recognizer);
-    }
+    this.handlePanOrDrag3D(recognizer);
 };
 
 // Intentionally not documented.
@@ -200,66 +196,6 @@ BasicWorldWindowController.prototype.handlePanOrDrag3D = function (recognizer) {
         navigator.lookAtLocation.latitude += forwardDegrees * cosHeading - sideDegrees * sinHeading;
         navigator.lookAtLocation.longitude += forwardDegrees * sinHeading + sideDegrees * cosHeading;
         this.lastPoint.set(tx, ty);
-        this.applyLimits();
-        this.wwd.redraw();
-    }
-};
-
-// Intentionally not documented.
-BasicWorldWindowController.prototype.handlePanOrDrag2D = function (recognizer) {
-    var state = recognizer.state,
-        x = recognizer.clientX,
-        y = recognizer.clientY,
-        tx = recognizer.translationX,
-        ty = recognizer.translationY;
-
-    var navigator = this.wwd.navigator;
-    if (state === WorldWind.BEGAN) {
-        this.beginPoint.set(x, y);
-        this.lastPoint.set(x, y);
-    } else if (state === WorldWind.CHANGED) {
-        var x1 = this.lastPoint[0],
-            y1 = this.lastPoint[1],
-            x2 = this.beginPoint[0] + tx,
-            y2 = this.beginPoint[1] + ty;
-
-        this.lastPoint.set(x2, y2);
-
-        var globe = this.wwd.globe,
-            ray = this.wwd.rayThroughScreenPoint(this.wwd.canvasCoordinates(x1, y1)),
-            point1 = new Vec3(0, 0, 0),
-            point2 = new Vec3(0, 0, 0),
-            origin = new Vec3(0, 0, 0);
-
-        if (!globe.intersectsLine(ray, point1)) {
-            return;
-        }
-
-        ray = this.wwd.rayThroughScreenPoint(this.wwd.canvasCoordinates(x2, y2));
-        if (!globe.intersectsLine(ray, point2)) {
-            return;
-        }
-
-        // Transform the original navigator state's modelview matrix to account for the gesture's change.
-        var modelview = Matrix.fromIdentity();
-        this.wwd.computeViewingTransform(null, modelview);
-        modelview.multiplyByTranslation(point2[0] - point1[0], point2[1] - point1[1], point2[2] - point1[2]);
-
-        // Compute the globe point at the screen center from the perspective of the transformed navigator state.
-        modelview.extractEyePoint(ray.origin);
-        modelview.extractForwardVector(ray.direction);
-        if (!globe.intersectsLine(ray, origin)) {
-            return;
-        }
-
-        // Convert the transformed modelview matrix to a set of navigator properties, then apply those
-        // properties to this navigator.
-        var params = modelview.extractViewingParameters(origin, navigator.roll, globe, {});
-        navigator.lookAtLocation.copy(params.origin);
-        navigator.range = params.range;
-        navigator.heading = params.heading;
-        navigator.tilt = params.tilt;
-        navigator.roll = params.roll;
         this.applyLimits();
         this.wwd.redraw();
     }
@@ -391,17 +327,6 @@ BasicWorldWindowController.prototype.applyLimits = function () {
 
     // Normalize heading to between -180 and +180.
     navigator.roll = Angle.normalizedDegrees(navigator.roll);
-
-    // Apply 2D limits when the globe is 2D.
-    if (this.wwd.globe.is2D() && navigator.enable2DLimits) {
-        // Clamp range to prevent more than 360 degrees of visible longitude. Assumes a 45 degree horizontal
-        // field of view.
-        var maxRange = 2 * Math.PI * this.wwd.globe.equatorialRadius;
-        navigator.range = WWMath.clamp(navigator.range, 1, maxRange);
-
-        // Force tilt to 0 when in 2D mode to keep the viewer looking straight down.
-        navigator.tilt = 0;
-    }
 };
 
 export default BasicWorldWindowController;

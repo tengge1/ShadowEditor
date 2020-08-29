@@ -425,7 +425,6 @@ DrawContext.prototype.update = function () {
         eyePoint = this.eyePoint;
 
     this.globeStateKey = this.globe.stateKey;
-    debugger;
     this.globe.computePositionFromPoint(eyePoint.x, eyePoint.y, eyePoint.z, this.eyePosition);
     this.screenProjection.setToScreenProjection(gl.drawingBufferWidth, gl.drawingBufferHeight);
 };
@@ -943,7 +942,7 @@ DrawContext.prototype.makePickFrustum = function () {
 
 /**
  * Indicates whether an extent is smaller than a specified number of pixels.
- * @param {BoundingBox} extent The extent to test.
+ * @param {THREE.BoundingBox} extent The extent to test.
  * @param {Number} numPixels The number of pixels below which the extent is considered small.
  * @returns {Boolean} True if the extent is smaller than the specified number of pixels, otherwise false.
  * Returns false if the extent is null or undefined.

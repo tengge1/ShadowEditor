@@ -755,13 +755,7 @@ WorldWindow.prototype.drawFrame = function () {
     try {
         this.drawContext.frameStatistics.beginFrame();
         this.beginFrame();
-
-        if (this.drawContext.globe.is2D() && this.drawContext.globe.continuous) {
-            this.do2DContiguousRepaint();
-        } else {
-            this.doNormalRepaint();
-        }
-
+        this.doNormalRepaint();
     } finally {
         this.endFrame();
         this.drawContext.frameStatistics.endFrame();
@@ -784,19 +778,6 @@ WorldWindow.prototype.doNormalRepaint = function () {
             this.redrawSurface();
             this.drawScreenRenderables();
         }
-    }
-};
-
-WorldWindow.prototype.do2DContiguousRepaint = function () {
-    this.createTerrain2DContiguous();
-    this.clearFrame();
-    if (this.drawContext.pickingMode) {
-        if (this.drawContext.makePickFrustum()) {
-            this.pick2DContiguous();
-            this.resolvePick();
-        }
-    } else {
-        this.draw2DContiguous();
     }
 };
 
@@ -972,104 +953,6 @@ WorldWindow.prototype.makeCurrent = function (offset) {
         case 1:
             dc.terrain = this.terrainRight;
             break;
-    }
-};
-
-WorldWindow.prototype.createTerrain2DContiguous = function () {
-    var dc = this.drawContext;
-
-    this.terrainCenter = null;
-    dc.globe.offset = 0;
-    dc.globeStateKey = dc.globe.stateKey;
-    if (dc.globe.intersectsFrustum(dc.frustumInModelCoordinates)) {
-        this.terrainCenter = dc.globe.tessellator.tessellate(dc);
-    }
-
-    this.terrainRight = null;
-    dc.globe.offset = 1;
-    dc.globeStateKey = dc.globe.stateKey;
-    if (dc.globe.intersectsFrustum(dc.frustumInModelCoordinates)) {
-        this.terrainRight = dc.globe.tessellator.tessellate(dc);
-    }
-
-    this.terrainLeft = null;
-    dc.globe.offset = -1;
-    dc.globeStateKey = dc.globe.stateKey;
-    if (dc.globe.intersectsFrustum(dc.frustumInModelCoordinates)) {
-        this.terrainLeft = dc.globe.tessellator.tessellate(dc);
-    }
-};
-
-WorldWindow.prototype.draw2DContiguous = function () {
-    var drawing = "";
-
-    if (this.terrainCenter) {
-        drawing += " 0 ";
-        this.makeCurrent(0);
-        this.deferOrderedRendering = this.terrainLeft || this.terrainRight;
-        this.doDraw();
-    }
-
-    if (this.terrainRight) {
-        drawing += " 1 ";
-        this.makeCurrent(1);
-        this.deferOrderedRendering = this.terrainLeft || this.terrainLeft;
-        this.doDraw();
-    }
-
-    this.deferOrderedRendering = false;
-
-    if (this.terrainLeft) {
-        drawing += " -1 ";
-        this.makeCurrent(-1);
-        this.doDraw();
-    }
-    //
-    //console.log(drawing);
-
-    if (this.subsurfaceMode && this.hasStencilBuffer) {
-        this.deferOrderedRendering = true;
-
-        if (this.terrainCenter) {
-            drawing += " 0 ";
-            this.makeCurrent(0);
-            this.redrawSurface();
-        }
-
-        if (this.terrainRight) {
-            drawing += " 1 ";
-            this.makeCurrent(1);
-            this.redrawSurface();
-        }
-
-        if (this.terrainLeft) {
-            drawing += " -1 ";
-            this.makeCurrent(-1);
-            this.redrawSurface();
-        }
-    }
-
-    this.drawScreenRenderables();
-};
-
-WorldWindow.prototype.pick2DContiguous = function () {
-    if (this.terrainCenter) {
-        this.makeCurrent(0);
-        this.deferOrderedRendering = this.terrainLeft || this.terrainRight;
-        this.doPick();
-    }
-
-    if (this.terrainRight) {
-        this.makeCurrent(1);
-        this.deferOrderedRendering = this.terrainLeft || this.terrainLeft;
-        this.doPick();
-    }
-
-    this.deferOrderedRendering = false;
-
-    if (this.terrainLeft) {
-        this.makeCurrent(-1);
-        this.doPick();
     }
 };
 

@@ -32,11 +32,7 @@ import WWMath from '../util/WWMath';
  * @classdesc Represents a WGS84 ellipsoid.
  */
 function ProjectionWgs84() {
-
     GeographicProjection.call(this, "WGS84", false, null);
-
-    this.is2D = false;
-
     this.scratchPosition = new Position(0, 0, 0);
 }
 

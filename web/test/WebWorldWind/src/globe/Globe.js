@@ -18,9 +18,7 @@
  * @exports Globe
  */
 import Angle from '../geom/Angle';
-import BoundingBox from '../geom/BoundingBox';
 import ProjectionWgs84 from '../projections/ProjectionWgs84';
-import Sector from '../geom/Sector';
 import Tessellator from '../globe/Tessellator';
 import Vec3 from '../geom/Vec3';
 
@@ -174,14 +172,6 @@ Object.defineProperties(Globe.prototype, {
 });
 
 /**
- * Indicates whether this is a 2D globe.
- * @returns {Boolean} true if this is a 2D globe, otherwise false.
- */
-Globe.prototype.is2D = function () {
-    return this.projection.is2D;
-};
-
-/**
  * Computes a Cartesian point from a specified position.
  * See this class' Overview section for a description of the Cartesian coordinate system used.
  * @param {Number} latitude The position's latitude.
@@ -290,14 +280,6 @@ Globe.prototype.surfaceNormalAtLocation = function (latitude, longitude, result)
         return this.projection.surfaceNormalAtLocation(this, latitude, longitude, result);
     }
 
-    if (this.is2D()) {
-        result[0] = 0;
-        result[1] = 0;
-        result[2] = 1;
-
-        return result;
-    }
-
     var cosLat = Math.cos(latitude * Angle.DEGREES_TO_RADIANS),
         cosLon = Math.cos(longitude * Angle.DEGREES_TO_RADIANS),
         sinLat = Math.sin(latitude * Angle.DEGREES_TO_RADIANS),
@@ -324,14 +306,6 @@ Globe.prototype.surfaceNormalAtPoint = function (x, y, z, result) {
     // before calling it. If it's not available, use the old code to compute the normal.
     if (this.projection.surfaceNormalAtPoint) {
         return this.projection.surfaceNormalAtPoint(this, x, y, z, result);
-    }
-
-    if (this.is2D()) {
-        result[0] = 0;
-        result[1] = 0;
-        result[2] = 1;
-
-        return result;
     }
 
     var eSquared = this.equatorialRadius * this.equatorialRadius,
@@ -375,14 +349,6 @@ Globe.prototype.northTangentAtPoint = function (x, y, z, result) {
  * @returns {Boolean} true if this globe intersects the frustum, otherwise false.
  */
 Globe.prototype.intersectsFrustum = function (frustum) {
-    if (this.is2D()) {
-        var bbox = new BoundingBox();
-        bbox.setToSector(Sector.FULL_SPHERE, this, this.elevationModel.minElevation,
-            this.elevationModel.maxElevation);
-
-        return bbox.intersectsFrustum(frustum);
-    }
-
     if (frustum.far.distance <= this.equatorialRadius)
         return false;
     if (frustum.left.distance <= this.equatorialRadius)
@@ -420,54 +386,37 @@ Globe.prototype.intersectsLine = function (line, result) {
         sz = line.origin[2],
         t;
 
-    if (this.is2D()) {
-        if (vz == 0 && sz != 0) { // ray is parallel to and not coincident with the XY plane
-            return false;
-        }
+    var eqr = this.equatorialRadius, eqr2 = eqr * eqr, m = eqr / this.polarRadius, m2 = m * m, a, b, c, d;
 
-        t = -sz / vz; // intersection distance, simplified for the XY plane
-        if (t < 0) { // intersection is behind the ray's origin
-            return false;
-        }
+    a = vx * vx + m2 * vy * vy + vz * vz;
+    b = 2 * (sx * vx + m2 * sy * vy + sz * vz);
+    c = sx * sx + m2 * sy * sy + sz * sz - eqr2;
+    d = b * b - 4 * a * c; // discriminant
 
+    if (d < 0) {
+        return false;
+    }
+
+    t = (-b - Math.sqrt(d)) / (2 * a);
+    // check if the nearest intersection point is in front of the origin of the ray
+    if (t > 0) {
         result[0] = sx + vx * t;
         result[1] = sy + vy * t;
         result[2] = sz + vz * t;
-
         return true;
-    } else {
-        var eqr = this.equatorialRadius, eqr2 = eqr * eqr, m = eqr / this.polarRadius, m2 = m * m, a, b, c, d;
-
-        a = vx * vx + m2 * vy * vy + vz * vz;
-        b = 2 * (sx * vx + m2 * sy * vy + sz * vz);
-        c = sx * sx + m2 * sy * sy + sz * sz - eqr2;
-        d = b * b - 4 * a * c; // discriminant
-
-        if (d < 0) {
-            return false;
-        }
-
-        t = (-b - Math.sqrt(d)) / (2 * a);
-        // check if the nearest intersection point is in front of the origin of the ray
-        if (t > 0) {
-            result[0] = sx + vx * t;
-            result[1] = sy + vy * t;
-            result[2] = sz + vz * t;
-            return true;
-        }
-
-        t = (-b + Math.sqrt(d)) / (2 * a);
-        // check if the second intersection point is in the front of the origin of the ray
-        if (t > 0) {
-            result[0] = sx + vx * t;
-            result[1] = sy + vy * t;
-            result[2] = sz + vz * t;
-            return true;
-        }
-
-        // the intersection points were behind the origin of the provided line
-        return false;
     }
+
+    t = (-b + Math.sqrt(d)) / (2 * a);
+    // check if the second intersection point is in the front of the origin of the ray
+    if (t > 0) {
+        result[0] = sx + vx * t;
+        result[1] = sy + vy * t;
+        result[2] = sz + vz * t;
+        return true;
+    }
+
+    // the intersection points were behind the origin of the provided line
+    return false;
 };
 
 /**

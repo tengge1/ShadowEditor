@@ -194,22 +194,6 @@ AbstractShape.prototype.render = function (dc) {
         return;
     }
 
-    if (dc.globe.is2D() && this.useSurfaceShapeFor2D) {
-        if (!this.surfaceShape) {
-            this.surfaceShape = this.createSurfaceShape();
-            if (this.surfaceShape) {
-                this.surfaceShape.attributes = this._attributes;
-                this.surfaceShape.highlightAttributes = this._highlightAttributes;
-            }
-        }
-
-        if (this.surfaceShape) {
-            this.updateSurfaceShape();
-            this.surfaceShape.render(dc);
-            return;
-        }
-    }
-
     if (!dc.terrain && this.altitudeMode != WorldWind.ABSOLUTE) {
         return;
     }

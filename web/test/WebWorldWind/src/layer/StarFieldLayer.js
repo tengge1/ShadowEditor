@@ -136,10 +136,6 @@ Object.defineProperties(StarFieldLayer.prototype, {
 
 // Documented in superclass.
 StarFieldLayer.prototype.doRender = function (dc) {
-    if (dc.globe.is2D()) {
-        return;
-    }
-
     if (!this.haveResources(dc)) {
         this.loadResources(dc);
         return;

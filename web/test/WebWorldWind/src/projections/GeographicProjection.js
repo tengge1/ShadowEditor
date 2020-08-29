@@ -56,13 +56,6 @@ function GeographicProjection(displayName, continuous, projectionLimits) {
      * @readonly
      */
     this.projectionLimits = projectionLimits;
-
-    /**
-     * Indicates whether this projection is a 2D projection.
-     * @type {boolean}
-     * @readonly
-     */
-    this.is2D = true;
 }
 
 /**

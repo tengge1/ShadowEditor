@@ -23,7 +23,6 @@ import Vec3 from '../geom/Vec3';
 import WWMath from '../util/WWMath';
 import WWUtil from '../util/WWUtil';
 
-
 /**
  * Constructs a unit bounding box.
  * The unit box has its R, S and T axes aligned with the X, Y and Z axes, respectively, and has its length,
@@ -369,31 +368,14 @@ BoundingBox.prototype.effectiveRadius = function (plane) {
  * @param {Frustum} frustum The frustum of interest.
  * @returns {boolean} true if the specified frustum intersects this bounding box, otherwise false.
  */
-BoundingBox.prototype.intersectsFrustum = function (frustum) {
-    this.tmp1.copy(this.bottomCenter);
-    this.tmp2.copy(this.topCenter);
-
-    if (this.intersectionPoint(frustum.near) < 0) {
-        return false;
-    }
-    if (this.intersectionPoint(frustum.far) < 0) {
-        return false;
-    }
-    if (this.intersectionPoint(frustum.left) < 0) {
-        return false;
-    }
-    if (this.intersectionPoint(frustum.right) < 0) {
-        return false;
-    }
-    if (this.intersectionPoint(frustum.top) < 0) {
-        return false;
-    }
-    if (this.intersectionPoint(frustum.bottom) < 0) {
-        return false;
-    }
-
-    return true;
-};
+BoundingBox.prototype.intersectsFrustum = function () {
+    var sphere = new THREE.Sphere();
+    return function(frustum) {
+        sphere.center.fromArray(this.center);
+        sphere.radius = this.radius;
+        return frustum.intersectsSphere(sphere);
+    };
+}();
 
 // Internal. Intentionally not documented.
 BoundingBox.prototype.intersectionPoint = function (plane) {

@@ -740,22 +740,6 @@ Location.greatCircleExtremeLocationsUsingAzimuth = function (location, azimuth) 
  * TODO: Why not? Every location created would then allocated those variables as well, even if they aren't needed :(.
  */
 Location.intersectionWithMeridian = function (p1, p2, meridian, globe) {
-    // TODO: add support for 2D
-    //if (globe instanceof Globe2D)
-    //{
-    //    // y = mx + b case after normalizing negative angles.
-    //    double lon1 = p1.getLongitude().degrees < 0 ? p1.getLongitude().degrees + 360 : p1.getLongitude().degrees;
-    //    double lon2 = p2.getLongitude().degrees < 0 ? p2.getLongitude().degrees + 360 : p2.getLongitude().degrees;
-    //    if (lon1 == lon2)
-    //        return null;
-    //
-    //    double med = meridian.degrees < 0 ? meridian.degrees + 360 : meridian.degrees;
-    //    double slope = (p2.latitude.degrees - p1.latitude.degrees) / (lon2 - lon1);
-    //    double lat = p1.latitude.degrees + slope * (med - lon1);
-    //
-    //    return LatLon.fromDegrees(lat, meridian.degrees);
-    //}
-
     var pt1 = globe.computePointFromLocation(p1.latitude, p1.longitude, new Vec3(0, 0, 0));
     var pt2 = globe.computePointFromLocation(p2.latitude, p2.longitude, new Vec3(0, 0, 0));
 
