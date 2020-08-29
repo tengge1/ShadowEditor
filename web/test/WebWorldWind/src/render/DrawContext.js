@@ -856,7 +856,7 @@ DrawContext.prototype.makePickFrustum = function () {
     this.pickRectangle = pickRectangle;
 
     // Compute the pick frustum.
-    var modelviewProjectionInv = Matrix.fromIdentity();
+    var modelviewProjectionInv = new THREE.Matrix4();
     modelviewProjectionInv.invertMatrix(this.modelviewProjection);
 
     screenPoint[0] = pickRectangle.x;

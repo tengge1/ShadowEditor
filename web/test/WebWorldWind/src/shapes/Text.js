@@ -158,7 +158,7 @@ function Text(text) {
     this.activeTexture = null;
 
     // Internal use only. Intentionally not documented.
-    this.imageTransform = Matrix.fromIdentity();
+    this.imageTransform = new THREE.Matrix4();
 
     // Internal use only. Intentionally not documented.
     this.imageBounds = null;
@@ -174,7 +174,7 @@ function Text(text) {
 }
 
 // Internal use only. Intentionally not documented.
-Text.matrix = Matrix.fromIdentity(); // scratch variable
+Text.matrix = new THREE.Matrix4(); // scratch variable
 Text.glPickPoint = new Vec3(0, 0, 0); // scratch variable
 
 Text.prototype = Object.create(Renderable.prototype);

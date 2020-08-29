@@ -95,7 +95,7 @@ function AbstractShape(attributes) {
      */
     this.useSurfaceShapeFor2D = false;
 
-    this.scratchMatrix = Matrix.fromIdentity(); // scratch variable
+    this.scratchMatrix = new THREE.Matrix4(); // scratch variable
 }
 
 AbstractShape.prototype = Object.create(Renderable.prototype);
@@ -325,7 +325,7 @@ AbstractShape.prototype.establishCurrentData = function (dc) {
  */
 AbstractShape.prototype.createShapeDataObject = function () {
     return {
-        transformationMatrix: Matrix.fromIdentity(),
+        transformationMatrix: new THREE.Matrix4(),
         referencePoint: new Vec3(0, 0, 0)
     };
 };

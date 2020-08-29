@@ -240,13 +240,13 @@ function Placemark(position, eyeDistanceScaling, attributes) {
     this.groundPoint = new Vec3(0, 0, 0); // Cartesian point corresponding to ground position below this placemark
 
     // Internal use only. Intentionally not documented.
-    this.imageTransform = Matrix.fromIdentity();
+    this.imageTransform = new THREE.Matrix4();
 
     // Internal use only. Intentionally not documented.
-    this.labelTransform = Matrix.fromIdentity();
+    this.labelTransform = new THREE.Matrix4();
 
     // Internal use only. Intentionally not documented.
-    this.texCoordMatrix = Matrix.fromIdentity();
+    this.texCoordMatrix = new THREE.Matrix4();
 
     // Internal use only. Intentionally not documented.
     this.imageBounds = null;
@@ -260,7 +260,7 @@ function Placemark(position, eyeDistanceScaling, attributes) {
 
 // Internal use only. Intentionally not documented.
 Placemark.screenPoint = new Vec3(0, 0, 0); // scratch variable
-Placemark.matrix = Matrix.fromIdentity(); // scratch variable
+Placemark.matrix = new THREE.Matrix4(); // scratch variable
 Placemark.scratchPoint = new Vec3(0, 0, 0); // scratch variable
 
 Placemark.prototype = Object.create(Renderable.prototype);

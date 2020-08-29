@@ -70,7 +70,7 @@ function StarFieldLayer(starDataSource) {
 
     //Internal use only.
     //The MVP matrix of this layer.
-    this._matrix = Matrix.fromIdentity();
+    this._matrix = new THREE.Matrix4();
 
     //Internal use only.
     //gpu cache key for the stars vbo.

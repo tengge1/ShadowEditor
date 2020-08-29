@@ -49,7 +49,7 @@ function FramebufferTile(sector, level, row, column, cacheKey) {
     this.gpuCacheKey = cacheKey;
 
     // Internal. Intentionally not documented.
-    this.textureTransform = Matrix.fromIdentity().setToUnitYFlip();
+    this.textureTransform = new THREE.Matrix4().setToUnitYFlip();
 
     // Internal. Intentionally not documented.
     this.mustClear = true;

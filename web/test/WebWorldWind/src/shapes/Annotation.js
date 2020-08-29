@@ -73,7 +73,7 @@ function Annotation(position, attributes) {
     this.lastStateKey = null;
 
     // Internal use only. Intentionally not documented.
-    this.calloutTransform = Matrix.fromIdentity();
+    this.calloutTransform = new THREE.Matrix4();
 
     // Internal use only. Intentionally not documented.
     this.calloutOffset = new WorldWind.Offset(
@@ -87,7 +87,7 @@ function Annotation(position, attributes) {
     this.labelTexture = null;
 
     // Internal use only. Intentionally not documented.
-    this.labelTransform = Matrix.fromIdentity();
+    this.labelTransform = new THREE.Matrix4();
 
     // Internal use only. Intentionally not documented.
     this.placePoint = new Vec3(0, 0, 0);
@@ -99,7 +99,7 @@ function Annotation(position, attributes) {
     this.calloutPoints = null;
 }
 
-Annotation.matrix = Matrix.fromIdentity();
+Annotation.matrix = new THREE.Matrix4();
 Annotation.screenPoint = new Vec3(0, 0, 0);
 Annotation.scratchPoint = new Vec3(0, 0, 0);
 

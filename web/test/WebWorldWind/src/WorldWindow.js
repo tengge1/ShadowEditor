@@ -76,7 +76,7 @@ function WorldWindow(canvasElem) {
     this.scratchModelview = new THREE.Matrix4();
 
     // Internal. Intentionally not documented.
-    this.scratchProjection = Matrix.fromIdentity();
+    this.scratchProjection = new THREE.Matrix4();
 
     // Internal. Intentionally not documented.
     this.hasStencilBuffer = gl.getContextAttributes().stencil;
@@ -1269,9 +1269,9 @@ WorldWindow.prototype.rayThroughScreenPoint = function (point) {
         farPoint = new Vec3(0, 0, 0);
 
     this.computeViewingTransform(this.scratchProjection, this.scratchModelview);
-    var modelviewProjection = Matrix.fromIdentity();
+    var modelviewProjection = new THREE.Matrix4();
     modelviewProjection.setToMultiply(this.scratchProjection, this.scratchModelview);
-    var modelviewProjectionInv = Matrix.fromIdentity();
+    var modelviewProjectionInv = new THREE.Matrix4();
     modelviewProjectionInv.invertMatrix(modelviewProjection);
 
     // Compute the model coordinate point on the near clip plane with the xy coordinates and depth 0.

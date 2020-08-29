@@ -93,7 +93,7 @@ function BoundingBox() {
 }
 
 // Internal use only. Intentionally not documented.
-BoundingBox.scratchMatrix = Matrix.fromIdentity();
+BoundingBox.scratchMatrix = new THREE.Matrix4();
 
 /**
  * Returns the eight {@link Vec3} corners of the box.

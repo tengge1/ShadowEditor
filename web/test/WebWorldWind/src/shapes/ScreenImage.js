@@ -119,10 +119,10 @@ function ScreenImage(screenOffset, imageSource) {
     this.activeTexture = null;
 
     // Internal use only. Intentionally not documented.
-    this.imageTransform = Matrix.fromIdentity();
+    this.imageTransform = new THREE.Matrix4();
 
     // Internal use only. Intentionally not documented.
-    this.texCoordMatrix = Matrix.fromIdentity();
+    this.texCoordMatrix = new THREE.Matrix4();
 
     // Internal use only. Intentionally not documented.
     this.imageBounds = null;
@@ -132,7 +132,7 @@ function ScreenImage(screenOffset, imageSource) {
 }
 
 // Internal use only. Intentionally not documented.
-ScreenImage.matrix = Matrix.fromIdentity(); // scratch variable
+ScreenImage.matrix = new THREE.Matrix4(); // scratch variable
 
 ScreenImage.prototype = Object.create(Renderable.prototype);
 
