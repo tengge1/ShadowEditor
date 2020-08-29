@@ -17,7 +17,6 @@
 /**
  * @exports TerrainTile
  */
-import Matrix from '../geom/Matrix';
 import Tile from '../util/Tile';
 
 
@@ -38,7 +37,7 @@ function TerrainTile(sector, level, row, column) {
 
     /**
      * The transformation matrix that maps tile local coordinates to model coordinates.
-     * @type {Matrix}
+     * @type {THREE.Matrix4}
      */
     this.transformationMatrix = new THREE.Matrix4();
 

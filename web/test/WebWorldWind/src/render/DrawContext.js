@@ -22,7 +22,6 @@ import FramebufferTexture from '../render/FramebufferTexture';
 import FramebufferTileController from '../render/FramebufferTileController';
 import Frustum from '../geom/Frustum';
 import GpuResourceCache from '../cache/GpuResourceCache';
-import Matrix from '../geom/Matrix';
 import PickedObjectList from '../pick/PickedObjectList';
 import Plane from '../geom/Plane';
 import Position from '../geom/Position';
@@ -208,7 +207,7 @@ function DrawContext(gl) {
 
     /**
      * The current screen projection matrix.
-     * @type {Matrix}
+     * @type {THREE.Matrix4}
      */
     this.screenProjection = new THREE.Matrix4();
 
@@ -340,7 +339,7 @@ function DrawContext(gl) {
     /**
      * The matrix that transforms normal vectors in model coordinates to normal vectors in eye coordinates.
      * Typically used to transform a shape's normal vectors during lighting calculations.
-     * @type {Matrix}
+     * @type {THREE.Matrix4}
      * @readonly
      */
     this.modelviewNormalTransform = new THREE.Matrix4();
@@ -1339,7 +1338,7 @@ DrawContext.prototype.projectWithDepth = function (modelPoint, depthOffset, resu
     // Transform the Z eye coordinate to clip coordinates again, this time applying a depth offset. The depth
     // offset is applied only to the matrix element affecting the projected Z coordinate, so we inline the
     // computation here instead of re-computing X, Y, Z and W in order to improve performance. See
-    // Matrix.offsetProjectionDepth for more information on the effect of this offset.
+    // THREE.Matrix4.offsetProjectionDepth for more information on the effect of this offset.
     z = p[8] * ex + p[9] * ey + p[10] * ez * (1 + depthOffset) + p[11] * ew;
     z /= w;
 

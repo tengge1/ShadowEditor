@@ -20,11 +20,9 @@
 import BasicTextureProgram from '../shaders/BasicTextureProgram';
 import Color from '../util/Color';
 import ImageSource from '../util/ImageSource';
-import Matrix from '../geom/Matrix';
 import Offset from '../util/Offset';
 import PickedObject from '../pick/PickedObject';
 import Renderable from '../render/Renderable';
-import Vec3 from '../geom/Vec3';
 import WWMath from '../util/WWMath';
 
 

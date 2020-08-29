@@ -21,7 +21,6 @@ import AbsentResourceList from '../util/AbsentResourceList';
 import ImageTile from '../render/ImageTile';
 import Layer from '../layer/Layer';
 import LevelSet from '../util/LevelSet';
-import Matrix from '../geom/Matrix';
 import MemoryCache from '../cache/MemoryCache';
 import Texture from '../render/Texture';
 import Tile from '../util/Tile';

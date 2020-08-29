@@ -198,7 +198,7 @@ GpuProgram.prototype.link = function (gl, program) {
  * uniform variable, but does not modify the specified matrix.
  *
  * @param {WebGLRenderingContext} gl The current WebGL context.
- * @param {Matrix} matrix The matrix to load.
+ * @param {THREE.Matrix4} matrix The matrix to load.
  * @param {WebGLUniformLocation} location The location of the uniform variable in the currently bound GLSL program.
  */
 GpuProgram.prototype.loadUniformMatrix = function (gl, matrix, location) {

@@ -18,8 +18,6 @@
  * @exports FramebufferTile
  */
 import FramebufferTexture from '../render/FramebufferTexture';
-import Matrix from '../geom/Matrix';
-import Rectangle from '../geom/Rectangle';
 import TextureTile from '../render/TextureTile';
 
 
@@ -109,7 +107,7 @@ FramebufferTile.prototype.doClearFramebuffer = function (dc) {
 /**
  * Applies the appropriate texture transform to display this tile's WebGL texture.
  * @param {DrawContext} dc The current draw context.
- * @param {Matrix} matrix The matrix to apply the transform to.
+ * @param {THREE.Matrix4} matrix The matrix to apply the transform to.
  */
 FramebufferTile.prototype.applyInternalTransform = function (dc, matrix) {
     matrix.multiplyMatrix(this.textureTransform);

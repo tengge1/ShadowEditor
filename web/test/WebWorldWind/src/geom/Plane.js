@@ -95,7 +95,7 @@ Plane.prototype.distanceToPoint = function (point) {
 
 /**
  * Transforms this plane by a specified matrix.
- * @param {Matrix} matrix The matrix to apply to this plane.
+ * @param {THREE.Matrix4} matrix The matrix to apply to this plane.
  * @returns {Plane} This plane transformed by the specified matrix.
  */
 Plane.prototype.transformByMatrix = function (matrix) {

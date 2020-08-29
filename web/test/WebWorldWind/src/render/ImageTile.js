@@ -46,7 +46,7 @@ function ImageTile(sector, level, row, column, imagePath) {
 
     /**
      * The tile whose texture to use when this tile's texture is not available.
-     * @type {Matrix}
+     * @type {THREE.Matrix4}
      */
     this.fallbackTile = null;
 
@@ -86,7 +86,7 @@ ImageTile.prototype.bind = function (dc) {
 /**
  * If this tile's fallback texture is used, applies the appropriate texture transform to a specified matrix.
  * @param {DrawContext} dc The current draw context.
- * @param {Matrix} matrix The matrix to apply the transform to.
+ * @param {THREE.Matrix4} matrix The matrix to apply the transform to.
  */
 ImageTile.prototype.applyInternalTransform = function (dc, matrix) {
     if (this.fallbackTile && !dc.gpuResourceCache.resourceForKey(this.imagePath)) {
@@ -112,7 +112,7 @@ ImageTile.prototype.applyFallbackTransform = function (matrix) {
     // fallback tile. Rather than perform the full set of matrix operations, a single multiply is performed with the
     // precomputed non-zero values:
     //
-    // Matrix trans = Matrix.fromTranslation(tx, ty, 0);
+    // Matrix trans = THREE.Matrix4.fromTranslation(tx, ty, 0);
     // Matrix scale = Matrix.fromScale(sxy, sxy, 1);
     // matrix.multiply(trans);
     // matrix.multiply(scale);

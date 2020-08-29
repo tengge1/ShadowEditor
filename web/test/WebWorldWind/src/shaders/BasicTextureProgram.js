@@ -146,7 +146,7 @@ BasicTextureProgram.prototype = Object.create(GpuProgram.prototype);
  * Loads the specified matrix as the value of this program's 'mvInverseMatrix' uniform variable.
  *
  * @param {WebGLRenderingContext} gl The current WebGL context.
- * @param {Matrix} matrix The matrix to load.
+ * @param {THREE.Matrix4} matrix The matrix to load.
  */
 BasicTextureProgram.prototype.loadModelviewInverse = function (gl, matrix) {
     this.loadUniformMatrix(gl, matrix, this.mvInverseMatrixLocation);
@@ -156,7 +156,7 @@ BasicTextureProgram.prototype.loadModelviewInverse = function (gl, matrix) {
  * Loads the specified matrix as the value of this program's 'mvpMatrix' uniform variable.
  *
  * @param {WebGLRenderingContext} gl The current WebGL context.
- * @param {Matrix} matrix The matrix to load.
+ * @param {THREE.Matrix4} matrix The matrix to load.
  */
 BasicTextureProgram.prototype.loadModelviewProjection = function (gl, matrix) {
     this.loadUniformMatrix(gl, matrix, this.mvpMatrixLocation);
@@ -207,7 +207,7 @@ BasicTextureProgram.prototype.loadTextureUnit = function (gl, unit) {
 /**
  * Loads the specified matrix as the value of this program's 'texCoordMatrix' uniform variable.
  * @param {WebGLRenderingContext} gl The current WebGL context.
- * @param {Matrix} matrix The texture coordinate matrix.
+ * @param {THREE.Matrix4} matrix The texture coordinate matrix.
  */
 BasicTextureProgram.prototype.loadTextureMatrix = function (gl, matrix) {
     this.loadUniformMatrix(gl, matrix, this.textureMatrixLocation);

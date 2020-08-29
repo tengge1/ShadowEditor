@@ -113,7 +113,7 @@ SurfaceTileRendererProgram.prototype = Object.create(GpuProgram.prototype);
  * Loads the specified matrix as the value of this program's 'mvpMatrix' uniform variable.
  *
  * @param {WebGLRenderingContext} gl The current WebGL context.
- * @param {Matrix} matrix The matrix to load.
+ * @param {THREE.Matrix4} matrix The matrix to load.
  */
 SurfaceTileRendererProgram.prototype.loadModelviewProjection = function (gl, matrix) {
     this.loadUniformMatrix(gl, matrix, this.mvpMatrixLocation);
@@ -123,7 +123,7 @@ SurfaceTileRendererProgram.prototype.loadModelviewProjection = function (gl, mat
  * Loads the specified matrix as the value of this program's 'texSamplerMatrix' uniform variable.
  *
  * @param {WebGLRenderingContext} gl The current WebGL context.
- * @param {Matrix} matrix The matrix to load.
+ * @param {THREE.Matrix4} matrix The matrix to load.
  */
 SurfaceTileRendererProgram.prototype.loadTexSamplerMatrix = function (gl, matrix) {
     this.loadUniformMatrix(gl, matrix, this.texSamplerMatrixLocation);
@@ -133,7 +133,7 @@ SurfaceTileRendererProgram.prototype.loadTexSamplerMatrix = function (gl, matrix
  * Loads the specified matrix as the value of this program's 'texMaskMatrix' uniform variable.
  *
  * @param {WebGLRenderingContext} gl The current WebGL context.
- * @param {Matrix} matrix The matrix to load.
+ * @param {THREE.Matrix4} matrix The matrix to load.
  */
 SurfaceTileRendererProgram.prototype.loadTexMaskMatrix = function (gl, matrix) {
     this.loadUniformMatrix(gl, matrix, this.texMaskMatrixLocation);

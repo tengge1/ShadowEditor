@@ -71,7 +71,7 @@ TextureTile.prototype.bind = function (dc) {
  * If this tile's fallback texture is used, applies the appropriate texture transform to a specified matrix.
  * Otherwise, this is a no-op.
  * @param {DrawContext} dc The current draw context.
- * @param {Matrix} matrix The matrix to apply the transform to.
+ * @param {THREE.Matrix4} matrix The matrix to apply the transform to.
  */
 TextureTile.prototype.applyInternalTransform = function (dc, matrix) {
     // Override this method if the tile has a fallback texture.

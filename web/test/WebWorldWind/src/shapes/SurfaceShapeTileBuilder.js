@@ -23,7 +23,6 @@ import GpuProgram from '../shaders/GpuProgram';
 import Level from '../util/Level';
 import LevelSet from '../util/LevelSet';
 import Location from '../geom/Location';
-import Matrix from '../geom/Matrix';
 import MemoryCache from '../cache/MemoryCache';
 import PickedObject from '../pick/PickedObject';
 import Rectangle from '../geom/Rectangle';

@@ -79,7 +79,7 @@ BasicProgram.prototype = Object.create(GpuProgram.prototype);
  * Loads the specified matrix as the value of this program's 'mvpMatrix' uniform variable.
  *
  * @param {WebGLRenderingContext} gl The current WebGL context.
- * @param {Matrix} matrix The matrix to load.
+ * @param {THREE.Matrix4} matrix The matrix to load.
  */
 BasicProgram.prototype.loadModelviewProjection = function (gl, matrix) {
     this.loadUniformMatrix(gl, matrix, this.mvpMatrixLocation);

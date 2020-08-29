@@ -543,7 +543,7 @@ var WWMath = {
     /**
      * Computes the bounding rectangle for a unit quadrilateral after applying a transformation matrix to that
      * quadrilateral.
-     * @param {Matrix} transformMatrix The matrix to apply to the unit quadrilateral.
+     * @param {THREE.Matrix4} transformMatrix The matrix to apply to the unit quadrilateral.
      * @returns {Rectangle} The computed bounding rectangle.
      */
     boundingRectForUnitQuad: function (transformMatrix) {

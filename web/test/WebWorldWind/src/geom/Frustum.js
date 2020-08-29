@@ -118,7 +118,7 @@ Object.defineProperties(Frustum.prototype, {
 
 /**
  * Transforms this frustum by a specified matrix.
- * @param {Matrix} matrix The matrix to apply to this frustum.
+ * @param {THREE.Matrix4} matrix The matrix to apply to this frustum.
  * @returns {Frustum} This frustum set to its original value multiplied by the specified matrix.
  */
 Frustum.prototype.transformByMatrix = function (matrix) {
@@ -171,7 +171,7 @@ Frustum.unitFrustum = function () {
  * A projection matrix's view frustum is a Cartesian volume that contains everything visible in a scene displayed
  * using that projection matrix.
  *
- * @param {Matrix} matrix The projection matrix to extract the frustum from.
+ * @param {THREE.Matrix4} matrix The projection matrix to extract the frustum from.
  * @return {Frustum} A new frustum containing the projection matrix's view frustum, in eye coordinates.
  */
 Frustum.fromProjectionMatrix = function (matrix) {

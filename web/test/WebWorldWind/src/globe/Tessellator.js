@@ -21,7 +21,6 @@ import Angle from '../geom/Angle';
 import BasicProgram from '../shaders/BasicProgram';
 import LevelSet from '../util/LevelSet';
 import Location from '../geom/Location';
-import Matrix from '../geom/Matrix';
 import MemoryCache from '../cache/MemoryCache';
 import PickedObject from '../pick/PickedObject';
 import Position from '../geom/Position';

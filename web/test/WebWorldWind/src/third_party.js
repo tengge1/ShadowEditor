@@ -272,7 +272,7 @@ THREE.Matrix4.prototype.setToScreenProjection = function (viewportWidth, viewpor
  * usually used to change the coordinate origin from an upper left coordinate origin to a lower left coordinate
  * origin. This is typically necessary to align the coordinate system of images (top-left origin) with that of
  * OpenGL (bottom-left origin).
- * @returns {Matrix} This matrix set to values described above.
+ * @returns {THREE.Matrix4} This matrix set to values described above.
  */
 THREE.Matrix4.prototype.setToUnitYFlip = function() {
     var elem = this.elements;

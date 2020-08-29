@@ -18,7 +18,6 @@
  * @exports StarFieldLayer
  */
 import Layer from './Layer';
-import Matrix from '../geom/Matrix';
 import StarFieldProgram from '../shaders/StarFieldProgram';
 import SunPosition from '../util/SunPosition';
 import global from '../global';

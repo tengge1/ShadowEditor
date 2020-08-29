@@ -17,8 +17,6 @@
 /**
  * @exports SurfaceTile
  */
-import Matrix from '../geom/Matrix';
-import Sector from '../geom/Sector';
 
 
 /**
@@ -51,7 +49,7 @@ SurfaceTile.prototype.bind = function (dc) {
  * resource with the terrain.
  * Subclasses must override this function.
  * @param {DrawContext} dc The current draw context.
- * @param {Matrix} matrix The transform to apply.
+ * @param {THREE.Matrix4} matrix The transform to apply.
  */
 SurfaceTile.prototype.applyInternalTransform = function (dc, matrix) {
 };

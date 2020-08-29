@@ -286,7 +286,7 @@ Vec3.prototype.divide = function (divisor) {
  * Multiplies this vector by a 4x4 matrix. The multiplication is performed with an implicit W component of 1.
  * The resultant W component of the product is then divided through the X, Y, and Z components.
  *
- * @param {Matrix} matrix The matrix to multiply this vector by.
+ * @param {THREE.Matrix4} matrix The matrix to multiply this vector by.
  * @returns {Vec3} This vector multiplied by the specified matrix.
  */
 Vec3.prototype.multiplyByMatrix = function (matrix) {
