@@ -21,6 +21,7 @@ import BasicProgram from '../shaders/BasicProgram';
 import Vec3 from '../geom/Vec3';
 import WWMath from '../util/WWMath';
 import WWUtil from '../util/WWUtil';
+import Plane from './Plane';
 
 /**
  * Constructs a unit bounding box.
@@ -282,11 +283,28 @@ BoundingBox.prototype.effectiveRadius = function (plane) {
  * @returns {boolean} true if the specified frustum intersects this bounding box, otherwise false.
  */
 BoundingBox.prototype.intersectsFrustum = function () {
-    var sphere = new THREE.Sphere();
+    // var sphere = new THREE.Sphere();
+    var plane = new Plane();
     return function(frustum) {
-        sphere.center.fromArray(this.center);
-        sphere.radius = this.radius;
-        return frustum.intersectsSphere(sphere);
+        this.tmp1.copy(this.bottomCenter);
+        this.tmp2.copy(this.topCenter);
+
+        for(var i = 0; i < frustum.planes.length; i++) {
+            var plan = frustum.planes[i];
+            plane.normal[0] = plan.normal[0];
+            plane.normal[1] = plan.normal[1];
+            plane.normal[2] = plan.normal[2];
+            plane.distance = plan.distance;
+            if (this.intersectionPoint(plane) < 0) {
+                return false;
+            }
+        }
+
+        return true;
+        
+        // sphere.center.fromArray(this.center);
+        // sphere.radius = this.radius;
+        // return frustum.intersectsSphere(sphere);
     };
 }();
 
