@@ -32,8 +32,8 @@ import SurfaceTileRendererProgram from '../shaders/SurfaceTileRendererProgram';
 function SurfaceTileRenderer() {
 
     // Scratch values to avoid constantly recreating these matrices.
-    this.texMaskMatrix = Matrix.fromIdentity();
-    this.texSamplerMatrix = Matrix.fromIdentity();
+    this.texMaskMatrix = new THREE.Matrix4();
+    this.texSamplerMatrix = new THREE.Matrix4();
 
     // Internal. Intentionally not documented.
     this.isSurfaceShapeTileRendering = false;
@@ -163,7 +163,7 @@ SurfaceTileRenderer.prototype.applyTileState = function (dc, terrainTile, surfac
 
     this.texSamplerMatrix.setToUnitYFlip();
     surfaceTile.applyInternalTransform(dc, this.texSamplerMatrix);
-    this.texSamplerMatrix.multiplyMatrix(this.texMaskMatrix);
+    this.texSamplerMatrix.multiply(this.texMaskMatrix);
 
     program.loadTexSamplerMatrix(gl, this.texSamplerMatrix);
     program.loadTexMaskMatrix(gl, this.texMaskMatrix);

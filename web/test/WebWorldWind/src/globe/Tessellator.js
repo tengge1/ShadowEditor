@@ -78,7 +78,7 @@ function Tessellator() {
     this.tileCache = new MemoryCache(5000000, 4000000); // Holds 316 32x32 tiles.
 
     this.elevationTimestamp = undefined;
-    this.lastModelViewProjection = Matrix.fromIdentity();
+    this.lastModelViewProjection = new THREE.Matrix4();
 
     this.vertexPointLocation = -1;
     this.vertexTexCoordLocation = -1;
@@ -131,7 +131,7 @@ function Tessellator() {
     this.wireframeIndicesOffset = null;
     this.numWireframeIndices = null;
 
-    this.scratchMatrix = Matrix.fromIdentity();
+    this.scratchMatrix = new THREE.Matrix4();
     this.scratchElevations = null;
     this.scratchPrevElevations = null;
 
@@ -253,7 +253,7 @@ Tessellator.prototype.beginRenderingTile = function (dc, terrainTile) {
     var gl = dc.currentGlContext,
         gpuResourceCache = dc.gpuResourceCache;
 
-    this.scratchMatrix.setToMultiply(dc.modelviewProjection, terrainTile.transformationMatrix);
+    this.scratchMatrix.multiplyMatrices(dc.modelviewProjection, terrainTile.transformationMatrix);
     dc.currentProgram.loadModelviewProjection(gl, this.scratchMatrix);
 
     var vboCacheKey = dc.globeStateKey + terrainTile.tileKey,
@@ -712,7 +712,7 @@ Tessellator.prototype.regenerateTileGeometry = function (dc, tile) {
     dc.globe.computePointsForGrid(tile.sector, numLat, numLon, elevations, refPoint, tile.points);
 
     // Establish a transform that is used later to move the tile coordinates into place relative to the globe.
-    tile.transformationMatrix.setTranslation(refPoint[0], refPoint[1], refPoint[2]);
+    tile.transformationMatrix.makeTranslation(refPoint[0], refPoint[1], refPoint[2]);
 };
 
 Tessellator.prototype.buildSharedGeometry = function () {

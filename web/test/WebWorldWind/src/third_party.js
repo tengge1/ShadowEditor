@@ -264,3 +264,35 @@ THREE.Matrix4.prototype.setToScreenProjection = function (viewportWidth, viewpor
 
     return this;
 };
+
+/**
+ * Sets this matrix to one that flips and shifts the y-axis.
+ * <p>
+ * The resultant matrix maps Y=0 to Y=1 and Y=1 to Y=0. All existing values are overwritten. This matrix is
+ * usually used to change the coordinate origin from an upper left coordinate origin to a lower left coordinate
+ * origin. This is typically necessary to align the coordinate system of images (top-left origin) with that of
+ * OpenGL (bottom-left origin).
+ * @returns {Matrix} This matrix set to values described above.
+ */
+THREE.Matrix4.prototype.setToUnitYFlip = function() {
+    var elem = this.elements;
+
+    elem[0] = 1;
+    elem[1] = 0;
+    elem[2] = 0;
+    elem[3] = 0;
+    elem[4] = 0;
+    elem[5] = -1;
+    elem[6] = 0;
+    elem[7] = 0;
+    elem[8] = 0;
+    elem[9] = 0;
+    elem[10] = 1;
+    elem[11] = 0;
+    elem[12] = 0;
+    elem[13] = 1;
+    elem[14] = 0;
+    elem[15] = 1;
+
+    return this;
+};

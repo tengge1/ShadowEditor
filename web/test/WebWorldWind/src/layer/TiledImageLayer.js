@@ -111,7 +111,7 @@ function TiledImageLayer(sector, levelZeroDelta, numLevels, imageFormat, cachePa
     this.pickEnabled = false;
 
     // Internal. Intentionally not documented.
-    this.lasTtMVP = Matrix.fromIdentity();
+    this.lasTtMVP = new THREE.Matrix4();
 }
 
 TiledImageLayer.prototype = Object.create(Layer.prototype);

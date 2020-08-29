@@ -202,8 +202,7 @@ GpuProgram.prototype.link = function (gl, program) {
  * @param {WebGLUniformLocation} location The location of the uniform variable in the currently bound GLSL program.
  */
 GpuProgram.prototype.loadUniformMatrix = function (gl, matrix, location) {
-    var columnMajorArray = matrix.columnMajorComponents(this.scratchArray);
-    gl.uniformMatrix4fv(location, false, columnMajorArray);
+    gl.uniformMatrix4fv(location, false, matrix.elements);
 };
 
 /**

@@ -73,7 +73,7 @@ function WorldWindow(canvasElem) {
     this.redrawRequestId = null;
 
     // Internal. Intentionally not documented.
-    this.scratchModelview = Matrix.fromIdentity();
+    this.scratchModelview = new THREE.Matrix4();
 
     // Internal. Intentionally not documented.
     this.scratchProjection = Matrix.fromIdentity();

@@ -40,7 +40,7 @@ function TerrainTile(sector, level, row, column) {
      * The transformation matrix that maps tile local coordinates to model coordinates.
      * @type {Matrix}
      */
-    this.transformationMatrix = Matrix.fromIdentity();
+    this.transformationMatrix = new THREE.Matrix4();
 
     /**
      * The tile's model coordinate points.
