@@ -96,32 +96,38 @@ ImageTile.prototype.applyInternalTransform = function (dc, matrix) {
 };
 
 // Intentionally not documented.
-ImageTile.prototype.applyFallbackTransform = function (matrix) {
-    var deltaLevel = this.level.levelNumber - this.fallbackTile.level.levelNumber;
-    if (deltaLevel <= 0)
-        return;
+ImageTile.prototype.applyFallbackTransform = function () {
+    var temp = new THREE.Matrix4();
+    return function (matrix) {
+        var deltaLevel = this.level.levelNumber - this.fallbackTile.level.levelNumber;
+        if (deltaLevel <= 0)
+            return;
 
-    var fbTileDeltaLat = this.fallbackTile.sector.deltaLatitude(),
-        fbTileDeltaLon = this.fallbackTile.sector.deltaLongitude(),
-        sx = this.sector.deltaLongitude() / fbTileDeltaLon,
-        sy = this.sector.deltaLatitude() / fbTileDeltaLat,
-        tx = (this.sector.minLongitude - this.fallbackTile.sector.minLongitude) / fbTileDeltaLon,
-        ty = (this.sector.minLatitude - this.fallbackTile.sector.minLatitude) / fbTileDeltaLat;
+        var fbTileDeltaLat = this.fallbackTile.sector.deltaLatitude(),
+            fbTileDeltaLon = this.fallbackTile.sector.deltaLongitude(),
+            sx = this.sector.deltaLongitude() / fbTileDeltaLon,
+            sy = this.sector.deltaLatitude() / fbTileDeltaLat,
+            tx = (this.sector.minLongitude - this.fallbackTile.sector.minLongitude) / fbTileDeltaLon,
+            ty = (this.sector.minLatitude - this.fallbackTile.sector.minLatitude) / fbTileDeltaLat;
 
-    // Apply a transform to the matrix that maps texture coordinates for this tile to texture coordinates for the
-    // fallback tile. Rather than perform the full set of matrix operations, a single multiply is performed with the
-    // precomputed non-zero values:
-    //
-    // Matrix trans = THREE.Matrix4.fromTranslation(tx, ty, 0);
-    // Matrix scale = Matrix.fromScale(sxy, sxy, 1);
-    // matrix.multiply(trans);
-    // matrix.multiply(scale);
+        // Apply a transform to the matrix that maps texture coordinates for this tile to texture coordinates for the
+        // fallback tile. Rather than perform the full set of matrix operations, a single multiply is performed with the
+        // precomputed non-zero values:
+        //
+        // Matrix trans = THREE.Matrix4.fromTranslation(tx, ty, 0);
+        // Matrix scale = Matrix.fromScale(sxy, sxy, 1);
+        // matrix.multiply(trans);
+        // matrix.multiply(scale);
 
-    matrix.multiply(
-        sx, 0, 0, tx,
-        0, sy, 0, ty,
-        0, 0, 1, 0,
-        0, 0, 0, 1);
-};
+        temp.set(
+            sx, 0, 0, tx,
+            0, sy, 0, ty,
+            0, 0, 1, 0,
+            0, 0, 0, 1
+        );
+
+        matrix.multiply(temp);
+    };
+}();
 
 export default ImageTile;

@@ -632,6 +632,11 @@ WorldWindow.prototype.computePixelMetrics = function () {
     return function(projection) {
         projectionInv.getInverse(projection);
 
+        nbl.set(-1, -1, -1);
+        ntr.set(+1, +1, -1);
+        fbl.set(-1, -1, +1);
+        ftr.set(+1, +1, +1);
+
         nbl.applyMatrix4(projectionInv);
         ntr.applyMatrix4(projectionInv);
         fbl.applyMatrix4(projectionInv);
@@ -688,6 +693,9 @@ WorldWindow.prototype.computeDrawContext = function () {
         dc.modelviewProjection.multiplyMatrices(dc.projection, dc.modelview);
     
         var pixelMetrics = this.computePixelMetrics(dc.projection);
+        if(isNaN(pixelMetrics.pixelSizeFactor)) {
+            debugger;
+        }
         dc.pixelSizeFactor = pixelMetrics.pixelSizeFactor;
         dc.pixelSizeOffset = pixelMetrics.pixelSizeOffset;
 
