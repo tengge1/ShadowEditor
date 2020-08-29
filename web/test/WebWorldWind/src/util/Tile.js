@@ -161,11 +161,11 @@ Tile.prototype.size = function () {
 
 /**
  * Computes an approximate distance from this tile to a specified vector.
- * @param {Vec3} vector The vector to compute the distance to.
+ * @param {THREE.Vector3} vector The vector to compute the distance to.
  * @returns {number} The distance between this tile and the vector.
  */
 Tile.prototype.distanceTo = function (vector) {
-    var px = vector[0], py = vector[1], pz = vector[2],
+    var px = vector.x, py = vector.y, pz = vector.z,
         dx, dy, dz,
         points = this.samplePoints,
         distance = Number.POSITIVE_INFINITY;
