@@ -41,7 +41,6 @@ import global from '../global';
  *     <li>retrievalImageFormat: {String} The mime type of the elevation data retrieved by this coverage.</li>
  *     <li>minElevation (optional): {Number} The coverage's minimum elevation in meters.</li>
  *     <li>maxElevation (optional): {Number} Te coverage's maximum elevation in meters.</li>
- *     <li>urlBuilder (optional): {UrlBuilder} The factory to create URLs for elevation data requests.</li>
  * <ul>
  */
 function TiledElevationCoverage(config) {
@@ -142,16 +141,6 @@ function TiledElevationCoverage(config) {
      * @ignore
      */
     this.absentResourceList = new AbsentResourceList(3, 5e3);
-
-    /**
-     * Internal use only
-     * The factory to create URLs for data requests. This property is typically set in the constructor of child
-     * classes. See {@link WcsUrlBuilder} for a concrete example.
-     * @type {UrlBuilder}
-     * @ignore
-     */
-    // this.urlBuilder = new UrlBuilder() || null;
-    this.urlBuilder = config.urlBuilder || null;
 }
 
 TiledElevationCoverage.prototype = Object.create(ElevationCoverage.prototype);
@@ -389,7 +378,7 @@ TiledElevationCoverage.prototype.isTileImageInMemory = function (tile) {
 
 // Intentionally not documented.
 TiledElevationCoverage.prototype.resourceUrlForTile = function (tile) {
-    return this.urlBuilder.urlForTile(tile, this.retrievalImageFormat);
+    return null;
 };
 
 // Intentionally not documented.

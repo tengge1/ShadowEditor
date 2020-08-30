@@ -2,12 +2,6 @@ import MercatorTiledImageLayer from './MercatorTiledImageLayer';
 import Sector from '../geom/Sector';
 import Location from '../geom/Location';
 
-class URLBuilder {
-    urlForTile(tile, imageFormat) {
-        return `http://localhost:2020/api/Map/Tiles?x=${tile.column}&y=${tile.row}&z=${tile.level.levelNumber}`;
-    }
-}
-
 class XYZLayer extends MercatorTiledImageLayer {
     constructor() {
         let imageSize = 256;
@@ -17,7 +11,6 @@ class XYZLayer extends MercatorTiledImageLayer {
 
         this.imageSize = imageSize;
         this.displayName = displayName;
-        this.urlBuilder = new URLBuilder();
     }
 
     createTopLevelTiles(dc) {
@@ -28,6 +21,10 @@ class XYZLayer extends MercatorTiledImageLayer {
         this.topLevelTiles.push(this.createTile(null, level, 0, 1));
         this.topLevelTiles.push(this.createTile(null, level, 1, 0));
         this.topLevelTiles.push(this.createTile(null, level, 1, 1));
+    }
+
+    resourceUrlForTile(tile, imageFormat) {
+        return `http://localhost:2020/api/Map/Tiles?x=${tile.column}&y=${tile.row}&z=${tile.level.levelNumber}`;
     }
 }
 

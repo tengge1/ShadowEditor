@@ -468,11 +468,7 @@ TiledImageLayer.prototype.removeFromCurrentRetrievals = function (imagePath) {
  * @protected
  */
 TiledImageLayer.prototype.resourceUrlForTile = function (tile, imageFormat) {
-    if (this.urlBuilder) {
-        return this.urlBuilder.urlForTile(tile, imageFormat);
-    } else {
-        return null;
-    }
+    return null;
 };
 
 export default TiledImageLayer;

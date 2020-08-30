@@ -19,7 +19,6 @@
  */
 import Sector from '../geom/Sector';
 import TiledElevationCoverage from '../globe/TiledElevationCoverage';
-import WmsUrlBuilder from '../util/WmsUrlBuilder';
 import ElevationImage from './ElevationImage';
 import WWMath from '../util/WWMath';
 import ArcgisElevationWorker from 'worker!./ArcgisElevationWorker.js';
@@ -38,8 +37,7 @@ function ArcgisElevationCoverage() {
         resolution: 360 / 2 ** 16 / 256,
         retrievalImageFormat: "application/bil16",
         minElevation: -450,
-        maxElevation: 8700,
-        urlBuilder: new WmsUrlBuilder("http://localhost:2020/api/Map/Elev", "WorldElevation3D", "", "1.3.0")
+        maxElevation: 8700
     });
     this.worker = new ArcgisElevationWorker();
     this.worker.onmessage = this.handleMessage.bind(this);
