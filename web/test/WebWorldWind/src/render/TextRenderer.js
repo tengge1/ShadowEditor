@@ -133,8 +133,8 @@ TextRenderer.prototype.drawText = function (text) {
         strokeOffset = this.enableOutline ? this.outlineWidth / 2 : 0,
         pixelScale = this.dc.pixelScale;
 
-    canvas2D.width = Math.ceil(textSize[0]) * pixelScale;
-    canvas2D.height = Math.ceil(textSize[1]) * pixelScale;
+    canvas2D.width = Math.ceil(textSize.x) * pixelScale;
+    canvas2D.height = Math.ceil(textSize.y) * pixelScale;
 
     ctx2D.scale(pixelScale, pixelScale);
     ctx2D.font = this.typeFace.fontString;
@@ -149,9 +149,9 @@ TextRenderer.prototype.drawText = function (text) {
     if (this.typeFace.horizontalAlignment === "left") {
         ctx2D.translate(strokeOffset, 0);
     } else if (this.typeFace.horizontalAlignment === "right") {
-        ctx2D.translate(textSize[0] - strokeOffset, 0);
+        ctx2D.translate(textSize.x - strokeOffset, 0);
     } else {
-        ctx2D.translate(textSize[0] / 2, 0);
+        ctx2D.translate(textSize.x / 2, 0);
     }
 
     for (var i = 0; i < lines.length; i++) {
@@ -240,7 +240,7 @@ TextRenderer.prototype.wrapLine = function (text, width) {
     // Single line - trim leading and trailing spaces
     var source = text.trim();
     var lineBounds = this.textSize(source);
-    if (lineBounds[0] > width) {
+    if (lineBounds.x > width) {
         // Split single line to fit preferred width
         var line = "";
         var start = 0;
@@ -253,7 +253,7 @@ TextRenderer.prototype.wrapLine = function (text, width) {
             // Extract a 'word' which is in fact a space and a word
             var word = source.substring(start, end);
             var linePlusWord = line + word;
-            if (this.textSize(linePlusWord)[0] <= width) {
+            if (this.textSize(linePlusWord).x <= width) {
                 // Keep adding to the current line
                 line += word;
             }

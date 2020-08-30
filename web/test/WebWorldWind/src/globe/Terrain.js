@@ -17,8 +17,6 @@
 /**
  * @exports Terrain
  */
-import Vec3 from '../geom/Vec3';
-
 
 /**
  * Constructs a Terrain object.
@@ -69,15 +67,15 @@ function Terrain(globe, tessellator, terrainTiles, verticalExaggeration) {
     this.stateKey = globe.stateKey + " ve " + verticalExaggeration.toString();
 }
 
-Terrain.scratchPoint = new Vec3(0, 0, 0);
+Terrain.scratchPoint = new THREE.Vector3();
 
 /**
  * Computes a Cartesian point at a location on the surface of this terrain.
  * @param {Number} latitude The location's latitude.
  * @param {Number} longitude The location's longitude.
  * @param {Number} offset Distance above the terrain, in meters, at which to compute the point.
- * @param {Vec3} result A pre-allocated Vec3 in which to return the computed point.
- * @returns {Vec3} The specified result parameter, set to the coordinates of the computed point. If the
+ * @param {THREE.Vector3} result A pre-allocated THREE.Vector3 in which to return the computed point.
+ * @returns {THREE.Vector3} The specified result parameter, set to the coordinates of the computed point. If the
  * specfied location is not within this terrain, the associated globe is used to compute the point.
  */
 Terrain.prototype.surfacePoint = function (latitude, longitude, offset, result) {
@@ -86,10 +84,10 @@ Terrain.prototype.surfacePoint = function (latitude, longitude, offset, result) 
             this.surfaceGeometry[i].surfacePoint(latitude, longitude, result);
 
             if (offset) {
-                var normal = this.globe.surfaceNormalAtPoint(result[0], result[1], result[2], Terrain.scratchPoint);
-                result[0] += normal[0] * offset;
-                result[1] += normal[1] * offset;
-                result[2] += normal[2] * offset;
+                var normal = this.globe.surfaceNormalAtPoint(result.x, result.y, result.z, Terrain.scratchPoint);
+                result.x += normal.x * offset;
+                result.y += normal.y * offset;
+                result.z += normal.z * offset;
             }
 
             return result;
@@ -114,8 +112,8 @@ Terrain.prototype.surfacePoint = function (latitude, longitude, offset, result) 
  * WorldWind.ABSOLUTE, WorldWind.CLAMP_TO_GROUND and
  * WorldWind.RELATIVE_TO_GROUND. The mode WorldWind.ABSOLUTE is used if the
  * specified mode is null, undefined or unrecognized, or if the specified location is outside this terrain.
- * @param {Vec3} result A pre-allocated Vec3 in which to return the computed point.
- * @returns {Vec3} The specified result parameter, set to the coordinates of the computed point.
+ * @param {THREE.Vector3} result A pre-allocated THREE.Vector3 in which to return the computed point.
+ * @returns {THREE.Vector3} The specified result parameter, set to the coordinates of the computed point.
  */
 Terrain.prototype.surfacePointForMode = function (latitude, longitude, offset, altitudeMode, result) {
     if (!altitudeMode)

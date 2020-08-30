@@ -18,8 +18,6 @@
  * @exports GeographicText
  */
 import Text from '../shapes/Text';
-import Vec3 from '../geom/Vec3';
-
 
 /**
  * Constructs a geographic text shape at a specified position.
@@ -56,7 +54,7 @@ function GeographicText(position, text) {
 }
 
 // Internal use only. Intentionally not documented.
-GeographicText.placePoint = new Vec3(0, 0, 0); // Cartesian point corresponding to this placemark's geographic position
+GeographicText.placePoint = new THREE.Vector3(); // Cartesian point corresponding to this placemark's geographic position
 
 GeographicText.prototype = Object.create(Text.prototype);
 

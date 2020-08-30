@@ -156,7 +156,7 @@ TiledElevationCoverage.prototype.minAndMaxElevationsForSector = function (sector
     if (!image || !image.hasData) {
         return false;
     }
-
+    
     result[0] = image.minElevation;
     result[1] = image.maxElevation;
 

@@ -18,7 +18,6 @@
  * @exports BoundingBox
  */
 import BasicProgram from '../shaders/BasicProgram';
-import Vec3 from '../geom/Vec3';
 import WWMath from '../util/WWMath';
 import WWUtil from '../util/WWUtil';
 import Plane from './Plane';
@@ -35,45 +34,45 @@ function BoundingBox() {
 
     /**
      * The box's center point.
-     * @type {Vec3}
+     * @type {THREE.Vector3}
      * @default (0, 0, 0)
      */
-    this.center = new Vec3(0, 0, 0);
+    this.center = new THREE.Vector3();
 
     /**
      * The center point of the box's bottom. (The origin of the R axis.)
-     * @type {Vec3}
+     * @type {THREE.Vector3}
      * @default (-0.5, 0, 0)
      */
-    this.bottomCenter = new Vec3(-0.5, 0, 0);
+    this.bottomCenter = new THREE.Vector3(-0.5, 0, 0);
 
     /**
      * The center point of the box's top. (The end of the R axis.)
-     * @type {Vec3}
+     * @type {THREE.Vector3}
      * @default (0.5, 0, 0)
      */
-    this.topCenter = new Vec3(0.5, 0, 0);
+    this.topCenter = new THREE.Vector3(0.5, 0, 0);
 
     /**
      * The box's R axis, its longest axis.
-     * @type {Vec3}
+     * @type {THREE.Vector3}
      * @default (1, 0, 0)
      */
-    this.r = new Vec3(1, 0, 0);
+    this.r = new THREE.Vector3(1, 0, 0);
 
     /**
      * The box's S axis, its mid-length axis.
-     * @type {Vec3}
+     * @type {THREE.Vector3}
      * @default (0, 1, 0)
      */
-    this.s = new Vec3(0, 1, 0);
+    this.s = new THREE.Vector3(0, 1, 0);
 
     /**
      * The box's T axis, its shortest axis.
-     * @type {Vec3}
+     * @type {THREE.Vector3}
      * @default (0, 0, 1)
      */
-    this.t = new Vec3(0, 0, 1);
+    this.t = new THREE.Vector3(0, 0, 1);
 
     /**
      * The box's radius. (The half-length of its diagonal.)
@@ -83,9 +82,9 @@ function BoundingBox() {
     this.radius = Math.sqrt(3);
 
     // Internal use only. Intentionally not documented.
-    this.tmp1 = new Vec3(0, 0, 0);
-    this.tmp2 = new Vec3(0, 0, 0);
-    this.tmp3 = new Vec3(0, 0, 0);
+    this.tmp1 = new THREE.Vector3();
+    this.tmp2 = new THREE.Vector3();
+    this.tmp3 = new THREE.Vector3();
 
     // Internal use only. Intentionally not documented.
     this.scratchElevations = new Float64Array(9);
@@ -96,16 +95,16 @@ function BoundingBox() {
 BoundingBox.scratchMatrix = new THREE.Matrix4();
 
 /**
- * Returns the eight {@link Vec3} corners of the box.
+ * Returns the eight {@link THREE.Vector3} corners of the box.
  *
  * @returns {Array} the eight box corners in the order bottom-lower-left, bottom-lower-right, bottom-upper-right,
  *         bottom-upper-left, top-lower-left, top-lower-right, top-upper-right, top-upper-left.
  */
 BoundingBox.prototype.getCorners = function () {
-    var ll = new Vec3(this.s[0], this.s[1], this.s[2]);
-    var lr = new Vec3(this.t[0], this.t[1], this.t[2]);
-    var ur = new Vec3(this.s[0], this.s[1], this.s[2]);
-    var ul = new Vec3(this.s[0], this.s[1], this.s[2]);
+    var ll = new THREE.Vector3(this.s.x, this.s.y, this.s.z);
+    var lr = new THREE.Vector3(this.t.x, this.t.y, this.t.z);
+    var ur = new THREE.Vector3(this.s.x, this.s.y, this.s.z);
+    var ul = new THREE.Vector3(this.s.x, this.s.y, this.s.z);
 
     ll.add(this.t).multiply(-0.5);     // Lower left.
     lr.subtract(this.s).multiply(0.5); // Lower right.
@@ -114,11 +113,11 @@ BoundingBox.prototype.getCorners = function () {
 
     var corners = [];
     for (var i = 0; i < 4; i++) {
-        corners.push(new Vec3(this.bottomCenter[0], this.bottomCenter[1], this.bottomCenter[2]));
+        corners.push(new THREE.Vector3(this.bottomCenter.x, this.bottomCenter.y, this.bottomCenter.z));
     }
 
     for (i = 0; i < 4; i++) {
-        corners.push(new Vec3(this.topCenter[0], this.topCenter[1], this.topCenter[2]));
+        corners.push(new THREE.Vector3(this.topCenter.x, this.topCenter.y, this.topCenter.z));
     }
 
     corners[0].add(ll);
@@ -135,7 +134,7 @@ BoundingBox.prototype.getCorners = function () {
 
 /**
  * Sets this bounding box such that it minimally encloses a specified collection of points.
- * @param {Vec3} points The points to contain.
+ * @param {THREE.Vector3} points The points to contain.
  * @returns {BoundingBox} This bounding box set to contain the specified points.
  */
 BoundingBox.prototype.setToVec3Points = function (points) {
@@ -171,7 +170,7 @@ BoundingBox.prototype.setToSector = function (sector, globe, minElevation, maxEl
 
     WWUtil.fillArray(elevations, maxElevation);
     elevations[0] = elevations[2] = elevations[6] = elevations[8] = minElevation;
-    globe.computePointsForGrid(sector, 3, 3, elevations, Vec3.ZERO, points);
+    globe.computePointsForGrid(sector, 3, 3, elevations, new THREE.Vector3(), points);
 
     // Compute the local coordinate axes. Since we know this box is bounding a geographic sector, we use the
     // local coordinate axes at its centroid as the box axes. Using these axes results in a box that has +-10%
@@ -220,12 +219,12 @@ BoundingBox.prototype.setToSector = function (sector, globe, minElevation, maxEl
         sSum = sExtremes[1] + sExtremes[0],
         tSum = tExtremes[1] + tExtremes[0],
 
-        cx = 0.5 * (this.r[0] * rSum + this.s[0] * sSum + this.t[0] * tSum),
-        cy = 0.5 * (this.r[1] * rSum + this.s[1] * sSum + this.t[1] * tSum),
-        cz = 0.5 * (this.r[2] * rSum + this.s[2] * sSum + this.t[2] * tSum),
-        rx_2 = 0.5 * this.r[0] * rLen,
-        ry_2 = 0.5 * this.r[1] * rLen,
-        rz_2 = 0.5 * this.r[2] * rLen;
+        cx = 0.5 * (this.r.x * rSum + this.s.x * sSum + this.t.x * tSum),
+        cy = 0.5 * (this.r.y * rSum + this.s.y * sSum + this.t.y * tSum),
+        cz = 0.5 * (this.r.z * rSum + this.s.z * sSum + this.t.z * tSum),
+        rx_2 = 0.5 * this.r.x * rLen,
+        ry_2 = 0.5 * this.r.y * rLen,
+        rz_2 = 0.5 * this.r.z * rLen;
 
     this.center.set(cx, cy, cz);
     this.topCenter.set(cx + rx_2, cy + ry_2, cz + rz_2);
@@ -242,7 +241,7 @@ BoundingBox.prototype.setToSector = function (sector, globe, minElevation, maxEl
 
 /**
  * Translates this bounding box by a specified translation vector.
- * @param {Vec3} translation The translation vector.
+ * @param {THREE.Vector3} translation The translation vector.
  * @returns {BoundingBox} This bounding box translated by the specified translation vector.
  */
 BoundingBox.prototype.translate = function (translation) {
@@ -257,7 +256,7 @@ BoundingBox.prototype.translate = function (translation) {
  * Computes the approximate distance between this bounding box and a specified point.
  * <p>
  * This calculation treats the bounding box as a sphere with the same radius as the box.
- * @param {Vec3} point The point to compute the distance to.
+ * @param {THREE.Vector3} point The point to compute the distance to.
  * @returns {Number} The distance from the edge of this bounding box to the specified point.
  */
 BoundingBox.prototype.distanceTo = function (point) {
@@ -291,9 +290,9 @@ BoundingBox.prototype.intersectsFrustum = function () {
 
         for(var i = 0; i < frustum.planes.length; i++) {
             var plan = frustum.planes[i];
-            plane.normal[0] = plan.normal[0];
-            plane.normal[1] = plan.normal[1];
-            plane.normal[2] = plan.normal[2];
+            plane.normal.x = plan.normal.x;
+            plane.normal.y = plan.normal.y;
+            plane.normal.z = plan.normal.z;
             plane.distance = plan.distance;
             if (this.intersectionPoint(plane) < 0) {
                 return false;
@@ -410,9 +409,9 @@ BoundingBox.prototype.render = function (dc) {
         // current navigator state.
         matrix.copy(dc.modelviewProjection);
         matrix.multiply(
-            this.r[0], this.s[0], this.t[0], this.center[0],
-            this.r[1], this.s[1], this.t[1], this.center[1],
-            this.r[2], this.s[2], this.t[2], this.center[2],
+            this.r.x, this.s.x, this.t.x, this.center.x,
+            this.r.y, this.s.y, this.t.y, this.center.y,
+            this.r.z, this.s.z, this.t.z, this.center.z,
             0, 0, 0, 1);
         matrix.multiplyByTranslation(-0.5, -0.5, -0.5);
         program.loadModelviewProjection(gl, matrix);

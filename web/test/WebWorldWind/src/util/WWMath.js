@@ -16,7 +16,6 @@
  */
 import Angle from '../geom/Angle';
 import Rectangle from '../geom/Rectangle';
-import Vec3 from '../geom/Vec3';
 
 /**
  * Provides math constants and functions.
@@ -67,7 +66,7 @@ var WWMath = {
      * @param {Line} line The line for which to compute the intersection.
      * @param {Number} equatorialRadius The ellipsoid's major radius.
      * @param {Number} polarRadius The ellipsoid's minor radius.
-     * @param {Vec3} result A pre-allocated Vec3 instance in which to return the computed point.
+     * @param {THREE.Vector3} result A pre-allocated THREE.Vector3 instance in which to return the computed point.
      * @returns {boolean} true if the line intersects the ellipsoid, otherwise false
      * @deprecated utilize the Globe.intersectsLine method attached implementation
      */
@@ -77,12 +76,12 @@ var WWMath = {
         // Note that the parameter n from in equations 5.70 and 5.71 is omitted here. For an ellipsoidal globe this
         // parameter is always 1, so its square and its product with any other value simplifies to the identity.
 
-        var vx = line.direction[0],
-            vy = line.direction[1],
-            vz = line.direction[2],
-            sx = line.origin[0],
-            sy = line.origin[1],
-            sz = line.origin[2],
+        var vx = line.direction.x,
+            vy = line.direction.y,
+            vz = line.direction.z,
+            sx = line.origin.x,
+            sy = line.origin.y,
+            sz = line.origin.z,
             m = equatorialRadius / polarRadius, // ratio of the x semi-axis length to the y semi-axis length
             m2 = m * m,
             r2 = equatorialRadius * equatorialRadius, // nominal radius squared
@@ -97,9 +96,9 @@ var WWMath = {
         }
         else {
             t = (-b - Math.sqrt(d)) / (2 * a);
-            result[0] = sx + vx * t;
-            result[1] = sy + vy * t;
-            result[2] = sz + vz * t;
+            result.x = sx + vx * t;
+            result.y = sy + vy * t;
+            result.z = sz + vz * t;
             return true;
         }
     },
@@ -107,31 +106,31 @@ var WWMath = {
     /**
      * Computes the Cartesian intersection point of a specified line with a triangle.
      * @param {Line} line The line for which to compute the intersection.
-     * @param {Vec3} vertex0 The triangle's first vertex.
-     * @param {Vec3} vertex1 The triangle's second vertex.
-     * @param {Vec3} vertex2 The triangle's third vertex.
-     * @param {Vec3} result A pre-allocated Vec3 instance in which to return the computed point.
+     * @param {THREE.Vector3} vertex0 The triangle's first vertex.
+     * @param {THREE.Vector3} vertex1 The triangle's second vertex.
+     * @param {THREE.Vector3} vertex2 The triangle's third vertex.
+     * @param {THREE.Vector3} result A pre-allocated THREE.Vector3 instance in which to return the computed point.
      * @returns {boolean} true if the line intersects the triangle, otherwise false
      */
     computeTriangleIntersection: function (line, vertex0, vertex1, vertex2, result) {
         // Taken from Moller and Trumbore
         // https://www.cs.virginia.edu/~gfx/Courses/2003/ImageSynthesis/papers/Acceleration/Fast%20MinimumStorage%20RayTriangle%20Intersection.pdf
 
-        var vx = line.direction[0],
-            vy = line.direction[1],
-            vz = line.direction[2],
-            sx = line.origin[0],
-            sy = line.origin[1],
-            sz = line.origin[2],
+        var vx = line.direction.x,
+            vy = line.direction.y,
+            vz = line.direction.z,
+            sx = line.origin.x,
+            sy = line.origin.y,
+            sz = line.origin.z,
             EPSILON = 0.00001;
 
         // find vectors for two edges sharing point a: vertex1 - vertex0 and vertex2 - vertex0
-        var edge1x = vertex1[0] - vertex0[0],
-            edge1y = vertex1[1] - vertex0[1],
-            edge1z = vertex1[2] - vertex0[2],
-            edge2x = vertex2[0] - vertex0[0],
-            edge2y = vertex2[1] - vertex0[1],
-            edge2z = vertex2[2] - vertex0[2];
+        var edge1x = vertex1.x - vertex0.x,
+            edge1y = vertex1.y - vertex0.y,
+            edge1z = vertex1.z - vertex0.z,
+            edge2x = vertex2.x - vertex0.x,
+            edge2y = vertex2.y - vertex0.y,
+            edge2z = vertex2.z - vertex0.z;
 
         // Compute cross product of line direction and edge2
         var px = vy * edge2z - vz * edge2y,
@@ -147,9 +146,9 @@ var WWMath = {
         var inv_det = 1.0 / det;
 
         // Compute distance for vertex A to ray origin: origin - vertex0
-        var tx = sx - vertex0[0],
-            ty = sy - vertex0[1],
-            tz = sz - vertex0[2];
+        var tx = sx - vertex0.x,
+            ty = sy - vertex0.y,
+            tz = sz - vertex0.z;
 
         // Calculate u parameter and test bounds: 1/det * t dot p
         var u = inv_det * (tx * px + ty * py + tz * pz);
@@ -173,39 +172,39 @@ var WWMath = {
         if (t < 0) {
             return false;
         } else {
-            result[0] = sx + vx * t;
-            result[1] = sy + vy * t;
-            result[2] = sz + vz * t;
+            result.x = sx + vx * t;
+            result.y = sy + vy * t;
+            result.z = sz + vz * t;
             return true;
         }
     },
 
     computeIndexedTrianglesIntersection: function (line, points, indices, results) {
-        var v0 = new Vec3(0, 0, 0),
-            v1 = new Vec3(0, 0, 0),
-            v2 = new Vec3(0, 0, 0),
-            iPoint = new Vec3(0, 0, 0);
+        var v0 = new THREE.Vector3(),
+            v1 = new THREE.Vector3(),
+            v2 = new THREE.Vector3(),
+            iPoint = new THREE.Vector3();
 
         for (var i = 0, len = indices.length; i < len; i += 3) {
             var i0 = 3 * indices[i],
                 i1 = 3 * indices[i + 1],
                 i2 = 3 * indices[i + 2];
 
-            v0[0] = points[i0];
-            v0[1] = points[i0 + 1];
-            v0[2] = points[i0 + 2];
+            v0.x = points[i0];
+            v0.y = points[i0 + 1];
+            v0.z = points[i0 + 2];
 
-            v1[0] = points[i1];
-            v1[1] = points[i1 + 1];
-            v1[2] = points[i1 + 2];
+            v1.x = points[i1];
+            v1.y = points[i1 + 1];
+            v1.z = points[i1 + 2];
 
-            v2[0] = points[i2];
-            v2[1] = points[i2 + 1];
-            v2[2] = points[i2 + 2];
+            v2.x = points[i2];
+            v2.y = points[i2 + 1];
+            v2.z = points[i2 + 2];
 
             if (WWMath.computeTriangleIntersection(line, v0, v1, v2, iPoint)) {
                 results.push(iPoint);
-                iPoint = new Vec3(0, 0, 0);
+                iPoint = new THREE.Vector3();
             }
         }
 
@@ -224,24 +223,24 @@ var WWMath = {
      * @param {Array} points The list of vertex points, organized as a list of tightly-packed XYZ tuples.
      * @param {Array} indices The list of triangle strip indices, organized as a list of vertex positions.
      * @param {Array} results A pre-allocated array instance in which to return the intersection points as
-     * {@link Vec3} instances.
+     * {@link THREE.Vector3} instances.
      */
     computeTriStripIntersections: function (line, points, indices, results) {
         // Taken from Moller and Trumbore
         // https://www.cs.virginia.edu/~gfx/Courses/2003/ImageSynthesis/papers/Acceleration/Fast%20MinimumStorage%20RayTriangle%20Intersection.pdf
 
         // Adapted from the original ray-triangle intersection algorithm to optimize for ray-triangle strip
-        // intersection. We optimize by reusing constant terms, replacing use of Vec3 with inline primitives,
+        // intersection. We optimize by reusing constant terms, replacing use of THREE.Vector3 with inline primitives,
         // and exploiting the triangle strip organization to reuse computations common to adjacent triangles.
         // These optimizations reduce worst-case terrain picking performance by approximately 50% in Chrome on a
         // 2010 iMac and a Nexus 9.
 
-        var vx = line.direction[0],
-            vy = line.direction[1],
-            vz = line.direction[2],
-            sx = line.origin[0],
-            sy = line.origin[1],
-            sz = line.origin[2],
+        var vx = line.direction.x,
+            vy = line.direction.y,
+            vz = line.direction.z,
+            sx = line.origin.x,
+            sy = line.origin.y,
+            sz = line.origin.z,
             vert0x, vert0y, vert0z,
             vert1x, vert1y, vert1z,
             vert2x, vert2y, vert2z,
@@ -256,6 +255,7 @@ var WWMath = {
             EPSILON = 0.00001;
 
         // Get the triangle strip's first vertex.
+        debugger;
         index = 3 * indices[0];
         vert1x = points[index++];
         vert1y = points[index++];
@@ -332,7 +332,7 @@ var WWMath = {
             // Calculate the point of intersection on the line: t = 1/det * edge2 dot q
             t = inv_det * (edge2x * qx + edge2y * qy + edge2z * qz);
             if (t >= 0) {
-                results.push(new Vec3(sx + vx * t, sy + vy * t, sz + vz * t));
+                results.push(new THREE.Vector3(sx + vx * t, sy + vy * t, sz + vz * t));
             }
         }
     },
@@ -397,16 +397,16 @@ var WWMath = {
      * The local coordinate system is defined such that the Z axis maps to the globe's surface normal at the point, the
      * Y axis maps to the north pointing tangent, and the X axis maps to the east pointing tangent.
      *
-     * @param {Vec3} origin The local coordinate system origin, in model coordinates.
+     * @param {THREE.Vector3} origin The local coordinate system origin, in model coordinates.
      * @param {Globe} globe The globe the coordinate system is relative to.
-     * @param {Vec3} xAxisResult A pre-allocated Vec3 in which to return the computed X axis.
-     * @param {Vec3} yAxisResult A pre-allocated Vec3 in which to return the computed Y axis.
-     * @param {Vec3} zAxisResult A pre-allocated Vec3 in which to return the computed Z axis.
+     * @param {THREE.Vector3} xAxisResult A pre-allocated THREE.Vector3 in which to return the computed X axis.
+     * @param {THREE.Vector3} yAxisResult A pre-allocated THREE.Vector3 in which to return the computed Y axis.
+     * @param {THREE.Vector3} zAxisResult A pre-allocated THREE.Vector3 in which to return the computed Z axis.
      */
     localCoordinateAxesAtPoint: function (origin, globe, xAxisResult, yAxisResult, zAxisResult) {
-        var x = origin[0],
-            y = origin[1],
-            z = origin[2];
+        var x = origin.x,
+            y = origin.y,
+            z = origin.z;
 
         // Compute the z axis from the surface normal in model coordinates. This axis is used to determine the other two
         // axes, and is the only constant in the computations below.
@@ -417,14 +417,14 @@ var WWMath = {
         globe.northTangentAtPoint(x, y, z, yAxisResult);
 
         // Compute the x axis as the cross product of the y and z axes. This ensures that the x and z axes are orthogonal.
-        xAxisResult.set(yAxisResult[0], yAxisResult[1], yAxisResult[2]);
+        xAxisResult.set(yAxisResult.x, yAxisResult.y, yAxisResult.z);
         xAxisResult.cross(zAxisResult);
         xAxisResult.normalize();
 
         // Re-compute the y axis as the cross product of the z and x axes. This ensures that all three axes are orthogonal.
         // Though the initial y axis computed above is likely to be very nearly orthogonal, we re-compute it using cross
         // products to reduce the effect of floating point rounding errors caused by working with Earth sized coordinates.
-        yAxisResult.set(zAxisResult[0], zAxisResult[1], zAxisResult[2]);
+        yAxisResult.set(zAxisResult.x, zAxisResult.y, zAxisResult.z);
         yAxisResult.cross(xAxisResult);
         yAxisResult.normalize();
     },

@@ -252,8 +252,8 @@ Frustum.prototype.containsPoint = function (point) {
 /**
  * Determines whether a line segment intersects this frustum.
  *
- * @param {Vec3} pointA One end of the segment.
- * @param {Vec3} pointB The other end of the segment.
+ * @param {THREE.Vector3} pointA One end of the segment.
+ * @param {THREE.Vector3} pointB The other end of the segment.
  *
  * @return {boolean} <code>true</code> if the segment intersects or is contained in this frustum,
  * otherwise <code>false</code>.

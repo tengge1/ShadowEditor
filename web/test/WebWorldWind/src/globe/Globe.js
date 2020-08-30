@@ -20,8 +20,6 @@
 import Angle from '../geom/Angle';
 import ProjectionWgs84 from '../projections/ProjectionWgs84';
 import Tessellator from '../globe/Tessellator';
-import Vec3 from '../geom/Vec3';
-
 
 /**
  * Constructs an ellipsoidal Globe with default radii for Earth (WGS84).
@@ -85,7 +83,7 @@ function Globe(elevationModel, projection) {
     this._offset = 0;
 
     // Internal. Intentionally not documented.
-    this.offsetVector = new Vec3(0, 0, 0);
+    this.offsetVector = new THREE.Vector3();
 
     // A unique ID for this globe. Intentionally not documented.
     this.id = ++Globe.idPool;
@@ -166,7 +164,7 @@ Object.defineProperties(Globe.prototype, {
         },
         set: function (offset) {
             this._offset = offset;
-            this.offsetVector[0] = offset * 2 * Math.PI * this.equatorialRadius;
+            this.offsetVector.x = offset * 2 * Math.PI * this.equatorialRadius;
         }
     }
 });
@@ -177,9 +175,9 @@ Object.defineProperties(Globe.prototype, {
  * @param {Number} latitude The position's latitude.
  * @param {Number} longitude The position's longitude.
  * @param {Number} altitude The position's altitude.
- * @param {Vec3} result A reference to a pre-allocated {@link Vec3} in which to return the computed X,
+ * @param {THREE.Vector3} result A reference to a pre-allocated {@link THREE.Vector3} in which to return the computed X,
  * Y and Z Cartesian coordinates.
- * @returns {Vec3} The result argument.
+ * @returns {THREE.Vector3} The result argument.
  */
 Globe.prototype.computePointFromPosition = function (latitude, longitude, altitude, result) {
     return this.projection.geographicToCartesian(this, latitude, longitude, altitude, this.offsetVector, result);
@@ -190,9 +188,9 @@ Globe.prototype.computePointFromPosition = function (latitude, longitude, altitu
  * See this class' Overview section for a description of the Cartesian coordinate system used.
  * @param {Number} latitude The position's latitude.
  * @param {Number} longitude The position's longitude.
- * @param {Vec3} result A reference to a pre-allocated {@link Vec3} in which to return the computed X,
+ * @param {THREE.Vector3} result A reference to a pre-allocated {@link THREE.Vector3} in which to return the computed X,
  * Y and Z Cartesian coordinates.
- * @returns {Vec3} The result argument.
+ * @returns {THREE.Vector3} The result argument.
  */
 Globe.prototype.computePointFromLocation = function (latitude, longitude, result) {
     return this.computePointFromPosition(latitude, longitude, 0, result);
@@ -216,7 +214,7 @@ Globe.prototype.computePointFromLocation = function (latitude, longitude, result
  * @param {Number[]} elevations An array of elevations to incorporate in the point calculations. There must be
  * one elevation value in the array for each generated point. Elevations are in meters. There must be
  * numLat x numLon elevations in the array.
- * @param {Vec3} referencePoint The X, Y and Z Cartesian coordinates to subtract from the computed coordinates.
+ * @param {THREE.Vector3} referencePoint The X, Y and Z Cartesian coordinates to subtract from the computed coordinates.
  * This makes the computed coordinates relative to the specified point.
  * @param {Float32Array} result A typed array to hold the computed coordinates. It must be at least of
  * size numLat x numLon. The points are returned in row major order, beginning with the row of minimum latitude.
@@ -270,7 +268,7 @@ Globe.prototype.radiusAt = function (latitude, longitude) {
  * Computes the normal vector to this globe's surface at a specified location.
  * @param {Number} latitude The location's latitude.
  * @param {Number} longitude The location's longitude.
- * @param {Vec3} result A pre-allocated {@Link Vec3} instance in which to return the computed vector. The returned
+ * @param {THREE.Vector3} result A pre-allocated {@Link THREE.Vector3} instance in which to return the computed vector. The returned
  * normal vector is unit length.
  */
 Globe.prototype.surfaceNormalAtLocation = function (latitude, longitude, result) {
@@ -285,9 +283,9 @@ Globe.prototype.surfaceNormalAtLocation = function (latitude, longitude, result)
         sinLat = Math.sin(latitude * Angle.DEGREES_TO_RADIANS),
         sinLon = Math.sin(longitude * Angle.DEGREES_TO_RADIANS);
 
-    result[0] = cosLat * sinLon;
-    result[1] = sinLat;
-    result[2] = cosLat * cosLon;
+    result.x = cosLat * sinLon;
+    result.y = sinLat;
+    result.z = cosLat * cosLon;
 
     return result.normalize();
 };
@@ -297,9 +295,9 @@ Globe.prototype.surfaceNormalAtLocation = function (latitude, longitude, result)
  * @param {Number} x The point's X coordinate.
  * @param {Number} y The point's Y coordinate.
  * @param {Number} z The point's Z coordinate.
- * @param {Vec3} result A pre-allocated {@Link Vec3} instance in which to return the computed vector. The returned
+ * @param {THREE.Vector3} result A pre-allocated {@Link THREE.Vector3} instance in which to return the computed vector. The returned
  * normal vector is unit length.
- * @returns {Vec3} The specified result vector.
+ * @returns {THREE.Vector3} The specified result vector.
  */
 Globe.prototype.surfaceNormalAtPoint = function (x, y, z, result) {
     // For backwards compatibility, check whether the projection defines a surfaceNormalAtPoint function
@@ -311,9 +309,9 @@ Globe.prototype.surfaceNormalAtPoint = function (x, y, z, result) {
     var eSquared = this.equatorialRadius * this.equatorialRadius,
         polSquared = this.polarRadius * this.polarRadius;
 
-    result[0] = x / eSquared;
-    result[1] = y / polSquared;
-    result[2] = z / eSquared;
+    result.x = x / eSquared;
+    result.y = y / polSquared;
+    result.z = z / eSquared;
 
     return result.normalize();
 };
@@ -322,9 +320,9 @@ Globe.prototype.surfaceNormalAtPoint = function (x, y, z, result) {
  * Computes the north-pointing tangent vector to this globe's surface at a specified location.
  * @param {Number} latitude The location's latitude.
  * @param {Number} longitude The location's longitude.
- * @param {Vec3} result A pre-allocated {@Link Vec3} instance in which to return the computed vector. The returned
+ * @param {THREE.Vector3} result A pre-allocated {@Link THREE.Vector3} instance in which to return the computed vector. The returned
  * tangent vector is unit length.
- * @returns {Vec3} The specified result vector.
+ * @returns {THREE.Vector3} The specified result vector.
  */
 Globe.prototype.northTangentAtLocation = function (latitude, longitude, result) {
     return this.projection.northTangentAtLocation(this, latitude, longitude, result);
@@ -335,9 +333,9 @@ Globe.prototype.northTangentAtLocation = function (latitude, longitude, result) 
  * @param {Number} x The point's X coordinate.
  * @param {Number} y The point's Y coordinate.
  * @param {Number} z The point's Z coordinate.
- * @param {Vec3} result A pre-allocated {@Link Vec3} instance in which to return the computed vector. The returned
+ * @param {THREE.Vector3} result A pre-allocated {@Link THREE.Vector3} instance in which to return the computed vector. The returned
  * tangent vector is unit length.
- * @returns {Vec3} The specified result vector.
+ * @returns {THREE.Vector3} The specified result vector.
  */
 Globe.prototype.northTangentAtPoint = function (x, y, z, result) {
     return this.projection.northTangentAtPoint(this, x, y, z, this.offsetVector, result);
@@ -369,7 +367,7 @@ Globe.prototype.intersectsFrustum = function (frustum) {
  * Computes the first intersection of this globe with a specified line. The line is interpreted as a ray;
  * intersection points behind the line's origin are ignored.
  * @param {Line} line The line to intersect with this globe.
- * @param {Vec3} result A pre-allocated Vec3 in which to return the computed point.
+ * @param {THREE.Vector3} result A pre-allocated THREE.Vector3 in which to return the computed point.
  * @returns {boolean} true If the ray intersects the globe, otherwise false.
  */
 Globe.prototype.intersectsLine = function (line, result) {
@@ -378,12 +376,12 @@ Globe.prototype.intersectsLine = function (line, result) {
     // Note that the parameter n from equations 6.70 and 6.71 is omitted here. For an ellipsoidal globe this
     // parameter is always 1, so its square and its product with any other value simplifies to the identity.
 
-    var vx = line.direction[0],
-        vy = line.direction[1],
-        vz = line.direction[2],
-        sx = line.origin[0],
-        sy = line.origin[1],
-        sz = line.origin[2],
+    var vx = line.direction.x,
+        vy = line.direction.y,
+        vz = line.direction.z,
+        sx = line.origin.x,
+        sy = line.origin.y,
+        sz = line.origin.z,
         t;
 
     var eqr = this.equatorialRadius, eqr2 = eqr * eqr, m = eqr / this.polarRadius, m2 = m * m, a, b, c, d;
@@ -400,18 +398,18 @@ Globe.prototype.intersectsLine = function (line, result) {
     t = (-b - Math.sqrt(d)) / (2 * a);
     // check if the nearest intersection point is in front of the origin of the ray
     if (t > 0) {
-        result[0] = sx + vx * t;
-        result[1] = sy + vy * t;
-        result[2] = sz + vz * t;
+        result.x = sx + vx * t;
+        result.y = sy + vy * t;
+        result.z = sz + vz * t;
         return true;
     }
 
     t = (-b + Math.sqrt(d)) / (2 * a);
     // check if the second intersection point is in the front of the origin of the ray
     if (t > 0) {
-        result[0] = sx + vx * t;
-        result[1] = sy + vy * t;
-        result[2] = sz + vz * t;
+        result.x = sx + vx * t;
+        result.y = sy + vy * t;
+        result.z = sz + vz * t;
         return true;
     }
 

@@ -206,17 +206,17 @@ AtmosphereProgram.prototype.loadModelviewProjection = function (gl, matrix) {
  * Loads the specified vector as the value of this program's 'vertexOrigin' uniform variable.
  *
  * @param {WebGLRenderingContext} gl The current WebGL context.
- * @param {Vec3} vector The vector to load.
+ * @param {THREE.Vector3} vector The vector to load.
  */
 AtmosphereProgram.prototype.loadVertexOrigin = function (gl, vector) {
-    gl.uniform3f(this.vertexOriginLocation, vector[0], vector[1], vector[2]);
+    gl.uniform3f(this.vertexOriginLocation, vector.x, vector.y, vector.z);
 };
 
 /**
  * Loads the specified vector as the value of this program's 'lightDirection' uniform variable.
  *
  * @param {WebGLRenderingContext} gl The current WebGL context.
- * @param {Vec3} vector The vector to load.
+ * @param {THREE.Vector3} vector The vector to load.
  */
 AtmosphereProgram.prototype.loadLightDirection = function (gl, vector) {
     gl.uniform3f(this.lightDirectionLocation, vector.x, vector.y, vector.z);
@@ -228,7 +228,7 @@ AtmosphereProgram.prototype.loadLightDirection = function (gl, vector) {
  * the squared magnitude's specified vector as the value of this program's 'eyeMagnitude2' uniform variable.
  *
  * @param {WebGLRenderingContext} gl The current WebGL context.
- * @param {Vec3} vector The vector to load.
+ * @param {THREE.Vector3} vector The vector to load.
  */
 AtmosphereProgram.prototype.loadEyePoint = function (gl, vector) {
     gl.uniform3f(this.eyePointLocation, vector.x, vector.y, vector.z);

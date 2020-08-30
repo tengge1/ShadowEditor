@@ -217,6 +217,7 @@ GpuProgram.prototype.loadUniformMatrix = function (gl, matrix, location) {
  */
 GpuProgram.prototype.loadUniformColor = function (gl, color, location) {
     var premul = color.premultipliedComponents(this.scratchArray);
+    debugger;
     gl.uniform4f(location, premul[0], premul[1], premul[2], premul[3]);
 };
 

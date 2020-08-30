@@ -107,8 +107,8 @@ Rectangle.prototype.getMaxY = function () {
  * @returns {Boolean} true if this rectangle contains the specified point, otherwise false.
  */
 Rectangle.prototype.containsPoint = function (point) {
-    return point[0] >= this.x && point[0] <= this.x + this.width
-        && point[1] >= this.y && point[1] <= this.y + this.height;
+    return point.x >= this.x && point.x <= this.x + this.width
+        && point.y >= this.y && point.y <= this.y + this.height;
 };
 /**
  *

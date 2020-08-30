@@ -127,8 +127,8 @@ TerrainTile.prototype.setNeighborLevel = function (direction, level) {
  * Computes a point on the terrain at a specified location.
  * @param {Number} latitude The location's latitude.
  * @param {Number} longitude The location's longitude.
- * @param {Vec3} result A pre-allocated Vec3 in which to return the computed point.
- * @returns {Vec3} The result argument set to the computed point.
+ * @param {THREE.Vector3} result A pre-allocated THREE.Vector3 in which to return the computed point.
+ * @returns {THREE.Vector3} The result argument set to the computed point.
  */
 TerrainTile.prototype.surfacePoint = function (latitude, longitude, result) {
     var tileSector = this.sector,
@@ -177,19 +177,19 @@ TerrainTile.prototype.surfacePoint = function (latitude, longitude, result) {
     tf = t < tileHeight ? t - Math.floor(t) : 1;
 
     if (sf > tf) {
-        result[0] = points[0] + sf * (points[3] - points[0]) + tf * (points[6] - points[0]);
-        result[1] = points[1] + sf * (points[4] - points[1]) + tf * (points[7] - points[1]);
-        result[2] = points[2] + sf * (points[5] - points[2]) + tf * (points[8] - points[2]);
+        result.x = points[0] + sf * (points[3] - points[0]) + tf * (points[6] - points[0]);
+        result.y = points[1] + sf * (points[4] - points[1]) + tf * (points[7] - points[1]);
+        result.z = points[2] + sf * (points[5] - points[2]) + tf * (points[8] - points[2]);
     }
     else {
-        result[0] = points[9] + (1 - sf) * (points[6] - points[9]) + (1 - tf) * (points[3] - points[9]);
-        result[1] = points[10] + (1 - sf) * (points[7] - points[10]) + (1 - tf) * (points[4] - points[10]);
-        result[2] = points[11] + (1 - sf) * (points[8] - points[11]) + (1 - tf) * (points[5] - points[11]);
+        result.x = points[9] + (1 - sf) * (points[6] - points[9]) + (1 - tf) * (points[3] - points[9]);
+        result.y = points[10] + (1 - sf) * (points[7] - points[10]) + (1 - tf) * (points[4] - points[10]);
+        result.z = points[11] + (1 - sf) * (points[8] - points[11]) + (1 - tf) * (points[5] - points[11]);
     }
 
-    result[0] += this.referencePoint[0];
-    result[1] += this.referencePoint[1];
-    result[2] += this.referencePoint[2];
+    result.x += this.referencePoint.x;
+    result.y += this.referencePoint.y;
+    result.z += this.referencePoint.z;
 
     return result;
 };

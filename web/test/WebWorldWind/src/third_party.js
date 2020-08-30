@@ -1,5 +1,4 @@
 import WWMath from './util/WWMath';
-import Vec3 from './geom/Vec3';
 
 /**
  * Multiplies this matrix by a look at viewing matrix for the specified globe.
@@ -67,10 +66,10 @@ THREE.Matrix4.prototype.multiplyByLookAtModelview = function (lookAtPosition, ra
  * @param {Globe} globe The globe the viewer is looking at.
  */
 THREE.Matrix4.prototype.multiplyByFirstPersonModelview = function () {
-    var eyePoint = new Vec3(0, 0, 0);
-    var xAxis = new Vec3(0, 0, 0);
-    var yAxis = new Vec3(0, 0, 0);
-    var zAxis = new Vec3(0, 0, 0);
+    var eyePoint = new THREE.Vector3();
+    var xAxis = new THREE.Vector3();
+    var yAxis = new THREE.Vector3();
+    var zAxis = new THREE.Vector3();
     var mat4 = new THREE.Matrix4();
     return function (eyePosition, heading, tilt, roll, globe) {
         // Roll. Rotate the eye point in a counter-clockwise direction about the z axis. Note that we invert the sines used
@@ -113,21 +112,21 @@ THREE.Matrix4.prototype.multiplyByFirstPersonModelview = function () {
 
         // Compute the eye point in model coordinates. This point is mapped to the origin in the look at transform below.
         globe.computePointFromPosition(eyePosition.latitude, eyePosition.longitude, eyePosition.altitude, eyePoint);
-        var ex = eyePoint[0];
-        var ey = eyePoint[1];
-        var ez = eyePoint[2];
+        var ex = eyePoint.x;
+        var ey = eyePoint.y;
+        var ez = eyePoint.z;
 
         // Transform the origin to the local coordinate system at the eye point.
         WWMath.localCoordinateAxesAtPoint(eyePoint, globe, xAxis, yAxis, zAxis);
-        var xx = xAxis[0];
-        var xy = xAxis[1];
-        var xz = xAxis[2];
-        var yx = yAxis[0];
-        var yy = yAxis[1];
-        var yz = yAxis[2];
-        var zx = zAxis[0];
-        var zy = zAxis[1];
-        var zz = zAxis[2];
+        var xx = xAxis.x;
+        var xy = xAxis.y;
+        var xz = xAxis.z;
+        var yx = yAxis.x;
+        var yy = yAxis.y;
+        var yz = yAxis.z;
+        var zx = zAxis.x;
+        var zy = zAxis.y;
+        var zz = zAxis.z;
 
         mat4.set(
             xx, xy, xz, -xx * ex - xy * ey - xz * ez,
@@ -151,7 +150,7 @@ THREE.Matrix4.prototype.multiplyByFirstPersonModelview = function () {
 * In model coordinates, a viewing matrix's eye point is the point the viewer is looking from and maps to the center of
 * the screen.
 *
-* @param {THREE.Matrix4} mat4 A pre-allocated {@link Vec3} in which to return the extracted values.
+* @param {THREE.Matrix4} mat4 A pre-allocated {@link THREE.Vector3} in which to return the extracted values.
 * @return {THREE.Vector3} The specified result argument containing the viewing matrix's eye point, in model coordinates.
 */
 THREE.Vector3.prototype.copyEyePoint = function (mat4) {
@@ -274,7 +273,7 @@ THREE.Matrix4.prototype.setToScreenProjection = function (viewportWidth, viewpor
  * OpenGL (bottom-left origin).
  * @returns {THREE.Matrix4} This matrix set to values described above.
  */
-THREE.Matrix4.prototype.setToUnitYFlip = function() {
+THREE.Matrix4.prototype.setToUnitYFlip = function () {
     var elem = this.elements;
 
     elem[0] = 1;
@@ -296,3 +295,14 @@ THREE.Matrix4.prototype.setToUnitYFlip = function() {
 
     return this;
 };
+
+Object.defineProperty(THREE.Vector3.prototype, '0', {
+    get() {
+        debugger;
+        return this.x;
+    },
+    set(value) {
+        debugger;
+        this.x = value;
+    }
+});

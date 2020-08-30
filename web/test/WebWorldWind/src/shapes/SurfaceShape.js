@@ -27,8 +27,6 @@ import PolygonSplitter from '../util/PolygonSplitter';
 import Renderable from '../render/Renderable';
 import Sector from '../geom/Sector';
 import ShapeAttributes from '../shapes/ShapeAttributes';
-import Vec3 from '../geom/Vec3';
-
 
 /**
  * Constructs a surface shape with an optionally specified bundle of default attributes.
@@ -757,19 +755,19 @@ SurfaceShape.prototype.computeExtent = function (dc) {
  */
 SurfaceShape.prototype.computeShiftedLocations = function (globe, oldLocation, newLocation, locations) {
     var newLocations = [];
-    var result = new Vec3(0, 0, 0);
+    var result = new THREE.Vector3();
     var newPos = new WorldWind.Position(0, 0, 0);
 
     var oldPoint = globe.computePointFromLocation(oldLocation.latitude, oldLocation.longitude,
-        new Vec3(0, 0, 0));
+        new THREE.Vector3());
     var newPoint = globe.computePointFromLocation(newLocation.latitude, newLocation.longitude,
-        new Vec3(0, 0, 0));
+        new THREE.Vector3());
     var delta = newPoint.subtract(oldPoint);
 
     for (var i = 0, len = locations.length; i < len; i++) {
         globe.computePointFromLocation(locations[i].latitude, locations[i].longitude, result);
         result.add(delta);
-        globe.computePositionFromPoint(result[0], result[1], result[2], newPos);
+        globe.computePositionFromPoint(result.x, result.y, result.z, newPos);
         newLocations.push(new Location(newPos.latitude, newPos.longitude));
     }
 
@@ -799,6 +797,7 @@ SurfaceShape.prototype.determineSectors = function () {
             sector.setToBoundingSector(polygon);
             if (this._pathType === WorldWind.GREAT_CIRCLE) {
                 var extremes = Location.greatCircleArcExtremeLocations(polygon);
+                debugger;
                 var minLatitude = Math.min(sector.minLatitude, extremes[0].latitude);
                 var maxLatitude = Math.max(sector.maxLatitude, extremes[1].latitude);
                 sector.minLatitude = minLatitude;

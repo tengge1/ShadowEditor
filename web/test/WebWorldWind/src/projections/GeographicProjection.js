@@ -65,12 +65,12 @@ function GeographicProjection(displayName, continuous, projectionLimits) {
  * @param {number} latitude The latitude of the position, in degrees.
  * @param {number} longitude The longitude of the position, in degrees.
  * @param {number} elevation The elevation of the position, in meters.
- * @param {Vec3} offset An offset to apply to the Cartesian output. Typically only projections that are
+ * @param {THREE.Vector3} offset An offset to apply to the Cartesian output. Typically only projections that are
  * continuous (see [continuous]{@link GeographicProjection#continuous}) apply to this offset. Others ignore
  * it. May be null to indicate no offset is applied.
- * @param {Vec3} result A variable in which to store the computed Cartesian point.
+ * @param {THREE.Vector3} result A variable in which to store the computed Cartesian point.
  *
- * @returns {Vec3} The specified result argument containing the computed point.
+ * @returns {THREE.Vector3} The specified result argument containing the computed point.
  */
 GeographicProjection.prototype.geographicToCartesian = function (globe, latitude, longitude, elevation,
     offset, result) {
@@ -96,9 +96,9 @@ GeographicProjection.prototype.geographicToCartesian = function (globe, latitude
  * @param {Number[]} elevations An array of elevations to incorporate in the point calculations. There must be
  * one elevation value in the array for each generated point. Elevations are in meters.
  * There must be (tileWidth + 1) x (tileHeight + 1) elevations in the array.
- * @param {Vec3} referencePoint The X, Y and Z Cartesian coordinates to subtract from the computed coordinates.
+ * @param {THREE.Vector3} referencePoint The X, Y and Z Cartesian coordinates to subtract from the computed coordinates.
  * This makes the computed coordinates relative to the specified point. May be null.
- * @param {Vec3} offset An offset to apply to the Cartesian output points. Typically only projections that
+ * @param {THREE.Vector3} offset An offset to apply to the Cartesian output points. Typically only projections that
  * are continuous (see [continuous]{@link GeographicProjection#continuous}) apply this offset. Others ignore it.
  * May be null to indicate that no offset is applied.
  * @param {Float32Array} result A typed array to hold the computed coordinates. It must be at least of
@@ -116,7 +116,7 @@ GeographicProjection.prototype.geographicToCartesianGrid = function (globe, sect
  * @param {number} x The X component of the Cartesian point.
  * @param {number} y The Y component of the Cartesian point.
  * @param {number} z The Z component of the Cartesian point.
- * @param {Vec3} offset An offset to apply to the Cartesian output points. Typically only projections that
+ * @param {THREE.Vector3} offset An offset to apply to the Cartesian output points. Typically only projections that
  * are continuous (see [continuous]{@link GeographicProjection#continuous}) apply this offset. Others ignore it.
  * May be null to indicate that no offset is applied.
  * @param {Position} result A variable in which to return the computed position.
@@ -133,14 +133,14 @@ GeographicProjection.prototype.cartesianToGeographic = function (globe, x, y, z,
  * @param {Globe} globe The globe this projection is applied to.
  * @param {number} latitude The latitude of the location, in degrees.
  * @param {number} longitude The longitude of the location, in degrees.
- * @param {Vec3} result A variable in which to return the computed vector.
+ * @param {THREE.Vector3} result A variable in which to return the computed vector.
  *
- * @returns{Vec3} The specified result argument containing the computed vector.
+ * @returns{THREE.Vector3} The specified result argument containing the computed vector.
  */
 GeographicProjection.prototype.northTangentAtLocation = function (globe, latitude, longitude, result) {
-    result[0] = 0;
-    result[1] = 1;
-    result[2] = 0;
+    result.x = 0;
+    result.y = 1;
+    result.z = 0;
 
     return result;
 };
@@ -153,17 +153,17 @@ GeographicProjection.prototype.northTangentAtLocation = function (globe, latitud
  * @param {number} x The X component of the Cartesian point.
  * @param {number} y The Y component of the Cartesian point.
  * @param {number} z The Z component of the Cartesian point.
- * @param {Vec3} offset An offset to apply to the Cartesian point. Typically only projections that
+ * @param {THREE.Vector3} offset An offset to apply to the Cartesian point. Typically only projections that
  * are continuous (see [continuous]{@link GeographicProjection#continuous}) apply this offset. Others ignore it.
  * May be null to indicate that no offset is applied.
- * @param {Vec3} result A variable in which to return the computed vector.
+ * @param {THREE.Vector3} result A variable in which to return the computed vector.
  *
- * @returns{Vec3} The specified result argument containing the computed vector.
+ * @returns{THREE.Vector3} The specified result argument containing the computed vector.
  */
 GeographicProjection.prototype.northTangentAtPoint = function (globe, x, y, z, offset, result) {
-    result[0] = 0;
-    result[1] = 1;
-    result[2] = 0;
+    result.x = 0;
+    result.y = 1;
+    result.z = 0;
 
     return result;
 };
@@ -174,14 +174,14 @@ GeographicProjection.prototype.northTangentAtPoint = function (globe, x, y, z, o
  * @param {Globe} globe The globe this projection is applied to.
  * @param {number} latitude The latitude of the location, in degrees.
  * @param {number} longitude The longitude of the location, in degrees.
- * @param {Vec3} result A variable in which to return the computed vector.
+ * @param {THREE.Vector3} result A variable in which to return the computed vector.
  *
- * @returns{Vec3} The specified result argument containing the computed vector.
+ * @returns {THREE.Vector3} The specified result argument containing the computed vector.
  */
 GeographicProjection.prototype.surfaceNormalAtLocation = function (globe, latitude, longitude, result) {
-    result[0] = 0;
-    result[1] = 0;
-    result[2] = 1;
+    result.x = 0;
+    result.y = 0;
+    result.z = 1;
 
     return result;
 };
@@ -193,14 +193,14 @@ GeographicProjection.prototype.surfaceNormalAtLocation = function (globe, latitu
  * @param {number} x The X component of the Cartesian point.
  * @param {number} y The Y component of the Cartesian point.
  * @param {number} z The Z component of the Cartesian point.
- * @param {Vec3} result A variable in which to return the computed vector.
+ * @param {THREE.Vector3} result A variable in which to return the computed vector.
  *
- * @returns{Vec3} The specified result argument containing the computed vector.
+ * @returns {THREE.Vector3} The specified result argument containing the computed vector.
  */
 GeographicProjection.prototype.surfaceNormalAtPoint = function (globe, x, y, z, result) {
-    result[0] = 0;
-    result[1] = 0;
-    result[2] = 1;
+    result.x = 0;
+    result.y = 0;
+    result.z = 1;
 
     return result;
 };

@@ -67,9 +67,9 @@ ScreenText.prototype.computeScreenPointAndEyeDistance = function (dc) {
     var gl = dc.currentGlContext,
         offset = this.screenOffset.offsetForSize(gl.drawingBufferWidth, gl.drawingBufferHeight);
 
-    this.screenPoint[0] = offset[0];
-    this.screenPoint[1] = offset[1];
-    this.screenPoint[2] = 0;
+    this.screenPoint.x = offset.x;
+    this.screenPoint.y = offset.y;
+    this.screenPoint.z = 0;
 
     this.eyeDistance = 0;
 

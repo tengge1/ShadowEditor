@@ -20,8 +20,6 @@
 import MemoryCache from '../cache/MemoryCache';
 import Renderable from '../render/Renderable';
 import ShapeAttributes from '../shapes/ShapeAttributes';
-import Vec3 from '../geom/Vec3';
-
 
 /**
  * Constructs an abstract shape instance. Meant to be called only by subclasses.
@@ -325,7 +323,7 @@ AbstractShape.prototype.establishCurrentData = function (dc) {
 AbstractShape.prototype.createShapeDataObject = function () {
     return {
         transformationMatrix: new THREE.Matrix4(),
-        referencePoint: new Vec3(0, 0, 0)
+        referencePoint: new THREE.Vector3()
     };
 };
 

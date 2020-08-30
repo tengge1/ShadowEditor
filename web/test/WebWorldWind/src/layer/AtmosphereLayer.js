@@ -22,7 +22,6 @@ import Layer from '../layer/Layer';
 import Sector from '../geom/Sector';
 import SkyProgram from '../shaders/SkyProgram';
 import SunPosition from '../util/SunPosition';
-import Vec3 from '../geom/Vec3';
 import WWUtil from '../util/WWUtil';
 
 
@@ -46,7 +45,7 @@ function AtmosphereLayer(nightImageSource) {
 
     //Internal use only.
     //The light direction in cartesian space, computed from the layer time or defaults to the eyePoint.
-    this._activeLightDirection = new THREE.Vector3(0, 0, 0);
+    this._activeLightDirection = new THREE.Vector3();
 
     this._fullSphereSector = Sector.FULL_SPHERE;
 
@@ -162,7 +161,7 @@ AtmosphereLayer.prototype.drawSky = function (dc) {
 
     program.loadEyePoint(gl, dc.eyePoint);
 
-    program.loadVertexOrigin(gl, Vec3.ZERO);
+    program.loadVertexOrigin(gl, new THREE.Vector3());
 
     program.loadModelviewProjection(gl, dc.modelviewProjection);
 
@@ -258,7 +257,7 @@ AtmosphereLayer.prototype.assembleVertexPoints = function (dc, numLat, numLon, a
     WWUtil.fillArray(altitudes, altitude);
     var result = new Float32Array(count * 3);
 
-    return dc.globe.computePointsForGrid(this._fullSphereSector, numLat, numLon, altitudes, Vec3.ZERO, result);
+    return dc.globe.computePointsForGrid(this._fullSphereSector, numLat, numLon, altitudes, new THREE.Vector3(), result);
 };
 
 // Internal. Intentionally not documented.

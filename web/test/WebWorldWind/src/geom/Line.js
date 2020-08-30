@@ -17,40 +17,38 @@
 /**
  * @exports Line
  */
-import Vec3 from '../geom/Vec3';
-
 
 /**
  * Constructs a line from a specified origin and direction.
  * @alias Line
  * @constructor
  * @classdesc Represents a line in Cartesian coordinates.
- * @param {Vec3} origin The line's origin.
- * @param {Vec3} direction The line's direction.
+ * @param {THREE.Vector3} origin The line's origin.
+ * @param {THREE.Vector3} direction The line's direction.
  */
 function Line(origin, direction) {
     /**
      * This line's origin.
-     * @type {Vec3}
+     * @type {THREE.Vector3}
      */
     this.origin = origin;
 
     /**
      * This line's direction.
-     * @type {Vec3}
+     * @type {THREE.Vector3}
      */
     this.direction = direction;
 }
 
 /**
  * Creates a line given two specified endpoints.
- * @param {Vec3} pointA The first endpoint.
- * @param {Vec3} pointB The second endpoint.
+ * @param {THREE.Vector3} pointA The first endpoint.
+ * @param {THREE.Vector3} pointB The second endpoint.
  * @return {Line} The new line.
  */
 Line.fromSegment = function (pointA, pointB) {
-    var origin = new Vec3(pointA[0], pointA[1], pointA[2]),
-        direction = new Vec3(pointB[0] - pointA[0], pointB[1] - pointA[1], pointB[2] - pointA[2]);
+    var origin = new THREE.Vector3(pointA.x, pointA.y, pointA.z),
+        direction = new THREE.Vector3(pointB.x - pointA.x, pointB.y - pointA.y, pointB.z - pointA.z);
 
     return new Line(origin, direction);
 };
@@ -58,13 +56,13 @@ Line.fromSegment = function (pointA, pointB) {
 /**
  * Computes a Cartesian point a specified distance along this line.
  * @param {Number} distance The distance from this line's origin at which to compute the point.
- * @param {Vec3} result A pre-allocated {@Link Vec3} instance in which to return the computed point.
- * @return {Vec3} The specified result argument containing the computed point.
+ * @param {THREE.Vector3} result A pre-allocated {@Link THREE.Vector3} instance in which to return the computed point.
+ * @return {THREE.Vector3} The specified result argument containing the computed point.
  */
 Line.prototype.pointAt = function (distance, result) {
-    result[0] = this.origin[0] + this.direction[0] * distance;
-    result[1] = this.origin[1] + this.direction[1] * distance;
-    result[2] = this.origin[2] + this.direction[2] * distance;
+    result.x = this.origin.x + this.direction.x * distance;
+    result.y = this.origin.y + this.direction.y * distance;
+    result.z = this.origin.z + this.direction.z * distance;
 
     return result;
 };
@@ -89,7 +87,7 @@ Line.prototype.equals = function (otherLine) {
  * @returns {Line} The new line.
  */
 Line.prototype.clone = function () {
-    var clone = new Line(new Vec3(0, 0, 0), new Vec3(0, 0, 0));
+    var clone = new Line(new THREE.Vector3(), new THREE.Vector3());
     clone.copy(this);
 
     return clone;

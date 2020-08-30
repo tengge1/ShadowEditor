@@ -20,7 +20,6 @@
 import Angle from '../geom/Angle';
 import GeographicProjection from '../projections/GeographicProjection';
 import Position from '../geom/Position';
-import Vec3 from '../geom/Vec3';
 import WWMath from '../util/WWMath';
 
 
@@ -65,9 +64,9 @@ ProjectionWgs84.prototype.geographicToCartesian = function (globe, latitude, lon
         sinLon = Math.sin(longitude * Angle.DEGREES_TO_RADIANS),
         rpm = globe.equatorialRadius / Math.sqrt(1.0 - globe.eccentricitySquared * sinLat * sinLat);
 
-    result[0] = (rpm + altitude) * cosLat * sinLon;
-    result[1] = (rpm * (1.0 - globe.eccentricitySquared) + altitude) * sinLat;
-    result[2] = (rpm + altitude) * cosLat * cosLon;
+    result.x = (rpm + altitude) * cosLat * sinLon;
+    result.y = (rpm * (1.0 - globe.eccentricitySquared) + altitude) * sinLat;
+    result.z = (rpm + altitude) * cosLat * cosLon;
 
     return result;
 };
@@ -81,7 +80,7 @@ ProjectionWgs84.prototype.geographicToCartesianGrid = function (globe, sector, n
         maxLon = sector.maxLongitude * Angle.DEGREES_TO_RADIANS,
         deltaLat = (maxLat - minLat) / (numLat > 1 ? numLat - 1 : 1),
         deltaLon = (maxLon - minLon) / (numLon > 1 ? numLon - 1 : 1),
-        refCenter = referencePoint ? referencePoint : new Vec3(0, 0, 0),
+        refCenter = referencePoint ? referencePoint : new THREE.Vector3(),
         latIndex, lonIndex,
         elevIndex = 0, resultIndex = 0,
         lat, lon, rpm, elev,
@@ -115,9 +114,9 @@ ProjectionWgs84.prototype.geographicToCartesianGrid = function (globe, sector, n
 
         for (lonIndex = 0; lonIndex < numLon; lonIndex++) {
             elev = elevations[elevIndex++];
-            result[resultIndex++] = (rpm + elev) * cosLat * sinLon[lonIndex] - refCenter[0];
-            result[resultIndex++] = (rpm * (1.0 - globe.eccentricitySquared) + elev) * sinLat - refCenter[1];
-            result[resultIndex++] = (rpm + elev) * cosLat * cosLon[lonIndex] - refCenter[2];
+            result[resultIndex++] = (rpm + elev) * cosLat * sinLon[lonIndex] - refCenter.x;
+            result[resultIndex++] = (rpm * (1.0 - globe.eccentricitySquared) + elev) * sinLat - refCenter.y;
+            result[resultIndex++] = (rpm + elev) * cosLat * cosLon[lonIndex] - refCenter.z;
         }
     }
 
@@ -245,15 +244,15 @@ ProjectionWgs84.prototype.northTangentAtLocation = function (globe, latitude, lo
         sinLat = Math.sin(latitude * Angle.DEGREES_TO_RADIANS),
         sinLon = Math.sin(longitude * Angle.DEGREES_TO_RADIANS);
 
-    result[0] = -sinLat * sinLon;
-    result[1] = cosLat;
-    result[2] = -sinLat * cosLon;
+    result.x = -sinLat * sinLon;
+    result.y = cosLat;
+    result.z = -sinLat * cosLon;
 
     return result.normalize();
 };
 
 ProjectionWgs84.prototype.northTangentAtPoint = function (globe, x, y, z, offset, result) {
-    this.cartesianToGeographic(globe, x, y, z, Vec3.ZERO, this.scratchPosition);
+    this.cartesianToGeographic(globe, x, y, z, new THREE.Vector3(), this.scratchPosition);
 
     return this.northTangentAtLocation(globe, this.scratchPosition.latitude, this.scratchPosition.longitude, result);
 };
@@ -264,9 +263,9 @@ ProjectionWgs84.prototype.surfaceNormalAtLocation = function (globe, latitude, l
         sinLat = Math.sin(latitude * Angle.DEGREES_TO_RADIANS),
         sinLon = Math.sin(longitude * Angle.DEGREES_TO_RADIANS);
 
-    result[0] = cosLat * sinLon;
-    result[1] = sinLat;
-    result[2] = cosLat * cosLon;
+    result.x = cosLat * sinLon;
+    result.y = sinLat;
+    result.z = cosLat * cosLon;
 
     return result.normalize();
 };
@@ -275,9 +274,9 @@ ProjectionWgs84.prototype.surfaceNormalAtPoint = function (globe, x, y, z, resul
     var a2 = globe.equatorialRadius * globe.equatorialRadius,
         b2 = globe.polarRadius * globe.polarRadius;
 
-    result[0] = x / a2;
-    result[1] = y / b2;
-    result[2] = z / a2;
+    result.x = x / a2;
+    result.y = y / b2;
+    result.z = z / a2;
 
     return result.normalize();
 };

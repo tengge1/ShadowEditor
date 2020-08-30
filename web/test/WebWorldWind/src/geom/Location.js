@@ -19,7 +19,6 @@
  */
 import Angle from '../geom/Angle';
 import Plane from '../geom/Plane';
-import Vec3 from '../geom/Vec3';
 import WWMath from '../util/WWMath';
 
 
@@ -736,27 +735,27 @@ Location.greatCircleExtremeLocationsUsingAzimuth = function (location, azimuth) 
  *
  * @return {number} latitude The intersection latitude along the meridian
  *
- * TODO: this code allocates 4 new Vec3 and 1 new Position; use scratch variables???
+ * TODO: this code allocates 4 new THREE.Vector3 and 1 new Position; use scratch variables???
  * TODO: Why not? Every location created would then allocated those variables as well, even if they aren't needed :(.
  */
 Location.intersectionWithMeridian = function (p1, p2, meridian, globe) {
-    var pt1 = globe.computePointFromLocation(p1.latitude, p1.longitude, new Vec3(0, 0, 0));
-    var pt2 = globe.computePointFromLocation(p2.latitude, p2.longitude, new Vec3(0, 0, 0));
+    var pt1 = globe.computePointFromLocation(p1.latitude, p1.longitude, new THREE.Vector3());
+    var pt2 = globe.computePointFromLocation(p2.latitude, p2.longitude, new THREE.Vector3());
 
     // Compute a plane through the origin, North Pole, and the desired meridian.
-    var northPole = globe.computePointFromLocation(90, meridian, new Vec3(0, 0, 0));
-    var pointOnEquator = globe.computePointFromLocation(0, meridian, new Vec3(0, 0, 0));
+    var northPole = globe.computePointFromLocation(90, meridian, new THREE.Vector3());
+    var pointOnEquator = globe.computePointFromLocation(0, meridian, new THREE.Vector3());
 
-    var plane = Plane.fromPoints(northPole, pointOnEquator, Vec3.ZERO);
+    var plane = Plane.fromPoints(northPole, pointOnEquator, new THREE.Vector3());
 
-    var intersectionPoint = new Vec3(0, 0, 0);
+    var intersectionPoint = new THREE.Vector3();
     if (!plane.intersectsSegmentAt(pt1, pt2, intersectionPoint)) {
         return null;
     }
 
     // TODO: unable to simply create a new Position(0, 0, 0)
     var pos = new WorldWind.Position(0, 0, 0);
-    globe.computePositionFromPoint(intersectionPoint[0], intersectionPoint[1], intersectionPoint[2], pos);
+    globe.computePositionFromPoint(intersectionPoint.x, intersectionPoint.y, intersectionPoint.z, pos);
 
     return pos.latitude;
 };

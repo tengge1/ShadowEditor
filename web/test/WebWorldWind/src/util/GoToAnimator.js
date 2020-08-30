@@ -19,7 +19,6 @@
  */
 import Location from '../geom/Location';
 import Position from '../geom/Position';
-import Vec3 from '../geom/Vec3';
 
 /**
  * Constructs a GoTo animator.
@@ -100,9 +99,9 @@ GoToAnimator.prototype.goTo = function (position, completionCallback) {
     // Determine how high we need to go to give the user context. The max altitude computed is approximately
     // that needed to fit the start and end positions in the same viewport assuming a 45 degree field of view.
     var pA = this.wwd.globe.computePointFromLocation(
-        this.startPosition.latitude, this.startPosition.longitude, new Vec3(0, 0, 0)),
+        this.startPosition.latitude, this.startPosition.longitude, new THREE.Vector3()),
         pB = this.wwd.globe.computePointFromLocation(
-            this.targetPosition.latitude, this.targetPosition.longitude, new Vec3(0, 0, 0));
+            this.targetPosition.latitude, this.targetPosition.longitude, new THREE.Vector3());
     this.maxAltitude = pA.distanceTo(pB);
 
     // Determine an approximate viewport size in radians in order to determine whether we actually change

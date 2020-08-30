@@ -19,7 +19,6 @@
  */
 import BoundingBox from '../geom/BoundingBox';
 import Sector from '../geom/Sector';
-import Vec3 from '../geom/Vec3';
 import WWMath from '../util/WWMath';
 import WWUtil from '../util/WWUtil';
 
@@ -99,7 +98,7 @@ function Tile(sector, level, row, column) {
     /**
      * The tile's local origin in model coordinates. Any model coordinate points associates with the tile
      * should be relative to this point.
-     * @type {Vec3}
+     * @type {THREE.Vector3}
      */
     this.referencePoint = null;
 
@@ -328,11 +327,11 @@ Tile.prototype.doUpdate = function (dc) {
         this.samplePoints = new Float64Array(3 * this.sampleElevations.length);
     }
     WWUtil.fillArray(this.sampleElevations, 0.5 * (minHeight + maxHeight));
-    globe.computePointsForGrid(this.sector, 3, 3, this.sampleElevations, Vec3.ZERO, this.samplePoints);
+    globe.computePointsForGrid(this.sector, 3, 3, this.sampleElevations, new THREE.Vector3(), this.samplePoints);
 
     // Compute the reference point used as a local coordinate origin for the tile.
     if (!this.referencePoint) {
-        this.referencePoint = new Vec3(0, 0, 0);
+        this.referencePoint = new THREE.Vector3();
     }
 
     globe.computePointFromPosition(WWMath.mercatorLatInvert(this.sector.centroidLatitude()), this.sector.centroidLongitude(), 0,

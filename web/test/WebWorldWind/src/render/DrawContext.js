@@ -30,7 +30,6 @@ import SurfaceShape from '../shapes/SurfaceShape';
 import SurfaceShapeTileBuilder from '../shapes/SurfaceShapeTileBuilder';
 import SurfaceTileRenderer from '../render/SurfaceTileRenderer';
 import TextRenderer from '../render/TextRenderer';
-import Vec3 from '../geom/Vec3';
 import WWMath from '../util/WWMath';
 
 
@@ -192,7 +191,7 @@ function DrawContext(gl) {
 
     /**
      * The eye point in model coordinates, relative to the globe's center.
-     * @type {Vec3}
+     * @type {THREE.Vector3}
      * @readonly
      */
     this.eyePoint = new THREE.Vector3();
@@ -674,6 +673,7 @@ DrawContext.prototype.readPickColor = function (pickPoint) {
     var glPickPoint = this.convertPointToViewport(pickPoint, new THREE.Vector2(0, 0)),
         colorBytes = new Uint8Array(4);
 
+    debugger;
     this.currentGlContext.readPixels(glPickPoint[0], glPickPoint[1], 1, 1, this.currentGlContext.RGBA,
         this.currentGlContext.UNSIGNED_BYTE, colorBytes);
 
@@ -799,9 +799,9 @@ DrawContext.prototype.makePickFrustum = function () {
     var lln, llf, lrn, lrf, uln, ulf, urn, urf, // corner points of frustum
         nl, nr, nt, nb, nn, nf, // normal vectors of frustum planes
         l, r, t, b, n, f, // frustum planes
-        va, vb = new Vec3(0, 0, 0), // vectors formed by the corner points
+        va, vb = new THREE.Vector3(), // vectors formed by the corner points
         apertureRadius = 2, // radius of pick window in screen coordinates
-        screenPoint = new Vec3(0, 0, 0),
+        screenPoint = new THREE.Vector3(),
         pickPoint,
         pickRectangle = this.pickRectangle,
         viewport = this.viewport;
@@ -810,8 +810,8 @@ DrawContext.prototype.makePickFrustum = function () {
     if (!pickRectangle) {
         pickPoint = this.convertPointToViewport(this.pickPoint, new THREE.Vector2(0, 0));
         pickRectangle = new Rectangle(
-            pickPoint[0] - apertureRadius,
-            pickPoint[1] - apertureRadius,
+            pickPoint.x - apertureRadius,
+            pickPoint.y - apertureRadius,
             2 * apertureRadius,
             2 * apertureRadius);
     }
@@ -837,80 +837,81 @@ DrawContext.prototype.makePickFrustum = function () {
     var modelviewProjectionInv = new THREE.Matrix4();
     modelviewProjectionInv.invertMatrix(this.modelviewProjection);
 
-    screenPoint[0] = pickRectangle.x;
-    screenPoint[1] = pickRectangle.y;
-    screenPoint[2] = 0;
-    modelviewProjectionInv.unProject(screenPoint, viewport, lln = new Vec3(0, 0, 0));
+    screenPoint.x = pickRectangle.x;
+    screenPoint.y = pickRectangle.y;
+    screenPoint.z = 0;
+    modelviewProjectionInv.unProject(screenPoint, viewport, lln = new THREE.Vector3());
 
-    screenPoint[0] = pickRectangle.x;
-    screenPoint[1] = pickRectangle.y;
-    screenPoint[2] = 1;
-    modelviewProjectionInv.unProject(screenPoint, viewport, llf = new Vec3(0, 0, 0));
+    screenPoint.x = pickRectangle.x;
+    screenPoint.y = pickRectangle.y;
+    screenPoint.z = 1;
+    modelviewProjectionInv.unProject(screenPoint, viewport, llf = new THREE.Vector3());
 
-    screenPoint[0] = pickRectangle.x + pickRectangle.width;
-    screenPoint[1] = pickRectangle.y;
-    screenPoint[2] = 0;
-    modelviewProjectionInv.unProject(screenPoint, viewport, lrn = new Vec3(0, 0, 0));
+    screenPoint.x = pickRectangle.x + pickRectangle.width;
+    screenPoint.y = pickRectangle.y;
+    screenPoint.z = 0;
+    modelviewProjectionInv.unProject(screenPoint, viewport, lrn = new THREE.Vector3());
 
-    screenPoint[0] = pickRectangle.x + pickRectangle.width;
-    screenPoint[1] = pickRectangle.y;
-    screenPoint[2] = 1;
-    modelviewProjectionInv.unProject(screenPoint, viewport, lrf = new Vec3(0, 0, 0));
+    screenPoint.x = pickRectangle.x + pickRectangle.width;
+    screenPoint.y = pickRectangle.y;
+    screenPoint.z = 1;
+    modelviewProjectionInv.unProject(screenPoint, viewport, lrf = new THREE.Vector3());
 
-    screenPoint[0] = pickRectangle.x;
-    screenPoint[1] = pickRectangle.y + pickRectangle.height;
-    screenPoint[2] = 0;
-    modelviewProjectionInv.unProject(screenPoint, viewport, uln = new Vec3(0, 0, 0));
+    screenPoint.x = pickRectangle.x;
+    screenPoint.y = pickRectangle.y + pickRectangle.height;
+    screenPoint.z = 0;
+    modelviewProjectionInv.unProject(screenPoint, viewport, uln = new THREE.Vector3());
 
-    screenPoint[0] = pickRectangle.x;
-    screenPoint[1] = pickRectangle.y + pickRectangle.height;
-    screenPoint[2] = 1;
-    modelviewProjectionInv.unProject(screenPoint, viewport, ulf = new Vec3(0, 0, 0));
+    screenPoint.x = pickRectangle.x;
+    screenPoint.y = pickRectangle.y + pickRectangle.height;
+    screenPoint.z = 1;
+    modelviewProjectionInv.unProject(screenPoint, viewport, ulf = new THREE.Vector3());
 
-    screenPoint[0] = pickRectangle.x + pickRectangle.width;
-    screenPoint[1] = pickRectangle.y + pickRectangle.height;
-    screenPoint[2] = 0;
-    modelviewProjectionInv.unProject(screenPoint, viewport, urn = new Vec3(0, 0, 0));
+    screenPoint.x = pickRectangle.x + pickRectangle.width;
+    screenPoint.y = pickRectangle.y + pickRectangle.height;
+    screenPoint.z = 0;
+    modelviewProjectionInv.unProject(screenPoint, viewport, urn = new THREE.Vector3());
 
-    screenPoint[0] = pickRectangle.x + pickRectangle.width;
-    screenPoint[1] = pickRectangle.y + pickRectangle.height;
-    screenPoint[2] = 1;
-    modelviewProjectionInv.unProject(screenPoint, viewport, urf = new Vec3(0, 0, 0));
+    screenPoint.x = pickRectangle.x + pickRectangle.width;
+    screenPoint.y = pickRectangle.y + pickRectangle.height;
+    screenPoint.z = 1;
+    modelviewProjectionInv.unProject(screenPoint, viewport, urf = new THREE.Vector3());
 
-    va = new Vec3(ulf[0] - lln[0], ulf[1] - lln[1], ulf[2] - lln[2]);
+    debugger;
+    va = new THREE.Vector3(ulf[0] - lln[0], ulf[1] - lln[1], ulf[2] - lln[2]);
     vb.set(uln[0] - llf[0], uln[1] - llf[1], uln[2] - llf[2]);
     nl = va.cross(vb);
     l = new Plane(nl[0], nl[1], nl[2], -nl.dot(lln));
     l.normalize();
 
-    va = new Vec3(urn[0] - lrf[0], urn[1] - lrf[1], urn[2] - lrf[2]);
+    va = new THREE.Vector3(urn[0] - lrf[0], urn[1] - lrf[1], urn[2] - lrf[2]);
     vb.set(urf[0] - lrn[0], urf[1] - lrn[1], urf[2] - lrn[2]);
     nr = va.cross(vb);
-    r = new Plane(nr[0], nr[1], nr[2], -nr.dot(lrn));
+    r = new Plane(nr.x, nr.y, nr.z, -nr.dot(lrn));
     r.normalize();
 
-    va = new Vec3(ulf[0] - urn[0], ulf[1] - urn[1], ulf[2] - urn[2]);
+    va = new THREE.Vector3(ulf[0] - urn[0], ulf[1] - urn[1], ulf[2] - urn[2]);
     vb.set(urf[0] - uln[0], urf[1] - uln[1], urf[2] - uln[2]);
     nt = va.cross(vb);
-    t = new Plane(nt[0], nt[1], nt[2], -nt.dot(uln));
+    t = new Plane(nt.x, nt.y, nt.z, -nt.dot(uln));
     t.normalize();
 
-    va = new Vec3(lrf[0] - lln[0], lrf[1] - lln[1], lrf[2] - lln[2]);
+    va = new THREE.Vector3(lrf[0] - lln[0], lrf[1] - lln[1], lrf[2] - lln[2]);
     vb.set(llf[0] - lrn[0], llf[1] - lrn[1], llf[2] - lrn[2]);
     nb = va.cross(vb);
-    b = new Plane(nb[0], nb[1], nb[2], -nb.dot(lrn));
+    b = new Plane(nb.x, nb.y, nb.z, -nb.dot(lrn));
     b.normalize();
 
-    va = new Vec3(uln[0] - lrn[0], uln[1] - lrn[1], uln[2] - lrn[2]);
+    va = new THREE.Vector3(uln[0] - lrn[0], uln[1] - lrn[1], uln[2] - lrn[2]);
     vb.set(urn[0] - lln[0], urn[1] - lln[1], urn[2] - lln[2]);
     nn = va.cross(vb);
-    n = new Plane(nn[0], nn[1], nn[2], -nn.dot(lln));
+    n = new Plane(nn.x, nn.y, nn.z, -nn.dot(lln));
     n.normalize();
 
-    va = new Vec3(urf[0] - llf[0], urf[1] - llf[1], urf[2] - llf[2]);
+    va = new THREE.Vector3(urf[0] - llf[0], urf[1] - llf[1], urf[2] - llf[2]);
     vb.set(ulf[0] - lrf[0], ulf[1] - lrf[1], ulf[2] - lrf[2]);
     nf = va.cross(vb);
-    f = new Plane(nf[0], nf[1], nf[2], -nf.dot(llf));
+    f = new Plane(nf.x, nf.y, nf.z, -nf.dot(llf));
     f.normalize();
 
     this.pickFrustum = new Frustum(l, r, b, t, n, f);
@@ -1173,8 +1174,8 @@ DrawContext.prototype.unitQuadBuffer3 = function () {
  * WorldWind.ABSOLUTE, WorldWind.CLAMP_TO_GROUND and
  * WorldWind.RELATIVE_TO_GROUND. The mode WorldWind.ABSOLUTE is used if the
  * specified mode is null, undefined or unrecognized, or if the specified location is outside this terrain.
- * @param {Vec3} result A pre-allocated Vec3 in which to return the computed point.
- * @returns {Vec3} The specified result parameter, set to the coordinates of the computed point.
+ * @param {THREE.Vector3} result A pre-allocated THREE.Vector3 in which to return the computed point.
+ * @returns {THREE.Vector3} The specified result parameter, set to the coordinates of the computed point.
  */
 DrawContext.prototype.surfacePointForMode = function (latitude, longitude, offset, altitudeMode, result) {
     if (this.terrain) {
@@ -1198,16 +1199,16 @@ DrawContext.prototype.surfacePointForMode = function (latitude, longitude, offse
  * projection matrices are malformed, or if the specified model point is clipped by the near clipping plane or
  * the far clipping plane.
  *
- * @param {Vec3} modelPoint The model coordinate point to project.
- * @param {Vec3} result A pre-allocated vector in which to return the projected point.
+ * @param {THREE.Vector3} modelPoint The model coordinate point to project.
+ * @param {THREE.Vector3} result A pre-allocated vector in which to return the projected point.
  * @returns {boolean} true if the transformation is successful, otherwise false.
  */
 DrawContext.prototype.project = function (modelPoint, result) {
     // Transform the model point from model coordinates to eye coordinates then to clip coordinates. This
     // inverts the Z axis and stores the negative of the eye coordinate Z value in the W coordinate.
-    var mx = modelPoint[0],
-        my = modelPoint[1],
-        mz = modelPoint[2],
+    var mx = modelPoint.x,
+        my = modelPoint.y,
+        mz = modelPoint.z,
         m = this.modelviewProjection,
         x = m[0] * mx + m[1] * my + m[2] * mz + m[3],
         y = m[4] * mx + m[5] * my + m[6] * mz + m[7],
@@ -1239,9 +1240,9 @@ DrawContext.prototype.project = function (modelPoint, result) {
     x = x * this.viewport.width + this.viewport.x;
     y = y * this.viewport.height + this.viewport.y;
 
-    result[0] = x;
-    result[1] = y;
-    result[2] = z;
+    result.x = x;
+    result.y = y;
+    result.z = z;
 
     return true;
 };
@@ -1267,17 +1268,17 @@ DrawContext.prototype.project = function (modelPoint, result) {
  * WebGL. Clipping is performed on the original model point, ignoring the depth offset. The final depth value
  * after applying the offset is clamped to the range [0,1].
  *
- * @param {Vec3} modelPoint The model coordinate point to project.
+ * @param {THREE.Vector3} modelPoint The model coordinate point to project.
  * @param {Number} depthOffset The amount of offset to apply.
- * @param {Vec3} result A pre-allocated vector in which to return the projected point.
+ * @param {THREE.Vector3} result A pre-allocated vector in which to return the projected point.
  * @returns {boolean} true if the transformation is successful, otherwise false.
  */
 DrawContext.prototype.projectWithDepth = function (modelPoint, depthOffset, result) {
     // Transform the model point from model coordinates to eye coordinates. The eye coordinate and the clip
     // coordinate are transformed separately in order to reuse the eye coordinate below.
-    var mx = modelPoint[0],
-        my = modelPoint[1],
-        mz = modelPoint[2],
+    var mx = modelPoint.x,
+        my = modelPoint.y,
+        mz = modelPoint.z,
         m = this.modelview,
         ex = m[0] * mx + m[1] * my + m[2] * mz + m[3],
         ey = m[4] * mx + m[5] * my + m[6] * mz + m[7],
@@ -1329,9 +1330,9 @@ DrawContext.prototype.projectWithDepth = function (modelPoint, depthOffset, resu
     x = x * this.viewport.width + this.viewport.x;
     y = y * this.viewport.height + this.viewport.y;
 
-    result[0] = x;
-    result[1] = y;
-    result[2] = z;
+    result.x = x;
+    result.y = y;
+    result.z = z;
 
     return true;
 };
@@ -1350,9 +1351,8 @@ DrawContext.prototype.projectWithDepth = function (modelPoint, depthOffset, resu
  * @returns {THREE.Vector2} The specified result argument set to the computed point.
  */
 DrawContext.prototype.convertPointToViewport = function (point, result) {
-    result[0] = point[0];
-    result[1] = this.viewport.height - point[1];
-
+    result.x = point.x;
+    result.y = this.viewport.height - point.y;
     return result;
 };
 

@@ -18,7 +18,6 @@
  * @exports Plane
  */
 import Line from '../geom/Line';
-import Vec3 from '../geom/Vec3';
 
 
 /**
@@ -38,9 +37,9 @@ import Vec3 from '../geom/Vec3';
 function Plane(x, y, z, distance) {
     /**
      * The normal vector to the plane.
-     * @type {Vec3}
+     * @type {THREE.Vector3}
      */
-    this.normal = new Vec3(x, y, z);
+    this.normal = new THREE.Vector3(x, y, z);
 
     /**
      * The plane's distance from the origin.
@@ -55,29 +54,29 @@ function Plane(x, y, z, distance) {
  * two vectors from pb to pa and pc to pa, respectively. The
  * returned plane is undefined if any of the specified points are colinear.
  *
- * @param {Vec3} pa The first point.
- * @param {Vec3} pb The second point.
- * @param {Vec3} pc The third point.
+ * @param {THREE.Vector3} pa The first point.
+ * @param {THREE.Vector3} pb The second point.
+ * @param {THREE.Vector3} pc The third point.
  *
  * @return {Plane} A plane passing through the specified points.
  */
 Plane.fromPoints = function (pa, pb, pc) {
-    var vab = new Vec3(pb[0], pb[1], pb[2]);
+    var vab = new THREE.Vector3(pb.x, pb.y, pb.z);
     vab.subtract(pa);
-    var vac = new Vec3(pc[0], pc[1], pc[2]);
+    var vac = new THREE.Vector3(pc.x, pc.y, pc.z);
     vac.subtract(pa);
     vab.cross(vac);
     vab.normalize();
     var d = -vab.dot(pa);
 
-    return new Plane(vab[0], vab[1], vab[2], d);
+    return new Plane(vab.x, vab.y, vab.z, d);
 };
 
 /**
  * Computes the dot product of this plane's normal vector with a specified vector.
  * Since the plane was defined with a unit normal vector, this function returns the distance of the vector from
  * the plane.
- * @param {Vec3} vector The vector to dot with this plane's normal vector.
+ * @param {THREE.Vector3} vector The vector to dot with this plane's normal vector.
  * @returns {Number} The computed dot product.
  */
 Plane.prototype.dot = function (vector) {
@@ -86,7 +85,7 @@ Plane.prototype.dot = function (vector) {
 
 /**
  * Computes the distance between this plane and a point.
- * @param {Vec3} point The point whose distance to compute.
+ * @param {THREE.Vector3} point The point whose distance to compute.
  * @returns {Number} The computed distance.
  */
 Plane.prototype.distanceToPoint = function (point) {
@@ -104,9 +103,9 @@ Plane.prototype.transformByMatrix = function (matrix) {
         z = matrix[8] * this.normal[0] + matrix[9] * this.normal[1] + matrix[10] * this.normal[2] + matrix[11] * this.distance,
         distance = matrix[12] * this.normal[0] + matrix[13] * this.normal[1] + matrix[14] * this.normal[2] + matrix[15] * this.distance;
 
-    this.normal[0] = x;
-    this.normal[1] = y;
-    this.normal[2] = z;
+    this.normal.x = x;
+    this.normal.y = y;
+    this.normal.z = z;
     this.distance = distance;
 
     return this;
@@ -131,8 +130,8 @@ Plane.prototype.normalize = function () {
 /**
  * Determines whether a specified line segment intersects this plane.
  *
- * @param {Vec3} endPoint1 The first end point of the line segment.
- * @param {Vec3} endPoint2 The second end point of the line segment.
+ * @param {THREE.Vector3} endPoint1 The first end point of the line segment.
+ * @param {THREE.Vector3} endPoint2 The second end point of the line segment.
  * @returns {Boolean} true if the line segment intersects this plane, otherwise false.
  */
 Plane.prototype.intersectsSegment = function (endPoint1, endPoint2) {
@@ -145,9 +144,9 @@ Plane.prototype.intersectsSegment = function (endPoint1, endPoint2) {
 /**
  * Computes the intersection point of this plane with a specified line segment.
  *
- * @param {Vec3} endPoint1 The first end point of the line segment.
- * @param {Vec3} endPoint2 The second end point of the line segment.
- * @param {Vec3} result A variable in which to return the intersection point of the line segment with this plane.
+ * @param {THREE.Vector3} endPoint1 The first end point of the line segment.
+ * @param {THREE.Vector3} endPoint2 The second end point of the line segment.
+ * @param {THREE.Vector3} result A variable in which to return the intersection point of the line segment with this plane.
  * @returns {Boolean} true If the line segment intersects this plane, otherwise false.
  */
 Plane.prototype.intersectsSegmentAt = function (endPoint1, endPoint2, result) {
@@ -158,9 +157,9 @@ Plane.prototype.intersectsSegmentAt = function (endPoint1, endPoint2, result) {
     // If both points points lie on the plane, ...
     if (distance1 === 0 && distance2 === 0) {
         // Choose an arbitrary endpoint as the intersection.
-        result[0] = endPoint1[0];
-        result[1] = endPoint1[1];
-        result[2] = endPoint1[2];
+        result.x = endPoint1.x;
+        result.y = endPoint1.y;
+        result.z = endPoint1.z;
 
         return true;
     }
@@ -172,9 +171,9 @@ Plane.prototype.intersectsSegmentAt = function (endPoint1, endPoint2, result) {
     var weight1 = -distance1 / (distance2 - distance1),
         weight2 = 1 - weight1;
 
-    result[0] = weight1 * endPoint1[0] + weight2 * endPoint2[0];
-    result[1] = weight1 * endPoint1[1] + weight2 * endPoint2[1];
-    result[2] = weight1 * endPoint1[2] + weight2 * endPoint2[2];
+    result.x = weight1 * endPoint1.x + weight2 * endPoint2.x;
+    result.y = weight1 * endPoint1.y + weight2 * endPoint2.y;
+    result.z = weight1 * endPoint1.z + weight2 * endPoint2.z;
 
     return distance1 * distance2 <= 0;
 };
@@ -182,8 +181,8 @@ Plane.prototype.intersectsSegmentAt = function (endPoint1, endPoint2, result) {
 /**
  * Determines whether two points are on the same side of this plane.
  *
- * @param {Vec3} pointA the first point.
- * @param {Vec3} pointB the second point.
+ * @param {THREE.Vector3} pointA the first point.
+ * @param {THREE.Vector3} pointB the second point.
  *
  * @return {Number} -1 If both points are on the negative side of this plane, +1 if both points are on the
  * positive side of this plane, 0 if the points are on opposite sides of this plane.
@@ -203,10 +202,10 @@ Plane.prototype.onSameSide = function (pointA, pointB) {
 
 /**
  * Clips a line segment to this plane.
- * @param {Vec3} pointA The first line segment endpoint.
- * @param {Vec3} pointB The second line segment endpoint.
+ * @param {THREE.Vector3} pointA The first line segment endpoint.
+ * @param {THREE.Vector3} pointB The second line segment endpoint.
  *
- * @returns {Vec3[]}  An array of two points both on the positive side of the plane. If the direction of the line formed by the
+ * @returns {THREE.Vector3[]}  An array of two points both on the positive side of the plane. If the direction of the line formed by the
  *         two points is positive with respect to this plane's normal vector, the first point in the array will be
  *         the intersection point on the plane, and the second point will be the original segment end point. If the
  *         direction of the line is negative with respect to this plane's normal vector, the first point in the
@@ -240,7 +239,7 @@ Plane.prototype.clip = function (pointA, pointB) {
         return null;
     }
 
-    p = line.pointAt(t, new Vec3(0, 0, 0));
+    p = line.pointAt(t, new THREE.Vector3());
     if (lDotV > 0) {
         return [p, pointB];
     } else {

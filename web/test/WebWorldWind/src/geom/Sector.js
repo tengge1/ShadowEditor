@@ -19,7 +19,6 @@
  */
 import Angle from '../geom/Angle';
 import Location from '../geom/Location';
-import Vec3 from '../geom/Vec3';
 import WWMath from '../util/WWMath';
 
 
@@ -372,7 +371,7 @@ Sector.prototype.getCorners = function () {
 };
 
 /**
- * Returns an array of {@link Vec3} that bounds the specified sector on the surface of the specified
+ * Returns an array of {@link THREE.Vector3} that bounds the specified sector on the surface of the specified
  * {@link Globe}. The returned points enclose the globe's surface terrain in the sector,
  * according to the specified vertical exaggeration, minimum elevation, and maximum elevation. If the minimum and
  * maximum elevation are equal, this assumes a maximum elevation of 10 + the minimum.
@@ -380,7 +379,7 @@ Sector.prototype.getCorners = function () {
  * @param {Globe} globe the globe the extent relates to.
  * @param {Number} verticalExaggeration the globe's vertical surface exaggeration.
  *
- * @returns {Vec3} a set of points that enclose the globe's surface on the specified sector. Can be turned into a {@link BoundingBox}
+ * @returns {THREE.Vector3} a set of points that enclose the globe's surface on the specified sector. Can be turned into a {@link BoundingBox}
  * with the setToVec3Points method.
  */
 Sector.prototype.computeBoundingPoints = function (globe, verticalExaggeration) {
@@ -400,13 +399,13 @@ Sector.prototype.computeBoundingPoints = function (globe, verticalExaggeration) 
     var points = [];
     var corners = this.getCorners();
     for (var i = 0; i < corners.length; i++) {
-        points.push(globe.computePointFromPosition(corners[i].latitude, corners[i].longitude, minHeight, new Vec3(0, 0, 0)));
-        points.push(globe.computePointFromPosition(corners[i].latitude, corners[i].longitude, maxHeight, new Vec3(0, 0, 0)));
+        points.push(globe.computePointFromPosition(corners[i].latitude, corners[i].longitude, minHeight, new THREE.Vector3()));
+        points.push(globe.computePointFromPosition(corners[i].latitude, corners[i].longitude, maxHeight, new THREE.Vector3()));
     }
 
     // A point at the centroid captures the maximum vertical dimension.
     var centroid = this.centroid(new Location(0, 0));
-    points.push(globe.computePointFromPosition(centroid.latitude, centroid.longitude, maxHeight, new Vec3(0, 0, 0)));
+    points.push(globe.computePointFromPosition(centroid.latitude, centroid.longitude, maxHeight, new THREE.Vector3()));
 
     // If the sector spans the equator, then the curvature of all four edges need to be taken into account. The
     // extreme points along the top and bottom edges are located at their mid-points, and the extreme points along
@@ -414,22 +413,22 @@ Sector.prototype.computeBoundingPoints = function (globe, verticalExaggeration) 
     // the sector's min and max latitude, and add points with the sector's min and max longitude but with latitude
     // at the equator. See WWJINT-225.
     if (this.minLatitude < 0 && this.maxLatitude > 0) {
-        points.push(globe.computePointFromPosition(this.minLatitude, centroid.longitude, maxHeight, new Vec3(0, 0, 0)));
-        points.push(globe.computePointFromPosition(this.maxLatitude, centroid.longitude, maxHeight, new Vec3(0, 0, 0)));
-        points.push(globe.computePointFromPosition(0, this.minLongitude, maxHeight, new Vec3(0, 0, 0)));
-        points.push(globe.computePointFromPosition(0, this.maxLongitude, maxHeight, new Vec3(0, 0, 0)));
+        points.push(globe.computePointFromPosition(this.minLatitude, centroid.longitude, maxHeight, new THREE.Vector3()));
+        points.push(globe.computePointFromPosition(this.maxLatitude, centroid.longitude, maxHeight, new THREE.Vector3()));
+        points.push(globe.computePointFromPosition(0, this.minLongitude, maxHeight, new THREE.Vector3()));
+        points.push(globe.computePointFromPosition(0, this.maxLongitude, maxHeight, new THREE.Vector3()));
     }
     // If the sector is located entirely in the southern hemisphere, then the curvature of its top edge needs to be
     // taken into account. The extreme point along the top edge is located at its mid-point. Add a point with the
     // longitude of the sector's centroid but with the sector's max latitude. See WWJINT-225.
     else if (this.minLatitude < 0) {
-        points.push(globe.computePointFromPosition(this.maxLatitude, centroid.longitude, maxHeight, new Vec3(0, 0, 0)));
+        points.push(globe.computePointFromPosition(this.maxLatitude, centroid.longitude, maxHeight, new THREE.Vector3()));
     }
     // If the sector is located entirely in the northern hemisphere, then the curvature of its bottom edge needs to
     // be taken into account. The extreme point along the bottom edge is located at its mid-point. Add a point with
     // the longitude of the sector's centroid but with the sector's min latitude. See WWJINT-225.
     else {
-        points.push(globe.computePointFromPosition(this.minLatitude, centroid.longitude, maxHeight, new Vec3(0, 0, 0)));
+        points.push(globe.computePointFromPosition(this.minLatitude, centroid.longitude, maxHeight, new THREE.Vector3()));
     }
 
     // If the sector spans 360 degrees of longitude then is a band around the entire globe. (If one edge is a pole
@@ -437,16 +436,16 @@ Sector.prototype.computeBoundingPoints = function (globe, verticalExaggeration) 
     // 0, 180, 90, and -90 to capture full extent of the band.
     if (this.deltaLongitude() >= 360) {
         var minLat = this.minLatitude;
-        points.push(globe.computePointFromPosition(minLat, 0, maxHeight, new Vec3(0, 0, 0)));
-        points.push(globe.computePointFromPosition(minLat, 90, maxHeight, new Vec3(0, 0, 0)));
-        points.push(globe.computePointFromPosition(minLat, -90, maxHeight, new Vec3(0, 0, 0)));
-        points.push(globe.computePointFromPosition(minLat, 180, maxHeight, new Vec3(0, 0, 0)));
+        points.push(globe.computePointFromPosition(minLat, 0, maxHeight, new THREE.Vector3()));
+        points.push(globe.computePointFromPosition(minLat, 90, maxHeight, new THREE.Vector3()));
+        points.push(globe.computePointFromPosition(minLat, -90, maxHeight, new THREE.Vector3()));
+        points.push(globe.computePointFromPosition(minLat, 180, maxHeight, new THREE.Vector3()));
 
         var maxLat = this.maxLatitude;
-        points.push(globe.computePointFromPosition(maxLat, 0, maxHeight, new Vec3(0, 0, 0)));
-        points.push(globe.computePointFromPosition(maxLat, 90, maxHeight, new Vec3(0, 0, 0)));
-        points.push(globe.computePointFromPosition(maxLat, -90, maxHeight, new Vec3(0, 0, 0)));
-        points.push(globe.computePointFromPosition(maxLat, 180, maxHeight, new Vec3(0, 0, 0)));
+        points.push(globe.computePointFromPosition(maxLat, 0, maxHeight, new THREE.Vector3()));
+        points.push(globe.computePointFromPosition(maxLat, 90, maxHeight, new THREE.Vector3()));
+        points.push(globe.computePointFromPosition(maxLat, -90, maxHeight, new THREE.Vector3()));
+        points.push(globe.computePointFromPosition(maxLat, 180, maxHeight, new THREE.Vector3()));
     }
     else if (this.deltaLongitude() > 180) {
         // Need to compute more points to ensure the box encompasses the full sector.
@@ -455,15 +454,15 @@ Sector.prototype.computeBoundingPoints = function (globe, verticalExaggeration) 
 
         // centroid latitude, longitude midway between min longitude and centroid longitude
         var lon = (this.minLongitude + cLon) / 2;
-        points.push(globe.computePointFromPosition(cLat, lon, maxHeight, new Vec3(0, 0, 0)));
+        points.push(globe.computePointFromPosition(cLat, lon, maxHeight, new THREE.Vector3()));
 
         // centroid latitude, longitude midway between centroid longitude and max longitude
         lon = (cLon + this.maxLongitude) / 2;
-        points.push(globe.computePointFromPosition(cLat, lon, maxHeight, new Vec3(0, 0, 0)));
+        points.push(globe.computePointFromPosition(cLat, lon, maxHeight, new THREE.Vector3()));
 
         // centroid latitude, longitude at min longitude and max longitude
-        points.push(globe.computePointFromPosition(cLat, this.minLongitude, maxHeight, new Vec3(0, 0, 0)));
-        points.push(globe.computePointFromPosition(cLat, this.maxLongitude, maxHeight, new Vec3(0, 0, 0)));
+        points.push(globe.computePointFromPosition(cLat, this.minLongitude, maxHeight, new THREE.Vector3()));
+        points.push(globe.computePointFromPosition(cLat, this.maxLongitude, maxHeight, new THREE.Vector3()));
     }
 
     return points;

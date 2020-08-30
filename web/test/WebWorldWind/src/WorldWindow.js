@@ -28,7 +28,6 @@ import PickedObjectList from './pick/PickedObjectList';
 import Position from './geom/Position';
 import Rectangle from './geom/Rectangle';
 import SurfaceShape from './shapes/SurfaceShape';
-import Vec3 from './geom/Vec3';
 import WWMath from './util/WWMath';
 import global from './global';
 import './third_party';
@@ -1250,9 +1249,9 @@ WorldWindow.prototype.declutter = function (dc, groupId) {
  */
 WorldWindow.prototype.rayThroughScreenPoint = function (point) {
     // Convert the point's xy coordinates from window coordinates to WebGL screen coordinates.
-    var screenPoint = new Vec3(point[0], this.viewport.height - point[1], 0),
-        nearPoint = new Vec3(0, 0, 0),
-        farPoint = new Vec3(0, 0, 0);
+    var screenPoint = new THREE.Vector3(point.x, this.viewport.height - point.y, 0),
+        nearPoint = new THREE.Vector3(),
+        farPoint = new THREE.Vector3();
 
     this.computeViewingTransform(this.scratchProjection, this.scratchModelview);
     var modelviewProjection = new THREE.Matrix4();
@@ -1271,12 +1270,12 @@ WorldWindow.prototype.rayThroughScreenPoint = function (point) {
         return null;
     }
 
-    var eyePoint = this.scratchModelview.extractEyePoint(new Vec3(0, 0, 0));
+    var eyePoint = this.scratchModelview.extractEyePoint(new THREE.Vector3());
 
     // Compute a ray originating at the eye point and with direction pointing from the xy coordinate on the near
     // plane to the same xy coordinate on the far plane.
-    var origin = new Vec3(eyePoint[0], eyePoint[1], eyePoint[2]),
-        direction = new Vec3(farPoint[0], farPoint[1], farPoint[2]);
+    var origin = new THREE.Vector3(eyePoint.x, eyePoint.y, eyePoint.z),
+        direction = new THREE.Vector3(farPoint.x, farPoint.y, farPoint.z);
 
     direction.subtract(nearPoint);
     direction.normalize();

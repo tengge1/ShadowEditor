@@ -22,7 +22,6 @@ import Color from '../util/Color';
 import PickedObject from '../pick/PickedObject';
 import Renderable from '../render/Renderable';
 import TextAttributes from '../shapes/TextAttributes';
-import Vec3 from '../geom/Vec3';
 import WWMath from '../util/WWMath';
 
 
@@ -167,12 +166,12 @@ function Text(text) {
     this.depthOffset = -0.003;
 
     // Internal use only. Intentionally not documented.
-    this.screenPoint = new Vec3(0, 0, 0);
+    this.screenPoint = new THREE.Vector3();
 }
 
 // Internal use only. Intentionally not documented.
 Text.matrix = new THREE.Matrix4(); // scratch variable
-Text.glPickPoint = new Vec3(0, 0, 0); // scratch variable
+Text.glPickPoint = new THREE.Vector3(); // scratch variable
 
 Text.prototype = Object.create(Renderable.prototype);
 
@@ -294,9 +293,9 @@ Text.prototype.makeOrderedRenderable = function (dc) {
     offset = this.activeAttributes.offset.offsetForSize(w, h);
 
     this.imageTransform.setTranslation(
-        this.screenPoint[0] - offset[0] * s,
-        this.screenPoint[1] - offset[1] * s,
-        this.screenPoint[2]);
+        this.screenPoint.x - offset.x * s,
+        this.screenPoint.y - offset.y * s,
+        this.screenPoint.z);
 
     this.imageTransform.setScale(w * s, h * s, 1);
 
@@ -511,9 +510,9 @@ Text.prototype.drawMarker = function (dc) {
     var s = this.markerImageScale;
     Text.matrix.copy(dc.screenProjection);
     Text.matrix.multiplyByTranslation(
-        this.screenPoint[0] - s * markerTexture.imageWidth / 2,
-        this.screenPoint[1] - s * markerTexture.imageWidth / 2,
-        this.screenPoint[2]);
+        this.screenPoint.x - s * markerTexture.imageWidth / 2,
+        this.screenPoint.y - s * markerTexture.imageWidth / 2,
+        this.screenPoint.z);
     Text.matrix.multiplyByScale(markerTexture.imageWidth * s, markerTexture.imageHeight * s, 1);
     program.loadModelviewProjection(gl, Text.matrix);
 

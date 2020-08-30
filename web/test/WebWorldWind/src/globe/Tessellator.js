@@ -455,7 +455,7 @@ Tessellator.prototype.pick = function (dc, tileList, pickDelegate) {
             point = this.computeNearestIntersection(ray, pickableTiles);
 
         if (point) {
-            dc.globe.computePositionFromPoint(point[0], point[1], point[2], position);
+            dc.globe.computePositionFromPoint(point.x, point.y, point.z, position);
             position.altitude = dc.globe.elevationAtLocation(position.latitude, position.longitude);
             dc.addPickedObject(new PickedObject(color, userObject, position, null, true));
         }
@@ -710,7 +710,7 @@ Tessellator.prototype.regenerateTileGeometry = function (dc, tile) {
     dc.globe.computePointsForGrid(tile.sector, numLat, numLon, elevations, refPoint, tile.points);
 
     // Establish a transform that is used later to move the tile coordinates into place relative to the globe.
-    tile.transformationMatrix.makeTranslation(refPoint[0], refPoint[1], refPoint[2]);
+    tile.transformationMatrix.makeTranslation(refPoint.x, refPoint.y, refPoint.z);
 };
 
 Tessellator.prototype.buildSharedGeometry = function () {
