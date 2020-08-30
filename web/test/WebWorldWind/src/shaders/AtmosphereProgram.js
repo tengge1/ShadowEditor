@@ -232,8 +232,8 @@ AtmosphereProgram.prototype.loadLightDirection = function (gl, vector) {
  */
 AtmosphereProgram.prototype.loadEyePoint = function (gl, vector) {
     gl.uniform3f(this.eyePointLocation, vector[0], vector[1], vector[2]);
-    gl.uniform1f(this.eyeMagnitudeLocation, vector.magnitude());
-    gl.uniform1f(this.eyeMagnitude2Location, vector.magnitudeSquared());
+    gl.uniform1f(this.eyeMagnitudeLocation, vector.length());
+    gl.uniform1f(this.eyeMagnitude2Location, vector.lengthSq());
 };
 
 /**
