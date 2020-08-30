@@ -712,7 +712,6 @@ WorldWindow.prototype.resetDrawContext = function () {
     dc.globe = this.globe;
     dc.navigator = this.navigator;
     dc.layers = this.layers.slice();
-    dc.layers.push(dc.screenCreditController);
     this.computeDrawContext();
     dc.verticalExaggeration = this.verticalExaggeration;
     dc.surfaceOpacity = this.surfaceOpacity;

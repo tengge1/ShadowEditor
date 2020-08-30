@@ -26,7 +26,6 @@ import PickedObjectList from '../pick/PickedObjectList';
 import Plane from '../geom/Plane';
 import Position from '../geom/Position';
 import Rectangle from '../geom/Rectangle';
-import ScreenCreditController from '../render/ScreenCreditController';
 import SurfaceShape from '../shapes/SurfaceShape';
 import SurfaceShapeTileBuilder from '../shapes/SurfaceShapeTileBuilder';
 import SurfaceTileRenderer from '../render/SurfaceTileRenderer';
@@ -94,12 +93,6 @@ function DrawContext(gl) {
      * @type {FramebufferTileController}
      */
     this.surfaceShapeTileController = new FramebufferTileController();
-
-    /**
-     * The screen credit controller responsible for collecting and drawing screen credits.
-     * @type {ScreenCreditController}
-     */
-    this.screenCreditController = new ScreenCreditController();
 
     /**
      * A shared TextRenderer instance.
@@ -386,8 +379,6 @@ DrawContext.unitQuadKey3 = "DrawContextUnitQuadKey3";
  * Prepare this draw context for the drawing of a new frame.
  */
 DrawContext.prototype.reset = function () {
-    // Reset the draw context's internal properties.
-    this.screenCreditController.clear();
     this.surfaceRenderables = []; // clears the surface renderables array
     this.orderedRenderingMode = false;
     this.orderedRenderables = []; // clears the ordered renderables array
