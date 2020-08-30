@@ -190,24 +190,27 @@ StarFieldLayer.prototype.doDraw = function (dc) {
     }
 };
 
-// Internal. Intentionally not documented.
-StarFieldLayer.prototype.loadCommonUniforms = function (dc) {
-    var gl = dc.currentGlContext;
-    var program = dc.currentProgram;
-
-    var eyePoint = dc.eyePoint;
-    var eyePosition = dc.globe.computePositionFromPoint(eyePoint[0], eyePoint[1], eyePoint[2], {});
-    var scale = Math.max(eyePosition.altitude * 1.5, this._minScale);
-    this._matrix.copy(dc.modelviewProjection);
-    this._matrix.multiplyByScale(scale, scale, scale);
-    program.loadModelviewProjection(gl, this._matrix);
-
-    //this subtraction does not work properly on the GPU, it must be done on the CPU
-    //possibly due to precision loss
-    //number of days (positive or negative) since Greenwich noon, Terrestrial Time, on 1 January 2000 (J2000.0)
-    var julianDate = SunPosition.computeJulianDate(this.time || new Date());
-    program.loadNumDays(gl, julianDate - 2451545.0);
-};
+StarFieldLayer.prototype.loadCommonUniforms = function () {
+    var vec3 = new THREE.Vector3();
+    return function(dc) {
+        var gl = dc.currentGlContext;
+        var program = dc.currentProgram;
+    
+        var eyePoint = dc.eyePoint;
+        var eyePosition = dc.globe.computePositionFromPoint(eyePoint.x, eyePoint.y, eyePoint.z, {});
+        var scale = Math.max(eyePosition.altitude * 1.5, this._minScale);
+        this._matrix.copy(dc.modelviewProjection);
+        vec3.set(scale, scale, scale);
+        this._matrix.scale(vec3);
+        program.loadModelviewProjection(gl, this._matrix);
+    
+        //this subtraction does not work properly on the GPU, it must be done on the CPU
+        //possibly due to precision loss
+        //number of days (positive or negative) since Greenwich noon, Terrestrial Time, on 1 January 2000 (J2000.0)
+        var julianDate = SunPosition.computeJulianDate(this.time || new Date());
+        program.loadNumDays(gl, julianDate - 2451545.0);
+    };
+}();
 
 // Internal. Intentionally not documented.
 StarFieldLayer.prototype.renderStars = function (dc) {
