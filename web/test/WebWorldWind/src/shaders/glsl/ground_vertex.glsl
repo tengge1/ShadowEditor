@@ -100,7 +100,7 @@ void sampleGround() {
     /* Get the ray from the camera to the vertex and its length (which is the far point of the ray passing through the
          atmosphere) */
     vec3 point = transformed.xyz + vertexOrigin;
-    vec3 ray = point - eyePoint;
+    vec3 ray = vertexOrigin - eyePoint;
     float far = length(ray);
     ray /= far;
     
