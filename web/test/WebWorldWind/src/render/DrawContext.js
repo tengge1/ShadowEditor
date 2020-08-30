@@ -238,12 +238,6 @@ function DrawContext(gl) {
     this.surfaceOpacity = 1;
 
     /**
-     * Frame statistics.
-     * @type {FrameStatistics}
-     */
-    this.frameStatistics = null;
-
-    /**
      * Indicates whether the frame is being drawn for picking.
      * @type {Boolean}
      */
@@ -414,7 +408,6 @@ DrawContext.prototype.reset = function () {
     this.currentLayer = null;
     this.terrain = null;
     this.verticalExaggeration = 1;
-    this.frameStatistics = null;
     this.accumulateOrderedRenderables = true;
 
     // Reset picking properties that may be set by the WorldWindow.
@@ -1022,8 +1015,6 @@ DrawContext.prototype.unitCubeBuffer = function () {
         gl.bindBuffer(gl.ARRAY_BUFFER, vboId);
         gl.bufferData(gl.ARRAY_BUFFER, points, gl.STATIC_DRAW);
         gl.bindBuffer(gl.ARRAY_BUFFER, null);
-        this.frameStatistics.incrementVboLoadCount(1);
-
         this.gpuResourceCache.putResource(DrawContext.unitCubeKey, vboId, points.length * 4);
     }
 
@@ -1130,8 +1121,6 @@ DrawContext.prototype.unitCubeElements = function () {
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, vboId);
         gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, elems, gl.STATIC_DRAW);
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
-        this.frameStatistics.incrementVboLoadCount(1);
-
         this.gpuResourceCache.putResource(DrawContext.unitCubeElementsKey, vboId, elems.length * 2);
     }
 
@@ -1164,8 +1153,6 @@ DrawContext.prototype.unitQuadBuffer = function () {
         gl.bindBuffer(gl.ARRAY_BUFFER, vboId);
         gl.bufferData(gl.ARRAY_BUFFER, points, gl.STATIC_DRAW);
         gl.bindBuffer(gl.ARRAY_BUFFER, null);
-        this.frameStatistics.incrementVboLoadCount(1);
-
         this.gpuResourceCache.putResource(DrawContext.unitQuadKey, vboId, points.length * 4);
     }
 
@@ -1203,8 +1190,6 @@ DrawContext.prototype.unitQuadBuffer3 = function () {
         gl.bindBuffer(gl.ARRAY_BUFFER, vboId);
         gl.bufferData(gl.ARRAY_BUFFER, points, gl.STATIC_DRAW);
         gl.bindBuffer(gl.ARRAY_BUFFER, null);
-        this.frameStatistics.incrementVboLoadCount(1);
-
         this.gpuResourceCache.putResource(DrawContext.unitQuadKey3, vboId, points.length * 4);
     }
 

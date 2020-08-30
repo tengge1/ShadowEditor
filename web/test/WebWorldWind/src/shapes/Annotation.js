@@ -460,8 +460,6 @@ Annotation.prototype.doDrawOrderedAnnotation = function (dc) {
     if (refreshBuffers) {
         gl.bufferData(gl.ARRAY_BUFFER,
             this.calloutPoints, gl.STATIC_DRAW);
-
-        dc.frameStatistics.incrementVboLoadCount(1);
     }
 
     program.loadColor(gl, dc.pickingMode ? this.pickColor : this.attributes.backgroundColor);

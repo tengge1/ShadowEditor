@@ -652,7 +652,6 @@ Placemark.prototype.doDrawOrderedPlacemark = function (dc) {
 
         gl.bindBuffer(gl.ARRAY_BUFFER, leaderLineVboId);
         gl.bufferData(gl.ARRAY_BUFFER, this.leaderLinePoints, gl.STATIC_DRAW);
-        dc.frameStatistics.incrementVboLoadCount(1);
         gl.vertexAttribPointer(program.vertexPointLocation, 3, gl.FLOAT, false, 0, 0);
         gl.drawArrays(gl.LINES, 0, 2);
     }

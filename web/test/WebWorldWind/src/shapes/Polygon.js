@@ -520,7 +520,6 @@ Polygon.prototype.drawCap = function (dc, pickColor) {
     if (refreshBuffers) {
         capBuffer = applyLighting ? this.makeCapBufferWithNormals() : currentData.capTriangles;
         gl.bufferData(gl.ARRAY_BUFFER, capBuffer, gl.STATIC_DRAW);
-        dc.frameStatistics.incrementVboLoadCount(1);
     }
 
     color = this.activeAttributes.interiorColor;
@@ -618,7 +617,6 @@ Polygon.prototype.drawSides = function (dc, pickColor) {
         dc.gpuResourceCache.putResource(currentData.sidesVboCacheKey, vboId, sidesBuffer.length * 4);
         gl.bindBuffer(gl.ARRAY_BUFFER, vboId);
         gl.bufferData(gl.ARRAY_BUFFER, sidesBuffer, gl.STATIC_DRAW);
-        dc.frameStatistics.incrementVboLoadCount(1);
     } else {
         gl.bindBuffer(gl.ARRAY_BUFFER, vboId);
     }
@@ -825,7 +823,6 @@ Polygon.prototype.drawOutline = function (dc, pickColor) {
         gl.bindBuffer(gl.ARRAY_BUFFER, vboId);
         if (refreshBuffers) {
             gl.bufferData(gl.ARRAY_BUFFER, currentData.boundaryPoints[b], gl.STATIC_DRAW);
-            dc.frameStatistics.incrementVboLoadCount(1);
         }
 
         color = this.activeAttributes.outlineColor;

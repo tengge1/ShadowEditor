@@ -289,7 +289,6 @@ AbstractMesh.prototype.doRenderOrdered = function (dc) {
     if (currentData.refreshVertexBuffer) {
         gl.bufferData(gl.ARRAY_BUFFER, currentData.meshPoints,
             gl.STATIC_DRAW);
-        dc.frameStatistics.incrementVboLoadCount(1);
         currentData.refreshVertexBuffer = false;
     }
 
@@ -319,7 +318,6 @@ AbstractMesh.prototype.doRenderOrdered = function (dc) {
         if (currentData.refreshMeshIndices) {
             gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, this.meshIndices,
                 gl.STATIC_DRAW);
-            dc.frameStatistics.incrementVboLoadCount(1);
             currentData.refreshMeshIndices = false;
         }
 
@@ -354,7 +352,6 @@ AbstractMesh.prototype.doRenderOrdered = function (dc) {
                 if (currentData.refreshTexCoordBuffer) {
                     gl.bufferData(gl.ARRAY_BUFFER, this.texCoords,
                         gl.STATIC_DRAW);
-                    dc.frameStatistics.incrementVboLoadCount(1);
                     currentData.refreshTexCoordBuffer = false;
                 }
 
@@ -392,7 +389,6 @@ AbstractMesh.prototype.doRenderOrdered = function (dc) {
             if (currentData.refreshNormalsBuffer) {
                 gl.bufferData(gl.ARRAY_BUFFER, currentData.normals,
                     gl.STATIC_DRAW);
-                dc.frameStatistics.incrementVboLoadCount(1);
                 currentData.refreshNormalsBuffer = false;
             }
 
@@ -446,7 +442,6 @@ AbstractMesh.prototype.doRenderOrdered = function (dc) {
         if (currentData.refreshOutlineIndices) {
             gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, this.meshOutlineIndices,
                 gl.STATIC_DRAW);
-            dc.frameStatistics.incrementVboLoadCount(1);
             currentData.refreshOutlineIndices = false;
         }
 

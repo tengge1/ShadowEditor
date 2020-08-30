@@ -261,7 +261,6 @@ Tessellator.prototype.beginRenderingTile = function (dc, terrainTile) {
         vbo = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
         gl.bufferData(gl.ARRAY_BUFFER, terrainTile.points, gl.STATIC_DRAW);
-        dc.frameStatistics.incrementVboLoadCount(1);
         gpuResourceCache.putResource(vboCacheKey, vbo, terrainTile.points.length * 4);
         terrainTile.pointsVboStateKey = terrainTile.pointsStateKey;
     }
@@ -1050,7 +1049,6 @@ Tessellator.prototype.cacheSharedGeometryVBOs = function (dc) {
         texCoordVbo = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, texCoordVbo);
         gl.bufferData(gl.ARRAY_BUFFER, this.texCoords, gl.STATIC_DRAW);
-        dc.frameStatistics.incrementVboLoadCount(1);
         gpuResourceCache.putResource(this.texCoordVboCacheKey, texCoordVbo, this.texCoords.length * 4 / 2);
     }
 
@@ -1059,7 +1057,6 @@ Tessellator.prototype.cacheSharedGeometryVBOs = function (dc) {
         indicesVbo = gl.createBuffer();
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indicesVbo);
         gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, this.indices, gl.STATIC_DRAW);
-        dc.frameStatistics.incrementVboLoadCount(1);
         gpuResourceCache.putResource(this.indicesVboCacheKey, indicesVbo, this.indices.length * 2);
     }
 };

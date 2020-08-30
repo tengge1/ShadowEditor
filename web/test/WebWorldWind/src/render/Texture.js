@@ -125,12 +125,8 @@ Texture.prototype.dispose = function (gl) {
  */
 Texture.prototype.bind = function (dc) {
     var gl = dc.currentGlContext;
-
     gl.bindTexture(gl.TEXTURE_2D, this.textureId);
-
     this.applyTexParameters(dc);
-
-    dc.frameStatistics.incrementTextureLoadCount(1);
     return true;
 };
 

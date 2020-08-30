@@ -504,7 +504,6 @@ Path.prototype.doRenderOrdered = function (dc) {
     if (currentData.fillVbo) {
         gl.bufferData(gl.ARRAY_BUFFER, currentData.tessellatedPoints,
             gl.STATIC_DRAW);
-        dc.frameStatistics.incrementVboLoadCount(1);
     }
 
     program.loadTextureEnabled(gl, false);
@@ -567,7 +566,6 @@ Path.prototype.doRenderOrdered = function (dc) {
             if (currentData.fillVbo) {
                 gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, currentData.verticalIndices,
                     gl.STATIC_DRAW);
-                dc.frameStatistics.incrementVboLoadCount(1);
             }
 
             gl.vertexAttribPointer(program.vertexPointLocation, 3, gl.FLOAT, false, 0, 0);

@@ -289,7 +289,6 @@ Tile.prototype.update = function (dc) {
         || this.updateGlobeStateKey != globeStateKey) {
 
         this.doUpdate(dc);
-        dc.frameStatistics.incrementTileUpdateCount(1);
 
         // Set the geometry extent to the globe's elevation timestamp on which the geometry is based. This
         // ensures that the geometry timestamp can be reliably compared to the elevation timestamp in subsequent

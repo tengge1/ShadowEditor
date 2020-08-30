@@ -52,7 +52,6 @@ SurfaceTileRenderer.prototype.renderTiles = function (dc, surfaceTiles, opacity,
 
     var terrain = dc.terrain,
         gl = dc.currentGlContext,
-        tileCount = 0,// for frame statistics,
         program,
         terrainTile,
         terrainTileSector,
@@ -108,7 +107,6 @@ SurfaceTileRenderer.prototype.renderTiles = function (dc, surfaceTiles, opacity,
 
     terrain.endRendering(dc);
     this.endRendering(dc);
-    dc.frameStatistics.incrementRenderedTileCount(tileCount);
 };
 
 // Intentionally not documented.

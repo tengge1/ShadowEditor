@@ -119,7 +119,6 @@ AtmosphereLayer.prototype.applySkyVertices = function (dc) {
 
         dc.gpuResourceCache.putResource(skyData.verticesVboCacheKey, vboId,
             skyPoints.length * 4);
-        dc.frameStatistics.incrementVboLoadCount(1);
     }
     else {
         gl.bindBuffer(gl.ARRAY_BUFFER, vboId);
@@ -146,8 +145,6 @@ AtmosphereLayer.prototype.applySkyIndices = function (dc) {
         vboId = gl.createBuffer();
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, vboId);
         gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, skyIndices, gl.STATIC_DRAW);
-
-        dc.frameStatistics.incrementVboLoadCount(1);
         dc.gpuResourceCache.putResource(skyData.indicesVboCacheKey, vboId, skyIndices.length * 2);
     }
     else {

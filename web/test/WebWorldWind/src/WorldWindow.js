@@ -20,7 +20,6 @@
 import BasicWorldWindowController from './BasicWorldWindowController';
 import DrawContext from './render/DrawContext';
 import EarthElevationModel from './globe/EarthElevationModel';
-import FrameStatistics from './util/FrameStatistics';
 import Globe from './globe/Globe';
 import GoToAnimator from './util/GoToAnimator';
 import Line from './geom/Line';
@@ -163,12 +162,6 @@ function WorldWindow(canvasElem) {
      * @default 1
      */
     this.surfaceOpacity = 1;
-
-    /**
-     * Performance statistics for this WorldWindow.
-     * @type {FrameStatistics}
-     */
-    this.frameStatistics = new FrameStatistics();
 
     /**
      * The {@link GoToAnimator} used by this WorldWindow to respond to its goTo method.
@@ -724,7 +717,6 @@ WorldWindow.prototype.resetDrawContext = function () {
     dc.verticalExaggeration = this.verticalExaggeration;
     dc.surfaceOpacity = this.surfaceOpacity;
     dc.deepPicking = this.deepPicking;
-    dc.frameStatistics = this.frameStatistics;
     dc.pixelScale = this.pixelScale;
     dc.update();
 };
@@ -758,13 +750,10 @@ WorldWindow.prototype.resetDrawContext = function () {
 // Internal function. Intentionally not documented.
 WorldWindow.prototype.drawFrame = function () {
     try {
-        this.drawContext.frameStatistics.beginFrame();
         this.beginFrame();
         this.doNormalRepaint();
     } finally {
         this.endFrame();
-        this.drawContext.frameStatistics.endFrame();
-        //console.log(this.drawContext.frameStatistics.frameTime);
     }
 };
 
@@ -938,7 +927,6 @@ WorldWindow.prototype.doPick = function () {
 WorldWindow.prototype.createTerrain = function () {
     var dc = this.drawContext;
     dc.terrain = this.globe.tessellator.tessellate(dc);
-    dc.frameStatistics.setTerrainTileCount(dc.terrain ? dc.terrain.surfaceGeometry.length : 0);
 };
 
 WorldWindow.prototype.makeCurrent = function (offset) {
@@ -980,8 +968,6 @@ WorldWindow.prototype.drawLayers = function (accumulateOrderedRenderables) {
         }
     }
     dc.currentLayer = null;
-    var now = Date.now();
-    dc.frameStatistics.layerRenderingTime = now - beginTime;
 };
 
 /**
@@ -1075,7 +1061,6 @@ WorldWindow.prototype.drawOrderedRenderables = function () {
     }
 
     dc.orderedRenderingMode = false;
-    dc.frameStatistics.orderedRenderingTime = Date.now() - beginTime;
 };
 
 WorldWindow.prototype.drawScreenRenderables = function () {

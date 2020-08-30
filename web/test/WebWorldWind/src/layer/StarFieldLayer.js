@@ -229,8 +229,6 @@ StarFieldLayer.prototype.renderStars = function (dc) {
     else {
         gl.bindBuffer(gl.ARRAY_BUFFER, vboId);
     }
-    dc.frameStatistics.incrementVboLoadCount(1);
-
     gl.vertexAttribPointer(0, 4, gl.FLOAT, false, 0, 0);
 
     program.loadMagnitudeRange(gl, this._minMagnitude, this._maxMagnitude);
@@ -278,7 +276,6 @@ StarFieldLayer.prototype.renderSun = function (dc) {
         gl.bindBuffer(gl.ARRAY_BUFFER, vboId);
         gl.bufferSubData(gl.ARRAY_BUFFER, 0, this._sunBufferView);
     }
-    dc.frameStatistics.incrementVboLoadCount(1);
     gl.vertexAttribPointer(0, 4, gl.FLOAT, false, 0, 0);
 
     program.loadTextureEnabled(gl, true);
