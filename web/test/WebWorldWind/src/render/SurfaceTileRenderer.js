@@ -97,7 +97,6 @@ SurfaceTileRenderer.prototype.renderTiles = function (dc, surfaceTiles, opacity,
 
                     this.applyTileState(dc, terrainTile, surfaceTile);
                     terrain.renderTile(dc, terrainTile);
-                    ++tileCount;
                 }
             }
         }
