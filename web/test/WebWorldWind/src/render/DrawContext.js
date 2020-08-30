@@ -337,35 +337,9 @@ function DrawContext(gl) {
      */
     this.viewport = new Rectangle(0, 0, 0, 0);
 
-    // Intentionally not documented.
-    this._pixelSizeFactor = 0;
-    Object.defineProperty(this, 'pixelSizeFactor', {
-        get() {
-            return this._pixelSizeFactor;
-        },
-        set(value) {
-            if(isNaN(value)) {
-                debugger;
-            }
-            this._pixelSizeFactor = value;
-        }
-    });
+    this.pixelSizeFactor = 0;
+    this.pixelSizeOffset = 0;
 
-    // Intentionally not documented.
-    this._pixelSizeOffset = 0;
-    Object.defineProperty(this, 'pixelSizeOffset', {
-        get() {
-            return this._pixelSizeOffset;
-        },
-        set(value) {
-            if(isNaN(value)) {
-                debugger;
-            }
-            this._pixelSizeOffset = value;
-        }
-    });
-
-    // Intentionally not documented.
     this.glExtensionsCache = {};
 }
 
