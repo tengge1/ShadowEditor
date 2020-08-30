@@ -219,7 +219,7 @@ AtmosphereProgram.prototype.loadVertexOrigin = function (gl, vector) {
  * @param {Vec3} vector The vector to load.
  */
 AtmosphereProgram.prototype.loadLightDirection = function (gl, vector) {
-    gl.uniform3f(this.lightDirectionLocation, vector[0], vector[1], vector[2]);
+    gl.uniform3f(this.lightDirectionLocation, vector.x, vector.y, vector.z);
 };
 
 /**
@@ -231,7 +231,7 @@ AtmosphereProgram.prototype.loadLightDirection = function (gl, vector) {
  * @param {Vec3} vector The vector to load.
  */
 AtmosphereProgram.prototype.loadEyePoint = function (gl, vector) {
-    gl.uniform3f(this.eyePointLocation, vector[0], vector[1], vector[2]);
+    gl.uniform3f(this.eyePointLocation, vector.x, vector.y, vector.z);
     gl.uniform1f(this.eyeMagnitudeLocation, vector.length());
     gl.uniform1f(this.eyeMagnitude2Location, vector.lengthSq());
 };

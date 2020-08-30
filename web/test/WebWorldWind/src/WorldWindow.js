@@ -686,9 +686,6 @@ WorldWindow.prototype.computeDrawContext = function () {
         dc.modelviewProjection.multiplyMatrices(dc.projection, dc.modelview);
     
         var pixelMetrics = this.computePixelMetrics(dc.projection);
-        if(isNaN(pixelMetrics.pixelSizeFactor)) {
-            debugger;
-        }
         dc.pixelSizeFactor = pixelMetrics.pixelSizeFactor;
         dc.pixelSizeOffset = pixelMetrics.pixelSizeOffset;
 
