@@ -343,7 +343,7 @@ Globe.prototype.northTangentAtPoint = function (x, y, z, result) {
 
 /**
  * Indicates whether this globe intersects a specified frustum.
- * @param {Frustum} frustum The frustum to test.
+ * @param {THREE.Frustum} frustum The frustum to test.
  * @returns {Boolean} true if this globe intersects the frustum, otherwise false.
  */
 Globe.prototype.intersectsFrustum = function (frustum) {

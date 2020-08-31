@@ -72,7 +72,7 @@ function BoundingBox() {
             return this._x;
         },
         set(value) {
-            if(isNaN(value)) {
+            if (isNaN(value)) {
                 debugger;
             }
             this._x = value;
@@ -92,7 +92,7 @@ function BoundingBox() {
             return this._x;
         },
         set(value) {
-            if(isNaN(value)) {
+            if (isNaN(value)) {
                 debugger;
             }
             this._x = value;
@@ -303,33 +303,21 @@ BoundingBox.prototype.effectiveRadius = function (plane) {
 
 /**
  * Indicates whether this bounding box intersects a specified frustum.
- * @param {Frustum} frustum The frustum of interest.
+ * @param {THREE.Frustum} frustum The frustum of interest.
  * @returns {boolean} true if the specified frustum intersects this bounding box, otherwise false.
  */
-BoundingBox.prototype.intersectsFrustum = function () {
-    var plane = new THREE.Plane();
-    return function(frustum) {
-        this.tmp1.copy(this.bottomCenter);
-        this.tmp2.copy(this.topCenter);
+BoundingBox.prototype.intersectsFrustum = function (frustum) {
+    this.tmp1.copy(this.bottomCenter);
+    this.tmp2.copy(this.topCenter);
 
-        for(var i = 0; i < frustum.planes.length; i++) {
-            var plan = frustum.planes[i];
-            plane.normal.x = plan.normal.x;
-            plane.normal.y = plan.normal.y;
-            plane.normal.z = plan.normal.z;
-            plane.constant = plan.constant;
-            if (this.intersectionPoint(plane) < 0) {
-                return false;
-            }
+    for (var i = 0; i < frustum.planes.length; i++) {
+        if (this.intersectionPoint(frustum.planes[i]) < 0) {
+            return false;
         }
+    }
 
-        return true;
-        
-        // sphere.center.fromArray(this.center);
-        // sphere.radius = this.radius;
-        // return frustum.intersectsSphere(sphere);
-    };
-}();
+    return true;
+};
 
 // Internal. Intentionally not documented.
 BoundingBox.prototype.intersectionPoint = function (plane) {

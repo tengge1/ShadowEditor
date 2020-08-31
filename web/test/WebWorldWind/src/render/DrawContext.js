@@ -20,7 +20,6 @@
 import Color from '../util/Color';
 import FramebufferTexture from '../render/FramebufferTexture';
 import FramebufferTileController from '../render/FramebufferTileController';
-import Frustum from '../geom/Frustum';
 import GpuResourceCache from '../cache/GpuResourceCache';
 import PickedObjectList from '../pick/PickedObjectList';
 import Position from '../geom/Position';
@@ -294,7 +293,7 @@ function DrawContext(gl) {
 
     /**
      * The current pick frustum, created anew each picking frame.
-     * @type {Frustum}
+     * @type {THREE.Frustum}
      * @readonly
      */
     this.pickFrustum = null;
@@ -323,7 +322,7 @@ function DrawContext(gl) {
      * The viewing frustum in model coordinates. The frustum originates at the eyePoint and extends
      * outward along the forward vector. The near distance and far distance identify the minimum and
      * maximum distance, respectively, at which an object in the scene is visible.
-     * @type {Frustum}
+     * @type {THREE.Frustum}
      * @readonly
      */
     this.frustumInModelCoordinates = new THREE.Frustum();
@@ -921,7 +920,7 @@ DrawContext.prototype.makePickFrustum = function () {
     f = new THREE.Plane(nf.x, nf.y, nf.z, -nf.dot(llf));
     f.normalize();
 
-    this.pickFrustum = new Frustum(l, r, b, t, n, f);
+    this.pickFrustum = new THREE.Frustum(l, r, b, t, n, f);
 
     return true;
 };

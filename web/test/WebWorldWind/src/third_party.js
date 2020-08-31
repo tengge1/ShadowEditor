@@ -295,14 +295,3 @@ THREE.Matrix4.prototype.setToUnitYFlip = function () {
 
     return this;
 };
-
-Object.defineProperty(THREE.Vector3.prototype, '0', {
-    get() {
-        debugger;
-        return this.x;
-    },
-    set(value) {
-        debugger;
-        this.x = value;
-    }
-});
