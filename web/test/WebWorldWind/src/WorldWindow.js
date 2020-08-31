@@ -716,32 +716,6 @@ WorldWindow.prototype.resetDrawContext = function () {
     dc.update();
 };
 
-/* useful stuff to debug WebGL */
-/*
- function logGLCall(functionName, args) {
- console.log("gl." + functionName + "(" +
- WebGLDebugUtils.glFunctionArgsToString(functionName, args) + ")");
- };
-
- function validateNoneOfTheArgsAreUndefined(functionName, args) {
- for (var ii = 0; ii < args.length; ++ii) {
- if (args[ii] === undefined) {
- console.error("undefined passed to gl." + functionName + "(" +
- WebGLDebugUtils.glFunctionArgsToString(functionName, args) + ")");
- }
- }
- };
-
- WorldWindow.prototype.logAndValidate = function logAndValidate(functionName, args) {
- logGLCall(functionName, args);
- validateNoneOfTheArgsAreUndefined (functionName, args);
- };
-
- WorldWindow.prototype.throwOnGLError = function throwOnGLError(err, funcName, args) {
- throw WebGLDebugUtils.glEnumToString(err) + " was caused by call to: " + funcName;
- };
- */
-
 // Internal function. Intentionally not documented.
 WorldWindow.prototype.drawFrame = function () {
     try {
@@ -922,26 +896,6 @@ WorldWindow.prototype.doPick = function () {
 WorldWindow.prototype.createTerrain = function () {
     var dc = this.drawContext;
     dc.terrain = this.globe.tessellator.tessellate(dc);
-};
-
-WorldWindow.prototype.makeCurrent = function (offset) {
-    var dc = this.drawContext;
-    dc.globe.offset = offset;
-    dc.globeStateKey = dc.globe.stateKey;
-
-    switch (offset) {
-        case -1:
-            dc.terrain = this.terrainLeft;
-            break;
-
-        case 0:
-            dc.terrain = this.terrainCenter;
-            break;
-
-        case 1:
-            dc.terrain = this.terrainRight;
-            break;
-    }
 };
 
 // Internal function. Intentionally not documented.

@@ -18,7 +18,6 @@
  * @exports Location
  */
 import Angle from '../geom/Angle';
-import Plane from '../geom/Plane';
 import WWMath from '../util/WWMath';
 
 
@@ -746,10 +745,12 @@ Location.intersectionWithMeridian = function (p1, p2, meridian, globe) {
     var northPole = globe.computePointFromLocation(90, meridian, new THREE.Vector3());
     var pointOnEquator = globe.computePointFromLocation(0, meridian, new THREE.Vector3());
 
-    var plane = Plane.fromPoints(northPole, pointOnEquator, new THREE.Vector3());
+    var plane = new THREE.Plane().setFromCoplanarPoints(northPole, pointOnEquator, new THREE.Vector3());
 
     var intersectionPoint = new THREE.Vector3();
-    if (!plane.intersectsSegmentAt(pt1, pt2, intersectionPoint)) {
+
+    debugger;
+    if (!plane.intersectsLine(pt1, pt2, intersectionPoint)) {
         return null;
     }
 

@@ -17,20 +17,18 @@
 /**
  * @exports Frustum
  */
-import Plane from '../geom/Plane';
-
 
 /**
  * Constructs a frustum.
  * @alias Frustum
  * @constructor
  * @classdesc Represents a six-sided view frustum in Cartesian coordinates.
- * @param {Plane} left The frustum's left plane.
- * @param {Plane} right The frustum's right plane.
- * @param {Plane} bottom The frustum's bottom plane.
- * @param {Plane} top The frustum's top plane.
- * @param {Plane} near The frustum's near plane.
- * @param {Plane} far The frustum's far plane.
+ * @param {THREE.Plane} left The frustum's left plane.
+ * @param {THREE.Plane} right The frustum's right plane.
+ * @param {THREE.Plane} bottom The frustum's bottom plane.
+ * @param {THREE.Plane} top The frustum's top plane.
+ * @param {THREE.Plane} near The frustum's near plane.
+ * @param {THREE.Plane} far The frustum's far plane.
  */
 function Frustum(left, right, bottom, top, near, far) {
     // Internal. Intentionally not documented. See property accessors below for public interface.
@@ -51,7 +49,7 @@ Object.defineProperties(Frustum.prototype, {
     /**
      * This frustum's left plane.
      * @memberof Frustum.prototype
-     * @type {Plane}
+     * @type {THREE.Plane}
      * @readonly
      */
     left: {
@@ -62,7 +60,7 @@ Object.defineProperties(Frustum.prototype, {
     /**
      * This frustum's right plane.
      * @memberof Frustum.prototype
-     * @type {Plane}
+     * @type {THREE.Plane}
      * @readonly
      */
     right: {
@@ -73,7 +71,7 @@ Object.defineProperties(Frustum.prototype, {
     /**
      * This frustum's bottom plane.
      * @memberof Frustum.prototype
-     * @type {Plane}
+     * @type {THREE.Plane}
      * @readonly
      */
     bottom: {
@@ -84,7 +82,7 @@ Object.defineProperties(Frustum.prototype, {
     /**
      * This frustum's top plane.
      * @memberof Frustum.prototype
-     * @type {Plane}
+     * @type {THREE.Plane}
      * @readonly
      */
     top: {
@@ -95,7 +93,7 @@ Object.defineProperties(Frustum.prototype, {
     /**
      * This frustum's near plane.
      * @memberof Frustum.prototype
-     * @type {Plane}
+     * @type {THREE.Plane}
      * @readonly
      */
     near: {
@@ -106,7 +104,7 @@ Object.defineProperties(Frustum.prototype, {
     /**
      * This frustum's far plane.
      * @memberof Frustum.prototype
-     * @type {Plane}
+     * @type {THREE.Plane}
      * @readonly
      */
     far: {
@@ -153,12 +151,12 @@ Frustum.prototype.normalize = function () {
  */
 Frustum.unitFrustum = function () {
     return new Frustum(
-        new Plane(1, 0, 0, 1), // left
-        new Plane(-1, 0, 0, 1), // right
-        new Plane(0, 1, 1, 1), // bottom
-        new Plane(0, -1, 0, 1), // top
-        new Plane(0, 0, -1, 1), // near
-        new Plane(0, 0, 1, 1) // far
+        new THREE.Plane(1, 0, 0, 1), // left
+        new THREE.Plane(-1, 0, 0, 1), // right
+        new THREE.Plane(0, 1, 1, 1), // bottom
+        new THREE.Plane(0, -1, 0, 1), // top
+        new THREE.Plane(0, 0, -1, 1), // near
+        new THREE.Plane(0, 0, 1, 1) // far
     );
 };
 
@@ -183,7 +181,7 @@ Frustum.fromProjectionMatrix = function (matrix) {
     z = matrix[14] + matrix[2];
     w = matrix[15] + matrix[3];
     d = Math.sqrt(x * x + y * y + z * z); // for normalizing the coordinates
-    left = new Plane(x / d, y / d, z / d, w / d);
+    left = new THREE.Plane(x / d, y / d, z / d, w / d);
 
     // Right Plane = row 4 - row 1:
     x = matrix[12] - matrix[0];
@@ -191,7 +189,7 @@ Frustum.fromProjectionMatrix = function (matrix) {
     z = matrix[14] - matrix[2];
     w = matrix[15] - matrix[3];
     d = Math.sqrt(x * x + y * y + z * z); // for normalizing the coordinates
-    right = new Plane(x / d, y / d, z / d, w / d);
+    right = new THREE.Plane(x / d, y / d, z / d, w / d);
 
     // Bottom Plane = row 4 + row 2:
     x = matrix[12] + matrix[4];
@@ -199,7 +197,7 @@ Frustum.fromProjectionMatrix = function (matrix) {
     z = matrix[14] + matrix[6];
     w = matrix[15] + matrix[7];
     d = Math.sqrt(x * x + y * y + z * z); // for normalizing the coordinates
-    bottom = new Plane(x / d, y / d, z / d, w / d);
+    bottom = new THREE.Plane(x / d, y / d, z / d, w / d);
 
     // Top Plane = row 4 - row 2:
     x = matrix[12] - matrix[4];
@@ -207,7 +205,7 @@ Frustum.fromProjectionMatrix = function (matrix) {
     z = matrix[14] - matrix[6];
     w = matrix[15] - matrix[7];
     d = Math.sqrt(x * x + y * y + z * z); // for normalizing the coordinates
-    top = new Plane(x / d, y / d, z / d, w / d);
+    top = new THREE.Plane(x / d, y / d, z / d, w / d);
 
     // Near Plane = row 4 + row 3:
     x = matrix[12] + matrix[8];
@@ -215,7 +213,7 @@ Frustum.fromProjectionMatrix = function (matrix) {
     z = matrix[14] + matrix[10];
     w = matrix[15] + matrix[11];
     d = Math.sqrt(x * x + y * y + z * z); // for normalizing the coordinates
-    near = new Plane(x / d, y / d, z / d, w / d);
+    near = new THREE.Plane(x / d, y / d, z / d, w / d);
 
     // Far Plane = row 4 - row 3:
     x = matrix[12] - matrix[8];
@@ -223,8 +221,9 @@ Frustum.fromProjectionMatrix = function (matrix) {
     z = matrix[14] - matrix[10];
     w = matrix[15] - matrix[11];
     d = Math.sqrt(x * x + y * y + z * z); // for normalizing the coordinates
-    far = new Plane(x / d, y / d, z / d, w / d);
+    far = new THREE.Plane(x / d, y / d, z / d, w / d);
 
+    debugger;
     return new Frustum(left, right, bottom, top, near, far);
 };
 

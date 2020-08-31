@@ -20,7 +20,6 @@
 import BasicProgram from '../shaders/BasicProgram';
 import WWMath from '../util/WWMath';
 import WWUtil from '../util/WWUtil';
-import Plane from './Plane';
 
 /**
  * Constructs a unit bounding box.
@@ -67,12 +66,38 @@ function BoundingBox() {
      */
     this.s = new THREE.Vector3(0, 1, 0);
 
+    this.s._x = this.s.x;
+    Object.defineProperty(this.s, 'x', {
+        get() {
+            return this._x;
+        },
+        set(value) {
+            if(isNaN(value)) {
+                debugger;
+            }
+            this._x = value;
+        }
+    });
+
     /**
      * The box's T axis, its shortest axis.
      * @type {THREE.Vector3}
      * @default (0, 0, 1)
      */
     this.t = new THREE.Vector3(0, 0, 1);
+
+    this.t._x = this.t.x;
+    Object.defineProperty(this.t, 'x', {
+        get() {
+            return this._x;
+        },
+        set(value) {
+            if(isNaN(value)) {
+                debugger;
+            }
+            this._x = value;
+        }
+    });
 
     /**
      * The box's radius. (The half-length of its diagonal.)
@@ -230,9 +255,9 @@ BoundingBox.prototype.setToSector = function (sector, globe, minElevation, maxEl
     this.topCenter.set(cx + rx_2, cy + ry_2, cz + rz_2);
     this.bottomCenter.set(cx - rx_2, cy - ry_2, cz - rz_2);
 
-    this.r.multiply(rLen);
-    this.s.multiply(sLen);
-    this.t.multiply(tLen);
+    this.r.multiplyScalar(rLen);
+    this.s.multiplyScalar(sLen);
+    this.t.multiplyScalar(tLen);
 
     this.radius = 0.5 * Math.sqrt(rLen * rLen + sLen * sLen + tLen * tLen);
 
@@ -267,7 +292,7 @@ BoundingBox.prototype.distanceTo = function (point) {
 
 /**
  * Computes the effective radius of this bounding box relative to a specified plane.
- * @param {Plane} plane The plane of interest.
+ * @param {THREE.Plane} plane The plane of interest.
  * @returns {Number} The effective radius of this bounding box to the specified plane.
  */
 BoundingBox.prototype.effectiveRadius = function (plane) {
@@ -282,8 +307,7 @@ BoundingBox.prototype.effectiveRadius = function (plane) {
  * @returns {boolean} true if the specified frustum intersects this bounding box, otherwise false.
  */
 BoundingBox.prototype.intersectsFrustum = function () {
-    // var sphere = new THREE.Sphere();
-    var plane = new Plane();
+    var plane = new THREE.Plane();
     return function(frustum) {
         this.tmp1.copy(this.bottomCenter);
         this.tmp2.copy(this.topCenter);
@@ -293,7 +317,7 @@ BoundingBox.prototype.intersectsFrustum = function () {
             plane.normal.x = plan.normal.x;
             plane.normal.y = plan.normal.y;
             plane.normal.z = plan.normal.z;
-            plane.distance = plan.distance;
+            plane.constant = plan.constant;
             if (this.intersectionPoint(plane) < 0) {
                 return false;
             }
@@ -318,11 +342,11 @@ BoundingBox.prototype.intersectionPoint = function (plane) {
 // Internal. Intentionally not documented.
 BoundingBox.prototype.intersectsAt = function (plane, effRadius, endPoint1, endPoint2) {
     // Test the distance from the first end-point.
-    var dq1 = plane.dot(endPoint1);
+    var dq1 = plane.distanceToPoint(endPoint1);
     var bq1 = dq1 <= -effRadius;
 
     // Test the distance from the second end-point.
-    var dq2 = plane.dot(endPoint2);
+    var dq2 = plane.distanceToPoint(endPoint2);
     var bq2 = dq2 <= -effRadius;
 
     if (bq1 && bq2) { // endpoints more distant from plane than effective radius; box is on neg. side of plane
@@ -335,12 +359,12 @@ BoundingBox.prototype.intersectsAt = function (plane, effRadius, endPoint1, endP
 
     // Compute and return the endpoints of the box on the positive side of the plane
     this.tmp3.copy(endPoint1);
-    this.tmp3.subtract(endPoint2);
+    this.tmp3.sub(endPoint2);
     var t = (effRadius + dq1) / plane.normal.dot(this.tmp3);
 
     this.tmp3.copy(endPoint2);
-    this.tmp3.subtract(endPoint1);
-    this.tmp3.multiply(t);
+    this.tmp3.sub(endPoint1);
+    this.tmp3.multiplyScalar(t);
     this.tmp3.add(endPoint1);
 
     // Truncate the line to only that in the positive halfspace, e.g., inside the frustum.

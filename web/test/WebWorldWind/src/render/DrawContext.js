@@ -23,7 +23,6 @@ import FramebufferTileController from '../render/FramebufferTileController';
 import Frustum from '../geom/Frustum';
 import GpuResourceCache from '../cache/GpuResourceCache';
 import PickedObjectList from '../pick/PickedObjectList';
-import Plane from '../geom/Plane';
 import Position from '../geom/Position';
 import Rectangle from '../geom/Rectangle';
 import SurfaceShape from '../shapes/SurfaceShape';
@@ -206,7 +205,15 @@ function DrawContext(gl) {
      * The terrain for the current frame.
      * @type {Terrain}
      */
-    this.terrain = null;
+    this._terrain = null;
+    Object.defineProperty(this, 'terrain', {
+        get () {
+            return this._terrain;
+        },
+        set(value) {
+            this._terrain = value;
+        }
+    });
 
     /**
      * The current vertical exaggeration.
@@ -881,37 +888,37 @@ DrawContext.prototype.makePickFrustum = function () {
     va = new THREE.Vector3(ulf[0] - lln[0], ulf[1] - lln[1], ulf[2] - lln[2]);
     vb.set(uln[0] - llf[0], uln[1] - llf[1], uln[2] - llf[2]);
     nl = va.cross(vb);
-    l = new Plane(nl[0], nl[1], nl[2], -nl.dot(lln));
+    l = new THREE.Plane(nl[0], nl[1], nl[2], -nl.dot(lln));
     l.normalize();
 
     va = new THREE.Vector3(urn[0] - lrf[0], urn[1] - lrf[1], urn[2] - lrf[2]);
     vb.set(urf[0] - lrn[0], urf[1] - lrn[1], urf[2] - lrn[2]);
     nr = va.cross(vb);
-    r = new Plane(nr.x, nr.y, nr.z, -nr.dot(lrn));
+    r = new THREE.Plane(nr.x, nr.y, nr.z, -nr.dot(lrn));
     r.normalize();
 
     va = new THREE.Vector3(ulf[0] - urn[0], ulf[1] - urn[1], ulf[2] - urn[2]);
     vb.set(urf[0] - uln[0], urf[1] - uln[1], urf[2] - uln[2]);
     nt = va.cross(vb);
-    t = new Plane(nt.x, nt.y, nt.z, -nt.dot(uln));
+    t = new THREE.Plane(nt.x, nt.y, nt.z, -nt.dot(uln));
     t.normalize();
 
     va = new THREE.Vector3(lrf[0] - lln[0], lrf[1] - lln[1], lrf[2] - lln[2]);
     vb.set(llf[0] - lrn[0], llf[1] - lrn[1], llf[2] - lrn[2]);
     nb = va.cross(vb);
-    b = new Plane(nb.x, nb.y, nb.z, -nb.dot(lrn));
+    b = new THREE.Plane(nb.x, nb.y, nb.z, -nb.dot(lrn));
     b.normalize();
 
     va = new THREE.Vector3(uln[0] - lrn[0], uln[1] - lrn[1], uln[2] - lrn[2]);
     vb.set(urn[0] - lln[0], urn[1] - lln[1], urn[2] - lln[2]);
     nn = va.cross(vb);
-    n = new Plane(nn.x, nn.y, nn.z, -nn.dot(lln));
+    n = new THREE.Plane(nn.x, nn.y, nn.z, -nn.dot(lln));
     n.normalize();
 
     va = new THREE.Vector3(urf[0] - llf[0], urf[1] - llf[1], urf[2] - llf[2]);
     vb.set(ulf[0] - lrf[0], ulf[1] - lrf[1], ulf[2] - lrf[2]);
     nf = va.cross(vb);
-    f = new Plane(nf.x, nf.y, nf.z, -nf.dot(llf));
+    f = new THREE.Plane(nf.x, nf.y, nf.z, -nf.dot(llf));
     f.normalize();
 
     this.pickFrustum = new Frustum(l, r, b, t, n, f);
