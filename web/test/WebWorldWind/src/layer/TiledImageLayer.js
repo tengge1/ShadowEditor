@@ -268,8 +268,7 @@ TiledImageLayer.prototype.retrieveTileImage = function (dc, tile) {
 
         var url = this.resourceUrlForTile(tile, this.retrievalImageFormat),
             image = new Image(),
-            imagePath = tile.imagePath,
-            layer = this;
+            imagePath = tile.imagePath;
 
         if (!url) {
             this.currentTilesInvalid = true;

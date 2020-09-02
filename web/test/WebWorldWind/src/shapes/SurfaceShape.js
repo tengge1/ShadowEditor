@@ -700,7 +700,7 @@ SurfaceShape.prototype.computeSectors = function (dc) {
  *
  * @return {BoundingBox} The extent for the shape.
  */
-SurfaceShape.prototype.computeExtent = function (dc) {
+SurfaceShape.prototype.getCorners = function (dc) {
 
     if (!this._boundingSectors || this._boundingSectors.length === 0) {
         return null;

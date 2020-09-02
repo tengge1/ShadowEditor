@@ -66,38 +66,12 @@ function BoundingBox() {
      */
     this.s = new THREE.Vector3(0, 1, 0);
 
-    this.s._x = this.s.x;
-    Object.defineProperty(this.s, 'x', {
-        get() {
-            return this._x;
-        },
-        set(value) {
-            if (isNaN(value)) {
-                debugger;
-            }
-            this._x = value;
-        }
-    });
-
     /**
      * The box's T axis, its shortest axis.
      * @type {THREE.Vector3}
      * @default (0, 0, 1)
      */
     this.t = new THREE.Vector3(0, 0, 1);
-
-    this.t._x = this.t.x;
-    Object.defineProperty(this.t, 'x', {
-        get() {
-            return this._x;
-        },
-        set(value) {
-            if (isNaN(value)) {
-                debugger;
-            }
-            this._x = value;
-        }
-    });
 
     /**
      * The box's radius. (The half-length of its diagonal.)
@@ -106,17 +80,14 @@ function BoundingBox() {
      */
     this.radius = Math.sqrt(3);
 
-    // Internal use only. Intentionally not documented.
     this.tmp1 = new THREE.Vector3();
     this.tmp2 = new THREE.Vector3();
     this.tmp3 = new THREE.Vector3();
 
-    // Internal use only. Intentionally not documented.
     this.scratchElevations = new Float64Array(9);
     this.scratchPoints = new Float64Array(3 * this.scratchElevations.length);
 }
 
-// Internal use only. Intentionally not documented.
 BoundingBox.scratchMatrix = new THREE.Matrix4();
 
 /**
@@ -307,11 +278,8 @@ BoundingBox.prototype.effectiveRadius = function (plane) {
  * @returns {boolean} true if the specified frustum intersects this bounding box, otherwise false.
  */
 BoundingBox.prototype.intersectsFrustum = function (frustum) {
-    this.tmp1.copy(this.bottomCenter);
-    this.tmp2.copy(this.topCenter);
-
     for (var i = 0; i < frustum.planes.length; i++) {
-        if (this.intersectionPoint(frustum.planes[i]) < 0) {
+        if (this.intersectsPlane(frustum.planes[i]) < 0) {
             return false;
         }
     }
@@ -319,54 +287,17 @@ BoundingBox.prototype.intersectsFrustum = function (frustum) {
     return true;
 };
 
-// Internal. Intentionally not documented.
-BoundingBox.prototype.intersectionPoint = function (plane) {
-    var n = plane.normal,
-        effectiveRadius = 0.5 * (Math.abs(this.s.dot(n)) + Math.abs(this.t.dot(n)));
+BoundingBox.prototype.intersectsPlane = function () {
+    var sphere = new THREE.Sphere();
+    return function (plane) {
+        var normal = plane.normal;
+        var radius = 0.5 * (Math.abs(this.r.dot(normal)) + Math.abs(this.s.dot(normal)) + Math.abs(this.t.dot(normal)));
+        sphere.center.copy(this.center);
+        sphere.radius = radius;
+        return plane.intersectsSphere(sphere);
+    };
+}();
 
-    return this.intersectsAt(plane, effectiveRadius, this.tmp1, this.tmp2);
-};
-
-// Internal. Intentionally not documented.
-BoundingBox.prototype.intersectsAt = function (plane, effRadius, endPoint1, endPoint2) {
-    // Test the distance from the first end-point.
-    var dq1 = plane.distanceToPoint(endPoint1);
-    var bq1 = dq1 <= -effRadius;
-
-    // Test the distance from the second end-point.
-    var dq2 = plane.distanceToPoint(endPoint2);
-    var bq2 = dq2 <= -effRadius;
-
-    if (bq1 && bq2) { // endpoints more distant from plane than effective radius; box is on neg. side of plane
-        return -1;
-    }
-
-    if (bq1 == bq2) { // endpoints less distant from plane than effective radius; can't draw any conclusions
-        return 0;
-    }
-
-    // Compute and return the endpoints of the box on the positive side of the plane
-    this.tmp3.copy(endPoint1);
-    this.tmp3.sub(endPoint2);
-    var t = (effRadius + dq1) / plane.normal.dot(this.tmp3);
-
-    this.tmp3.copy(endPoint2);
-    this.tmp3.sub(endPoint1);
-    this.tmp3.multiplyScalar(t);
-    this.tmp3.add(endPoint1);
-
-    // Truncate the line to only that in the positive halfspace, e.g., inside the frustum.
-    if (bq1) {
-        endPoint1.copy(this.tmp3);
-    }
-    else {
-        endPoint2.copy(this.tmp3);
-    }
-
-    return t;
-};
-
-// Internal. Intentionally not documented.
 BoundingBox.prototype.adjustExtremes = function (r, rExtremes, s, sExtremes, t, tExtremes, p) {
     var pdr = p.dot(r);
     if (rExtremes[0] > pdr) {
