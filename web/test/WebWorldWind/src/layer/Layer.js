@@ -86,14 +86,6 @@ function Layer(displayName) {
 }
 
 /**
- * Refreshes the data associated with this layer. The behavior of this function varies with the layer
- * type. For image layers, it causes the images to be re-retrieved from their origin.
- */
-Layer.prototype.refresh = function () {
-    // Default implementation does nothing.
-};
-
-/**
  * Displays this layer. Subclasses should generally not override this method but should instead override the
  * [doRender]{@link Layer#doRender} method. This method calls that method after verifying that the layer is
  * enabled, the eye point is within this layer's active altitudes and the layer is in view.

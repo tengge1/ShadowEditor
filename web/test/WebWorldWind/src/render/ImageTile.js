@@ -18,7 +18,6 @@
  * @exports ImageTile
  */
 import TextureTile from '../render/TextureTile';
-import Tile from '../util/Tile';
 
 
 /**
@@ -32,36 +31,19 @@ import Tile from '../util/Tile';
  * @param {Level} level The level this tile is associated with.
  * @param {Number} row This tile's row in the associated level.
  * @param {Number} column This tile's column in the associated level.
- * @param {String} imagePath The full path to the image.
  *
  */
-function ImageTile(sector, level, row, column, imagePath) {
-    TextureTile.call(this, sector, level, row, column); // args are checked in the superclass' constructor
+function ImageTile(sector, level, row, column) {
+    TextureTile.call(this, sector, level, row, column);
 
-    /**
-     * This tile's image path.
-     * @type {String}
-     */
-    this.imagePath = imagePath;
-
-    /**
-     * The tile whose texture to use when this tile's texture is not available.
-     * @type {THREE.Matrix4}
-     */
     this.fallbackTile = null;
-
-    // Assign imagePath to gpuCacheKey (inherited from TextureTile).
-    this.gpuCacheKey = imagePath;
+    this.texture = null;
 }
 
 ImageTile.prototype = Object.create(TextureTile.prototype);
 
-/**
- * Returns the size of the this tile in bytes.
- * @returns {Number} The size of this tile in bytes, not including the associated texture size.
- */
 ImageTile.prototype.size = function () {
-    return this.__proto__.__proto__.size.call(this) + this.imagePath.length + 8;
+    return 0;
 };
 
 /**
@@ -70,6 +52,10 @@ ImageTile.prototype.size = function () {
  * @returns {Boolean} true if the texture was bound successfully, otherwise false.
  */
 ImageTile.prototype.bind = function (dc) {
+    if (this.texture) {
+        this.texture.bind(dc);
+        return true;
+    }
     // Attempt to bind in TextureTile first.
     var isBound = this.__proto__.__proto__.bind.call(this, dc);
     if (isBound) {
@@ -89,8 +75,7 @@ ImageTile.prototype.bind = function (dc) {
  * @param {THREE.Matrix4} matrix The matrix to apply the transform to.
  */
 ImageTile.prototype.applyInternalTransform = function (dc, matrix) {
-    if (this.fallbackTile && !dc.gpuResourceCache.resourceForKey(this.imagePath)) {
-        // Must apply a texture transform to map the tile's sector into its fallback's image.
+    if (!this.texture) {
         this.applyFallbackTransform(matrix);
     }
 };
