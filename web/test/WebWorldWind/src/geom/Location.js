@@ -723,46 +723,6 @@ Location.greatCircleExtremeLocationsUsingAzimuth = function (location, azimuth) 
 
 /**
  * Determine where a line between two positions crosses a given meridian. The intersection test is performed by
- * intersecting a line in Cartesian space between the two positions with a plane through the meridian. Thus, it is
- * most suitable for working with positions that are fairly close together as the calculation does not take into
- * account great circle or rhumb paths.
- *
- * @param {Location} p1         First position.
- * @param {Location} p2         Second position.
- * @param {number} meridian     Longitude line to intersect with.
- * @param {Globe} globe         Globe used to compute intersection.
- *
- * @return {number} latitude The intersection latitude along the meridian
- *
- * TODO: this code allocates 4 new THREE.Vector3 and 1 new Position; use scratch variables???
- * TODO: Why not? Every location created would then allocated those variables as well, even if they aren't needed :(.
- */
-Location.intersectionWithMeridian = function (p1, p2, meridian, globe) {
-    var pt1 = globe.computePointFromLocation(p1.latitude, p1.longitude, new THREE.Vector3());
-    var pt2 = globe.computePointFromLocation(p2.latitude, p2.longitude, new THREE.Vector3());
-
-    // Compute a plane through the origin, North Pole, and the desired meridian.
-    var northPole = globe.computePointFromLocation(90, meridian, new THREE.Vector3());
-    var pointOnEquator = globe.computePointFromLocation(0, meridian, new THREE.Vector3());
-
-    var plane = new THREE.Plane().setFromCoplanarPoints(northPole, pointOnEquator, new THREE.Vector3());
-
-    var intersectionPoint = new THREE.Vector3();
-
-    debugger;
-    if (!plane.intersectsLine(pt1, pt2, intersectionPoint)) {
-        return null;
-    }
-
-    // TODO: unable to simply create a new Position(0, 0, 0)
-    var pos = new WorldWind.Position(0, 0, 0);
-    globe.computePositionFromPoint(intersectionPoint.x, intersectionPoint.y, intersectionPoint.z, pos);
-
-    return pos.latitude;
-};
-
-/**
- * Determine where a line between two positions crosses a given meridian. The intersection test is performed by
  * intersecting a line in Cartesian space. Thus, it is most suitable for working with positions that are fairly
  * close together as the calculation does not take into account great circle or rhumb paths.
  *
