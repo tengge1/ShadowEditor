@@ -1,5 +1,4 @@
 import WWMath from './util/WWMath';
-import WWUtil from './util/WWUtil';
 
 /**
  * Multiplies this matrix by a look at viewing matrix for the specified globe.
@@ -34,7 +33,7 @@ import WWUtil from './util/WWUtil';
  */
 THREE.Matrix4.prototype.multiplyByLookAtModelview = function (lookAtPosition, range, heading, tilt, roll, globe) {
     // Translate the eye point along the positive z axis while keeping the look at point in the center of the viewport.
-    this.makeTranslation(0, 0, -range); // 别忘了转置
+    this.makeTranslation(0, 0, -range);
     // Transform the origin to the local coordinate system at the look at position, and rotate the viewer by the
     // specified heading, tilt and roll.
     this.multiplyByFirstPersonModelview(lookAtPosition, heading, tilt, roll, globe);
@@ -296,76 +295,6 @@ THREE.Matrix4.prototype.setToUnitYFlip = function () {
 
     return this;
 };
-
-/**
- * Extracts a frustum from a projection matrix.
- * <p>
- * This method assumes that the specified matrix represents a projection matrix. If it does not represent a projection matrix
- * the results are undefined.
- * <p>
- * A projection matrix's view frustum is a Cartesian volume that contains everything visible in a scene displayed
- * using that projection matrix.
- *
- * @param {Matrix} matrix The projection matrix to extract the frustum from.
- * @return {Frustum} A new frustum containing the projection matrix's view frustum, in eye coordinates.
- */
-THREE.Frustum.prototype.fromProjectionMatrix = function () {
-    return function (matrix) {
-        var x, y, z, w, d, left, right, top, bottom, near, far;
-
-        var elem = matrix.elements;
-
-        // Left Plane = row 4 + row 1:
-        x = elem[3] + elem[0];
-        y = elem[7] + elem[4];
-        z = elem[11] + elem[8];
-        w = elem[15] + elem[12];
-        d = Math.sqrt(x * x + y * y + z * z); // for normalizing the coordinates
-        left = new THREE.Plane(new THREE.Vector3(x / d, y / d, z / d), w / d);
-
-        // Right Plane = row 4 - row 1:
-        x = elem[3] - elem[0];
-        y = elem[7] - elem[4];
-        z = elem[11] - elem[8];
-        w = elem[15] - elem[12];
-        d = Math.sqrt(x * x + y * y + z * z); // for normalizing the coordinates
-        right = new THREE.Plane(new THREE.Vector3(x / d, y / d, z / d), w / d);
-
-        // Bottom Plane = row 4 + row 2:
-        x = elem[3] + elem[1];
-        y = elem[7] + elem[5];
-        z = elem[11] + elem[9];
-        w = elem[15] + elem[13];
-        d = Math.sqrt(x * x + y * y + z * z); // for normalizing the coordinates
-        bottom = new THREE.Plane(new THREE.Vector3(x / d, y / d, z / d), w / d);
-
-        // Top Plane = row 4 - row 2:
-        x = elem[3] - elem[1];
-        y = elem[7] - elem[5];
-        z = elem[11] - elem[9];
-        w = elem[15] - elem[13];
-        d = Math.sqrt(x * x + y * y + z * z); // for normalizing the coordinates
-        top = new THREE.Plane(new THREE.Vector3(x / d, y / d, z / d), w / d);
-
-        // Near Plane = row 4 + row 3:
-        x = elem[3] + elem[2];
-        y = elem[7] + elem[6];
-        z = elem[11] + elem[10];
-        w = elem[15] + elem[14];
-        d = Math.sqrt(x * x + y * y + z * z); // for normalizing the coordinates
-        near = new THREE.Plane(new THREE.Vector3(x / d, y / d, z / d), w / d);
-
-        // Far Plane = row 4 - row 3:
-        x = elem[3] - elem[2];
-        y = elem[7] - elem[6];
-        z = elem[11] - elem[10];
-        w = elem[15] - elem[14];
-        d = Math.sqrt(x * x + y * y + z * z); // for normalizing the coordinates
-        far = new THREE.Plane(new THREE.Vector3(x / d, y / d, z / d), w / d);
-
-        return new THREE.Frustum(left, right, bottom, top, near, far);
-    };
-}();
 
 /**
  * Sets this bounding box such that it contains a specified sector on a specified globe with min and max elevation.

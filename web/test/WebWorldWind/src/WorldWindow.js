@@ -692,8 +692,8 @@ WorldWindow.prototype.computeDrawContext = function () {
         modelviewInv.upper3By3(mat3By3);
         dc.modelviewNormalTransform.copy(mat3By3).transpose();
         modelviewTranspose.copy(dc.modelview).transpose();
-
-        dc.frustumInModelCoordinates.fromProjectionMatrix(dc.projection);
+        
+        dc.frustumInModelCoordinates.setFromProjectionMatrix(dc.projection);
         dc.frustumInModelCoordinates.applyMatrix4(modelviewTranspose);
         dc.frustumInModelCoordinates.normalize();
     };
