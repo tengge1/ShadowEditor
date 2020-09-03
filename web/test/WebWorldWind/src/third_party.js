@@ -1,4 +1,5 @@
 import WWMath from './util/WWMath';
+import WWUtil from './util/WWUtil';
 
 /**
  * Multiplies this matrix by a look at viewing matrix for the specified globe.
@@ -365,3 +366,21 @@ THREE.Frustum.prototype.fromProjectionMatrix = function () {
         return new THREE.Frustum(left, right, bottom, top, near, far);
     };
 }();
+
+/**
+ * Sets this bounding box such that it contains a specified sector on a specified globe with min and max elevation.
+ * <p>
+ * To create a bounding box that contains the sector at mean sea level, specify zero for the minimum and maximum
+ * elevations.
+ * To create a bounding box that contains the terrain surface in this sector, specify the actual minimum and maximum
+ * elevation values associated with the sector, multiplied by the model's vertical exaggeration.
+ * @param {Sector} sector The sector for which to create the bounding box.
+ * @param {Globe} globe The globe associated with the sector.
+ * @param {Number} minElevation The minimum elevation within the sector.
+ * @param {Number} maxElevation The maximum elevation within the sector.
+ * @returns {BoundingBox} This bounding box set to contain the specified sector.
+ */
+THREE.Box3.prototype.setToSector = function (sector, globe, minHeight, maxHeight) {
+    var points = sector.computeBoundingPoints(globe, 1);
+    return this.setFromPoints(points);
+};

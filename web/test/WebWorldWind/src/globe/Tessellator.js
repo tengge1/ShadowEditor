@@ -649,8 +649,7 @@ Tessellator.prototype.isTileVisible = function (dc, tile) {
     if (dc.globe.projectionLimits && !tile.sector.overlaps(dc.globe.projectionLimits)) {
         return false;
     }
-
-    return tile.extent.intersectsFrustum(dc.frustumInModelCoordinates);
+    return dc.frustumInModelCoordinates.intersectsBox(tile.extent);
 };
 
 Tessellator.prototype.tileMeetsRenderCriteria = function (dc, tile) {
