@@ -379,7 +379,7 @@ Sector.prototype.getCorners = function () {
  * @param {Globe} globe the globe the extent relates to.
  * @param {Number} verticalExaggeration the globe's vertical surface exaggeration.
  *
- * @returns {THREE.Vector3} a set of points that enclose the globe's surface on the specified sector. Can be turned into a {@link BoundingBox}
+ * @returns {THREE.Vector3} a set of points that enclose the globe's surface on the specified sector. Can be turned into a {@link THREE.Box3}
  * with the setToVec3Points method.
  */
 Sector.prototype.computeBoundingPoints = function (globe, verticalExaggeration) {

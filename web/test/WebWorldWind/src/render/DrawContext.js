@@ -927,7 +927,7 @@ DrawContext.prototype.makePickFrustum = function () {
 
 /**
  * Indicates whether an extent is smaller than a specified number of pixels.
- * @param {THREE.BoundingBox} extent The extent to test.
+ * @param {THREE.Box3} extent The extent to test.
  * @param {Number} numPixels The number of pixels below which the extent is considered small.
  * @returns {Boolean} True if the extent is smaller than the specified number of pixels, otherwise false.
  * Returns false if the extent is null or undefined.

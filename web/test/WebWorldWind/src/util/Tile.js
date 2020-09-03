@@ -17,7 +17,6 @@
 /**
  * @exports Tile
  */
-import BoundingBox from '../geom/BoundingBox';
 import Sector from '../geom/Sector';
 import WWMath from '../util/WWMath';
 import WWUtil from '../util/WWUtil';
@@ -91,7 +90,7 @@ function Tile(sector, level, row, column) {
 
     /**
      * The Cartesian bounding box of this tile.
-     * @type {BoundingBox}
+     * @type {THREE.Box3}
      */
     this.extent = null;
 
@@ -316,7 +315,7 @@ Tile.prototype.doUpdate = function (dc) {
 
     // Compute a bounding box for this tile that contains the terrain surface in the tile's coverage area.
     if (!this.extent) {
-        this.extent = new BoundingBox();
+        this.extent = new THREE.Box3();
     }
     this.extent.setToSector(this.sector, globe, minHeight, maxHeight);
 

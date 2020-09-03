@@ -18,7 +18,6 @@
  * @exports SurfaceShape
  */
 import Angle from '../geom/Angle';
-import BoundingBox from '../geom/BoundingBox';
 import Color from '../util/Color';
 import Location from '../geom/Location';
 import MemoryCache from '../cache/MemoryCache';
@@ -698,7 +697,7 @@ SurfaceShape.prototype.computeSectors = function (dc) {
  *
  * @param {DrawContext} dc The drawing context containing a globe.
  *
- * @return {BoundingBox} The extent for the shape.
+ * @return {THREE.Box3} The extent for the shape.
  */
 SurfaceShape.prototype.getCorners = function (dc) {
 
@@ -711,7 +710,7 @@ SurfaceShape.prototype.getCorners = function (dc) {
     }
 
     if (!this.currentData.extent) {
-        this.currentData.extent = new BoundingBox();
+        this.currentData.extent = new THREE.Box3();
     }
 
 
@@ -729,7 +728,7 @@ SurfaceShape.prototype.getCorners = function (dc) {
 
         for (var i = 0; i < this._boundingSectors.length; i++) {
             boxPoints = this._boundingSectors[i].computeBoundingPoints(dc.globe, dc.verticalExaggeration);
-            var box = new BoundingBox();
+            var box = new THREE.Box3();
             box.setToVec3Points(boxPoints);
             var corners = box.getCorners();
             for (var j = 0; j < corners.length; j++) {
