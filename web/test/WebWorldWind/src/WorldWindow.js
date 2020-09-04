@@ -695,7 +695,7 @@ WorldWindow.prototype.computeDrawContext = function () {
         
         dc.frustumInModelCoordinates.setFromProjectionMatrix(dc.projection);
         dc.frustumInModelCoordinates.applyMatrix4(modelviewTranspose);
-        dc.frustumInModelCoordinates.normalize();
+        // dc.frustumInModelCoordinates.normalize();
     };
 }();
 
