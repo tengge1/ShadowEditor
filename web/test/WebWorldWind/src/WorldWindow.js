@@ -52,6 +52,10 @@ function WorldWindow(canvasElem) {
         canvas = document.getElementById(canvasElem);
     }
 
+    this.scene = new THREE.Scene();
+    this.camera = new THREE.PerspectiveCamera(50, canvas.width / canvas.height, 1, 100000000);
+    this.renderer = new THREE.WebGLRenderer();
+
     // Create the WebGL context associated with the HTML canvas.
     var gl = this.createContext(canvas);
 
@@ -692,10 +696,10 @@ WorldWindow.prototype.computeDrawContext = function () {
         modelviewInv.upper3By3(mat3By3);
         dc.modelviewNormalTransform.copy(mat3By3).transpose();
         modelviewTranspose.copy(dc.modelview).transpose();
-        
+
         dc.frustumInModelCoordinates.setFromProjectionMatrix(dc.projection);
         dc.frustumInModelCoordinates.applyMatrix4(modelviewTranspose);
-        // dc.frustumInModelCoordinates.normalize();
+        dc.frustumInModelCoordinates.normalize();
     };
 }();
 
