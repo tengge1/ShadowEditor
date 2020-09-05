@@ -11,7 +11,7 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
 [![image](https://travis-ci.org/tengge1/ShadowEditor.svg?branch=master)](https://travis-ci.org/github/tengge1/ShadowEditor)
 
 * Name: Shadow Editor
-* Version: v0.5.9 (Coming Soon)
+* Version: v0.5.9
 * Description: Cross-platform 3D scene editor based on three.js, golang and mongodb.
 * Source: [GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | Document: [Gitee](https://gitee.com/tengge1/ShadowEditor/wikis/pages) | Demo: [GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) | Video: [Weibo](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) | Assets: [BaiduNetdisk](https://pan.baidu.com/s/1IxJVM6fFLoIAJG-GKHjVTA)
 * Technology Stack: html, css, javascript, rollup, react.js, webgl, three.js, golang, mongodb, nodejs, electron, CesiumJS, Protocol Buffers.
@@ -20,19 +20,12 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
 <img src="https://gitee.com/tengge1/ShadowEditor/raw/master/images/scene20200503_en.jpg" />  
 <img src="https://gitee.com/tengge1/ShadowEditor/raw/master/images/scene20200705.jpg" />  
 
-## v0.5.9 is Coming
+## v0.5.9 has Released
 
-1. 3D GIS. (In development)
-
-## v0.5.8 has Released
-
-* Release Date: August 23, 2020
+* Release Date: September 6, 2020
 * Update Logs:
 
 1. 3D GIS. (In development)
-2. Fix the bug that `npm start` is not working on Ubuntu and Mac.
-3. Added `npm run serve` script to monitor other file changes during hot update.
-4. Fix the bug that error occurs when playing in new window.
 
 ## Feature List
 
