@@ -64,7 +64,7 @@ function Terrain(globe, tessellator, terrainTiles, verticalExaggeration) {
      * @readonly
      * @type {String}
      */
-    this.stateKey = globe.stateKey + " ve " + verticalExaggeration.toString();
+    this.stateKey = globe.stateKey + " ve 1";
 }
 
 Terrain.scratchPoint = new THREE.Vector3();

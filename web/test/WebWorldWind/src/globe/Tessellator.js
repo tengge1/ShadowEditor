@@ -479,7 +479,6 @@ Tessellator.prototype.regenerateTileGeometry = function (dc, tile) {
     dc.globe.elevationsForGrid(tile.sector, numLat, numLon, this.coverageTargetResolution(tile.texelSize), elevations);
 
     // Compute the tile's Cartesian coordinates relative to a local origin, called the reference point.
-    WWUtil.multiplyArray(elevations, dc.verticalExaggeration);
     dc.globe.computePointsForGrid(tile.sector, numLat, numLon, elevations, refPoint, tile.points);
 
     // Establish a transform that is used later to move the tile coordinates into place relative to the globe.

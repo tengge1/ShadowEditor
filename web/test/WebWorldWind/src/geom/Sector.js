@@ -377,12 +377,11 @@ Sector.prototype.getCorners = function () {
  * maximum elevation are equal, this assumes a maximum elevation of 10 + the minimum.
  *
  * @param {Globe} globe the globe the extent relates to.
- * @param {Number} verticalExaggeration the globe's vertical surface exaggeration.
  *
  * @returns {THREE.Vector3} a set of points that enclose the globe's surface on the specified sector. Can be turned into a {@link THREE.Box3}
  * with the setToVec3Points method.
  */
-Sector.prototype.computeBoundingPoints = function (globe, verticalExaggeration) {
+Sector.prototype.computeBoundingPoints = function (globe) {
     // TODO: Refactor this method back to computeBoundingBox.
     // This method was originally computeBoundingBox and returned a BoundingBox. This created a circular dependency between
     // Sector and BoundingBox that the Karma unit test suite doesn't appear to like. If we discover a way to make Karma handle this
@@ -390,8 +389,8 @@ Sector.prototype.computeBoundingPoints = function (globe, verticalExaggeration) 
     var minAndMaxElevations = globe.minAndMaxElevationsForSector(this);
 
     // Compute the exaggerated minimum and maximum heights.
-    var minHeight = minAndMaxElevations[0] * verticalExaggeration;
-    var maxHeight = minAndMaxElevations[1] * verticalExaggeration;
+    var minHeight = minAndMaxElevations[0];
+    var maxHeight = minAndMaxElevations[1];
 
     if (minHeight === maxHeight)
         maxHeight = minHeight + 10; // Ensure the top and bottom heights are not equal.

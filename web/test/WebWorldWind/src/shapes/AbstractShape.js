@@ -244,19 +244,7 @@ AbstractShape.prototype.renderOrdered = function (dc) {
 
 // Internal. Intentionally not documented.
 AbstractShape.prototype.makeOrderedRenderable = function (dc) {
-    var or = this.doMakeOrderedRenderable(dc);
-    this.currentData.verticalExaggeration = dc.verticalExaggeration;
-
-    return or;
-};
-
-/**
- * Called during rendering. Subclasses must override this method with one that creates and enques an
- * ordered renderable for this shape if this shape is to be displayed. Applications do not call this method.
- * @param {DrawContext} dc The current draw context.
- * @protected
- */
-AbstractShape.prototype.doMakeOrderedRenderable = function (dc) {
+    return this.doMakeOrderedRenderable(dc);
 };
 
 /**
@@ -337,8 +325,7 @@ AbstractShape.prototype.resetExpiration = function (shapeData) {
  * @protected
  */
 AbstractShape.prototype.isShapeDataCurrent = function (dc, shapeData) {
-    return shapeData.verticalExaggeration === dc.verticalExaggeration
-        && shapeData.expiryTime > Date.now();
+    return shapeData.expiryTime > Date.now();
 };
 
 // Internal. Intentionally not documented.
