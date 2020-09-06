@@ -57,13 +57,6 @@ function SurfaceShape(attributes) {
     this._polarThrottle = SurfaceShape.DEFAULT_POLAR_THROTTLE;
     this._boundingSector = null;
 
-    /**
-     * Indicates the object to return as the owner of this shape when picked.
-     * @type {Object}
-     * @default null
-     */
-    this.pickDelegate = null;
-
     /*
      * The bounding sectors for this tile, which may be needed for crossing the dateline.
      * @type {Sector[]}
@@ -116,17 +109,9 @@ function SurfaceShape(attributes) {
      */
     this.stateKeyInvalid = true;
 
-    // Internal use only. Intentionally not documented.
     this._attributesStateKey = null;
-
-    // Internal use only. Intentionally not documented.
     this.boundariesArePrepared = false;
-
-    // Internal use only. Intentionally not documented.
     this.layer = null;
-
-    // Internal use only. Intentionally not documented.
-    this.pickColor = null;
 
     //the split contours returned from polygon splitter
     this.contours = [];
@@ -421,11 +406,7 @@ SurfaceShape.prototype.computeBoundaries = function (globe) {
 // Internal. Intentionally not documented.
 SurfaceShape.prototype.intersectsFrustum = function (dc) {
     if (this.currentData && this.currentData.extent) {
-        if (dc.pickingMode) {
-            return this.currentData.extent.intersectsFrustum(dc.pickFrustum);
-        } else {
-            return this.currentData.extent.intersectsFrustum(dc.frustumInModelCoordinates);
-        }
+        return this.currentData.extent.intersectsFrustum(dc.frustumInModelCoordinates);
     } else {
         return true;
     }
@@ -932,11 +913,6 @@ SurfaceShape.prototype.outlineForSplit = function (polygon, iMap, outlinePolygon
     }
 };
 
-// Internal use only. Intentionally not documented.
-SurfaceShape.prototype.resetPickColor = function () {
-    this.pickColor = null;
-};
-
 /**
  * Internal use only.
  * Render the shape onto the texture map of the tile.
@@ -959,20 +935,11 @@ SurfaceShape.prototype.renderToTexture = function (dc, ctx2D, xScale, yScale, dx
         return;
     }
 
-    if (dc.pickingMode) {
-        if (!this.pickColor) {
-            this.pickColor = dc.uniquePickColor();
-        }
-        ctx2D.fillStyle = this.pickColor.toCssColorString();
-        ctx2D.strokeStyle = ctx2D.fillStyle;
-        ctx2D.lineWidth = attributes.outlineWidth;
-    } else {
-        var ic = attributes.interiorColor,
-            oc = attributes.outlineColor;
-        ctx2D.fillStyle = new Color(ic.red, ic.green, ic.blue, ic.alpha * this.layer.opacity).toCssColorString();
-        ctx2D.strokeStyle = new Color(oc.red, oc.green, oc.blue, oc.alpha * this.layer.opacity).toCssColorString();
-        ctx2D.lineWidth = attributes.outlineWidth;
-    }
+    var ic = attributes.interiorColor,
+        oc = attributes.outlineColor;
+    ctx2D.fillStyle = new Color(ic.red, ic.green, ic.blue, ic.alpha * this.layer.opacity).toCssColorString();
+    ctx2D.strokeStyle = new Color(oc.red, oc.green, oc.blue, oc.alpha * this.layer.opacity).toCssColorString();
+    ctx2D.lineWidth = attributes.outlineWidth;
 
     if (this.crossesAntiMeridian || this.containsPole) {
         if (drawInterior) {

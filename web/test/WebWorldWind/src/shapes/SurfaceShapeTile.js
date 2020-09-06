@@ -62,9 +62,6 @@ function SurfaceShapeTile(sector, level, row, column) {
      */
     this.cacheKey = null;
 
-    // Internal use only. Intentionally not documented.
-    this.pickSequence = 0;
-
     this.createCtx2D();
 }
 
@@ -151,10 +148,6 @@ SurfaceShapeTile.prototype.needsUpdate = function (dc) {
  * @returns {boolean} True if the surface shape tile has a valid texture, else false.
  */
 SurfaceShapeTile.prototype.hasTexture = function (dc) {
-    if (dc.pickingMode) {
-        return false;
-    }
-
     if (!this.gpuCacheKey) {
         this.gpuCacheKey = this.getCacheKey();
     }
@@ -216,8 +209,7 @@ SurfaceShapeTile.prototype.updateTexture = function (dc) {
 SurfaceShapeTile.prototype.getCacheKey = function () {
     if (!this.cacheKey) {
         this.cacheKey = "SurfaceShapeTile:" +
-            this.tileKey + "," +
-            this.pickSequence.toString();
+            this.tileKey;
     }
 
     return this.cacheKey;

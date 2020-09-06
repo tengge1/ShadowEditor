@@ -122,43 +122,8 @@ SurfaceShapeTileBuilder.prototype.insertSurfaceShape = function (surfaceShape) {
  * @param {DrawContext} dc The drawing context.
  */
 SurfaceShapeTileBuilder.prototype.doRender = function (dc) {
-    if (dc.pickingMode) {
-        // Picking rendering strategy:
-        //  1) save all tiles created prior to picking,
-        //  2) construct and render new tiles with pick-based contents (colored with pick IDs),
-        //  3) restore all prior tiles.
-        // This has a big potential win for normal rendering, since there is a lot of coherence
-        // from frame to frame if no picking is occurring.
-        for (var idx = 0, len = this.surfaceShapes.length; idx < len; idx += 1) {
-            this.surfaceShapes[idx].resetPickColor();
-        }
-
-        SurfaceShapeTileBuilder.pickSequence += 1;
-
-        var savedTiles = this.surfaceShapeTiles;
-        var savedTopLevelTiles = this.topLevelTiles;
-
-        this.surfaceShapeTiles = [];
-        this.topLevelTiles = [];
-
-        this.buildTiles(dc);
-
-        if (dc.deepPicking) {
-            // Normally, we render all shapes together in one tile (or a small number, but this detail
-            // doesn't matter). For deep picking, we need to render each shape individually.
-            this.doDeepPickingRender(dc);
-
-        } else {
-            dc.surfaceTileRenderer.renderTiles(dc, this.surfaceShapeTiles, 1);
-        }
-
-        this.surfaceShapeTiles = savedTiles;
-        this.topLevelTiles = savedTopLevelTiles;
-    } else {
-        this.buildTiles(dc);
-
-        dc.surfaceTileRenderer.renderTiles(dc, this.surfaceShapeTiles, 1);
-    }
+    this.buildTiles(dc);
+    dc.surfaceTileRenderer.renderTiles(dc, this.surfaceShapeTiles, 1);
 };
 
 /**
@@ -189,7 +154,7 @@ SurfaceShapeTileBuilder.prototype.buildTiles = function (dc) {
 /**
  * Assembles a set of surface tiles that are visible in the specified DrawContext and meet the tile builder's
  * resolution criteria. Tiles are culled against the current surface shape list, against the DrawContext's view
- * frustum during rendering mode, and against the DrawContext's pick frustums during picking mode. If a tile does
+ * frustum during rendering mode. If a tile does
  * not meet the tile builder's resolution criteria, it's split into four sub-tiles and the process recursively
  * repeated on the sub-tiles.
  * <p/>
@@ -267,8 +232,8 @@ SurfaceShapeTileBuilder.prototype.assembleTiles = function (dc) {
  * @param {SurfaceShapeTile} tile       The tile to add.
  */
 SurfaceShapeTileBuilder.prototype.addTileOrDescendants = function (dc, levels, parentTile, tile) {
-    // Ignore this tile if it falls completely outside the frustum. This may be the viewing frustum or the pick
-    // frustum, depending on the implementation.
+    // Ignore this tile if it falls completely outside the frustum. This may be the viewing frustum, 
+    // depending on the implementation.
     if (!this.intersectsFrustum(dc, tile)) {
         // This tile is not added to the current tile list, so we clear it's object list to prepare it for use
         // during the next frame.
@@ -276,35 +241,6 @@ SurfaceShapeTileBuilder.prototype.addTileOrDescendants = function (dc, levels, p
         return;
     }
 
-    // If the parent tile is not null, add any parent surface shapes that intersect this tile.
-    if (parentTile != null) {
-        this.addIntersectingShapes(dc, parentTile, tile);
-    }
-
-    // Ignore tiles that do not intersect any surface shapes.
-    if (!tile.hasShapes()) {
-        return;
-    }
-
-    // If this tile meets the current rendering criteria, add it to the current tile list. This tile's object list
-    // is cleared after the tile update operation.
-    if (this.meetsRenderCriteria(dc, levels, tile)) {
-        this.addTile(dc, tile);
-        return;
-    }
-
-    var nextLevel = levels.level(tile.level.levelNumber + 1);
-    var subTiles = dc.pickingMode ?
-        tile.subdivide(nextLevel, this) :
-        tile.subdivideToCache(nextLevel, this, this.tileCache);
-    for (var idxTile = 0, lenTiles = subTiles.length; idxTile < lenTiles; idxTile += 1) {
-        var subTile = subTiles[idxTile];
-        this.addTileOrDescendants(dc, levels, tile, subTile);
-    }
-
-    // This tile is not added to the current tile list, so we clear it's object list to prepare it for use during
-    // the next frame.
-    tile.clearShapes();
 };
 
 /**
@@ -345,10 +281,6 @@ SurfaceShapeTileBuilder.prototype.addIntersectingShapes = function (dc, parentTi
  * @param {SurfaceShapeTile} tile The tile to add.
  */
 SurfaceShapeTileBuilder.prototype.addTile = function (dc, tile) {
-    if (dc.pickingMode) {
-        tile.pickSequence = SurfaceShapeTileBuilder.pickSequence;
-    }
-
     if (tile.needsUpdate(dc)) {
         tile.updateTexture(dc);
     }
@@ -381,8 +313,8 @@ SurfaceShapeTileBuilder.prototype.createTopLevelTiles = function () {
 };
 
 /**
- * Test if the tile intersects the specified draw context's frustum. During picking mode, this tests intersection
- * against all of the draw context's pick frustums. During rendering mode, this tests intersection against the draw
+ * Test if the tile intersects the specified draw context's frustum. 
+ * During rendering mode, this tests intersection against the draw
  * context's viewing frustum.
  *
  * @param {DrawContext} dc   The draw context the surface shape is related to.
@@ -397,7 +329,7 @@ SurfaceShapeTileBuilder.prototype.intersectsFrustum = function (dc, tile) {
 
     tile.update(dc);
 
-    return tile.extent.intersectsFrustum(dc.pickingMode ? dc.pickFrustum : dc.frustumInModelCoordinates);
+    return tile.extent.intersectsFrustum(dc.frustumInModelCoordinates);
 };
 
 /**
@@ -413,13 +345,5 @@ SurfaceShapeTileBuilder.prototype.intersectsFrustum = function (dc, tile) {
 SurfaceShapeTileBuilder.prototype.meetsRenderCriteria = function (dc, levels, tile) {
     return tile.level.levelNumber == levels.lastLevel().levelNumber || !tile.mustSubdivide(dc, this.detailControl);
 };
-
-/**
- * Internal use only.
- * Count of pick operations. This is used to give a surface shape tile a unique pick sequence number if it is
- * participating in picking.
- * @type {Number}
- */
-SurfaceShapeTileBuilder.pickSequence = 0;
 
 export default SurfaceShapeTileBuilder;

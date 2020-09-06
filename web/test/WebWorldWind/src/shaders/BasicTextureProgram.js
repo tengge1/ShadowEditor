@@ -182,20 +182,6 @@ BasicTextureProgram.prototype.loadTextureEnabled = function (gl, enable) {
 };
 
 /**
- * Loads the specified boolean as the value of this program's 'modulateColor' uniform variable. When this
- * value is true and the value of the textureEnabled variable is true, the color uniform of this shader is
- * multiplied by the rounded alpha component of the texture color at each fragment. This causes the color
- * to be either fully opaque or fully transparent depending on the value of the texture color's alpha value.
- * This is used during picking to replace opaque or mostly opaque texture colors with the pick color, and
- * to make all other texture colors transparent.
- * @param {WebGLRenderingContext} gl The current WebGL context.
- * @param {Boolean} enable true to enable modulation, false to disable modulation.
- */
-BasicTextureProgram.prototype.loadModulateColor = function (gl, enable) {
-    gl.uniform1i(this.modulateColorLocation, enable ? 1 : 0);
-};
-
-/**
  * Loads the specified number as the value of this program's 'textureSampler' uniform variable.
  * @param {WebGLRenderingContext} gl The current WebGL context.
  * @param {Number} unit The texture unit.

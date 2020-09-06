@@ -171,20 +171,6 @@ SurfaceTileRendererProgram.prototype.loadColor = function (gl, color) {
     this.loadUniformColor(gl, color, this.colorLocation);
 };
 
-/**
- * Loads the specified boolean as the value of this program's 'modulateColor' uniform variable. When this
- * value is true the color uniform of this shader is
- * multiplied by the rounded alpha component of the texture color at each fragment. This causes the color
- * to be either fully opaque or fully transparent depending on the value of the texture color's alpha value.
- * This is used during picking to replace opaque or mostly opaque texture colors with the pick color, and
- * to make all other texture colors transparent.
- * @param {WebGLRenderingContext} gl The current WebGL context.
- * @param {Boolean} enable <code>true</code> to enable modulation, <code>false</code> to disable modulation.
- */
-SurfaceTileRendererProgram.prototype.loadModulateColor = function (gl, enable) {
-    gl.uniform1i(this.modulateColorLocation, enable ? 1 : 0);
-};
-
 SurfaceTileRendererProgram.prototype.setColumn = function (gl, column) {
     gl.uniform1i(this.columnLocation, column);
 };

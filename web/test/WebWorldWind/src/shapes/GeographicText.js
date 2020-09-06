@@ -64,10 +64,7 @@ GeographicText.prototype = Object.create(Text.prototype);
  */
 GeographicText.prototype.clone = function () {
     var clone = new GeographicText(this.position, this.text);
-
     clone.copy(this);
-    clone.pickDelegate = this.pickDelegate ? this.pickDelegate : this;
-
     return clone;
 };
 

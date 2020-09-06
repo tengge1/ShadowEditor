@@ -81,18 +81,9 @@ SurfaceTileRenderer.prototype.renderTiles = function (dc, surfaceTiles, opacity,
             if (surfaceTile.sector.overlaps(terrainTileSector)) {
                 //gl.activeTexture(gl.TEXTURE0);
                 if (surfaceTile.bind(dc)) {
-                    if (dc.pickingMode) {
-                        if (surfaceTile.pickColor) {
-                            program.loadColor(gl, surfaceTile.pickColor);
-                        } else {
-                            // Surface shape tiles don't use a pick color. Pick colors are encoded into
-                            // the colors of the individual shapes drawn into the tile.
-                        }
-                    } else {
-                        if (tilesHaveOpacity && surfaceTile.opacity != currentTileOpacity) {
-                            program.loadOpacity(gl, opacity * surfaceTile.opacity);
-                            currentTileOpacity = surfaceTile.opacity;
-                        }
+                    if (tilesHaveOpacity && surfaceTile.opacity != currentTileOpacity) {
+                        program.loadOpacity(gl, opacity * surfaceTile.opacity);
+                        currentTileOpacity = surfaceTile.opacity;
                     }
 
                     this.applyTileState(dc, terrainTile, surfaceTile);
@@ -115,13 +106,7 @@ SurfaceTileRenderer.prototype.beginRendering = function (dc, opacity) {
 
     program.loadTexSampler(gl, gl.TEXTURE0);
     program.loadHeightmap(gl, gl.TEXTURE1);
-
-    if (dc.pickingMode && !this.isSurfaceShapeTileRendering) {
-        program.loadModulateColor(gl, true);
-    } else {
-        program.loadModulateColor(gl, false);
-        program.loadOpacity(gl, opacity);
-    }
+    program.loadOpacity(gl, opacity);
 
     return program;
 };

@@ -174,7 +174,6 @@ Text.prototype.copy = function (that) {
     this.highlighted = that.highlighted;
     this.enabled = that.enabled;
     this.altitudeMode = that.altitudeMode;
-    this.pickDelegate = that.pickDelegate;
     this.alwaysOnTop = that.alwaysOnTop;
     this.depthOffset = that.depthOffset;
     this.declutterGroup = that.declutterGroup;
@@ -305,11 +304,7 @@ Text.prototype.determineActiveAttributes = function (dc) {
 
 // Internal. Intentionally not documented.
 Text.prototype.isVisible = function (dc) {
-    if (dc.pickingMode) {
-        return dc.pickRectangle && this.imageBounds.intersects(dc.pickRectangle);
-    } else {
-        return this.imageBounds.intersects(dc.viewport);
-    }
+    return this.imageBounds.intersects(dc.viewport);
 };
 
 // Internal. Intentionally not documented.
@@ -318,9 +313,7 @@ Text.prototype.drawOrderedText = function (dc) {
 
     try {
         this.doDrawOrderedText(dc);
-        if (!dc.pickingMode) {
-            //this.drawBatchOrderedText(dc);
-        }
+        this.drawBatchOrderedText(dc);
     } finally {
         this.endDrawing(dc);
     }
@@ -368,9 +361,6 @@ Text.prototype.beginDrawing = function (dc) {
     // Tell the program which texture unit to use.
     program.loadTextureUnit(gl, gl.TEXTURE0);
 
-    // Turn off color modulation since we want to pick against the text box and not just the text.
-    program.loadModulateColor(gl, false);
-
     // Suppress depth-buffer writes.
     gl.depthMask(false);
 };
@@ -398,7 +388,7 @@ Text.prototype.doDrawOrderedText = function (dc) {
         program = dc.currentProgram;
 
     // Compute the text's current visibility, potentially requesting additional frames.
-    if (!dc.pickingMode && this.currentVisibility !== this.targetVisibility) {
+    if (this.currentVisibility !== this.targetVisibility) {
         var visibilityDelta = (dc.timestamp - dc.previousRedrawTimestamp) / dc.fadeTime;
         if (this.currentVisibility < this.targetVisibility) {
             this.currentVisibility = Math.min(1, this.currentVisibility + visibilityDelta);
@@ -414,16 +404,9 @@ Text.prototype.doDrawOrderedText = function (dc) {
     }
 
     // Use the text color and opacity. Modulation is done to white to avoid the program's shader from
-    // modifying the text color. When picking, use the pick color, 100% opacity and no texture.
-    if (!dc.pickingMode) {
-        program.loadColor(gl, Color.WHITE);
-        program.loadOpacity(gl, this.layer.opacity * this.currentVisibility);
-    } else {
-        this.pickColor = dc.uniquePickColor();
-        program.loadColor(gl, this.pickColor);
-        program.loadOpacity(gl, 1);
-        program.loadTextureEnabled(gl, false);
-    }
+    // modifying the text color.
+    program.loadColor(gl, Color.WHITE);
+    program.loadOpacity(gl, this.layer.opacity * this.currentVisibility);
 
     // When the text is visible, draw the text label.
     if (this.currentVisibility > 0) {
@@ -446,9 +429,8 @@ Text.prototype.drawLabel = function (dc) {
     var gl = dc.currentGlContext,
         program = dc.currentProgram,
         textureBound;
-
-    // Use the label texture when not picking.
-    if (!dc.pickingMode && this.activeTexture) {
+        
+    if (this.activeTexture) {
         Text.matrix.setToIdentity();
         Text.matrix.multiplyByTextureTransform(this.activeTexture);
         textureBound = this.activeTexture.bind(dc); // returns false if texture is null or cannot be bound

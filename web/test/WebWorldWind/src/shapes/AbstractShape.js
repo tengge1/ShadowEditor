@@ -174,9 +174,7 @@ AbstractShape.prototype.updateSurfaceShape = function () {
     this.surfaceShape.displayName = this.displayName;
     this.surfaceShape.highlighted = this.highlighted;
     this.surfaceShape.enabled = this.enabled;
-    this.surfaceShape.pathType = this.pathType;
-    this.surfaceShape.pickDelegate = this.pickDelegate ? this.pickDelegate : this;
-};
+    this.surfaceShape.pathType = this.pathType;};
 
 AbstractShape.prototype.createSurfaceShape = function () {
     return null;
@@ -291,11 +289,7 @@ AbstractShape.prototype.endDrawing = function (dc) {
 // Internal. Intentionally not documented.
 AbstractShape.prototype.intersectsFrustum = function (dc) {
     if (this.currentData && this.currentData.extent) {
-        if (dc.pickingMode) {
-            return this.currentData.extent.intersectsFrustum(dc.pickFrustum);
-        } else {
-            return this.currentData.extent.intersectsFrustum(dc.frustumInModelCoordinates);
-        }
+        return this.currentData.extent.intersectsFrustum(dc.frustumInModelCoordinates);
     } else {
         return true;
     }
