@@ -29,8 +29,8 @@
         window.onload = function () {
             map = new WorldWind.WorldWindow("canvas");
             map.addLayer(new WorldWind.XYZLayer());
-            // map.addLayer(new WorldWind.AtmosphereLayer());
-            // map.addLayer(new WorldWind.StarFieldLayer());
+            map.addLayer(new WorldWind.AtmosphereLayer());
+            map.addLayer(new WorldWind.StarFieldLayer());
         }
     </script>
 </body>
