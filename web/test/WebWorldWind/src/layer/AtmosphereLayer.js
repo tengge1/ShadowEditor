@@ -179,8 +179,8 @@ AtmosphereLayer.prototype.drawGround = function (dc) {
 
         // Use a tex coord matrix that registers the night texture correctly on each terrain.
         if (textureBound) {
-            // this._texMatrix.setToUnitYFlip();
-            // this._texMatrix.multiplyByTileTransform(currentTile.sector, this._fullSphereSector);
+            this._texMatrix.setToUnitYFlip();
+            this._texMatrix.multiplyByTileTransform(currentTile.sector, this._fullSphereSector);
             program.loadTexMatrix(gl, this._texMatrix);
         }
 

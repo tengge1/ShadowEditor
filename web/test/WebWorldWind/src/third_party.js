@@ -270,3 +270,18 @@ THREE.Matrix3.prototype.setToUnitYFlip = function () {
     elems[8] = 1;
     return this;
 };
+
+THREE.Matrix3.prototype.multiplyByTileTransform = function (src, dst) {
+
+    var srcDeltaLat = src.deltaLatitude();
+    var srcDeltaLon = src.deltaLongitude();
+    var dstDeltaLat = dst.deltaLatitude();
+    var dstDeltaLon = dst.deltaLongitude();
+
+    var xs = srcDeltaLon / dstDeltaLon;
+    var ys = srcDeltaLat / dstDeltaLat;
+    var xt = (src.minLongitude - dst.minLongitude) / dstDeltaLon;
+    var yt = (src.minLatitude - dst.minLatitude) / dstDeltaLat;
+
+    return this.scale(xs, ys).translate(xt, yt);
+};
