@@ -52,34 +52,23 @@ function GestureRecognizer(target, callback) {
      */
     this.enabled = true;
 
-    // Documented with its property accessor below.
     this._state = WorldWind.POSSIBLE;
     this._nextState = null;
 
-    // Documented with its property accessor below.
     this._clientX = 0;
-
-    // Documented with its property accessor below.
     this._clientY = 0;
     this._clientStartX = 0;
     this._clientStartY = 0;
 
-    // Documented with its property accessor below.
     this._translationX = 0;
-
-    // Documented with its property accessor below.
     this._translationY = 0;
     this._translationWeight = 0.4;
-
-    // Documented with its property accessor below.
     this._mouseButtonMask = 0;
 
     this._touches = [];
 
     this._touchCentroidShiftX = 0;
     this._touchCentroidShiftY = 0;
-
-    // Documented with its property accessor below.
     this._gestureCallbacks = [];
     this._canRecognizeWith = [];
     this._requiresFailureOf = [];

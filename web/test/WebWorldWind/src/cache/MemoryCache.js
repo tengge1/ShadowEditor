@@ -15,25 +15,12 @@
  * limitations under the License.
  */
 /**
- * @exports MemoryCache
- */
-
-
-/**
  * Constructs a memory cache of a specified size.
- * @alias MemoryCache
- * @constructor
- * @classdesc Provides a limited-size memory cache of key-value pairs. The meaning of size depends on usage.
- * Some instances of this class work in bytes while others work in counts. See the documentation for the
- * specific use to determine the size units.
  * @param {Number} capacity The cache's capacity.
  * @param {Number} lowWater The size to clear the cache to when its capacity is exceeded.
  */
 function MemoryCache(capacity, lowWater) {
-    // Documented with its property accessor below.
     this._capacity = capacity;
-
-    // Documented with its property accessor below.
     this._lowWater = lowWater;
 
     /**
