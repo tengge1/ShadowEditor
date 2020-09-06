@@ -124,8 +124,7 @@ Terrain.prototype.surfacePointForMode = function (latitude, longitude, offset, a
     } else if (altitudeMode === WorldWind.RELATIVE_TO_GROUND) {
         return this.surfacePoint(latitude, longitude, offset, result);
     } else {
-        var height = offset * this.verticalExaggeration;
-        this.globe.computePointFromPosition(latitude, longitude, height, result);
+        this.globe.computePointFromPosition(latitude, longitude, offset, result);
         return result;
     }
 };

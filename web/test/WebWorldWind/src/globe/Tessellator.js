@@ -144,7 +144,6 @@ function Tessellator() {
 Tessellator.prototype.tessellate = function (dc) {
     var lastElevationsChange = dc.globe.elevationTimestamp();
     if (this.lastGlobeStateKey === dc.globeStateKey
-        && this.lastVerticalExaggeration === dc.verticalExaggeration
         && this.elevationTimestamp === lastElevationsChange
         && dc.modelviewProjection.equals(this.lastModelViewProjection)) {
 
@@ -154,7 +153,6 @@ Tessellator.prototype.tessellate = function (dc) {
     this.lastModelViewProjection.copy(dc.modelviewProjection);
     this.lastGlobeStateKey = dc.globeStateKey;
     this.elevationTimestamp = lastElevationsChange;
-    this.lastVerticalExaggeration = dc.verticalExaggeration;
 
     this.currentTiles.removeAllTiles();
 
@@ -177,7 +175,7 @@ Tessellator.prototype.tessellate = function (dc) {
     this.finishTessellating(dc);
 
     this.lastTerrain = this.currentTiles.length === 0 ? null
-        : new Terrain(dc.globe, this, this.currentTiles, dc.verticalExaggeration);
+        : new Terrain(dc.globe, this, this.currentTiles);
 
     return this.lastTerrain;
 };
@@ -436,7 +434,7 @@ Tessellator.prototype.tileMeetsRenderCriteria = function (dc, tile) {
 };
 
 Tessellator.prototype.regenerateTileGeometryIfNeeded = function (dc, tile) {
-    var stateKey = dc.globeStateKey + tile.stateKey + dc.verticalExaggeration;
+    var stateKey = dc.globeStateKey + tile.stateKey;
 
     if (!tile.points || tile.pointsStateKey != stateKey) {
         this.regenerateTileGeometry(dc, tile);
