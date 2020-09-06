@@ -14,20 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * @exports LookAtNavigator
- */
 import Location from '../geom/Location';
 import Navigator from '../navigate/Navigator';
-
 
 /**
  * Constructs a look-at navigator.
  * @alias LookAtNavigator
- * @constructor
- * @augments Navigator
- * @classdesc Represents a navigator containing the required variables to enable the user to pan, zoom and tilt
- * the globe.
  */
 function LookAtNavigator() {
     Navigator.call(this);
@@ -43,10 +35,7 @@ function LookAtNavigator() {
      * @type {Number}
      * @default 10,000 kilometers
      */
-    this.range = 67043860.7580466; // TODO: Compute initial range to fit globe in viewport.
-
-    // Development testing only. Set this to false to suppress default navigator limits on 2D globes.
-    this.enable2DLimits = true;
+    this.range = 67043860.7580466;
 }
 
 LookAtNavigator.prototype = Object.create(Navigator.prototype);

@@ -15,12 +15,6 @@
  * limitations under the License.
  */
 /**
- * @exports Navigator
- */
-
-
-
-/**
  * Constructs a base navigator.
  * @alias Navigator
  * @constructor
