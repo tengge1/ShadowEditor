@@ -26,7 +26,6 @@ import Rectangle from '../geom/Rectangle';
 import SurfaceShape from '../shapes/SurfaceShape';
 import SurfaceShapeTileBuilder from '../shapes/SurfaceShapeTileBuilder';
 import SurfaceTileRenderer from '../render/SurfaceTileRenderer';
-import TextRenderer from '../render/TextRenderer';
 import WWMath from '../util/WWMath';
 
 
@@ -89,12 +88,6 @@ function DrawContext(gl) {
      * @type {FramebufferTileController}
      */
     this.surfaceShapeTileController = new FramebufferTileController();
-
-    /**
-     * A shared TextRenderer instance.
-     * @type {TextRenderer}
-     */
-    this.textRenderer = new TextRenderer(this);
 
     /**
      * The current WebGL framebuffer. Null indicates that the default WebGL framebuffer is active.
@@ -1044,61 +1037,6 @@ DrawContext.prototype.pixelSizeAtDistance = function (distance) {
     // ratio, so that using either the frustum width or height results in the same pixel size.
 
     return this.pixelSizeFactor * distance + this.pixelSizeOffset;
-};
-
-/**
- * Propagates the values contained in a TextAttributes object to the currently attached TextRenderer
- * {@link TextRenderer} as to provide format to a string of text. It first checks if the 2D texture is not
- * already cached according to the text string and its attached TextAttributes {@link TextAttributes} state key.
- * The TextRenderer then produces a 2D Texture with the aforementioned text and format to be used as a label
- * for a Text {@link Text} subclass (<i>e.g.</i> Annotation {@link Annotation} or Placemark {@link Placemark}).
- * @param {String} text The string of text that will be given color, font, and outline
- * from which the resulting texture will be based on.
- * @param {TextAttributes} textAttributes Attributes that will be applied to the string.
- * See TextAttributes {@link TextAttributes}.
- * @returns {Texture} A texture {@link Texture} with the specified text string, font, colors, and outline.
- */
-DrawContext.prototype.createTextTexture = function (text, textAttributes) {
-    if (!text || !textAttributes) {
-        return null;
-    }
-
-    var textureKey = this.computeTextTextureStateKey(text, textAttributes);
-    var texture = this.gpuResourceCache.resourceForKey(textureKey);
-
-    if (!texture) {
-        this.textRenderer.textColor = textAttributes.color;
-        this.textRenderer.typeFace = textAttributes.font;
-        this.textRenderer.enableOutline = textAttributes.enableOutline;
-        this.textRenderer.outlineColor = textAttributes.outlineColor;
-        this.textRenderer.outlineWidth = textAttributes.outlineWidth;
-        texture = this.textRenderer.renderText(text);
-        this.gpuResourceCache.putResource(textureKey, texture, texture.size);
-        this.gpuResourceCache.setResourceAgingFactor(textureKey, 100);  // age this texture 100x faster than normal resources (e.g., tiles)
-    }
-
-    return texture;
-};
-
-/**
- * Computes a state key that relates to a text label, foregoing the TextAttributes {@link TextAttributes}
- * properties that are not related to texture rendering (offset, scale, and depthTest).
- * @param {String} text The label's string of text.
- * @param {TextAttributes} attributes The TextAttributes object associated with the text label to render.
- * @returns {String} A state key composed of the original string of text plus the TextAttributes associated
- * with texture rendering.
- */
-DrawContext.prototype.computeTextTextureStateKey = function (text, attributes) {
-    if (!text || !attributes) {
-        return null;
-    }
-
-    return text +
-        "c " + attributes.color.toHexString(true) +
-        " f " + attributes.font.toString() +
-        " eo " + attributes.enableOutline +
-        " ow " + attributes.outlineWidth +
-        " oc " + attributes.outlineColor.toHexString(true);
 };
 
 /**

@@ -264,34 +264,6 @@ var WWUtil = {
      */
     date: function (item) {
         return new Date(item);
-    },
-
-    /**
-     * Determines whether subjectString begins with the characters of searchString.
-     * @param {String} subjectString The string to analyse.
-     * @param {String} searchString The characters to be searched for at the start of subjectString.
-     * @param {Number} position The position in subjectString at which to begin searching for searchString; defaults to 0.
-     * @return {Boolean} true if the given characters are found at the beginning of the string; otherwise, false.
-     */
-    startsWith: function (subjectString, searchString, position) {
-        position = position || 0;
-        return subjectString.substr(position, searchString.length) === searchString;
-    },
-
-    /**
-     * Determines whether subjectString ends with the characters of searchString.
-     * @param {String} subjectString The string to analyse.
-     * @param {String} searchString The characters to be searched for at the end of subjectString.
-     * @param {Number} length Optional. If provided overwrites the considered length of the string to search in. If omitted, the default value is the length of the string.
-     * @return {Boolean} true if the given characters are found at the end of the string; otherwise, false.
-     */
-    endsWith: function (subjectString, searchString, length) {
-        if (typeof length !== 'number' || !isFinite(length) || Math.floor(length) !== length || length > subjectString.length) {
-            length = subjectString.length;
-        }
-        length -= searchString.length;
-        var lastIndex = subjectString.lastIndexOf(searchString, length);
-        return lastIndex !== -1 && lastIndex === length;
     }
 };
 
