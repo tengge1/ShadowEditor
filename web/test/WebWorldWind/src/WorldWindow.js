@@ -306,8 +306,6 @@ WorldWindow.prototype.endFrame = function () {
     gl.blendFunc(gl.ONE, gl.ZERO);
     gl.depthFunc(gl.LESS);
     gl.clearColor(0, 0, 0, 1);
-
-    this.drawContext.bindFramebuffer(null);
     this.drawContext.bindProgram(null);
 };
 

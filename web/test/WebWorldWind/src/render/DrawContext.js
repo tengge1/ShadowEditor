@@ -18,13 +18,11 @@
  * @exports DrawContext
  */
 import Color from '../util/Color';
-import FramebufferTileController from '../render/FramebufferTileController';
 import GpuResourceCache from '../cache/GpuResourceCache';
 import Position from '../geom/Position';
 import Rectangle from '../geom/Rectangle';
 import SurfaceTileRenderer from '../render/SurfaceTileRenderer';
 import WWMath from '../util/WWMath';
-
 
 /**
  * Constructs a DrawContext. Applications do not call this constructor. A draw context is created by a
@@ -72,19 +70,6 @@ function DrawContext(gl) {
      * @type {SurfaceTileRenderer}
      */
     this.surfaceTileRenderer = new SurfaceTileRenderer();
-
-    /**
-     * Provides access to a multi-resolution WebGL framebuffer arranged as adjacent tiles in a pyramid. Surface
-     * shapes use these tiles internally to draw on the terrain surface.
-     * @type {FramebufferTileController}
-     */
-    this.surfaceShapeTileController = new FramebufferTileController();
-
-    /**
-     * The current WebGL framebuffer. Null indicates that the default WebGL framebuffer is active.
-     * @type {FramebufferTexture}
-     */
-    this.currentFramebuffer = null;
 
     /**
      * The current WebGL program. Null indicates that no WebGL program is active.
@@ -325,19 +310,6 @@ DrawContext.prototype.contextRestored = function () {
     // with invalid entries.
     this.gpuResourceCache.clear();
     this.glExtensionsCache = {};
-};
-
-/**
- * Binds a specified WebGL framebuffer. This function also makes the framebuffer the active framebuffer.
- * @param {FramebufferTexture} framebuffer The framebuffer to bind. May be null or undefined, in which case the
- * default WebGL framebuffer is made active.
- */
-DrawContext.prototype.bindFramebuffer = function (framebuffer) {
-    if (this.currentFramebuffer != framebuffer) {
-        this.currentGlContext.bindFramebuffer(this.currentGlContext.FRAMEBUFFER,
-            framebuffer ? framebuffer.framebufferId : null);
-        this.currentFramebuffer = framebuffer;
-    }
 };
 
 /**
