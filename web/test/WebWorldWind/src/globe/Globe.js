@@ -357,60 +357,6 @@ Globe.prototype.intersectsFrustum = function (frustum) {
 };
 
 /**
- * Computes the first intersection of this globe with a specified line. The line is interpreted as a ray;
- * intersection points behind the line's origin are ignored.
- * @param {Line} line The line to intersect with this globe.
- * @param {THREE.Vector3} result A pre-allocated THREE.Vector3 in which to return the computed point.
- * @returns {boolean} true If the ray intersects the globe, otherwise false.
- */
-Globe.prototype.intersectsLine = function (line, result) {
-    // Taken from "Mathematics for 3D Game Programming and Computer Graphics, Third Edition", Section 6.2.3.
-    //
-    // Note that the parameter n from equations 6.70 and 6.71 is omitted here. For an ellipsoidal globe this
-    // parameter is always 1, so its square and its product with any other value simplifies to the identity.
-
-    var vx = line.direction.x,
-        vy = line.direction.y,
-        vz = line.direction.z,
-        sx = line.origin.x,
-        sy = line.origin.y,
-        sz = line.origin.z,
-        t;
-
-    var eqr = this.equatorialRadius, eqr2 = eqr * eqr, m = eqr / this.polarRadius, m2 = m * m, a, b, c, d;
-
-    a = vx * vx + m2 * vy * vy + vz * vz;
-    b = 2 * (sx * vx + m2 * sy * vy + sz * vz);
-    c = sx * sx + m2 * sy * sy + sz * sz - eqr2;
-    d = b * b - 4 * a * c; // discriminant
-
-    if (d < 0) {
-        return false;
-    }
-
-    t = (-b - Math.sqrt(d)) / (2 * a);
-    // check if the nearest intersection point is in front of the origin of the ray
-    if (t > 0) {
-        result.x = sx + vx * t;
-        result.y = sy + vy * t;
-        result.z = sz + vz * t;
-        return true;
-    }
-
-    t = (-b + Math.sqrt(d)) / (2 * a);
-    // check if the second intersection point is in the front of the origin of the ray
-    if (t > 0) {
-        result.x = sx + vx * t;
-        result.y = sy + vy * t;
-        result.z = sz + vz * t;
-        return true;
-    }
-
-    // the intersection points were behind the origin of the provided line
-    return false;
-};
-
-/**
  * Returns the time at which any elevations associated with this globe last changed.
  * @returns {Number} The time in milliseconds relative to the Epoch of the most recent elevation change.
  */

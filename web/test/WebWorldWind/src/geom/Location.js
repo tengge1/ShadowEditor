@@ -305,7 +305,7 @@ Location.rhumbAzimuth = function (location1, location2) {
     dPhi = Math.log(Math.tan(lat2 / 2.0 + Math.PI / 4) / Math.tan(lat1 / 2.0 + Math.PI / 4));
 
     // If lonChange over 180 take shorter rhumb across 180 meridian.
-    if (WWMath.fabs(dLon) > Math.PI) {
+    if (Math.abs(dLon) > Math.PI) {
         dLon = dLon > 0 ? -(2 * Math.PI - dLon) : 2 * Math.PI + dLon;
     }
 
@@ -350,7 +350,7 @@ Location.rhumbDistance = function (location1, location2) {
     }
 
     // If lonChange over 180 take shorter rhumb across 180 meridian.
-    if (WWMath.fabs(dLon) > Math.PI) {
+    if (Math.abs(dLon) > Math.PI) {
         dLon = dLon > 0 ? -(2 * Math.PI - dLon) : 2 * Math.PI + dLon;
     }
 
@@ -392,7 +392,7 @@ Location.rhumbLocation = function (location, azimuthDegrees, pathLengthRadians, 
     dLon = pathLengthRadians * Math.sin(azimuthRadians) / q;
 
     // Handle latitude passing over either pole.
-    if (WWMath.fabs(endLatRadians) > Math.PI / 2) {
+    if (Math.abs(endLatRadians) > Math.PI / 2) {
         endLatRadians = endLatRadians > 0 ? Math.PI - endLatRadians : -Math.PI - endLatRadians;
     }
 
@@ -457,7 +457,7 @@ Location.linearAzimuth = function (location1, location2) {
     dPhi = lat2 - lat1;
 
     // If longitude change is over 180 take shorter path across 180 meridian.
-    if (WWMath.fabs(dLon) > Math.PI) {
+    if (Math.abs(dLon) > Math.PI) {
         dLon = dLon > 0 ? -(2 * Math.PI - dLon) : 2 * Math.PI + dLon;
     }
 
@@ -493,7 +493,7 @@ Location.linearDistance = function (location1, location2) {
     dLon = lon2 - lon1;
 
     // If lonChange over 180 take shorter path across 180 meridian.
-    if (WWMath.fabs(dLon) > Math.PI) {
+    if (Math.abs(dLon) > Math.PI) {
         dLon = dLon > 0 ? -(2 * Math.PI - dLon) : 2 * Math.PI + dLon;
     }
 
@@ -525,7 +525,7 @@ Location.linearLocation = function (location, azimuthDegrees, pathLengthRadians,
         endLonRadians;
 
     // Handle latitude passing over either pole.
-    if (WWMath.fabs(endLatRadians) > Math.PI / 2) {
+    if (Math.abs(endLatRadians) > Math.PI / 2) {
         endLatRadians = endLatRadians > 0 ? Math.PI - endLatRadians : -Math.PI - endLatRadians;
     }
 
