@@ -17,7 +17,6 @@
 /**
  * @exports SurfaceTileRenderer
  */
-import SurfaceShapeTile from '../shapes/SurfaceShapeTile';
 import SurfaceTileRendererProgram from '../shaders/SurfaceTileRendererProgram';
 
 
@@ -29,13 +28,8 @@ import SurfaceTileRendererProgram from '../shaders/SurfaceTileRendererProgram';
  * It is meant to be used internally. Applications typically do not interact with this class.
  */
 function SurfaceTileRenderer() {
-
-    // Scratch values to avoid constantly recreating these matrices.
     this.texMaskMatrix = new THREE.Matrix4();
     this.texSamplerMatrix = new THREE.Matrix4();
-
-    // Internal. Intentionally not documented.
-    this.isSurfaceShapeTileRendering = false;
 }
 
 /**
@@ -60,8 +54,6 @@ SurfaceTileRenderer.prototype.renderTiles = function (dc, surfaceTiles, opacity,
 
     if (!terrain)
         return;
-
-    this.isSurfaceShapeTileRendering = surfaceTiles[0] instanceof SurfaceShapeTile;
 
     opacity *= dc.surfaceOpacity;
 

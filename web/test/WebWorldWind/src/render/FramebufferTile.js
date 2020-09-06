@@ -31,7 +31,6 @@ import TextureTile from '../render/TextureTile';
  * [tileHeight]{@link FramebufferTile#tileHeight}, respectively. The framebuffer can be made active by calling
  * [bindFramebuffer]{@link FramebufferTile#bindFramebuffer}. Color fragments written to this
  * tile's framebuffer can then be drawn on the terrain surface using a
- * [SurfaceTileRenderer]{@link SurfaceTileRenderer}.
  * <p>
  * This class is meant to be used internally. Applications typically do not interact with this class.
  * @param {Sector} sector The sector this tile covers.

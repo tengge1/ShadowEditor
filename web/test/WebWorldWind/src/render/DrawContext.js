@@ -18,13 +18,10 @@
  * @exports DrawContext
  */
 import Color from '../util/Color';
-import FramebufferTexture from '../render/FramebufferTexture';
 import FramebufferTileController from '../render/FramebufferTileController';
 import GpuResourceCache from '../cache/GpuResourceCache';
 import Position from '../geom/Position';
 import Rectangle from '../geom/Rectangle';
-import SurfaceShape from '../shapes/SurfaceShape';
-import SurfaceShapeTileBuilder from '../shapes/SurfaceShapeTileBuilder';
 import SurfaceTileRenderer from '../render/SurfaceTileRenderer';
 import WWMath from '../util/WWMath';
 
@@ -75,12 +72,6 @@ function DrawContext(gl) {
      * @type {SurfaceTileRenderer}
      */
     this.surfaceTileRenderer = new SurfaceTileRenderer();
-
-    /**
-     * The surface shape tile builder used to create and draw surface shapes.
-     * @type {SurfaceShapeTileBuilder}
-     */
-    this.surfaceShapeTileBuilder = new SurfaceShapeTileBuilder();
 
     /**
      * Provides access to a multi-resolution WebGL framebuffer arranged as adjacent tiles in a pyramid. Surface
