@@ -207,63 +207,6 @@ THREE.Frustum.prototype.normalize = function (mat4) {
     return this;
 };
 
-
-/**
- * Sets this matrix to a screen projection matrix for the specified viewport dimensions.
- * <p>
- * A screen projection matrix is an orthographic projection that assumes that points in model coordinates
- * represent a screen point and a depth. Screen projection matrices therefore map model coordinates directly
- * into screen coordinates without modification. A point's xy coordinates are interpreted as literal screen
- * coordinates and must be in the viewport to be visible. A point's z coordinate is interpreted as a depth value
- * that ranges from 0 to 1. Additionally, the screen projection matrix preserves the depth value returned by
- * [DrawContext.project]{@link DrawContext#project}.
- *
- * @param {Number} viewportWidth The viewport width, in screen coordinates.
- * @param {Number} viewportHeight The viewport height, in screen coordinates.
- */
-THREE.Matrix4.prototype.setToScreenProjection = function (viewportWidth, viewportHeight) {
-    // Taken from Mathematics for 3D Game Programming and Computer Graphics, Second Edition, equation 4.57.
-    // Simplified to assume that the viewport origin is (0, 0).
-    //
-    // The third row of this projection matrix is configured so that points with z coordinates representing
-    // depth values ranging from 0 to 1 are not modified after transformation into window coordinates. This
-    // projection matrix maps z values in the range [0, 1] to the range [-1, 1] by applying the following
-    // function to incoming z coordinates:
-    //
-    // zp = z0 * 2 - 1
-    //
-    // Where 'z0' is the point's z coordinate and 'zp' is the projected z coordinate. The GPU then maps the
-    // projected z coordinate into window coordinates in the range [0, 1] by applying the following function:
-    //
-    // zw = zp * 0.5 + 0.5
-    //
-    // The result is that a point's z coordinate is effectively passed to the GPU without modification.
-
-    var elems = this.elements;
-    // Row 1
-    elems[0] = 2 / viewportWidth;
-    elems[1] = 0;
-    elems[2] = 0;
-    elems[3] = -1;
-    // Row 2
-    elems[4] = 0;
-    elems[5] = 2 / viewportHeight;
-    elems[6] = 0;
-    elems[7] = -1;
-    // Row 3
-    elems[8] = 0;
-    elems[9] = 0;
-    elems[10] = 2;
-    elems[11] = -1;
-    // Row 4
-    elems[12] = 0;
-    elems[13] = 0;
-    elems[14] = 0;
-    elems[15] = 1;
-
-    return this;
-};
-
 /**
  * Sets this matrix to one that flips and shifts the y-axis.
  * <p>
