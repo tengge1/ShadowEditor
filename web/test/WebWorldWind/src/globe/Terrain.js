@@ -25,19 +25,13 @@
  * @classdesc Represents terrain and provides functions for computing points on or relative to the terrain.
  * Applications do not typically interact directly with this class.
  */
-function Terrain(globe, tessellator, terrainTiles, verticalExaggeration) {
+function Terrain(globe, tessellator, terrainTiles) {
 
     /**
      * The globe associated with this terrain.
      * @type {Globe}
      */
     this.globe = globe;
-
-    /**
-     * The vertical exaggeration of this terrain.
-     * @type {Number}
-     */
-    this.verticalExaggeration = verticalExaggeration;
 
     /**
      * The sector spanned by this terrain.
@@ -95,7 +89,7 @@ Terrain.prototype.surfacePoint = function (latitude, longitude, offset, result) 
     }
 
     // No tile was found that contains the location, so approximate one using the globe.
-    var h = offset + this.globe.elevationAtLocation(latitude, longitude) * this.verticalExaggeration;
+    var h = offset + this.globe.elevationAtLocation(latitude, longitude);
     this.globe.computePointFromPosition(latitude, longitude, h, result);
 
     return result;

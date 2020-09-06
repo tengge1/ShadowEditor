@@ -85,12 +85,6 @@ function WorldWindow(canvasElem) {
     this.worldWindowController = new BasicWorldWindowController(this);
 
     /**
-     * The vertical exaggeration to apply to the terrain.
-     * @type {Number}
-     */
-    this.verticalExaggeration = 1;
-
-    /**
      * Indicates whether this WorldWindow should be configured for sub-surface rendering. If true, shapes
      * below the terrain can be seen when the terrain is made transparent. If false, sub-surface shapes are
      * not visible, however, performance is slightly increased.
@@ -580,7 +574,6 @@ WorldWindow.prototype.resetDrawContext = function () {
     dc.navigator = this.navigator;
     dc.layers = this.layers.slice();
     this.computeDrawContext();
-    dc.verticalExaggeration = this.verticalExaggeration;
     dc.surfaceOpacity = this.surfaceOpacity;
     dc.pixelScale = this.pixelScale;
     dc.update();
