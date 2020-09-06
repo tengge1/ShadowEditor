@@ -14,9 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * @exports WorldWindow
- */
 import BasicWorldWindowController from './BasicWorldWindowController';
 import DrawContext from './render/DrawContext';
 import EarthElevationModel from './globe/EarthElevationModel';
@@ -26,7 +23,6 @@ import Line from './geom/Line';
 import LookAtNavigator from './navigate/LookAtNavigator';
 import Position from './geom/Position';
 import Rectangle from './geom/Rectangle';
-import SurfaceShape from './shapes/SurfaceShape';
 import WWMath from './util/WWMath';
 import global from './global';
 import './third_party';
@@ -58,32 +54,19 @@ function WorldWindow(canvasElem) {
     // Create the WebGL context associated with the HTML canvas.
     var gl = this.createContext(canvas);
 
-    // Internal. Intentionally not documented.
     this.drawContext = new DrawContext(gl);
 
-    // Internal. Intentionally not documented. Must be initialized before the navigator is created.
+    // Must be initialized before the navigator is created.
     this.eventListeners = {};
 
-    // Internal. Intentionally not documented. Initially true in order to redraw at least once.
+    // Initially true in order to redraw at least once.
     this.redrawRequested = true;
-
-    // Internal. Intentionally not documented.
     this.redrawRequestId = null;
 
-    // Internal. Intentionally not documented.
     this.scratchModelview = new THREE.Matrix4();
-
-    // Internal. Intentionally not documented.
     this.scratchProjection = new THREE.Matrix4();
-
-    // Internal. Intentionally not documented.
     this.hasStencilBuffer = gl.getContextAttributes().stencil;
 
-    /**
-     * The HTML canvas associated with this WorldWindow.
-     * @type {HTMLElement}
-     * @readonly
-     */
     this.canvas = canvas;
 
     /**
@@ -93,41 +76,12 @@ function WorldWindow(canvasElem) {
      */
     this.depthBits = gl.getParameter(gl.DEPTH_BITS);
 
-    /**
-     * The current viewport of this WorldWindow.
-     * @type {Rectangle}
-     * @readonly
-     */
     this.viewport = new Rectangle(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
-
-    /**
-     * The globe displayed.
-     * @type {Globe}
-     */
     this.globe = new Globe(new EarthElevationModel());
 
-    /**
-     * The layers to display in this WorldWindow.
-     * This property is read-only. Use [addLayer]{@link WorldWindow#addLayer} or
-     * [insertLayer]{@link WorldWindow#insertLayer} to add layers to this WorldWindow.
-     * Use [removeLayer]{@link WorldWindow#removeLayer} to remove layers from this WorldWindow.
-     * @type {Layer[]}
-     * @readonly
-     */
     this.layers = [];
 
-    /**
-     * The navigator used to manipulate the globe.
-     * @type {LookAtNavigator}
-     * @default [LookAtNavigator]{@link LookAtNavigator}
-     */
     this.navigator = new LookAtNavigator();
-
-    /**
-     * The controller used to manipulate the globe.
-     * @type {WorldWindowController}
-     * @default [BasicWorldWindowController]{@link BasicWorldWindowController}
-     */
     this.worldWindowController = new BasicWorldWindowController(this);
 
     /**

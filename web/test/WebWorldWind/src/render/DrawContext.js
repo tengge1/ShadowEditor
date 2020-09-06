@@ -206,12 +206,6 @@ function DrawContext(gl) {
     });
 
     /**
-     * The current vertical exaggeration.
-     * @type {Number}
-     */
-    this.verticalExaggeration = 1;
-
-    /**
      * The number of milliseconds over which to fade shapes that support fading. Fading is most typically
      * used during decluttering.
      * @type {Number}
@@ -295,7 +289,6 @@ DrawContext.prototype.reset = function () {
     this.layers = null;
     this.currentLayer = null;
     this.terrain = null;
-    this.verticalExaggeration = 1;
     this.accumulateOrderedRenderables = true;
 
     this.eyePoint.set(0, 0, 0);
@@ -836,7 +829,7 @@ DrawContext.prototype.surfacePointForMode = function (latitude, longitude, offse
     if (this.terrain) {
         this.terrain.surfacePointForMode(latitude, longitude, offset, altitudeMode, result);
     } else {
-        var h = offset + this.globe.elevationAtLocation(latitude, longitude) * this.verticalExaggeration;
+        var h = offset + this.globe.elevationAtLocation(latitude, longitude);
         this.globe.computePointFromPosition(latitude, longitude, h, result);
     }
 

@@ -279,11 +279,9 @@ Tile.prototype.mustSubdivide = function (dc, detailFactor) {
  */
 Tile.prototype.update = function (dc) {
     var elevationTimestamp = dc.globe.elevationTimestamp(),
-        verticalExaggeration = dc.verticalExaggeration,
         globeStateKey = dc.globeStateKey;
 
     if (this.updateTimestamp != elevationTimestamp
-        || this.updateVerticalExaggeration != verticalExaggeration
         || this.updateGlobeStateKey != globeStateKey) {
 
         this.doUpdate(dc);
@@ -292,7 +290,6 @@ Tile.prototype.update = function (dc) {
         // ensures that the geometry timestamp can be reliably compared to the elevation timestamp in subsequent
         // frames.
         this.updateTimestamp = elevationTimestamp;
-        this.updateVerticalExaggeration = verticalExaggeration;
         this.updateGlobeStateKey = globeStateKey;
     }
 };
@@ -308,10 +305,9 @@ Tile.prototype.doUpdate = function (dc) {
     // build the terrain are contained by this tile's extent. Use zero if the globe as no elevations in this
     // tile's sector.
     var globe = dc.globe,
-        verticalExaggeration = dc.verticalExaggeration,
         extremes = globe.minAndMaxElevationsForSector(this.sector),
-        minHeight = extremes[0] * verticalExaggeration,
-        maxHeight = extremes[1] * verticalExaggeration;
+        minHeight = extremes[0],
+        maxHeight = extremes[1];
 
     // Compute a bounding box for this tile that contains the terrain surface in the tile's coverage area.
     if (!this.extent) {

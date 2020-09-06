@@ -422,8 +422,7 @@ SurfaceShape.prototype.intersectsFrustum = function (dc) {
  * @protected
  */
 SurfaceShape.prototype.isShapeDataCurrent = function (dc, shapeData) {
-    return shapeData.verticalExaggeration === dc.verticalExaggeration
-        && shapeData.expiryTime > Date.now();
+    return shapeData.expiryTime > Date.now();
 };
 
 /**
@@ -469,7 +468,6 @@ SurfaceShape.prototype.render = function (dc) {
 
     if (this.currentData.isExpired || !this.currentData.extent) {
         this.computeExtent(dc);
-        this.currentData.verticalExaggeration = dc.verticalExaggeration;
         this.resetExpiration(this.currentData);
     }
 
@@ -698,7 +696,7 @@ SurfaceShape.prototype.getCorners = function (dc) {
     // This surface shape does not cross the international dateline, and therefore has a single bounding sector.
     // Return the box which contains that sector.
     if (this._boundingSectors.length === 1) {
-        boxPoints = this._boundingSectors[0].computeBoundingPoints(dc.globe, dc.verticalExaggeration);
+        boxPoints = this._boundingSectors[0].computeBoundingPoints(dc.globe);
         this.currentData.extent.setToVec3Points(boxPoints);
     }
     // This surface crosses the international dateline, and its bounding sectors are split along the dateline.
@@ -707,7 +705,7 @@ SurfaceShape.prototype.getCorners = function (dc) {
         var boxCorners = [];
 
         for (var i = 0; i < this._boundingSectors.length; i++) {
-            boxPoints = this._boundingSectors[i].computeBoundingPoints(dc.globe, dc.verticalExaggeration);
+            boxPoints = this._boundingSectors[i].computeBoundingPoints(dc.globe);
             var box = new THREE.Box3();
             box.setToVec3Points(boxPoints);
             var corners = box.getCorners();
