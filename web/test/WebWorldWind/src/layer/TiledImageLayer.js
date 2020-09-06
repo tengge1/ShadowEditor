@@ -100,13 +100,11 @@ function TiledImageLayer(sector, levelZeroDelta, numLevels, imageFormat, cachePa
     this.currentRetrievals = [];
     this.absentResourceList = new AbsentResourceList(3, 50e3);
 
-    // Internal. Intentionally not documented.
     this.lasTtMVP = new THREE.Matrix4();
 }
 
 TiledImageLayer.prototype = Object.create(Layer.prototype);
 
-// Intentionally not documented.
 TiledImageLayer.prototype.createTile = function (sector, level, row, column) {
     return new ImageTile(sector, level, row, column, "");
 };
@@ -133,18 +131,15 @@ TiledImageLayer.prototype.doRender = function (dc) {
     }
 };
 
-// Documented in superclass.
 TiledImageLayer.prototype.isLayerInView = function (dc) {
     return dc.terrain && dc.terrain.sector && dc.terrain.sector.intersects(this.levels.sector);
 };
 
-// Documented in superclass.
 TiledImageLayer.prototype.createTopLevelTiles = function (dc) {
     this.topLevelTiles = [];
     Tile.createTilesForLevel(this.levels.firstLevel(), this, this.topLevelTiles);
 };
 
-// Intentionally not documented.
 TiledImageLayer.prototype.assembleTiles = function (dc) {
     this.currentTiles = [];
 
@@ -165,7 +160,6 @@ TiledImageLayer.prototype.assembleTiles = function (dc) {
     }
 };
 
-// Intentionally not documented.
 TiledImageLayer.prototype.addTileOrDescendants = function (dc, tile) {
     if (this.tileMeetsRenderingCriteria(dc, tile)) {
         this.addTile(dc, tile);
@@ -199,7 +193,6 @@ TiledImageLayer.prototype.addTileOrDescendants = function (dc, tile) {
     }
 };
 
-// Intentionally not documented.
 TiledImageLayer.prototype.addTile = function (dc, tile) {
     tile.fallbackTile = null;
 
@@ -222,7 +215,6 @@ TiledImageLayer.prototype.addTile = function (dc, tile) {
     }
 };
 
-// Intentionally not documented.
 TiledImageLayer.prototype.isTileVisible = function (dc, tile) {
     if (dc.globe.projectionLimits && !tile.sector.overlaps(dc.globe.projectionLimits)) {
         return false;
@@ -230,7 +222,6 @@ TiledImageLayer.prototype.isTileVisible = function (dc, tile) {
     return dc.frustumInModelCoordinates.intersectsBox(tile.extent);
 };
 
-// Intentionally not documented.
 TiledImageLayer.prototype.tileMeetsRenderingCriteria = function (dc, tile) {
     var s = this.detailControl;
     var highLatitude = WWMath.mercatorLat(75);
@@ -240,7 +231,6 @@ TiledImageLayer.prototype.tileMeetsRenderingCriteria = function (dc, tile) {
     return tile.level.isLastLevel() || !tile.mustSubdivide(dc, s);
 };
 
-// Intentionally not documented.
 TiledImageLayer.prototype.isTileTextureInMemory = function (dc, tile) {
     return !!this.cache.get(tile.level.levelNumber, tile.level.row, tile.level.column);
 };
@@ -298,7 +288,6 @@ TiledImageLayer.prototype.retrieveTileImage = function (dc, tile) {
     }
 };
 
-// Intentionally not documented.
 TiledImageLayer.prototype.removeFromCurrentRetrievals = function (imagePath) {
     var index = this.currentRetrievals.indexOf(imagePath);
     if (index > -1) {

@@ -61,20 +61,14 @@ function TerrainTile(sector, level, row, column) {
      */
     this.pointsVboStateKey = null;
 
-    // Internal use. Intentionally not documented.
     this.neighborMap = {};
     this.neighborMap[WorldWind.NORTH] = null;
     this.neighborMap[WorldWind.SOUTH] = null;
     this.neighborMap[WorldWind.EAST] = null;
     this.neighborMap[WorldWind.WEST] = null;
 
-    // Internal use. Intentionally not documented.
     this._stateKey = null;
-
-    // Internal use. Intentionally not documented.
     this._elevationTimestamp = null;
-
-    // Internal use. Intentionally not documented.
     this.scratchArray = [];
 }
 
@@ -204,7 +198,6 @@ TerrainTile.prototype.update = function (dc) {
     }
 };
 
-// Intentionally not documented.
 TerrainTile.prototype.computeStateKey = function () {
     var array = [];
     array.push(this._elevationTimestamp);

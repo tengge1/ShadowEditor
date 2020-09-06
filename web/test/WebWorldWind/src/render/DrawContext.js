@@ -95,7 +95,7 @@ function DrawContext(gl) {
      */
     this.orderedRenderables = [];
 
-    // Internal. Intentionally not documented. Provides ordinal IDs to ordered renderables.
+    // Provides ordinal IDs to ordered renderables.
     this.orderedRenderablesCounter = 0; // Number
 
     /**
@@ -190,7 +190,6 @@ function DrawContext(gl) {
      */
     this.surfaceOpacity = 1;
 
-    // Intentionally not documented.
     this.pixelScale = 1;
 
     // TODO: replace with camera in the next phase of navigator refactoring
@@ -230,7 +229,6 @@ function DrawContext(gl) {
     this.glExtensionsCache = {};
 }
 
-// Internal use. Intentionally not documented.
 DrawContext.unitCubeKey = "DrawContextUnitCubeKey";
 DrawContext.unitCubeElementsKey = "DrawContextUnitCubeElementsKey";
 DrawContext.unitQuadKey = "DrawContextUnitQuadKey";

@@ -97,7 +97,6 @@ ArcgisElevationCoverage.prototype.handleMessage = function (evt) {
     }
 };
 
-// Intentionally not documented.
 ArcgisElevationCoverage.prototype.loadElevationImage = function (tile, data) {
     var elevationImage = new ElevationImage(tile.sector, data.width, data.height);
 

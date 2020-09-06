@@ -39,8 +39,6 @@ function DragRecognizer(target, callback) {
      * @type {Number}
      */
     this.button = 0;
-
-    // Intentionally not documented.
     this.interpretDistance = 5;
 }
 

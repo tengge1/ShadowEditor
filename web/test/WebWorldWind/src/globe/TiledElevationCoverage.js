@@ -180,7 +180,6 @@ TiledElevationCoverage.prototype.elevationsForGrid = function (sector, numLat, n
     return this.pointElevationsForGrid(sector, numLat, numLon, level, result);
 };
 
-// Intentionally not documented.
 TiledElevationCoverage.prototype.pointElevationForLocation = function (latitude, longitude) {
     var level = this.levels.lastLevel(),
         deltaLat = level.tileDelta.latitude,
@@ -203,7 +202,6 @@ TiledElevationCoverage.prototype.pointElevationForLocation = function (latitude,
     return null; // did not find a tile with an image
 };
 
-// Intentionally not documented.
 TiledElevationCoverage.prototype.pointElevationsForGrid = function (sector, numLat, numLon, level, result) {
     this.assembleTiles(level, sector, true);
     if (this.currentTiles.length === 0) {
@@ -266,7 +264,6 @@ TiledElevationCoverage.prototype.lookupPixels = function (x0, x1, y0, y1, level,
     return false;
 };
 
-// Internal. Intentionally not documented.
 TiledElevationCoverage.prototype.lookupImage = function (levelNumber, row, column, retrieveTiles) {
     var image = this.imageCache.get(levelNumber, row, column);
 
@@ -278,7 +275,6 @@ TiledElevationCoverage.prototype.lookupImage = function (levelNumber, row, colum
     return image;
 };
 
-// Intentionally not documented.
 TiledElevationCoverage.prototype.assembleTiles = function (level, sector, retrieveTiles) {
     this.currentTiles = [];
 
@@ -304,7 +300,6 @@ TiledElevationCoverage.prototype.assembleTiles = function (level, sector, retrie
     }
 };
 
-// Intentionally not documented.
 TiledElevationCoverage.prototype.addTileOrAncestor = function (level, row, column, retrieveTiles) {
     var tile = this.tileForLevel(level.levelNumber, row, column);
 
@@ -323,7 +318,6 @@ TiledElevationCoverage.prototype.addTileOrAncestor = function (level, row, colum
     }
 };
 
-// Intentionally not documented.
 TiledElevationCoverage.prototype.addAncestor = function (level, row, column, retrieveTiles) {
     var tile = null,
         r = Math.floor(row / 2),
@@ -350,12 +344,10 @@ TiledElevationCoverage.prototype.addAncestor = function (level, row, column, ret
     }
 };
 
-// Intentionally not documented.
 TiledElevationCoverage.prototype.addToCurrentTiles = function (tile) {
     this.currentTiles.push(tile);
 };
 
-// Intentionally not documented.
 TiledElevationCoverage.prototype.tileForLevel = function (levelNumber, row, column) {
     var tile = this.tileCache.get(levelNumber, row, column);
     if (tile) {
@@ -371,17 +363,14 @@ TiledElevationCoverage.prototype.tileForLevel = function (levelNumber, row, colu
     return tile;
 };
 
-// Intentionally not documented.
 TiledElevationCoverage.prototype.isTileImageInMemory = function (tile) {
     return !!this.imageCache.get(tile.level.levelNumber, tile.row, tile.column);
 };
 
-// Intentionally not documented.
 TiledElevationCoverage.prototype.resourceUrlForTile = function (tile) {
     return null;
 };
 
-// Intentionally not documented.
 TiledElevationCoverage.prototype.retrieveTileImage = function (tile) {
     if (this.currentRetrievals.indexOf(tile.tileKey) < 0) {
 
@@ -454,10 +443,8 @@ TiledElevationCoverage.prototype.removeFromCurrentRetrievals = function (tileKey
     }
 };
 
-// Intentionally not documented.
 TiledElevationCoverage.prototype.loadElevationImage = function (tile, xhr) {
-    var elevationImage = new ElevationImage(tile.sector, tile.tileWidth, tile.tileHeight),
-        geoTiff;
+    var elevationImage = new ElevationImage(tile.sector, tile.tileWidth, tile.tileHeight);
 
     if (this.retrievalImageFormat === "application/bil16") {
         elevationImage.imageData = new Int16Array(xhr.response);

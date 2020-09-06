@@ -34,23 +34,13 @@ import PanRecognizer from '../gesture/PanRecognizer';
 function TiltRecognizer(target, callback) {
     PanRecognizer.call(this, target, callback);
 
-    // Intentionally not documented.
     this.maxTouchDistance = 250;
-
-    // Intentionally not documented.
     this.maxTouchDivergence = 50;
 }
 
-// Intentionally not documented.
 TiltRecognizer.LEFT = 1 << 0;
-
-// Intentionally not documented.
 TiltRecognizer.RIGHT = 1 << 1;
-
-// Intentionally not documented.
 TiltRecognizer.UP = 1 << 2;
-
-// Intentionally not documented.
 TiltRecognizer.DOWN = 1 << 3;
 
 TiltRecognizer.prototype = Object.create(PanRecognizer.prototype);
@@ -99,7 +89,6 @@ TiltRecognizer.prototype.shouldRecognize = function () {
     return (dirMask0 & dirMask1) != 0; // touches must move in the same vertical direction
 };
 
-// Intentionally not documented.
 TiltRecognizer.prototype.touchDirection = function (touch) {
     var dx = touch.translationX,
         dy = touch.translationY,

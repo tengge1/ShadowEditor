@@ -46,7 +46,6 @@ function ImageSource(image) {
     this.key = "ImageSource " + ++ImageSource.keyPool;
 }
 
-// Internal. Intentionally not documented.
 ImageSource.keyPool = 0; // source of unique ids
 
 export default ImageSource;

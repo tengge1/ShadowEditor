@@ -80,8 +80,7 @@ function SurfaceTileRendererProgram(gl) {
      * @readonly
      */
     this.modulateColorLocation = this.uniformLocation(gl, "modulateColor");
-
-    // The rest of these are strictly internal and intentionally not documented.
+    
     this.texSamplerMatrixLocation = this.uniformLocation(gl, "texSamplerMatrix");
     this.texMaskMatrixLocation = this.uniformLocation(gl, "texMaskMatrix");
     this.texSamplerLocation = this.uniformLocation(gl, "texSampler");

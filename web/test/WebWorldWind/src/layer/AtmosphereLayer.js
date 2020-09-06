@@ -14,9 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * @exports AtmosphereLayer
- */
 import GroundProgram from '../shaders/GroundProgram';
 import Layer from '../layer/Layer';
 import Sector from '../geom/Sector';
@@ -24,75 +21,44 @@ import SkyProgram from '../shaders/SkyProgram';
 import SunPosition from '../util/SunPosition';
 import WWUtil from '../util/WWUtil';
 
-
 /**
  * Constructs a layer showing the Earth's atmosphere.
  * @alias AtmosphereLayer
- * @constructor
- * @classdesc Provides a layer showing the Earth's atmosphere.
- * @param {URL} nightImageSource optional url for the night texture.
- * @augments Layer
  */
-function AtmosphereLayer(nightImageSource) {
+function AtmosphereLayer() {
     Layer.call(this, "Atmosphere");
 
-    //Documented in defineProperties below.
-    this._nightImageSource = nightImageSource ||
-        WorldWind.configuration.baseUrl + 'images/dnb_land_ocean_ice_2012.png';
+    this.nightImageSource = WorldWind.configuration.baseUrl + 'images/dnb_land_ocean_ice_2012.png';
 
-    //Internal use only.
-    //The light direction in cartesian space, computed from the layer time or defaults to the eyePoint.
     this._activeLightDirection = new THREE.Vector3();
-
     this._fullSphereSector = Sector.FULL_SPHERE;
 
-    //Internal use only. Intentionally not documented.
     this._skyData = {};
 
-    //Internal use only. The number of longitudinal points in the grid for the sky geometry.
+    // The number of longitudinal points in the grid for the sky geometry.
     this._skyWidth = 128;
 
-    //Internal use only. The number of latitudinal points in the grid for the sky geometry.
+    // The number of latitudinal points in the grid for the sky geometry.
     this._skyHeight = 128;
 
-    //Internal use only. Number of indices for the sky geometry.
+    // Number of indices for the sky geometry.
     this._numIndices = 0;
 
-    //Internal use only. Texture coordinate matrix used for the night texture.
+    // Texture coordinate matrix used for the night texture.
     this._texMatrix = new THREE.Matrix3();
 
-    //Internal use only. The night texture.
+    // The night texture.
     this._activeTexture = null;
 }
 
 AtmosphereLayer.prototype = Object.create(Layer.prototype);
 
-Object.defineProperties(AtmosphereLayer.prototype, {
-
-    /**
-     * Url for the night texture.
-     * @memberof AtmosphereLayer.prototype
-     * @type {URL}
-     */
-    nightImageSource: {
-        get: function () {
-            return this._nightImageSource;
-        },
-        set: function (value) {
-            this._nightImageSource = value;
-        }
-    }
-
-});
-
-// Documented in superclass.
 AtmosphereLayer.prototype.doRender = function (dc) {
     this.determineLightDirection(dc);
     this.drawSky(dc);
     this.drawGround(dc);
 };
 
-// Internal. Intentionally not documented.
 AtmosphereLayer.prototype.applySkyVertices = function (dc) {
     var gl = dc.currentGlContext,
         program = dc.currentProgram,
@@ -123,7 +89,6 @@ AtmosphereLayer.prototype.applySkyVertices = function (dc) {
 
 };
 
-// Internal. Intentionally not documented.
 AtmosphereLayer.prototype.applySkyIndices = function (dc) {
     var gl = dc.currentGlContext,
         skyData = this._skyData,
@@ -149,7 +114,6 @@ AtmosphereLayer.prototype.applySkyIndices = function (dc) {
 
 };
 
-// Internal. Intentionally not documented.
 AtmosphereLayer.prototype.drawSky = function (dc) {
     var gl = dc.currentGlContext,
         program = dc.findAndBindProgram(SkyProgram);
@@ -179,7 +143,6 @@ AtmosphereLayer.prototype.drawSky = function (dc) {
     gl.disableVertexAttribArray(0);
 };
 
-// Internal. Intentionally not documented.
 AtmosphereLayer.prototype.drawGround = function (dc) {
     var gl = dc.currentGlContext,
         program = dc.findAndBindProgram(GroundProgram),
@@ -196,7 +159,6 @@ AtmosphereLayer.prototype.drawGround = function (dc) {
 
     // Use this layer's night image when the layer has time value defined
     if (this.nightImageSource && this.time !== null) {
-
         this._activeTexture = dc.gpuResourceCache.resourceForKey(this.nightImageSource);
 
         if (!this._activeTexture) {
@@ -247,7 +209,6 @@ AtmosphereLayer.prototype.drawGround = function (dc) {
     this._activeTexture = null;
 };
 
-// Internal. Intentionally not documented.
 AtmosphereLayer.prototype.assembleVertexPoints = function (dc, numLat, numLon, altitude) {
     var count = numLat * numLon;
     var altitudes = new Array(count);
@@ -257,7 +218,6 @@ AtmosphereLayer.prototype.assembleVertexPoints = function (dc, numLat, numLon, a
     return dc.globe.computePointsForGrid(this._fullSphereSector, numLat, numLon, altitudes, new THREE.Vector3(), result);
 };
 
-// Internal. Intentionally not documented.
 AtmosphereLayer.prototype.assembleTriStripIndices = function (numLat, numLon) {
     var result = [];
     var vertex = 0;
@@ -286,7 +246,6 @@ AtmosphereLayer.prototype.assembleTriStripIndices = function (numLat, numLon) {
     return new Uint16Array(result);
 };
 
-// Internal. Intentionally not documented.
 AtmosphereLayer.prototype.determineLightDirection = function (dc) {
     if (this.time !== null) {
         var sunLocation = SunPosition.getAsGeographicLocation(this.time);

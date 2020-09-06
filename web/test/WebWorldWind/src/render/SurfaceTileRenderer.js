@@ -91,7 +91,6 @@ SurfaceTileRenderer.prototype.renderTiles = function (dc, surfaceTiles, opacity,
     this.endRendering(dc);
 };
 
-// Intentionally not documented.
 SurfaceTileRenderer.prototype.beginRendering = function (dc, opacity) {
     var gl = dc.currentGlContext,
         program = dc.findAndBindProgram(SurfaceTileRendererProgram);
@@ -103,13 +102,11 @@ SurfaceTileRenderer.prototype.beginRendering = function (dc, opacity) {
     return program;
 };
 
-// Intentionally not documented.
 SurfaceTileRenderer.prototype.endRendering = function (dc) {
     var gl = dc.currentGlContext;
     gl.bindTexture(gl.TEXTURE_2D, null);
 };
 
-// Intentionally not documented.
 SurfaceTileRenderer.prototype.applyTileState = function (dc, terrainTile, surfaceTile) {
     // Sets up the texture transform and mask that applies the texture tile to the terrain tile.
     var gl = dc.currentGlContext,

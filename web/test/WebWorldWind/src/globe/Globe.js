@@ -76,16 +76,9 @@ function Globe(elevationModel, projection) {
      */
     this.tessellator = new Tessellator();
 
-    // Internal. Intentionally not documented.
     this._projection = projection || new ProjectionWgs84();
-
-    // Internal. Intentionally not documented.
     this._offset = 0;
-
-    // Internal. Intentionally not documented.
     this.offsetVector = new THREE.Vector3();
-
-    // A unique ID for this globe. Intentionally not documented.
     this.id = ++Globe.idPool;
 
     this._stateKey = "globe " + this.id.toString() + " ";

@@ -80,7 +80,6 @@ ImageTile.prototype.applyInternalTransform = function (dc, matrix) {
     }
 };
 
-// Intentionally not documented.
 ImageTile.prototype.applyFallbackTransform = function () {
     var temp = new THREE.Matrix4();
     return function (matrix) {

@@ -45,8 +45,6 @@ function PanRecognizer(target, callback) {
      * @type {Number}
      */
     this.maxNumberOfTouches = Number.MAX_VALUE;
-
-    // Intentionally not documented.
     this.interpretDistance = 20;
 }
 

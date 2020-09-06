@@ -35,22 +35,11 @@ import GestureRecognizer from '../gesture/GestureRecognizer';
 function RotationRecognizer(target, callback) {
     GestureRecognizer.call(this, target, callback);
 
-    // Intentionally not documented.
     this._rotation = 0;
-
-    // Intentionally not documented.
     this._offsetRotation = 0;
-
-    // Intentionally not documented.
     this.referenceAngle = 0;
-
-    // Intentionally not documented.
     this.interpretThreshold = 20;
-
-    // Intentionally not documented.
     this.weight = 0.4;
-
-    // Intentionally not documented.
     this.rotationTouches = [];
 }
 
@@ -149,7 +138,6 @@ RotationRecognizer.prototype.prepareToRecognize = function () {
     this._rotation = 0;
 };
 
-// Intentionally not documented.
 RotationRecognizer.prototype.shouldRecognize = function () {
     var angle = this.currentTouchAngle(),
         rotation = Angle.normalizedDegrees(angle - this.referenceAngle);
@@ -157,7 +145,6 @@ RotationRecognizer.prototype.shouldRecognize = function () {
     return Math.abs(rotation) > this.interpretThreshold;
 };
 
-// Intentionally not documented.
 RotationRecognizer.prototype.currentTouchAngle = function () {
     var touch0 = this.rotationTouches[0],
         touch1 = this.rotationTouches[1],

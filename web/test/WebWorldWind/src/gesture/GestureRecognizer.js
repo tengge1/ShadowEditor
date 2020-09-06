@@ -54,8 +54,6 @@ function GestureRecognizer(target, callback) {
 
     // Documented with its property accessor below.
     this._state = WorldWind.POSSIBLE;
-
-    // Intentionally not documented.
     this._nextState = null;
 
     // Documented with its property accessor below.
@@ -63,11 +61,7 @@ function GestureRecognizer(target, callback) {
 
     // Documented with its property accessor below.
     this._clientY = 0;
-
-    // Intentionally not documented.
     this._clientStartX = 0;
-
-    // Intentionally not documented.
     this._clientStartY = 0;
 
     // Documented with its property accessor below.
@@ -75,32 +69,20 @@ function GestureRecognizer(target, callback) {
 
     // Documented with its property accessor below.
     this._translationY = 0;
-
-    // Intentionally not documented.
     this._translationWeight = 0.4;
 
     // Documented with its property accessor below.
     this._mouseButtonMask = 0;
 
-    // Intentionally not documented.
     this._touches = [];
 
-    // Intentionally not documented.
     this._touchCentroidShiftX = 0;
-
-    // Intentionally not documented.
     this._touchCentroidShiftY = 0;
 
     // Documented with its property accessor below.
     this._gestureCallbacks = [];
-
-    // Intentionally not documented.
     this._canRecognizeWith = [];
-
-    // Intentionally not documented.
     this._requiresFailureOf = [];
-
-    // Intentionally not documented.
     this._requiredToFailBy = [];
 
     // Add the optional gesture callback.
@@ -108,14 +90,12 @@ function GestureRecognizer(target, callback) {
         this._gestureCallbacks.push(callback);
     }
 
-    // Intentionally not documented.
     this.listenerList = [];
 
     // Add this recognizer to the list of all recognizers.
     GestureRecognizer.allRecognizers.push(this);
 }
 
-// Intentionally not documented.
 GestureRecognizer.allRecognizers = [];
 
 Object.defineProperties(GestureRecognizer.prototype, {
@@ -379,7 +359,6 @@ GestureRecognizer.prototype.touchCancel = function (touch) {
 GestureRecognizer.prototype.touchEnd = function (touch) {
 };
 
-// Intentionally not documented.
 GestureRecognizer.prototype.transitionToState = function (newState) {
     this._nextState = null; // clear any pending state transition
 
@@ -419,7 +398,6 @@ GestureRecognizer.prototype.transitionToState = function (newState) {
     }
 };
 
-// Intentionally not documented.
 GestureRecognizer.prototype.updateRecognizersWaitingForFailure = function () {
     // Transition gestures that are waiting for this gesture to transition to Failed.
     for (var i = 0, len = this._requiredToFailBy.length; i < len; i++) {
@@ -430,7 +408,6 @@ GestureRecognizer.prototype.updateRecognizersWaitingForFailure = function () {
     }
 };
 
-// Intentionally not documented.
 GestureRecognizer.prototype.tryToRecognize = function (newState) {
     // Transition to Failed if another gesture can prevent this gesture from recognizing.
     if (GestureRecognizer.allRecognizers.some(this.canBePreventedByRecognizer, this)) {
@@ -453,19 +430,16 @@ GestureRecognizer.prototype.tryToRecognize = function (newState) {
     this._state = newState;
 };
 
-// Intentionally not documented.
 GestureRecognizer.prototype.canPreventRecognizer = function (that) {
     return this != that && this.target == that.target && that.state == WorldWind.POSSIBLE &&
         (this.requiredToFailByRecognizer(that) || !this.canRecognizeSimultaneouslyWith(that));
 };
 
-// Intentionally not documented.
 GestureRecognizer.prototype.canBePreventedByRecognizer = function (that) {
     return this != that && this.target == that.target && that.state == WorldWind.RECOGNIZED &&
         (this.requiresRecognizerToFail(that) || !this.canRecognizeSimultaneouslyWith(that));
 };
 
-// Intentionally not documented.
 GestureRecognizer.prototype.isWaitingForRecognizerToFail = function (that) {
     return this != that && this.target == that.target && that.state == WorldWind.POSSIBLE &&
         this.requiresRecognizerToFail(that);
@@ -498,21 +472,18 @@ GestureRecognizer.prototype.removeListener = function (listener) {
     }
 };
 
-// Intentionally not documented.
 GestureRecognizer.prototype.notifyListeners = function () {
     for (var i = 0; i < this.listenerList.length; i++) {
         this.listenerList[i].gestureStateChanged(this);
     }
 };
 
-// Intentionally not documented.
 GestureRecognizer.prototype.callGestureCallbacks = function () {
     for (var i = 0, len = this._gestureCallbacks.length; i < len; i++) {
         this._gestureCallbacks[i](this);
     }
 };
 
-// Intentionally not documented.
 GestureRecognizer.prototype.onGestureEvent = function (event) {
     if (!this.enabled) {
         return;
@@ -574,7 +545,6 @@ GestureRecognizer.prototype.onGestureEvent = function (event) {
     }
 };
 
-// Intentionally not documented.
 GestureRecognizer.prototype.handleMouseDown = function (event) {
     if (event.type == "mousedown" && this._touches.length > 0) {
         return; // ignore synthesized mouse down events on Android Chrome
@@ -598,7 +568,6 @@ GestureRecognizer.prototype.handleMouseDown = function (event) {
     this.mouseDown(event);
 };
 
-// Intentionally not documented.
 GestureRecognizer.prototype.handleMouseMove = function (event) {
     if (this._mouseButtonMask == 0) {
         return; // ignore mouse move events when this recognizer does not consider any button to be down
@@ -618,7 +587,6 @@ GestureRecognizer.prototype.handleMouseMove = function (event) {
     this.mouseMove(event);
 };
 
-// Intentionally not documented.
 GestureRecognizer.prototype.handleMouseUp = function (event) {
     var buttonBit = 1 << event.button;
     if (buttonBit & this._mouseButtonMask == 0) {
@@ -633,7 +601,6 @@ GestureRecognizer.prototype.handleMouseUp = function (event) {
     }
 };
 
-// Intentionally not documented.
 GestureRecognizer.prototype.handleTouchStart = function (event) {
     var touch = new Touch(event.identifier || event.pointerId, event.clientX, event.clientY); // touch events or pointer events
     this._touches.push(touch);
@@ -654,7 +621,6 @@ GestureRecognizer.prototype.handleTouchStart = function (event) {
     this.touchStart(touch);
 };
 
-// Intentionally not documented.
 GestureRecognizer.prototype.handleTouchMove = function (event) {
     var index = this.indexOfTouchWithId(event.identifier || event.pointerId); // touch events or pointer events
     if (index == -1) {
@@ -681,7 +647,6 @@ GestureRecognizer.prototype.handleTouchMove = function (event) {
     this.touchMove(touch);
 };
 
-// Intentionally not documented.
 GestureRecognizer.prototype.handleTouchCancel = function (event) {
     var index = this.indexOfTouchWithId(event.identifier || event.pointerId); // touch events or pointer events
     if (index == -1) {
@@ -695,7 +660,6 @@ GestureRecognizer.prototype.handleTouchCancel = function (event) {
     this.resetIfEventsEnded();
 };
 
-// Intentionally not documented.
 GestureRecognizer.prototype.handleTouchEnd = function (event) {
     var index = this.indexOfTouchWithId(event.identifier || event.pointerId); // touch events or pointer events
     if (index == -1) {
@@ -709,14 +673,12 @@ GestureRecognizer.prototype.handleTouchEnd = function (event) {
     this.resetIfEventsEnded();
 };
 
-// Intentionally not documented.
 GestureRecognizer.prototype.resetIfEventsEnded = function () {
     if (this._state != WorldWind.POSSIBLE && this._mouseButtonMask == 0 && this._touches.length == 0) {
         this.reset();
     }
 };
 
-// Intentionally not documented.
 GestureRecognizer.prototype.touchesAddedOrRemoved = function () {
     this._touchCentroidShiftX += this._clientX;
     this._touchCentroidShiftY += this._clientY;
@@ -727,7 +689,6 @@ GestureRecognizer.prototype.touchesAddedOrRemoved = function () {
     this._touchCentroidShiftY -= this._clientY;
 };
 
-// Intentionally not documented.
 GestureRecognizer.prototype.touchCentroid = function () {
     var x = 0,
         y = 0;
@@ -741,7 +702,6 @@ GestureRecognizer.prototype.touchCentroid = function () {
     return { clientX: x, clientY: y };
 };
 
-// Intentionally not documented.
 GestureRecognizer.prototype.indexOfTouchWithId = function (identifier) {
     for (var i = 0, len = this._touches.length; i < len; i++) {
         if (this._touches[i].identifier == identifier) {

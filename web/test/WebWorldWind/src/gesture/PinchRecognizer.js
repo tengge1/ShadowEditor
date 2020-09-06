@@ -34,22 +34,11 @@ import GestureRecognizer from '../gesture/GestureRecognizer';
 function PinchRecognizer(target, callback) {
     GestureRecognizer.call(this, target, callback);
 
-    // Intentionally not documented.
     this._scale = 1;
-
-    // Intentionally not documented.
     this._offsetScale = 1;
-
-    // Intentionally not documented.
     this.referenceDistance = 0;
-
-    // Intentionally not documented.
     this.interpretThreshold = 20;
-
-    // Intentionally not documented.
     this.weight = 0.4;
-
-    // Intentionally not documented.
     this.pinchTouches = [];
 }
 
@@ -148,14 +137,12 @@ PinchRecognizer.prototype.prepareToRecognize = function () {
     this._scale = 1;
 };
 
-// Intentionally not documented.
 PinchRecognizer.prototype.shouldRecognize = function () {
     var distance = this.currentPinchDistance();
 
     return Math.abs(distance - this.referenceDistance) > this.interpretThreshold;
 };
 
-// Intentionally not documented.
 PinchRecognizer.prototype.currentPinchDistance = function () {
     var touch0 = this.pinchTouches[0],
         touch1 = this.pinchTouches[1],

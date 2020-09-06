@@ -146,7 +146,6 @@ StarFieldLayer.prototype.doRender = function (dc) {
     }
 };
 
-// Internal. Intentionally not documented.
 StarFieldLayer.prototype.haveResources = function (dc) {
     var sunTexture = dc.gpuResourceCache.resourceForKey(this._sunImageSource);
     return (
@@ -155,7 +154,6 @@ StarFieldLayer.prototype.haveResources = function (dc) {
     );
 };
 
-// Internal. Intentionally not documented.
 StarFieldLayer.prototype.loadResources = function (dc) {
     var gl = dc.currentGlContext;
     var gpuResourceCache = dc.gpuResourceCache;
@@ -170,7 +168,6 @@ StarFieldLayer.prototype.loadResources = function (dc) {
     }
 };
 
-// Internal. Intentionally not documented.
 StarFieldLayer.prototype.beginRendering = function (dc) {
     var gl = dc.currentGlContext;
     dc.findAndBindProgram(StarFieldProgram);
@@ -178,7 +175,6 @@ StarFieldLayer.prototype.beginRendering = function (dc) {
     gl.depthMask(false);
 };
 
-// Internal. Intentionally not documented.
 StarFieldLayer.prototype.doDraw = function (dc) {
     this.loadCommonUniforms(dc);
     this.renderStars(dc);
@@ -209,7 +205,6 @@ StarFieldLayer.prototype.loadCommonUniforms = function () {
     };
 }();
 
-// Internal. Intentionally not documented.
 StarFieldLayer.prototype.renderStars = function (dc) {
     var gl = dc.currentGlContext;
     var gpuResourceCache = dc.gpuResourceCache;
@@ -237,7 +232,6 @@ StarFieldLayer.prototype.renderStars = function (dc) {
     gl.drawArrays(gl.POINTS, 0, this._numStars);
 };
 
-// Internal. Intentionally not documented.
 StarFieldLayer.prototype.renderSun = function (dc) {
     var gl = dc.currentGlContext;
     var program = dc.currentProgram;
@@ -286,14 +280,12 @@ StarFieldLayer.prototype.renderSun = function (dc) {
     gl.drawArrays(gl.POINTS, 0, 1);
 };
 
-// Internal. Intentionally not documented.
 StarFieldLayer.prototype.endRendering = function (dc) {
     var gl = dc.currentGlContext;
     gl.depthMask(true);
     gl.disableVertexAttribArray(0);
 };
 
-// Internal. Intentionally not documented.
 StarFieldLayer.prototype.fetchStarData = function () {
     if (this._loadStarted) {
         return;
@@ -335,7 +327,6 @@ StarFieldLayer.prototype.fetchStarData = function () {
     xhr.send();
 };
 
-// Internal. Intentionally not documented.
 StarFieldLayer.prototype.createStarsGeometry = function () {
     var indexes = this.parseStarsMetadata(this._starData.metadata);
     
@@ -362,7 +353,6 @@ StarFieldLayer.prototype.createStarsGeometry = function () {
     return positions;
 };
 
-// Internal. Intentionally not documented.
 StarFieldLayer.prototype.parseStarsMetadata = function (metadata) {
     var raIndex = -1,
         decIndex = -1,
@@ -386,7 +376,6 @@ StarFieldLayer.prototype.parseStarsMetadata = function (metadata) {
     };
 };
 
-// Internal. Intentionally not documented.
 StarFieldLayer.prototype.invalidateStarData = function () {
     this._starData = null;
     this._starsPositionsVboCacheKey = null;

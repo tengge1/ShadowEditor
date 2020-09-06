@@ -73,10 +73,8 @@ function Texture(gl, image, wrapMode) {
      */
     this.creationTime = new Date();
 
-    // Internal use only. Intentionally not documented.
     this.texParameters = {};
-
-    // Internal use only. Intentionally not documented.
+    
     // https://www.khronos.org/registry/webgl/extensions/EXT_texture_filter_anisotrop
     this.anisotropicFilterExt = gl.getExtension("EXT_texture_filter_anisotropic") ||
         gl.getExtension("WEBKIT_EXT_texture_filter_anisotropic");

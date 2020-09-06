@@ -90,20 +90,14 @@ function GpuProgram(gl, vertexShaderSource, fragmentShaderSource, attributeBindi
      */
     this.programId = program;
 
-    // Internal. Intentionally not documented. These will be filled in as attribute locations are requested.
+    // These will be filled in as attribute locations are requested.
     this.attributeLocations = {};
     this.uniformLocations = {};
 
-    // Internal. Intentionally not documented.
     this.vertexShader = vShader;
 
-    // Internal. Intentionally not documented.
     this.fragmentShader = fShader;
-
-    // Internal. Intentionally not documented.
     this.size = vertexShaderSource.length + fragmentShaderSource.length;
-
-    // Internal. Intentionally not documented.
     this.scratchArray = new Float32Array(16);
 }
 

@@ -46,19 +46,11 @@ function ClickRecognizer(target, callback) {
      */
     this.button = 0;
 
-    // Intentionally not documented.
     this.maxMouseMovement = 5;
-
-    // Intentionally not documented.
     this.maxClickDuration = 500;
-
-    // Intentionally not documented.
     this.maxClickInterval = 400;
 
-    // Intentionally not documented.
     this.clicks = [];
-
-    // Intentionally not documented.
     this.timeout = null;
 }
 
@@ -133,7 +125,6 @@ ClickRecognizer.prototype.touchStart = function (touch) {
     this.state = WorldWind.FAILED; // mouse gestures fail upon receiving a touch event
 };
 
-// Intentionally not documented.
 ClickRecognizer.prototype.failAfterDelay = function (delay) {
     var self = this;
     if (self.timeout) {
@@ -148,7 +139,6 @@ ClickRecognizer.prototype.failAfterDelay = function (delay) {
     }, delay);
 };
 
-// Intentionally not documented.
 ClickRecognizer.prototype.cancelFailAfterDelay = function () {
     var self = this;
     if (self.timeout) {

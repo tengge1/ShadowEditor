@@ -38,16 +38,9 @@ function Touch(identifier, clientX, clientY) {
      */
     this.identifier = identifier;
 
-    // Intentionally not documented.
     this._clientX = clientX;
-
-    // Intentionally not documented.
     this._clientY = clientY;
-
-    // Intentionally not documented.
     this._clientStartX = clientX;
-
-    // Intentionally not documented.
     this._clientStartY = clientY;
 }
 

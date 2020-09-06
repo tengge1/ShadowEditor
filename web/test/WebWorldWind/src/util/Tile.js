@@ -108,19 +108,10 @@ function Tile(sector, level, row, column) {
      */
     this.opacity = 1;
 
-    // Internal use only. Intentionally not documented.
     this.samplePoints = null;
-
-    // Internal use only. Intentionally not documented.
     this.sampleElevations = null;
-
-    // Internal use only. Intentionally not documented.
     this.updateTimestamp = null;
-
-    // Internal use only. Intentionally not documented.
     this.updateVerticalExaggeration = null;
-
-    // Internal use only. Intentionally not documented.
     this.updateGlobeStateKey = null;
 }
 

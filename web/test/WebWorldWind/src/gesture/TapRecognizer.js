@@ -45,20 +45,10 @@ function TapRecognizer(target, callback) {
      * @type {Number}
      */
     this.numberOfTouches = 1;
-
-    // Intentionally not documented.
     this.maxTouchMovement = 20;
-
-    // Intentionally not documented.
     this.maxTapDuration = 500;
-
-    // Intentionally not documented.
     this.maxTapInterval = 400;
-
-    // Intentionally not documented.
     this.taps = [];
-
-    // Intentionally not documented.
     this.timeout = null;
 }
 
@@ -153,7 +143,6 @@ TapRecognizer.prototype.touchCancel = function (touch) {
     this.state = WorldWind.FAILED;
 };
 
-// Intentionally not documented.
 TapRecognizer.prototype.failAfterDelay = function (delay) {
     var self = this;
     if (self.timeout) {
@@ -168,7 +157,6 @@ TapRecognizer.prototype.failAfterDelay = function (delay) {
     }, delay);
 };
 
-// Intentionally not documented.
 TapRecognizer.prototype.cancelFailAfterDelay = function () {
     var self = this;
     if (self.timeout) {
