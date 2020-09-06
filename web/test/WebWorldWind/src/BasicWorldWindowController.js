@@ -14,9 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * @exports BasicWorldWindowController
- */
 import Angle from './geom/Angle';
 import DragRecognizer from './gesture/DragRecognizer';
 import GestureRecognizer from './gesture/GestureRecognizer';
@@ -27,7 +24,6 @@ import TiltRecognizer from './gesture/TiltRecognizer';
 import WorldWindowController from './WorldWindowController';
 import WWMath from './util/WWMath';
 
-
 /**
  * Constructs a window controller with basic capabilities.
  * @alias BasicWorldWindowController
@@ -37,30 +33,24 @@ import WWMath from './util/WWMath';
  * @param {WorldWindow} worldWindow The WorldWindow associated with this layer.
  */
 function BasicWorldWindowController(worldWindow) {
-    WorldWindowController.call(this, worldWindow); // base class checks for a valid worldWindow
+    WorldWindowController.call(this, worldWindow);
 
-    // Intentionally not documented.
     this.primaryDragRecognizer = new DragRecognizer(this.wwd, null);
     this.primaryDragRecognizer.addListener(this);
 
-    // Intentionally not documented.
     this.secondaryDragRecognizer = new DragRecognizer(this.wwd, null);
     this.secondaryDragRecognizer.addListener(this);
     this.secondaryDragRecognizer.button = 2; // secondary mouse button
 
-    // Intentionally not documented.
     this.panRecognizer = new PanRecognizer(this.wwd, null);
     this.panRecognizer.addListener(this);
 
-    // Intentionally not documented.
     this.pinchRecognizer = new PinchRecognizer(this.wwd, null);
     this.pinchRecognizer.addListener(this);
 
-    // Intentionally not documented.
     this.rotationRecognizer = new RotationRecognizer(this.wwd, null);
     this.rotationRecognizer.addListener(this);
 
-    // Intentionally not documented.
     this.tiltRecognizer = new TiltRecognizer(this.wwd, null);
     this.tiltRecognizer.addListener(this);
 
@@ -77,15 +67,6 @@ function BasicWorldWindowController(worldWindow) {
     this.pinchRecognizer.requireRecognizerToFail(this.tiltRecognizer);
     this.rotationRecognizer.requireRecognizerToFail(this.tiltRecognizer);
 
-    // Intentionally not documented.
-    // this.tapRecognizer = new TapRecognizer(this.wwd, null);
-    // this.tapRecognizer.addListener(this);
-
-    // Intentionally not documented.
-    // this.clickRecognizer = new ClickRecognizer(this.wwd, null);
-    // this.clickRecognizer.addListener(this);
-
-    // Intentionally not documented.
     this.beginPoint = new THREE.Vector2(0, 0);
     this.lastPoint = new THREE.Vector2(0, 0);
     this.beginHeading = 0;
@@ -96,7 +77,6 @@ function BasicWorldWindowController(worldWindow) {
 
 BasicWorldWindowController.prototype = Object.create(WorldWindowController.prototype);
 
-// Intentionally not documented.
 BasicWorldWindowController.prototype.onGestureEvent = function (e) {
     var handled = WorldWindowController.prototype.onGestureEvent.call(this, e);
 
@@ -104,8 +84,7 @@ BasicWorldWindowController.prototype.onGestureEvent = function (e) {
         if (e.type === "wheel") {
             handled = true;
             this.handleWheelEvent(e);
-        }
-        else {
+        } else {
             for (var i = 0, len = GestureRecognizer.allRecognizers.length; i < len; i++) {
                 var recognizer = GestureRecognizer.allRecognizers[i];
                 if (recognizer.target === this.wwd) {
@@ -118,31 +97,24 @@ BasicWorldWindowController.prototype.onGestureEvent = function (e) {
     return handled;
 };
 
-// Intentionally not documented.
 BasicWorldWindowController.prototype.gestureStateChanged = function (recognizer) {
     if (recognizer === this.primaryDragRecognizer || recognizer === this.panRecognizer) {
         this.handlePanOrDrag(recognizer);
-    }
-    else if (recognizer === this.secondaryDragRecognizer) {
+    } else if (recognizer === this.secondaryDragRecognizer) {
         this.handleSecondaryDrag(recognizer);
-    }
-    else if (recognizer === this.pinchRecognizer) {
+    } else if (recognizer === this.pinchRecognizer) {
         this.handlePinch(recognizer);
-    }
-    else if (recognizer === this.rotationRecognizer) {
+    } else if (recognizer === this.rotationRecognizer) {
         this.handleRotation(recognizer);
-    }
-    else if (recognizer === this.tiltRecognizer) {
+    } else if (recognizer === this.tiltRecognizer) {
         this.handleTilt(recognizer);
     }
 };
 
-// Intentionally not documented.
 BasicWorldWindowController.prototype.handlePanOrDrag = function (recognizer) {
     this.handlePanOrDrag3D(recognizer);
 };
 
-// Intentionally not documented.
 BasicWorldWindowController.prototype.handlePanOrDrag3D = function (recognizer) {
     var state = recognizer.state,
         tx = recognizer.translationX,
@@ -177,7 +149,6 @@ BasicWorldWindowController.prototype.handlePanOrDrag3D = function (recognizer) {
     }
 };
 
-// Intentionally not documented.
 BasicWorldWindowController.prototype.handleSecondaryDrag = function (recognizer) {
     var state = recognizer.state,
         tx = recognizer.translationX,
@@ -201,7 +172,6 @@ BasicWorldWindowController.prototype.handleSecondaryDrag = function (recognizer)
     }
 };
 
-// Intentionally not documented.
 BasicWorldWindowController.prototype.handlePinch = function (recognizer) {
     var navigator = this.wwd.navigator;
     var state = recognizer.state,
@@ -220,7 +190,6 @@ BasicWorldWindowController.prototype.handlePinch = function (recognizer) {
     }
 };
 
-// Intentionally not documented.
 BasicWorldWindowController.prototype.handleRotation = function (recognizer) {
     var navigator = this.wwd.navigator;
     var state = recognizer.state,
@@ -239,7 +208,6 @@ BasicWorldWindowController.prototype.handleRotation = function (recognizer) {
     }
 };
 
-// Intentionally not documented.
 BasicWorldWindowController.prototype.handleTilt = function (recognizer) {
     var navigator = this.wwd.navigator;
     var state = recognizer.state,
@@ -258,7 +226,6 @@ BasicWorldWindowController.prototype.handleTilt = function (recognizer) {
     }
 };
 
-// Intentionally not documented.
 BasicWorldWindowController.prototype.handleWheelEvent = function (event) {
     var navigator = this.wwd.navigator;
     // Normalize the wheel delta based on the wheel delta mode. This produces a roughly consistent delta across
@@ -283,7 +250,6 @@ BasicWorldWindowController.prototype.handleWheelEvent = function (event) {
     this.wwd.redraw();
 };
 
-// Documented in super-class.
 BasicWorldWindowController.prototype.applyLimits = function () {
     var navigator = this.wwd.navigator;
 

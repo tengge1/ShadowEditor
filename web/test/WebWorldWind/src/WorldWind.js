@@ -27,13 +27,6 @@ import XYZLayer from './layer/XYZLayer';
  * @global
  */
 var WorldWind = {
-    /**
-     * The WorldWind version number.
-     * @default "0.9.0"
-     * @constant
-     */
-    VERSION: "0.9.0",
-
     // PLEASE KEEP THE ENTRIES BELOW IN ALPHABETICAL ORDER
     /**
      * Indicates an altitude mode relative to the globe's ellipsoid.
@@ -79,13 +72,6 @@ var WorldWind = {
      * @constant
      */
     CLAMP_TO_GROUND: "clampToGround",
-
-    /**
-     * The radius of Earth.
-     * @constant
-     * @deprecated Use WGS84_SEMI_MAJOR_AXIS instead.
-     */
-    EARTH_RADIUS: 6371e3,
 
     /**
      * Indicates the cardinal direction east.
@@ -162,28 +148,6 @@ var WorldWind = {
      * @constant
      */
     OFFSET_INSET_PIXELS: "insetPixels",
-
-    /**
-     * Indicates that the associated parameters are in units of pixels relative to the virtual rectangle's
-     * origin.
-     * @constant
-     */
-    OFFSET_PIXELS: "pixels",
-
-    /**
-     * Indicates a point shape, typically within a shapefile.
-     */
-    POINT: "point",
-
-    /**
-     * Indicates a polyline shape, typically within a shapefile.
-     */
-    POLYLINE: "polyline",
-
-    /**
-     * Indicates a polygon shape, typically within a shapefile.
-     */
-    POLYGON: "polygon",
 
     /**
      * The POSSIBLE gesture recognizer state. Gesture recognizers in this state are idle when there is no input
@@ -265,8 +229,6 @@ WorldWind['XYZLayer'] = XYZLayer;
  *     <li><code>baseUrl</code>: The URL of the directory containing the WorldWind Library and its resources.</li>
  *     <li><code>layerRetrievalQueueSize</code>: The number of concurrent tile requests allowed per layer. The default is 16.</li>
  *     <li><code>coverageRetrievalQueueSize</code>: The number of concurrent tile requests allowed per elevation coverage. The default is 16.</li>
- *     <li><code>bingLogoPlacement</code>: An {@link Offset} to place a Bing logo attribution. The default is a 7px margin inset from the lower right corner of the screen.</li>
- *     <li><code>bingLogoAlignment</code>: An {@link Offset} to align the Bing logo relative to its placement position. The default is the lower right corner of the logo.</li>
  * </ul>
  * @type {{gpuCacheSize: number}}
  */
@@ -274,9 +236,7 @@ WorldWind.configuration = {
     gpuCacheSize: 250e6,
     baseUrl: WWUtil.worldwindlibLocation() || WWUtil.currentUrlSansFilePart() + '/',
     layerRetrievalQueueSize: 16,
-    coverageRetrievalQueueSize: 16,
-    bingLogoPlacement: new Offset(WorldWind.OFFSET_INSET_PIXELS, 7, WorldWind.OFFSET_PIXELS, 7),
-    bingLogoAlignment: new Offset(WorldWind.OFFSET_FRACTION, 1, WorldWind.OFFSET_FRACTION, 0)
+    coverageRetrievalQueueSize: 16
 };
 
 export default WorldWind;

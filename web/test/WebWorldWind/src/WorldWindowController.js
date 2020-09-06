@@ -15,11 +15,6 @@
  * limitations under the License.
  */
 /**
- * @exports WorldWindowController
- */
-
-
-/**
  * Constructs a root window controller.
  * @alias WorldWindowController
  * @constructor
@@ -29,18 +24,10 @@
  * @param {WorldWindow} worldWindow The WorldWindow associated with this layer.
  */
 function WorldWindowController(worldWindow) {
-    /**
-     * The WorldWindow associated with this controller.
-     * @type {WorldWindow}
-     * @readonly
-     */
     this.wwd = worldWindow;
-
-    // Intentionally not documented.
     this.allGestureListeners = [];
 }
 
-// Intentionally not documented.
 WorldWindowController.prototype.onGestureEvent = function (event) {
     var handled = false;
 
@@ -51,7 +38,6 @@ WorldWindowController.prototype.onGestureEvent = function (event) {
     return handled;
 };
 
-// Intentionally not documented.
 WorldWindowController.prototype.gestureStateChanged = function (recognizer) {
 };
 
@@ -65,7 +51,7 @@ WorldWindowController.prototype.gestureStateChanged = function (recognizer) {
  *
  * When an event occurs, application event listeners are called before WorldWindowController event listeners.
  *
- * @param listener The function to call when the event occurs.
+ * @param {Function} listener The function to call when the event occurs.
  */
 WorldWindowController.prototype.addGestureListener = function (listener) {
     this.allGestureListeners.push(listener);
@@ -76,12 +62,12 @@ WorldWindowController.prototype.addGestureListener = function (listener) {
  * addGestureListener. Calling removeGestureListener with arguments that do not identify a currently registered
  * listener has no effect.
  *
- * @param listener The listener to remove. Must be the same object passed to addGestureListener.
+ * @param {Function} listener The listener to remove. Must be the same object passed to addGestureListener.
  */
 WorldWindowController.prototype.removeGestureListener = function (listener) {
     var index = this.allGestureListeners.indexOf(listener);
     if (index !== -1) {
-        this.allGestureListeners.splice(index, 1); // remove the listener from the list
+        this.allGestureListeners.splice(index, 1);
     }
 };
 
