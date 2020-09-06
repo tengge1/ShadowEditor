@@ -24,10 +24,11 @@
 <body>
     <canvas id="canvas"></canvas>
     <script>
-        var map;
+        var canvas, map;
 
         window.onload = function () {
-            map = new WorldWind.WorldWindow("canvas");
+            canvas = document.querySelector('#canvas');
+            map = new WorldWind.WorldWindow(canvas);
             map.addLayer(new WorldWind.XYZLayer());
             map.addLayer(new WorldWind.AtmosphereLayer());
             map.addLayer(new WorldWind.StarFieldLayer());

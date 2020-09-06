@@ -15,7 +15,6 @@
  * limitations under the License.
  */
 import AtmosphereLayer from './layer/AtmosphereLayer';
-import Offset from './util/Offset';
 import StarFieldLayer from './layer/StarFieldLayer';
 import WorldWindow from './WorldWindow';
 import WWUtil from './util/WWUtil';

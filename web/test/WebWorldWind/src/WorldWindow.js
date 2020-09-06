@@ -18,7 +18,6 @@ import BasicWorldWindowController from './BasicWorldWindowController';
 import DrawContext from './render/DrawContext';
 import EarthElevationModel from './globe/EarthElevationModel';
 import Globe from './globe/Globe';
-import GoToAnimator from './util/GoToAnimator';
 import Line from './geom/Line';
 import LookAtNavigator from './navigate/LookAtNavigator';
 import Position from './geom/Position';
@@ -31,49 +30,25 @@ import './third_party';
  * Constructs a WorldWind window for an HTML canvas.
  * @alias WorldWindow
  * @constructor
- * @classdesc Represents a WorldWind window for an HTML canvas.
- * @param {String|HTMLCanvasElement} canvasElem The ID assigned to the HTML canvas in the document or the canvas
- * element itself.
+ * @param {HTMLCanvasElement} canvas a canvas element.
  */
-function WorldWindow(canvasElem) {
+function WorldWindow(canvas) {
     global.worldWindow = this;
+    this.canvas = canvas;
+    canvas.width = canvas.clientWidth;
+    canvas.height = canvas.clientHeight;
 
-    // Get the actual canvas element either directly or by ID.
-    var canvas;
-    if (canvasElem instanceof HTMLCanvasElement) {
-        canvas = canvasElem;
-    } else {
-        // Attempt to get the HTML canvas with the specified ID.
-        canvas = document.getElementById(canvasElem);
-    }
-
-    this.scene = new THREE.Scene();
-    this.camera = new THREE.PerspectiveCamera(50, canvas.width / canvas.height, 1, 100000000);
-    this.renderer = new THREE.WebGLRenderer();
-
-    // Create the WebGL context associated with the HTML canvas.
-    var gl = this.createContext(canvas);
+    var gl = canvas.getContext('webgl', { antialias: true, stencil: true });
 
     this.drawContext = new DrawContext(gl);
 
-    // Must be initialized before the navigator is created.
     this.eventListeners = {};
 
-    // Initially true in order to redraw at least once.
     this.redrawRequested = true;
-    this.redrawRequestId = null;
 
     this.scratchModelview = new THREE.Matrix4();
     this.scratchProjection = new THREE.Matrix4();
     this.hasStencilBuffer = gl.getContextAttributes().stencil;
-
-    this.canvas = canvas;
-
-    /**
-     * The number of bits in the depth buffer associated with this WorldWindow.
-     * @type {number}
-     * @readonly
-     */
     this.depthBits = gl.getParameter(gl.DEPTH_BITS);
 
     this.viewport = new Rectangle(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
@@ -83,46 +58,7 @@ function WorldWindow(canvasElem) {
 
     this.navigator = new LookAtNavigator();
     this.worldWindowController = new BasicWorldWindowController(this);
-
-    /**
-     * Indicates whether this WorldWindow should be configured for sub-surface rendering. If true, shapes
-     * below the terrain can be seen when the terrain is made transparent. If false, sub-surface shapes are
-     * not visible, however, performance is slightly increased.
-     * @type {boolean}
-     * @default false
-     */
-    this.subsurfaceMode = false;
-
-    /**
-     * The opacity to apply to terrain and surface shapes. This property is typically used when viewing
-     * the sub-surface. It modifies the opacity of the terrain and surface shapes as a whole. It should be
-     * a number between 0 and 1. It is compounded with the individual opacities of the image layers and
-     * surface shapes on the terrain.
-     * @type {Number}
-     * @default 1
-     */
     this.surfaceOpacity = 1;
-
-    /**
-     * The {@link GoToAnimator} used by this WorldWindow to respond to its goTo method.
-     * @type {GoToAnimator}
-     */
-    this.goToAnimator = new GoToAnimator(this);
-
-    // Documented with its property accessor below.
-    this._redrawCallbacks = [];
-
-    // Documented with its property accessor below.
-    this._orderedRenderingFilters = [
-        function (dc) {
-            thisWindow.declutter(dc, 1);
-        },
-        function (dc) {
-            thisWindow.declutter(dc, 2);
-        }
-    ];
-
-    // Intentionally not documented.
     this.pixelScale = 1;
 
     // Prevent the browser's default actions in response to mouse and touch events, which interfere with
@@ -167,72 +103,9 @@ function WorldWindow(canvasElem) {
         onGestureEvent(event);
     });
 
-    // Set up to handle WebGL context lost events.
-    function handleContextLost(event) {
-        thisWindow.handleContextLost(event);
-    }
-
-    this.canvas.addEventListener("webglcontextlost", handleContextLost, false);
-
-    // Set up to handle WebGL context restored events.
-    function handleContextRestored(event) {
-        thisWindow.handleContextRestored(event);
-    }
-
-    this.canvas.addEventListener("webglcontextrestored", handleContextRestored, false);
-
-    // Render to the WebGL context in an animation frame loop until the WebGL context is lost.
+    this.animationFrameLoop = this.animationFrameLoop.bind(this);
     this.animationFrameLoop();
 }
-
-Object.defineProperties(WorldWindow.prototype, {
-    /**
-     * An array of functions to call during ordered rendering prior to rendering the ordered renderables.
-     * Each function is passed one argument, the current draw context. The function may modify the
-     * ordered renderables in the draw context's ordered renderable list, which has been sorted from front
-     * to back when the filter function is called. Ordered rendering filters are typically used to apply
-     * decluttering. Applications can add functions to this
-     * array or remove them.
-     * @type {Function[]}
-     * @default [WorldWindow.declutter]{@link WorldWindow#declutter} with a group ID of 1
-     * @readonly
-     * @memberof WorldWindow.prototype
-     */
-    orderedRenderingFilters: {
-        get: function () {
-            return this._orderedRenderingFilters;
-        }
-    },
-    /**
-     * The list of callbacks to call immediately before and immediately after performing a redraw. The callbacks
-     * have two arguments: this WorldWindow and the redraw stage, e.g., <code style='white-space:nowrap'>redrawCallback(worldWindow, stage);</code>.
-     * The stage will be either WorldWind.BEFORE_REDRAW or WorldWind.AFTER_REDRAW indicating whether the
-     * callback has been called either immediately before or immediately after a redraw, respectively.
-     * Applications may add functions to this array or remove them.
-     * @type {Function[]}
-     * @readonly
-     * @memberof WorldWindow.prototype
-     */
-    redrawCallbacks: {
-        get: function () {
-            return this._redrawCallbacks;
-        }
-    }
-});
-
-/**
- * Converts window coordinates to coordinates relative to this WorldWindow's canvas.
- * @param {Number} x The X coordinate to convert.
- * @param {Number} y The Y coordinate to convert.
- * @returns {THREE.Vector2} The converted coordinates.
- */
-WorldWindow.prototype.canvasCoordinates = function (x, y) {
-    var bbox = this.canvas.getBoundingClientRect(),
-        xc = x - (bbox.left + this.canvas.clientLeft),// * (this.canvas.width / bbox.width),
-        yc = y - (bbox.top + this.canvas.clientTop);// * (this.canvas.height / bbox.height);
-
-    return new THREE.Vector2(xc, yc);
-};
 
 WorldWindow.prototype.onGestureEvent = function (event) {
     this.worldWindowController.onGestureEvent(event);
@@ -272,10 +145,10 @@ WorldWindow.prototype.addEventListener = function (type, listener) {
     }
 
     var index = entry.listeners.indexOf(listener);
-    if (index == -1) { // suppress duplicate listeners
+    if (index === -1) { // suppress duplicate listeners
         entry.listeners.splice(0, 0, listener); // insert the listener at the beginning of the list
 
-        if (entry.listeners.length == 1) { // first listener added, add the event listener callback
+        if (entry.listeners.length === 1) { // first listener added, add the event listener callback
             this.canvas.addEventListener(type, entry.callback, false);
         }
     }
@@ -315,109 +188,24 @@ WorldWindow.prototype.redraw = function () {
     this.redrawRequested = true; // redraw during the next animation frame
 };
 
-// Internal function. Intentionally not documented.
-WorldWindow.prototype.createContext = function (canvas) {
-    // Request a WebGL context with antialiasing is disabled. Antialiasing causes gaps to appear at the edges of
-    // terrain tiles.
-    var glAttrs = { antialias: false, stencil: true },
-        gl = canvas.getContext("webgl", glAttrs);
-    if (!gl) {
-        gl = canvas.getContext("experimental-webgl", glAttrs);
-    }
-
-    // uncomment to debug WebGL
-    //var gl = WebGLDebugUtils.makeDebugContext(this.canvas.getContext("webgl"),
-    //        this.throwOnGLError,
-    //        this.logAndValidate
-    //);
-
-    return gl;
-};
-
-// Internal function. Intentionally not documented.
-WorldWindow.prototype.handleContextLost = function (event) {
-    console.log("WebGL context event: " + event.statusMessage);
-    // Inform WebGL that we handle context restoration, enabling the context restored event to be delivered.
-    event.preventDefault();
-    // Notify the draw context that the WebGL rendering context has been lost.
-    this.drawContext.contextLost();
-    // Stop the rendering animation frame loop, resuming only if the WebGL context is restored.
-    window.cancelAnimationFrame(this.redrawRequestId);
-};
-
-// Internal function. Intentionally not documented.
-WorldWindow.prototype.handleContextRestored = function (event) {
-    console.log("WebGL context event: " + event.statusMessage);
-    // Notify the draw context that the WebGL rendering context has been restored.
-    this.drawContext.contextRestored();
-    // Resume the rendering animation frame loop until the WebGL context is lost.
-    this.redraw();
-    this.animationFrameLoop();
-};
-
-// Internal function. Intentionally not documented.
 WorldWindow.prototype.animationFrameLoop = function () {
-    // Render to the WebGL context as needed.
     this.redrawIfNeeded();
-
-    // Continue the animation frame loop until the WebGL context is lost.
-    var thisWindow = this;
-
-    function animationFrameCallback() {
-        thisWindow.animationFrameLoop();
-    }
-
-    this.redrawRequestId = window.requestAnimationFrame(animationFrameCallback);
+    requestAnimationFrame(this.animationFrameLoop);
 };
 
-// Internal function. Intentionally not documented.
 WorldWindow.prototype.redrawIfNeeded = function () {
-    // Check if the drawing buffer needs to resize to match its screen size, which requires a redraw.
-    this.resize();
-
-    // Redraw the WebGL drawing buffer only when necessary.
     if (!this.redrawRequested) {
         return;
     }
-
-    // Prepare to redraw and notify the redraw callbacks that a redraw is about to occur.
     this.redrawRequested = false;
     this.drawContext.previousRedrawTimestamp = this.drawContext.timestamp;
-    this.callRedrawCallbacks(WorldWind.BEFORE_REDRAW);
-    // Redraw the WebGL drawing buffer.
     this.resetDrawContext();
     this.drawFrame();
-    // Notify the redraw callbacks that a redraw has completed.
-    this.callRedrawCallbacks(WorldWind.AFTER_REDRAW);
-    // Handle rendering code redraw requests.
     if (this.drawContext.redrawRequested) {
         this.redrawRequested = true;
     }
 };
 
-// Internal function. Intentionally not documented.
-WorldWindow.prototype.resize = function () {
-    var gl = this.drawContext.currentGlContext,
-        width = gl.canvas.clientWidth * this.pixelScale,
-        height = gl.canvas.clientHeight * this.pixelScale;
-
-    if (gl.canvas.width != width ||
-        gl.canvas.height != height) {
-
-        // Make the canvas drawing buffer size match its screen size.
-        gl.canvas.width = width;
-        gl.canvas.height = height;
-
-        // Set the WebGL viewport to match the canvas drawing buffer size.
-        gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
-        this.viewport = new Rectangle(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
-
-        // Cause this WorldWindow to redraw with the new size.
-        this.redrawRequested = true;
-    }
-};
-
-// Internal. Intentionally not documented.
 WorldWindow.prototype.computeViewingTransform = function () {
     var mat4 = new THREE.Matrix4();
     var eyePoint = new THREE.Vector3();
@@ -564,7 +352,6 @@ WorldWindow.prototype.computeDrawContext = function () {
     };
 }();
 
-// Internal. Intentionally not documented.
 WorldWindow.prototype.resetDrawContext = function () {
     this.globe.offset = 0;
 
@@ -579,14 +366,10 @@ WorldWindow.prototype.resetDrawContext = function () {
     dc.update();
 };
 
-// Internal function. Intentionally not documented.
 WorldWindow.prototype.drawFrame = function () {
-    try {
-        this.beginFrame();
-        this.doNormalRepaint();
-    } finally {
-        this.endFrame();
-    }
+    this.beginFrame();
+    this.doNormalRepaint();
+    this.endFrame();
 };
 
 WorldWindow.prototype.doNormalRepaint = function () {
@@ -594,10 +377,6 @@ WorldWindow.prototype.doNormalRepaint = function () {
     this.clearFrame();
     this.deferOrderedRendering = false;
     this.doDraw();
-    if (this.subsurfaceMode && this.hasStencilBuffer) {
-        this.redrawSurface();
-        this.drawScreenRenderables();
-    }
 };
 
 // Internal function. Intentionally not documented.
@@ -637,72 +416,23 @@ WorldWindow.prototype.clearFrame = function () {
 WorldWindow.prototype.doDraw = function () {
     this.drawContext.renderShapes = true;
 
-    if (this.subsurfaceMode && this.hasStencilBuffer) {
-        // Draw the surface and collect the ordered renderables.
-        this.drawContext.currentGlContext.disable(this.drawContext.currentGlContext.STENCIL_TEST);
-        this.drawContext.surfaceShapeTileBuilder.clear();
-        this.drawLayers(true);
-        this.drawSurfaceRenderables();
-        this.drawContext.surfaceShapeTileBuilder.doRender(this.drawContext);
-
-        if (!this.deferOrderedRendering) {
-            // Clear the depth and stencil buffers prior to rendering the ordered renderables. This allows
-            // sub-surface renderables to be drawn beneath the terrain. Turn on stenciling to capture the
-            // fragments that ordered renderables draw. The terrain and surface shapes will be subsequently
-            // drawn again, and the stencil buffer will ensure that they are drawn only where they overlap
-            // the fragments drawn by the ordered renderables.
-            this.drawContext.currentGlContext.clear(
-                this.drawContext.currentGlContext.DEPTH_BUFFER_BIT | this.drawContext.currentGlContext.STENCIL_BUFFER_BIT);
-            this.drawContext.currentGlContext.enable(this.drawContext.currentGlContext.STENCIL_TEST);
-            this.drawContext.currentGlContext.stencilFunc(this.drawContext.currentGlContext.ALWAYS, 1, 1);
-            this.drawContext.currentGlContext.stencilOp(
-                this.drawContext.currentGlContext.REPLACE, this.drawContext.currentGlContext.REPLACE, this.drawContext.currentGlContext.REPLACE);
-            this.drawOrderedRenderables();
-        }
-    } else {
-        this.drawContext.surfaceShapeTileBuilder.clear();
-        this.drawLayers(true);
-        this.drawSurfaceRenderables();
-        this.drawContext.surfaceShapeTileBuilder.doRender(this.drawContext);
-
-        if (!this.deferOrderedRendering) {
-            this.drawOrderedRenderables();
-            this.drawScreenRenderables();
-        }
-    }
-};
-
-WorldWindow.prototype.redrawSurface = function () {
-    // Draw the terrain and surface shapes but only where the current stencil buffer is non-zero.
-    // The non-zero fragments are from drawing the ordered renderables previously.
-    this.drawContext.currentGlContext.enable(this.drawContext.currentGlContext.STENCIL_TEST);
-    this.drawContext.currentGlContext.stencilFunc(this.drawContext.currentGlContext.EQUAL, 1, 1);
-    this.drawContext.currentGlContext.stencilOp(
-        this.drawContext.currentGlContext.KEEP, this.drawContext.currentGlContext.KEEP, this.drawContext.currentGlContext.KEEP);
     this.drawContext.surfaceShapeTileBuilder.clear();
-    this.drawLayers(false);
+    this.drawLayers(true);
     this.drawSurfaceRenderables();
     this.drawContext.surfaceShapeTileBuilder.doRender(this.drawContext);
-    this.drawContext.currentGlContext.disable(this.drawContext.currentGlContext.STENCIL_TEST);
 };
 
-// Internal function. Intentionally not documented.
 WorldWindow.prototype.createTerrain = function () {
     var dc = this.drawContext;
     dc.terrain = this.globe.tessellator.tessellate(dc);
 };
 
-// Internal function. Intentionally not documented.
 WorldWindow.prototype.drawLayers = function (accumulateOrderedRenderables) {
-    // Draw all the layers attached to this WorldWindow.
-
-    var beginTime = Date.now(),
-        dc = this.drawContext,
+    var dc = this.drawContext,
         layers = dc.layers,
         layer;
 
     dc.accumulateOrderedRenderables = accumulateOrderedRenderables;
-
     for (var i = 0, len = layers.length; i < len; i++) {
         layer = layers[i];
         if (layer) {
@@ -775,165 +505,6 @@ WorldWindow.prototype.drawSurfaceRenderables = function () {
             // Keep going. Render the rest of the surface renderables.
         }
     }
-};
-
-// Internal function. Intentionally not documented.
-WorldWindow.prototype.drawOrderedRenderables = function () {
-    var beginTime = Date.now(),
-        dc = this.drawContext,
-        or;
-
-    dc.sortOrderedRenderables();
-
-    if (this._orderedRenderingFilters) {
-        for (var f = 0; f < this._orderedRenderingFilters.length; f++) {
-            this._orderedRenderingFilters[f](this.drawContext);
-        }
-    }
-
-    dc.orderedRenderingMode = true;
-
-    while (or = dc.popOrderedRenderable()) {
-        try {
-            or.renderOrdered(dc);
-        } catch (e) {
-            console.warn("WorldWindow", "drawOrderedRenderables",
-                "Error while rendering an ordered renderable.\n" + e.message);
-            // Keep going. Render the rest of the ordered renderables.
-        }
-    }
-
-    dc.orderedRenderingMode = false;
-};
-
-WorldWindow.prototype.drawScreenRenderables = function () {
-    var dc = this.drawContext,
-        or;
-
-    while (or = dc.nextScreenRenderable()) {
-        try {
-            or.renderOrdered(dc);
-        } catch (e) {
-            console.warn("WorldWindow", "drawOrderedRenderables",
-                "Error while rendering a screen renderable.\n" + e.message);
-            // Keep going. Render the rest of the screen renderables.
-        }
-    }
-};
-
-// Internal. Intentionally not documented.
-WorldWindow.prototype.callRedrawCallbacks = function (stage) {
-    for (var i = 0, len = this._redrawCallbacks.length; i < len; i++) {
-        try {
-            this._redrawCallbacks[i](this, stage);
-        } catch (e) {
-            console.error("Exception calling redraw callback.\n" + e.toString());
-            // Keep going. Execute the rest of the callbacks.
-        }
-    }
-};
-
-/**
- * Moves this WorldWindow's navigator to a specified location or position.
- * @param {Location | Position} position The location or position to move the navigator to. If this
- * argument contains an "altitude" property, as {@link Position} does, the end point of the navigation is
- * at the specified altitude. Otherwise the end point is at the current altitude of the navigator.
- *
- * This function uses this WorldWindow's {@link GoToAnimator} property to perform the move. That object's
- * properties can be specified by the application to modify its behavior during calls to this function.
- * It's cancel method can also be used to cancel the move initiated by this function.
- * @param {Function} completionCallback If not null or undefined, specifies a function to call when the
- * animation completes. The completion callback is called with a single argument, this animator.
- */
-WorldWindow.prototype.goTo = function (position, completionCallback) {
-    this.goToAnimator.goTo(position, completionCallback);
-};
-
-/**
- * Declutters the current ordered renderables with a specified group ID. This function is not called by
- * applications directly. It's meant to be invoked as an ordered rendering filter in this WorldWindow's
- * [orderedRenderingFilters]{@link WorldWindow#orderedRenderingFilters} property.
- * <p>
- * The function operates by setting the target visibility of occluded shapes to 0 and unoccluded shapes to 1.
- * @param {DrawContext} dc The current draw context.
- * @param {Number} groupId The ID of the group to declutter. Must not be null, undefined or 0.
- */
-WorldWindow.prototype.declutter = function (dc, groupId) {
-    // Collect all the declutterables in the specified group.
-    var declutterables = [];
-    for (var i = 0; i < dc.orderedRenderables.length; i++) {
-        var orderedRenderable = dc.orderedRenderables[i].orderedRenderable;
-        if (orderedRenderable.declutterGroup === groupId) {
-            declutterables.push(orderedRenderable);
-        }
-    }
-
-    // Filter the declutterables by determining which are partially occluded. Since the ordered renderable
-    // list was already sorted from front to back, the front-most will represent an entire occluded group.
-    var rects = [];
-    for (var j = 0; j < declutterables.length; j++) {
-        var declutterable = declutterables[j],
-            screenBounds = declutterable.screenBounds;
-
-        if (screenBounds && screenBounds.intersectsRectangles(rects)) {
-            declutterable.targetVisibility = 0;
-        } else {
-            declutterable.targetVisibility = 1;
-            if (screenBounds) {
-                rects.push(screenBounds);
-            }
-        }
-    }
-};
-
-/**
- * Computes a ray originating at the eyePoint and extending through the specified point in window
- * coordinates.
- * <p>
- * The specified point is understood to be in the window coordinate system of the WorldWindow, with the origin
- * in the top-left corner and axes that extend down and to the right from the origin point.
- * <p>
- * The results of this method are undefined if the specified point is outside of the WorldWindow's
- * bounds.
- *
- * @param {THREE.Vector2} point The window coordinates point to compute a ray for.
- * @returns {Line} A new Line initialized to the origin and direction of the computed ray, or null if the
- * ray could not be computed.
- */
-WorldWindow.prototype.rayThroughScreenPoint = function (point) {
-    // Convert the point's xy coordinates from window coordinates to WebGL screen coordinates.
-    var screenPoint = new THREE.Vector3(point.x, this.viewport.height - point.y, 0),
-        nearPoint = new THREE.Vector3(),
-        farPoint = new THREE.Vector3();
-
-    this.computeViewingTransform(this.scratchProjection, this.scratchModelview);
-    var modelviewProjection = new THREE.Matrix4();
-    modelviewProjection.setToMultiply(this.scratchProjection, this.scratchModelview);
-    var modelviewProjectionInv = new THREE.Matrix4();
-    modelviewProjectionInv.invertMatrix(modelviewProjection);
-
-    // Compute the model coordinate point on the near clip plane with the xy coordinates and depth 0.
-    if (!modelviewProjectionInv.unProject(screenPoint, this.viewport, nearPoint)) {
-        return null;
-    }
-
-    // Compute the model coordinate point on the far clip plane with the xy coordinates and depth 1.
-    screenPoint[2] = 1;
-    if (!modelviewProjectionInv.unProject(screenPoint, this.viewport, farPoint)) {
-        return null;
-    }
-
-    var eyePoint = this.scratchModelview.extractEyePoint(new THREE.Vector3());
-
-    // Compute a ray originating at the eye point and with direction pointing from the xy coordinate on the near
-    // plane to the same xy coordinate on the far plane.
-    var origin = new THREE.Vector3(eyePoint.x, eyePoint.y, eyePoint.z),
-        direction = new THREE.Vector3(farPoint.x, farPoint.y, farPoint.z);
-
-    direction.subtract(nearPoint);
-    direction.normalize();
-
-    return new Line(origin, direction);
 };
 
 export default WorldWindow;
