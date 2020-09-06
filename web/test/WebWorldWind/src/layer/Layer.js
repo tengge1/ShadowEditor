@@ -21,7 +21,7 @@
 function Layer(displayName) {
     this.displayName = displayName ? displayName : "Layer";
     this.opacity = 1;
-    this.time = null;
+    this.time = new Date();
 }
 
 /**
