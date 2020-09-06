@@ -21,7 +21,6 @@ import Color from '../util/Color';
 import FramebufferTexture from '../render/FramebufferTexture';
 import FramebufferTileController from '../render/FramebufferTileController';
 import GpuResourceCache from '../cache/GpuResourceCache';
-import PickedObjectList from '../pick/PickedObjectList';
 import Position from '../geom/Position';
 import Rectangle from '../geom/Rectangle';
 import SurfaceShape from '../shapes/SurfaceShape';
@@ -301,13 +300,6 @@ function DrawContext(gl) {
     // Internal. Keeps track of the current pick color.
     this.pickColor = new Color(0, 0, 0, 1);
 
-    /**
-     * The objects at the current pick point.
-     * @type {PickedObjectList}
-     * @readonly
-     */
-    this.objectsAtPickPoint = new PickedObjectList();
-
     // Intentionally not documented.
     this.pixelScale = 1;
 
@@ -379,18 +371,6 @@ DrawContext.prototype.reset = function () {
     this.terrain = null;
     this.verticalExaggeration = 1;
     this.accumulateOrderedRenderables = true;
-
-    // Reset picking properties that may be set by the WorldWindow.
-    this.pickingMode = false;
-    this.pickTerrainOnly = false;
-    this.deepPicking = false;
-    this.regionPicking = false;
-    this.pickPoint = null;
-    this.pickRay = null;
-    this.pickRectangle = null;
-    this.pickFrustum = null;
-    this.pickColor = new Color(0, 0, 0, 1);
-    this.objectsAtPickPoint.clear();
 
     this.eyePoint.set(0, 0, 0);
     this.modelview.identity();
@@ -744,17 +724,6 @@ DrawContext.prototype.resolvePick = function (pickableObject) {
     } else {
         // Don't resolve. Just add the object to the pick list. It will be resolved later.
         this.addPickedObject(pickableObject);
-    }
-};
-
-/**
- * Adds an object to the current picked-object list. The list identifies objects that are at the pick point
- * but not necessarily the top-most object.
- * @param  {PickedObject} pickedObject The object to add.
- */
-DrawContext.prototype.addPickedObject = function (pickedObject) {
-    if (pickedObject) {
-        this.objectsAtPickPoint.add(pickedObject);
     }
 };
 

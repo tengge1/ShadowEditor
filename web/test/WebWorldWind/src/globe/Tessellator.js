@@ -22,8 +22,6 @@ import BasicProgram from '../shaders/BasicProgram';
 import LevelSet from '../util/LevelSet';
 import Location from '../geom/Location';
 import MemoryCache from '../cache/MemoryCache';
-import PickedObject from '../pick/PickedObject';
-import Position from '../geom/Position';
 import Sector from '../geom/Sector';
 import Terrain from '../globe/Terrain';
 import TerrainTile from '../globe/TerrainTile';
@@ -414,72 +412,6 @@ Tessellator.prototype.renderTile = function (dc, terrainTile) {
     //         gl.UNSIGNED_SHORT,
     //         this.indicesEastOffset * 2);
     // }
-};
-
-/**
- * Causes this terrain to perform the picking operations on the specified tiles, as appropriate for the draw
- * context's pick settings. Normally, this draws the terrain in a unique pick color and computes the picked
- * terrain position. When the draw context is set to region picking mode, this omits the computation of a picked
- * terrain position.
- * @param {DrawContext} dc The current draw context.
- * @param {Array} tileList The list of tiles to pick.
- * @param {Object} pickDelegate Indicates the object to use as the picked object's <code>userObject</code>.
- * If null, then this tessellator is used as the <code>userObject</code>.
- */
-Tessellator.prototype.pick = function (dc, tileList, pickDelegate) {
-    var color = null,
-        userObject = pickDelegate || this,
-        position = new Position(0, 0, 0),
-        pickableTiles = [];
-
-    // Assemble a list of tiles that intersect the pick frustum. This eliminates unnecessary work for tiles that
-    // do not contribute to the pick result.
-    for (var i = 0, len = tileList.length; i < len; i++) {
-        var tile = tileList[i];
-        if (tile.extent.intersectsFrustum(dc.pickFrustum)) {
-            pickableTiles.push(tile);
-        }
-    }
-
-    // Draw the pickable tiles in a unique pick color. Suppress this step when picking the terrain only. In this
-    // case drawing to the pick framebuffer is unnecessary.
-    if (!dc.pickTerrainOnly) {
-        color = dc.uniquePickColor();
-        this.drawPickTiles(dc, pickableTiles, color);
-    }
-
-    // Determine the terrain position at the pick point. If the terrain is picked, add a corresponding picked
-    // object to the draw context. Suppress this step in region picking mode.
-    if (!dc.regionPicking) {
-        var ray = dc.pickRay.clone(), // Cloning the pick ray is necessary here due to the fact that Tesselator.computeIntersections modifies ray
-            point = this.computeNearestIntersection(ray, pickableTiles);
-
-        if (point) {
-            dc.globe.computePositionFromPoint(point.x, point.y, point.z, position);
-            position.altitude = dc.globe.elevationAtLocation(position.latitude, position.longitude);
-            dc.addPickedObject(new PickedObject(color, userObject, position, null, true));
-        }
-    }
-};
-
-// Internal function. Intentionally not documented.
-Tessellator.prototype.drawPickTiles = function (dc, tileList, color) {
-    var gl = dc.currentGlContext;
-
-    try {
-        dc.findAndBindProgram(BasicProgram);
-        dc.currentProgram.loadColor(gl, color);
-        this.beginRendering(dc);
-
-        for (var i = 0, len = tileList.length; i < len; i++) {
-            var tile = tileList[i];
-            this.beginRenderingTile(dc, tile);
-            this.renderTile(dc, tile);
-            this.endRenderingTile(dc, tile);
-        }
-    } finally {
-        this.endRendering(dc);
-    }
 };
 
 // Internal function. Intentionally not documented.

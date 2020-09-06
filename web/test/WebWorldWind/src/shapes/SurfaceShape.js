@@ -21,7 +21,6 @@ import Angle from '../geom/Angle';
 import Color from '../util/Color';
 import Location from '../geom/Location';
 import MemoryCache from '../cache/MemoryCache';
-import PickedObject from '../pick/PickedObject';
 import PolygonSplitter from '../util/PolygonSplitter';
 import Renderable from '../render/Renderable';
 import Sector from '../geom/Sector';
@@ -993,12 +992,6 @@ SurfaceShape.prototype.renderToTexture = function (dc, ctx2D, xScale, yScale, dx
         if (drawOutline) {
             ctx2D.stroke();
         }
-    }
-
-    if (dc.pickingMode) {
-        var po = new PickedObject(this.pickColor.clone(), this.pickDelegate ? this.pickDelegate : this,
-            null, this.layer, false);
-        dc.resolvePick(po);
     }
 };
 

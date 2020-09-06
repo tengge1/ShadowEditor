@@ -19,7 +19,6 @@
  */
 import BasicTextureProgram from '../shaders/BasicTextureProgram';
 import Color from '../util/Color';
-import PickedObject from '../pick/PickedObject';
 import Renderable from '../render/Renderable';
 import TextAttributes from '../shapes/TextAttributes';
 import WWMath from '../util/WWMath';
@@ -86,15 +85,6 @@ function Text(text) {
      * @default WorldWind.ABSOLUTE
      */
     this.altitudeMode = WorldWind.ABSOLUTE;
-
-    /**
-     * Indicates the object to return as the userObject of this text when picked. If null,
-     * then this text object is returned as the userObject.
-     * @type {Object}
-     * @default null
-     * @see  [PickedObject.userObject]{@link PickedObject#userObject}
-     */
-    this.pickDelegate = null;
 
     /**
      * Indicates whether this text has visual priority over other shapes in the scene.
@@ -171,8 +161,6 @@ function Text(text) {
 
 // Internal use only. Intentionally not documented.
 Text.matrix = new THREE.Matrix4(); // scratch variable
-Text.glPickPoint = new THREE.Vector3(); // scratch variable
-
 Text.prototype = Object.create(Renderable.prototype);
 
 /**
@@ -261,13 +249,6 @@ Text.prototype.renderOrdered = function (dc) {
     }
 
     this.drawOrderedText(dc);
-
-    if (dc.pickingMode) {
-        var po = new PickedObject(this.pickColor.clone(), this.pickDelegate ? this.pickDelegate : this,
-            this.position, this.layer, false);
-
-        dc.resolvePick(po);
-    }
 };
 
 // Intentionally not documented.

@@ -43,15 +43,6 @@ function Renderable() {
     this.enabled = true;
 
     /**
-     * Indicates the object to return as the userObject of this shape when picked. If null,
-     * then this shape is returned as the userObject.
-     * @type {Object}
-     * @default null
-     * @see  [PickedObject.userObject]{@link PickedObject#userObject}
-     */
-    this.pickDelegate = null;
-
-    /**
      * An application defined object associated with this renderable. A typical use case is to associate
      * application defined data with a picked renderable.
      * @type {Object}

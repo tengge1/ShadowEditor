@@ -24,7 +24,6 @@ import Globe from './globe/Globe';
 import GoToAnimator from './util/GoToAnimator';
 import Line from './geom/Line';
 import LookAtNavigator from './navigate/LookAtNavigator';
-import PickedObjectList from './pick/PickedObjectList';
 import Position from './geom/Position';
 import Rectangle from './geom/Rectangle';
 import SurfaceShape from './shapes/SurfaceShape';
@@ -378,80 +377,6 @@ WorldWindow.prototype.removeEventListener = function (type, listener) {
  */
 WorldWindow.prototype.redraw = function () {
     this.redrawRequested = true; // redraw during the next animation frame
-};
-
-/**
- * Requests the WorldWind objects displayed at a specified screen-coordinate point.
- *
- * If the point intersects the terrain, the returned list contains an object identifying the associated geographic
- * position. This returns an empty list when nothing in the WorldWind scene intersects the specified point.
- *
- * @param pickPoint The point to examine in this WorldWindow's screen coordinates.
- * @returns {PickedObjectList} A list of picked WorldWind objects at the specified pick point.
- */
-WorldWindow.prototype.pick = function (pickPoint) {
-    // Suppress the picking operation and return an empty list when the WebGL context has been lost.
-    if (this.drawContext.currentGlContext.isContextLost()) {
-        return new PickedObjectList();
-    }
-
-    this.resize();
-    this.resetDrawContext();
-    this.drawContext.pickingMode = true;
-    this.drawContext.pickPoint = pickPoint;
-    this.drawContext.pickRay = this.rayThroughScreenPoint(pickPoint);
-    this.drawFrame();
-
-    return this.drawContext.objectsAtPickPoint;
-};
-
-/**
- * Requests the position of the WorldWind terrain at a specified screen-coordinate point. If the point
- * intersects the terrain, the returned list contains a single object identifying the associated geographic
- * position. Otherwise this returns an empty list.
- * @param pickPoint The point to examine in this WorldWindow's screen coordinates.
- * @returns {PickedObjectList} A list containing the picked WorldWind terrain position at the specified point,
- * or an empty list if the point does not intersect the terrain.
- */
-WorldWindow.prototype.pickTerrain = function (pickPoint) {
-    // Suppress the picking operation and return an empty list when the WebGL context has been lost.
-    if (this.drawContext.currentGlContext.isContextLost()) {
-        return new PickedObjectList();
-    }
-
-    this.resize();
-    this.resetDrawContext();
-    this.drawContext.pickingMode = true;
-    this.drawContext.pickTerrainOnly = true;
-    this.drawContext.pickPoint = pickPoint;
-    this.drawContext.pickRay = this.rayThroughScreenPoint(pickPoint);
-    this.drawFrame();
-
-    return this.drawContext.objectsAtPickPoint;
-};
-
-/**
- * Requests the WorldWind objects displayed within a specified screen-coordinate region. This returns all
- * objects that intersect the specified region, regardless of whether or not an object is actually visible, and
- * marks objects that are visible as on top.
- * @param {Rectangle} rectangle The screen coordinate rectangle identifying the region to search.
- * @returns {PickedObjectList} A list of visible WorldWind objects within the specified region.
- */
-WorldWindow.prototype.pickShapesInRegion = function (rectangle) {
-    // Suppress the picking operation and return an empty list when the WebGL context has been lost.
-    if (this.drawContext.currentGlContext.isContextLost()) {
-        return new PickedObjectList();
-    }
-
-    this.resize();
-    this.resetDrawContext();
-    this.drawContext.pickingMode = true;
-    this.drawContext.regionPicking = true;
-    this.drawContext.pickRectangle =
-        new Rectangle(rectangle.x, this.canvas.height - rectangle.y, rectangle.width, rectangle.height);
-    this.drawFrame();
-
-    return this.drawContext.objectsAtPickPoint;
 };
 
 // Internal function. Intentionally not documented.
@@ -850,53 +775,6 @@ WorldWindow.prototype.redrawSurface = function () {
 };
 
 // Internal function. Intentionally not documented.
-WorldWindow.prototype.doPick = function () {
-    if (this.drawContext.terrain) {
-        this.drawContext.terrain.pick(this.drawContext);
-    }
-
-    if (!this.drawContext.pickTerrainOnly) {
-        if (this.subsurfaceMode && this.hasStencilBuffer) {
-            // Draw the surface and collect the ordered renderables.
-            this.drawContext.currentGlContext.disable(this.drawContext.currentGlContext.STENCIL_TEST);
-            this.drawContext.surfaceShapeTileBuilder.clear();
-            this.drawLayers(true);
-            this.drawSurfaceRenderables();
-            this.drawContext.surfaceShapeTileBuilder.doRender(this.drawContext);
-
-            if (!this.deferOrderedRendering) {
-                // Clear the depth and stencil buffers prior to rendering the ordered renderables. This allows
-                // sub-surface renderables to be drawn beneath the terrain. Turn on stenciling to capture the
-                // fragments that ordered renderables draw. The terrain and surface shapes will be subsequently
-                // drawn again, and the stencil buffer will ensure that they are drawn only where they overlap
-                // the fragments drawn by the ordered renderables.
-                this.drawContext.currentGlContext.clear(
-                    this.drawContext.currentGlContext.DEPTH_BUFFER_BIT | this.drawContext.currentGlContext.STENCIL_BUFFER_BIT);
-                this.drawContext.currentGlContext.enable(this.drawContext.currentGlContext.STENCIL_TEST);
-                this.drawContext.currentGlContext.stencilFunc(this.drawContext.currentGlContext.ALWAYS, 1, 1);
-                this.drawContext.currentGlContext.stencilOp(
-                    this.drawContext.currentGlContext.REPLACE, this.drawContext.currentGlContext.REPLACE, this.drawContext.currentGlContext.REPLACE);
-                this.drawOrderedRenderables();
-                this.drawContext.terrain.pick(this.drawContext);
-                this.drawScreenRenderables();
-            }
-        } else {
-            this.drawContext.surfaceShapeTileBuilder.clear();
-
-            this.drawLayers(true);
-            this.drawSurfaceRenderables();
-
-            this.drawContext.surfaceShapeTileBuilder.doRender(this.drawContext);
-
-            if (!this.deferOrderedRendering) {
-                this.drawOrderedRenderables();
-                this.drawScreenRenderables();
-            }
-        }
-    }
-};
-
-// Internal function. Intentionally not documented.
 WorldWindow.prototype.createTerrain = function () {
     var dc = this.drawContext;
     dc.terrain = this.globe.tessellator.tessellate(dc);
@@ -1027,101 +905,6 @@ WorldWindow.prototype.drawScreenRenderables = function () {
             console.warn("WorldWindow", "drawOrderedRenderables",
                 "Error while rendering a screen renderable.\n" + e.message);
             // Keep going. Render the rest of the screen renderables.
-        }
-    }
-};
-
-// Internal function. Intentionally not documented.
-WorldWindow.prototype.resolveTopPick = function () {
-    if (this.drawContext.objectsAtPickPoint.objects.length == 0) {
-        return; // nothing picked; avoid calling readPickColor unnecessarily
-    }
-
-    // Make a last reading to determine what's on top.
-
-    var pickedObjects = this.drawContext.objectsAtPickPoint,
-        pickColor = this.drawContext.readPickColor(this.drawContext.pickPoint),
-        topObject = null,
-        terrainObject = null;
-
-    if (pickColor) {
-        // Find the picked object with the top color code and set its isOnTop flag.
-        for (var i = 0, len = pickedObjects.objects.length; i < len; i++) {
-            var po = pickedObjects.objects[i];
-
-            if (po.isTerrain) {
-                terrainObject = po;
-            }
-
-            if (po.color.equals(pickColor)) {
-                po.isOnTop = true;
-                topObject = po;
-
-                if (terrainObject) {
-                    break; // no need to search for more than the top object and the terrain object
-                }
-            }
-        }
-
-        // In single-pick mode provide only the top-most object and the terrain object, if any.
-        if (!this.drawContext.deepPicking) {
-            pickedObjects.clear();
-            if (topObject) {
-                pickedObjects.add(topObject);
-            }
-            if (terrainObject && terrainObject != topObject) {
-                pickedObjects.add(terrainObject);
-            }
-        }
-    } else {
-        pickedObjects.clear(); // nothing drawn at the pick point
-    }
-};
-
-// Internal. Intentionally not documented.
-WorldWindow.prototype.resolveTerrainPick = function () {
-    var pickedObjects = this.drawContext.objectsAtPickPoint,
-        po;
-
-    // Mark the first picked terrain object as "on top". The picked object list should contain only one entry
-    // indicating the picked terrain object, but we iterate over the list contents anyway.
-    for (var i = 0, len = pickedObjects.objects.length; i < len; i++) {
-        po = pickedObjects.objects[i];
-        if (po.isTerrain) {
-            po.isOnTop = true;
-            break;
-        }
-    }
-};
-
-// Internal. Intentionally not documented.
-WorldWindow.prototype.resolveRegionPick = function () {
-    if (this.drawContext.objectsAtPickPoint.objects.length == 0) {
-        return; // nothing picked; avoid calling readPickColors unnecessarily
-    }
-
-    // Mark every picked object with a color in the pick buffer as "on top".
-
-    var pickedObjects = this.drawContext.objectsAtPickPoint,
-        uniquePickColors = this.drawContext.readPickColors(this.drawContext.pickRectangle),
-        po,
-        color;
-
-    for (var i = 0, len = pickedObjects.objects.length; i < len; i++) {
-        po = pickedObjects.objects[i];
-        if (!po) continue;
-        var poColor = po.color.toByteString();
-        color = uniquePickColors[poColor];
-        if (color) {
-            po.isOnTop = true;
-        } else if (po.userObject instanceof SurfaceShape) {
-            // SurfaceShapes ALWAYS get added to the pick list, since their rendering is deferred
-            // until the tile they are cached by is rendered. So a SurfaceShape may be in the pick list
-            // but is not seen in the pick rectangle.
-            //
-            // Remove the SurfaceShape that was not visible to the pick rectangle.
-            pickedObjects.objects.splice(i, 1);
-            i -= 1;
         }
     }
 };
