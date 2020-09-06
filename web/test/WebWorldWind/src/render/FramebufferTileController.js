@@ -223,10 +223,6 @@ FramebufferTileController.prototype.isTileVisible = function (dc, tile) {
         return false;
     }
 
-    if (dc.pickingMode) {
-        return tile.extent.intersectsFrustum(dc.pickFrustum);
-    }
-
     return tile.extent.intersectsFrustum(dc.frustumInModelCoordinates);
 };
 

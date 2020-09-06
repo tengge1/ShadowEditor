@@ -42,13 +42,6 @@ function Layer(displayName) {
     this.enabled = true;
 
     /**
-     * Indicates whether this layer is pickable.
-     * @type {Boolean}
-     * @default true
-     */
-    this.pickEnabled = true;
-
-    /**
      * This layer's opacity, which is combined with the opacity of shapes within layers.
      * Opacity is in the range [0, 1], with 1 indicating fully opaque.
      * @type {Number}
@@ -97,9 +90,6 @@ Layer.prototype.render = function (dc) {
     if (!this.enabled)
         return;
 
-    if (dc.pickingMode && !this.pickEnabled)
-        return;
-
     if (!this.withinActiveAltitudes(dc))
         return;
 
@@ -111,7 +101,7 @@ Layer.prototype.render = function (dc) {
 
 /**
  * Subclass method called to display this layer. Subclasses should implement this method rather than the
- * [render]{@link Layer#render} method, which determines enable, pick and active altitude status and does not
+ * [render]{@link Layer#render} method, which determines enable and active altitude status and does not
  * call this doRender method if the layer should not be displayed.
  * @param {DrawContext} dc The current draw context.
  * @protected

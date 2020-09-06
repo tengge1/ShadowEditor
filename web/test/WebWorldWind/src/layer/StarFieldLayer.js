@@ -44,9 +44,6 @@ import global from '../global';
 function StarFieldLayer(starDataSource) {
     Layer.call(this, 'StarField');
 
-    // The StarField Layer is not pickable.
-    this.pickEnabled = false;
-
     /**
      * The size of the Sun in pixels.
      * This can not exceed the maximum allowed pointSize of the GPU.

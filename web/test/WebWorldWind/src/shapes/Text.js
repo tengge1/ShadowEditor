@@ -477,15 +477,12 @@ Text.prototype.drawMarker = function (dc) {
         return;
     }
 
-    // Use the marker opacity and texture when not picking.
-    if (!dc.pickingMode) {
-        Text.matrix.setToIdentity();
-        Text.matrix.multiplyByTextureTransform(markerTexture);
-        textureBound = markerTexture.bind(dc); // returns false if texture is null or cannot be bound
-        program.loadTextureEnabled(gl, textureBound);
-        program.loadTextureMatrix(gl, Text.matrix);
-        program.loadOpacity(gl, this.layer.opacity * (1 - this.currentVisibility));
-    }
+    Text.matrix.setToIdentity();
+    Text.matrix.multiplyByTextureTransform(markerTexture);
+    textureBound = markerTexture.bind(dc); // returns false if texture is null or cannot be bound
+    program.loadTextureEnabled(gl, textureBound);
+    program.loadTextureMatrix(gl, Text.matrix);
+    program.loadOpacity(gl, this.layer.opacity * (1 - this.currentVisibility));
 
     // Compute and specify the marker's modelview-projection matrix.
     var s = this.markerImageScale;

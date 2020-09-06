@@ -137,16 +137,6 @@ function WorldWindow(canvasElem) {
     this.verticalExaggeration = 1;
 
     /**
-     * Indicates that picking will return all objects at the pick point, if any. The top-most object will have
-     * its isOnTop flag set to true.
-     * If deep picking is false, the default, only the top-most object is returned, plus
-     * the picked-terrain object if the pick point is over the terrain.
-     * @type {boolean}
-     * @default false
-     */
-    this.deepPicking = false;
-
-    /**
      * Indicates whether this WorldWindow should be configured for sub-surface rendering. If true, shapes
      * below the terrain can be seen when the terrain is made transparent. If false, sub-surface shapes are
      * not visible, however, performance is slightly increased.
@@ -640,7 +630,6 @@ WorldWindow.prototype.resetDrawContext = function () {
     this.computeDrawContext();
     dc.verticalExaggeration = this.verticalExaggeration;
     dc.surfaceOpacity = this.surfaceOpacity;
-    dc.deepPicking = this.deepPicking;
     dc.pixelScale = this.pixelScale;
     dc.update();
 };
@@ -659,27 +648,10 @@ WorldWindow.prototype.doNormalRepaint = function () {
     this.createTerrain();
     this.clearFrame();
     this.deferOrderedRendering = false;
-    if (this.drawContext.pickingMode) {
-        if (this.drawContext.makePickFrustum()) {
-            this.doPick();
-            this.resolvePick();
-        }
-    } else {
-        this.doDraw();
-        if (this.subsurfaceMode && this.hasStencilBuffer) {
-            this.redrawSurface();
-            this.drawScreenRenderables();
-        }
-    }
-};
-
-WorldWindow.prototype.resolvePick = function () {
-    if (this.drawContext.pickTerrainOnly) {
-        this.resolveTerrainPick();
-    } else if (this.drawContext.regionPicking) {
-        this.resolveRegionPick();
-    } else {
-        this.resolveTopPick();
+    this.doDraw();
+    if (this.subsurfaceMode && this.hasStencilBuffer) {
+        this.redrawSurface();
+        this.drawScreenRenderables();
     }
 };
 
@@ -691,11 +663,6 @@ WorldWindow.prototype.beginFrame = function () {
     gl.enable(gl.DEPTH_TEST);
     gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
     gl.depthFunc(gl.LEQUAL);
-
-    if (this.drawContext.pickingMode) {
-        this.drawContext.makePickFramebuffer();
-        this.drawContext.bindFramebuffer(this.drawContext.pickFramebuffer);
-    }
 };
 
 // Internal function. Intentionally not documented.

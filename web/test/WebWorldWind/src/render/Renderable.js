@@ -43,8 +43,7 @@ function Renderable() {
     this.enabled = true;
 
     /**
-     * An application defined object associated with this renderable. A typical use case is to associate
-     * application defined data with a picked renderable.
+     * An application defined object associated with this renderable.
      * @type {Object}
      * @default An empty object
      */

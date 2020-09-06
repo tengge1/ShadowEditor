@@ -36,9 +36,6 @@ import WWUtil from '../util/WWUtil';
 function AtmosphereLayer(nightImageSource) {
     Layer.call(this, "Atmosphere");
 
-    // The atmosphere layer is not pickable.
-    this.pickEnabled = false;
-
     //Documented in defineProperties below.
     this._nightImageSource = nightImageSource ||
         WorldWind.configuration.baseUrl + 'images/dnb_land_ocean_ice_2012.png';

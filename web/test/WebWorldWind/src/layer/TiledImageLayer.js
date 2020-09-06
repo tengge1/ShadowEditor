@@ -44,7 +44,6 @@ import TileCache from '../cache/TileCache';
  * There is no requirement that image tiles of this class be remote, they may be local or procedurally generated. For
  * such cases the subclass overrides this class' [retrieveTileImage]{@link TiledImageLayer#retrieveTileImage} method.
  * <p>
- * Layers of this type are by default not pickable. Their pick-enabled flag is initialized to false.
  *
  * @augments Layer
  * @param {Sector} sector The sector this layer covers.
@@ -100,8 +99,6 @@ function TiledImageLayer(sector, levelZeroDelta, numLevels, imageFormat, cachePa
     this.tileCache = new MemoryCache(500000, 400000);
     this.currentRetrievals = [];
     this.absentResourceList = new AbsentResourceList(3, 50e3);
-
-    this.pickEnabled = false;
 
     // Internal. Intentionally not documented.
     this.lasTtMVP = new THREE.Matrix4();
