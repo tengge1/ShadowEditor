@@ -14,9 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * @exports GpuResourceCache
- */
 import AbsentResourceList from '../util/AbsentResourceList';
 import ImageSource from '../util/ImageSource';
 import MemoryCache from '../cache/MemoryCache';
@@ -26,70 +23,37 @@ import global from '../global';
 /**
  * Constructs a GPU resource cache for a specified size and low-water value.
  * @alias GpuResourceCache
- * @constructor
- * @classdesc Maintains a cache of GPU resources such as textures and GLSL programs.
- * Applications typically do not interact with this class unless they create their own shapes.
  * @param {Number} capacity The cache capacity, in bytes.
  * @param {Number} lowWater The number of bytes to clear the cache to when it exceeds its capacity.
  */
 function GpuResourceCache(capacity, lowWater) {
-    // Private. Holds the actual cache entries.
     this.entries = new MemoryCache(capacity, lowWater);
 
-    // Private. Counter for generating cache keys.
     this.cacheKeyPool = 0;
-
-    // Private. List of retrievals currently in progress.
     this.currentRetrievals = {};
 
-    // Private. Identifies requested resources that whose retrieval failed.
     this.absentResourceList = new AbsentResourceList(3, 60e3);
 }
 
 Object.defineProperties(GpuResourceCache.prototype, {
-    /**
-     * Indicates the capacity of this cache in bytes.
-     * @type {Number}
-     * @readonly
-     * @memberof GpuResourceCache.prototype
-     */
     capacity: {
         get: function () {
             return this.entries.capacity;
         }
     },
 
-    /**
-     * Indicates the low-water value for this cache in bytes, the size this cache is cleared to when it
-     * exceeds its capacity.
-     * @type {Number}
-     * @readonly
-     * @memberof GpuResourceCache.prototype
-     */
     lowWater: {
         get: function () {
             return this.entries.lowWater;
         }
     },
 
-    /**
-     * Indicates the number of bytes currently used by this cache.
-     * @type {Number}
-     * @readonly
-     * @memberof GpuResourceCache.prototype
-     */
     usedCapacity: {
         get: function () {
             return this.entries.usedCapacity;
         }
     },
 
-    /**
-     * Indicates the number of free bytes in this cache.
-     * @type {Number}
-     * @readonly
-     * @memberof GpuResourceCache.prototype
-     */
     freeCapacity: {
         get: function () {
             return this.entries.freeCapacity;
@@ -97,10 +61,6 @@ Object.defineProperties(GpuResourceCache.prototype, {
     }
 });
 
-/**
- * Creates a cache key unique to this cache, typically for a resource about to be added to this cache.
- * @returns {String} The generated cache key.
- */
 GpuResourceCache.prototype.generateCacheKey = function () {
     return "GpuResourceCache " + ++this.cacheKeyPool;
 };
@@ -168,9 +128,6 @@ GpuResourceCache.prototype.removeResource = function (key) {
     this.entries.removeEntry(key instanceof ImageSource ? key.key : key);
 };
 
-/**
- * Removes all resources from this cache.
- */
 GpuResourceCache.prototype.clear = function () {
     this.entries.clear(false);
 };
@@ -207,8 +164,9 @@ GpuResourceCache.prototype.retrieveTexture = function (gl, imageSource, wrapMode
         image = new Image();
 
     image.onload = function () {
-        var texture = new Texture(gl, image, wrapMode);
+        image.onload = null;
 
+        var texture = new Texture(gl, image, wrapMode);
         cache.putResource(imageSource, texture, texture.size);
 
         delete cache.currentRetrievals[imageSource];
@@ -218,6 +176,7 @@ GpuResourceCache.prototype.retrieveTexture = function (gl, imageSource, wrapMode
     };
 
     image.onerror = function () {
+        image.onerror = null;
         delete cache.currentRetrievals[imageSource];
         cache.absentResourceList.markResourceAbsent(imageSource);
         console.warn("Image retrieval failed: " + imageSource);

@@ -23,24 +23,10 @@ function MemoryCache(capacity, lowWater) {
     this._capacity = capacity;
     this._lowWater = lowWater;
 
-    /**
-     * The size currently used by this cache.
-     * @type {Number}
-     * @readonly
-     */
     this.usedCapacity = 0;
-
-    /**
-     * The size currently unused by this cache.
-     * @type {Number}
-     * @readonly
-     */
     this.freeCapacity = capacity;
 
-    // Private. The cache entries.
     this.entries = {};
-
-    // Private. The cache listeners.
     this.listeners = [];
 }
 
@@ -196,8 +182,6 @@ MemoryCache.prototype.setEntryAgingFactor = function (key, agingFactor) {
 
 // Private. Removes a specified entry from this cache.
 MemoryCache.prototype.removeCacheEntry = function (cacheEntry) {
-    // All removal passes through this function.
-
     delete this.entries[cacheEntry.key];
 
     this.usedCapacity -= cacheEntry.size;
