@@ -15,77 +15,11 @@
  * limitations under the License.
  */
 import AtmosphereLayer from './layer/AtmosphereLayer';
-import AtmosphereProgram from './shaders/AtmosphereProgram';
-import BasicProgram from './shaders/BasicProgram';
-import BasicTextureProgram from './shaders/BasicTextureProgram';
-import BasicWorldWindowController from './BasicWorldWindowController';
-import ClickRecognizer from './gesture/ClickRecognizer';
-import Color from './util/Color';
-import DragRecognizer from './gesture/DragRecognizer';
-import DrawContext from './render/DrawContext';
-import EarthElevationModel from './globe/EarthElevationModel';
-import ElevationCoverage from './globe/ElevationCoverage';
-import ElevationModel from './globe/ElevationModel';
-import FramebufferTexture from './render/FramebufferTexture';
-import FramebufferTile from './render/FramebufferTile';
-import FramebufferTileController from './render/FramebufferTileController';
-import GeographicProjection from './projections/GeographicProjection';
-import GestureRecognizer from './gesture/GestureRecognizer';
-import Globe from './globe/Globe';
-import GpuProgram from './shaders/GpuProgram';
-import GpuShader from './shaders/GpuShader';
-import GroundProgram from './shaders/GroundProgram';
-import HashMap from './util/HashMap';
-import ImageSource from './util/ImageSource';
-import ImageTile from './render/ImageTile';
-import Insets from './util/Insets';
-import Layer from './layer/Layer';
-import Level from './util/Level';
-import LevelSet from './util/LevelSet';
-import Line from './geom/Line';
-import Location from './geom/Location';
-import LookAtNavigator from './navigate/LookAtNavigator';
-import MemoryCache from './cache/MemoryCache';
-import MercatorTiledImageLayer from './layer/MercatorTiledImageLayer';
-import Navigator from './navigate/Navigator';
 import Offset from './util/Offset';
-import PanRecognizer from './gesture/PanRecognizer';
-import PinchRecognizer from './gesture/PinchRecognizer';
-import Position from './geom/Position';
-import ProjectionWgs84 from './projections/ProjectionWgs84';
-import Rectangle from './geom/Rectangle';
-import Renderable from './render/Renderable';
-import RotationRecognizer from './gesture/RotationRecognizer';
-import Sector from './geom/Sector';
-import ShapeAttributes from './shapes/ShapeAttributes';
 import StarFieldLayer from './layer/StarFieldLayer';
-import StarFieldProgram from './shaders/StarFieldProgram';
-import SurfacePolygon from './shapes/SurfacePolygon';
-import SurfacePolyline from './shapes/SurfacePolyline';
-import SurfaceRenderable from './render/SurfaceRenderable';
-import SurfaceShape from './shapes/SurfaceShape';
-import SurfaceShapeTile from './shapes/SurfaceShapeTile';
-import SurfaceShapeTileBuilder from './shapes/SurfaceShapeTileBuilder';
-import SurfaceTile from './render/SurfaceTile';
-import SurfaceTileRenderer from './render/SurfaceTileRenderer';
-import SurfaceTileRendererProgram from './shaders/SurfaceTileRendererProgram';
-import TapRecognizer from './gesture/TapRecognizer';
-import Terrain from './globe/Terrain';
-import TerrainTile from './globe/TerrainTile';
-import TerrainTileList from './globe/TerrainTileList';
-import Tessellator from './globe/Tessellator';
-import Texture from './render/Texture';
-import TextureTile from './render/TextureTile';
-import Tile from './util/Tile';
-import TiledElevationCoverage from './globe/TiledElevationCoverage';
-import TiledImageLayer from './layer/TiledImageLayer';
-import TiltRecognizer from './gesture/TiltRecognizer';
-import Touch from './gesture/Touch';
 import WorldWindow from './WorldWindow';
-import WorldWindowController from './WorldWindowController';
 import WWUtil from './util/WWUtil';
 import XYZLayer from './layer/XYZLayer';
-import WWMath from './util/WWMath';
 
 /**
  * This is the top-level WorldWind module. It is global.
@@ -318,76 +252,9 @@ var WorldWind = {
 };
 
 WorldWind['AtmosphereLayer'] = AtmosphereLayer;
-WorldWind['AtmosphereProgram'] = AtmosphereProgram;
-WorldWind['BasicProgram'] = BasicProgram;
-WorldWind['BasicTextureProgram'] = BasicTextureProgram;
-WorldWind['BasicWorldWindowController'] = BasicWorldWindowController;
-WorldWind['ClickRecognizer'] = ClickRecognizer;
-WorldWind['Color'] = Color;
-WorldWind['DragRecognizer'] = DragRecognizer;
-WorldWind['DrawContext'] = DrawContext;
-WorldWind['EarthElevationModel'] = EarthElevationModel;
-WorldWind['ElevationCoverage'] = ElevationCoverage;
-WorldWind['ElevationModel'] = ElevationModel;
-WorldWind['FramebufferTexture'] = FramebufferTexture;
-WorldWind['FramebufferTile'] = FramebufferTile;
-WorldWind['FramebufferTileController'] = FramebufferTileController;
-WorldWind['GeographicProjection'] = GeographicProjection;
-WorldWind['GestureRecognizer'] = GestureRecognizer;
-WorldWind['Globe'] = Globe;
-WorldWind['GpuProgram'] = GpuProgram;
-WorldWind['GpuShader'] = GpuShader;
-WorldWind['GroundProgram'] = GroundProgram;
-WorldWind['HashMap'] = HashMap;
-WorldWind['ImageSource'] = ImageSource;
-WorldWind['ImageTile'] = ImageTile;
-WorldWind['Insets'] = Insets;
-WorldWind['Layer'] = Layer;
-WorldWind['Level'] = Level;
-WorldWind['LevelSet'] = LevelSet;
-WorldWind['Line'] = Line;
-WorldWind['Location'] = Location;
-WorldWind['LookAtNavigator'] = LookAtNavigator;
-WorldWind['MemoryCache'] = MemoryCache;
-WorldWind['MercatorTiledImageLayer'] = MercatorTiledImageLayer;
-WorldWind['Navigator'] = Navigator;
-WorldWind['Offset'] = Offset;
-WorldWind['PanRecognizer'] = PanRecognizer;
-WorldWind['PinchRecognizer'] = PinchRecognizer;
-WorldWind['Position'] = Position;
-WorldWind['ProjectionWgs84'] = ProjectionWgs84;
-WorldWind['Rectangle'] = Rectangle;
-WorldWind['Renderable'] = Renderable;
-WorldWind['RotationRecognizer'] = RotationRecognizer;
-WorldWind['Sector'] = Sector;
-WorldWind['ShapeAttributes'] = ShapeAttributes;
 WorldWind['StarFieldLayer'] = StarFieldLayer;
-WorldWind['StarFieldProgram'] = StarFieldProgram;
-WorldWind['SurfacePolygon'] = SurfacePolygon;
-WorldWind['SurfacePolyline'] = SurfacePolyline;
-WorldWind['SurfaceRenderable'] = SurfaceRenderable;
-WorldWind['SurfaceShape'] = SurfaceShape;
-WorldWind['SurfaceShapeTile'] = SurfaceShapeTile;
-WorldWind['SurfaceShapeTileBuilder'] = SurfaceShapeTileBuilder;
-WorldWind['SurfaceTile'] = SurfaceTile;
-WorldWind['SurfaceTileRenderer'] = SurfaceTileRenderer;
-WorldWind['SurfaceTileRendererProgram'] = SurfaceTileRendererProgram;
-WorldWind['TapRecognizer'] = TapRecognizer;
-WorldWind['Terrain'] = Terrain;
-WorldWind['TerrainTile'] = TerrainTile;
-WorldWind['TerrainTileList'] = TerrainTileList;
-WorldWind['Tessellator'] = Tessellator;
-WorldWind['Texture'] = Texture;
-WorldWind['TextureTile'] = TextureTile;
-WorldWind['Tile'] = Tile;
-WorldWind['TiledElevationCoverage'] = TiledElevationCoverage;
-WorldWind['TiledImageLayer'] = TiledImageLayer;
-WorldWind['TiltRecognizer'] = TiltRecognizer;
-WorldWind['Touch'] = Touch;
 WorldWind['WorldWindow'] = WorldWindow;
-WorldWind['WorldWindowController'] = WorldWindowController;
 WorldWind['XYZLayer'] = XYZLayer;
-WorldWind['WWMath'] = WWMath;
 
 /**
  * Holds configuration parameters for WorldWind. Applications may modify these parameters prior to creating
@@ -411,14 +278,5 @@ WorldWind.configuration = {
     bingLogoPlacement: new Offset(WorldWind.OFFSET_INSET_PIXELS, 7, WorldWind.OFFSET_PIXELS, 7),
     bingLogoAlignment: new Offset(WorldWind.OFFSET_FRACTION, 1, WorldWind.OFFSET_FRACTION, 0)
 };
-
-/**
- * Indicates the Bing Maps key to use when requesting Bing Maps resources.
- * @type {String}
- * @default null
- */
-WorldWind.BingMapsKey = null;
-
-window.WorldWind = WorldWind;
 
 export default WorldWind;
