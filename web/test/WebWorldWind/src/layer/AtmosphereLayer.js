@@ -162,6 +162,7 @@ AtmosphereLayer.prototype.drawGround = function (dc) {
         this._activeTexture = dc.gpuResourceCache.resourceForKey(this.nightImageSource);
 
         if (!this._activeTexture) {
+            debugger;
             this._activeTexture = dc.gpuResourceCache.retrieveTexture(gl, this.nightImageSource);
         }
 
