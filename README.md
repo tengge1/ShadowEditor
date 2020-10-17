@@ -18,11 +18,10 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
 * If helpful to you, please [DOnate](https://gitee.com/tengge1/ShadowEditor) to support us. thank you!
 
 <img src="https://gitee.com/tengge1/ShadowEditor/raw/master/images/scene20200503_en.jpg" />  
-<img src="https://gitee.com/tengge1/ShadowEditor/raw/master/images/scene20200705.jpg" />  
 
 ## v0.5.10 is Coming Soon
 
-1. 3D GIS. (In development)
+1. Remove all GIS related features, and no longer provide GIS in the open source version in the future.
 
 ## v0.5.9 has Released
 
@@ -105,42 +104,6 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
     - [ ] Batch rendering
     - [ ] Occlusion culling
     - [ ] Split screen display
-- [ ] GIS scene editing
-  - [ ] Vector imagery
-    - [ ] Google vector tiles
-    - [ ] Tianditu vector tiles
-  - [ ] Satellite imagery
-    - [x] Bing satellite tiles
-    - [ ] Google satellite tiles
-    - [ ] Tianditu satellite tiles
-  - [ ] 3D terrain
-    - [x] Arcgis elevation
-    - [ ] Cesium elevation
-    - [ ] Terrain editing
-  - [ ] Ground features editing
-    - [ ] Draw point, line and polygon
-    - [ ] Layer editing, style editing
-    - [ ] Pipe network editing, district editing
-    - [ ] computer room editing, pipe gallery editing
-    - [ ] Data query
-  - [ ] Data Service
-    - [ ] WMTS, WMS, MVT service
-    - [ ] Mapbox-gl-js styles，mvt data
-    - [ ] Cesium 3dtiles
-  - [ ] Data processing and import
-    - [ ] OSM, sharp, dxf, excel, BIM, point cloud, oblique photography
-  - [ ] Analysis
-    - [ ] Distance measurement, area measurement, angle measurement
-    - [ ] Perspective analysis, visual domain analysis, buffer analysis, flooding analysis
-    - [ ] Topological analysis, Connectivity analysis, Burst analysis, Cross-sectional analysis
-    - [ ] Topographic excavation, section diagram, contour line, heat map
-  - [ ] 3D plotting, 3D cartography
-  - [ ] Other tools
-    - [ ] Coordinate system conversion, Data correction
-      - [ ] wgs84, cgcs2000, beijing54、xi'an80、gcj-02、bd-09
-      - [ ] Mercator projection, gaussian projection
-      - [ ] Seven parameter conversion, four parameter conversion
-    - [ ] Resource downloader, pyramid slice, mesh resampling
 - [ ] Data visualization
   - [ ] UI
     - [ ] Panel, tab panel
