@@ -13,7 +13,7 @@
 * 版本：v0.6.0 (开发中)
 * 简介：基于Three.js、Go语言和MongoDB的跨平台的3D场景编辑器。
 * 源码：[GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | 文档：[Gitee](https://gitee.com/tengge1/ShadowEditor/wikis/pages) | 示例：[GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) | 视频：[微博](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) | 资源：[百度网盘](https://pan.baidu.com/s/1IxJVM6fFLoIAJG-GKHjVTA)
-* 技术栈：html、css、javascript、rollup、react.js、webgl、three.js、golang、mongodb、nodejs、electron、CesiumJS、Protocol Buffers。
+* 技术栈：html、css、javascript、rollup、react.js、webgl、three.js、golang、mongodb、nodejs、electron、protocol buffers。
 * 如果对您有帮助，请[【捐赠】](https://gitee.com/tengge1/ShadowEditor)支持项目发展。谢谢！
 
 ![image](images/scene20200301.jpg)
@@ -336,14 +336,4 @@ https://github.com/mrdoob/texgen.js
 https://github.com/yomotsu/VolumetricFire  
 https://github.com/jonbretman/amd-to-as6  
 https://github.com/chandlerprall/ThreeCSG  
-
-https://github.com/mapbox/mapbox-gl-js  
-https://github.com/CesiumGS/cesium  
-https://github.com/NASAWorldWind/WebWorldWind  
-https://github.com/OSGeo/gdal  
-https://github.com/mapnik/mapnik  
-https://github.com/go-spatial/tegola  
-https://github.com/Turfjs/turf  
-https://github.com/mourner/rbush  
-
 </details>

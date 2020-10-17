@@ -14,7 +14,7 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
 * Version: v0.6.0 (Coming Soon)
 * Description: Cross-platform 3D scene editor based on three.js, golang and mongodb.
 * Source: [GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | Document: [Gitee](https://gitee.com/tengge1/ShadowEditor/wikis/pages) | Demo: [GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) | Video: [Weibo](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) | Assets: [BaiduNetdisk](https://pan.baidu.com/s/1IxJVM6fFLoIAJG-GKHjVTA)
-* Technology Stack: html, css, javascript, rollup, react.js, webgl, three.js, golang, mongodb, nodejs, electron, CesiumJS, Protocol Buffers.
+* Technology Stack: html, css, javascript, rollup, react.js, webgl, three.js, golang, mongodb, nodejs, electron, protocol buffers.
 * If helpful to you, please [DOnate](https://gitee.com/tengge1/ShadowEditor) to support us. thank you!
 
 <img src="https://gitee.com/tengge1/ShadowEditor/raw/master/images/scene20200503_en.jpg" />  
@@ -346,14 +346,4 @@ https://github.com/mrdoob/texgen.js
 https://github.com/yomotsu/VolumetricFire  
 https://github.com/jonbretman/amd-to-as6  
 https://github.com/chandlerprall/ThreeCSG  
-
-https://github.com/mapbox/mapbox-gl-js  
-https://github.com/CesiumGS/cesium  
-https://github.com/NASAWorldWind/WebWorldWind  
-https://github.com/OSGeo/gdal  
-https://github.com/mapnik/mapnik  
-https://github.com/go-spatial/tegola  
-https://github.com/Turfjs/turf  
-https://github.com/mourner/rbush  
-
 </details>
