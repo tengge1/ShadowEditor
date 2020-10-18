@@ -10,6 +10,7 @@ package server
 import (
 	"fmt"
 	"io/ioutil"
+	"mime"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -139,5 +140,16 @@ func TestCORSHandler(t *testing.T) {
 
 	if originHeader != origin {
 		t.Errorf("Access-Control-Allow-Origin is not set properly, got %v", originHeader)
+	}
+}
+
+func TestMimeType(t *testing.T) {
+	expect := "application/javascript"
+	if err := mime.AddExtensionType(".js", expect); err != nil {
+		t.Error(err)
+	}
+	get := mime.TypeByExtension(".js")
+	if get != expect {
+		t.Errorf("expect %v, get %v", expect, get)
 	}
 }
