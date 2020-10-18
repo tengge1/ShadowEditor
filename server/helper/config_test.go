@@ -117,21 +117,6 @@ func TestConfig(t *testing.T) {
 		}
 	}
 
-	// remote section
-	{
-		remote := viper.Sub("remote")
-		enabled := remote.GetBool("enabled")
-		webSocketPort := remote.GetInt64("web_socket_port")
-
-		if config.Remote.Enabled != enabled {
-			t.Errorf("expect %v, got %v", enabled, config.Remote.Enabled)
-		}
-
-		if config.Remote.WebSocketPort != int(webSocketPort) {
-			t.Errorf("expect %v, got %v", webSocketPort, config.Remote.WebSocketPort)
-		}
-	}
-
 	// path section
 	{
 		path := viper.Sub("path")

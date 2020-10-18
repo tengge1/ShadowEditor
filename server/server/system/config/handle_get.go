@@ -63,8 +63,6 @@ func Get(w http.ResponseWriter, r *http.Request) {
 		DeptID:               "",
 		DeptName:             "",
 		OperatingAuthorities: []string{},
-		EnableRemoteEdit:     server.Config.Remote.Enabled,
-		WebSocketServerPort:  server.Config.Remote.WebSocketPort,
 	}
 
 	user, _ := server.GetCurrentUser(r)
