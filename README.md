@@ -11,30 +11,24 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
 [![image](https://travis-ci.org/tengge1/ShadowEditor.svg?branch=master)](https://travis-ci.org/github/tengge1/ShadowEditor)
 
 * Name: Shadow Editor
-* Version: v0.5.8 (Coming Soon)
+* Version: v0.6.0 (Coming Soon)
 * Description: Cross-platform 3D scene editor based on three.js, golang and mongodb.
-* Source: [GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | Document: [Gitee](https://gitee.com/tengge1/ShadowEditor/wikis/pages) | Demo: [GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) | Video: [Weibo](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) | Assets: [BaiduNetdisk](https://pan.baidu.com/s/1IxJVM6fFLoIAJG-GKHjVTA)
-* Technology Stack: html, css, javascript, rollup, react.js, webgl, three.js, golang, mongodb, nodejs, electron, CesiumJS, Protocol Buffers.
+* Source: [GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | Document: [Gitee](https://gitee.com/tengge1/ShadowEditor/wikis/pages) | Demo: [GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) | Video: [Weibo](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) | Assets: [BaiduNetdisk(rfja)](https://pan.baidu.com/s/1BYLPyHJuc2r0bS9Te3SRjA)
+* Technology Stack: html, css, javascript, rollup, react.js, webgl, three.js, golang, mongodb, nodejs, electron, protocol buffers.
 * If helpful to you, please [DOnate](https://gitee.com/tengge1/ShadowEditor) to support us. thank you!
 
 <img src="https://gitee.com/tengge1/ShadowEditor/raw/master/images/scene20200503_en.jpg" />  
-<img src="https://gitee.com/tengge1/ShadowEditor/raw/master/images/scene20200705.jpg" />  
 
-## v0.5.8 is Coming
+## v0.6.0 is Coming Soon
 
-1. 3D GIS. (In development)
-2. Fix the bug that `npm start` is not working on Ubuntu and Mac.
 
-## v0.5.7 has Released
 
-* Release Date: August 9, 2020
+## v0.5.10 has Released
+
+* Release Date: October 17, 2020
 * Update Logs:
 
-1. 3D GIS. (In development)
-2. When create new scene or click clear tool, automatically clear distance measurement tools.
-3. Delete branch `origin/v0.4.6-csharp`.
-4. Use CesiumJS instead of WebWorldWind for GIS editing.
-5. Arcgis elevation cache service.
+1. Remove all GIS related features, and no longer provide GIS in the open source version in the future.
 
 ## Feature List
 
@@ -104,55 +98,27 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
     - [x] Measure distance
   - [ ] Others
     - [ ] Bullet physics engine
-    - [ ] Ray tracing rendering
+    - [ ] Ray tracing rendering, voxel rendering
     - [ ] UV unwrap
     - [ ] Automatic pathfinding
     - [ ] Batch rendering
     - [ ] Occlusion culling
     - [ ] Split screen display
-- [ ] GIS scene editing
-  - [ ] Satellite imagery
-    - [x] Bing satellite image
-    - [ ] Google satellite image
-    - [ ] Tianditu satellite image
-  - [ ] 3D terrain
-    - [ ] Arcgis Elevation
-    - [ ] Terrain editing
-  - [ ] Ground features editing
-    - [ ] Draw point, line and polygon
-    - [ ] Layer editing, style editing
-    - [ ] Pipe network editing, district editing
-    - [ ] Data query
-  - [ ] Data Service
-    - [ ] WMTS, WMS, MVT service
-    - [ ] Support data for openLayers, mapbox gl js and cesiumjs
-  - [ ] Data processing and import
-    - [ ] OSM, sharp, dxf, excel, BIM, point cloud, oblique photography
-  - [ ] Analysis
-    - [ ] Distance measurement, area measurement, angle measurement
-    - [ ] Perspective analysis, visual domain analysis, buffer analysis, flooding analysis
-    - [ ] Topological analysis, Connectivity analysis, Burst analysis, Cross-sectional analysis
-    - [ ] Topographic excavation, section diagram, contour line, heat map
-  - [ ] 3D plotting, 3D cartography
-  - [ ] Other tools
-    - [ ] Coordinate system conversion, Data correction
-      - [ ] wgs84, cgcs2000, beijing54、xi'an80、gcj-02、bd-09
-      - [ ] Mercator projection, gaussian projection
-      - [ ] Seven parameter conversion, four parameter conversion
-    - [ ] Resource downloader, pyramid slice, mesh resampling
 - [ ] Data visualization
-  - [ ] Real-time data access
-    - [ ] WebSocket
-    - [ ] Ajax
   - [ ] UI
-    - [ ] Form
-      - [ ] Button, radio, checkbox, dropdown
-    - [ ] Panel
-    - [ ] Datagrid
-  - [ ] Chart
+    - [ ] Panel, tab panel
+    - [ ] Button, radio, checkbox, dropdown, slider
+    - [ ] Data table
+  - [ ] Charts
     - [ ] Histogram
     - [ ] Pie chart
     - [ ] Line chart
+  - [ ] Visualization config
+    - [ ] Layout management
+    - [ ] data source config
+  - [ ] Real-time data
+    - [ ] WebSocket
+    - [ ] Ajax
 
 ## Requirements
 
@@ -380,14 +346,4 @@ https://github.com/mrdoob/texgen.js
 https://github.com/yomotsu/VolumetricFire  
 https://github.com/jonbretman/amd-to-as6  
 https://github.com/chandlerprall/ThreeCSG  
-
-https://github.com/mapbox/mapbox-gl-js  
-https://github.com/CesiumGS/cesium  
-https://github.com/NASAWorldWind/WebWorldWind  
-https://github.com/OSGeo/gdal  
-https://github.com/mapnik/mapnik  
-https://github.com/go-spatial/tegola  
-https://github.com/Turfjs/turf  
-https://github.com/mourner/rbush  
-
 </details>

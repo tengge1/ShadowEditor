@@ -34,9 +34,6 @@ import (
 	_ "github.com/tengge1/shadoweditor/server/export/examples" // examples api
 	_ "github.com/tengge1/shadoweditor/server/export/scene"    // scene api
 
-	// Register `github.com/tengge1/shadoweditor/server/gis`
-	_ "github.com/tengge1/shadoweditor/server/gis" // gis api
-
 	// Register `github.com/tengge1/shadoweditor/server/system`
 	_ "github.com/tengge1/shadoweditor/server/system/authority"  // authority api
 	_ "github.com/tengge1/shadoweditor/server/system/config"     // config api

@@ -64,7 +64,6 @@ type ConfigModel struct {
 	Database  DatabaseConfigModel  `toml:"database"`
 	Authority AuthorityConfigModel `toml:"authority"`
 	Upload    UploadConfigModel    `toml:"upload"`
-	Remote    RemoteConfigModel    `toml:"remote"`
 	Path      PathConfigModel      `toml:"path"`
 	Log       LogConfigModel       `toml:"log"`
 }
@@ -97,12 +96,6 @@ type AuthorityConfigModel struct {
 // UploadConfigModel is the upload config section in `config.toml`.
 type UploadConfigModel struct {
 	MaxSize int64 `toml:"max_size"`
-}
-
-// RemoteConfigModel is the remote config section in `config.toml`.
-type RemoteConfigModel struct {
-	Enabled       bool `toml:"enabled"`
-	WebSocketPort int  `toml:"web_socket_port"`
 }
 
 // PathConfigModel is the authority path section in `config.toml`.

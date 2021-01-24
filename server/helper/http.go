@@ -37,6 +37,9 @@ func Get(url string) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
+	if resp.StatusCode != 200 {
+		return nil, fmt.Errorf("http status: %v %v", resp.StatusCode, resp.Status)
+	}
 	defer resp.Body.Close()
 	return ioutil.ReadAll(resp.Body)
 }
@@ -46,6 +49,9 @@ func Post(url string, data url.Values) ([]byte, error) {
 	resp, err := http.PostForm(url, data)
 	if err != nil {
 		return nil, err
+	}
+	if resp.StatusCode != 200 {
+		return nil, fmt.Errorf("http status: %v %v", resp.StatusCode, resp.Status)
 	}
 	defer resp.Body.Close()
 	return ioutil.ReadAll(resp.Body)

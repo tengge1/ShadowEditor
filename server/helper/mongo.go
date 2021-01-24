@@ -19,9 +19,11 @@ import (
 
 // NewMongo create a mongo client using connectionString and databaseName.
 func NewMongo(connectionString, databaseName string) (*Mongo, error) {
-	m := Mongo{connectionString, databaseName, nil, nil}
+	m := Mongo{connectionString, databaseName, nil, nil, nil}
 
 	clientOptions := options.Client().ApplyURI(connectionString)
+	duration := time.Second * 10
+	clientOptions.ConnectTimeout = &duration
 
 	client, err := mongo.NewClient(clientOptions)
 	if err != nil {
@@ -51,6 +53,7 @@ type Mongo struct {
 	DatabaseName     string
 	Client           *mongo.Client
 	Database         *mongo.Database
+	sessionContext   *mongo.SessionContext
 }
 
 // checkDB determine whether the database is actually created.
@@ -71,6 +74,41 @@ func (m Mongo) ListCollectionNames() (collectionNames []string, err error) {
 	listOptions := options.ListCollectionsOptions{NameOnly: &nameOnly}
 
 	return m.Database.ListCollectionNames(context.TODO(), bson.M{}, &listOptions)
+}
+
+// CollectionExists determine whether a collection existed.
+func (m Mongo) CollectionExists(name string) (existed bool, err error) {
+	if err := m.checkDB(); err != nil {
+		return false, err
+	}
+
+	nameOnly := true
+	listOptions := options.ListCollectionsOptions{NameOnly: &nameOnly}
+	collections, err := m.Database.ListCollectionNames(context.TODO(), bson.M{}, &listOptions)
+	if err != nil {
+		return false, err
+	}
+
+	existed = false
+	for _, collection := range collections {
+		if collection == name {
+			existed = true
+			break
+		}
+	}
+
+	return
+}
+
+// CreateCollection create a new collection.
+func (m Mongo) CreateCollection(name string) error {
+	if err := m.checkDB(); err != nil {
+		return err
+	}
+	if m.sessionContext != nil {
+		return m.Database.CreateCollection(*m.sessionContext, name)
+	}
+	return m.Database.CreateCollection(context.TODO(), name)
 }
 
 // GetCollection get a collection by collectionName.
@@ -107,6 +145,9 @@ func (m Mongo) InsertOne(collectionName string, document interface{}) (*mongo.In
 		return nil, err
 	}
 
+	if m.sessionContext != nil {
+		return collection.InsertOne(*m.sessionContext, document)
+	}
 	return collection.InsertOne(context.TODO(), document)
 }
 
@@ -117,6 +158,9 @@ func (m Mongo) InsertMany(collectionName string, documents []interface{}) (*mong
 		return nil, err
 	}
 
+	if m.sessionContext != nil {
+		return collection.InsertMany(*m.sessionContext, documents)
+	}
 	return collection.InsertMany(context.TODO(), documents)
 }
 
@@ -188,6 +232,10 @@ func (m Mongo) UpdateOne(collectionName string, filter interface{}, update inter
 		return nil, err
 	}
 
+	if m.sessionContext != nil {
+		return collection.UpdateOne(*m.sessionContext, filter, update)
+	}
+
 	return collection.UpdateOne(context.TODO(), filter, update)
 }
 
@@ -196,6 +244,10 @@ func (m Mongo) UpdateMany(collectionName string, filter interface{}, update inte
 	collection, err := m.GetCollection(collectionName)
 	if err != nil {
 		return nil, err
+	}
+
+	if m.sessionContext != nil {
+		return collection.UpdateMany(*m.sessionContext, filter, update)
 	}
 
 	return collection.UpdateMany(context.TODO(), filter, update)
@@ -213,6 +265,10 @@ func (m Mongo) DeleteOne(collectionName string, filter interface{}) (*mongo.Dele
 		return nil, err
 	}
 
+	if m.sessionContext != nil {
+		return collection.DeleteOne(*m.sessionContext, filter)
+	}
+
 	return collection.DeleteOne(context.TODO(), filter)
 }
 
@@ -223,10 +279,35 @@ func (m Mongo) DeleteMany(collectionName string, filter interface{}) (*mongo.Del
 		return nil, err
 	}
 
+	if m.sessionContext != nil {
+		return collection.DeleteMany(*m.sessionContext, filter)
+	}
+
 	return collection.DeleteMany(context.TODO(), filter)
 }
 
 // DeleteAll delete all documents from the collection.
 func (m Mongo) DeleteAll(collectionName string) (*mongo.DeleteResult, error) {
 	return m.DeleteMany(collectionName, bson.M{})
+}
+
+// UseSession create a new session and you can use transactions in the callback functions.
+//
+// IMPORTANT: You cannot create new collection in a transaction,
+// and you should create the collection before the transaction start.
+func (m *Mongo) UseSession(fn func(sessionContext mongo.SessionContext) error) (err error) {
+	if err := m.checkDB(); err != nil {
+		return err
+	}
+	err = m.Client.UseSession(context.TODO(), func(sessionContext mongo.SessionContext) error {
+		m.sessionContext = &sessionContext
+		m.Database = m.Client.Database(m.DatabaseName)
+		return fn(sessionContext)
+	})
+	return err
+}
+
+// Disconnect closes sockets to the topology referenced by this Client.
+func (m *Mongo) Disconnect() error {
+	return m.Client.Disconnect(context.TODO())
 }

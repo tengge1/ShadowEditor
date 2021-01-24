@@ -19,10 +19,6 @@ secret_key = "Welcome ---------"            # secret_key is used to encrypt cred
 [upload]
 max_size = 1000000000                       # max upload file size
 
-[remote]
-enabled = false                             # enable remote edit
-web_socket_port = 5000                      # web socket server port
-
 [path]
 public_dir = "../build/public"              # The directory that contains index.html. 
                                             # Path `./public/Upload` need write authority.

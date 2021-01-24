@@ -7,8 +7,7 @@
     <title>Shadow Editor Viewer</title>
     <link rel="shortcut icon" href="favicon.ico">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <link href="assets/Cesium/Widgets/widgets.css" rel="stylesheet" />
-    <link href="build/ShadowEditor.css" rel="stylesheet" />
+    <link href="build/ShadowEditor.css" rel="stylesheet"/>
     <style>
         .player {
             position: absolute;
@@ -24,77 +23,76 @@
 </head>
 
 <body>
-    <div id="container" tabindex="10"></div>
-    <script src="assets/js/libs/react.js"></script>
-    <script src="assets/js/libs/react-dom.js"></script>
+<div id="container" tabindex="10"></div>
+<script src="assets/js/libs/react.js"></script>
+<script src="assets/js/libs/react-dom.js"></script>
 
-    <script src="assets/js/three.js"></script>
-    <script src="assets/js/libs/ammo.js"></script>
+<script src="assets/js/three.js"></script>
+<script src="assets/js/libs/ammo.js"></script>
 
-    <script src="assets/js/libs/jszip.min.js"></script>
-    <script src="assets/js/libs/inflate.min.js"></script>
-    <script src="assets/js/libs/gunzip.min.js"></script>
+<script src="assets/js/libs/jszip.min.js"></script>
+<script src="assets/js/libs/inflate.min.js"></script>
+<script src="assets/js/libs/gunzip.min.js"></script>
 
-    <script src="assets/js/libs/stats.min.js"></script>
-    <script src="assets/js/libs/SPE.js"></script>
-    <script src="assets/js/libs/VolumetricFire.js"></script>
+<script src="assets/js/libs/stats.min.js"></script>
+<script src="assets/js/libs/SPE.js"></script>
+<script src="assets/js/libs/VolumetricFire.js"></script>
 
-    <script src="assets/Cesium/Cesium.js"></script>
-    <script src="build/ShadowEditor.js"></script>
-    <script>
-        let app = null;
+<script src="build/ShadowEditor.js"></script>
+<script>
+    let app = null;
 
-        const getQueryString = name => {
-            var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
-            var r = window.location.search.substr(1).match(reg);
-            if (r != null) return unescape(r[2]);
-            return null;
-        };
+    const getQueryString = name => {
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+    };
 
-        const start = () => {
-            app = new Shadow.Player(document.querySelector('#container'), {
-                server: location.origin,
-                enableThrowBall: false,
+    const start = () => {
+        app = new Shadow.Player(document.querySelector('#container'), {
+            server: location.origin,
+            enableThrowBall: false,
+        });
+
+        let sceneID = getQueryString('sceneID');
+        let sceneFile = getQueryString('sceneFile');
+
+        // 发布场景自动把`<%SceneID%>`替换成真实场景ID，不再需要加`SceneID`或`SceneFile`参数
+        if (!sceneFile) {
+            sceneFile = '<%SceneID%>';
+        }
+
+        if (sceneID) { // 通过/api/Scene/Load?ID=sceneID获取场景数据
+            fetch(`${app.options.server}/api/Scene/Load?ID=${sceneID}`).then(response => {
+                if (response.ok) {
+                    response.json().then(json => {
+                        if (json.Code === 200) {
+                            app.start(JSON.stringify(json.Data));
+                        }
+                    });
+                }
             });
-
-            let sceneID = getQueryString('sceneID');
-            let sceneFile = getQueryString('sceneFile');
-
-            // 发布场景自动把`<%SceneID%>`替换成真实场景ID，不再需要加`SceneID`或`SceneFile`参数
-            if (!sceneFile) {
-                sceneFile = '<%SceneID%>';
-            }
-
-            if (sceneID) { // 通过/api/Scene/Load?ID=sceneID获取场景数据
-                fetch(`${app.options.server}/api/Scene/Load?ID=${sceneID}`).then(response => {
-                    if (response.ok) {
-                        response.json().then(json => {
-                            if (json.Code === 200) {
-                                app.start(JSON.stringify(json.Data));
-                            }
-                        });
-                    }
-                });
-            } else if (sceneFile) { // 通过/Scene/sceneID.txt获取场景数据（导出用）
-                fetch(`${app.options.server}/Scene/${sceneFile}.txt`).then(response => {
-                    if (response.ok) {
-                        response.json().then(json => {
-                            app.start(JSON.stringify(json));
-                        });
-                    }
-                });
-            } else {
-                alert('Lack sceneID or sceneFile query params, scene load failed.');
-            }
-        };
-
-        window.onload = function () {
-            Ammo().then(AmmoLib => {
-                window.Ammo = AmmoLib;
-                start();
+        } else if (sceneFile) { // 通过/Scene/sceneID.txt获取场景数据（导出用）
+            fetch(`${app.options.server}/Scene/${sceneFile}.txt`).then(response => {
+                if (response.ok) {
+                    response.json().then(json => {
+                        app.start(JSON.stringify(json));
+                    });
+                }
             });
-        };
-    </script>
+        } else {
+            alert('Lack sceneID or sceneFile query params, scene load failed.');
+        }
+    };
+
+    window.onload = function () {
+        Ammo().then(AmmoLib => {
+            window.Ammo = AmmoLib;
+            start();
+        });
+    };
+</script>
 </body>
 
 </html>

@@ -10,31 +10,22 @@
 [![image](https://travis-ci.org/tengge1/ShadowEditor.svg?branch=master)](https://travis-ci.org/github/tengge1/ShadowEditor)
 
 * 名称：Shadow Editor
-* 版本：v0.5.8 (开发中)
+* 版本：v0.6.0 (开发中)
 * 简介：基于Three.js、Go语言和MongoDB的跨平台的3D场景编辑器。
-* 源码：[GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | 文档：[Gitee](https://gitee.com/tengge1/ShadowEditor/wikis/pages) | 示例：[GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) | 视频：[微博](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) | 资源：[百度网盘](https://pan.baidu.com/s/1IxJVM6fFLoIAJG-GKHjVTA)
-* 技术栈：html、css、javascript、rollup、react.js、webgl、three.js、golang、mongodb、nodejs、electron、CesiumJS、Protocol Buffers。
+* 源码：[GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | 文档：[Gitee](https://gitee.com/tengge1/ShadowEditor/wikis/pages) | 示例：[GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) | 视频：[微博](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) | 资源：[百度网盘rfja](https://pan.baidu.com/s/1BYLPyHJuc2r0bS9Te3SRjA)
+* 技术栈：html、css、javascript、rollup、react.js、webgl、three.js、golang、mongodb、nodejs、electron、protocol buffers。
 * 如果对您有帮助，请[【捐赠】](https://gitee.com/tengge1/ShadowEditor)支持项目发展。谢谢！
 
 ![image](images/scene20200301.jpg)
 
-![image](images/scene20200705.jpg)
+## v0.6.0即将更新
 
-## v0.5.8即将发布
+## v0.5.10已经发布
 
-1. 三维GIS。（开发中）
-2. 修复Ubuntu和Mac上`npm start`无法正常运行bug。
-
-## v0.5.7发布
-
-* 发布日期：2020年8月9日
+* 发布日期：2020年10月17日
 * 更新日志：
 
-1. 三维GIS。（开发中）
-2. 当创建新场景或点击清空工具按钮时，自动清空距离测量工具。
-3. 删除分支 `origin/v0.4.6-csharp`。
-4. 使用CesiumJS代替WebWorldWind进行GIS编辑。
-5. Arcgis地形缓存服务。
+1. 移除所有GIS相关功能，以后不再在开源版本中提供GIS服务。
 
 ## 功能清单
 
@@ -104,55 +95,27 @@
     - [x] 距离测量
   - [ ] 其他功能
     - [ ] Bullet物理引擎
-    - [ ] 光线追踪渲染
+    - [ ] 光线追踪渲染、体素渲染
     - [ ] UV展开
     - [ ] 自动寻路
     - [ ] 批量渲染
     - [ ] 遮挡剔除
     - [ ] 分屏显示
-- [ ] GIS场景编辑
-  - [ ] 卫星图
-    - [x] 必应卫星图
-    - [ ] 谷歌卫星图
-    - [ ] 天地图卫星图
-  - [ ] 三维地形
-    - [ ] Arcgis地形
-    - [ ] 地形编辑
-  - [ ] 地物编辑
-    - [ ] 绘制点线面
-    - [ ] 图层编辑、样式编辑
-    - [ ] 管网编辑、小区编辑
-    - [ ] 数据查询
-  - [ ] 数据服务
-    - [ ] WMTS, WMS, MVT服务
-    - [ ] 为OpenLayers, mapbox gl js, cesiumjs提供数据支持
-  - [ ] 数据处理及导入
-    - [ ] OSM, sharp, dxf, excel, BIM, 点云, 倾斜摄影
-  - [ ] 分析
-    - [ ] 距离测量、面积测量、角度测量
-    - [ ] 透视分析、可视域分析、缓冲区分析、淹没分析
-    - [ ] 拓扑分析、连通性分析、爆管分析、横纵截面分析
-    - [ ] 地形开挖、剖面图、等高线、热力图
-  - [ ] 三维标绘、三维制图
-  - [ ] 其他工具
-    - [ ] 坐标系转换、数据纠偏
-      - [ ] wgs84、cgcs2000、北京54、西安80、gcj-02、bd-09
-      - [ ] 墨卡托投影、高斯投影
-      - [ ] 七参数转换、四参数转换
-    - [ ] 资源下载器、金字塔切片、模型重采样
 - [ ] 数据可视化
-  - [ ] 实时数据接入
-    - [ ] WebSocket数据
-    - [ ] Ajax数据
-  - [ ] UI
-    - [ ] Form
-      - [ ] 按钮、单选框、复选框、下拉列表
-    - [ ] 面板
-    - [ ] 表格
-  - [ ] 可视化图表
+  - [ ] 二维组件
+    - [ ] 面板、选项卡
+    - [ ] 按钮、单选框、复选框、下拉列表、滑块
+    - [ ] 数据表格
+  - [ ] 可视化组件
     - [ ] 柱状图
     - [ ] 饼状图
     - [ ] 折线图
+  - [ ] 可视化配置
+    - [ ] 布局管理器
+    - [ ] 数据源配置
+  - [ ] 实时数据
+    - [ ] Websocket数据
+    - [ ] Ajax数据
 
 ## 需求
 
@@ -372,14 +335,4 @@ https://github.com/mrdoob/texgen.js
 https://github.com/yomotsu/VolumetricFire  
 https://github.com/jonbretman/amd-to-as6  
 https://github.com/chandlerprall/ThreeCSG  
-
-https://github.com/mapbox/mapbox-gl-js  
-https://github.com/CesiumGS/cesium  
-https://github.com/NASAWorldWind/WebWorldWind  
-https://github.com/OSGeo/gdal  
-https://github.com/mapnik/mapnik  
-https://github.com/go-spatial/tegola  
-https://github.com/Turfjs/turf  
-https://github.com/mourner/rbush  
-
 </details>

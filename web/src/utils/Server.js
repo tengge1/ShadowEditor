@@ -76,7 +76,7 @@ class Server {
             fetch(`${this.origin}/api/Login/Login`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'global.application/x-www-form-urlencoded'
+                    'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 body: `Username=${username}&Password=${password}`
             }).then(response => {

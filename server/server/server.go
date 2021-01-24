@@ -42,15 +42,21 @@ func init() {
 func Start() {
 	log.Printf("starting shadoweditor server on port %v", Config.Server.Port)
 
-	// register custom mime-type
-	mime.AddExtensionType(".js", "application/javascript; charset=UTF-8")
+	// register custom mime-types
+	if err := mime.AddExtensionType(".css", "text/css"); err != nil {
+		log.Printf("add extension type failed: %v", err.Error())
+	}
+	if err := mime.AddExtensionType(".js", "application/javascript; charset=UTF-8"); err != nil {
+		log.Printf("add extension type failed: %v", err.Error())
+	}
 
 	recovery := negroni.NewRecovery()
 	logger := negroni.NewLogger()
 	static := negroni.NewStatic(http.Dir("public"))
 
-	handler := negroni.New(recovery, logger, static)
+	handler := negroni.New(recovery, logger)
 	handler.Use(negroni.HandlerFunc(CrossOriginMiddleware))
+	handler.Use(static)
 	handler.Use(negroni.HandlerFunc(GZipMiddleware))
 	handler.Use(negroni.HandlerFunc(ValidateTokenMiddleware))
 	handler.UseHandler(mux)

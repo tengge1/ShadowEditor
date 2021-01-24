@@ -41,6 +41,11 @@ function Player(container = document.body, options = {}) {
     this.options.enableThrowBall = false;
     this.options.showStats = this.options.showStats || false;
 
+    // 在播放器中
+    if (!global.app) {
+        global.app = this;
+    }
+
     this.dispatch = new dispatch(
         'init',
         'resize'

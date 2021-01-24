@@ -7,7 +7,7 @@
  * For more information, please visit: https://github.com/tengge1/ShadowEditor
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
-import { MenuItem, MenuItemSeparator } from '../../ui/index';
+import {MenuItem, MenuItemSeparator} from '../../ui/index';
 import Converter from '../../serialization/Converter';
 import Ajax from '../../utils/Ajax';
 import TimeUtils from '../../utils/TimeUtils';
@@ -17,7 +17,6 @@ import EmptySceneTemplate from './scene/EmptySceneTemplate';
 // import DistrictSceneTemplate from './scene/DistrictSceneTemplate';
 // import GISSceneTemplate from './scene/GISSceneTemplate';
 import global from '../../global';
-import GISApplication from '../../gis/GISApplication';
 
 /**
  * 场景菜单
@@ -29,7 +28,6 @@ class SceneMenu extends React.Component {
 
         this.handleCreateEmptyScene = this.handleCreateEmptyScene.bind(this);
         this.handleCreateDistrictAndIndoor = this.handleCreateDistrictAndIndoor.bind(this);
-        this.handleCreateGISScene = this.handleCreateGISScene.bind(this);
         this.handleSaveScene = this.handleSaveScene.bind(this);
         this.handleSaveAsScene = this.handleSaveAsScene.bind(this);
 
@@ -44,50 +42,47 @@ class SceneMenu extends React.Component {
     }
 
     render() {
-        const { enableAuthority, isLogin, authorities } = global.app.server;
+        const {enableAuthority, isLogin, authorities} = global.app.server;
 
         return <MenuItem title={_t('Scene')}>
             {!enableAuthority || isLogin ? <MenuItem title={_t('New')}>
                 <MenuItem title={_t('Empty Scene')}
-                    onClick={this.handleCreateEmptyScene}
+                          onClick={this.handleCreateEmptyScene}
                 />
                 <MenuItem title={_t('District (Test)')}
-                    onClick={this.handleCreateDistrictAndIndoor}
-                />
-                <MenuItem title={_t('GIS Scene (Test)')}
-                    onClick={this.handleCreateGISScene}
+                          onClick={this.handleCreateDistrictAndIndoor}
                 />
             </MenuItem> : null}
             {!enableAuthority || authorities.includes('SAVE_SCENE') ? <MenuItem title={_t('Save')}
-                onClick={this.handleSaveScene}
-                                                                      /> : null}
+                                                                                onClick={this.handleSaveScene}
+            /> : null}
             {!enableAuthority || authorities.includes('SAVE_SCENE') ? <MenuItem title={_t('Save As')}
-                onClick={this.handleSaveAsScene}
-                                                                      /> : null}
-            {!enableAuthority || authorities.includes('SAVE_SCENE') ? <MenuItemSeparator /> : null}
+                                                                                onClick={this.handleSaveAsScene}
+            /> : null}
+            {!enableAuthority || authorities.includes('SAVE_SCENE') ? <MenuItemSeparator/> : null}
             {!enableAuthority || isLogin ? <MenuItem title={_t('Export Scene')}>
                 <MenuItem title={_t('To JSON File')}
-                    onClick={this.handleExportSceneToJson}
+                          onClick={this.handleExportSceneToJson}
                 />
                 <MenuItem title={_t('To Collada File')}
-                    onClick={this.handleExportSceneToCollada}
+                          onClick={this.handleExportSceneToCollada}
                 />
                 <MenuItem title={_t('To GLTF File')}
-                    onClick={this.handleExportSceneToGltf}
+                          onClick={this.handleExportSceneToGltf}
                 />
                 <MenuItem title={_t('To OBJ File')}
-                    onClick={this.handleExportSceneToOBJ}
+                          onClick={this.handleExportSceneToOBJ}
                 />
                 <MenuItem title={_t('To PLY File')}
-                    onClick={this.handleExportSceneToPLY}
+                          onClick={this.handleExportSceneToPLY}
                 />
                 <MenuItem title={_t('To STL File')}
-                    onClick={this.handleExportSceneToSTL}
+                          onClick={this.handleExportSceneToSTL}
                 />
             </MenuItem> : null}
             {!enableAuthority || authorities.includes('PUBLISH_SCENE') ? <MenuItem title={_t('Publish Scene')}
-                onClick={this.handlePublishScene}
-                                                                         /> : null}
+                                                                                   onClick={this.handlePublishScene}
+            /> : null}
         </MenuItem>;
     }
 
@@ -174,24 +169,6 @@ class SceneMenu extends React.Component {
         });
     }
 
-    /**
-     * 新建GIS场景
-     */
-    handleCreateGISScene() {
-        if (global.app.editor.gis) {
-            global.app.editor.gis.stop();
-        }
-        global.app.options.sceneType = 'GIS';
-        global.app.editor.camera.userData.control = '';
-        global.app.call(`optionChange`, this, 'sceneType', 'GIS');
-        global.app.call(`sceneGraphChanged`, this);
-
-        setTimeout(() => {
-            var gis = new GISApplication();
-            gis.start();
-        });
-    }
-
     // --------------------------- 保存场景 ----------------------------------------
 
     handleSaveScene() { // 保存场景
@@ -268,7 +245,7 @@ class SceneMenu extends React.Component {
         var sceneName = global.app.editor.sceneName;
 
         if (!sceneName) {
-            sceneName = _t(`Scene{{Time}}`, { Time: TimeUtils.getDateTime() });
+            sceneName = _t(`Scene{{Time}}`, {Time: TimeUtils.getDateTime()});
         }
 
         return new Promise(resolve => {
