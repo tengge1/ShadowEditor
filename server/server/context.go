@@ -26,6 +26,8 @@ var (
 	// IMPORTANT: DO NOT use Logger.Fatal or Logger.Panic, it may cause the
 	// programs exit.
 	Logger *logrus.Logger
+	// MongoClients is a collection of mongo.
+	MongoClients map[string]*helper.Mongo
 )
 
 // Create create the server context, such as Config and Logger.
@@ -61,15 +63,31 @@ func Create(path string) error {
 }
 
 // Mongo create a new mongo client.
+// DO NOT call `db.Disconnect()` because of singleton.
 func Mongo() (*helper.Mongo, error) {
+	return MongoByName(Config.Database.Database)
+}
+
+// MongoByName create a new mongo client with name.
+// DO NOT call `db.Disconnect()` because of singleton.
+func MongoByName(name string) (*helper.Mongo, error) {
 	if Config == nil {
 		return nil, fmt.Errorf("config is not initialized")
 	}
-	mong, err := helper.NewMongo(Config.Database.Connection, Config.Database.Database)
+	if MongoClients == nil {
+		MongoClients = make(map[string]*helper.Mongo)
+	}
+	client, ok := MongoClients[name]
+	if ok {
+		return client, nil
+	}
+	var err error
+	client, err = helper.NewMongo(Config.Database.Connection, name)
 	if err != nil && Logger != nil {
 		Logger.Error(err)
 	}
-	return mong, err
+	MongoClients[name] = client
+	return client, err
 }
 
 // MapPath maps a relative path to a physical absolute path. The root path `/` means
