@@ -1,7 +1,7 @@
 # Shadow Editor Server Configuration
 
 [server]
-port = ":3030"                              # server address
+port = ":2020"                              # server address
 
 [database]
 type = "mongo"                              # only support mongo
@@ -9,7 +9,7 @@ host = "127.0.0.1"                          # mongo ip
 port = 27017                                # mongo port
 user = ""                                   # mongo username
 password = ""                               # mongo password
-database = "CgsEditor"                   # mongo database name
+database = "ShadowEditor"                   # mongo database name
 
 [authority]
 enabled = false                             # enable authority
@@ -25,4 +25,4 @@ public_dir = "./public"                     # The directory that contains index.
 log_dir = "./logs"                          # The directory that contains log files. Need write authority.
 
 [log]
-file = "./logs/CgsEditor.txt"
+file = "./logs/ShadowEditor.txt"
