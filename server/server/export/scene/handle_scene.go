@@ -271,10 +271,12 @@ func getURLInMaterial(material bson.M, urls *[]string) {
 	}
 
 	for _, material := range materials {
-		image := material["image"].(primitive.D).Map()
-		src := image["src"].(string)
-		if strings.HasPrefix(src, "/") {
-			*urls = append(*urls, src)
+		if val, ok := material["image"]; ok && val != nil {
+			image := val.(primitive.D).Map()
+			src := image["src"].(string)
+			if strings.HasPrefix(src, "/") {
+				*urls = append(*urls, src)
+			}
 		}
 	}
 }
