@@ -57,6 +57,9 @@ function Options(options = {}) {
 
     // 物理引擎
     this.enablePhysics = false; // 是否启用物理引擎
+
+    // VR
+    this.enableVR = false; // 是否启用VR
 }
 
 export default Options;

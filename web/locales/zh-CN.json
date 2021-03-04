@@ -1027,5 +1027,6 @@
     "An auto-save scene was detected. Load?": "检测到有自动保存的场景。是否加载？",
     "Auto-save scene is cleared.": "自动保存场景已被清空。",
     "WebGL Extensions": "WebGL扩展",
-    "Clear tools successfully": "清空工具成功"
+    "Clear tools successfully": "清空工具成功",
+    "VR": "虚拟现实"
 }

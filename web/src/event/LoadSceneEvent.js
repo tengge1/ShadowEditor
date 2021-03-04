@@ -176,7 +176,7 @@ LoadSceneEvent.prototype.onLoadScene = function (obj) {
     // global.app.editor.visual.clear();
     // }
     // global.app.editor.visual.render(global.app.editor.svg);
-
+    global.app.call('enableVR', this, global.app.options.enableVR);
     global.app.call('sceneLoaded', this);
     global.app.call('animationChanged', this);
 };

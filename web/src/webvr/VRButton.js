@@ -168,4 +168,4 @@ var VRButton = {
 
 };
 
-export { VRButton };
+export default VRButton;

@@ -12,6 +12,7 @@ import ScriptEditorPanel from './ScriptEditorPanel.jsx';
 import Player from '../../player/Player';
 import VisualDOM from '../../visual/VisualDOM.jsx';
 import global from '../../global';
+import VRButton from '../../webvr/VRButton';
 
 /**
  * 视口
@@ -27,13 +28,15 @@ class Viewport extends React.Component {
         this.svgRef = React.createRef();
         this.playerRef = React.createRef();
 
+        this.handleAppStarted = this.handleAppStarted.bind(this);
         this.handleOptionChanged = this.handleOptionChanged.bind(this);
+        this.handleEnableVR = this.handleEnableVR.bind(this);
     }
 
     render() {
         return <div className={'Viewport'}
             ref={this.viewportRef}
-               >
+        >
             <div className={'editor'}
                 ref={this.editorRef}
                 tabIndex={0}
@@ -87,7 +90,13 @@ class Viewport extends React.Component {
             showStats: false
         });
 
+        global.app.on(`appStarted`, this.handleAppStarted);
         global.app.on(`optionChange.Viewport`, this.handleOptionChanged);
+        global.app.on(`enableVR.Viewport`, this.handleEnableVR);
+    }
+
+    handleAppStarted() {
+        this.handleEnableVR(global.app.options.enableVR);
     }
 
     handleOptionChanged(key, value) {
@@ -100,6 +109,22 @@ class Viewport extends React.Component {
         } else { // Empty
             this.cesiumRef.current.style.display = 'none';
             this.editorRef.current.style.display = 'block';
+        }
+    }
+
+    handleEnableVR(enabled) {
+        let renderer = global.app.editor.renderer;
+
+        if (enabled) {
+            if (!this.vrButton) {
+                this.vrButton = VRButton.createButton(renderer);
+            }
+            this.editorRef.current.appendChild(this.vrButton);
+        } else {
+            if (this.vrButton) {
+                this.editorRef.current.removeChild(this.vrButton);
+                delete this.vrButton;
+            }
         }
     }
 }

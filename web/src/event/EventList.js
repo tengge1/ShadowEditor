@@ -126,7 +126,8 @@ var EventList = [
     'selectParticle', // 选择粒子
 
     // 状态栏事件
-    'enableThrowBall' // 是否允许扔小球
+    'enableThrowBall', // 是否允许扔小球
+    'enableVR' // 是否启用VR
 ];
 
 export default EventList;

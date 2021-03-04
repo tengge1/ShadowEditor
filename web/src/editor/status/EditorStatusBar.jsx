@@ -24,17 +24,20 @@ class EditorStatusBar extends React.Component {
             y: 0,
             objects: 0,
             vertices: 0,
-            triangles: 0
+            triangles: 0,
+            vr: global.app.options.enableVR
         };
 
         this.handleUpdateMousePosition = this.handleUpdateMousePosition.bind(this);
         this.handleUpdateSceneInfo = this.handleUpdateSceneInfo.bind(this);
 
         this.handleAutoSaveChange = this.handleAutoSaveChange.bind(this);
+        this.handleVRChange = this.handleVRChange.bind(this);
+        this.handleSceneLoaded = this.handleSceneLoaded.bind(this);
     }
 
     render() {
-        const { x, y, objects, vertices, triangles } = this.state;
+        const { x, y, objects, vertices, triangles, vr } = this.state;
 
         const autoSave = global.app.storage.autoSave;
 
@@ -63,6 +66,12 @@ class EditorStatusBar extends React.Component {
                 onChange={this.handleAutoSaveChange}
             />
             <ToolbarSeparator />
+            <Label>{_t('VR')}</Label>
+            <CheckBox name={'vr'}
+                checked={vr}
+                onChange={this.handleVRChange}
+            />
+            <ToolbarSeparator />
         </Toolbar>;
     }
 
@@ -71,6 +80,7 @@ class EditorStatusBar extends React.Component {
         global.app.on(`objectAdded.EditorStatusBar`, this.handleUpdateSceneInfo);
         global.app.on(`objectRemoved.EditorStatusBar`, this.handleUpdateSceneInfo);
         global.app.on(`geometryChanged.EditorStatusBar`, this.handleUpdateSceneInfo);
+        global.app.on(`sceneLoaded.EditorStatusBar`, this.handleSceneLoaded);
     }
 
     handleUpdateMousePosition(event) {
@@ -132,6 +142,20 @@ class EditorStatusBar extends React.Component {
         global.app.storage.autoSave = value;
         this.forceUpdate();
         global.app.call('storageChanged', this, name, value);
+    }
+
+    handleVRChange(value, name) {
+        global.app.options.enableVR = value;
+        global.app.call('enableVR', this, value);
+        this.setState({
+            vr: value
+        });
+    }
+
+    handleSceneLoaded() {
+        this.setState({
+            vr: global.app.options.enableVR
+        });
     }
 }
 
