@@ -17,6 +17,7 @@ import PlayerAudio from './component/PlayerAudio';
 import PlayerRenderer from './component/PlayerRenderer';
 import PlayerAnimation from './component/PlayerAnimation';
 import PlayerPhysics from './component/PlayerPhysics';
+import WebVR from './component/WebVR';
 import CssUtils from '../utils/CssUtils';
 // import Globe from '../gis/Globe';
 // import Visualization from '../visual/Visualization';
@@ -32,7 +33,7 @@ import global from '../global';
  * @param {Boolean} options.enableThrowBall 是否允许扔小球进行物理测试
  * @param {Boolean} options.showStats 是否显示性能控件
  */
-function Player(container = document.body, options = {}) {
+function Player (container = document.body, options = {}) {
     this.container = container;
     this.options = options;
 
@@ -92,6 +93,7 @@ function Player(container = document.body, options = {}) {
     this.playerRenderer = new PlayerRenderer(this);
     this.animation = new PlayerAnimation(this);
     this.physics = new PlayerPhysics(this);
+    this.webvr = new WebVR(this);
 
     this.isPlaying = false;
     this.clock = new THREE.Clock(false);
@@ -144,8 +146,9 @@ Player.prototype.start = function (sceneData) {
         var promise4 = this.playerRenderer.create(this.scene, this.camera, this.renderer);
         var promise5 = this.animation.create(this.scene, this.camera, this.renderer, obj.animations);
         var promise6 = this.physics.create(this.scene, this.camera, this.renderer);
+        var promise7 = this.webvr.create(this.scene, this.camera, this.renderer);
 
-        Promise.all([promise1, promise2, promise3, promise4, promise5, promise6]).then(() => {
+        Promise.all([promise1, promise2, promise3, promise4, promise5, promise6, promise7]).then(() => {
             this.event.init();
             this.clock.start();
             this.event.start();
@@ -171,6 +174,7 @@ Player.prototype.stop = function () {
     this.audio.dispose();
     this.animation.dispose();
     this.physics.dispose();
+    this.webvr.dispose();
 
     // if (this.gis) {
     //     this.gis.dispose();
@@ -200,6 +204,7 @@ Player.prototype.initPlayer = function (obj) {
 
     // options
     this.options.enablePhysics = obj.options.enablePhysics;
+    this.options.enableVR = obj.options.enableVR;
 
     // camera
     this.camera = obj.camera;
