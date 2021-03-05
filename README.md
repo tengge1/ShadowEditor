@@ -22,6 +22,7 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
 ## v0.6.0 is Coming Soon
 
 1. Fix the bug that creates a new mongo connection when request.
+2. Check VR in the status bar to enable VR.
 
 ## v0.5.10 has Released
 

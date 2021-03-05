@@ -14,7 +14,7 @@ import VRButton from '../../webvr/VRButton';
  * 虚拟现实
  * @param {*} app 播放器
  */
-function WebVR (app) {
+function WebVR(app) {
     PlayerComponent.call(this, app);
 }
 
