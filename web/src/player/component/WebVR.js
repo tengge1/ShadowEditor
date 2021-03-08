@@ -28,6 +28,7 @@ WebVR.prototype.create = function (scene, camera, renderer) {
     if (!this.vrButton) {
         this.vrButton = VRButton.createButton(renderer);
     }
+    renderer.xr.enabled = true;
     this.app.container.appendChild(this.vrButton);
 };
 

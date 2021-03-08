@@ -33,7 +33,7 @@ import global from '../global';
  * @param {Boolean} options.enableThrowBall 是否允许扔小球进行物理测试
  * @param {Boolean} options.showStats 是否显示性能控件
  */
-function Player (container = document.body, options = {}) {
+function Player(container = document.body, options = {}) {
     this.container = container;
     this.options = options;
 
@@ -152,7 +152,7 @@ Player.prototype.start = function (sceneData) {
             this.event.init();
             this.clock.start();
             this.event.start();
-            requestAnimationFrame(this.animate.bind(this));
+            this.renderer.setAnimationLoop(this.animate.bind(this));
         });
     });
 };
@@ -165,6 +165,7 @@ Player.prototype.stop = function () {
         return;
     }
     this.isPlaying = false;
+    this.renderer.setAnimationLoop(null);
 
     this.event.stop();
 
@@ -279,8 +280,6 @@ Player.prototype.animate = function () {
     if (this.stats) {
         this.stats.end();
     }
-
-    requestAnimationFrame(this.animate.bind(this));
 };
 
 Player.prototype.resize = function () {

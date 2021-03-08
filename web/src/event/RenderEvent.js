@@ -24,6 +24,7 @@ function RenderEvent() {
 
     this.render = this.render.bind(this);
     this.createRenderer = this.createRenderer.bind(this);
+    this.handleAppStarted = this.handleAppStarted.bind(this);
     this.onViewChanged = this.onViewChanged.bind(this);
 }
 
@@ -32,7 +33,7 @@ RenderEvent.prototype.constructor = RenderEvent;
 
 RenderEvent.prototype.start = function () {
     this.running = true;
-    global.app.on(`appStarted.${this.id}`, this.render);
+    global.app.on(`appStarted.${this.id}`, this.handleAppStarted);
     global.app.on(`viewChanged.${this.id}`, this.onViewChanged);
 };
 
@@ -42,8 +43,16 @@ RenderEvent.prototype.stop = function () {
     global.app.on(`viewChanged.${this.id}`, null);
 };
 
+RenderEvent.prototype.handleAppStarted = function () {
+    global.app.editor.renderer.setAnimationLoop(this.render);
+};
+
 RenderEvent.prototype.render = function () {
     if (global.app.options.sceneType === 'GIS') {
+        return;
+    }
+
+    if (!this.running) {
         return;
     }
 
@@ -78,10 +87,6 @@ RenderEvent.prototype.render = function () {
     global.app.call('afterRender', this, this.clock, deltaTime);
 
     global.app.stats.end();
-
-    if (this.running) {
-        requestAnimationFrame(this.render);
-    }
 };
 
 RenderEvent.prototype.createRenderer = function () {
