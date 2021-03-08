@@ -30,6 +30,14 @@ WebVR.prototype.create = function (scene, camera, renderer) {
     }
     renderer.xr.enabled = true;
     this.app.container.appendChild(this.vrButton);
+
+    // var position = camera.position.clone();
+    // var vrCamera = renderer.xr.getCamera(camera);
+    // vrCamera.position.copy(position);
+
+    var controller = renderer.xr.getController(0);
+    controller.matrix.copy(camera.matrix);
+    scene.add(controller);
 };
 
 WebVR.prototype.dispose = function () {

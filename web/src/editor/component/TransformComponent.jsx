@@ -125,7 +125,7 @@ class TransformComponent extends React.Component {
     handleUpdate() {
         const editor = global.app.editor;
 
-        if (!editor.selected || editor.selected === global.app.editor.scene || editor.selected.isGlobe) {
+        if (!editor.selected || editor.selected.isGlobe) {
             this.setState({
                 show: false
             });
