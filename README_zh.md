@@ -18,10 +18,13 @@
 
 ![image](images/scene20200301.jpg)
 
+![image](images/vr.jpg)
+
 ## v0.6.0即将更新
 
 1. 修复请求时创建新mongo连接的bug。
 2. 状态栏勾选虚拟现实，启用VR功能。
+3. 设置场景位移。
 
 ## v0.5.10已经发布
 

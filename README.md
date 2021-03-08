@@ -18,11 +18,13 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
 * If helpful to you, please [DOnate](https://gitee.com/tengge1/ShadowEditor) to support us. thank you!
 
 <img src="https://gitee.com/tengge1/ShadowEditor/raw/master/images/scene20200503_en.jpg" />  
+<img src="https://gitee.com/tengge1/ShadowEditor/raw/master/images/vr.jpg" />  
 
 ## v0.6.0 is Coming Soon
 
 1. Fix the bug that creates a new mongo connection when request.
 2. Check VR in the status bar to enable VR.
+3. Set scene transform.
 
 ## v0.5.10 has Released
 
