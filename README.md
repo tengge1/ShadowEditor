@@ -25,6 +25,7 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
 1. Fix the bug that creates a new mongo connection when request.
 2. Check VR in the status bar to enable VR.
 3. Set scene transform.
+4. How to popup a window when click an object: https://gitee.com/tengge1/ShadowEditor/issues/I3APGI
 
 ## v0.5.10 has Released
 
