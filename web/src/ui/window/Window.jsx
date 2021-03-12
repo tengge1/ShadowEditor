@@ -34,7 +34,7 @@ class Window extends React.Component {
     }
 
     render() {
-        const { className, style, title, children, hidden, mask } = this.props;
+        const { className, style, title, children, padding, hidden, mask } = this.props;
 
         let _children = null;
 
@@ -53,7 +53,7 @@ class Window extends React.Component {
         })[0];
 
         return <div className={classNames('WindowMask', mask && 'mask', hidden && 'hidden')}>
-            <div className={classNames('Window', className)}
+            <div className={classNames('Window', !padding && "no-padding", className)}
                 style={style}
                 ref={this.dom}
             >
@@ -133,6 +133,7 @@ Window.propTypes = {
     style: PropTypes.object,
     title: PropTypes.string,
     children: PropTypes.node,
+    padding: PropTypes.bool,
     hidden: PropTypes.bool,
     mask: PropTypes.bool,
     onClose: PropTypes.func
@@ -143,6 +144,7 @@ Window.defaultProps = {
     style: null,
     title: 'Window',
     children: null,
+    padding: true,
     hidden: false,
     mask: true,
     onClose: null

@@ -82,6 +82,13 @@
     overflow: hidden;
 }
 
+.Window.no-padding>.wrap>.content {
+    left: 0;
+    right: 0;
+    top: 24px;
+    bottom: 32px;
+}
+
 .Window>.wrap>.buttons {
     position: absolute;
     left: 0;
