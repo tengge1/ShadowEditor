@@ -17,7 +17,7 @@ function Options(options = {}) {
     this.server = options.server === undefined ? location.origin : options.server; // 服务端地址
 
     if (!this.server.startsWith('http') && this.server !== '.') {
-        this.server = `http://${this.server}`;
+        this.server = `//${this.server}`;
     }
 
     this.sceneType = options.sceneType === undefined ? 'Empty' : options.sceneType; // 场景类型：Empty, GIS
