@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <title>Web XR</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+</head>
+
+<body>
+    <script>
+        const modes = ['inline', 'immersive-vr', 'immersive-ar'];
+        modes.forEach(mode => {
+            navigator.xr.isSessionSupported(mode).then(result => {
+                console.log(`${mode} supported: ${result}`);
+            });
+        });
+    </script>
+</body>
+
+</html>
