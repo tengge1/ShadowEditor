@@ -34,7 +34,7 @@ func GetCurrentUser(r *http.Request) (*system.User, error) {
 	if cookie != nil {
 		token, err := jwt.Parse(cookie.Value, func(token *jwt.Token) (interface{}, error) {
 			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-				return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
+				return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 			}
 			return []byte(Config.Authority.SecretKey), nil
 		})
