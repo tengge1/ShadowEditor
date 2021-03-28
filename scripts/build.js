@@ -49,6 +49,8 @@ async function main() {
     }
     console.log('copy config.toml to the build directory');
     fs.copyFileSync('config.toml', '../build/config.toml');
+    console.log('copy certificate to the build directory');
+    fs.copySync('../utils/certificate/', '../build/certificate/');
     console.log(`leave ${serverDir}`);
     process.chdir(rootDir);
 

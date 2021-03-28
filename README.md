@@ -26,6 +26,7 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
 2. Check VR in the status bar to enable VR.
 3. Set scene transform.
 4. How to popup a window when click an object: https://gitee.com/tengge1/ShadowEditor/issues/I3APGI
+5. You can enable `https` in the `config.toml`.
 
 ## v0.5.10 has Released
 
@@ -160,7 +161,8 @@ git clone https://gitee.com/tengge1/ShadowEditor.git
 2. Run `npm install` to install nodejs dependencies.
 3. Run `npm run build` to build the server and web.
 4. Edit `build/config.toml`, and modify the mongodb host and port.
-5. Run `npm run start` to launch the server. You can now visit: `http://localhost:2020`.
+5. Run `npm start` to launch the server. You can now visit: `http://localhost:2020`.
+6. If you enable `https` in the config file. Please visit: `https://localhost:2020`.
 
 **Desktop Version:**
 
@@ -288,6 +290,18 @@ The data structure and web client is not changed, just copy `./ShadowEditor.Web/
 
 Windows requires `Visual C++ Redistributable for Visual Studio 2015`. You can install from: https://www.microsoft.com/en-us/download/details.aspx?id=48145  
 If the desktop version cannot be opened, you can view `logs.txt`; if the port conflicts, you can modify the MongoDB and website ports in `resources/app/config.toml`.  
+
+7. How can I create a https certificate?
+
+Install `openssl`, and git client already contains one; Open `cmd`, `Powershell` or `shell`, and run the following commands:
+
+```sh
+openssl genrsa -out privatekey.pem 1024
+openssl req -new -key privatekey.pem -out certrequest.csr
+openssl x509 -req -in certrequest.csr -signkey privatekey.pem -out certificate.pem
+```
+
+Among the generated files, `certificate.pem` is the certificate, and `privatekey.pem` is the key.
 
 </details>
 

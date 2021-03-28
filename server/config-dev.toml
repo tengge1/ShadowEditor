@@ -2,6 +2,9 @@
 
 [server]
 port = ":2020"                              # server address
+https = false                               # whether enable https
+certPath = "./certificate/certificate.pem"  # The certificate path
+keyPath = "./certificate/privatekey.pem"    # The key path
 
 [database]
 type = "mongo"                              # only support mongo

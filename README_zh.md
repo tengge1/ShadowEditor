@@ -26,6 +26,7 @@
 2. 状态栏勾选虚拟现实，启用VR功能。
 3. 设置场景位移。
 4. 点击物体时，怎么弹出窗口：https://gitee.com/tengge1/ShadowEditor/issues/I3APGI
+5. 你可以在`config.toml`中启用`https`。
 
 ## v0.5.10已经发布
 
@@ -160,7 +161,8 @@ git clone https://gitee.com/tengge1/ShadowEditor.git
 2. 执行`npm install`安装nodejs依赖。
 3. 执行`npm run build`构建服务端和Web端。
 4. 编辑`build/config.toml`，修改MongoDB的host和port设置。
-5. 执行`npm run start`启动服务端。现在你可以访问：`http://localhost:2020`。
+5. 执行`npm start`启动服务端。现在你可以访问：`http://localhost:2020`。
+6. 如果在配置文件中启用了`https`，请访问：`https://localhost:2020`。
 
 **桌面版：**
 
@@ -284,6 +286,18 @@ ShadowEditor是一个为用户和开发者而生的项目。在这个项目上�
 
 说明：Windows需要`Visual C++ Redistributable for Visual Studio 2015`。你可以从这安装：https://www.microsoft.com/en-us/download/details.aspx?id=48145  
 说明：如果桌面版打不开，可以查看`logs.txt`；如果端口冲突，可以修改`resources/app/config.toml`中的MongoDB和网站端口。  
+
+7. 如何创建一个https证书？
+
+安装`openssl`，git客户端已经自带一个。打开`cmd`、`Powershell`或`shell`，运行以下命令：
+
+```sh
+openssl genrsa -out privatekey.pem 1024
+openssl req -new -key privatekey.pem -out certrequest.csr
+openssl x509 -req -in certrequest.csr -signkey privatekey.pem -out certificate.pem
+```
+
+在生成的文件中，`certificate.pem`是证书，`privatekey.pem`是密钥。
 
 </details>
 

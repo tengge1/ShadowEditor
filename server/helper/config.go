@@ -70,7 +70,10 @@ type ConfigModel struct {
 
 // ServerConfigModel is the server config section in `config.toml`.
 type ServerConfigModel struct {
-	Port string `toml:"port"`
+	Port         string `toml:"port"`
+	HttpsEnabled bool   `toml:"https"`
+	CertPath     string `toml:"certPath"`
+	KeyPath      string `toml:"keyPath"`
 }
 
 // DatabaseConfigModel is the database config section in `config.toml`.

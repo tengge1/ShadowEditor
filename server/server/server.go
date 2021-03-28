@@ -77,9 +77,17 @@ func Start() {
 		close(idleConnsClosed)
 	}()
 
-	if err := srv.ListenAndServe(); err != http.ErrServerClosed {
-		// Error starting or closing listener:
-		log.Printf("HTTP server ListenAndServe: %v", err)
+	if Config.Server.HttpsEnabled {
+		certPath, keyPath := Config.Server.CertPath, Config.Server.KeyPath
+		if err := srv.ListenAndServeTLS(certPath, keyPath); err != http.ErrServerClosed {
+			// Error starting or closing listener:
+			log.Printf("HTTPS server ListenAndServe: %v", err)
+		}
+	} else {
+		if err := srv.ListenAndServe(); err != http.ErrServerClosed {
+			// Error starting or closing listener:
+			log.Printf("HTTP server ListenAndServe: %v", err)
+		}
 	}
 
 	<-idleConnsClosed
