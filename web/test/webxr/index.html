@@ -9,13 +9,70 @@
 </head>
 
 <body>
+    <ul id="ulModes"></ul><br />
+    <select id="selMode"></select><br />
+    <button id="btnEnterXR">Enter XR</button>
     <script>
+        const ulModes = document.querySelector('#ulModes');
+        const selMode = document.querySelector('#selMode');
+        const btnEnterXR = document.querySelector('#btnEnterXR');
+
+        // 1. test whether xr is supported
         const modes = ['inline', 'immersive-vr', 'immersive-ar'];
         modes.forEach(mode => {
             navigator.xr.isSessionSupported(mode).then(result => {
-                console.log(`${mode} supported: ${result}`);
+                const li = document.createElement('li');
+                li.innerHTML = `${mode} supported: ${result}`;
+                ulModes.appendChild(li);
             });
         });
+
+        // 2. enter xr
+        modes.forEach(mode => {
+            const option = document.createElement('option');
+            if (mode === 'immersive-vr') {
+                option.setAttribute('selected', 'selected');
+            }
+            option.innerHTML = mode;
+            selMode.appendChild(option);
+        });
+
+        let xrSession;
+
+        function renderFrame(time, xrFrame) {
+            if (xrFrame) {
+                debugger
+            }
+        }
+
+        function onXRAnimationFrame(time, xrFrame) {
+            xrSession.requestAnimationFrame(renderFrame);
+        }
+
+        function onWindowAnimationFrame(time) {
+            window.requestAnimationFrame(onWindowAnimationFrame);
+            if (!xrSession) {
+                renderFrame(time, null);
+            }
+        }
+
+        function onXRSessionEnded() {
+            xrSession = null;
+            console.log('xrSession is ended');
+        }
+
+        function enterXR() {
+            const mode = modes[selMode.selectedIndex];
+            navigator.xr.requestSession(mode).then(result => {
+                console.log(`Enter ${mode}`);
+                xrSession = result;
+                xrSession.addEventListener('end', onXRSessionEnded);
+                xrSession.requestAnimationFrame(onXRAnimationFrame);
+            });
+        }
+
+        btnEnterXR.addEventListener('click', enterXR);
+        window.requestAnimationFrame(onWindowAnimationFrame);
     </script>
 </body>
 
