@@ -63,7 +63,11 @@
 
         function enterXR() {
             const mode = modes[selMode.selectedIndex];
-            navigator.xr.requestSession(mode).then(result => {
+            navigator.xr.requestSession(mode, {
+                // requiredFeatures: ["local"],
+                // optionalFeatures: ["dom-overlay"],
+                // domOverlay: { root: document.body },
+            }).then(result => {
                 console.log(`Enter ${mode}`);
                 xrSession = result;
                 xrSession.addEventListener('end', onXRSessionEnded);
