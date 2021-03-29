@@ -60,6 +60,14 @@ function Options(options = {}) {
 
     // VR
     this.enableVR = false; // 是否启用VR
+    this.vrSetting = {
+        cameraPosX: 0,
+        cameraPosY: 0,
+        cameraPosZ: 0,
+        cameraRotateX: 0,
+        cameraRotateY: 0,
+        cameraRotateZ: 0
+    };
 }
 
 export default Options;

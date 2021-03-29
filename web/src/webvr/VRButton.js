@@ -5,7 +5,7 @@
 
 var VRButton = {
 
-	createButton: function (renderer, options) {
+	createButton: function (renderer, options = {}) {
 
 		if (options && options.referenceSpaceType) {
 
@@ -26,6 +26,10 @@ var VRButton = {
 
 				currentSession = session;
 
+				if (options.onSessionStarted) {
+					options.onSessionStarted();
+				}
+
 			}
 
 			function onSessionEnded( /*event*/) {
@@ -35,6 +39,10 @@ var VRButton = {
 				button.textContent = 'ENTER VR';
 
 				currentSession = null;
+
+				if (options.onSessionEnded) {
+					options.onSessionEnded();
+				}
 
 			}
 

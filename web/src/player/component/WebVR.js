@@ -16,6 +16,9 @@ import VRButton from '../../webvr/VRButton';
  */
 function WebVR(app) {
     PlayerComponent.call(this, app);
+
+    this.handleSessionStarted = this.handleSessionStarted.bind(this);
+    this.handleSessionEnded = this.handleSessionEnded.bind(this);
 }
 
 WebVR.prototype = Object.create(PlayerComponent.prototype);
@@ -26,18 +29,30 @@ WebVR.prototype.create = function (scene, camera, renderer) {
         return;
     }
     if (!this.vrButton) {
-        this.vrButton = VRButton.createButton(renderer);
+        this.vrButton = VRButton.createButton(renderer, {
+            onSessionStarted: this.handleSessionStarted,
+            onSessionEnded: this.handleSessionEnded
+        });
     }
     renderer.xr.enabled = true;
     this.app.container.appendChild(this.vrButton);
 
-    // var position = camera.position.clone();
-    // var vrCamera = renderer.xr.getCamera(camera);
-    // vrCamera.position.copy(position);
-
     var controller = renderer.xr.getController(0);
     controller.matrix.copy(camera.matrix);
     scene.add(controller);
+};
+
+WebVR.prototype.handleSessionStarted = function () {
+    var setting = this.app.options.vrSetting;
+    var vrCamera = this.app.renderer.xr.getCamera(this.app.camera);
+    vrCamera.position.set(setting.cameraPosX, setting.cameraPosY, setting.cameraPosZ);
+    vrCamera.cameras.forEach(camera => {
+        camera.position.copy(vrCamera.position);
+    });
+};
+
+WebVR.prototype.handleSessionEnded = function () {
+
 };
 
 WebVR.prototype.dispose = function () {

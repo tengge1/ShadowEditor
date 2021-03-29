@@ -206,6 +206,7 @@ Player.prototype.initPlayer = function (obj) {
     // options
     this.options.enablePhysics = obj.options.enablePhysics;
     this.options.enableVR = obj.options.enableVR;
+    this.options.vrSetting = obj.options.vrSetting;
 
     // camera
     this.camera = obj.camera;

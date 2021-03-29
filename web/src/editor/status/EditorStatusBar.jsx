@@ -8,7 +8,8 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import './css/EditorStatusBar.css';
-import { Toolbar, ToolbarSeparator, Label, CheckBox } from '../../ui/index';
+import { Toolbar, ToolbarSeparator, Label, CheckBox, IconButton } from '../../ui/index';
+import VRSettingWindow from './window/VRSettingWindow.jsx';
 import global from '../../global';
 
 /**
@@ -33,6 +34,7 @@ class EditorStatusBar extends React.Component {
 
         this.handleAutoSaveChange = this.handleAutoSaveChange.bind(this);
         this.handleVRChange = this.handleVRChange.bind(this);
+        this.handleVRSetting = this.handleVRSetting.bind(this);
         this.handleSceneLoaded = this.handleSceneLoaded.bind(this);
     }
 
@@ -71,6 +73,7 @@ class EditorStatusBar extends React.Component {
                 checked={vr}
                 onChange={this.handleVRChange}
             />
+            <IconButton className={'vr-setting'} icon={'setting'} onClick={this.handleVRSetting} />
             <ToolbarSeparator />
         </Toolbar>;
     }
@@ -150,6 +153,11 @@ class EditorStatusBar extends React.Component {
         this.setState({
             vr: value
         });
+    }
+
+    handleVRSetting() {
+        const win = global.app.createElement(VRSettingWindow);
+        global.app.addElement(win);
     }
 
     handleSceneLoaded() {
