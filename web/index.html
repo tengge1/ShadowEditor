@@ -9,34 +9,36 @@
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="manifest" href="manifest.json">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <link href="build/ShadowEditor.css" rel="stylesheet"/>
+    <link href="build/ShadowEditor.css" rel="stylesheet" />
 </head>
 
 <body>
-<div id="container" tabindex="10"></div>
-<script src="assets/js/libs/react.js"></script>
-<script src="assets/js/libs/react-dom.js"></script>
+    <div id="container" tabindex="10"></div>
+    <script src="assets/js/libs/react.js"></script>
+    <script src="assets/js/libs/react-dom.js"></script>
 
-<script src="assets/js/three.js"></script>
-<script src="assets/js/libs/ammo.js"></script>
+    <script src="assets/js/three.js"></script>
+    <script src="assets/js/libs/ammo.js"></script>
 
-<script src="assets/js/libs/jszip.min.js"></script>
-<script src="assets/js/libs/inflate.min.js"></script>
-<script src="assets/js/libs/gunzip.min.js"></script>
+    <script src="assets/js/libs/jszip.min.js"></script>
+    <script src="assets/js/libs/inflate.min.js"></script>
+    <script src="assets/js/libs/gunzip.min.js"></script>
 
-<script src="assets/js/libs/stats.min.js"></script>
-<script src="assets/js/libs/SPE.js"></script>
-<script src="assets/js/libs/VolumetricFire.js"></script>
+    <script src="assets/js/libs/stats.min.js"></script>
+    <script src="assets/js/libs/SPE.js"></script>
+    <script src="assets/js/libs/VolumetricFire.js"></script>
 
-<script src="build/ShadowEditor.js"></script>
-<script>
-    let app = null;
-    window.onload = function () {
-        app = new Shadow.Application(document.getElementById('container'), {
-            server: location.origin,
-            enableCache: true // whether to fetch satellite and terrain tile from server.
-        });
-    };
+    <script src="assets/js/vr/webxr-polyfill.js"></script>
+
+    <script src="build/ShadowEditor.js"></script>
+    <script>
+        let app = null;
+        window.onload = function () {
+            app = new Shadow.Application(document.getElementById('container'), {
+                server: location.origin,
+                enableCache: true // whether to fetch satellite and terrain tile from server.
+            });
+        };
 
     // ServiceWorker
     // if ('serviceWorker' in navigator) {
@@ -46,7 +48,7 @@
 
     //     }
     // }
-</script>
+    </script>
 </body>
 
 </html>
