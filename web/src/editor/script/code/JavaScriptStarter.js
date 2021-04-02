@@ -73,6 +73,21 @@ function onMouseWheel(event) {
 
 }
 
+// ${_t('Listen to touchstart event')}
+function onTouchStart(event) {
+
+}
+
+// ${_t('Listen to touchend event')}
+function onTouchEnd(event) {
+
+}
+
+// ${_t('Listen to touchmove event')}
+function onTouchMove(event) {
+
+}
+
 // ${_t('Listen to resize event')}
 function onResize(event) {
 

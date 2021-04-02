@@ -1032,5 +1032,8 @@
     "VR Setting": "虚拟现实设置",
     "Camera Pos": "相机位置",
     "Camera Rotate": "相机旋转",
-    "Copy Camera Params": "拷贝相机参数"
+    "Copy Camera Params": "拷贝相机参数",
+    "Listen to touchstart event": "监听touchstart事件",
+    "Listen to touchend event": "监听touchend事件",
+    "Listen to touchmove event": "监听touchmove事件"
 }

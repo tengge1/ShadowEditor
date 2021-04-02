@@ -50,7 +50,10 @@ PlayerEvent.prototype.create = function (scene, camera, renderer, scripts) {
             var onMouseUp = onMouseUp || null;
             var onMouseWheel = onMouseWheel || null;
             var onResize = onResize || null;
-            return { init, start, update, stop, onClick, onDblClick, onKeyDown, onKeyUp, onMouseDown, onMouseMove, onMouseUp, onMouseWheel, onResize };
+            var onTouchStart = onTouchStart || null;
+            var onTouchEnd = onTouchEnd || null;
+            var onTouchMove = onTouchMove || null;
+            return { init, start, update, stop, onClick, onDblClick, onKeyDown, onKeyUp, onMouseDown, onMouseMove, onMouseUp, onMouseWheel, onTouchStart, onTouchEnd, onTouchMove, onResize };
             `
         ).call(scene, this.app, scene, camera, renderer);
     });
@@ -79,6 +82,15 @@ PlayerEvent.prototype.create = function (scene, camera, renderer, scripts) {
         }
         if (typeof n.onMouseWheel === 'function') {
             dom.addEventListener('mousewheel', n.onMouseWheel.bind(this.scene));
+        }
+        if (typeof n.onTouchStart === 'function') {
+            dom.addEventListener('touchstart', n.onTouchStart.bind(this.scene));
+        }
+        if (typeof n.onTouchEnd === 'function') {
+            dom.addEventListener('touchend', n.onTouchEnd.bind(this.scene));
+        }
+        if (typeof n.onTouchMove === 'function') {
+            dom.addEventListener('touchmove', n.onTouchMove.bind(this.scene));
         }
         if (typeof n.onResize === 'function') {
             window.addEventListener('resize', n.onResize.bind(this.scene));
