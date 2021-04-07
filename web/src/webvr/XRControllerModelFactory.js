@@ -3,13 +3,11 @@
  * @author Brandon Jones / https://github.com/toji
  */
 
-import { GLTFLoader } from '../loaders/GLTFLoader.js';
-
 import {
 	Constants as MotionControllerConstants,
 	fetchProfile,
 	MotionController
-} from '../libs/motion-controllers.module.js';
+} from './motion-controllers.module.js';
 
 const DEFAULT_PROFILES_PATH = 'https://cdn.jsdelivr.net/npm/@webxr-input-profiles/assets@1.0/dist/profiles';
 const DEFAULT_PROFILE = 'generic-trigger';
@@ -210,7 +208,7 @@ var XRControllerModelFactory = (function () {
 		// If a GLTFLoader wasn't supplied to the constructor create a new one.
 		if (!this.gltfLoader) {
 
-			this.gltfLoader = new GLTFLoader();
+			this.gltfLoader = new THREE.GLTFLoader();
 
 		}
 
@@ -299,4 +297,4 @@ var XRControllerModelFactory = (function () {
 
 })();
 
-export { XRControllerModelFactory };
+export default XRControllerModelFactory;

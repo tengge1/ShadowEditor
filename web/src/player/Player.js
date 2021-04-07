@@ -273,6 +273,7 @@ Player.prototype.animate = function () {
     this.playerRenderer.update(this.clock, deltaTime);
     this.animation.update(this.clock, deltaTime);
     this.physics.update(this.clock, deltaTime);
+    this.webvr.update(this.clock, deltaTime);
 
     // if (this.gis) {
     //     this.gis.update();
