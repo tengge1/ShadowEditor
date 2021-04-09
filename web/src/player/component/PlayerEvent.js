@@ -62,7 +62,7 @@ PlayerEvent.prototype.create = function (scene, camera, renderer, scripts) {
         ).call(scene, this.app, scene, camera, renderer);
     });
 
-    this.events.forEach(n => {
+    this.events.forEach((n, i) => {
         if (typeof n.onClick === 'function') {
             dom.addEventListener('click', n.onClick.bind(this.scene));
         }
@@ -100,16 +100,16 @@ PlayerEvent.prototype.create = function (scene, camera, renderer, scripts) {
             window.addEventListener('resize', n.onResize.bind(this.scene));
         }
         if (typeof n.onVRConnected === 'function') {
-            this.app.on(`vrConnected.${this.id}`, n.onVRConnected.bind(this.scene));
+            this.app.on(`vrConnected.${this.id}-${i}`, n.onVRConnected.bind(this.scene));
         }
         if (typeof n.onVRDisconnected === 'function') {
-            this.app.on(`vrDisconnected.${this.id}`, n.onVRDisconnected.bind(this.scene));
+            this.app.on(`vrDisconnected.${this.id}-${i}`, n.onVRDisconnected.bind(this.scene));
         }
         if (typeof n.onVRSelectStart === 'function') {
-            this.app.on(`vrSelectStart.${this.id}`, n.onVRSelectStart.bind(this.scene));
+            this.app.on(`vrSelectStart.${this.id}-${i}`, n.onVRSelectStart.bind(this.scene));
         }
         if (typeof n.onVRSelectEnd === 'function') {
-            this.app.on(`vrSelectEnd.${this.id}`, n.onVRSelectEnd.bind(this.scene));
+            this.app.on(`vrSelectEnd.${this.id}-${i}`, n.onVRSelectEnd.bind(this.scene));
         }
     });
 
