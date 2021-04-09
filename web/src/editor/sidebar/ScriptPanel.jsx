@@ -234,15 +234,19 @@ class ScriptPanel extends React.Component {
         if (selected === null) {
             return;
         }
-
-        const script = global.app.editor.scripts.filter(n => n.uuid === selected)[0];
+        const index = global.app.editor.scripts.findIndex(n => n.uuid === selected);
+        const script = global.app.editor.scripts[index];
 
         global.app.confirm({
             title: _t('Confirm'),
             content: `${_t('Delete')} ${script.name}.${this.getExtension(script.type)}?`,
             onOK: () => {
-                delete global.app.editor.scripts[script.uuid];
-                global.app.call('scriptChanged', this);
+                this.setState({
+                    selected: null
+                }, () => {
+                    global.app.editor.scripts.splice(index, 1);
+                    global.app.call('scriptChanged', this);
+                });
             }
         });
     }

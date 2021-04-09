@@ -27,6 +27,11 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
 3. Set scene transform.
 4. How to popup a window when click an object: https://gitee.com/tengge1/ShadowEditor/issues/I3APGI
 5. You can enable `https` in the `config.toml`.
+6. Add event in the mobile browser to the script: `onTouchStart`, `onTouchEnd`, `onTouchMove`.
+7. Upgrade `three.js` to the newest version, and may cause a lot of bugs.
+8. Add VR event to the script: `onVRConnected`, `onVRDisconnected`, `onVRSelectStart`, `onVRSelectEnd`.
+9. VR all-in-one handle controller supports, for example: htc vive.
+10. Fix the bug of deleting script.
 
 ## v0.5.10 has Released
 
@@ -163,10 +168,6 @@ git clone https://gitee.com/tengge1/ShadowEditor.git
 4. Edit `build/config.toml`, and modify the mongodb host and port.
 5. Run `npm start` to launch the server. You can now visit: `http://localhost:2020`.
 6. If you enable `https` in the config file. Please visit: `https://localhost:2020`.
-7. Add event in the mobile browser to the script: `onTouchStart`, `onTouchEnd`, `onTouchMove`.
-8. Upgrade `three.js` to the newest version, and may cause a lot of bugs.
-9. Add VR event to the script: `onVRConnected`, `onVRDisconnected`, `onVRSelectStart`, `onVRSelectEnd`.
-10. VR all-in-one handle controller supports, for example: htc vive.
 
 **Desktop Version:**
 
