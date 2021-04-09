@@ -79,7 +79,7 @@ WebVR.prototype.create = function (scene, camera, renderer) {
             scene.add(controllerGrip1);
 
             const hand1 = renderer.xr.getHand(0);
-            hand1.add(handModelFactory.createHandModel(hand1));
+            hand1.add(handModelFactory.createHandModel(hand1, 'oculus')); // spheres, boxes, oculus
             scene.add(hand1);
 
             // Hand 2
@@ -88,7 +88,7 @@ WebVR.prototype.create = function (scene, camera, renderer) {
             scene.add(controllerGrip2);
 
             const hand2 = renderer.xr.getHand(1);
-            hand2.add(handModelFactory.createHandModel(hand2));
+            hand2.add(handModelFactory.createHandModel(hand2, 'oculus')); // spheres, boxes, oculus
             scene.add(hand2);
             resolve();
         });
