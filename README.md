@@ -166,6 +166,7 @@ git clone https://gitee.com/tengge1/ShadowEditor.git
 7. Add event in the mobile browser to the script: `onTouchStart`, `onTouchEnd`, `onTouchMove`.
 8. Upgrade `three.js` to the newest version, and may cause a lot of bugs.
 9. Add VR event to the script: `onVRConnected`, `onVRDisconnected`, `onVRSelectStart`, `onVRSelectEnd`.
+10. VR all-in-one handle controller supports, for example: htc vive.
 
 **Desktop Version:**
 

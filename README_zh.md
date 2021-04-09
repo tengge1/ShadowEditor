@@ -30,6 +30,7 @@
 6. 在脚本中新增手机浏览器事件：`onTouchStart`、`onTouchEnd`、`onTouchMove`。
 7. 升级`three.js`到最新版`r128-dev`，可能带来很多bug。
 8. 在脚本中添加VR事件：`onVRConnected`、`onVRDisconnected`、`onVRSelectStart`、`onVRSelectEnd`。
+9. VR一体机手柄控制器支持，例如：htc vive。
 
 ## v0.5.10已经发布
 
