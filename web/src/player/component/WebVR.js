@@ -19,12 +19,6 @@ import { XRHandModelFactory } from '../../webvr/XRHandModelFactory';
 function WebVR(app) {
     PlayerComponent.call(this, app);
 
-    this.negZ = new THREE.Vector3(0, 0, -1);
-    this.forward = new THREE.Vector3();
-
-    this.camera = null;
-    this.mesh = null;
-
     this.onConnected = this.onConnected.bind(this);
     this.onDisconnected = this.onDisconnected.bind(this);
     this.onSelectStart = this.onSelectStart.bind(this);
@@ -102,9 +96,6 @@ WebVR.prototype.create = function (scene, camera, renderer) {
 };
 
 WebVR.prototype.onConnected = function (event) {
-    this.mesh = buildController(event.data);
-    this.scene.add(this.mesh);
-
     // var setting = this.app.options.vrSetting;
     // var vrCamera = this.app.renderer.xr.getCamera(this.app.camera);
     // vrCamera.position.set(setting.cameraPosX, setting.cameraPosY, setting.cameraPosZ);
@@ -131,15 +122,6 @@ WebVR.prototype.onSelectEnd = function (event) {
 };
 
 WebVR.prototype.update = function () {
-    if (!this.mesh) {
-        return;
-    }
-    this.forward.copy(this.negZ)
-        .applyQuaternion(this.camera.quaternion)
-        .add(this.camera.position);
-
-    this.mesh.position.copy(this.forward);
-    this.mesh.lookAt(this.camera.position);
 };
 
 WebVR.prototype.dispose = function () {
