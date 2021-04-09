@@ -40,7 +40,7 @@ WebGLRendererSerializer.prototype.toJSON = function (obj) {
     json.sortObjects = obj.sortObjects;
     json.toneMapping = obj.toneMapping;
     json.toneMappingExposure = obj.toneMappingExposure;
-    json.toneMappingWhitePoint = obj.toneMappingWhitePoint;
+    // json.toneMappingWhitePoint = obj.toneMappingWhitePoint;
 
     return json;
 };
@@ -63,7 +63,7 @@ WebGLRendererSerializer.prototype.fromJSON = function (json, parent) {
     obj.sortObjects = json.sortObjects;
     obj.toneMapping = json.toneMapping;
     obj.toneMappingExposure = json.toneMappingExposure;
-    obj.toneMappingWhitePoint = json.toneMappingWhitePoint;
+    // obj.toneMappingWhitePoint = json.toneMappingWhitePoint;
 
     return obj;
 };

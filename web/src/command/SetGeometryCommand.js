@@ -15,7 +15,7 @@ import global from '../global';
  * @author dforrer / https://github.com/dforrer
  * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
  * @param {THREE.Object3D} object 物体
- * @param {THREE.Geometry} newGeometry 几何体
+ * @param {THREE.BufferGeometry} newGeometry 几何体
  * @constructor
  */
 function SetGeometryCommand(object, newGeometry) {

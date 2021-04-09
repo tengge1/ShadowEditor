@@ -186,7 +186,11 @@ SelectHelper.prototype.onAfterRender = function () {
     let oldBackground = renderScene.background;
 
     let oldAutoClear = renderer.autoClear;
-    let oldClearColor = renderer.getClearColor();
+    if (!this.oldClearColor) {
+        this.oldClearColor = new THREE.Color();
+    }
+
+    renderer.getClearColor(this.oldClearColor);
     let oldClearAlpha = renderer.getClearAlpha();
     let oldRenderTarget = renderer.getRenderTarget();
 
@@ -228,7 +232,7 @@ SelectHelper.prototype.onAfterRender = function () {
     renderScene.background = oldBackground;
 
     renderer.autoClear = oldAutoClear;
-    renderer.setClearColor(oldClearColor);
+    renderer.setClearColor(this.oldClearColor);
     renderer.setClearAlpha(oldClearAlpha);
     renderer.setRenderTarget(oldRenderTarget);
 };

@@ -118,10 +118,7 @@ class EditorStatusBar extends React.Component {
                 if (object instanceof THREE.Mesh) {
                     var geometry = object.geometry;
 
-                    if (geometry instanceof THREE.Geometry) {
-                        vertices += geometry.vertices.length;
-                        triangles += geometry.faces.length;
-                    } else if (geometry instanceof THREE.BufferGeometry) {
+                    if (geometry instanceof THREE.BufferGeometry) {
                         if (geometry.index !== null) {
                             vertices += geometry.index.count * 3;
                             triangles += geometry.index.count;

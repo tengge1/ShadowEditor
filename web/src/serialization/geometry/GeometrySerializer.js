@@ -52,7 +52,7 @@ GeometrySerializer.prototype.toJSON = function (obj) {
 };
 
 GeometrySerializer.prototype.fromJSON = function (json, parent) {
-    var obj = parent === undefined ? new THREE.Geometry() : parent;
+    var obj = parent === undefined ? new THREE.BufferGeometry() : parent;
 
     BaseSerializer.prototype.fromJSON.call(this, obj);
 

@@ -30,7 +30,7 @@ LoadSceneEvent.prototype.start = function () {
 
 LoadSceneEvent.prototype.stop = function () {
     global.app.on(`load.${this.id}`, null);
-    global.app.on(`loadSceneObj.${this.id}`, null);
+    global.app.on(`loadSceneList.${this.id}`, null);
 };
 
 LoadSceneEvent.prototype.onLoad = function (url, name, id) { // id: MongoDB _id

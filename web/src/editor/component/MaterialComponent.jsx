@@ -230,7 +230,7 @@ class MaterialComponent extends React.Component {
             show={show}
             expanded={expanded}
             onExpand={this.handleExpand}
-               >
+        >
             <ButtonsProperty label={''}>
                 <Button show={!enableAuthority || authorities.includes('SAVE_MATERIAL')}
                     onClick={this.onSave}
@@ -311,7 +311,7 @@ class MaterialComponent extends React.Component {
             <SelectProperty label={_t('Vertex Color')}
                 options={this.vertexColors}
                 name={'vertexColors'}
-                value={vertexColors}
+                value={vertexColors === false ? 0 : vertexColors}
                 show={showVertexColors}
                 onChange={this.handleChange}
             />

@@ -18,7 +18,7 @@ class Rain extends THREE.Object3D {
     }
 
     createPointClouds(url) {
-        let geometry = new THREE.Geometry();
+        let geometry = new THREE.BufferGeometry();
 
         let range = 40;
 

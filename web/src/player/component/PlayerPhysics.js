@@ -358,7 +358,7 @@ PlayerPhysics.prototype.createSoftVolume = function (obj) {
 
 PlayerPhysics.prototype.processGeometry = function (bufGeometry) {
     // Obtain a Geometry
-    var geometry = new THREE.Geometry().fromBufferGeometry(bufGeometry);
+    var geometry = bufGeometry;
     // Merge the vertices so the triangle soup is converted to indexed triangles
     geometry.mergeVertices();
     // Convert again to BufferGeometry, indexed

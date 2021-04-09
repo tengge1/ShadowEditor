@@ -163,7 +163,8 @@ git clone https://gitee.com/tengge1/ShadowEditor.git
 4. Edit `build/config.toml`, and modify the mongodb host and port.
 5. Run `npm start` to launch the server. You can now visit: `http://localhost:2020`.
 6. If you enable `https` in the config file. Please visit: `https://localhost:2020`.
-7. add `onTouchStart`, `onTouchEnd`, `onTouchMove` event in the script.
+7. Add `onTouchStart`, `onTouchEnd`, `onTouchMove` event in the script.
+8. Upgrade `three.js` to the newest version, and may cause a lot of bugs.
 
 **Desktop Version:**
 

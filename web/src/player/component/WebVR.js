@@ -45,10 +45,10 @@ function WebVR(app) {
     this.camera = null;
     this.mesh = null;
 
-    this.handleSessionStarted = this.handleSessionStarted.bind(this);
-    this.handleSessionEnded = this.handleSessionEnded.bind(this);
     this.onSelectStart = this.onSelectStart.bind(this);
     this.onSelectEnd = this.onSelectEnd.bind(this);
+    this.onConnected = this.onConnected.bind(this);
+    this.onDisconnected = this.onDisconnected.bind(this);
 }
 
 WebVR.prototype = Object.create(PlayerComponent.prototype);
@@ -59,33 +59,21 @@ WebVR.prototype.create = function (scene, camera, renderer) {
         return;
     }
     if (!this.vrButton) {
-        this.vrButton = VRButton.createButton(renderer, {
-            onSessionStarted: this.handleSessionStarted,
-            onSessionEnded: this.handleSessionEnded
-        });
+        this.vrButton = VRButton.createButton(renderer);
     }
     this.scene = scene;
     this.camera = camera;
+    this.renderer = renderer;
+
     renderer.xr.enabled = true;
     this.app.container.appendChild(this.vrButton);
 
     var controller = renderer.xr.getController(0);
     controller.addEventListener('selectstart', this.onSelectStart);
     controller.addEventListener('selectend', this.onSelectEnd);
-    controller.addEventListener('connected', event => {
-        this.mesh = buildController(event.data);
-        scene.add(this.mesh);
-    });
-    controller.addEventListener('disconnected', () => {
-        if (this.mesh) {
-            scene.remove(this.mesh);
-            this.mesh = null;
-        }
-    });
+    controller.addEventListener('connected', this.onConnected);
+    controller.addEventListener('disconnected', this.onDisconnected);
     scene.add(controller);
-
-    // this.mesh = buildController({ targetRayMode: 'gaze' });
-    // scene.add(this.mesh);
 
     return new Promise(resolve => {
         this.app.require('GLTFLoader').then(() => {
@@ -99,25 +87,31 @@ WebVR.prototype.create = function (scene, camera, renderer) {
     });
 };
 
-WebVR.prototype.handleSessionStarted = function () {
-    var setting = this.app.options.vrSetting;
-    var vrCamera = this.app.renderer.xr.getCamera(this.app.camera);
-    vrCamera.position.set(setting.cameraPosX, setting.cameraPosY, setting.cameraPosZ);
-    vrCamera.cameras.forEach(camera => {
-        camera.position.copy(vrCamera.position);
-    });
-};
-
-WebVR.prototype.handleSessionEnded = function () {
-
-};
-
 WebVR.prototype.onSelectStart = function () {
 
 };
 
 WebVR.prototype.onSelectEnd = function () {
 
+};
+
+WebVR.prototype.onConnected = function (event) {
+    this.mesh = buildController(event.data);
+    this.scene.add(this.mesh);
+
+    // var setting = this.app.options.vrSetting;
+    // var vrCamera = this.app.renderer.xr.getCamera(this.app.camera);
+    // vrCamera.position.set(setting.cameraPosX, setting.cameraPosY, setting.cameraPosZ);
+    // vrCamera.cameras.forEach(camera => {
+    //     camera.position.copy(vrCamera.position);
+    // });
+};
+
+WebVR.prototype.onDisconnected = function (event) {
+    if (this.mesh) {
+        this.scene.remove(this.mesh);
+        this.mesh = null;
+    }
 };
 
 WebVR.prototype.update = function () {
@@ -133,6 +127,10 @@ WebVR.prototype.update = function () {
 };
 
 WebVR.prototype.dispose = function () {
+    this.scene = null;
+    this.camera = null;
+    this.renderer = null;
+
     if (this.vrButton) {
         this.app.container.removeChild(this.vrButton);
         delete this.vrButton;

@@ -12,20 +12,18 @@ import {
 const DEFAULT_PROFILES_PATH = 'https://cdn.jsdelivr.net/npm/@webxr-input-profiles/assets@1.0/dist/profiles';
 const DEFAULT_PROFILE = 'generic-trigger';
 
-function XRControllerModel() {
+class XRControllerModel extends THREE.Object3D {
 
-	THREE.Object3D.call(this);
+	constructor() {
 
-	this.motionController = null;
-	this.envMap = null;
+		super();
 
-}
+		this.motionController = null;
+		this.envMap = null;
 
-XRControllerModel.prototype = Object.assign(Object.create(THREE.Object3D.prototype), {
+	}
 
-	constructor: XRControllerModel,
-
-	setEnvironmentMap: function (envMap) {
+	setEnvironmentMap(envMap) {
 
 		if (this.envMap == envMap) {
 
@@ -47,15 +45,15 @@ XRControllerModel.prototype = Object.assign(Object.create(THREE.Object3D.prototy
 
 		return this;
 
-	},
+	}
 
 	/**
 	 * Polls data from the XRInputSource and updates the model's components to match
 	 * the real world data
 	 */
-	updateMatrixWorld: function (force) {
+	updateMatrixWorld(force) {
 
-		THREE.Object3D.prototype.updateMatrixWorld.call(this, force);
+		super.updateMatrixWorld(force);
 
 		if (!this.motionController) return;
 
@@ -81,10 +79,9 @@ XRControllerModel.prototype = Object.assign(Object.create(THREE.Object3D.prototy
 
 				} else if (valueNodeProperty === MotionControllerConstants.VisualResponseProperty.TRANSFORM) {
 
-					THREE.Quaternion.slerp(
+					valueNode.quaternion.slerpQuaternions(
 						minNode.quaternion,
 						maxNode.quaternion,
-						valueNode.quaternion,
 						value
 					);
 
@@ -102,7 +99,7 @@ XRControllerModel.prototype = Object.assign(Object.create(THREE.Object3D.prototy
 
 	}
 
-});
+}
 
 /**
  * Walks the model's tree to find the nodes needed to animate the components and
@@ -129,7 +126,7 @@ function findNodes(motionController, scene) {
 
 			} else {
 
-				console.warn(`Could not find touch dot, ${component.touchPointNodeName}, in touchpad component ${componentId}`);
+				console.warn(`Could not find touch dot, ${component.touchPointNodeName}, in touchpad component ${component.id}`);
 
 			}
 
@@ -160,6 +157,7 @@ function findNodes(motionController, scene) {
 					return;
 
 				}
+
 			}
 
 			// If the target node cannot be found, skip this animation
@@ -169,11 +167,15 @@ function findNodes(motionController, scene) {
 				console.warn(`Could not find ${valueNodeName} in the model`);
 
 			}
+
 		});
+
 	});
+
 }
 
 function addAssetSceneToControllerModel(controllerModel, scene) {
+
 	// Find the nodes needed for animation and cache them on the motionController.
 	findNodes(controllerModel.motionController, scene);
 
@@ -195,11 +197,12 @@ function addAssetSceneToControllerModel(controllerModel, scene) {
 
 	// Add the glTF scene to the controllerModel.
 	controllerModel.add(scene);
+
 }
 
-var XRControllerModelFactory = (function () {
+class XRControllerModelFactory {
 
-	function XRControllerModelFactory(gltfLoader = null) {
+	constructor(gltfLoader = null) {
 
 		this.gltfLoader = gltfLoader;
 		this.path = DEFAULT_PROFILES_PATH;
@@ -214,87 +217,80 @@ var XRControllerModelFactory = (function () {
 
 	}
 
-	XRControllerModelFactory.prototype = {
+	createControllerModel(controller) {
 
-		constructor: XRControllerModelFactory,
+		const controllerModel = new XRControllerModel();
+		let scene = null;
 
-		createControllerModel: function (controller) {
+		controller.addEventListener('connected', (event) => {
 
-			const controllerModel = new XRControllerModel();
-			let scene = null;
+			const xrInputSource = event.data;
 
-			controller.addEventListener('connected', (event) => {
+			if (xrInputSource.targetRayMode !== 'tracked-pointer' || !xrInputSource.gamepad) return;
 
-				const xrInputSource = event.data;
+			fetchProfile(xrInputSource, this.path, DEFAULT_PROFILE).then(({ profile, assetPath }) => {
 
-				if (xrInputSource.targetRayMode !== 'tracked-pointer' || !xrInputSource.gamepad) return;
+				controllerModel.motionController = new MotionController(
+					xrInputSource,
+					profile,
+					assetPath
+				);
 
-				fetchProfile(xrInputSource, this.path, DEFAULT_PROFILE).then(({ profile, assetPath }) => {
+				const cachedAsset = this._assetCache[controllerModel.motionController.assetUrl];
+				if (cachedAsset) {
 
-					controllerModel.motionController = new MotionController(
-						xrInputSource,
-						profile,
-						assetPath
-					);
+					scene = cachedAsset.scene.clone();
 
-					let cachedAsset = this._assetCache[controllerModel.motionController.assetUrl];
-					if (cachedAsset) {
+					addAssetSceneToControllerModel(controllerModel, scene);
 
-						scene = cachedAsset.scene.clone();
+				} else {
 
-						addAssetSceneToControllerModel(controllerModel, scene);
+					if (!this.gltfLoader) {
 
-					} else {
-
-						if (!this.gltfLoader) {
-
-							throw new Error(`GLTFLoader not set.`);
-
-						}
-
-						this.gltfLoader.setPath('');
-						this.gltfLoader.load(controllerModel.motionController.assetUrl, (asset) => {
-
-							this._assetCache[controllerModel.motionController.assetUrl] = asset;
-
-							scene = asset.scene.clone();
-
-							addAssetSceneToControllerModel(controllerModel, scene);
-
-						},
-							null,
-							() => {
-
-								throw new Error(`Asset ${motionController.assetUrl} missing or malformed.`);
-
-							});
+						throw new Error('GLTFLoader not set.');
 
 					}
 
-				}).catch((err) => {
+					this.gltfLoader.setPath('');
+					this.gltfLoader.load(controllerModel.motionController.assetUrl, (asset) => {
 
-					console.warn(err);
+						this._assetCache[controllerModel.motionController.assetUrl] = asset;
 
-				});
+						scene = asset.scene.clone();
+
+						addAssetSceneToControllerModel(controllerModel, scene);
+
+					},
+						null,
+						() => {
+
+							throw new Error(`Asset ${controllerModel.motionController.assetUrl} missing or malformed.`);
+
+						});
+
+				}
+
+			}).catch((err) => {
+
+				console.warn(err);
 
 			});
 
-			controller.addEventListener('disconnected', () => {
+		});
 
-				controllerModel.motionController = null;
-				controllerModel.remove(scene);
-				scene = null;
+		controller.addEventListener('disconnected', () => {
 
-			});
+			controllerModel.motionController = null;
+			controllerModel.remove(scene);
+			scene = null;
 
-			return controllerModel;
+		});
 
-		}
+		return controllerModel;
 
-	};
+	}
 
-	return XRControllerModelFactory;
+}
 
-})();
 
 export default XRControllerModelFactory;
