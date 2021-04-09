@@ -45,10 +45,10 @@ function WebVR(app) {
     this.camera = null;
     this.mesh = null;
 
-    this.onSelectStart = this.onSelectStart.bind(this);
-    this.onSelectEnd = this.onSelectEnd.bind(this);
     this.onConnected = this.onConnected.bind(this);
     this.onDisconnected = this.onDisconnected.bind(this);
+    this.onSelectStart = this.onSelectStart.bind(this);
+    this.onSelectEnd = this.onSelectEnd.bind(this);
 }
 
 WebVR.prototype = Object.create(PlayerComponent.prototype);
@@ -69,10 +69,10 @@ WebVR.prototype.create = function (scene, camera, renderer) {
     this.app.container.appendChild(this.vrButton);
 
     var controller = renderer.xr.getController(0);
-    controller.addEventListener('selectstart', this.onSelectStart);
-    controller.addEventListener('selectend', this.onSelectEnd);
     controller.addEventListener('connected', this.onConnected);
     controller.addEventListener('disconnected', this.onDisconnected);
+    controller.addEventListener('selectstart', this.onSelectStart);
+    controller.addEventListener('selectend', this.onSelectEnd);
     scene.add(controller);
 
     return new Promise(resolve => {
@@ -87,14 +87,6 @@ WebVR.prototype.create = function (scene, camera, renderer) {
     });
 };
 
-WebVR.prototype.onSelectStart = function () {
-
-};
-
-WebVR.prototype.onSelectEnd = function () {
-
-};
-
 WebVR.prototype.onConnected = function (event) {
     this.mesh = buildController(event.data);
     this.scene.add(this.mesh);
@@ -105,13 +97,23 @@ WebVR.prototype.onConnected = function (event) {
     // vrCamera.cameras.forEach(camera => {
     //     camera.position.copy(vrCamera.position);
     // });
+    this.app.call('vrConnected', this, event);
 };
 
 WebVR.prototype.onDisconnected = function (event) {
+    this.app.call('vrDisconnected', this, event);
     if (this.mesh) {
         this.scene.remove(this.mesh);
         this.mesh = null;
     }
+};
+
+WebVR.prototype.onSelectStart = function (event) {
+    this.app.call('vrSelectStart', this, event);
+};
+
+WebVR.prototype.onSelectEnd = function (event) {
+    this.app.call('vrSelectEnd', this, event);
 };
 
 WebVR.prototype.update = function () {

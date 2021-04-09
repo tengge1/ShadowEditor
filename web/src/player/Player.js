@@ -9,6 +9,7 @@
  */
 import { dispatch } from '../third_party';
 
+import EventList from './EventList';
 import PackageManager from '../package/PackageManager';
 import PlayerLoader from './component/PlayerLoader';
 import PlayerEvent from './component/PlayerEvent';
@@ -47,10 +48,7 @@ function Player(container = document.body, options = {}) {
         global.app = this;
     }
 
-    this.dispatch = new dispatch(
-        'init',
-        'resize'
-    );
+    this.dispatch = dispatch.apply(dispatch, EventList);
     this.call = this.dispatch.call.bind(this.dispatch);
     this.on = this.dispatch.on.bind(this.dispatch);
 
