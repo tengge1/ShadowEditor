@@ -53,7 +53,11 @@ PlayerEvent.prototype.create = function (scene, camera, renderer, scripts) {
             var onTouchStart = onTouchStart || null;
             var onTouchEnd = onTouchEnd || null;
             var onTouchMove = onTouchMove || null;
-            return { init, start, update, stop, onClick, onDblClick, onKeyDown, onKeyUp, onMouseDown, onMouseMove, onMouseUp, onMouseWheel, onTouchStart, onTouchEnd, onTouchMove, onResize };
+            var onVRConnected = onVRConnected || null;
+            var onVRDisconnected = onVRDisconnected || null;
+            var onVRSelectStart = onVRSelectStart || null;
+            var onVRSelectEnd = onVRSelectEnd || null;
+            return { init, start, update, stop, onClick, onDblClick, onKeyDown, onKeyUp, onMouseDown, onMouseMove, onMouseUp, onMouseWheel, onTouchStart, onTouchEnd, onTouchMove, onResize, onVRConnected, onVRDisconnected, onVRSelectStart, onVRSelectEnd };
             `
         ).call(scene, this.app, scene, camera, renderer);
     });
@@ -94,6 +98,18 @@ PlayerEvent.prototype.create = function (scene, camera, renderer, scripts) {
         }
         if (typeof n.onResize === 'function') {
             window.addEventListener('resize', n.onResize.bind(this.scene));
+        }
+        if (typeof n.onVRConnected === 'function') {
+            this.app.on(`vrConnected.${this.id}`, n.onVRConnected.bind(this.scene));
+        }
+        if (typeof n.onVRDisconnected === 'function') {
+            this.app.on(`vrDisconnected.${this.id}`, n.onVRDisconnected.bind(this.scene));
+        }
+        if (typeof n.onVRSelectStart === 'function') {
+            this.app.on(`vrSelectStart.${this.id}`, n.onVRSelectStart.bind(this.scene));
+        }
+        if (typeof n.onVRSelectEnd === 'function') {
+            this.app.on(`vrSelectEnd.${this.id}`, n.onVRSelectEnd.bind(this.scene));
         }
     });
 

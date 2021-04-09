@@ -27,8 +27,9 @@
 3. 设置场景位移。
 4. 点击物体时，怎么弹出窗口：https://gitee.com/tengge1/ShadowEditor/issues/I3APGI
 5. 你可以在`config.toml`中启用`https`。
-6. 在脚本中新增`onTouchStart`、`onTouchEnd`、`onTouchMove`事件。
+6. 在脚本中新增手机浏览器事件：`onTouchStart`、`onTouchEnd`、`onTouchMove`。
 7. 升级`three.js`到最新版`r128-dev`，可能带来很多bug。
+8. 在脚本中添加VR事件：`onVRConnected`、`onVRDisconnected`、`onVRSelectStart`、`onVRSelectEnd`。
 
 ## v0.5.10已经发布
 

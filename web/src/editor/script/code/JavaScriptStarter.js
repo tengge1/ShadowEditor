@@ -33,63 +33,83 @@ function stop() {
 
 }
 
-// ${_t('Listen to click event')}
+// ${_t('Handle click event')}
 function onClick(event) {
 
 }
 
-// ${_t('Listen to dblclick event')}
+// ${_t('Handle dblclick event')}
 function onDblClick(event) {
 
 }
 
-// ${_t('Listen to keydown event')}
+// ${_t('Handle keydown event')}
 function onKeyDown(event) {
 
 }
 
-// ${_t('Listen to keyup event')}
+// ${_t('Handle keyup event')}
 function onKeyUp(event) {
 
 }
 
-// ${_t('Listen to mousedown event')}
+// ${_t('Handle mousedown event')}
 function onMouseDown(event) {
 
 }
 
-// ${_t('Listen to mousemove event')}
+// ${_t('Handle mousemove event')}
 function onMouseMove(event) {
 
 }
 
-// ${_t('Listen to mouseup event')}
+// ${_t('Handle mouseup event')}
 function onMouseUp(event) {
 
 }
 
-// ${_t('Listen to mousewheel event')}
+// ${_t('Handle mousewheel event')}
 function onMouseWheel(event) {
 
 }
 
-// ${_t('Listen to touchstart event')}
+// ${_t('Handle touchstart event')}
 function onTouchStart(event) {
 
 }
 
-// ${_t('Listen to touchend event')}
+// ${_t('Handle touchend event')}
 function onTouchEnd(event) {
 
 }
 
-// ${_t('Listen to touchmove event')}
+// ${_t('Handle touchmove event')}
 function onTouchMove(event) {
 
 }
 
-// ${_t('Listen to resize event')}
+// ${_t('Handle resize event')}
 function onResize(event) {
+
+}
+
+// ${_t('Handle VR connected event')}
+function onVRConnected(event) {
+
+}
+
+// ${_t('Handle VR disconnected event')}
+function onVRDisconnected(event) {
+
+}
+
+// ${_t('Handle VR selectstart event')}
+function onVRSelectStart(event) {
+
+}
+
+// ${_t('Handle VR selectend event')}
+function onVRSelectEnd(event) {
 
 }
 `;
