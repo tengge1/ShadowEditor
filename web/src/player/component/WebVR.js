@@ -10,27 +10,7 @@
 import PlayerComponent from './PlayerComponent';
 import VRButton from '../../webvr/VRButton';
 import XRControllerModelFactory from '../../webvr/XRControllerModelFactory';
-
-function buildController(data) {
-
-    let geometry, material;
-
-    switch (data.targetRayMode) {
-        case 'tracked-pointer':
-            geometry = new THREE.BufferGeometry();
-            geometry.setAttribute('position', new THREE.Float32BufferAttribute([0, 0, 0, 0, 0, - 1], 3));
-            geometry.setAttribute('color', new THREE.Float32BufferAttribute([0.5, 0.5, 0.5, 0, 0, 0], 3));
-
-            material = new THREE.LineBasicMaterial({ vertexColors: true, blending: THREE.AdditiveBlending });
-
-            return new THREE.Line(geometry, material);
-
-        case 'gaze':
-            geometry = new THREE.RingGeometry(0.02, 0.04, 32).translate(0, 0, -1);
-            material = new THREE.MeshBasicMaterial({ opacity: 0.5, transparent: true });
-            return new THREE.Mesh(geometry, material);
-    }
-}
+import { XRHandModelFactory } from '../../webvr/XRHandModelFactory';
 
 /**
  * 虚拟现实
@@ -68,20 +48,54 @@ WebVR.prototype.create = function (scene, camera, renderer) {
     renderer.xr.enabled = true;
     this.app.container.appendChild(this.vrButton);
 
-    var controller = renderer.xr.getController(0);
-    controller.addEventListener('connected', this.onConnected);
-    controller.addEventListener('disconnected', this.onDisconnected);
-    controller.addEventListener('selectstart', this.onSelectStart);
-    controller.addEventListener('selectend', this.onSelectEnd);
-    scene.add(controller);
+    // controllers
+    const controller1 = renderer.xr.getController(0);
+    controller1.addEventListener('connected', this.onConnected);
+    controller1.addEventListener('disconnected', this.onDisconnected);
+    controller1.addEventListener('selectstart', this.onSelectStart);
+    controller1.addEventListener('selectend', this.onSelectEnd);
+    scene.add(controller1);
+
+    const controller2 = renderer.xr.getController(1);
+    controller2.addEventListener('selectstart', this.onSelectStart);
+    controller2.addEventListener('selectend', this.onSelectEnd);
+    scene.add(controller2);
+
+    // Line
+    const geometry = new THREE.BufferGeometry().setFromPoints([
+        new THREE.Vector3(0, 0, 0),
+        new THREE.Vector3(0, 0, - 1)
+    ]);
+
+    const line = new THREE.Line(geometry);
+    line.name = 'line';
+    line.scale.z = 5;
+
+    controller1.add(line.clone());
+    controller2.add(line.clone());
 
     return new Promise(resolve => {
-        this.app.require('GLTFLoader').then(() => {
+        this.app.require(['GLTFLoader', 'FBXLoader']).then(() => {
             const controllerModelFactory = new XRControllerModelFactory();
+            const handModelFactory = new XRHandModelFactory().setPath("./models/fbx/");
 
-            const controllerGrip = renderer.xr.getControllerGrip(0);
-            controllerGrip.add(controllerModelFactory.createControllerModel(controllerGrip));
-            scene.add(controllerGrip);
+            // Hand 1
+            const controllerGrip1 = renderer.xr.getControllerGrip(0);
+            controllerGrip1.add(controllerModelFactory.createControllerModel(controllerGrip1));
+            scene.add(controllerGrip1);
+
+            const hand1 = renderer.xr.getHand(0);
+            hand1.add(handModelFactory.createHandModel(hand1));
+            scene.add(hand1);
+
+            // Hand 2
+            const controllerGrip2 = renderer.xr.getControllerGrip(1);
+            controllerGrip2.add(controllerModelFactory.createControllerModel(controllerGrip2));
+            scene.add(controllerGrip2);
+
+            const hand2 = renderer.xr.getHand(1);
+            hand2.add(handModelFactory.createHandModel(hand2));
+            scene.add(hand2);
             resolve();
         });
     });
