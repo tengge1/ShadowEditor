@@ -107,6 +107,7 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
     - [x] Draw point, draw line, draw polygon, spray
     - [x] Measure distance
   - [ ] Others
+    - [x] VR：cardboard, htc vive, chrome, firefox
     - [ ] Bullet physics engine
     - [ ] Ray tracing rendering, voxel rendering
     - [ ] UV unwrap

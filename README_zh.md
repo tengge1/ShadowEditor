@@ -107,6 +107,7 @@
     - [x] 点、线、面绘制、贴花
     - [x] 距离测量
   - [ ] 其他功能
+    - [x] VR：cardboard, htc vive, chrome, firefox
     - [ ] Bullet物理引擎
     - [ ] 光线追踪渲染、体素渲染
     - [ ] UV展开
