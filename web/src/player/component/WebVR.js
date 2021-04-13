@@ -42,18 +42,23 @@ WebVR.prototype.create = function (scene, camera, renderer) {
     renderer.xr.enabled = true;
     this.app.container.appendChild(this.vrButton);
 
+    // group
+    const group = new THREE.Group();
+    group.name = 'vr-controls';
+    scene.add(group);
+
     // controllers
     const controller1 = renderer.xr.getController(0);
     controller1.addEventListener('connected', this.onConnected);
     controller1.addEventListener('disconnected', this.onDisconnected);
     controller1.addEventListener('selectstart', this.onSelectStart);
     controller1.addEventListener('selectend', this.onSelectEnd);
-    scene.add(controller1);
+    group.add(controller1);
 
     const controller2 = renderer.xr.getController(1);
     controller2.addEventListener('selectstart', this.onSelectStart);
     controller2.addEventListener('selectend', this.onSelectEnd);
-    scene.add(controller2);
+    group.add(controller2);
 
     // Line
     const geometry = new THREE.BufferGeometry().setFromPoints([
@@ -76,20 +81,20 @@ WebVR.prototype.create = function (scene, camera, renderer) {
             // Hand 1
             const controllerGrip1 = renderer.xr.getControllerGrip(0);
             controllerGrip1.add(controllerModelFactory.createControllerModel(controllerGrip1));
-            scene.add(controllerGrip1);
+            group.add(controllerGrip1);
 
             const hand1 = renderer.xr.getHand(0);
             hand1.add(handModelFactory.createHandModel(hand1, 'oculus')); // spheres, boxes, oculus
-            scene.add(hand1);
+            group.add(hand1);
 
             // Hand 2
             const controllerGrip2 = renderer.xr.getControllerGrip(1);
             controllerGrip2.add(controllerModelFactory.createControllerModel(controllerGrip2));
-            scene.add(controllerGrip2);
+            group.add(controllerGrip2);
 
             const hand2 = renderer.xr.getHand(1);
             hand2.add(handModelFactory.createHandModel(hand2, 'oculus')); // spheres, boxes, oculus
-            scene.add(hand2);
+            group.add(hand2);
             resolve();
         });
     });
