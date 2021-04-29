@@ -1039,5 +1039,8 @@
     "Handle VR connected event": "监听VR connected事件",
     "Handle VR disconnected event": "监听VR disconnected事件",
     "Handle VR selectstart event": "监听VR selectstart事件",
-    "Handle VR selectend event": "监听VR selectend事件"
+    "Handle VR selectend event": "监听VR selectend事件",
+    "PolygonOffset": "面偏移",
+    "polygonOffsetFactor": "面偏移参数",
+    "polygonOffsetUnits": "面偏移单位"
 }

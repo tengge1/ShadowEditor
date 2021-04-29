@@ -189,7 +189,11 @@ class MaterialComponent extends React.Component {
 
             showWireframe: false,
             wireframe: false,
-            wireframeLinewidth: 1
+            wireframeLinewidth: 1,
+
+            polygonOffset: false,
+            polygonOffsetFactor: 0,
+            polygonOffsetUnits: 0
         };
 
         this.handleExpand = this.handleExpand.bind(this);
@@ -219,7 +223,7 @@ class MaterialComponent extends React.Component {
             showMap, map, showAlphaMap, alphaMap, showBumpMap, bumpMap, bumpScale, showNormalMap, normalMap, showDisplacementMap, displacementMap,
             displacementScale, showRoughnessMap, roughnessMap, showMetalnessMap, metalnessMap, showSpecularMap, specularMap, showEnvMap, envMap,
             envMapIntensity, showLightMap, lightMap, showAoMap, aoMap, aoScale, showEmissiveMap, emissiveMap, side, flatShading, blending, opacity, transparent,
-            alphaTest, wireframe, wireframeLinewidth } = this.state;
+            alphaTest, wireframe, wireframeLinewidth, polygonOffset, polygonOffsetFactor, polygonOffsetUnits } = this.state;
         const { enableAuthority, authorities } = global.app.server;
 
         if (!show) {
@@ -460,6 +464,21 @@ class MaterialComponent extends React.Component {
             <NumberProperty label={_t('WireWidth')}
                 name={'wireframeLinewidth'}
                 value={wireframeLinewidth}
+                onChange={this.handleChange}
+            />
+            <CheckBoxProperty label={_t('PolygonOffset')}
+                name={'polygonOffset'}
+                value={polygonOffset}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('polygonOffsetFactor')}
+                name={'polygonOffsetFactor'}
+                value={polygonOffsetFactor}
+                onChange={this.handleChange}
+            />
+            <NumberProperty label={_t('polygonOffsetUnits')}
+                name={'polygonOffsetUnits'}
+                value={polygonOffsetUnits}
                 onChange={this.handleChange}
             />
         </PropertyGroup>;
@@ -704,6 +723,12 @@ class MaterialComponent extends React.Component {
             state.wireframeLinewidth = material.wireframeLinewidth;
         }
 
+        if (material.polygonOffset !== undefined) {
+            state.polygonOffset = material.polygonOffset;
+            state.polygonOffsetFactor = material.polygonOffsetFactor;
+            state.polygonOffsetUnits = material.polygonOffsetUnits;
+        }
+
         this.setState(state);
     }
 
@@ -722,7 +747,8 @@ class MaterialComponent extends React.Component {
 
         const { type, color, roughness, metalness, emissive, specular, shininess, clearCoat, clearCoatRoughness, vertexColors, skinning, map, alphaMap,
             bumpMap, bumpScale, normalMap, displacementMap, displacementScale, roughnessMap, metalnessMap, specularMap, envMap, envMapIntensity, lightMap,
-            aoMap, aoScale, emissiveMap, side, flatShading, blending, opacity, transparent, alphaTest, wireframe, wireframeLinewidth } = Object.assign({}, this.state, {
+            aoMap, aoScale, emissiveMap, side, flatShading, blending, opacity, transparent, alphaTest, wireframe, wireframeLinewidth, polygonOffset,
+            polygonOffsetFactor, polygonOffsetUnits } = Object.assign({}, this.state, {
                 [name]: value
             });
 
@@ -911,6 +937,12 @@ class MaterialComponent extends React.Component {
 
         if (material.wireframeLinewidth !== undefined && Math.abs(material.wireframeLinewidth - wireframeLinewidth) >= 0.01) {
             editor.execute(new SetMaterialValueCommand(object, 'wireframeLinewidth', wireframeLinewidth));
+        }
+
+        if (material.polygonOffset !== undefined) {
+            editor.execute(new SetMaterialValueCommand(object, 'polygonOffset', polygonOffset));
+            editor.execute(new SetMaterialValueCommand(object, 'polygonOffsetFactor', polygonOffsetFactor));
+            editor.execute(new SetMaterialValueCommand(object, 'polygonOffsetUnits', polygonOffsetUnits));
         }
 
         global.app.call(`objectChanged`, this, this.selected);
