@@ -18,6 +18,7 @@ import PlayerAudio from './component/PlayerAudio';
 import PlayerRenderer from './component/PlayerRenderer';
 import PlayerAnimation from './component/PlayerAnimation';
 import PlayerPhysics from './component/PlayerPhysics';
+import PlayerLoadMask from './component/PlayerLoadMask';
 import WebVR from './component/WebVR';
 import CssUtils from '../utils/CssUtils';
 // import Globe from '../gis/Globe';
@@ -92,6 +93,7 @@ function Player(container = document.body, options = {}) {
     this.animation = new PlayerAnimation(this);
     this.physics = new PlayerPhysics(this);
     this.webvr = new WebVR(this);
+    this.mask = new PlayerLoadMask(this);
 
     this.isPlaying = false;
     this.clock = new THREE.Clock(false);
@@ -130,6 +132,8 @@ Player.prototype.start = function (sceneData) {
 
     this.container.style.display = 'block';
 
+    this.mask.show();
+
     this.loader.create(jsons, {
         domWidth: this.container.clientWidth,
         domHeight: this.container.clientHeight
@@ -147,6 +151,7 @@ Player.prototype.start = function (sceneData) {
         var promise7 = this.webvr.create(this.scene, this.camera, this.renderer);
 
         Promise.all([promise1, promise2, promise3, promise4, promise5, promise6, promise7]).then(() => {
+            this.mask.hide();
             this.event.init();
             this.clock.start();
             this.event.start();
