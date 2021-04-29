@@ -34,6 +34,7 @@
 10. 修复删除脚本bug。
 11. 修复由于`three.js`升级，导致`Geometry`无法序列化的bug。
 12. 增加材质`polygonOffset`、`polygonOffsetFactor`、`polygonOffsetUnits`参数可视化设置，解决深度冲突问题。
+13. 修复模型内部组件无法保存可视性bug。
 
 ## v0.5.10已经发布
 

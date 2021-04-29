@@ -34,6 +34,7 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
 10. Fix the bug of deleting script.
 11. Fix a bug that `Geometry` can not be serialized due to the upgrade of `three.js`.
 12. Add material `polygonOffset`, `polygonOffsetFactor`, `polygonOffsetUnits` parameter visualization settings to solve the problem of depth conflict.
+13. Fix a bug that component in mesh cannot save the `visible` attribute.
 
 ## v0.5.10 has Released
 

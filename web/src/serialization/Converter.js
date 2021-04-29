@@ -516,10 +516,12 @@ Converter.prototype.parseScene = function (parent, children, parts, serverParts,
                 let obj1 = parts.filter(n => n.uuid === child.uuid)[0];
 
                 if (obj1) { // 还原修改过的名称、位置、旋转、缩放等信息。
+                    // TODO: 仅还原了模型内部一些信息，不全。
                     obj.name = obj1.name;
                     obj.position.copy(obj1.position);
                     obj.rotation.copy(obj1.rotation);
                     obj.scale.copy(obj1.scale);
+                    obj.visible = obj1.visible;
                     if (options.options.saveMaterial !== false) {
                         if (obj.material && obj1.material) { // blob:http://
                             if (obj.material.map && obj.material.map.image && obj.material.map.image.src && obj.material.map.image.src.toString().startsWith('blob:http://')) {
