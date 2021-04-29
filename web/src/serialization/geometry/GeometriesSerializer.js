@@ -56,7 +56,31 @@ var Serializers = {
     'TextBufferGeometry': TextBufferGeometrySerializer,
     'TorusBufferGeometry': TorusBufferGeometrySerializer,
     'TorusKnotBufferGeometry': TorusKnotBufferGeometrySerializer,
-    'TubeBufferGeometry': TubeBufferGeometrySerializer
+    'TubeBufferGeometry': TubeBufferGeometrySerializer,
+
+    // 2021.4.29: new version three.js change geometry.type
+    'BoxGeometry': BoxBufferGeometrySerializer,
+    'CircleGeometry': CircleBufferGeometrySerializer,
+    'ConeGeometry': ConeBufferGeometrySerializer,
+    'CylinderGeometry': CylinderBufferGeometrySerializer,
+    'DodecahedronGeometry': DodecahedronBufferGeometrySerializer,
+    'ExtrudeGeometry': ExtrudeBufferGeometrySerializer,
+    'IcosahedronGeometry': IcosahedronBufferGeometrySerializer,
+    'InstancedGeometry': InstancedBufferGeometrySerializer,
+    'LatheGeometry': LatheBufferGeometrySerializer,
+    'OctahedronGeometry': OctahedronBufferGeometrySerializer,
+    'ParametricGeometry': ParametricBufferGeometrySerializer,
+    'PlaneGeometry': PlaneBufferGeometrySerializer,
+    'PolyhedronGeometry': PolyhedronBufferGeometrySerializer,
+    'RingGeometry': RingBufferGeometrySerializer,
+    'ShapeGeometry': ShapeBufferGeometrySerializer,
+    'SphereGeometry': SphereBufferGeometrySerializer,
+    'TeapotGeometry': TeapotBufferGeometrySerializer,
+    'TetrahedronGeometry': TetrahedronBufferGeometrySerializer,
+    'TextGeometry': TextBufferGeometrySerializer,
+    'TorusGeometry': TorusBufferGeometrySerializer,
+    'TorusKnotGeometry': TorusKnotBufferGeometrySerializer,
+    'TubeGeometry': TubeBufferGeometrySerializer
 };
 
 /**

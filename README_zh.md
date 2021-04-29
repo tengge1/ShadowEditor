@@ -32,6 +32,7 @@
 8. 在脚本中添加VR事件：`onVRConnected`、`onVRDisconnected`、`onVRSelectStart`、`onVRSelectEnd`。
 9. VR一体机手柄控制器支持，例如：htc vive。
 10. 修复删除脚本bug。
+11. 修复由于`three.js`升级，导致`Geometry`无法序列化的bug。
 
 ## v0.5.10已经发布
 

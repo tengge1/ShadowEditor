@@ -32,6 +32,7 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
 8. Add VR event to the script: `onVRConnected`, `onVRDisconnected`, `onVRSelectStart`, `onVRSelectEnd`.
 9. VR all-in-one handle controller supports, for example: htc vive.
 10. Fix the bug of deleting script.
+11. Fix a bug that `Geometry` can not be serialized due to the upgrade of `three.js`.
 
 ## v0.5.10 has Released
 
