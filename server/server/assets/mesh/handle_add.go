@@ -131,13 +131,8 @@ func Add(w http.ResponseWriter, r *http.Request) {
 			meshType = Assimp
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".gltf") {
-			// bug: gltf要在bin类型之前识别，因为有的gltf带bin文件
 			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())
 			meshType = Gltf
-			break
-		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".bin") {
-			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())
-			meshType = Binary
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".json") {
 			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())
