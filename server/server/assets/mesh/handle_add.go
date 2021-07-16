@@ -130,6 +130,11 @@ func Add(w http.ResponseWriter, r *http.Request) {
 			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())
 			meshType = Assimp
 			break
+		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".gltf") {
+			// bug: gltf要在bin类型之前识别，因为有的gltf带bin文件
+			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())
+			meshType = Gltf
+			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".bin") {
 			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())
 			meshType = Binary
@@ -177,10 +182,6 @@ func Add(w http.ResponseWriter, r *http.Request) {
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".glb") {
 			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())
 			meshType = Glb
-			break
-		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".gltf") {
-			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())
-			meshType = Gltf
 			break
 		} else if strings.HasSuffix(strings.ToLower(info.Name()), ".kmz") {
 			entryFileName = fmt.Sprintf("%v/%v", savePath, info.Name())

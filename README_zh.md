@@ -35,6 +35,7 @@
 11. 修复由于`three.js`升级，导致`Geometry`无法序列化的bug。
 12. 增加材质`polygonOffset`、`polygonOffsetFactor`、`polygonOffsetUnits`参数可视化设置，解决深度冲突问题。
 13. 修复模型内部组件无法保存可视性bug。
+14. 修复`gltf`被错误的判断为`bin`类型，因为有的`gltf`带一个`bin`文件。
 
 ## v0.5.10已经发布
 
