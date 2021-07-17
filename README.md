@@ -36,6 +36,7 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
 12. Add material `polygonOffset`, `polygonOffsetFactor`, `polygonOffsetUnits` parameter visualization settings to solve the problem of depth conflict.
 13. Fix a bug that component in mesh cannot save the `visible` attribute.
 14. `Bin` type model is no longer supported.
+15. Fix cube texture bug.
 
 ## v0.5.10 has Released
 

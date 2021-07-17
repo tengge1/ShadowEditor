@@ -36,6 +36,7 @@
 12. 增加材质`polygonOffset`、`polygonOffsetFactor`、`polygonOffsetUnits`参数可视化设置，解决深度冲突问题。
 13. 修复模型内部组件无法保存可视性bug。
 14. 不再支持`bin`类型模型。
+15. 修复立体贴图bug。
 
 ## v0.5.10已经发布
 
