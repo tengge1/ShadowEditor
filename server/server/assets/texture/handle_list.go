@@ -106,6 +106,7 @@ func List(w http.ResponseWriter, r *http.Request) {
 			buffer.WriteString(imgs["PosY"].(string) + ";")
 			buffer.WriteString(imgs["NegY"].(string) + ";")
 			buffer.WriteString(imgs["PosZ"].(string) + ";")
+			buffer.WriteString(imgs["NegZ"].(string))
 		} else { // 其他贴图
 			buffer.WriteString(doc["Url"].(string))
 		}
