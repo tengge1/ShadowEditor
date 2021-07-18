@@ -29,41 +29,39 @@ import SplineHelper from './line/SplineHelper';
  * 所有帮助器
  * @author tengge / https://github.com/tengge1
  */
-function Helpers() {
-    BaseHelper.call(this);
+class Helpers extends BaseHelper {
+    constructor() {
+        super();
+        this.helpers = [
+            new GridHelper(),
+            new CameraHelper(),
+            new PointLightHelpers(),
+            new DirectionalLightHelpers(),
+            new HemisphereLightHelpers(),
+            new RectAreaLightHelpers(),
+            new SpotLightHelpers(),
 
-    this.helpers = [
-        new GridHelper(),
-        new CameraHelper(),
-        new PointLightHelpers(),
-        new DirectionalLightHelpers(),
-        new HemisphereLightHelpers(),
-        new RectAreaLightHelpers(),
-        new SpotLightHelpers(),
+            new SelectHelper(),
+            new HoverHelper(),
+            new ViewHelper(),
+            new SplineHelper()
 
-        new SelectHelper(),
-        new HoverHelper(),
-        new ViewHelper(),
-        new SplineHelper()
+            // 测试
+            // new GodRaysHelpers() // 对性能影响太大，请勿使用
+        ];
+    }
 
-        // 测试
-        // new GodRaysHelpers() // 对性能影响太大，请勿使用
-    ];
+    start() {
+        this.helpers.forEach(n => {
+            n.start();
+        });
+    }
+
+    stop() {
+        this.helpers.forEach(n => {
+            n.stop();
+        });
+    }
 }
-
-Helpers.prototype = Object.create(BaseHelper.prototype);
-Helpers.prototype.constructor = Helpers;
-
-Helpers.prototype.start = function () {
-    this.helpers.forEach(n => {
-        n.start();
-    });
-};
-
-Helpers.prototype.stop = function () {
-    this.helpers.forEach(n => {
-        n.stop();
-    });
-};
 
 export default Helpers;

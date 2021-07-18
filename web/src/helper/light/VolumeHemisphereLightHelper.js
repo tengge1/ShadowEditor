@@ -14,39 +14,37 @@
  * @param {Number} size 尺寸
  * @param {Object} color 颜色
  */
-function VolumeHemisphereLightHelper(light, size, color) {
-    THREE.HemisphereLightHelper.call(this, light, size, color);
+class VolumeHemisphereLightHelper extends THREE.HemisphereLightHelper {
+    constructor(light, size, color) {
+        super(light, size, color);
+        var geometry = new THREE.SphereBufferGeometry(2, 4, 2);
+        var material = new THREE.MeshBasicMaterial({
+            color: 0xff0000,
+            visible: false
+        });
 
-    var geometry = new THREE.SphereBufferGeometry(2, 4, 2);
-    var material = new THREE.MeshBasicMaterial({
-        color: 0xff0000,
-        visible: false
-    });
-
-    this.picker = new THREE.Mesh(geometry, material);
-    this.picker.name = 'picker';
-    this.add(this.picker);
-}
-
-VolumeHemisphereLightHelper.prototype = Object.create(THREE.HemisphereLightHelper.prototype);
-VolumeHemisphereLightHelper.prototype.constructor = VolumeHemisphereLightHelper;
-
-VolumeHemisphereLightHelper.prototype.raycast = function (raycaster, intersects) {
-    var intersect = raycaster.intersectObject(this.picker)[0];
-    if (intersect) {
-        intersect.object = this.light;
-        intersects.push(intersect);
+        this.picker = new THREE.Mesh(geometry, material);
+        this.picker.name = 'picker';
+        this.add(this.picker);
     }
-};
 
-VolumeHemisphereLightHelper.prototype.dispose = function () {
-    this.remove(this.picker);
+    raycast(raycaster, intersects) {
+        var intersect = raycaster.intersectObject(this.picker)[0];
+        if (intersect) {
+            intersect.object = this.light;
+            intersects.push(intersect);
+        }
+    }
 
-    this.picker.geometry.dispose();
-    this.picker.material.dispose();
-    delete this.picker;
+    dispose() {
+        this.remove(this.picker);
 
-    THREE.HemisphereLightHelper.prototype.dispose.call(this);
-};
+        this.picker.geometry.dispose();
+        this.picker.material.dispose();
+        delete this.picker;
+
+        super.dispose();
+    }
+}
 
 export default VolumeHemisphereLightHelper;

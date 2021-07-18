@@ -44,7 +44,7 @@ class VolumeDirectionalLightHelper extends THREE.DirectionalLightHelper {
         this.picker.material.dispose();
         delete this.picker;
 
-        THREE.DirectionalLightHelper.prototype.dispose.call(this);
+        super.dispose.call(this);
     }
 }
 

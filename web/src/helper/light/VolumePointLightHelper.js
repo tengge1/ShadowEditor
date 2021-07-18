@@ -14,39 +14,38 @@
  * @param {Number} sphereSize 发射尺寸
  * @param {Object} color 颜色
  */
-function VolumePointLightHelper(light, sphereSize, color) {
-    THREE.PointLightHelper.call(this, light, sphereSize, color);
+class VolumePointLightHelper extends THREE.PointLightHelper {
+    constructor(light, sphereSize, color) {
+        super(light, sphereSize, color);
 
-    var geometry = new THREE.SphereBufferGeometry(2, 4, 2);
-    var material = new THREE.MeshBasicMaterial({
-        color: 0xff0000,
-        visible: false
-    });
+        var geometry = new THREE.SphereBufferGeometry(2, 4, 2);
+        var material = new THREE.MeshBasicMaterial({
+            color: 0xff0000,
+            visible: false
+        });
 
-    this.picker = new THREE.Mesh(geometry, material);
-    this.picker.name = 'picker';
-    this.add(this.picker);
-}
-
-VolumePointLightHelper.prototype = Object.create(THREE.PointLightHelper.prototype);
-VolumePointLightHelper.prototype.constructor = VolumePointLightHelper;
-
-VolumePointLightHelper.prototype.raycast = function (raycaster, intersects) {
-    var intersect = raycaster.intersectObject(this.picker)[0];
-    if (intersect) {
-        intersect.object = this.light;
-        intersects.push(intersect);
+        this.picker = new THREE.Mesh(geometry, material);
+        this.picker.name = 'picker';
+        this.add(this.picker);
     }
-};
 
-VolumePointLightHelper.prototype.dispose = function () {
-    this.remove(this.picker);
+    raycast(raycaster, intersects) {
+        var intersect = raycaster.intersectObject(this.picker)[0];
+        if (intersect) {
+            intersect.object = this.light;
+            intersects.push(intersect);
+        }
+    }
 
-    this.picker.geometry.dispose();
-    this.picker.material.dispose();
-    delete this.picker;
+    dispose() {
+        this.remove(this.picker);
 
-    THREE.PointLightHelper.prototype.dispose.call(this);
-};
+        this.picker.geometry.dispose();
+        this.picker.material.dispose();
+        delete this.picker;
+
+        super.dispose();
+    }
+}
 
 export default VolumePointLightHelper;
