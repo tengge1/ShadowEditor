@@ -90,7 +90,7 @@ const PackageList = [{
     name: 'MD2Loader',
     assets: [
         'assets/js/loaders/MD2Loader.js',
-        'assets/js/MD2Character.js'
+        'assets/js/misc/MD2Character.js'
     ]
 }, {
     name: 'OBJLoader',

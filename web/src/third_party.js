@@ -34,6 +34,7 @@ import '../assets/js/objects/Lensflare.js';
 // shaders
 import '../assets/js/shaders/FXAAShader.js';
 import '../assets/js/shaders/TerrainShader.js';
+import '../assets/js/shaders/MMDToonShader.js';
 
 // utils
 import '../assets/js/utils/BufferGeometryUtils.js';
