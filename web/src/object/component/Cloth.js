@@ -213,13 +213,13 @@ class Cloth extends THREE.Mesh {
         const indices = clothGeometry.index;
         const normals = clothGeometry.attributes.normal;
 
-        for ( let i = 0, il = indices.count; i < il; i += 3 ) {
+        for (let i = 0, il = indices.count; i < il; i += 3) {
 
-            for ( let j = 0; j < 3; j ++ ) {
+            for (let j = 0; j < 3; j++) {
 
-                indx = indices.getX( i + j );
-                normal.fromBufferAttribute( normals, indx );
-                tmpForce.copy( normal ).normalize().multiplyScalar( normal.dot( windForce ) );
+                indx = indices.getX(i + j);
+                normal.fromBufferAttribute(normals, indx);
+                tmpForce.copy(normal).normalize().multiplyScalar(normal.dot(windForce));
 
             }
 
