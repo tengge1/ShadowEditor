@@ -7,7 +7,7 @@
  * For more information, please visit: https://github.com/tengge1/ShadowEditor
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
-import commonjs from 'rollup-plugin-commonjs';
+import commonjs from '@rollup/plugin-commonjs';
 import resolve from 'rollup-plugin-node-resolve';
 import replace from 'rollup-plugin-replace';
 import postcss from 'rollup-plugin-postcss';
