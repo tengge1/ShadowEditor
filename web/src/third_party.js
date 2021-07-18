@@ -14,7 +14,7 @@ import '../assets/js/controls/TransformControls';
 
 // geometries
 import '../assets/js/geometries/DecalGeometry.js';
-import '../assets/js/geometries/TeapotBufferGeometry.js';
+import '../assets/js/geometries/TeapotGeometry.js';
 
 // math
 import '../assets/js/math/SimplexNoise.js';

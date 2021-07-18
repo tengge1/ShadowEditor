@@ -26,27 +26,25 @@ var points = [
  * @param {THREE.LatheBufferGeometry} geometry 几何体
  * @param {THREE.MeshStandardMaterial} material 材质
  */
-function Lathe(geometry = new THREE.LatheBufferGeometry(points, 20, 0, 2 * Math.PI), material = new THREE.MeshStandardMaterial({ side: THREE.DoubleSide })) {
-    THREE.Mesh.call(this, geometry, material);
+class Lathe extends THREE.Mesh {
+    constructor(geometry = new THREE.LatheBufferGeometry(points, 20, 0, 2 * Math.PI), material = new THREE.MeshStandardMaterial({side: THREE.DoubleSide})) {
+        super(geometry, material);
+        this.name = _t('Lathe');
+        this.castShadow = true;
+        this.receiveShadow = true;
 
-    this.name = _t('Lathe');
-    this.castShadow = true;
-    this.receiveShadow = true;
-
-    this.userData.physics = this.userData.physics || {
-        enabled: true,
-        type: 'rigidBody',
-        shape: 'btBoxShape',
-        mass: 1,
-        inertia: {
-            x: 0,
-            y: 0,
-            z: 0
-        }
-    };
+        this.userData.physics = this.userData.physics || {
+            enabled: true,
+            type: 'rigidBody',
+            shape: 'btBoxShape',
+            mass: 1,
+            inertia: {
+                x: 0,
+                y: 0,
+                z: 0
+            }
+        };
+    }
 }
-
-Lathe.prototype = Object.create(THREE.Mesh.prototype);
-Lathe.prototype.constructor = Lathe;
 
 export default Lathe;

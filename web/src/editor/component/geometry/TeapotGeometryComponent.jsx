@@ -7,7 +7,7 @@
  * For more information, please visit: https://github.com/tengge1/ShadowEditor
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
-import { PropertyGroup, CheckBoxProperty, NumberProperty, IntegerProperty } from '../../../ui/index';
+import {CheckBoxProperty, IntegerProperty, NumberProperty, PropertyGroup} from '../../../ui/index';
 import SetGeometryCommand from '../../../command/SetGeometryCommand';
 import global from '../../../global';
 
@@ -39,51 +39,51 @@ class TeapotGeometryComponent extends React.Component {
     }
 
     render() {
-        const { show, expanded, size, segments, bottom, lid, body, fitLid, blinn } = this.state;
+        const {show, expanded, size, segments, bottom, lid, body, fitLid, blinn} = this.state;
 
         if (!show) {
             return null;
         }
 
         return <PropertyGroup title={_t('Geometry Component')}
-            show={show}
-            expanded={expanded}
-            onExpand={this.handleExpand}
-               >
+                              show={show}
+                              expanded={expanded}
+                              onExpand={this.handleExpand}
+        >
             <NumberProperty name={'size'}
-                label={_t('Size')}
-                value={size}
-                onChange={this.handleChange}
+                            label={_t('Size')}
+                            value={size}
+                            onChange={this.handleChange}
             />
             <IntegerProperty name={'segments'}
-                label={_t('Segments')}
-                value={segments}
-                onChange={this.handleChange}
+                             label={_t('Segments')}
+                             value={segments}
+                             onChange={this.handleChange}
             />
             <CheckBoxProperty name={'bottom'}
-                label={_t('Bottom')}
-                value={bottom}
-                onChange={this.handleChange}
+                              label={_t('Bottom')}
+                              value={bottom}
+                              onChange={this.handleChange}
             />
             <CheckBoxProperty name={'lid'}
-                label={_t('Lid')}
-                value={lid}
-                onChange={this.handleChange}
+                              label={_t('Lid')}
+                              value={lid}
+                              onChange={this.handleChange}
             />
             <CheckBoxProperty name={'body'}
-                label={_t('Body')}
-                value={body}
-                onChange={this.handleChange}
+                              label={_t('Body')}
+                              value={body}
+                              onChange={this.handleChange}
             />
             <CheckBoxProperty name={'fitLid'}
-                label={_t('FitLid')}
-                value={fitLid}
-                onChange={this.handleChange}
+                              label={_t('FitLid')}
+                              value={fitLid}
+                              onChange={this.handleChange}
             />
             <CheckBoxProperty name={'blinn'}
-                label={_t('Blinn')}
-                value={blinn}
-                onChange={this.handleChange}
+                              label={_t('Blinn')}
+                              value={blinn}
+                              onChange={this.handleChange}
             />
         </PropertyGroup>;
     }
@@ -102,7 +102,7 @@ class TeapotGeometryComponent extends React.Component {
     handleUpdate() {
         const editor = global.app.editor;
 
-        if (!editor.selected || !(editor.selected instanceof THREE.Mesh) || !(editor.selected.geometry instanceof THREE.TeapotBufferGeometry)) {
+        if (!editor.selected || !(editor.selected instanceof THREE.Mesh) || !(editor.selected.geometry instanceof THREE.TeapotGeometry)) {
             this.setState({
                 show: false
             });
@@ -111,7 +111,7 @@ class TeapotGeometryComponent extends React.Component {
 
         this.selected = editor.selected;
 
-        const { size, segments, bottom, lid, body, fitLid, blinn } = Object.assign({}, this.selected.geometry.parameters);
+        const {size, segments, bottom, lid, body, fitLid, blinn} = Object.assign({}, this.selected.geometry.parameters);
 
         this.setState({
             show: true,
@@ -134,15 +134,15 @@ class TeapotGeometryComponent extends React.Component {
             return;
         }
 
-        const { size, segments, bottom, lid, body, fitLid, blinn } = Object.assign({}, this.state, {
+        const {size, segments, bottom, lid, body, fitLid, blinn} = Object.assign({}, this.state, {
             [name]: value
         });
 
-        let geometry = new THREE.TeapotBufferGeometry(size, segments, bottom, lid, body, fitLid, blinn);
+        let geometry = new THREE.TeapotGeometry(size, segments, bottom, lid, body, fitLid, blinn);
 
-        geometry.type = 'TeapotBufferGeometry';
+        geometry.type = 'TeapotGeometry';
 
-        geometry.parameters = { size, segments, bottom, lid, body, fitLid, blinn };
+        geometry.parameters = {size, segments, bottom, lid, body, fitLid, blinn};
 
         global.app.editor.execute(new SetGeometryCommand(this.selected, geometry));
 
