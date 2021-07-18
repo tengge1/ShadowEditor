@@ -12,7 +12,7 @@ host = "127.0.0.1"                          # mongo ip
 port = 27017                                # mongo port
 user = ""                                   # mongo username
 password = ""                               # mongo password
-database = "ShadowEditor"                   # mongo database name
+database = "ShadowEditorTest"                   # mongo database name
 
 [authority]
 enabled = false                             # enable authority
