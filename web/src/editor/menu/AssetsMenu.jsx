@@ -27,7 +27,6 @@ class AssetsMenu extends React.Component {
         this.handleExportGLTF = this.handleExportGLTF.bind(this);
         this.handleExportOBJ = this.handleExportOBJ.bind(this);
         this.handleExportPLY = this.handleExportPLY.bind(this);
-        this.handleExportSTLB = this.handleExportSTLB.bind(this);
         this.handleExportSTL = this.handleExportSTL.bind(this);
     }
 
@@ -54,9 +53,6 @@ class AssetsMenu extends React.Component {
             />
             <MenuItem title={_t('Export PLY')}
                 onClick={this.handleExportPLY}
-            />
-            <MenuItem title={_t('Export STL Binary')}
-                onClick={this.handleExportSTLB}
             />
             <MenuItem title={_t('Export STL')}
                 onClick={this.handleExportSTL}
@@ -197,17 +193,6 @@ class AssetsMenu extends React.Component {
             StringUtils.saveString(exporter.parse(object, {
                 excludeAttributes: ['normal', 'uv', 'color', 'index']
             }), 'model.ply');
-        });
-    }
-
-    // ------------------------------- 导出stl二进制文件 -----------------------------------
-
-    handleExportSTLB() {
-        var editor = global.app.editor;
-
-        global.app.require('STLBinaryExporter').then(() => {
-            var exporter = new THREE.STLBinaryExporter();
-            StringUtils.saveString(exporter.parse(editor.scene), 'model.stl');
         });
     }
 
