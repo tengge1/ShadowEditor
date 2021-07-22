@@ -19,63 +19,58 @@ import global from '../global';
  * @param {THREE.Vector3} optionalOldPosition 可选旧位置
  * @constructor
  */
-function SetPositionCommand(object, newPosition, optionalOldPosition) {
-	Command.call(this);
+class SetPositionCommand extends Command {
+    constructor(object, newPosition, optionalOldPosition) {
+        super();
+        this.type = 'SetPositionCommand';
+        this.name = _t('Set Position');
+        this.updatable = true;
 
-	this.type = 'SetPositionCommand';
-	this.name = _t('Set Position');
-	this.updatable = true;
+        this.object = object;
 
-	this.object = object;
+        if (object !== undefined && newPosition !== undefined) {
+            this.oldPosition = object.position.clone();
+            this.newPosition = newPosition.clone();
+        }
 
-	if (object !== undefined && newPosition !== undefined) {
-		this.oldPosition = object.position.clone();
-		this.newPosition = newPosition.clone();
-	}
+        if (optionalOldPosition !== undefined) {
+            this.oldPosition = optionalOldPosition.clone();
+        }
+    }
 
-	if (optionalOldPosition !== undefined) {
-		this.oldPosition = optionalOldPosition.clone();
-	}
+    execute() {
+        this.object.position.copy(this.newPosition);
+        this.object.updateMatrixWorld(true);
+        global.app.call('objectChanged', this, this.object);
+    }
+
+    undo() {
+        this.object.position.copy(this.oldPosition);
+        this.object.updateMatrixWorld(true);
+        global.app.call('objectChanged', this, this.object);
+    }
+
+    update(command) {
+        this.newPosition.copy(command.newPosition);
+    }
+
+    toJSON() {
+        var output = super.toJSON();
+
+        output.objectUuid = this.object.uuid;
+        output.oldPosition = this.oldPosition.toArray();
+        output.newPosition = this.newPosition.toArray();
+
+        return output;
+    }
+
+    fromJSON(json) {
+        super.fromJSON(json);
+
+        this.object = this.editor.objectByUuid(json.objectUuid);
+        this.oldPosition = new THREE.Vector3().fromArray(json.oldPosition);
+        this.newPosition = new THREE.Vector3().fromArray(json.newPosition);
+    }
 }
-
-SetPositionCommand.prototype = Object.create(Command.prototype);
-
-Object.assign(SetPositionCommand.prototype, {
-	constructor: SetPositionCommand,
-
-	execute: function () {
-		this.object.position.copy(this.newPosition);
-		this.object.updateMatrixWorld(true);
-		global.app.call('objectChanged', this, this.object);
-	},
-
-	undo: function () {
-		this.object.position.copy(this.oldPosition);
-		this.object.updateMatrixWorld(true);
-		global.app.call('objectChanged', this, this.object);
-	},
-
-	update: function (command) {
-		this.newPosition.copy(command.newPosition);
-	},
-
-	toJSON: function () {
-		var output = Command.prototype.toJSON.call(this);
-
-		output.objectUuid = this.object.uuid;
-		output.oldPosition = this.oldPosition.toArray();
-		output.newPosition = this.newPosition.toArray();
-
-		return output;
-	},
-
-	fromJSON: function (json) {
-		Command.prototype.fromJSON.call(this, json);
-
-		this.object = this.editor.objectByUuid(json.objectUuid);
-		this.oldPosition = new THREE.Vector3().fromArray(json.oldPosition);
-		this.newPosition = new THREE.Vector3().fromArray(json.newPosition);
-	}
-});
 
 export default SetPositionCommand;

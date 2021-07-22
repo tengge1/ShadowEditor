@@ -17,73 +17,68 @@ import global from '../global';
  * @param {THREE.Object3D} object 物体
  * @constructor
  */
-function RemoveObjectCommand(object) {
-	Command.call(this);
+class RemoveObjectCommand extends Command {
+    constructor(object) {
+        super();
+        this.type = 'RemoveObjectCommand';
+        this.name = _t('Remove Object');
 
-	this.type = 'RemoveObjectCommand';
-	this.name = _t('Remove Object');
+        this.object = object;
 
-	this.object = object;
+        this.parent = object !== undefined ? object.parent : undefined;
 
-	this.parent = object !== undefined ? object.parent : undefined;
+        if (this.parent !== undefined) {
+            this.index = this.parent.children.indexOf(this.object);
+        }
+    }
 
-	if (this.parent !== undefined) {
-		this.index = this.parent.children.indexOf(this.object);
-	}
+    execute() {
+        // var scope = this.editor;
+
+        this.parent.remove(this.object);
+
+        if (this.object === this.editor.selected) {
+            this.editor.select(null);
+        }
+
+        global.app.call('objectRemoved', this, this.object);
+    }
+
+    undo() {
+        // var scope = this.editor;
+
+        this.parent.children.splice(this.index, 0, this.object);
+        this.object.parent = this.parent;
+        this.editor.select(this.object);
+
+        global.app.call('objectAdded', this, this.object);
+    }
+
+    toJSON() {
+        var output = Command.prototype.toJSON.call(this);
+        output.object = this.object.toJSON();
+        output.index = this.index;
+        output.parentUuid = this.parent.uuid;
+
+        return output;
+    }
+
+    fromJSON(json) {
+        Command.prototype.fromJSON.call(this, json);
+
+        this.parent = this.editor.objectByUuid(json.parentUuid);
+        if (this.parent === undefined) {
+            this.parent = this.editor.scene;
+        }
+
+        this.index = json.index;
+
+        this.object = this.editor.objectByUuid(json.object.object.uuid);
+        if (this.object === undefined) {
+            var loader = new THREE.ObjectLoader();
+            this.object = loader.parse(json.object);
+        }
+    }
 }
-
-RemoveObjectCommand.prototype = Object.create(Command.prototype);
-
-Object.assign(RemoveObjectCommand.prototype, {
-	constructor: RemoveObjectCommand,
-
-	execute: function () {
-		// var scope = this.editor;
-
-		this.parent.remove(this.object);
-
-		if (this.object === this.editor.selected) {
-			this.editor.select(null);
-		}
-
-		global.app.call('objectRemoved', this, this.object);
-	},
-
-	undo: function () {
-		// var scope = this.editor;
-
-		this.parent.children.splice(this.index, 0, this.object);
-		this.object.parent = this.parent;
-		this.editor.select(this.object);
-
-		global.app.call('objectAdded', this, this.object);
-	},
-
-	toJSON: function () {
-		var output = Command.prototype.toJSON.call(this);
-		output.object = this.object.toJSON();
-		output.index = this.index;
-		output.parentUuid = this.parent.uuid;
-
-		return output;
-	},
-
-	fromJSON: function (json) {
-		Command.prototype.fromJSON.call(this, json);
-
-		this.parent = this.editor.objectByUuid(json.parentUuid);
-		if (this.parent === undefined) {
-			this.parent = this.editor.scene;
-		}
-
-		this.index = json.index;
-
-		this.object = this.editor.objectByUuid(json.object.object.uuid);
-		if (this.object === undefined) {
-			var loader = new THREE.ObjectLoader();
-			this.object = loader.parse(json.object);
-		}
-	}
-});
 
 export default RemoveObjectCommand;

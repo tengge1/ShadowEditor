@@ -19,59 +19,54 @@ import global from '../global';
  * @param {String} newValue number, string, boolean or object
  * @constructor
  */
-function SetMaterialValueCommand(object, attributeName, newValue) {
-	Command.call(this);
+class SetMaterialValueCommand extends Command {
+    constructor(object, attributeName, newValue) {
+        super();
+        this.type = 'SetMaterialValueCommand';
+        this.name = _t('Set Material') + '.' + attributeName;
+        this.updatable = true;
 
-	this.type = 'SetMaterialValueCommand';
-	this.name = _t('Set Material') + '.' + attributeName;
-	this.updatable = true;
+        this.object = object;
+        this.oldValue = object !== undefined ? object.material[attributeName] : undefined;
+        this.newValue = newValue;
+        this.attributeName = attributeName;
+    }
 
-	this.object = object;
-	this.oldValue = object !== undefined ? object.material[attributeName] : undefined;
-	this.newValue = newValue;
-	this.attributeName = attributeName;
+    execute() {
+        this.object.material[this.attributeName] = this.newValue;
+        this.object.material.needsUpdate = true;
+        global.app.call('objectChanged', this, this.object);
+    }
+
+    undo() {
+        this.object.material[this.attributeName] = this.oldValue;
+        this.object.material.needsUpdate = true;
+        global.app.call('objectChanged', this, this.object);
+    }
+
+    update(cmd) {
+        this.newValue = cmd.newValue;
+    }
+
+    toJSON() {
+        var output = super.toJSON();
+
+        output.objectUuid = this.object.uuid;
+        output.attributeName = this.attributeName;
+        output.oldValue = this.oldValue;
+        output.newValue = this.newValue;
+
+        return output;
+    }
+
+    fromJSON(json) {
+        super.fromJSON(json);
+
+        this.attributeName = json.attributeName;
+        this.oldValue = json.oldValue;
+        this.newValue = json.newValue;
+        this.object = this.editor.objectByUuid(json.objectUuid);
+    }
 }
-
-SetMaterialValueCommand.prototype = Object.create(Command.prototype);
-
-Object.assign(SetMaterialValueCommand.prototype, {
-	constructor: SetMaterialValueCommand,
-
-	execute: function () {
-		this.object.material[this.attributeName] = this.newValue;
-		this.object.material.needsUpdate = true;
-		global.app.call('objectChanged', this, this.object);
-	},
-
-	undo: function () {
-		this.object.material[this.attributeName] = this.oldValue;
-		this.object.material.needsUpdate = true;
-		global.app.call('objectChanged', this, this.object);
-	},
-
-	update: function (cmd) {
-		this.newValue = cmd.newValue;
-	},
-
-	toJSON: function () {
-		var output = Command.prototype.toJSON.call(this);
-
-		output.objectUuid = this.object.uuid;
-		output.attributeName = this.attributeName;
-		output.oldValue = this.oldValue;
-		output.newValue = this.newValue;
-
-		return output;
-	},
-
-	fromJSON: function (json) {
-		Command.prototype.fromJSON.call(this, json);
-
-		this.attributeName = json.attributeName;
-		this.oldValue = json.oldValue;
-		this.newValue = json.newValue;
-		this.object = this.editor.objectByUuid(json.objectUuid);
-	}
-});
 
 export default SetMaterialValueCommand;

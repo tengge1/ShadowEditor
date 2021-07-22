@@ -16,23 +16,17 @@ import global from '../global';
  * Developed as part of a project at University of Applied Sciences and Arts Northwestern Switzerland (www.fhnw.ch)
  * @param {*} editor 编辑器
  */
-function History(editor) {
-    this.editor = editor;
-    this.undos = [];
-    this.redos = [];
-    this.lastCmdTime = new Date();
-    this.idCounter = 0;
+class History extends Command {
+    constructor(editor) {
+        super(editor);
+        this.editor = editor;
+        this.undos = [];
+        this.redos = [];
+        this.lastCmdTime = new Date();
+        this.idCounter = 0;
+    }
 
-    Command.call(this, editor);
-}
-
-History.prototype = Object.create(Command.prototype);
-
-Object.assign(History.prototype, {
-
-    constructor: History,
-
-    execute: function (cmd, optionalName) {
+    execute(cmd, optionalName) {
 
         var lastCmd = this.undos[this.undos.length - 1];
         var timeDifference = new Date().getTime() - this.lastCmdTime.getTime();
@@ -69,9 +63,9 @@ Object.assign(History.prototype, {
         this.redos = [];
         global.app.call('historyChanged', this, cmd);
 
-    },
+    }
 
-    undo: function () {
+    undo() {
         var cmd = undefined;
 
         if (this.undos.length > 0) {
@@ -89,9 +83,9 @@ Object.assign(History.prototype, {
         }
 
         return cmd;
-    },
+    }
 
-    redo: function () {
+    redo() {
         var cmd = undefined;
 
         if (this.redos.length > 0) {
@@ -109,9 +103,9 @@ Object.assign(History.prototype, {
         }
 
         return cmd;
-    },
+    }
 
-    toJSON: function () {
+    toJSON() {
         var history = {};
         history.undos = [];
         history.redos = [];
@@ -133,9 +127,9 @@ Object.assign(History.prototype, {
         }
 
         return history;
-    },
+    }
 
-    fromJSON: function (json) {
+    fromJSON(json) {
         if (json === undefined) return;
 
         var i = 0, cmdJSON, cmd;
@@ -162,17 +156,17 @@ Object.assign(History.prototype, {
 
         // Select the last executed undo-command
         global.app.call('historyChanged', this, this.undos[this.undos.length - 1]);
-    },
+    }
 
-    clear: function () {
+    clear() {
         this.undos = [];
         this.redos = [];
         this.idCounter = 0;
 
         global.app.call('historyChanged', this);
-    },
+    }
 
-    goToState: function (id) {
+    goToState(id) {
         var cmd = this.undos.length > 0 ? this.undos[this.undos.length - 1] : undefined; // next cmd to pop
 
         if (cmd === undefined || id > cmd.id) {
@@ -191,10 +185,9 @@ Object.assign(History.prototype, {
         }
 
         global.app.call('historyChanged', this, cmd);
-    },
+    }
 
-    enableSerialization: function (id) {
-
+    enableSerialization(id) {
         /**
          * because there might be commands in this.undos and this.redos
          * which have not been serialized with .toJSON() we go back
@@ -214,6 +207,6 @@ Object.assign(History.prototype, {
 
         this.goToState(id);
     }
-});
+}
 
 export default History;

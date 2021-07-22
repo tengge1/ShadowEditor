@@ -16,50 +16,45 @@ import Command from './Command';
  * @param {THREE.Object3D} object 配置
  * @constructor
  */
-function AddObjectCommand(object) {
-	Command.call(this);
+class AddObjectCommand extends Command {
+    constructor(object) {
+        super();
+        this.type = 'AddObjectCommand';
 
-	this.type = 'AddObjectCommand';
+        this.object = object;
 
-	this.object = object;
+        if (object !== undefined) {
+            this.name = _t('Add Object') + object.name;
+        }
+    }
 
-	if (object !== undefined) {
-		this.name = _t('Add Object') + object.name;
-	}
+    execute() {
+        this.editor.addObject(this.object);
+        this.editor.select(this.object);
+    }
+
+    undo() {
+        this.editor.removeObject(this.object);
+        this.editor.deselect();
+    }
+
+    toJSON() {
+        var output = Command.prototype.toJSON.call(this);
+        output.object = this.object.toJSON();
+
+        return output;
+    }
+
+    fromJSON(json) {
+        Command.prototype.fromJSON.call(this, json);
+
+        this.object = this.editor.objectByUuid(json.object.object.uuid);
+
+        if (this.object === undefined) {
+            var loader = new THREE.ObjectLoader();
+            this.object = loader.parse(json.object);
+        }
+    }
 }
-
-AddObjectCommand.prototype = Object.create(Command.prototype);
-
-Object.assign(AddObjectCommand.prototype, {
-	constructor: AddObjectCommand,
-
-	execute: function () {
-		this.editor.addObject(this.object);
-		this.editor.select(this.object);
-	},
-
-	undo: function () {
-		this.editor.removeObject(this.object);
-		this.editor.deselect();
-	},
-
-	toJSON: function () {
-		var output = Command.prototype.toJSON.call(this);
-		output.object = this.object.toJSON();
-
-		return output;
-	},
-
-	fromJSON: function (json) {
-		Command.prototype.fromJSON.call(this, json);
-
-		this.object = this.editor.objectByUuid(json.object.object.uuid);
-
-		if (this.object === undefined) {
-			var loader = new THREE.ObjectLoader();
-			this.object = loader.parse(json.object);
-		}
-	}
-});
 
 export default AddObjectCommand;

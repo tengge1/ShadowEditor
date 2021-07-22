@@ -19,54 +19,49 @@ import global from '../global';
  * @param {Object} newValue number, string, boolean or object
  * @constructor
  */
-function SetGeometryValueCommand(object, attributeName, newValue) {
-	Command.call(this);
+class SetGeometryValueCommand extends Command {
+    constructor(object, attributeName, newValue) {
+        super();
+        this.type = 'SetGeometryValueCommand';
+        this.name = _t('Set Geometry') + '.' + attributeName;
 
-	this.type = 'SetGeometryValueCommand';
-	this.name = _t('Set Geometry') + '.' + attributeName;
+        this.object = object;
+        this.attributeName = attributeName;
+        this.oldValue = object !== undefined ? object.geometry[attributeName] : undefined;
+        this.newValue = newValue;
+    }
 
-	this.object = object;
-	this.attributeName = attributeName;
-	this.oldValue = object !== undefined ? object.geometry[attributeName] : undefined;
-	this.newValue = newValue;
+    execute() {
+        this.object.geometry[this.attributeName] = this.newValue;
+        global.app.call('objectChanged', this, this.object);
+        global.app.call('geometryChanged', this);
+    }
+
+    undo() {
+        this.object.geometry[this.attributeName] = this.oldValue;
+        global.app.call('objectChanged', this, this.object);
+        global.app.call('geometryChanged', this);
+    }
+
+    toJSON() {
+        var output = super.toJSON();
+
+        output.objectUuid = this.object.uuid;
+        output.attributeName = this.attributeName;
+        output.oldValue = this.oldValue;
+        output.newValue = this.newValue;
+
+        return output;
+    }
+
+    fromJSON(json) {
+        super.fromJSON(json);
+
+        this.object = this.editor.objectByUuid(json.objectUuid);
+        this.attributeName = json.attributeName;
+        this.oldValue = json.oldValue;
+        this.newValue = json.newValue;
+    }
 }
-
-SetGeometryValueCommand.prototype = Object.create(Command.prototype);
-
-Object.assign(SetGeometryValueCommand.prototype, {
-	constructor: SetGeometryValueCommand,
-
-	execute: function () {
-		this.object.geometry[this.attributeName] = this.newValue;
-		global.app.call('objectChanged', this, this.object);
-		global.app.call('geometryChanged', this);
-	},
-
-	undo: function () {
-		this.object.geometry[this.attributeName] = this.oldValue;
-		global.app.call('objectChanged', this, this.object);
-		global.app.call('geometryChanged', this);
-	},
-
-	toJSON: function () {
-		var output = Command.prototype.toJSON.call(this);
-
-		output.objectUuid = this.object.uuid;
-		output.attributeName = this.attributeName;
-		output.oldValue = this.oldValue;
-		output.newValue = this.newValue;
-
-		return output;
-	},
-
-	fromJSON: function (json) {
-		Command.prototype.fromJSON.call(this, json);
-
-		this.object = this.editor.objectByUuid(json.objectUuid);
-		this.attributeName = json.attributeName;
-		this.oldValue = json.oldValue;
-		this.newValue = json.newValue;
-	}
-});
 
 export default SetGeometryValueCommand;

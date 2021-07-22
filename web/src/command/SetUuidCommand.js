@@ -18,53 +18,48 @@ import global from '../global';
  * @param {String} newUuid 新的UUID
  * @constructor
  */
-function SetUuidCommand(object, newUuid) {
-	Command.call(this);
+class SetUuidCommand extends Command {
+    constructor(object, newUuid) {
+        super();
+        this.type = 'SetUuidCommand';
+        this.name = _t('Update UUID');
 
-	this.type = 'SetUuidCommand';
-	this.name = _t('Update UUID');
+        this.object = object;
 
-	this.object = object;
+        this.oldUuid = object !== undefined ? object.uuid : undefined;
+        this.newUuid = newUuid;
+    }
 
-	this.oldUuid = object !== undefined ? object.uuid : undefined;
-	this.newUuid = newUuid;
+    execute() {
+        this.object.uuid = this.newUuid;
+        global.app.call('objectChanged', this, this.object);
+    }
+
+    undo() {
+        this.object.uuid = this.oldUuid;
+        global.app.call('objectChanged', this, this.object);
+    }
+
+    toJSON() {
+        var output = Command.prototype.toJSON.call(this);
+
+        output.oldUuid = this.oldUuid;
+        output.newUuid = this.newUuid;
+
+        return output;
+    }
+
+    fromJSON(json) {
+        Command.prototype.fromJSON.call(this, json);
+
+        this.oldUuid = json.oldUuid;
+        this.newUuid = json.newUuid;
+        this.object = this.editor.objectByUuid(json.oldUuid);
+
+        if (this.object === undefined) {
+            this.object = this.editor.objectByUuid(json.newUuid);
+        }
+    }
 }
-
-SetUuidCommand.prototype = Object.create(Command.prototype);
-
-Object.assign(SetUuidCommand.prototype, {
-	constructor: SetUuidCommand,
-
-	execute: function () {
-		this.object.uuid = this.newUuid;
-		global.app.call('objectChanged', this, this.object);
-	},
-
-	undo: function () {
-		this.object.uuid = this.oldUuid;
-		global.app.call('objectChanged', this, this.object);
-	},
-
-	toJSON: function () {
-		var output = Command.prototype.toJSON.call(this);
-
-		output.oldUuid = this.oldUuid;
-		output.newUuid = this.newUuid;
-
-		return output;
-	},
-
-	fromJSON: function (json) {
-		Command.prototype.fromJSON.call(this, json);
-
-		this.oldUuid = json.oldUuid;
-		this.newUuid = json.newUuid;
-		this.object = this.editor.objectByUuid(json.oldUuid);
-
-		if (this.object === undefined) {
-			this.object = this.editor.objectByUuid(json.newUuid);
-		}
-	}
-});
 
 export default SetUuidCommand;

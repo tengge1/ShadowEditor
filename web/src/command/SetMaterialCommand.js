@@ -17,55 +17,50 @@ import Command from './Command';
  * @param {THREE.Material} newMaterial 新材质
  * @constructor
  */
-function SetMaterialCommand(object, newMaterial) {
-	Command.call(this);
+class SetMaterialCommand extends Command {
+    constructor(object, newMaterial) {
+        super();
+        this.type = 'SetMaterialCommand';
+        this.name = _t('New Material');
 
-	this.type = 'SetMaterialCommand';
-	this.name = _t('New Material');
+        this.object = object;
+        this.oldMaterial = object !== undefined ? object.material : undefined;
+        this.newMaterial = newMaterial;
+    }
 
-	this.object = object;
-	this.oldMaterial = object !== undefined ? object.material : undefined;
-	this.newMaterial = newMaterial;
+    execute() {
+        this.object.material = this.newMaterial;
+    }
+
+    undo() {
+        this.object.material = this.oldMaterial;
+    }
+
+    toJSON() {
+        var output = Command.prototype.toJSON.call(this);
+
+        output.objectUuid = this.object.uuid;
+        output.oldMaterial = this.oldMaterial.toJSON();
+        output.newMaterial = this.newMaterial.toJSON();
+
+        return output;
+    }
+
+    fromJSON(json) {
+        super.fromJSON(json);
+
+        this.object = this.editor.objectByUuid(json.objectUuid);
+        this.oldMaterial = parseMaterial(json.oldMaterial);
+        this.newMaterial = parseMaterial(json.newMaterial);
+
+        function parseMaterial(json) {
+            var loader = new THREE.ObjectLoader();
+            var images = loader.parseImages(json.images);
+            var textures = loader.parseTextures(json.textures, images);
+            var materials = loader.parseMaterials([json], textures);
+            return materials[json.uuid];
+        }
+    }
 }
-
-SetMaterialCommand.prototype = Object.create(Command.prototype);
-
-Object.assign(SetMaterialCommand.prototype, {
-	constructor: SetMaterialCommand,
-
-	execute: function () {
-		this.object.material = this.newMaterial;
-	},
-
-	undo: function () {
-		this.object.material = this.oldMaterial;
-	},
-
-	toJSON: function () {
-		var output = Command.prototype.toJSON.call(this);
-
-		output.objectUuid = this.object.uuid;
-		output.oldMaterial = this.oldMaterial.toJSON();
-		output.newMaterial = this.newMaterial.toJSON();
-
-		return output;
-	},
-
-	fromJSON: function (json) {
-		Command.prototype.fromJSON.call(this, json);
-
-		this.object = this.editor.objectByUuid(json.objectUuid);
-		this.oldMaterial = parseMaterial(json.oldMaterial);
-		this.newMaterial = parseMaterial(json.newMaterial);
-
-		function parseMaterial(json) {
-			var loader = new THREE.ObjectLoader();
-			var images = loader.parseImages(json.images);
-			var textures = loader.parseTextures(json.textures, images);
-			var materials = loader.parseMaterials([json], textures);
-			return materials[json.uuid];
-		}
-	}
-});
 
 export default SetMaterialCommand;

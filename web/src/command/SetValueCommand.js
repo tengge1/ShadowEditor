@@ -19,57 +19,52 @@ import global from '../global';
  * @param {String} newValue number, string, boolean or object
  * @constructor
  */
-function SetValueCommand(object, attributeName, newValue) {
-	Command.call(this);
+class SetValueCommand extends Command {
+    constructor(object, attributeName, newValue) {
+        super();
+        this.type = 'SetValueCommand';
+        this.name = _t('Set') + ' ' + attributeName;
+        this.updatable = true;
 
-	this.type = 'SetValueCommand';
-	this.name = _t('Set') + ' ' + attributeName;
-	this.updatable = true;
+        this.object = object;
+        this.attributeName = attributeName;
+        this.oldValue = object !== undefined ? object[attributeName] : undefined;
+        this.newValue = newValue;
+    }
 
-	this.object = object;
-	this.attributeName = attributeName;
-	this.oldValue = object !== undefined ? object[attributeName] : undefined;
-	this.newValue = newValue;
+    execute() {
+        this.object[this.attributeName] = this.newValue;
+        global.app.call('objectChanged', this, this.object);
+    }
+
+    undo() {
+        this.object[this.attributeName] = this.oldValue;
+        global.app.call('objectChanged', this, this.object);
+    }
+
+    update(cmd) {
+        this.newValue = cmd.newValue;
+    }
+
+    toJSON() {
+        var output = super.toJSON();
+
+        output.objectUuid = this.object.uuid;
+        output.attributeName = this.attributeName;
+        output.oldValue = this.oldValue;
+        output.newValue = this.newValue;
+
+        return output;
+    }
+
+    fromJSON(json) {
+        super.fromJSON(json);
+
+        this.attributeName = json.attributeName;
+        this.oldValue = json.oldValue;
+        this.newValue = json.newValue;
+        this.object = this.editor.objectByUuid(json.objectUuid);
+    }
 }
-
-SetValueCommand.prototype = Object.create(Command.prototype);
-
-Object.assign(SetValueCommand.prototype, {
-	constructor: SetValueCommand,
-
-	execute: function () {
-		this.object[this.attributeName] = this.newValue;
-		global.app.call('objectChanged', this, this.object);
-	},
-
-	undo: function () {
-		this.object[this.attributeName] = this.oldValue;
-		global.app.call('objectChanged', this, this.object);
-	},
-
-	update: function (cmd) {
-		this.newValue = cmd.newValue;
-	},
-
-	toJSON: function () {
-		var output = Command.prototype.toJSON.call(this);
-
-		output.objectUuid = this.object.uuid;
-		output.attributeName = this.attributeName;
-		output.oldValue = this.oldValue;
-		output.newValue = this.newValue;
-
-		return output;
-	},
-
-	fromJSON: function (json) {
-		Command.prototype.fromJSON.call(this, json);
-
-		this.attributeName = json.attributeName;
-		this.oldValue = json.oldValue;
-		this.newValue = json.newValue;
-		this.object = this.editor.objectByUuid(json.objectUuid);
-	}
-});
 
 export default SetValueCommand;
