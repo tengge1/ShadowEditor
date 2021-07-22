@@ -15,29 +15,28 @@ import global from '../global';
  * 滤镜事件
  * @author tengge / https://github.com/tengge1
  */
-function FilterEvent() {
-    BaseEvent.call(this);
+class FilterEvent extends BaseEvent {
+    constructor() {
+        super();
+    }
+
+    start() {
+        global.app.on(`editorCleared.${this.id}`, this.onEditorCleared.bind(this));
+        global.app.on(`optionsChanged.${this.id}`, this.onOptionsChanged.bind(this));
+    }
+
+    stop() {
+        global.app.on(`editorCleared.${this.id}`, null);
+        global.app.on(`optionsChanged.${this.id}`, null);
+    }
+
+    onEditorCleared() {
+        global.app.editor.renderer.domElement.style.filter = '';
+    }
+
+    onOptionsChanged() {
+        global.app.editor.renderer.domElement.style.filter = CssUtils.serializeFilter(global.app.options);
+    }
 }
-
-FilterEvent.prototype = Object.create(BaseEvent.prototype);
-FilterEvent.prototype.constructor = FilterEvent;
-
-FilterEvent.prototype.start = function () {
-    global.app.on(`editorCleared.${this.id}`, this.onEditorCleared.bind(this));
-    global.app.on(`optionsChanged.${this.id}`, this.onOptionsChanged.bind(this));
-};
-
-FilterEvent.prototype.stop = function () {
-    global.app.on(`editorCleared.${this.id}`, null);
-    global.app.on(`optionsChanged.${this.id}`, null);
-};
-
-FilterEvent.prototype.onEditorCleared = function () {
-    global.app.editor.renderer.domElement.style.filter = '';
-};
-
-FilterEvent.prototype.onOptionsChanged = function () {
-    global.app.editor.renderer.domElement.style.filter = CssUtils.serializeFilter(global.app.options);
-};
 
 export default FilterEvent;

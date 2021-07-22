@@ -11,7 +11,7 @@
  * 自定义事件列表
  * @author tengge / https://github.com/tengge1
  */
-var EventList = [
+const EventList = [
     // dom事件
     'click', // 点击
     'contextmenu', // 右键
