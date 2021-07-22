@@ -33,9 +33,6 @@ import WeatherEvent from './WeatherEvent';
 import PhysicsEvent from './PhysicsEvent';
 import global from '../global';
 
-// // 可视化
-// import DraggableEvent from './visual/DraggableEvent';
-
 /**
  * 事件执行器
  * @author tengge / https://github.com/tengge1
@@ -67,9 +64,6 @@ class EventDispatcher extends BaseEvent {
 
             // 物理引擎
             new PhysicsEvent()
-
-            // // 可视化
-            // new DraggableEvent()
         ];
     }
 
