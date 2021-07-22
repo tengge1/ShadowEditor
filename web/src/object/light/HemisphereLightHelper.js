@@ -20,10 +20,10 @@ class HemisphereLightHelper extends THREE.Object3D {
         this.name = _t('Helper');
 
         var uniforms = {
-            topColor: { value: new THREE.Color(skyColor) },
-            bottomColor: { value: new THREE.Color(groundColor) },
-            offset: { value: 33 },
-            exponent: { value: 0.6 }
+            topColor: {value: new THREE.Color(skyColor)},
+            bottomColor: {value: new THREE.Color(groundColor)},
+            offset: {value: 33},
+            exponent: {value: 0.6}
         };
 
         var skyGeo = new THREE.SphereBufferGeometry(4000, 32, 15);

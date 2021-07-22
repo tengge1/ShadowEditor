@@ -117,7 +117,7 @@ class PointMarker extends THREE.Mesh {
 
     onResize() {
         // TODO: 在Player中的情况。
-        const { width, height } = global.app.editor.renderer.domElement;
+        const {width, height} = global.app.editor.renderer.domElement;
         this.material.uniforms.domWidth.value = width;
         this.material.uniforms.domHeight.value = height;
     }

@@ -16,75 +16,73 @@ import ParticleAnimator from '../animator/ParticleAnimator';
  * 播放器动画
  * @param {*} app 播放器
  */
-function PlayerAnimation(app) {
-    PlayerComponent.call(this, app);
+class PlayerAnimation extends PlayerComponent {
+    constructor(app) {
+        super(app);
+        this.maxTime = 0; // 最大动画时间（单位：秒）
+        this.currentTime = 0; // 当前动画时间（单位：秒）
+        this.animations = null;
 
-    this.maxTime = 0; // 最大动画时间（单位：秒）
-    this.currentTime = 0; // 当前动画时间（单位：秒）
-    this.animations = null;
-
-    this.animators = [
-        new TweenAnimator(app),
-        new MMDAnimator(app),
-        new ParticleAnimator(app)
-    ];
-}
-
-PlayerAnimation.prototype = Object.create(PlayerComponent.prototype);
-PlayerAnimation.prototype.constructor = PlayerAnimation;
-
-PlayerAnimation.prototype.create = function (scene, camera, renderer, animations) {
-    this.maxTime = 0;
-    this.currentTime = 0;
-    this.scene = scene;
-    this.camera = camera;
-    this.renderer = renderer;
-    this.animations = animations;
-
-    this.maxTime = this.calculateMaxTime();
-
-    var promises = this.animators.map(n => {
-        return n.create(scene, camera, renderer, animations);
-    });
-
-    return Promise.all(promises);
-};
-
-PlayerAnimation.prototype.calculateMaxTime = function () {
-    var maxTime = 0;
-
-    this.animations.forEach(n => {
-        n.animations.forEach(m => {
-            if (m.endTime > maxTime) {
-                maxTime = m.endTime;
-            }
-        });
-    });
-
-    return maxTime;
-};
-
-PlayerAnimation.prototype.update = function (clock, deltaTime) {
-    if (this.maxTime > 0) {
-        this.currentTime = clock.elapsedTime % this.maxTime;
+        this.animators = [
+            new TweenAnimator(app),
+            new MMDAnimator(app),
+            new ParticleAnimator(app)
+        ];
     }
 
-    this.animators.forEach(n => {
-        n.update(clock, deltaTime, this.currentTime);
-    });
-};
+    create(scene, camera, renderer, animations) {
+        this.maxTime = 0;
+        this.currentTime = 0;
+        this.scene = scene;
+        this.camera = camera;
+        this.renderer = renderer;
+        this.animations = animations;
 
-PlayerAnimation.prototype.dispose = function () {
-    this.maxTime = 0;
-    this.currentTime = 0;
-    this.scene = null;
-    this.camera = null;
-    this.renderer = null;
-    this.animations = null;
+        this.maxTime = this.calculateMaxTime();
 
-    this.animators.forEach(n => {
-        n.dispose();
-    });
-};
+        var promises = this.animators.map(n => {
+            return n.create(scene, camera, renderer, animations);
+        });
+
+        return Promise.all(promises);
+    }
+
+    calculateMaxTime() {
+        var maxTime = 0;
+
+        this.animations.forEach(n => {
+            n.animations.forEach(m => {
+                if (m.endTime > maxTime) {
+                    maxTime = m.endTime;
+                }
+            });
+        });
+
+        return maxTime;
+    }
+
+    update(clock, deltaTime) {
+        if (this.maxTime > 0) {
+            this.currentTime = clock.elapsedTime % this.maxTime;
+        }
+
+        this.animators.forEach(n => {
+            n.update(clock, deltaTime, this.currentTime);
+        });
+    }
+
+    dispose() {
+        this.maxTime = 0;
+        this.currentTime = 0;
+        this.scene = null;
+        this.camera = null;
+        this.renderer = null;
+        this.animations = null;
+
+        this.animators.forEach(n => {
+            n.dispose();
+        });
+    }
+}
 
 export default PlayerAnimation;

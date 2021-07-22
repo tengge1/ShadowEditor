@@ -27,7 +27,7 @@ class RectAreaLightHelper extends THREE.Object3D {
         this.add(rectLightMesh);
 
         // 背面
-        var rectLightMeshBack = new THREE.Mesh(new THREE.PlaneBufferGeometry(), new THREE.MeshBasicMaterial({ color: 0x080808 }));
+        var rectLightMeshBack = new THREE.Mesh(new THREE.PlaneBufferGeometry(), new THREE.MeshBasicMaterial({color: 0x080808}));
         rectLightMeshBack.scale.x = width;
         rectLightMeshBack.scale.y = height;
         rectLightMeshBack.rotation.y = Math.PI;

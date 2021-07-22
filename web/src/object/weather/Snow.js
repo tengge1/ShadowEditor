@@ -39,7 +39,7 @@ class Snow extends THREE.Object3D {
 
         let color = new THREE.Color(0xffffff);
 
-        let hsl = { h: 0, s: 0, l: 0 };
+        let hsl = {h: 0, s: 0, l: 0};
         color.getHSL(hsl);
         color.setHSL(hsl.h, hsl.s, Math.random() * hsl.l);
 

@@ -11,7 +11,7 @@
  * 自定义事件列表
  * @author tengge / https://github.com/tengge1
  */
-var EventList = [
+const EventList = [
     // 播放器事件
     'init',
     'resize',

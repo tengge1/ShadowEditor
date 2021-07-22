@@ -14,56 +14,54 @@ import global from '../../global';
  * 播放器音频
  * @param {*} app 播放器
  */
-function PlayerAudio(app) {
-    PlayerComponent.call(this, app);
+class PlayerAudio extends PlayerComponent {
+    constructor(app) {
+        super(app);
+        this.audios = [];
+    }
 
-    this.audios = [];
-}
+    create(scene, camera, renderer) { // eslint-disable-line
+        this.audios.length = 0;
 
-PlayerAudio.prototype = Object.create(PlayerComponent.prototype);
-PlayerAudio.prototype.constructor = PlayerAudio;
+        scene.traverse(n => {
+            if (n instanceof THREE.Audio) {
+                this.audios.push(n);
+            }
+        });
 
-PlayerAudio.prototype.create = function (scene, camera, renderer) { // eslint-disable-line
-    this.audios.length = 0;
+        var loader = new THREE.AudioLoader();
 
-    scene.traverse(n => {
-        if (n instanceof THREE.Audio) {
-            this.audios.push(n);
-        }
-    });
+        var promises = this.audios.map(n => {
+            return new Promise(resolve => {
+                // TODO: global.app.options.server is not a player config
+                loader.load(global.app.options.server + n.userData.Url, buffer => {
+                    n.setBuffer(buffer);
 
-    var loader = new THREE.AudioLoader();
+                    if (n.userData.autoplay) {
+                        n.autoplay = n.userData.autoplay;
+                        n.play();
+                    }
 
-    var promises = this.audios.map(n => {
-        return new Promise(resolve => {
-            // TODO: global.app.options.server is not a player config
-            loader.load(global.app.options.server + n.userData.Url, buffer => {
-                n.setBuffer(buffer);
-
-                if (n.userData.autoplay) {
-                    n.autoplay = n.userData.autoplay;
-                    n.play();
-                }
-
-                resolve();
-            }, undefined, () => {
-                console.warn(`PlayerLoader: ${n.userData.Url} loaded failed.`);
-                resolve();
+                    resolve();
+                }, undefined, () => {
+                    console.warn(`PlayerLoader: ${n.userData.Url} loaded failed.`);
+                    resolve();
+                });
             });
         });
-    });
 
-    return Promise.all(promises);
-};
+        return Promise.all(promises);
+    }
 
-PlayerAudio.prototype.dispose = function () {
-    this.audios.forEach(n => {
-        if (n.isPlaying) {
-            n.stop();
-        }
-    });
+    dispose() {
+        this.audios.forEach(n => {
+            if (n.isPlaying) {
+                n.stop();
+            }
+        });
 
-    this.audios.length = 0;
-};
+        this.audios.length = 0;
+    }
+}
 
 export default PlayerAudio;
