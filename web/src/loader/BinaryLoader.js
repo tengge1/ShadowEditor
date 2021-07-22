@@ -13,26 +13,25 @@ import BaseLoader from './BaseLoader';
  * BinaryLoader
  * @author tengge / https://github.com/tengge1
  */
-function BinaryLoader() {
-    BaseLoader.call(this);
-}
+class BinaryLoader extends BaseLoader {
+    constructor() {
+        super();
+    }
 
-BinaryLoader.prototype = Object.create(BaseLoader.prototype);
-BinaryLoader.prototype.constructor = BinaryLoader;
+    load(url) {
+        return new Promise(resolve => {
+            this.require('BinaryLoader').then(() => {
+                var loader = new THREE.BinaryLoader();
 
-BinaryLoader.prototype.load = function (url) {
-    return new Promise(resolve => {
-        this.require('BinaryLoader').then(() => {
-            var loader = new THREE.BinaryLoader();
-
-            loader.load(url, (geometry, materials) => {
-                var mesh = new THREE.Mesh(geometry, materials);
-                resolve(mesh);
-            }, undefined, () => {
-                resolve(null);
+                loader.load(url, (geometry, materials) => {
+                    var mesh = new THREE.Mesh(geometry, materials);
+                    resolve(mesh);
+                }, undefined, () => {
+                    resolve(null);
+                });
             });
         });
-    });
-};
+    }
+}
 
 export default BinaryLoader;

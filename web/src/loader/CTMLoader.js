@@ -13,30 +13,29 @@ import BaseLoader from './BaseLoader';
  * CTMLoader
  * @author tengge / https://github.com/tengge1
  */
-function CTMLoader() {
-    BaseLoader.call(this);
-}
+class CTMLoader extends BaseLoader {
+    constructor() {
+        super();
+    }
 
-CTMLoader.prototype = Object.create(BaseLoader.prototype);
-CTMLoader.prototype.constructor = CTMLoader;
+    load(url) {
+        return new Promise(resolve => {
+            this.require([
+                'lzma',
+                'CTMLoader'
+            ]).then(() => {
+                var loader = new THREE.CTMLoader();
 
-CTMLoader.prototype.load = function (url) {
-    return new Promise(resolve => {
-        this.require([
-            'lzma',
-            'CTMLoader'
-        ]).then(() => {
-            var loader = new THREE.CTMLoader();
-
-            loader.load(url, geometry => {
-                var material = new THREE.MeshStandardMaterial();
-                var mesh = new THREE.Mesh(geometry, material);
-                resolve(mesh);
-            }, undefined, () => {
-                resolve(null);
+                loader.load(url, geometry => {
+                    var material = new THREE.MeshStandardMaterial();
+                    var mesh = new THREE.Mesh(geometry, material);
+                    resolve(mesh);
+                }, undefined, () => {
+                    resolve(null);
+                });
             });
         });
-    });
-};
+    }
+}
 
 export default CTMLoader;

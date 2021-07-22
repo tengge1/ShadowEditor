@@ -13,24 +13,23 @@ import BaseLoader from './BaseLoader';
  * 3MFLoader
  * @author tengge / https://github.com/tengge1
  */
-function _3MFLoader() {
-    BaseLoader.call(this);
-}
+class _3MFLoader extends BaseLoader {
+    constructor() {
+        super();
+    }
 
-_3MFLoader.prototype = Object.create(BaseLoader.prototype);
-_3MFLoader.prototype.constructor = _3MFLoader;
-
-_3MFLoader.prototype.load = function (url) {
-    return new Promise(resolve => {
-        this.require('3MFLoader').then(() => {
-            var loader = new THREE.ThreeMFLoader();
-            loader.load(url, object => {
-                resolve(object);
-            }, undefined, () => {
-                resolve(null);
+    load(url) {
+        return new Promise(resolve => {
+            this.require('3MFLoader').then(() => {
+                var loader = new THREE.ThreeMFLoader();
+                loader.load(url, object => {
+                    resolve(object);
+                }, undefined, () => {
+                    resolve(null);
+                });
             });
         });
-    });
-};
+    }
+}
 
 export default _3MFLoader;

@@ -84,62 +84,61 @@ const Loaders = {
  * ModelLoader
  * @author tengge / https://github.com/tengge1
  */
-function ModelLoader() {
-    BaseLoader.call(this);
-}
-
-ModelLoader.prototype = Object.create(BaseLoader.prototype);
-ModelLoader.prototype.constructor = ModelLoader;
-
-ModelLoader.prototype.load = function (url, options = {}, environment = {}) {
-    var type = options.Type;
-
-    if (type === undefined) {
-        console.warn(`ModelLoader: no type parameters, and cannot load.`);
-        return new Promise(resolve => {
-            resolve(null);
-        });
+class ModelLoader extends BaseLoader {
+    constructor() {
+        super();
     }
 
-    return new Promise(resolve => {
-        var loader = Loaders[type];
-        if (loader === undefined) {
-            console.warn(`ModelLoader: no ${type} loader.`);
-            resolve(null);
-            return;
+    load(url, options = {}, environment = {}) {
+        var type = options.Type;
+
+        if (type === undefined) {
+            console.warn(`ModelLoader: no type parameters, and cannot load.`);
+            return new Promise(resolve => {
+                resolve(null);
+            });
         }
-        new loader(global.app).load(url, options, environment).then(obj => {
-            if (!obj || !obj.userData) {
+
+        return new Promise(resolve => {
+            var loader = Loaders[type];
+            if (loader === undefined) {
+                console.warn(`ModelLoader: no ${type} loader.`);
                 resolve(null);
                 return;
             }
-
-            // bug: 由于模型可能自带错误的_children数据，导致载入场景模型显示不全。
-            // 所以，向场景添加模型时，清除掉_children属性。
-            if (environment.clearChildren) {
-                delete obj.userData._children;
-            }
-
-            // 由于每次加载模型，uuid会变，所以要记录原始模型的uuid，而且只能记录一次。
-            if (obj.children && !obj.userData._children) {
-                obj.userData._children = []; // 原始模型的uuid层次
-                MeshUtils.traverseUUID(obj.children, obj.userData._children); // 记录最原始的模型，每个组件的uuid。
-            }
-
-            obj.userData.physics = obj.userData.physics || {
-                enabled: false,
-                type: 'rigidBody',
-                shape: 'btBoxShape',
-                mass: 1,
-                inertia: {
-                    x: 0,
-                    y: 0,
-                    z: 0
+            new loader(global.app).load(url, options, environment).then(obj => {
+                if (!obj || !obj.userData) {
+                    resolve(null);
+                    return;
                 }
-            };
-            resolve(obj);
+
+                // bug: 由于模型可能自带错误的_children数据，导致载入场景模型显示不全。
+                // 所以，向场景添加模型时，清除掉_children属性。
+                if (environment.clearChildren) {
+                    delete obj.userData._children;
+                }
+
+                // 由于每次加载模型，uuid会变，所以要记录原始模型的uuid，而且只能记录一次。
+                if (obj.children && !obj.userData._children) {
+                    obj.userData._children = []; // 原始模型的uuid层次
+                    MeshUtils.traverseUUID(obj.children, obj.userData._children); // 记录最原始的模型，每个组件的uuid。
+                }
+
+                obj.userData.physics = obj.userData.physics || {
+                    enabled: false,
+                    type: 'rigidBody',
+                    shape: 'btBoxShape',
+                    mass: 1,
+                    inertia: {
+                        x: 0,
+                        y: 0,
+                        z: 0
+                    }
+                };
+                resolve(obj);
+            });
         });
-    });
-};
+    }
+}
 
 export default ModelLoader;

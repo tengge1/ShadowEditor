@@ -11,7 +11,7 @@
  * @author lolking / http://www.lolking.net/models
  * @author tengge / https://github.com/tengge1
  */
-var HiddenBones = {
+const HiddenBones = {
     12: {
         9: {
             recall: {},

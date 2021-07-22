@@ -12,106 +12,108 @@
  * @author tengge / https://github.com/tengge1
  * @param {ArrayBuffer} buffer 缓冲区
  */
-function DataView2(buffer) {
-    this.buffer = new DataView(buffer);
-    this.position = 0;
-}
-
-DataView2.prototype.getBool = function () {
-    var v = this.buffer.getUint8(this.position) !== 0;
-    this.position += 1;
-    return v;
-};
-
-DataView2.prototype.getUint8 = function () {
-    var v = this.buffer.getUint8(this.position);
-    this.position += 1;
-    return v;
-};
-
-DataView2.prototype.getInt8 = function () {
-    var v = this.buffer.getInt8(this.position);
-    this.position += 1;
-    return v;
-};
-
-DataView2.prototype.getUint16 = function () {
-    var v = this.buffer.getUint16(this.position, true);
-    this.position += 2;
-    return v;
-};
-
-DataView2.prototype.getInt16 = function () {
-    var v = this.buffer.getInt16(this.position, true);
-    this.position += 2;
-    return v;
-};
-
-DataView2.prototype.getUint32 = function () {
-    var v = this.buffer.getUint32(this.position, true);
-    this.position += 4;
-    return v;
-};
-
-DataView2.prototype.getInt32 = function () {
-    var v = this.buffer.getInt32(this.position, true);
-    this.position += 4;
-    return v;
-};
-
-DataView2.prototype.getFloat = function () {
-    var v = this.buffer.getFloat32(this.position, true);
-    this.position += 4;
-    return v;
-};
-
-DataView2.prototype.getString = function (len) {
-    if (len === undefined) len = this.getUint16();
-    var str = "";
-    for (var i = 0; i < len; ++i) {
-        str += String.fromCharCode(this.getUint8());
+class DataView2 {
+    constructor(buffer) {
+        this.buffer = new DataView(buffer);
+        this.position = 0;
     }
-    return str;
-};
 
-DataView2.prototype.setBool = function (v) {
-    this.buffer.setUint8(this.position, v ? 1 : 0);
-    this.position += 1;
-};
+    getBool() {
+        var v = this.buffer.getUint8(this.position) !== 0;
+        this.position += 1;
+        return v;
+    }
 
-DataView2.prototype.setUint8 = function (v) {
-    this.buffer.setUint8(this.position, v);
-    this.position += 1;
-};
+    getUint8() {
+        var v = this.buffer.getUint8(this.position);
+        this.position += 1;
+        return v;
+    }
 
-DataView2.prototype.setInt8 = function (v) {
-    this.buffer.setInt8(this.position, v);
-    this.position += 1;
-};
+    getInt8() {
+        var v = this.buffer.getInt8(this.position);
+        this.position += 1;
+        return v;
+    }
 
-DataView2.prototype.setUint16 = function (v) {
-    this.buffer.setUint16(this.position, v, true);
-    this.position += 2;
-};
+    getUint16() {
+        var v = this.buffer.getUint16(this.position, true);
+        this.position += 2;
+        return v;
+    }
 
-DataView2.prototype.setInt16 = function (v) {
-    this.buffer.setInt16(this.position, v, true);
-    this.position += 2;
-};
+    getInt16() {
+        var v = this.buffer.getInt16(this.position, true);
+        this.position += 2;
+        return v;
+    }
 
-DataView2.prototype.setUint32 = function (v) {
-    this.buffer.setUint32(this.position, v, true);
-    this.position += 4;
-};
+    getUint32() {
+        var v = this.buffer.getUint32(this.position, true);
+        this.position += 4;
+        return v;
+    }
 
-DataView2.prototype.setInt32 = function (v) {
-    this.buffer.setInt32(this.position, v, true);
-    this.position += 4;
-};
+    getInt32() {
+        var v = this.buffer.getInt32(this.position, true);
+        this.position += 4;
+        return v;
+    }
 
-DataView2.prototype.setFloat = function (v) {
-    this.buffer.setFloat32(this.position, v, true);
-    this.position += 4;
-};
+    getFloat() {
+        var v = this.buffer.getFloat32(this.position, true);
+        this.position += 4;
+        return v;
+    }
+
+    getString(len) {
+        if (len === undefined) len = this.getUint16();
+        var str = "";
+        for (var i = 0; i < len; ++i) {
+            str += String.fromCharCode(this.getUint8());
+        }
+        return str;
+    }
+
+    setBool(v) {
+        this.buffer.setUint8(this.position, v ? 1 : 0);
+        this.position += 1;
+    }
+
+    setUint8(v) {
+        this.buffer.setUint8(this.position, v);
+        this.position += 1;
+    }
+
+    setInt8(v) {
+        this.buffer.setInt8(this.position, v);
+        this.position += 1;
+    }
+
+    setUint16(v) {
+        this.buffer.setUint16(this.position, v, true);
+        this.position += 2;
+    }
+
+    setInt16(v) {
+        this.buffer.setInt16(this.position, v, true);
+        this.position += 2;
+    }
+
+    setUint32(v) {
+        this.buffer.setUint32(this.position, v, true);
+        this.position += 4;
+    }
+
+    setInt32(v) {
+        this.buffer.setInt32(this.position, v, true);
+        this.position += 4;
+    }
+
+    setFloat(v) {
+        this.buffer.setFloat32(this.position, v, true);
+        this.position += 4;
+    }
+}
 
 export default DataView2;

@@ -13,29 +13,28 @@ import BaseLoader from './BaseLoader';
  * KMZLoader
  * @author tengge / https://github.com/tengge1
  */
-function KMZLoader() {
-    BaseLoader.call(this);
-}
+class KMZLoader extends BaseLoader {
+    constructor() {
+        super();
+    }
 
-KMZLoader.prototype = Object.create(BaseLoader.prototype);
-KMZLoader.prototype.constructor = KMZLoader;
+    load(url) {
+        return new Promise(resolve => {
+            this.require([
+                'ColladaLoader',
+                'KMZLoader'
+            ]).then(() => {
+                var loader = new THREE.KMZLoader();
 
-KMZLoader.prototype.load = function (url) {
-    return new Promise(resolve => {
-        this.require([
-            'ColladaLoader',
-            'KMZLoader'
-        ]).then(() => {
-            var loader = new THREE.KMZLoader();
-
-            loader.load(url, collada => {
-                var obj3d = collada.scene;
-                resolve(obj3d);
-            }, undefined, () => {
-                resolve(null);
+                loader.load(url, collada => {
+                    var obj3d = collada.scene;
+                    resolve(obj3d);
+                }, undefined, () => {
+                    resolve(null);
+                });
             });
         });
-    });
-};
+    }
+}
 
 export default KMZLoader;

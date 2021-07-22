@@ -13,27 +13,26 @@ import BaseLoader from './BaseLoader';
  * STLLoader
  * @author tengge / https://github.com/tengge1
  */
-function STLLoader() {
-    BaseLoader.call(this);
-}
+class STLLoader extends BaseLoader {
+    constructor() {
+        super();
+    }
 
-STLLoader.prototype = Object.create(BaseLoader.prototype);
-STLLoader.prototype.constructor = STLLoader;
+    load(url) {
+        return new Promise(resolve => {
+            this.require('STLLoader').then(() => {
+                var loader = new THREE.STLLoader();
 
-STLLoader.prototype.load = function (url) {
-    return new Promise(resolve => {
-        this.require('STLLoader').then(() => {
-            var loader = new THREE.STLLoader();
-
-            loader.load(url, geometry => {
-                var material = new THREE.MeshStandardMaterial();
-                var mesh = new THREE.Mesh(geometry, material);
-                resolve(mesh);
-            }, undefined, () => {
-                resolve(null);
+                loader.load(url, geometry => {
+                    var material = new THREE.MeshStandardMaterial();
+                    var mesh = new THREE.Mesh(geometry, material);
+                    resolve(mesh);
+                }, undefined, () => {
+                    resolve(null);
+                });
             });
         });
-    });
-};
+    }
+}
 
 export default STLLoader;

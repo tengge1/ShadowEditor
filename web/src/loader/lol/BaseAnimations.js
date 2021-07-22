@@ -11,7 +11,7 @@
  * @author lolking / http://www.lolking.net/models
  * @author tengge / https://github.com/tengge1
  */
-var BaseAnimations = {
+const BaseAnimations = {
     19: {
         0: {
             all: "idle"

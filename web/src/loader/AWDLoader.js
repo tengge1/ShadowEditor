@@ -13,25 +13,24 @@ import BaseLoader from './BaseLoader';
  * AWDLoader
  * @author tengge / https://github.com/tengge1
  */
-function AWDLoader() {
-    BaseLoader.call(this);
-}
+class AWDLoader extends BaseLoader {
+    constructor() {
+        super();
+    }
 
-AWDLoader.prototype = Object.create(BaseLoader.prototype);
-AWDLoader.prototype.constructor = AWDLoader;
+    load(url) {
+        return new Promise(resolve => {
+            this.require('AWDLoader').then(() => {
+                var loader = new THREE.AWDLoader();
 
-AWDLoader.prototype.load = function (url) {
-    return new Promise(resolve => {
-        this.require('AWDLoader').then(() => {
-            var loader = new THREE.AWDLoader();
-
-            loader.load(url, obj3d => {
-                resolve(obj3d);
-            }, undefined, () => {
-                resolve(null);
+                loader.load(url, obj3d => {
+                    resolve(obj3d);
+                }, undefined, () => {
+                    resolve(null);
+                });
             });
         });
-    });
-};
+    }
+}
 
 export default AWDLoader;
