@@ -23,21 +23,24 @@ class MenuItem extends React.Component {
     }
 
     render() {
-        const { title, className, style, children, show, checked, selected, disabled } = this.props;
+        const {title, className, style, children, show, checked, selected, disabled} = this.props;
 
-        const subMenu = React.Children.count(children) ? <><div className={'suffix'}>
-            <i className={'iconfont icon-right-triangle'} />
-        </div>
+        const subMenu = React.Children.count(children) ? <>
+            <div className={'suffix'}>
+                <i className={'iconfont icon-right-triangle'}/>
+            </div>
             <div className={'sub'}>
                 <ul className={'wrap'}>{children}</ul>
-            </div></> : null;
+            </div>
+        </> : null;
 
         return <li
             className={classNames('MenuItem', checked !== undefined && 'checked', selected !== undefined && 'selected', disabled && 'disabled', !show && 'hidden', className)}
             style={style}
             onClick={this.handleClick}
-               >
-            {(checked !== undefined || selected !== undefined) && <div className={classNames('prefix', (checked || selected) && 'on')} />}
+        >
+            {(checked !== undefined || selected !== undefined) &&
+            <div className={classNames('prefix', (checked || selected) && 'on')}/>}
             <span>{title}</span>
             {subMenu}
         </li>;

@@ -8,69 +8,68 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import PlayerComponent from './PlayerComponent';
-import { LoadMask } from '../../ui/index';
+import {LoadMask} from '../../ui/index';
 
 /**
  * 播放器下载资源显示蒙版
  * @param {*} app 播放器
  */
-function PlayerLoadMask(app) {
-    PlayerComponent.call(this, app);
-    this.container = null;
-    this.status = null;
-}
-
-PlayerLoadMask.prototype = Object.create(PlayerComponent.prototype);
-PlayerLoadMask.prototype.constructor = PlayerLoadMask;
-
-PlayerLoadMask.prototype.show = function () {
-    if (!this.container) {
-        // load mask
-        this.container = document.createElement('div');
-        Object.assign(this.container.style, {
-            position: 'absolute',
-            left: 0,
-            top: 0,
-            width: '100%',
-            height: '100%',
-            // background: 'rgba(0,0,0,0.2)',
-            zIndex: 100
-        });
-        const loader = React.createElement(LoadMask, {
-            text: 'Loading...'
-        });
-        ReactDOM.render(loader, this.container);
-        this.app.container.appendChild(this.container);
-
-        // load status
-        this.status = document.createElement('div');
-        Object.assign(this.status.style, {
-            position: 'absolute',
-            left: 0,
-            bottom: 0,
-            fontSize: '12px',
-            color: 'black'
-        });
-        this.app.container.appendChild(this.status);
-
-        THREE.DefaultLoadingManager.onProgress = url => {
-            url = url.replaceAll(this.app.options.server, '');
-            this.status.innerHTML = 'Loading ' + url;
-        };
+class PlayerLoadMask extends PlayerComponent {
+    constructor() {
+        super();
+        this.container = null;
+        this.status = null;
     }
-    this.container.style.display = 'block';
-    this.status.innerHTML = '';
-    this.status.style.display = 'inline-block';
-};
 
-PlayerLoadMask.prototype.hide = function () {
-    this.container.style.display = 'none';
-    this.status.style.display = 'none';
-    this.status.innerHTML = '';
-};
+    show() {
+        if (!this.container) {
+            // load mask
+            this.container = document.createElement('div');
+            Object.assign(this.container.style, {
+                position: 'absolute',
+                left: 0,
+                top: 0,
+                width: '100%',
+                height: '100%',
+                // background: 'rgba(0,0,0,0.2)',
+                zIndex: 100
+            });
+            const loader = React.createElement(LoadMask, {
+                text: 'Loading...'
+            });
+            ReactDOM.render(loader, this.container);
+            this.app.container.appendChild(this.container);
 
-PlayerLoadMask.prototype.dispose = function () {
+            // load status
+            this.status = document.createElement('div');
+            Object.assign(this.status.style, {
+                position: 'absolute',
+                left: 0,
+                bottom: 0,
+                fontSize: '12px',
+                color: 'black'
+            });
+            this.app.container.appendChild(this.status);
 
-};
+            THREE.DefaultLoadingManager.onProgress = url => {
+                url = url.replaceAll(this.app.options.server, '');
+                this.status.innerHTML = 'Loading ' + url;
+            };
+        }
+        this.container.style.display = 'block';
+        this.status.innerHTML = '';
+        this.status.style.display = 'inline-block';
+    }
+
+    hide() {
+        this.container.style.display = 'none';
+        this.status.style.display = 'none';
+        this.status.innerHTML = '';
+    }
+
+    dispose() {
+
+    }
+}
 
 export default PlayerLoadMask;

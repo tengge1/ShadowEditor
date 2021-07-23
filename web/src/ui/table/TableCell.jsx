@@ -17,13 +17,13 @@ import PropTypes from 'prop-types';
  */
 class TableCell extends React.Component {
     render() {
-        const { className, style, children, ...others } = this.props;
+        const {className, style, children, ...others} = this.props;
 
         return <td
             className={classNames('TableCell', className)}
             style={style}
             {...others}
-               >
+        >
             {children}
         </td>;
     }

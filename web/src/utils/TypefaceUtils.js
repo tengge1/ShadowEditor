@@ -27,7 +27,7 @@ const TypefaceUtils = {
             global.app.require('opentype').then(() => {
                 const font = opentype.parse(arrayBuffer);
                 let result = this._convert(font, reverseDirection, characterSet);
-                resolve({ result, font });
+                resolve({result, font});
             });
         });
     },
@@ -72,9 +72,13 @@ const TypefaceUtils = {
                     token.x_min = Math.round(glyph.xMin * scale);
                     token.x_max = Math.round(glyph.xMax * scale);
                     token.o = "";
-                    if (reverseDirection) { glyph.path.commands = this._reverseCommands(glyph.path.commands); }
+                    if (reverseDirection) {
+                        glyph.path.commands = this._reverseCommands(glyph.path.commands);
+                    }
                     glyph.path.commands.forEach(function (command) {
-                        if (command.type.toLowerCase() === "c") { command.type = "b"; }
+                        if (command.type.toLowerCase() === "c") {
+                            command.type = "b";
+                        }
                         token.o += command.type.toLowerCase();
                         token.o += " ";
                         if (command.x !== undefined && command.y !== undefined) {
@@ -145,12 +149,12 @@ const TypefaceUtils = {
 
         var reversed = [];
         paths.forEach(function (p) {
-            var result = { "type": "m", "x": p[p.length - 1].x, "y": p[p.length - 1].y };
+            var result = {"type": "m", "x": p[p.length - 1].x, "y": p[p.length - 1].y};
             reversed.push(result);
 
             for (var i = p.length - 1; i > 0; i--) {
                 var command = p[i];
-                result = { "type": command.type };
+                result = {"type": command.type};
                 if (command.x2 !== undefined && command.y2 !== undefined) {
                     result.x1 = command.x2;
                     result.y1 = command.y2;

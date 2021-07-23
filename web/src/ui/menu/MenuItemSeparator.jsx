@@ -17,13 +17,13 @@ import PropTypes from 'prop-types';
  */
 class MenuItemSeparator extends React.Component {
     render() {
-        const { className, style, direction, show } = this.props;
+        const {className, style, direction, show} = this.props;
 
         return <li
             className={classNames('MenuItemSeparator', direction && direction, !show && 'hidden', className)}
             style={style}
-               >
-            <div className='separator' />
+        >
+            <div className='separator'/>
         </li>;
     }
 }

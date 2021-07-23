@@ -28,7 +28,7 @@ class Alert extends React.Component {
     }
 
     render() {
-        const { className, style, title, children, hidden, mask, okText } = this.props;
+        const {className, style, title, children, hidden, mask, okText} = this.props;
 
         return <Window
             className={classNames('Alert', className)}
@@ -37,7 +37,7 @@ class Alert extends React.Component {
             hidden={hidden}
             mask={mask}
             onClose={this.handleClose}
-               >
+        >
             <Content>{children}</Content>
             <Buttons>
                 <Button onClick={this.handleOK}>{okText}</Button>

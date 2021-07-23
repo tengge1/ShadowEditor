@@ -23,7 +23,7 @@ class Image extends React.Component {
     }
 
     render() {
-        const { className, style, src, title } = this.props;
+        const {className, style, src, title} = this.props;
 
         return <img
             className={classNames('Image', className)}
@@ -31,7 +31,7 @@ class Image extends React.Component {
             src={src}
             title={title}
             onError={this.handleError}
-               />;
+        />;
     }
 
     handleError(event) {

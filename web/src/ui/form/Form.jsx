@@ -23,18 +23,18 @@ class Form extends React.Component {
     }
 
     render() {
-        const { className, style, children, direction } = this.props;
+        const {className, style, children, direction} = this.props;
         return <form
             className={classNames('Form', direction, className)}
             style={style}
             onSubmit={this.handleSubmit}
-               >
+        >
             {children}
         </form>;
     }
 
     handleSubmit() {
-        const { onSubmit } = this.props;
+        const {onSubmit} = this.props;
         event.preventDefault();
         onSubmit && onSubmit();
     }

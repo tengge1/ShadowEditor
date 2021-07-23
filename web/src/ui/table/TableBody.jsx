@@ -17,14 +17,14 @@ import PropTypes from 'prop-types';
  */
 class TableBody extends React.Component {
     render() {
-        const { className, style, children, ...others } = this.props;
+        const {className, style, children, ...others} = this.props;
 
         return <tbody
             className={classNames('TableBody', className)}
             style={style}
             {...others}
-               >
-            {children}
+        >
+        {children}
         </tbody>;
     }
 }

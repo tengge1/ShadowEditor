@@ -14,23 +14,18 @@ import MaterialSerializer from './MaterialSerializer';
  * PointCloudMaterialSerializer
  * @author tengge / https://github.com/tengge1
  */
-function PointCloudMaterialSerializer() {
-    BaseSerializer.call(this);
+class PointCloudMaterialSerializer extends BaseSerializer {
+    toJSON(obj) {
+        return MaterialSerializer.prototype.toJSON.call(this, obj);
+    }
+
+    fromJSON(json, parent, server) {
+        var obj = parent === undefined ? new THREE.PointCloudMaterial() : parent;
+
+        MaterialSerializer.prototype.fromJSON.call(this, json, obj, server);
+
+        return obj;
+    }
 }
-
-PointCloudMaterialSerializer.prototype = Object.create(BaseSerializer.prototype);
-PointCloudMaterialSerializer.prototype.constructor = PointCloudMaterialSerializer;
-
-PointCloudMaterialSerializer.prototype.toJSON = function (obj) {
-    return MaterialSerializer.prototype.toJSON.call(this, obj);
-};
-
-PointCloudMaterialSerializer.prototype.fromJSON = function (json, parent, server) {
-    var obj = parent === undefined ? new THREE.PointCloudMaterial() : parent;
-
-    MaterialSerializer.prototype.fromJSON.call(this, json, obj, server);
-
-    return obj;
-};
 
 export default PointCloudMaterialSerializer;

@@ -20,11 +20,11 @@ class Toast extends React.Component {
     }
 
     render() {
-        const { className, style, children } = this.props;
+        const {className, style, children} = this.props;
 
         return <div className={'ToastMark'}>
             <div className={classNames('Toast', className)}
-                style={style}
+                 style={style}
             >
                 {children}
             </div>

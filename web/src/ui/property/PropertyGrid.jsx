@@ -17,11 +17,11 @@ import PropTypes from 'prop-types';
  */
 class PropertyGrid extends React.Component {
     render() {
-        const { className, style, children } = this.props;
+        const {className, style, children} = this.props;
 
         return <div className={classNames('PropertyGrid', className)}
-            style={style}
-               >
+                    style={style}
+        >
             {children}
         </div>;
     }

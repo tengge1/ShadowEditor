@@ -15,23 +15,18 @@ import ThreeDText from '../../../object/text/ThreeDText';
  * ThreeDTextSerializer
  * @author tengge / https://github.com/tengge1
  */
-function ThreeDTextSerializer() {
-    BaseSerializer.call(this);
+class ThreeDTextSerializer extends BaseSerializer {
+    toJSON(obj) {
+        return Object3DSerializer.prototype.toJSON.call(this, obj);
+    }
+
+    fromJSON(json, parent) { // eslint-disable-line
+        var obj = new ThreeDText(json.userData.text, json.userData);
+
+        Object3DSerializer.prototype.fromJSON.call(this, json, obj);
+
+        return obj;
+    }
 }
-
-ThreeDTextSerializer.prototype = Object.create(BaseSerializer.prototype);
-ThreeDTextSerializer.prototype.constructor = ThreeDTextSerializer;
-
-ThreeDTextSerializer.prototype.toJSON = function (obj) {
-    return Object3DSerializer.prototype.toJSON.call(this, obj);
-};
-
-ThreeDTextSerializer.prototype.fromJSON = function (json, parent) { // eslint-disable-line
-    var obj = new ThreeDText(json.userData.text, json.userData);
-
-    Object3DSerializer.prototype.fromJSON.call(this, json, obj);
-
-    return obj;
-};
 
 export default ThreeDTextSerializer;

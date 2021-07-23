@@ -17,13 +17,13 @@ import PropTypes from 'prop-types';
  */
 class HBoxLayout extends React.Component {
     render() {
-        const { className, style, children, ...others } = this.props;
+        const {className, style, children, ...others} = this.props;
 
         return <div
             className={classNames('HBoxLayout', className)}
             style={style}
             {...others}
-               >{children}</div>;
+        >{children}</div>;
     }
 }
 

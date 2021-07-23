@@ -17,11 +17,11 @@ import PropTypes from 'prop-types';
  */
 class ToolbarFiller extends React.Component {
     render() {
-        const { className, style } = this.props;
+        const {className, style} = this.props;
 
         return <div className={classNames('ToolbarFiller', className)}
-            style={style}
-               />;
+                    style={style}
+        />;
     }
 }
 

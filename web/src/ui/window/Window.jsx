@@ -34,7 +34,7 @@ class Window extends React.Component {
     }
 
     render() {
-        const { className, style, title, children, padding, hidden, mask } = this.props;
+        const {className, style, title, children, padding, hidden, mask} = this.props;
 
         let _children = null;
 
@@ -54,17 +54,17 @@ class Window extends React.Component {
 
         return <div className={classNames('WindowMask', mask && 'mask', hidden && 'hidden')}>
             <div className={classNames('Window', !padding && "no-padding", className)}
-                style={style}
-                ref={this.dom}
+                 style={style}
+                 ref={this.dom}
             >
                 <div className={'wrap'}>
                     <div className={'title'}
-                        onMouseDown={this.handleMouseDown}
+                         onMouseDown={this.handleMouseDown}
                     >
                         <span>{title}</span>
                         <div className={'controls'}>
                             <i className={'iconfont icon-close icon'}
-                                onClick={this.handleClose}
+                               onClick={this.handleClose}
                             />
                         </div>
                     </div>

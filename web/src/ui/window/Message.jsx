@@ -20,12 +20,12 @@ class Message extends React.Component {
     }
 
     render() {
-        const { className, style, children, type } = this.props;
+        const {className, style, children, type} = this.props;
 
         return <div className={classNames('Message', type, className)}
-            style={style}
-               >
-            <i className={classNames('iconfont', `icon-${type}`)} />
+                    style={style}
+        >
+            <i className={classNames('iconfont', `icon-${type}`)}/>
             <p className={'content'}>{children}</p>
         </div>;
     }

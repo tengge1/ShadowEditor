@@ -23,7 +23,7 @@ class Select extends React.Component {
     }
 
     render() {
-        const { className, style, options, value, disabled } = this.props;
+        const {className, style, options, value, disabled} = this.props;
 
         return <select
             className={classNames('Select', className)}
@@ -31,17 +31,17 @@ class Select extends React.Component {
             value={value}
             disabled={disabled}
             onChange={this.handleChange}
-               >
+        >
             {options && Object.keys(options).map(n => {
                 return <option value={n}
-                    key={n}
-                       >{options[n]}</option>;
+                               key={n}
+                >{options[n]}</option>;
             })}
         </select>;
     }
 
     handleChange(event) {
-        const { onChange } = this.props;
+        const {onChange} = this.props;
 
         const selectedIndex = event.target.selectedIndex;
 

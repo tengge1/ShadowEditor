@@ -18,7 +18,7 @@ function fakeClick(obj) {
  * @author tengge / https://github.com/tengge1
  */
 const DownloadUtils = {
-    download: function (blobParts = [], options = { 'type': 'application/octet-stream' }, fileName = 'NoName') {
+    download: function (blobParts = [], options = {'type': 'application/octet-stream'}, fileName = 'NoName') {
         let urlObject = window.URL || window.webkitURL || window;
 
         let blob = new Blob(blobParts, options);

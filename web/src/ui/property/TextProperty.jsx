@@ -25,7 +25,7 @@ class TextProperty extends React.Component {
     }
 
     render() {
-        const { className, style, name, value } = this.props;
+        const {className, style, name, value} = this.props;
 
         return <Input
             className={classNames('input', className)}
@@ -33,7 +33,7 @@ class TextProperty extends React.Component {
             name={name}
             value={value}
             onChange={this.handleChange}
-               />;
+        />;
     }
 
     handleChange(onChange, value, name, event) {

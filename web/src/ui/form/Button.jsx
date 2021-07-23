@@ -23,20 +23,20 @@ class Button extends React.Component {
     }
 
     render() {
-        const { className, style, children, color, disabled, show } = this.props;
+        const {className, style, children, color, disabled, show} = this.props;
 
         return <button
             className={classNames('Button', color, disabled && 'disabled', !show && 'hidden', className)}
             style={style}
             disabled={disabled}
             onClick={this.handleClick}
-               >
+        >
             {children}
         </button>;
     }
 
     handleClick(event) {
-        const { name, disabled, onClick } = this.props;
+        const {name, disabled, onClick} = this.props;
         !disabled && onClick && onClick(name, event);
     }
 }

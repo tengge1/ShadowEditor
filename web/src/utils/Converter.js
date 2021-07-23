@@ -65,7 +65,7 @@ function dataURLToBlob(dataURL) {
     while (length--) {
         uint8Array[length] = binaryString.charCodeAt(length);
     }
-    return new Blob([uint8Array], { type: mimeType });
+    return new Blob([uint8Array], {type: mimeType});
 }
 
 /**
@@ -93,7 +93,7 @@ function dataURLtoFile(dataURL, filename) {
         console.warn(`Converter: not supported mime-type: ${mimeType}.`);
     }
 
-    return new File([uint8Array], filename, { type: mimeType });
+    return new File([uint8Array], filename, {type: mimeType});
 }
 
 /**

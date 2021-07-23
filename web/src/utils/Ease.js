@@ -62,7 +62,7 @@
  * @static
  **/
 function Ease() {
-	throw "Ease cannot be instantiated.";
+    throw "Ease cannot be instantiated.";
 }
 
 
@@ -73,7 +73,9 @@ function Ease() {
  * @static
  * @return {Number}
  **/
-Ease.linear = function (t) { return t; };
+Ease.linear = function (t) {
+    return t;
+};
 
 /**
  * Identical to linear.
@@ -92,13 +94,20 @@ Ease.none = Ease.linear;
  * @return {Function}
  **/
 Ease.get = function (amount) {
-	if (amount < -1) { amount = -1; }
-	else if (amount > 1) { amount = 1; }
-	return function (t) {
-		if (amount == 0) { return t; }
-		if (amount < 0) { return t * (t * -amount + 1 + amount); }
-		return t * ((2 - t) * amount + (1 - amount));
-	};
+    if (amount < -1) {
+        amount = -1;
+    } else if (amount > 1) {
+        amount = 1;
+    }
+    return function (t) {
+        if (amount == 0) {
+            return t;
+        }
+        if (amount < 0) {
+            return t * (t * -amount + 1 + amount);
+        }
+        return t * ((2 - t) * amount + (1 - amount));
+    };
 };
 
 /**
@@ -109,9 +118,9 @@ Ease.get = function (amount) {
  * @return {Function}
  **/
 Ease.getPowIn = function (pow) {
-	return function (t) {
-		return Math.pow(t, pow);
-	};
+    return function (t) {
+        return Math.pow(t, pow);
+    };
 };
 
 /**
@@ -122,9 +131,9 @@ Ease.getPowIn = function (pow) {
  * @return {Function}
  **/
 Ease.getPowOut = function (pow) {
-	return function (t) {
-		return 1 - Math.pow(1 - t, pow);
-	};
+    return function (t) {
+        return 1 - Math.pow(1 - t, pow);
+    };
 };
 
 /**
@@ -135,10 +144,10 @@ Ease.getPowOut = function (pow) {
  * @return {Function}
  **/
 Ease.getPowInOut = function (pow) {
-	return function (t) {
-		if ((t *= 2) < 1) return 0.5 * Math.pow(t, pow);
-		return 1 - 0.5 * Math.abs(Math.pow(2 - t, pow));
-	};
+    return function (t) {
+        if ((t *= 2) < 1) return 0.5 * Math.pow(t, pow);
+        return 1 - 0.5 * Math.abs(Math.pow(2 - t, pow));
+    };
 };
 
 /**
@@ -236,7 +245,7 @@ Ease.quintInOut = Ease.getPowInOut(5);
  * @return {Number}
  **/
 Ease.sineIn = function (t) {
-	return 1 - Math.cos(t * Math.PI / 2);
+    return 1 - Math.cos(t * Math.PI / 2);
 };
 
 /**
@@ -246,7 +255,7 @@ Ease.sineIn = function (t) {
  * @return {Number}
  **/
 Ease.sineOut = function (t) {
-	return Math.sin(t * Math.PI / 2);
+    return Math.sin(t * Math.PI / 2);
 };
 
 /**
@@ -256,7 +265,7 @@ Ease.sineOut = function (t) {
  * @return {Number}
  **/
 Ease.sineInOut = function (t) {
-	return -0.5 * (Math.cos(Math.PI * t) - 1);
+    return -0.5 * (Math.cos(Math.PI * t) - 1);
 };
 
 /**
@@ -267,9 +276,9 @@ Ease.sineInOut = function (t) {
  * @return {Function}
  **/
 Ease.getBackIn = function (amount) {
-	return function (t) {
-		return t * t * ((amount + 1) * t - amount);
-	};
+    return function (t) {
+        return t * t * ((amount + 1) * t - amount);
+    };
 };
 /**
  * @method backIn
@@ -287,9 +296,9 @@ Ease.backIn = Ease.getBackIn(1.7);
  * @return {Function}
  **/
 Ease.getBackOut = function (amount) {
-	return function (t) {
-		return --t * t * ((amount + 1) * t + amount) + 1;
-	};
+    return function (t) {
+        return --t * t * ((amount + 1) * t + amount) + 1;
+    };
 };
 /**
  * @method backOut
@@ -307,11 +316,11 @@ Ease.backOut = Ease.getBackOut(1.7);
  * @return {Function}
  **/
 Ease.getBackInOut = function (amount) {
-	amount *= 1.525;
-	return function (t) {
-		if ((t *= 2) < 1) return 0.5 * (t * t * ((amount + 1) * t - amount));
-		return 0.5 * ((t -= 2) * t * ((amount + 1) * t + amount) + 2);
-	};
+    amount *= 1.525;
+    return function (t) {
+        if ((t *= 2) < 1) return 0.5 * (t * t * ((amount + 1) * t - amount));
+        return 0.5 * ((t -= 2) * t * ((amount + 1) * t + amount) + 2);
+    };
 };
 /**
  * @method backInOut
@@ -328,7 +337,7 @@ Ease.backInOut = Ease.getBackInOut(1.7);
  * @return {Number}
  **/
 Ease.circIn = function (t) {
-	return -(Math.sqrt(1 - t * t) - 1);
+    return -(Math.sqrt(1 - t * t) - 1);
 };
 
 /**
@@ -338,7 +347,7 @@ Ease.circIn = function (t) {
  * @return {Number}
  **/
 Ease.circOut = function (t) {
-	return Math.sqrt(1 - --t * t);
+    return Math.sqrt(1 - --t * t);
 };
 
 /**
@@ -348,8 +357,8 @@ Ease.circOut = function (t) {
  * @return {Number}
  **/
 Ease.circInOut = function (t) {
-	if ((t *= 2) < 1) return -0.5 * (Math.sqrt(1 - t * t) - 1);
-	return 0.5 * (Math.sqrt(1 - (t -= 2) * t) + 1);
+    if ((t *= 2) < 1) return -0.5 * (Math.sqrt(1 - t * t) - 1);
+    return 0.5 * (Math.sqrt(1 - (t -= 2) * t) + 1);
 };
 
 /**
@@ -359,7 +368,7 @@ Ease.circInOut = function (t) {
  * @return {Number}
  **/
 Ease.bounceIn = function (t) {
-	return 1 - Ease.bounceOut(1 - t);
+    return 1 - Ease.bounceOut(1 - t);
 };
 
 /**
@@ -369,15 +378,15 @@ Ease.bounceIn = function (t) {
  * @return {Number}
  **/
 Ease.bounceOut = function (t) {
-	if (t < 1 / 2.75) {
-		return 7.5625 * t * t;
-	} else if (t < 2 / 2.75) {
-		return 7.5625 * (t -= 1.5 / 2.75) * t + 0.75;
-	} else if (t < 2.5 / 2.75) {
-		return 7.5625 * (t -= 2.25 / 2.75) * t + 0.9375;
-	} else {
-		return 7.5625 * (t -= 2.625 / 2.75) * t + 0.984375;
-	}
+    if (t < 1 / 2.75) {
+        return 7.5625 * t * t;
+    } else if (t < 2 / 2.75) {
+        return 7.5625 * (t -= 1.5 / 2.75) * t + 0.75;
+    } else if (t < 2.5 / 2.75) {
+        return 7.5625 * (t -= 2.25 / 2.75) * t + 0.9375;
+    } else {
+        return 7.5625 * (t -= 2.625 / 2.75) * t + 0.984375;
+    }
 };
 
 /**
@@ -387,8 +396,8 @@ Ease.bounceOut = function (t) {
  * @return {Number}
  **/
 Ease.bounceInOut = function (t) {
-	if (t < 0.5) return Ease.bounceIn(t * 2) * .5;
-	return Ease.bounceOut(t * 2 - 1) * 0.5 + 0.5;
+    if (t < 0.5) return Ease.bounceIn(t * 2) * .5;
+    return Ease.bounceOut(t * 2 - 1) * 0.5 + 0.5;
 };
 
 /**
@@ -400,12 +409,12 @@ Ease.bounceInOut = function (t) {
  * @return {Function}
  **/
 Ease.getElasticIn = function (amplitude, period) {
-	var pi2 = Math.PI * 2;
-	return function (t) {
-		if (t == 0 || t == 1) return t;
-		var s = period / pi2 * Math.asin(1 / amplitude);
-		return -(amplitude * Math.pow(2, 10 * (t -= 1)) * Math.sin((t - s) * pi2 / period));
-	};
+    var pi2 = Math.PI * 2;
+    return function (t) {
+        if (t == 0 || t == 1) return t;
+        var s = period / pi2 * Math.asin(1 / amplitude);
+        return -(amplitude * Math.pow(2, 10 * (t -= 1)) * Math.sin((t - s) * pi2 / period));
+    };
 };
 /**
  * @method elasticIn
@@ -424,12 +433,12 @@ Ease.elasticIn = Ease.getElasticIn(1, 0.3);
  * @return {Function}
  **/
 Ease.getElasticOut = function (amplitude, period) {
-	var pi2 = Math.PI * 2;
-	return function (t) {
-		if (t == 0 || t == 1) return t;
-		var s = period / pi2 * Math.asin(1 / amplitude);
-		return amplitude * Math.pow(2, -10 * t) * Math.sin((t - s) * pi2 / period) + 1;
-	};
+    var pi2 = Math.PI * 2;
+    return function (t) {
+        if (t == 0 || t == 1) return t;
+        var s = period / pi2 * Math.asin(1 / amplitude);
+        return amplitude * Math.pow(2, -10 * t) * Math.sin((t - s) * pi2 / period) + 1;
+    };
 };
 /**
  * @method elasticOut
@@ -448,12 +457,12 @@ Ease.elasticOut = Ease.getElasticOut(1, 0.3);
  * @return {Function}
  **/
 Ease.getElasticInOut = function (amplitude, period) {
-	var pi2 = Math.PI * 2;
-	return function (t) {
-		var s = period / pi2 * Math.asin(1 / amplitude);
-		if ((t *= 2) < 1) return -0.5 * (amplitude * Math.pow(2, 10 * (t -= 1)) * Math.sin((t - s) * pi2 / period));
-		return amplitude * Math.pow(2, -10 * (t -= 1)) * Math.sin((t - s) * pi2 / period) * 0.5 + 1;
-	};
+    var pi2 = Math.PI * 2;
+    return function (t) {
+        var s = period / pi2 * Math.asin(1 / amplitude);
+        if ((t *= 2) < 1) return -0.5 * (amplitude * Math.pow(2, 10 * (t -= 1)) * Math.sin((t - s) * pi2 / period));
+        return amplitude * Math.pow(2, -10 * (t -= 1)) * Math.sin((t - s) * pi2 / period) * 0.5 + 1;
+    };
 };
 /**
  * @method elasticInOut

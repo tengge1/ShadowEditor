@@ -29,7 +29,7 @@ class Confirm extends React.Component {
     }
 
     render() {
-        const { className, style, title, children, hidden, mask, okText, cancelText } = this.props;
+        const {className, style, title, children, hidden, mask, okText, cancelText} = this.props;
 
         return <Window
             className={classNames('Confirm', className)}
@@ -38,7 +38,7 @@ class Confirm extends React.Component {
             hidden={hidden}
             mask={mask}
             onClose={this.handleClose}
-               >
+        >
             <Content>{children}</Content>
             <Buttons>
                 <Button onClick={this.handleOK}>{okText}</Button>

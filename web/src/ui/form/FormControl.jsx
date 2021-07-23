@@ -17,11 +17,11 @@ import PropTypes from 'prop-types';
  */
 class FormControl extends React.Component {
     render() {
-        const { className, style, children, hidden } = this.props;
+        const {className, style, children, hidden} = this.props;
 
         return <div className={classNames('FormControl', className, hidden && 'hidden')}
-            style={style}
-               >
+                    style={style}
+        >
             {children}
         </div>;
     }

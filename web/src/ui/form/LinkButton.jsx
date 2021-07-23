@@ -23,20 +23,20 @@ class LinkButton extends React.Component {
     }
 
     render() {
-        const { className, style, children, disabled } = this.props;
+        const {className, style, children, disabled} = this.props;
 
         return <a className={classNames('LinkButton', disabled && 'disabled', className)}
-            style={style}
-            href={'javascript:;'}
-            disabled={disabled}
-            onClick={this.handleClick}
-               >
+                  style={style}
+                  href={'javascript:;'}
+                  disabled={disabled}
+                  onClick={this.handleClick}
+        >
             {children}
         </a>;
     }
 
     handleClick(event) {
-        const { disabled, onClick } = this.props;
+        const {disabled, onClick} = this.props;
         !disabled && onClick && onClick(this.props.name, event);
     }
 }

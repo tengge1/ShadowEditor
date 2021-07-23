@@ -39,15 +39,15 @@ class SearchField extends React.Component {
     }
 
     render() {
-        const { className, style, data, placeholder, showAddButton, showFilterButton } = this.props;
-        const { value, categories, filterShow } = this.state;
+        const {className, style, data, placeholder, showAddButton, showFilterButton} = this.props;
+        const {value, categories, filterShow} = this.state;
 
         return <div className={classNames('SearchField', className)}
-            onClick={this.stopPropagation}
-               >
+                    onClick={this.stopPropagation}
+        >
             {showAddButton && <IconButton icon={'add'}
-                onClick={this.handleAdd}
-                              />}
+                                          onClick={this.handleAdd}
+            />}
             <input
                 className={'input'}
                 style={style}
@@ -65,21 +65,21 @@ class SearchField extends React.Component {
                 icon={'filter'}
                 className={classNames(filterShow && 'selected')}
                 onClick={this.handleShowFilter}
-                                 />}
+            />}
             {showFilterButton && <div className={classNames('category', !filterShow && 'hidden')}>
                 <div className={'item'}
-                    key={''}
+                     key={''}
                 >
                     <CheckBox name={''}
-                        checked={categories.indexOf('') > -1}
-                        onChange={this.handleCheckBoxChange}
+                              checked={categories.indexOf('') > -1}
+                              onChange={this.handleCheckBoxChange}
                     />
                     <label className={'title'}>{_t('No Type')}</label>
                 </div>
                 {data.map(n => {
                     return <div className={'item'}
-                        key={n.ID}
-                           >
+                                key={n.ID}
+                    >
                         <CheckBox
                             name={n.ID}
                             checked={categories.indexOf(n.ID) > -1}
@@ -97,39 +97,39 @@ class SearchField extends React.Component {
     }
 
     handleAdd(event) {
-        const { onAdd } = this.props;
+        const {onAdd} = this.props;
         onAdd && onAdd(event);
     }
 
     handleChange(event) {
-        const { onChange } = this.props;
+        const {onChange} = this.props;
 
         event.stopPropagation();
 
         const value = event.target.value;
 
-        this.setState({ value });
+        this.setState({value});
 
         onChange && onChange(value, this.state.categories, event);
     }
 
     handleInput(event) {
-        const { onInput } = this.props;
+        const {onInput} = this.props;
 
         event.stopPropagation();
 
         const value = event.target.value;
 
-        this.setState({ value });
+        this.setState({value});
 
         onInput && onInput(value, this.state.categories, event);
     }
 
     handleReset(event) {
-        const { onInput, onChange } = this.props;
+        const {onInput, onChange} = this.props;
         const value = '';
 
-        this.setState({ value });
+        this.setState({value});
 
         onInput && onInput(value, this.state.categories, event);
         onChange && onChange(value, this.state.categories, event);
@@ -148,7 +148,7 @@ class SearchField extends React.Component {
     }
 
     handleCheckBoxChange(checked, name, event) {
-        const { onInput, onChange } = this.props;
+        const {onInput, onChange} = this.props;
 
         let categories = this.state.categories;
         let index = categories.indexOf(name);
@@ -164,7 +164,7 @@ class SearchField extends React.Component {
 
         const value = this.state.value;
 
-        this.setState({ categories }, () => {
+        this.setState({categories}, () => {
             onInput && onInput(value, categories, event);
             onChange && onChange(value, categories, event);
         });

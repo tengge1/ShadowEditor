@@ -24,7 +24,7 @@ class ImageUploader extends React.Component {
     }
 
     render() {
-        const { className, style, url, server, noImageText } = this.props;
+        const {className, style, url, server, noImageText} = this.props;
 
         if (url && url !== 'null') {
             return <img
@@ -32,12 +32,12 @@ class ImageUploader extends React.Component {
                 style={style}
                 src={server + url}
                 onClick={this.handleSelect}
-                   />;
+            />;
         } else {
             return <div
                 className={classNames('ImageUploader', 'empty', className)}
                 onClick={this.handleSelect}
-                   >
+            >
                 {noImageText}
             </div>;
         }
@@ -68,7 +68,7 @@ class ImageUploader extends React.Component {
     }
 
     handleChange(event) {
-        const { onChange } = this.props;
+        const {onChange} = this.props;
         onChange && onChange(event.target.files[0], event);
     }
 }

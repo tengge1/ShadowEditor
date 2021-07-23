@@ -17,12 +17,12 @@ import PropTypes from 'prop-types';
  */
 class Toolbar extends React.Component {
     render() {
-        const { className, style, children, direction } = this.props;
+        const {className, style, children, direction} = this.props;
 
         return <div
             className={classNames('Toolbar', direction, className)}
             style={style}
-               >{children}</div>;
+        >{children}</div>;
     }
 }
 

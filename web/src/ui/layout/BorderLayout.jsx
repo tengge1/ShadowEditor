@@ -171,12 +171,12 @@ class BorderLayout extends React.Component {
     }
 
     render() {
-        const { className, style, children } = this.props;
+        const {className, style, children} = this.props;
 
         let north = [], south = [], west = [], east = [], center = [], others = [];
 
         children && children.forEach(n => {
-            if(!n) {
+            if (!n) {
                 return;
             }
             switch (n.props.region) {
@@ -210,16 +210,16 @@ class BorderLayout extends React.Component {
             this.state.northSplit && 'split',
             this.state.northCollapsed && 'collapsed',
             north.every(n => n.props.show === false) && 'hidden')}
-            region={'north'}
-            onTransitionEnd={this.handleTransitionEnd}
-            ref={this.northRef}
-                                                >
+                                                     region={'north'}
+                                                     onTransitionEnd={this.handleTransitionEnd}
+                                                     ref={this.northRef}
+        >
             <div className={'content'}>
                 {north}
             </div>
             {this.state.northSplit && <div className={'control'}>
                 <div className={'button'}
-                    onClick={this.handleNorthClick}
+                     onClick={this.handleNorthClick}
                 />
             </div>}
         </div>;
@@ -229,13 +229,13 @@ class BorderLayout extends React.Component {
             this.state.northSplit && 'split',
             this.state.southCollapsed && 'collapsed',
             south.every(n => n.props.show === false) && 'hidden')}
-            region={'south'}
-            onTransitionEnd={this.handleTransitionEnd}
-            ref={this.southRef}
-                                                >
+                                                     region={'south'}
+                                                     onTransitionEnd={this.handleTransitionEnd}
+                                                     ref={this.southRef}
+        >
             {this.state.southSplit && <div className={'control'}>
                 <div className={'button'}
-                    onClick={this.handleSouthClick}
+                     onClick={this.handleSouthClick}
                 />
             </div>}
             <div className={'content'}>
@@ -248,16 +248,16 @@ class BorderLayout extends React.Component {
             this.state.westSplit && 'split',
             this.state.westCollapsed && 'collapsed',
             west.every(n => n.props.show === false) && 'hidden')}
-            region={'west'}
-            onTransitionEnd={this.handleTransitionEnd}
-            ref={this.westRef}
-                                              >
+                                                   region={'west'}
+                                                   onTransitionEnd={this.handleTransitionEnd}
+                                                   ref={this.westRef}
+        >
             <div className={'content'}>
                 {west}
             </div>
             {this.state.westSplit && <div className={'control'}>
                 <div className={'button'}
-                    onClick={this.handleWestClick}
+                     onClick={this.handleWestClick}
                 />
             </div>}
         </div>;
@@ -267,13 +267,13 @@ class BorderLayout extends React.Component {
             this.state.eastSplit && 'split',
             this.state.eastCollapsed && 'collapsed',
             east.every(n => n.props.show === false) && 'hidden')}
-            region={'east'}
-            onTransitionEnd={this.handleTransitionEnd}
-            ref={this.eastRef}
-                                              >
+                                                   region={'east'}
+                                                   onTransitionEnd={this.handleTransitionEnd}
+                                                   ref={this.eastRef}
+        >
             <div className={'control'}>
                 <div className={'button'}
-                    onClick={this.handleEastClick}
+                     onClick={this.handleEastClick}
                 />
             </div>
             <div className={'content'}>
@@ -291,7 +291,7 @@ class BorderLayout extends React.Component {
         return <div
             className={classNames('BorderLayout', className)}
             style={style}
-               >
+        >
             {northRegion}
             <div className={'middle'}>
                 {westRegion}

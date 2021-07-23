@@ -21,11 +21,11 @@ class ButtonsProperty extends React.Component {
     }
 
     render() {
-        const { className, style, children } = this.props;
+        const {className, style, children} = this.props;
 
         return <div className={classNames('buttons', className)}
-            style={style}
-               >{children}</div>;
+                    style={style}
+        >{children}</div>;
     }
 }
 

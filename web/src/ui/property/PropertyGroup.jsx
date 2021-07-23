@@ -25,22 +25,22 @@ class PropertyGroup extends React.Component {
     }
 
     render() {
-        const { style, children, title, show, expanded } = this.props;
+        const {style, children, title, show, expanded} = this.props;
 
         return <div className={classNames('PropertyGroup', !show && 'hidden')}
-            style={style}
-               >
+                    style={style}
+        >
             <div className={'head'}
-                expanded={expanded ? 'true' : 'false'}
-                onClick={this.handleExpand}
+                 expanded={expanded ? 'true' : 'false'}
+                 onClick={this.handleExpand}
             >
                 <div className={'icon'}>
-                    <i className={expanded ? 'icon-expand' : 'icon-collapse'} />
+                    <i className={expanded ? 'icon-expand' : 'icon-collapse'}/>
                 </div>
                 <div className={'title'}>{title}</div>
             </div>
             <div className={classNames('content', !expanded && 'collapsed')}
-                ref={this.contentRef}
+                 ref={this.contentRef}
             >
                 {React.Children.map(children, (n, i) => {
                     if (n.props.show === false) {
@@ -54,8 +54,8 @@ class PropertyGroup extends React.Component {
                     }
 
                     return <div className={classNames('property', typeName)}
-                        key={i}
-                           >
+                                key={i}
+                    >
                         <div className={'label'}>{n.props.label}</div>
                         <div className={'field'}>{n}</div>
                     </div>;

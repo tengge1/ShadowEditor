@@ -23,18 +23,18 @@ class Radio extends React.Component {
     }
 
     render() {
-        const { className, style, checked, disabled } = this.props;
+        const {className, style, checked, disabled} = this.props;
         return <input type={'radio'}
-            className={classNames('Radio', checked && 'checked', disabled && 'disabled', className)}
-            style={style}
-            checked={checked}
-            disabled={disabled}
-            onChange={this.handleChange}
-               />;
+                      className={classNames('Radio', checked && 'checked', disabled && 'disabled', className)}
+                      style={style}
+                      checked={checked}
+                      disabled={disabled}
+                      onChange={this.handleChange}
+        />;
     }
 
     handleChange(event) {
-        const { name, onChange } = this.props;
+        const {name, onChange} = this.props;
         onChange && onChange(event.target.checked, name, event);
     }
 }

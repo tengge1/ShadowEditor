@@ -23,7 +23,7 @@ class ImageList extends React.Component {
     constructor(props) {
         super(props);
 
-        const { onClick, onEdit, onDelete } = props;
+        const {onClick, onEdit, onDelete} = props;
 
         this.state = {
             pageSize: 10,
@@ -42,8 +42,8 @@ class ImageList extends React.Component {
     }
 
     render() {
-        const { className, style, data, showEditButton, showDeleteButton } = this.props;
-        const { pageSize, pageNum } = this.state;
+        const {className, style, data, showEditButton, showDeleteButton} = this.props;
+        const {pageSize, pageNum} = this.state;
 
         const totalPage = this.getTotalPage();
 
@@ -52,62 +52,62 @@ class ImageList extends React.Component {
         });
 
         return <div className={classNames('ImageList', className)}
-            style={style}
-               >
+                    style={style}
+        >
             <div className={'content'}>
                 {current.map(n => {
                     return <div className={'item'}
-                        name={n.id}
-                        key={n.id}
-                        onClick={this.handleClick}
-                           >
+                                name={n.id}
+                                key={n.id}
+                                onClick={this.handleClick}
+                    >
                         {n.src ?
                             <img className={'img'}
-                                src={n.src}
-                                onError={this.handleError}
+                                 src={n.src}
+                                 onError={this.handleError}
                             /> :
                             <div className={'no-img'}>
-                                <Icon icon={n.icon} />
+                                <Icon icon={n.icon}/>
                             </div>}
                         <div className={'title'}>{n.title}</div>
                         {n.cornerText && <div className={'cornerText'}>{n.cornerText}</div>}
                         {showEditButton && n.showEditButton !== false && <IconButton className={'edit'}
-                            icon={'edit'}
-                            name={n.id}
-                            onClick={this.handleEdit}
-                                                                         />}
+                                                                                     icon={'edit'}
+                                                                                     name={n.id}
+                                                                                     onClick={this.handleEdit}
+                        />}
                         {showDeleteButton && n.showDeleteButton !== false && <IconButton className={'delete'}
-                            icon={'delete'}
-                            name={n.id}
-                            onClick={this.handleDelete}
-                                                                             />}
+                                                                                         icon={'delete'}
+                                                                                         name={n.id}
+                                                                                         onClick={this.handleDelete}
+                        />}
                     </div>;
                 })}
             </div>
             <div className={'page'}>
                 <IconButton icon={'backward'}
-                    title={_t('First Page')}
-                    onClick={this.handleFirstPage}
+                            title={_t('First Page')}
+                            onClick={this.handleFirstPage}
                 />
                 <IconButton icon={'left-triangle2'}
-                    title={_t('Previous Page')}
-                    onClick={this.handlePreviousPage}
+                            title={_t('Previous Page')}
+                            onClick={this.handlePreviousPage}
                 />
                 <Input className={'current'}
-                    value={(pageNum + 1).toString()}
-                    title={_t('Current Page')}
-                    disabled
+                       value={(pageNum + 1).toString()}
+                       title={_t('Current Page')}
+                       disabled
                 />
                 <IconButton icon={'right-triangle2'}
-                    title={_t('Next Page')}
-                    onClick={this.handleNextPage}
+                            title={_t('Next Page')}
+                            onClick={this.handleNextPage}
                 />
                 <IconButton icon={'forward'}
-                    title={_t('Last Page')}
-                    onClick={this.handleLastPage}
+                            title={_t('Last Page')}
+                            onClick={this.handleLastPage}
                 />
                 <div className={'info'}>
-                    {_t('Total {{totalPage}} Pages', { totalPage: totalPage })}
+                    {_t('Total {{totalPage}} Pages', {totalPage: totalPage})}
                 </div>
             </div>
         </div>;

@@ -14,23 +14,18 @@ import MaterialSerializer from './MaterialSerializer';
  * ParticleSystemMaterialSerializer
  * @author tengge / https://github.com/tengge1
  */
-function ParticleSystemMaterialSerializer() {
-    BaseSerializer.call(this);
+class ParticleSystemMaterialSerializer extends BaseSerializer {
+    toJSON(obj) {
+        return MaterialSerializer.prototype.toJSON.call(this, obj);
+    }
+
+    fromJSON(json, parent, server) {
+        var obj = parent === undefined ? new THREE.ParticleSystemMaterial() : parent;
+
+        MaterialSerializer.prototype.fromJSON.call(this, json, obj, server);
+
+        return obj;
+    }
 }
-
-ParticleSystemMaterialSerializer.prototype = Object.create(BaseSerializer.prototype);
-ParticleSystemMaterialSerializer.prototype.constructor = ParticleSystemMaterialSerializer;
-
-ParticleSystemMaterialSerializer.prototype.toJSON = function (obj) {
-    return MaterialSerializer.prototype.toJSON.call(this, obj);
-};
-
-ParticleSystemMaterialSerializer.prototype.fromJSON = function (json, parent, server) {
-    var obj = parent === undefined ? new THREE.ParticleSystemMaterial() : parent;
-
-    MaterialSerializer.prototype.fromJSON.call(this, json, obj, server);
-
-    return obj;
-};
 
 export default ParticleSystemMaterialSerializer;

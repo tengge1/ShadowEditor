@@ -17,13 +17,13 @@ import PropTypes from 'prop-types';
  */
 class SVG extends React.Component {
     render() {
-        const { className, style, ...others } = this.props;
+        const {className, style, ...others} = this.props;
 
         return <svg
             className={classNames('SVG', className)}
             style={style}
             {...others}
-               />;
+        />;
     }
 }
 

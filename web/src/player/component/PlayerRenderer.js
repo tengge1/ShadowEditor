@@ -14,25 +14,24 @@ import EffectRenderer from '../../render/EffectRenderer';
  * 播放器渲染器
  * @param {*} app 播放器
  */
-function PlayerRenderer(app) {
-    PlayerComponent.call(this, app);
+class PlayerRenderer extends PlayerComponent {
+    constructor(app) {
+        super(app);
+    }
+
+    create(scene, camera, renderer) {
+        this.renderer = new EffectRenderer();
+        return this.renderer.create(scene, camera, renderer);
+    }
+
+    update(clock, deltaTime) { // eslint-disable-line
+        this.renderer.render();
+    }
+
+    dispose() {
+        this.renderer.dispose();
+        this.renderer = null;
+    }
 }
-
-PlayerRenderer.prototype = Object.create(PlayerComponent.prototype);
-PlayerRenderer.prototype.constructor = PlayerRenderer;
-
-PlayerRenderer.prototype.create = function (scene, camera, renderer) {
-    this.renderer = new EffectRenderer();
-    return this.renderer.create(scene, camera, renderer);
-};
-
-PlayerRenderer.prototype.update = function (clock, deltaTime) { // eslint-disable-line
-    this.renderer.render();
-};
-
-PlayerRenderer.prototype.dispose = function () {
-    this.renderer.dispose();
-    this.renderer = null;
-};
 
 export default PlayerRenderer;

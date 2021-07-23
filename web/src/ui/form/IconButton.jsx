@@ -23,19 +23,19 @@ class IconButton extends React.Component {
     }
 
     render() {
-        const { className, style, icon, title, show, selected, disabled } = this.props;
+        const {className, style, icon, title, show, selected, disabled} = this.props;
         return <button
             className={classNames('IconButton', selected && 'selected', !show && 'hidden', disabled && 'disabled', className)}
             style={style}
             title={title}
             onClick={this.handleClick}
-               >
-            <i className={classNames('iconfont', icon && 'icon-' + icon)} />
+        >
+            <i className={classNames('iconfont', icon && 'icon-' + icon)}/>
         </button>;
     }
 
     handleClick(event) {
-        const { name, disabled, onClick } = this.props;
+        const {name, disabled, onClick} = this.props;
         !disabled && onClick && onClick(name, event);
     }
 }

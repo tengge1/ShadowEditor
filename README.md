@@ -37,6 +37,8 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
 13. Fix a bug that component in mesh cannot save the `visible` attribute.
 14. `Bin` type model is no longer supported.
 15. Fix cube texture bug.
+16. Rewrite all the `prototype` to es6 `class` in the source code.
+17. Remove the visual module.
 
 ## v0.5.10 has Released
 

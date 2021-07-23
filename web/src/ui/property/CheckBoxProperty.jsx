@@ -24,7 +24,7 @@ class CheckBoxProperty extends React.Component {
     }
 
     render() {
-        const { className, style, name, value } = this.props;
+        const {className, style, name, value} = this.props;
 
         return <CheckBox
             className={classNames('checkbox', className)}
@@ -32,7 +32,7 @@ class CheckBoxProperty extends React.Component {
             name={name}
             checked={value}
             onChange={this.handleChange}
-               />;
+        />;
     }
 
     handleChange(onChange, value, name, event) {

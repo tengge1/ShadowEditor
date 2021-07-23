@@ -14,25 +14,20 @@ import BufferGeometrySerializer from './BufferGeometrySerializer';
  * InstancedBufferGeometrySerializer
  * @author tengge / https://github.com/tengge1
  */
-function InstancedBufferGeometrySerializer() {
-    BaseSerializer.call(this);
+class InstancedBufferGeometrySerializer extends BaseSerializer {
+    toJSON(obj) {
+        return BufferGeometrySerializer.prototype.toJSON.call(this, obj);
+    }
+
+    fromJSON(json, parent) {
+        var obj = parent === undefined ? new THREE.InstancedBufferGeometry() : parent;
+
+        // TODO:
+
+        BufferGeometrySerializer.prototype.fromJSON.call(this, json, obj);
+
+        return obj;
+    }
 }
-
-InstancedBufferGeometrySerializer.prototype = Object.create(BaseSerializer.prototype);
-InstancedBufferGeometrySerializer.prototype.constructor = InstancedBufferGeometrySerializer;
-
-InstancedBufferGeometrySerializer.prototype.toJSON = function (obj) {
-    return BufferGeometrySerializer.prototype.toJSON.call(this, obj);
-};
-
-InstancedBufferGeometrySerializer.prototype.fromJSON = function (json, parent) {
-    var obj = parent === undefined ? new THREE.InstancedBufferGeometry() : parent;
-
-    // TODO: 
-
-    BufferGeometrySerializer.prototype.fromJSON.call(this, json, obj);
-
-    return obj;
-};
 
 export default InstancedBufferGeometrySerializer;

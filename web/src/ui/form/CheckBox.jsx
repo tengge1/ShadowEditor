@@ -23,7 +23,7 @@ class CheckBox extends React.Component {
     }
 
     render() {
-        const { className, style, checked, disabled } = this.props;
+        const {className, style, checked, disabled} = this.props;
         return <input
             type={'checkbox'}
             className={classNames('CheckBox', checked && 'checked', disabled && 'disabled', className)}
@@ -31,11 +31,11 @@ class CheckBox extends React.Component {
             checked={checked}
             disabled={disabled}
             onChange={this.handleChange}
-               />;
+        />;
     }
 
     handleChange(event) {
-        const { name, onChange } = this.props;
+        const {name, onChange} = this.props;
         onChange && onChange(event.target.checked, name, event);
     }
 }

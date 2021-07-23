@@ -33,7 +33,7 @@ import TorusBufferGeometrySerializer from './TorusBufferGeometrySerializer';
 import TorusKnotBufferGeometrySerializer from './TorusKnotBufferGeometrySerializer';
 import TubeBufferGeometrySerializer from './TubeBufferGeometrySerializer';
 
-var Serializers = {
+const Serializers = {
     'BoxBufferGeometry': BoxBufferGeometrySerializer,
     'BufferGeometry': BufferGeometrySerializer,
     'CircleBufferGeometry': CircleBufferGeometrySerializer,
@@ -87,35 +87,30 @@ var Serializers = {
  * GeometriesSerializer
  * @author tengge / https://github.com/tengge1
  */
-function GeometriesSerializer() {
-    BaseSerializer.call(this);
+class GeometriesSerializer extends BaseSerializer {
+    toJSON(obj) {
+        var serializer = Serializers[obj.type];
+
+        if (serializer === undefined) {
+            console.warn(`GeometriesSerializer: No serializer with ${obj.type}.`);
+            return null;
+        }
+
+        return new serializer().toJSON(obj);
+    }
+
+    fromJSON(json, parent) {
+        var generator = json.metadata.generator;
+
+        var serializer = Serializers[generator.replace('Serializer', '')];
+
+        if (serializer === undefined) {
+            console.warn(`GeometriesSerializer: No deserializer with ${generator}.`);
+            return null;
+        }
+
+        return new serializer().fromJSON(json, parent);
+    }
 }
-
-GeometriesSerializer.prototype = Object.create(BaseSerializer.prototype);
-GeometriesSerializer.prototype.constructor = GeometriesSerializer;
-
-GeometriesSerializer.prototype.toJSON = function (obj) {
-    var serializer = Serializers[obj.type];
-
-    if (serializer === undefined) {
-        console.warn(`GeometriesSerializer: No serializer with ${obj.type}.`);
-        return null;
-    }
-
-    return new serializer().toJSON(obj);
-};
-
-GeometriesSerializer.prototype.fromJSON = function (json, parent) {
-    var generator = json.metadata.generator;
-
-    var serializer = Serializers[generator.replace('Serializer', '')];
-
-    if (serializer === undefined) {
-        console.warn(`GeometriesSerializer: No deserializer with ${generator}.`);
-        return null;
-    }
-
-    return new serializer().fromJSON(json, parent);
-};
 
 export default GeometriesSerializer;

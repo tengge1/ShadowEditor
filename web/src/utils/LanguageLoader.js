@@ -7,7 +7,7 @@
  * For more information, please visit: https://github.com/tengge1/ShadowEditor
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
-import { i18next, Backend } from '../third_party';
+import {Backend, i18next} from '../third_party';
 
 /**
  * 语言加载器

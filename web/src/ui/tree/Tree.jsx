@@ -25,7 +25,7 @@ class Tree extends React.Component {
 
         this.treeRef = React.createRef();
 
-        const { onExpand, onSelect, onCheck, onDoubleClick, onDrop } = this.props;
+        const {onExpand, onSelect, onCheck, onDoubleClick, onDrop} = this.props;
 
         this.handleExpandNode = this.handleExpandNode.bind(this, onExpand);
         this.handleClick = this.handleClick.bind(this, onSelect);
@@ -41,7 +41,7 @@ class Tree extends React.Component {
     }
 
     render() {
-        const { className, style, data, mask } = this.props;
+        const {className, style, data, mask} = this.props;
 
         // 创建节点
         let list = [];
@@ -56,7 +56,7 @@ class Tree extends React.Component {
                 ref={this.treeRef}
             >{list}</ul>
             <LoadMask text={_t('Loading...')}
-                show={mask}
+                      show={mask}
             />
         </div>;
     }
@@ -65,17 +65,18 @@ class Tree extends React.Component {
         // TODO: leaf应该根据数据上的left属性判断，而不是children。
         const leaf = (!data.children || data.children.length === 0) && data.leaf !== false;
 
-        const children = data.children && data.children.length > 0 ? <ul className={classNames('sub', data.expanded ? null : 'collpase')}>{data.children.map(n => {
-            return this.createNode(n);
-        })}</ul> : null;
+        const children = data.children && data.children.length > 0 ?
+            <ul className={classNames('sub', data.expanded ? null : 'collpase')}>{data.children.map(n => {
+                return this.createNode(n);
+            })}</ul> : null;
 
         let checkbox = null;
 
         if (data.checked === true || data.checked === false) {
             checkbox = <CheckBox name={data.value}
-                checked={data.checked}
-                onChange={this.handleCheck}
-                       />;
+                                 checked={data.checked}
+                                 onChange={this.handleCheck}
+            />;
         }
 
         return <li
@@ -91,23 +92,23 @@ class Tree extends React.Component {
             onDragOver={this.handleDragOver}
             onDragLeave={this.handleDragLeave}
             onDrop={this.handleDrop}
-               >
+        >
             <i className={classNames('expand', leaf ? null : data.expanded ? 'minus' : 'plus')}
-                value={data.value}
-                onClick={this.handleExpandNode}
+               value={data.value}
+               onClick={this.handleExpandNode}
             />
             {checkbox}
-            <i className={classNames('type', leaf ? 'leaf' : data.expanded ? 'open' : 'close')} />
+            <i className={classNames('type', leaf ? 'leaf' : data.expanded ? 'open' : 'close')}/>
             <a href={'javascript:;'}>{data.text}</a>
             {data.icons && data.icons.map(n => {
                 return <Icon className={'control'}
-                    name={n.name}
-                    value={data.value}
-                    icon={n.icon}
-                    title={n.title}
-                    key={n.name}
-                    onClick={this.handleClickIcon}
-                       />;
+                             name={n.name}
+                             value={data.value}
+                             icon={n.icon}
+                             title={n.title}
+                             key={n.name}
+                             onClick={this.handleClickIcon}
+                />;
             })}
             {leaf ? null : children}
         </li>;

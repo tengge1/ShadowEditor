@@ -14,23 +14,18 @@ import MaterialSerializer from './MaterialSerializer';
  * MeshToonMaterialSerializer
  * @author tengge / https://github.com/tengge1
  */
-function MeshToonMaterialSerializer() {
-    BaseSerializer.call(this);
+class MeshToonMaterialSerializer extends BaseSerializer {
+    toJSON(obj) {
+        return MaterialSerializer.prototype.toJSON.call(this, obj);
+    }
+
+    fromJSON(json, parent, server) {
+        var obj = parent === undefined ? new THREE.MeshToonMaterial() : parent;
+
+        MaterialSerializer.prototype.fromJSON.call(this, json, obj, server);
+
+        return obj;
+    }
 }
-
-MeshToonMaterialSerializer.prototype = Object.create(BaseSerializer.prototype);
-MeshToonMaterialSerializer.prototype.constructor = MeshToonMaterialSerializer;
-
-MeshToonMaterialSerializer.prototype.toJSON = function (obj) {
-    return MaterialSerializer.prototype.toJSON.call(this, obj);
-};
-
-MeshToonMaterialSerializer.prototype.fromJSON = function (json, parent, server) {
-    var obj = parent === undefined ? new THREE.MeshToonMaterial() : parent;
-
-    MaterialSerializer.prototype.fromJSON.call(this, json, obj, server);
-
-    return obj;
-};
 
 export default MeshToonMaterialSerializer;

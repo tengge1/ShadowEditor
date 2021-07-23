@@ -17,12 +17,12 @@ import PropTypes from 'prop-types';
  */
 class ContextMenu extends React.Component {
     render() {
-        const { className, style, children } = this.props;
+        const {className, style, children} = this.props;
 
         return <ul
             className={classNames('ContextMenu', className)}
             style={style}
-               >{children}</ul>;
+        >{children}</ul>;
     }
 }
 

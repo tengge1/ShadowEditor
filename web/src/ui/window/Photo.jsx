@@ -23,14 +23,14 @@ class Photo extends React.Component {
     }
 
     render() {
-        const { className, style, url } = this.props;
+        const {className, style, url} = this.props;
 
         return <div className={classNames('PhotoMark', className)}
-            style={style}
-            onClick={this.handleClick}
-               >
+                    style={style}
+                    onClick={this.handleClick}
+        >
             <img src={url}
-                onClick={this.handleClickImage}
+                 onClick={this.handleClickImage}
             />
         </div>;
     }

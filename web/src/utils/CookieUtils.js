@@ -7,7 +7,7 @@
  * For more information, please visit: https://github.com/tengge1/ShadowEditor
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
-import { Cookies } from '../third_party';
+import {Cookies} from '../third_party';
 
 const CookieUtils = {
     /**

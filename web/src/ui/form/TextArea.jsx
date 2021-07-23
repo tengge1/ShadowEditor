@@ -24,7 +24,7 @@ class TextArea extends React.Component {
     }
 
     render() {
-        const { className, style, value } = this.props;
+        const {className, style, value} = this.props;
 
         return <textarea
             className={classNames('TextArea', className)}
@@ -32,16 +32,16 @@ class TextArea extends React.Component {
             value={value}
             onChange={this.handleChange}
             onInput={this.handleInput}
-               />;
+        />;
     }
 
     handleChange(event) {
-        const { onChange } = this.props;
+        const {onChange} = this.props;
         onChange && onChange(event.target.value, this.props.name, event);
     }
 
     handleInput(event) {
-        const { onInput } = this.props;
+        const {onInput} = this.props;
         onInput && onInput(event.target.value, this.props.name, event);
     }
 }

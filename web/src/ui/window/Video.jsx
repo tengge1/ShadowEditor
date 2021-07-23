@@ -23,16 +23,16 @@ class Video extends React.Component {
     }
 
     render() {
-        const { className, style, url } = this.props;
+        const {className, style, url} = this.props;
 
         return <div className={classNames('VideoMark', className)}
-            style={style}
-            onClick={this.handleClick}
-               >
+                    style={style}
+                    onClick={this.handleClick}
+        >
             <video src={url}
-                autoPlay={'autoplay'}
-                controls={'controls'}
-                onClick={this.handleClickVideo}
+                   autoPlay={'autoplay'}
+                   controls={'controls'}
+                   onClick={this.handleClickVideo}
             />
         </div>;
     }

@@ -7,8 +7,6 @@
  * For more information, please visit: https://github.com/tengge1/ShadowEditor
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
-import BaseSerializer from '../BaseSerializer';
-
 import TextureSerializer from './TextureSerializer';
 import CanvasTextureSerializer from './CanvasTextureSerializer';
 import CompressedTextureSerializer from './CompressedTextureSerializer';
@@ -17,7 +15,7 @@ import DataTextureSerializer from './DataTextureSerializer';
 import DepthTextureSerializer from './DepthTextureSerializer';
 import VideoTextureSerializer from './VideoTextureSerializer';
 
-var Serializers = {
+const Serializers = {
     'CanvasTexture': CanvasTextureSerializer,
     'CompressedTexture': CompressedTextureSerializer,
     'CubeTexture': CubeTextureSerializer,
@@ -31,35 +29,30 @@ var Serializers = {
  * TexturesSerializer
  * @author tengge / https://github.com/tengge1
  */
-function TexturesSerializer() {
-    BaseSerializer.call(this);
+class TexturesSerializer {
+    toJSON(obj) {
+        var serializer = Serializers[obj.constructor.name];
+
+        if (serializer === undefined) {
+            console.warn(`TexturesSerializer: No serializer with ${obj.type}.`);
+            return null;
+        }
+
+        return new serializer().toJSON(obj);
+    }
+
+    fromJSON(json, parent, server) {
+        var generator = json.metadata.generator;
+
+        var serializer = Serializers[generator.replace('Serializer', '')];
+
+        if (serializer === undefined) {
+            console.warn(`TexturesSerializer: No deserializer with ${generator}.`);
+            return null;
+        }
+
+        return new serializer().fromJSON(json, parent, server);
+    }
 }
-
-TexturesSerializer.prototype = Object.create(BaseSerializer.prototype);
-TexturesSerializer.prototype.constructor = TexturesSerializer;
-
-TexturesSerializer.prototype.toJSON = function (obj) {
-    var serializer = Serializers[obj.constructor.name];
-
-    if (serializer === undefined) {
-        console.warn(`TexturesSerializer: No serializer with ${obj.type}.`);
-        return null;
-    }
-
-    return new serializer().toJSON(obj);
-};
-
-TexturesSerializer.prototype.fromJSON = function (json, parent, server) {
-    var generator = json.metadata.generator;
-
-    var serializer = Serializers[generator.replace('Serializer', '')];
-
-    if (serializer === undefined) {
-        console.warn(`TexturesSerializer: No deserializer with ${generator}.`);
-        return null;
-    }
-
-    return new serializer().fromJSON(json, parent, server);
-};
 
 export default TexturesSerializer;

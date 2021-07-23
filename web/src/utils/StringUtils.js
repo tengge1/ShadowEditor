@@ -17,7 +17,7 @@ var NUMBER_PRECISION = 6;
  * 将浮点数转为JSON时，截取数字
  * @param {String} key 键
  * @param {Number} value 值
- * @returns {Number} 截取后的数字 
+ * @returns {Number} 截取后的数字
  */
 function parseNumber(key, value) {
     return typeof value === 'number' ? parseFloat(value.toFixed(NUMBER_PRECISION)) : value;
@@ -51,7 +51,7 @@ function save(blob, filename) {
  * @param {*} filename 下载文件名称
  */
 function saveString(text, filename) {
-    save(new Blob([text], { type: 'text/plain' }), filename);
+    save(new Blob([text], {type: 'text/plain'}), filename);
 }
 
 const StringUtils = {

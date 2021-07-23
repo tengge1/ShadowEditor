@@ -25,7 +25,7 @@ class SelectProperty extends React.Component {
     }
 
     render() {
-        const { className, style, options, name, value, disabled } = this.props;
+        const {className, style, options, name, value, disabled} = this.props;
 
         return <Select
             className={classNames('select', className)}
@@ -35,7 +35,7 @@ class SelectProperty extends React.Component {
             value={value}
             disabled={disabled}
             onChange={this.handleChange}
-               />;
+        />;
     }
 
     handleChange(onChange, value, name, event) {

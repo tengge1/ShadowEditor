@@ -24,7 +24,7 @@ class ImageSelector extends React.Component {
     }
 
     render() {
-        const { className, style, value, noImageText } = this.props;
+        const {className, style, value, noImageText} = this.props;
 
         if (value) {
             return <img
@@ -32,13 +32,13 @@ class ImageSelector extends React.Component {
                 style={style}
                 src={value}
                 onClick={this.handleSelect}
-                   />;
+            />;
         } else {
             return <div
                 className={classNames('ImageSelector', 'empty', className)}
                 style={style}
                 onClick={this.handleSelect}
-                   >
+            >
                 {noImageText}
             </div>;
         }
@@ -69,7 +69,7 @@ class ImageSelector extends React.Component {
     }
 
     handleChange(event) {
-        const { name, onChange } = this.props;
+        const {name, onChange} = this.props;
 
         onChange && onChange(name, event.target.files[0], event);
     }

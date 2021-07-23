@@ -14,29 +14,24 @@ import LightSerializer from './LightSerializer';
  * DirectionalLightSerializer
  * @author tengge / https://github.com/tengge1
  */
-function DirectionalLightSerializer() {
-    BaseSerializer.call(this);
+class DirectionalLightSerializer extends BaseSerializer {
+    toJSON(obj) {
+        var json = LightSerializer.prototype.toJSON.call(this, obj);
+
+        json.isDirectionalLight = obj.isDirectionalLight;
+
+        return json;
+    }
+
+    fromJSON(json, parent) {
+        var obj = parent === undefined ? new THREE.DirectionalLight(json.color, json.intensity) : parent;
+
+        LightSerializer.prototype.fromJSON.call(this, json, obj);
+
+        obj.isDirectionalLight = json.isDirectionalLight;
+
+        return obj;
+    }
 }
-
-DirectionalLightSerializer.prototype = Object.create(BaseSerializer.prototype);
-DirectionalLightSerializer.prototype.constructor = DirectionalLightSerializer;
-
-DirectionalLightSerializer.prototype.toJSON = function (obj) {
-    var json = LightSerializer.prototype.toJSON.call(this, obj);
-
-    json.isDirectionalLight = obj.isDirectionalLight;
-
-    return json;
-};
-
-DirectionalLightSerializer.prototype.fromJSON = function (json, parent) {
-    var obj = parent === undefined ? new THREE.DirectionalLight(json.color, json.intensity) : parent;
-
-    LightSerializer.prototype.fromJSON.call(this, json, obj);
-
-    obj.isDirectionalLight = json.isDirectionalLight;
-
-    return obj;
-};
 
 export default DirectionalLightSerializer;

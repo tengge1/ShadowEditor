@@ -17,7 +17,7 @@ import PropTypes from 'prop-types';
  */
 class AbsoluteLayout extends React.Component {
     render() {
-        const { className, style, children, left, top, ...others } = this.props;
+        const {className, style, children, left, top, ...others} = this.props;
 
         const position = {
             left: left || 0,
@@ -28,7 +28,7 @@ class AbsoluteLayout extends React.Component {
             className={classNames('AbsoluteLayout', className)}
             style={style ? Object.assign({}, style, position) : position}
             {...others}
-               >{children}</div>;
+        >{children}</div>;
     }
 }
 

@@ -25,7 +25,7 @@ class NumberProperty extends React.Component {
     }
 
     render() {
-        const { className, style, name, value, min, max, step } = this.props;
+        const {className, style, name, value, min, max, step} = this.props;
 
         return <Input
             className={classNames('input', className)}
@@ -37,7 +37,7 @@ class NumberProperty extends React.Component {
             max={max}
             step={step}
             onChange={this.handleChange}
-               />;
+        />;
     }
 
     handleChange(onChange, value, name, event) {

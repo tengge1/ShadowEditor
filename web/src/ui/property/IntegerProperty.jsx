@@ -25,7 +25,7 @@ class IntegerProperty extends React.Component {
     }
 
     render() {
-        const { className, style, name, value, min, max } = this.props;
+        const {className, style, name, value, min, max} = this.props;
 
         return <Input
             className={classNames('input', className)}
@@ -38,7 +38,7 @@ class IntegerProperty extends React.Component {
             step={1}
             precision={0}
             onChange={this.handleChange}
-               />;
+        />;
     }
 
     handleChange(onChange, value, name, event) {

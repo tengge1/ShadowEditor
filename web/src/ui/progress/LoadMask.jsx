@@ -21,11 +21,11 @@ class LoadMask extends React.Component {
     }
 
     render() {
-        const { className, style, show, text } = this.props;
+        const {className, style, show, text} = this.props;
 
         return <div className={classNames('LoadMask', className, !show && 'hidden')}
-            style={style}
-               >
+                    style={style}
+        >
             <div className={'box'}>
                 <div className={'msg'}>{text}</div>
             </div>

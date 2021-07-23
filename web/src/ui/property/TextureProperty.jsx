@@ -35,7 +35,7 @@ class TextureProperty extends React.Component {
     }
 
     render() {
-        const { className, style, value } = this.props;
+        const {className, style, value} = this.props;
 
         if (!this.texture) {
             this.texture = value;
@@ -44,14 +44,14 @@ class TextureProperty extends React.Component {
         }
 
         return <div className={classNames('texture', className)}
-            style={style}
-               >
+                    style={style}
+        >
             <CheckBox checked={value !== null}
-                onChange={this.handleEnable}
+                      onChange={this.handleEnable}
             />
             <canvas title={value ? value.sourceFile : ''}
-                ref={this.canvasRef}
-                onClick={this.handleSelect}
+                    ref={this.canvasRef}
+                    onClick={this.handleSelect}
             />
             <IconMenuButton
                 className={'menu'}
@@ -59,8 +59,8 @@ class TextureProperty extends React.Component {
             >
                 <ContextMenu>
                     <MenuItem title={_t('Delete')}
-                        disabled={this.texture === null}
-                        onClick={this.handleDelete}
+                              disabled={this.texture === null}
+                              onClick={this.handleDelete}
                     />
                 </ContextMenu>
             </IconMenuButton>

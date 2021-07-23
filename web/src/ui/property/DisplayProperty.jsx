@@ -25,15 +25,15 @@ class DisplayProperty extends React.Component {
     }
 
     render() {
-        const { className, style, value, btnShow, btnText } = this.props;
+        const {className, style, value, btnShow, btnText} = this.props;
 
         return <div className={classNames('wrap', className)}
-            style={style}
-               >
+                    style={style}
+        >
             <div className={'label'}>{value}</div>
             {btnShow && <Button className={'button'}
-                onClick={this.handleClick}
-                        >{btnText}</Button>}
+                                onClick={this.handleClick}
+            >{btnText}</Button>}
         </div>;
     }
 

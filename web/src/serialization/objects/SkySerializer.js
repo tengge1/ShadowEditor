@@ -15,23 +15,18 @@ import Sky from '../../object/component/Sky';
  * SkySerializer
  * @author tengge / https://github.com/tengge1
  */
-function SkySerializer() {
-    BaseSerializer.call(this);
+class SkySerializer extends BaseSerializer {
+    toJSON(obj) {
+        return Object3DSerializer.prototype.toJSON.call(this, obj);
+    }
+
+    fromJSON(json, parent, camera) { // eslint-disable-line
+        var obj = new Sky(json);
+
+        Object3DSerializer.prototype.fromJSON.call(this, json, obj);
+
+        return obj;
+    }
 }
-
-SkySerializer.prototype = Object.create(BaseSerializer.prototype);
-SkySerializer.prototype.constructor = SkySerializer;
-
-SkySerializer.prototype.toJSON = function (obj) {
-    return Object3DSerializer.prototype.toJSON.call(this, obj);
-};
-
-SkySerializer.prototype.fromJSON = function (json, parent, camera) { // eslint-disable-line
-    var obj = new Sky(json);
-
-    Object3DSerializer.prototype.fromJSON.call(this, json, obj);
-
-    return obj;
-};
 
 export default SkySerializer;

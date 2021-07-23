@@ -23,13 +23,13 @@ class MenuTab extends React.Component {
     }
 
     render() {
-        const { className, style, children, selected, show, disabled } = this.props;
+        const {className, style, children, selected, show, disabled} = this.props;
 
         return <li
             className={classNames('MenuTab', selected && 'selected', disabled && 'disabled', !show && 'hidden', className)}
             style={style}
             onClick={this.handleClick}
-               >{children}</li>;
+        >{children}</li>;
     }
 
     handleClick(onClick, event) {

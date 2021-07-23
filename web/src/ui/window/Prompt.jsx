@@ -34,7 +34,7 @@ class Prompt extends React.Component {
     }
 
     render() {
-        const { className, style, title, content, hidden, mask, okText } = this.props;
+        const {className, style, title, content, hidden, mask, okText} = this.props;
 
         return <Window
             className={classNames('Prompt', className)}
@@ -43,11 +43,11 @@ class Prompt extends React.Component {
             hidden={hidden}
             mask={mask}
             onClose={this.handleClose}
-               >
+        >
             <Content>
                 {content}
                 <Input value={this.state.value}
-                    onChange={this.handleChange}
+                       onChange={this.handleChange}
                 />
             </Content>
             <Buttons>
@@ -65,7 +65,7 @@ class Prompt extends React.Component {
     }
 
     handleChange(value) {
-        this.setState({ value });
+        this.setState({value});
     }
 }
 

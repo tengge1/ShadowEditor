@@ -17,13 +17,13 @@ import PropTypes from 'prop-types';
  */
 class MenuBar extends React.Component {
     render() {
-        const { className, style, children, ...others } = this.props;
+        const {className, style, children, ...others} = this.props;
 
         return <ul
             className={classNames('MenuBar', className)}
             style={style}
             {...others}
-               >{children}</ul>;
+        >{children}</ul>;
     }
 }
 

@@ -15,31 +15,26 @@ import PerlinTerrain from '../../object/terrain/PerlinTerrain';
  * PerlinTerrainSerializer
  * @author tengge / https://github.com/tengge1
  */
-function PerlinTerrainSerializer() {
-    BaseSerializer.call(this);
+class PerlinTerrainSerializer extends BaseSerializer {
+    toJSON(obj) {
+        var json = Object3DSerializer.prototype.toJSON.call(this, obj);
+
+        return json;
+    }
+
+    fromJSON(json, parent) { // eslint-disable-line
+        var terrain = new PerlinTerrain(
+            json.userData.width,
+            json.userData.depth,
+            json.userData.widthSegments,
+            json.userData.depthSegments,
+            json.userData.quality
+        );
+
+        Object3DSerializer.prototype.fromJSON.call(this, json, terrain);
+
+        return terrain;
+    }
 }
-
-PerlinTerrainSerializer.prototype = Object.create(BaseSerializer.prototype);
-PerlinTerrainSerializer.prototype.constructor = PerlinTerrainSerializer;
-
-PerlinTerrainSerializer.prototype.toJSON = function (obj) {
-    var json = Object3DSerializer.prototype.toJSON.call(this, obj);
-
-    return json;
-};
-
-PerlinTerrainSerializer.prototype.fromJSON = function (json, parent) { // eslint-disable-line
-    var terrain = new PerlinTerrain(
-        json.userData.width,
-        json.userData.depth,
-        json.userData.widthSegments,
-        json.userData.depthSegments,
-        json.userData.quality
-    );
-
-    Object3DSerializer.prototype.fromJSON.call(this, json, terrain);
-
-    return terrain;
-};
 
 export default PerlinTerrainSerializer;

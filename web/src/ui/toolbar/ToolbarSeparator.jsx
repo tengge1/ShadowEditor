@@ -17,12 +17,12 @@ import PropTypes from 'prop-types';
  */
 class ToolbarSeparator extends React.Component {
     render() {
-        const { className, style } = this.props;
+        const {className, style} = this.props;
 
         return <div className={classNames('ToolbarSeparator', className)}
-            style={style}
-               >
-            <div className='separator' />
+                    style={style}
+        >
+            <div className='separator'/>
         </div>;
     }
 }

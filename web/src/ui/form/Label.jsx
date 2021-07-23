@@ -21,12 +21,12 @@ class Label extends React.Component {
     }
 
     render() {
-        const { className, style, children, id } = this.props;
+        const {className, style, children, id} = this.props;
 
         return <label className={classNames('Label', className)}
-            style={style}
-            id={id}
-               >
+                      style={style}
+                      id={id}
+        >
             {children}
         </label>;
     }

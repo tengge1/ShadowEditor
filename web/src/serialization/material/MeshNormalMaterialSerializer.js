@@ -14,23 +14,18 @@ import MaterialSerializer from './MaterialSerializer';
  * MeshNormalMaterialSerializer
  * @author tengge / https://github.com/tengge1
  */
-function MeshNormalMaterialSerializer() {
-    BaseSerializer.call(this);
+class MeshNormalMaterialSerializer extends BaseSerializer {
+    toJSON(obj) {
+        return MaterialSerializer.prototype.toJSON.call(this, obj);
+    }
+
+    fromJSON(json, parent, server) {
+        var obj = parent === undefined ? new THREE.MeshNormalMaterial() : parent;
+
+        MaterialSerializer.prototype.fromJSON.call(this, json, obj, server);
+
+        return obj;
+    };
 }
-
-MeshNormalMaterialSerializer.prototype = Object.create(BaseSerializer.prototype);
-MeshNormalMaterialSerializer.prototype.constructor = MeshNormalMaterialSerializer;
-
-MeshNormalMaterialSerializer.prototype.toJSON = function (obj) {
-    return MaterialSerializer.prototype.toJSON.call(this, obj);
-};
-
-MeshNormalMaterialSerializer.prototype.fromJSON = function (json, parent, server) {
-    var obj = parent === undefined ? new THREE.MeshNormalMaterial() : parent;
-
-    MaterialSerializer.prototype.fromJSON.call(this, json, obj, server);
-
-    return obj;
-};
 
 export default MeshNormalMaterialSerializer;

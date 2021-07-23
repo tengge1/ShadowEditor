@@ -23,16 +23,16 @@ class IconMenuButton extends React.Component {
     }
 
     render() {
-        const { className, style, children, icon, title, show, selected } = this.props;
+        const {className, style, children, icon, title, show, selected} = this.props;
         return <div className={classNames('IconMenuButton', selected && 'selected', !show && 'hidden', className)}
-            style={style}
-               >
+                    style={style}
+        >
             <button
                 className={'button'}
                 title={title}
                 onClick={this.handleClick}
             >
-                <i className={classNames('iconfont', icon && 'icon-' + icon)} />
+                <i className={classNames('iconfont', icon && 'icon-' + icon)}/>
             </button>
             <div className={'menu'}>
                 {children}
@@ -41,7 +41,7 @@ class IconMenuButton extends React.Component {
     }
 
     handleClick(event) {
-        const { name, onClick } = this.props;
+        const {name, onClick} = this.props;
         onClick && onClick(name, event);
     }
 }

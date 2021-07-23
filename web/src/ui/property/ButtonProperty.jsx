@@ -24,13 +24,13 @@ class ButtonProperty extends React.Component {
     }
 
     render() {
-        const { className, style, text } = this.props;
+        const {className, style, text} = this.props;
 
         return <Button
             className={classNames('button', className)}
             style={style}
             onClick={this.handleChange}
-               >{text}</Button>;
+        >{text}</Button>;
     }
 
     handleChange(onChange, name, value, event) {

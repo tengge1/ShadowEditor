@@ -14,36 +14,31 @@ import Object3DSerializer from '../core/Object3DSerializer';
  * AudioSerializer
  * @author tengge / https://github.com/tengge1
  */
-function AudioSerializer() {
-    BaseSerializer.call(this);
-}
+class AudioSerializer extends BaseSerializer {
+    toJSON(obj) {
+        var json = Object3DSerializer.prototype.toJSON.call(this, obj);
 
-AudioSerializer.prototype = Object.create(BaseSerializer.prototype);
-AudioSerializer.prototype.constructor = AudioSerializer;
+        json.autoplay = obj.autoplay;
+        json.loop = obj.getLoop();
+        json.volume = obj.getVolume();
 
-AudioSerializer.prototype.toJSON = function (obj) {
-    var json = Object3DSerializer.prototype.toJSON.call(this, obj);
-
-    json.autoplay = obj.autoplay;
-    json.loop = obj.getLoop();
-    json.volume = obj.getVolume();
-
-    return json;
-};
-
-AudioSerializer.prototype.fromJSON = function (json, parent, audioListener) {
-    if (audioListener === undefined) {
-        audioListener = new THREE.AudioListener();
+        return json;
     }
-    var obj = parent === undefined ? new THREE.Audio(audioListener) : parent;
 
-    Object3DSerializer.prototype.fromJSON.call(this, json, obj);
+    fromJSON(json, parent, audioListener) {
+        if (audioListener === undefined) {
+            audioListener = new THREE.AudioListener();
+        }
+        var obj = parent === undefined ? new THREE.Audio(audioListener) : parent;
 
-    obj.autoplay = json.autoplay;
-    obj.setLoop(json.loop);
-    obj.setVolume(json.volume);
+        Object3DSerializer.prototype.fromJSON.call(this, json, obj);
 
-    return obj;
-};
+        obj.autoplay = json.autoplay;
+        obj.setLoop(json.loop);
+        obj.setVolume(json.volume);
+
+        return obj;
+    }
+}
 
 export default AudioSerializer;

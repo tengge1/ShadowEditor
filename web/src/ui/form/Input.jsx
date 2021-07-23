@@ -25,7 +25,7 @@ class Input extends React.Component {
     }
 
     render() {
-        const { className, style, type, value, min, max, step, show, disabled, accept } = this.props;
+        const {className, style, type, value, min, max, step, show, disabled, accept} = this.props;
 
         let val = value === undefined || value === null ? '' : value;
 
@@ -43,16 +43,16 @@ class Input extends React.Component {
             onFocus={this.handleFocus}
             onChange={this.handleChange}
             onInput={this.handleInput}
-               />;
+        />;
     }
 
     handleFocus(event) {
-        const { onFocus } = this.props;
+        const {onFocus} = this.props;
         onFocus && onFocus(event);
     }
 
     handleChange(event) {
-        const { name, type, onChange } = this.props;
+        const {name, type, onChange} = this.props;
 
         const value = event.target.value;
 
@@ -74,7 +74,7 @@ class Input extends React.Component {
     }
 
     handleInput(event) {
-        const { name, type, onInput } = this.props;
+        const {name, type, onInput} = this.props;
 
         const value = event.target.value;
         if (type === 'number') {

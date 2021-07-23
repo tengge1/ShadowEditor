@@ -17,14 +17,14 @@ import PropTypes from 'prop-types';
  */
 class TableHead extends React.Component {
     render() {
-        const { className, style, children, ...others } = this.props;
+        const {className, style, children, ...others} = this.props;
 
         return <thead
             className={classNames('TableHead', className)}
             style={style}
             {...others}
-               >
-            {children}
+        >
+        {children}
         </thead>;
     }
 }

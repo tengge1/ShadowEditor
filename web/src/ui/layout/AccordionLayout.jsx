@@ -29,7 +29,7 @@ class AccordionLayout extends React.Component {
     }
 
     handleClick(index, name, event) {
-        const { onActive } = this.props;
+        const {onActive} = this.props;
         onActive && onActive(index, name, event);
         this.setState({
             activeIndex: index
@@ -37,13 +37,13 @@ class AccordionLayout extends React.Component {
     }
 
     render() {
-        const { className, style, children } = this.props;
+        const {className, style, children} = this.props;
 
         const content = (Array.isArray(children) ? children : [children]).filter(n => n);
 
         return <div className={classNames('AccordionLayout', className)}
-            style={style}
-               >
+                    style={style}
+        >
             {content.map((n, i) => {
                 return <AccordionPanel
                     name={n.props.name}
@@ -55,7 +55,7 @@ class AccordionLayout extends React.Component {
                     maximizable={n.props.maximizable}
                     onClick={this.handleClick}
                     key={i}
-                       >{n.props.children}</AccordionPanel>;
+                >{n.props.children}</AccordionPanel>;
             })}
         </div>;
     }

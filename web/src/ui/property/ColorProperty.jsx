@@ -25,7 +25,7 @@ class ColorProperty extends React.Component {
     }
 
     render() {
-        const { className, style, name, value } = this.props;
+        const {className, style, name, value} = this.props;
 
         return <Input
             className={classNames('input', className)}
@@ -34,7 +34,7 @@ class ColorProperty extends React.Component {
             type={'color'}
             value={value}
             onChange={this.handleChange}
-               />;
+        />;
     }
 
     handleChange(onChange, value, name, event) {

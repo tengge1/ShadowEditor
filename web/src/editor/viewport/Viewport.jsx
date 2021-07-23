@@ -10,7 +10,6 @@
 import './css/Viewport.css';
 import ScriptEditorPanel from './ScriptEditorPanel.jsx';
 import Player from '../../player/Player';
-import VisualDOM from '../../visual/VisualDOM.jsx';
 import global from '../../global';
 import VRButton from '../../webvr/VRButton';
 
@@ -35,22 +34,19 @@ class Viewport extends React.Component {
 
     render() {
         return <div className={'Viewport'}
-            ref={this.viewportRef}
+                    ref={this.viewportRef}
         >
             <div className={'editor'}
-                ref={this.editorRef}
-                tabIndex={0}
+                 ref={this.editorRef}
+                 tabIndex={0}
             />
             <div className={'cesium'}
-                ref={this.cesiumRef}
-                tabIndex={10}
+                 ref={this.cesiumRef}
+                 tabIndex={10}
             />
-            <VisualDOM className={'svg'}
-                ref={this.svgRef}
-            />
-            <ScriptEditorPanel />
+            <ScriptEditorPanel/>
             <div className={'player'}
-                ref={this.playerRef}
+                 ref={this.playerRef}
             />
         </div>;
     }

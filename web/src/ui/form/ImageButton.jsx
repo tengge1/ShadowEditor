@@ -23,19 +23,19 @@ class ImageButton extends React.Component {
     }
 
     render() {
-        const { className, style, src, title, selected } = this.props;
+        const {className, style, src, title, selected} = this.props;
         return <button
             className={classNames('ImageButton', selected && 'selected', className)}
             style={style}
             title={title}
             onClick={this.handleClick}
-               >
-            <img src={src} />
+        >
+            <img src={src}/>
         </button>;
     }
 
     handleClick(event) {
-        const { name, onClick } = this.props;
+        const {name, onClick} = this.props;
 
         onClick && onClick(name, event);
     }

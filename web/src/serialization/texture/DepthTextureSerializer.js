@@ -14,23 +14,18 @@ import TextureSerializer from './TextureSerializer';
  * DepthTextureSerializer
  * @author tengge / https://github.com/tengge1
  */
-function DepthTextureSerializer() {
-    BaseSerializer.call(this);
+class DepthTextureSerializer extends BaseSerializer {
+    toJSON(obj) {
+        return TextureSerializer.prototype.toJSON.call(this, obj);
+    }
+
+    fromJSON(json, parent, server) {
+        var obj = parent === undefined ? new THREE.DataTexture() : parent;
+
+        TextureSerializer.prototype.fromJSON.call(this, json, obj, server);
+
+        return obj;
+    }
 }
-
-DepthTextureSerializer.prototype = Object.create(BaseSerializer.prototype);
-DepthTextureSerializer.prototype.constructor = DepthTextureSerializer;
-
-DepthTextureSerializer.prototype.toJSON = function (obj) {
-    return TextureSerializer.prototype.toJSON.call(this, obj);
-};
-
-DepthTextureSerializer.prototype.fromJSON = function (json, parent, server) {
-    var obj = parent === undefined ? new THREE.DataTexture() : parent;
-
-    TextureSerializer.prototype.fromJSON.call(this, json, obj, server);
-
-    return obj;
-};
 
 export default DepthTextureSerializer;

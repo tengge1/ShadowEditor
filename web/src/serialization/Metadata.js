@@ -11,7 +11,7 @@
  * 场景序列化信息
  * @author tengge / https://github.com/tengge1
  */
-var Metadata = {
+const Metadata = {
     generator: 'ShadowEditor',
     type: 'Object',
     version: '0.0.1'

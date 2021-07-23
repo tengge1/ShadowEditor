@@ -22,14 +22,14 @@ class Canvas extends React.Component {
     }
 
     render() {
-        const { className, style, ...others } = this.props;
+        const {className, style, ...others} = this.props;
 
         return <canvas
             className={classNames('Canvas', className)}
             style={style}
             ref={this.dom}
             {...others}
-               />;
+        />;
     }
 }
 

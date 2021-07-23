@@ -62,77 +62,77 @@ class Timeline extends React.Component {
     }
 
     render() {
-        const { className, style, animations, selectedLayer, selected } = this.props;
+        const {className, style, animations, selectedLayer, selected} = this.props;
 
         return <div className={classNames('Timeline', className)}
-            style={style}
-               >
+                    style={style}
+        >
             <Toolbar className={classNames('controls', className)}
-                style={style}
+                     style={style}
             >
                 <IconButton icon={'add'}
-                    title={_t('Add Layer')}
-                    onClick={this.handleAddLayer}
+                            title={_t('Add Layer')}
+                            onClick={this.handleAddLayer}
                 />
                 <IconButton icon={'edit'}
-                    title={_t('Edit Layer')}
-                    onClick={this.handleEditLayer}
+                            title={_t('Edit Layer')}
+                            onClick={this.handleEditLayer}
                 />
                 <IconButton icon={'delete'}
-                    title={_t('Delete Layer')}
-                    onClick={this.handleDeleteLayer}
+                            title={_t('Delete Layer')}
+                            onClick={this.handleDeleteLayer}
                 />
-                <ToolbarSeparator />
+                <ToolbarSeparator/>
                 <IconButton icon={'backward'}
-                    title={_t('Slower')}
-                    onClick={this.handleBackward}
+                            title={_t('Slower')}
+                            onClick={this.handleBackward}
                 />
                 <IconButton icon={'play'}
-                    title={_t('Play')}
-                    onClick={this.handlePlay}
+                            title={_t('Play')}
+                            onClick={this.handlePlay}
                 />
                 <IconButton icon={'pause'}
-                    title={_t('Pause')}
-                    onClick={this.handlePause}
+                            title={_t('Pause')}
+                            onClick={this.handlePause}
                 />
                 <IconButton icon={'forward'}
-                    title={_t('Faster')}
-                    onClick={this.handleForward}
+                            title={_t('Faster')}
+                            onClick={this.handleForward}
                 />
                 <IconButton icon={'stop'}
-                    title={_t('Stop')}
-                    onClick={this.handleStop}
+                            title={_t('Stop')}
+                            onClick={this.handleStop}
                 />
-                <ToolbarSeparator />
+                <ToolbarSeparator/>
                 <Label className={'time'}>{this.parseTime(this.time)}</Label>
                 <Label className={'speed'}>{this.parseSpeed(this.speed)}</Label>
-                <ToolbarFiller />
+                <ToolbarFiller/>
                 <Label>{_t('Illustrate: Double-click the area below the timeline to add an animation.')}</Label>
             </Toolbar>
             <div className="box">
                 <div className={'timeline'}>
-                    <div className="mask" />
-                    <canvas ref={this.canvasRef} />
+                    <div className="mask"/>
+                    <canvas ref={this.canvasRef}/>
                 </div>
                 <div className={'layers'}>
                     <div className={'left'}
-                        ref={this.leftRef}
+                         ref={this.leftRef}
                     >
                         {animations.map(layer => {
                             return <div className={'info'}
-                                key={layer.uuid}
-                                   >
+                                        key={layer.uuid}
+                            >
                                 <CheckBox name={layer.uuid}
-                                    checked={selectedLayer === layer.uuid}
-                                    onChange={this.handleSelectedLayerChange}
+                                          checked={selectedLayer === layer.uuid}
+                                          onChange={this.handleSelectedLayerChange}
                                 />
                                 <Label>{layer.layerName}</Label>
                             </div>;
                         })}
                     </div>
                     <div className={'right'}
-                        ref={this.rightRef}
-                        onScroll={this.handleRightScroll}
+                         ref={this.rightRef}
+                         onScroll={this.handleRightScroll}
                     >
                         {animations.map(layer => {
                             return <div
@@ -146,7 +146,7 @@ class Timeline extends React.Component {
                                 onDragLeave={this.handleDragLeave}
                                 onDrop={this.handleDrop}
                                 key={layer.uuid}
-                                   >
+                            >
                                 {layer.animations.map(animation => {
                                     return <div
                                         className={classNames('animation', selected === animation.uuid && 'selected')}
@@ -164,13 +164,13 @@ class Timeline extends React.Component {
                                         onDragStart={this.handleDragStart}
                                         onDragEnd={this.handleDragEnd}
                                         key={animation.uuid}
-                                           >{animation.name}</div>;
+                                    >{animation.name}</div>;
                                 })}
                             </div>;
                         })}
                     </div>
                     <div className="slider"
-                        ref={this.sliderRef}
+                         ref={this.sliderRef}
                     />
                 </div>
             </div>
@@ -182,7 +182,7 @@ class Timeline extends React.Component {
     }
 
     renderTimeline() {
-        const { duration, scale } = this;
+        const {duration, scale} = this;
 
         const width = duration * scale; // 画布宽度
         const scale5 = scale / 5; // 0.2秒像素数
@@ -245,13 +245,13 @@ class Timeline extends React.Component {
     }
 
     handleEditLayer(onEditLayer, event) {
-        const { selectedLayer } = this.props;
+        const {selectedLayer} = this.props;
 
         onEditLayer && onEditLayer(selectedLayer, event);
     }
 
     handleDeleteLayer(onDeleteLayer, event) {
-        const { selectedLayer } = this.props;
+        const {selectedLayer} = this.props;
 
         onDeleteLayer && onDeleteLayer(selectedLayer, event);
     }

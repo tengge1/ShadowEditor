@@ -23,21 +23,21 @@ class Icon extends React.Component {
     }
 
     render() {
-        const { className, style, name, value, icon, title } = this.props;
+        const {className, style, name, value, icon, title} = this.props;
 
         return <i className={classNames('Icon', 'iconfont',
             icon && 'icon-' + icon,
             className)}
-            style={style}
-            name={name}
-            value={value}
-            title={title}
-            onClick={this.handleClick}
-               />;
+                  style={style}
+                  name={name}
+                  value={value}
+                  title={title}
+                  onClick={this.handleClick}
+        />;
     }
 
     handleClick(event) {
-        const { onClick } = this.props;
+        const {onClick} = this.props;
 
         const name = event.target.getAttribute('name');
         onClick && onClick(name, event);

@@ -14,32 +14,27 @@ import BufferGeometrySerializer from './BufferGeometrySerializer';
  * CylinderBufferGeometrySerializer
  * @author tengge / https://github.com/tengge1
  */
-function CylinderBufferGeometrySerializer() {
-    BaseSerializer.call(this);
+class CylinderBufferGeometrySerializer extends BaseSerializer {
+    toJSON(obj) {
+        return BufferGeometrySerializer.prototype.toJSON.call(this, obj);
+    }
+
+    fromJSON(json, parent) {
+        var obj = parent === undefined ? new THREE.CylinderBufferGeometry(
+            json.parameters.radiusTop,
+            json.parameters.radiusBottom,
+            json.parameters.height,
+            json.parameters.radialSegments,
+            json.parameters.heightSegments,
+            json.parameters.openEnded,
+            json.parameters.thetaStart,
+            json.parameters.thetaLength
+        ) : parent;
+
+        BufferGeometrySerializer.prototype.fromJSON.call(this, json, obj);
+
+        return obj;
+    }
 }
-
-CylinderBufferGeometrySerializer.prototype = Object.create(BaseSerializer.prototype);
-CylinderBufferGeometrySerializer.prototype.constructor = CylinderBufferGeometrySerializer;
-
-CylinderBufferGeometrySerializer.prototype.toJSON = function (obj) {
-    return BufferGeometrySerializer.prototype.toJSON.call(this, obj);
-};
-
-CylinderBufferGeometrySerializer.prototype.fromJSON = function (json, parent) {
-    var obj = parent === undefined ? new THREE.CylinderBufferGeometry(
-        json.parameters.radiusTop,
-        json.parameters.radiusBottom,
-        json.parameters.height,
-        json.parameters.radialSegments,
-        json.parameters.heightSegments,
-        json.parameters.openEnded,
-        json.parameters.thetaStart,
-        json.parameters.thetaLength
-    ) : parent;
-
-    BufferGeometrySerializer.prototype.fromJSON.call(this, json, obj);
-
-    return obj;
-};
 
 export default CylinderBufferGeometrySerializer;
