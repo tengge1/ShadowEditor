@@ -15,8 +15,8 @@ import {LoadMask} from '../../ui/index';
  * @param {*} app 播放器
  */
 class PlayerLoadMask extends PlayerComponent {
-    constructor() {
-        super();
+    constructor(app) {
+        super(app);
         this.container = null;
         this.status = null;
     }
