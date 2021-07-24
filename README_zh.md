@@ -14,7 +14,7 @@ Ubuntu桌面版</a> &nbsp;&nbsp; | &nbsp;&nbsp; [Web演示](http://tengge1.gitee
 [![image](https://travis-ci.org/tengge1/ShadowEditor.svg?branch=master)](https://travis-ci.org/github/tengge1/ShadowEditor)
 
 * 名称：Shadow Editor
-* 版本：v0.6.0 (开发中)
+* 版本：v0.6.0
 * 简介：基于Three.js、Go语言和MongoDB的跨平台的3D场景编辑器。
 * 源码：[GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) |
   文档：[Gitee](https://gitee.com/tengge1/ShadowEditor/wikis/pages) |
@@ -29,7 +29,12 @@ Ubuntu桌面版</a> &nbsp;&nbsp; | &nbsp;&nbsp; [Web演示](http://tengge1.gitee
 
 ![image](images/vr.jpg)
 
-## v0.6.0即将更新
+## v0.6.1即将更新
+
+## v0.6.0已经发布
+
+* 发布日期：2021年7月24日
+* 更新日志：
 
 1. 修复请求时创建新mongo连接的bug。
 2. 状态栏勾选虚拟现实，启用VR功能。
@@ -54,13 +59,6 @@ Ubuntu桌面版</a> &nbsp;&nbsp; | &nbsp;&nbsp; [Web演示](http://tengge1.gitee
 21. 修复粒子发射器bug。
 22. 修复布bug。
 23. 修复动态设置影子bug。
-
-## v0.5.10已经发布
-
-* 发布日期：2020年10月17日
-* 更新日志：
-
-1. 移除所有GIS相关功能，以后不再在开源版本中提供GIS服务。
 
 ## 功能清单
 

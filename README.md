@@ -15,7 +15,7 @@ Ubuntu Desktop</a> &nbsp;&nbsp; | &nbsp;&nbsp; [Web Demo](https://tengge1.github
 [![image](https://travis-ci.org/tengge1/ShadowEditor.svg?branch=master)](https://travis-ci.org/github/tengge1/ShadowEditor)
 
 * Name: Shadow Editor
-* Version: v0.6.0 (Coming Soon)
+* Version: v0.6.0
 * Description: Cross-platform 3D scene editor based on three.js, golang and mongodb.
 * Source: [GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) |
   Document: [Gitee](https://gitee.com/tengge1/ShadowEditor/wikis/pages) |
@@ -30,7 +30,12 @@ Ubuntu Desktop</a> &nbsp;&nbsp; | &nbsp;&nbsp; [Web Demo](https://tengge1.github
 <img src="https://gitee.com/tengge1/ShadowEditor/raw/master/images/scene20200503_en.jpg" />  
 <img src="https://gitee.com/tengge1/ShadowEditor/raw/master/images/vr.jpg" />  
 
-## v0.6.0 is Coming Soon
+## v0.6.1 is Coming Soon
+
+## v0.6.0 has Released
+
+* Release Date: July 24, 2021
+* Update Logs:
 
 1. Fix the bug that creates a new mongo connection when request.
 2. Check VR in the status bar to enable VR.
@@ -57,13 +62,6 @@ Ubuntu Desktop</a> &nbsp;&nbsp; | &nbsp;&nbsp; [Web Demo](https://tengge1.github
 21. Fix particle emitter bug.
 22. Fix cloth bug.
 23. Fix the bug of dynamic setting shadow.
-
-## v0.5.10 has Released
-
-* Release Date: October 17, 2020
-* Update Logs:
-
-1. Remove all GIS related features, and no longer provide GIS in the open source version in the future.
 
 ## Feature List
 
