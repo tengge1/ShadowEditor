@@ -56,6 +56,7 @@ Ubuntu Desktop</a> &nbsp;&nbsp; | &nbsp;&nbsp; [Web Demo](https://tengge1.github
     see clearly.
 21. Fix particle emitter bug.
 22. Fix cloth bug.
+23. Fix the bug of dynamic setting shadow.
 
 ## v0.5.10 has Released
 

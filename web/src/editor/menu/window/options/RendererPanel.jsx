@@ -8,7 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import './css/RendererPanel.css';
-import { Form, FormControl, Label, Input, Select } from '../../../../ui/index';
+import {Form, FormControl, Input, Label, Select} from '../../../../ui/index';
 import global from '../../../../global';
 
 /**
@@ -38,23 +38,23 @@ class RendererPanel extends React.Component {
     }
 
     render() {
-        const { shadowMapType, gammaFactor } = this.state;
+        const {shadowMapType, gammaFactor} = this.state;
 
         return <Form className={'RendererPanel'}>
             <FormControl>
                 <Label>{_t('Shadow')}</Label>
                 <Select options={this.shadowMapType}
-                    name={'shadowMapType'}
-                    value={shadowMapType}
-                    onChange={this.handleChange}
+                        name={'shadowMapType'}
+                        value={shadowMapType}
+                        onChange={this.handleChange}
                 />
             </FormControl>
             <FormControl>
                 <Label>{_t('Gamma Factor')}</Label>
                 <Input type={'number'}
-                    name={'gammaFactor'}
-                    value={gammaFactor}
-                    onChange={this.handleChange}
+                       name={'gammaFactor'}
+                       value={gammaFactor}
+                       onChange={this.handleChange}
                 />
             </FormControl>
         </Form>;
@@ -81,9 +81,11 @@ class RendererPanel extends React.Component {
             return;
         }
 
-        let renderer = global.app.editor.renderer;
+        const scene = global.app.editor.scene;
+        const camera = global.app.editor.camera;
+        const renderer = global.app.editor.renderer;
 
-        const { shadowMapType, gammaFactor } = Object.assign({}, this.state, {
+        const {shadowMapType, gammaFactor} = Object.assign({}, this.state, {
             [name]: value
         });
 
@@ -96,7 +98,11 @@ class RendererPanel extends React.Component {
 
         renderer.gammaFactor = gammaFactor;
 
-        // renderer.dispose();
+        // TODO: better implementation to reset renderState
+        const fakeLight = new THREE.DirectionalLight();
+        scene.add(fakeLight);
+        renderer.compile(scene, camera);
+        scene.remove(fakeLight);
 
         Object.assign(global.app.options, {
             shadowMapType,
