@@ -49,6 +49,7 @@ Ubuntu桌面版</a> &nbsp;&nbsp; | &nbsp;&nbsp; [Web演示](http://tengge1.gitee
 16. 将代码中所有的`prototype`改写为es6 `class`。
 17. 移除可视化模块。
 18. 修复导出场景时没有复制天空球贴图的bug。
+19. 修复下雨和下雪bug。
 
 ## v0.5.10已经发布
 

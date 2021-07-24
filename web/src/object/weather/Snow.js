@@ -13,6 +13,7 @@
 class Snow extends THREE.Object3D {
     constructor() {
         super();
+        this.velocity = [];
 
         this.createPointClouds('assets/textures/particles/snowflake1.png');
         this.createPointClouds('assets/textures/particles/snowflake2.png');
@@ -21,21 +22,26 @@ class Snow extends THREE.Object3D {
     }
 
     createPointClouds(url) {
-        let geometry = new THREE.BufferGeometry();
-
         let range = 40;
+        let vertices = [];
+        let geometry = new THREE.BufferGeometry();
+        geometry.velocity = [];
 
         for (let i = 0; i < 50; i++) {
-            let particle = new THREE.Vector3(
-                Math.random() * range - range / 2,
-                Math.random() * range * 1.5,
-                Math.random() * range - range / 2);
-
-            particle.velocityY = 0.1 + Math.random() / 5;
-            particle.velocityX = (Math.random() - 0.5) / 3;
-            particle.velocityZ = (Math.random() - 0.5) / 3;
-            geometry.vertices.push(particle);
+            vertices.push(
+                Math.random() * range - range / 2,      // posX
+                Math.random() * range * 1.5,            // posY
+                Math.random() * range - range / 2       // posZ
+            );
+            geometry.velocity.push(
+                0.1 + Math.random() / 5,                // velocityY
+                (Math.random() - 0.5) / 3,              // velocityX
+                (Math.random() - 0.5) / 3               // velocityZ
+            );
         }
+
+        const position = new THREE.Float32BufferAttribute(vertices, 3);
+        geometry.setAttribute('position', position);
 
         let color = new THREE.Color(0xffffff);
 
@@ -60,20 +66,27 @@ class Snow extends THREE.Object3D {
     }
 
     update() {
-        this.children.forEach(child => {
-            let vertices = child.geometry.vertices;
+        this.children.forEach(n => {
+            const position = n.geometry.attributes.position;
+            const array = position.array;
+            for (let i = 0; i < position.count; i++) {
+                const velocityY = n.geometry.velocity[i * 3];
+                const velocityX = n.geometry.velocity[i * 3 + 1];
+                const velocityZ = n.geometry.velocity[i * 3 + 2];
+                array[i * 3 + 1] = array[i * 3 + 1] - velocityY;
+                array[i * 3] = array[i * 3] - velocityX;
+                array[i * 3 + 2] = array[i * 3 + 2] - velocityZ;
 
-            vertices.forEach(v => {
-                v.y = v.y - v.velocityY;
-                v.x = v.x - v.velocityX;
-                v.z = v.z - v.velocityZ;
+                if (array[i * 3 + 1] <= 0) array[i * 3 + 1] = 60;
+                if (array[i * 3] <= -20 || array[i * 3] >= 20) {
+                    array[i * 3] = array[i * 3] * -1;
+                }
+                if (array[i * 3 + 2] <= -20 || array[i * 3 + 2] >= 20) {
+                    n.geometry.velocity[i * 3 + 2] = velocityZ * -1;
+                }
+            }
 
-                if (v.y <= 0) v.y = 60;
-                if (v.x <= -20 || v.x >= 20) v.velocityX = v.velocityX * -1;
-                if (v.z <= -20 || v.z >= 20) v.velocityZ = v.velocityZ * -1;
-            });
-
-            child.geometry.verticesNeedUpdate = true;
+            position.needsUpdate = true;
         });
     }
 }

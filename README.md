@@ -40,6 +40,7 @@ English / [中文](README_zh.md) &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://gi
 16. Rewrite all the `prototype` to es6 `class` in the source code.
 17. Remove the visual module.
 18. Fix a bug that not copy the skyball texture when export a scene.
+19. Fix rain and snow bug.
 
 ## v0.5.10 has Released
 

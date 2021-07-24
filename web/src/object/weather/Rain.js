@@ -13,14 +13,14 @@
 class Rain extends THREE.Object3D {
     constructor() {
         super();
-        this.velocity = [];
         this.createPointClouds('assets/textures/particles/raindrop-3.png');
     }
 
     createPointClouds(url) {
         let range = 40;
         let vertices = [];
-        this.velocity.length = 0;
+        let geometry = new THREE.BufferGeometry();
+        geometry.velocity = [];
 
         for (let i = 0; i < 1500; i++) {
             vertices.push(
@@ -28,13 +28,12 @@ class Rain extends THREE.Object3D {
                 Math.random() * range * 1.5,            // posY
                 Math.random() * range - range / 2      // posZ
             );
-            this.velocity.push(
+            geometry.velocity.push(
                 0.1 + Math.random() / 5,                // velocityY
                 (Math.random() - 0.5) / 3               // velocityX
             );
         }
 
-        const geometry = new THREE.BufferGeometry();
         const position = new THREE.Float32BufferAttribute(vertices, 3);
         geometry.setAttribute('position', position);
 
@@ -59,8 +58,8 @@ class Rain extends THREE.Object3D {
             const position = n.geometry.attributes.position;
             const array = position.array;
             for (let i = 0; i < position.count; i++) {
-                const velocityY = this.velocity[i * 2];
-                const velocityX = this.velocity[i * 2 + 1];
+                const velocityY = n.geometry.velocity[i * 2];
+                const velocityX = n.geometry.velocity[i * 2 + 1];
                 array[i * 3 + 1] -= velocityY;
                 array[i * 3] -= velocityX;
                 if (array[i * 3 + 1] <= 0) {
