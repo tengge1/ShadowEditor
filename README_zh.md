@@ -6,7 +6,8 @@ Windows服务端</a> &nbsp;&nbsp; |
 &nbsp;&nbsp; <a href="https://gitee.com/tengge1/ShadowEditor/attach_files/781831/download/ShadowEditorServer-linux-x64.zip">
 Linux服务端</a> &nbsp;&nbsp; | &nbsp;&nbsp; [Web演示](http://tengge1.gitee.io/shadoweditor-examples/)
 
-**说明：服务端为编译版本，内置mongodb，执行`start.bat`或`start.sh`启动，在谷歌浏览器中访问`http://localhost:2020`。**
+说明：服务端为编译版本，内置mongodb，执行`start.bat`或`start.sh`启动，在谷歌浏览器中访问`http://localhost:2020`
+。Windows版需要`Visual C++ Redistributable for Visual Studio 2015`支持。
 
 <a href='https://gitee.com/tengge1/ShadowEditor/stargazers'><img src='https://gitee.com/tengge1/ShadowEditor/badge/star.svg?theme=dark' alt='star'></img></a>
 <a href='https://gitee.com/tengge1/ShadowEditor/members'><img src='https://gitee.com/tengge1/ShadowEditor/badge/fork.svg?theme=dark' alt='fork'></img></a>
