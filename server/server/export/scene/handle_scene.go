@@ -235,42 +235,67 @@ func Scene(w http.ResponseWriter, r *http.Request) {
 }
 
 func getURLInMaterial(material bson.M, urls *[]string) {
-	var materials []bson.M
+	var textures []bson.M
 	if val, ok := material["alphaMap"].(primitive.D); ok {
-		materials = append(materials, val.Map())
+		textures = append(textures, val.Map())
 	}
 	if val, ok := material["aoMap"].(primitive.D); ok {
-		materials = append(materials, val.Map())
+		textures = append(textures, val.Map())
 	}
 	if val, ok := material["bumpMap"].(primitive.D); ok {
-		materials = append(materials, val.Map())
+		textures = append(textures, val.Map())
 	}
 	if val, ok := material["displacementMap"].(primitive.D); ok {
-		materials = append(materials, val.Map())
+		textures = append(textures, val.Map())
 	}
 	if val, ok := material["emissiveMap"].(primitive.D); ok {
-		materials = append(materials, val.Map())
+		textures = append(textures, val.Map())
 	}
 	if val, ok := material["envMap"].(primitive.D); ok {
-		materials = append(materials, val.Map())
+		textures = append(textures, val.Map())
 	}
 	if val, ok := material["lightMap"].(primitive.D); ok {
-		materials = append(materials, val.Map())
+		textures = append(textures, val.Map())
 	}
 	if val, ok := material["map"].(primitive.D); ok {
-		materials = append(materials, val.Map())
+		textures = append(textures, val.Map())
 	}
 	if val, ok := material["metalnessMap"].(primitive.D); ok {
-		materials = append(materials, val.Map())
+		textures = append(textures, val.Map())
 	}
 	if val, ok := material["normalMap"].(primitive.D); ok {
-		materials = append(materials, val.Map())
+		textures = append(textures, val.Map())
 	}
 	if val, ok := material["roughnessMap"].(primitive.D); ok {
-		materials = append(materials, val.Map())
+		textures = append(textures, val.Map())
+	}
+	// texture in uniforms
+	if uniformsVal, ok := material["uniforms"]; ok {
+		if uniforms, ok := uniformsVal.(primitive.D); ok {
+			for _, uniformVal := range uniforms.Map() {
+				if uniform, ok := uniformVal.(primitive.D); ok {
+					isTexture := false
+					for key, val := range uniform.Map() {
+						if key == "type" && val == "t" {
+							isTexture = true
+							break
+						}
+					}
+					if isTexture {
+						for key, val := range uniform.Map() {
+							if key == "value" {
+								if texture, ok := val.(primitive.D); ok {
+									textures = append(textures, texture.Map())
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 
-	for _, material := range materials {
+	for _, material := range textures {
 		if val, ok := material["image"]; ok && val != nil {
 			image := val.(primitive.D).Map()
 			src := image["src"].(string)

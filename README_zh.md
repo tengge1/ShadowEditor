@@ -1,6 +1,10 @@
 # Shadow Editor
 
-[English](README.md) / 中文 &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://github.com/tengge1/ShadowEditor/releases/download/v0.5.5/ShadowEditor-win32-x64.zip" title="需要Visual C++ Redistributable for Visual Studio 2015支持">Windows桌面版</a> &nbsp;&nbsp; | &nbsp;&nbsp; <a href="https://github.com/tengge1/ShadowEditor/releases/download/v0.5.5/ShadowEditor-linux-x64.zip">Ubuntu桌面版</a> &nbsp;&nbsp; | &nbsp;&nbsp; [Web演示](http://tengge1.gitee.io/shadoweditor-examples/)  
+[English](README.md) / 中文 &nbsp;&nbsp; |
+&nbsp;&nbsp; <a href="https://github.com/tengge1/ShadowEditor/releases/download/v0.5.5/ShadowEditor-win32-x64.zip" title="需要Visual C++ Redistributable for Visual Studio 2015支持">
+Windows桌面版</a> &nbsp;&nbsp; |
+&nbsp;&nbsp; <a href="https://github.com/tengge1/ShadowEditor/releases/download/v0.5.5/ShadowEditor-linux-x64.zip">
+Ubuntu桌面版</a> &nbsp;&nbsp; | &nbsp;&nbsp; [Web演示](http://tengge1.gitee.io/shadoweditor-examples/)
 
 <a href='https://gitee.com/tengge1/ShadowEditor/stargazers'><img src='https://gitee.com/tengge1/ShadowEditor/badge/star.svg?theme=dark' alt='star'></img></a>
 <a href='https://gitee.com/tengge1/ShadowEditor/members'><img src='https://gitee.com/tengge1/ShadowEditor/badge/fork.svg?theme=dark' alt='fork'></img></a>
@@ -12,7 +16,12 @@
 * 名称：Shadow Editor
 * 版本：v0.6.0 (开发中)
 * 简介：基于Three.js、Go语言和MongoDB的跨平台的3D场景编辑器。
-* 源码：[GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) | 文档：[Gitee](https://gitee.com/tengge1/ShadowEditor/wikis/pages) | 示例：[GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/) | 视频：[微博](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611) | 资源：[百度网盘rfja](https://pan.baidu.com/s/1BYLPyHJuc2r0bS9Te3SRjA)
+* 源码：[GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) |
+  文档：[Gitee](https://gitee.com/tengge1/ShadowEditor/wikis/pages) |
+  示例：[GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/)
+  |
+  视频：[微博](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611)
+  | 资源：[百度网盘rfja](https://pan.baidu.com/s/1BYLPyHJuc2r0bS9Te3SRjA)
 * 技术栈：html、css、javascript、rollup、react.js、webgl、three.js、golang、mongodb、nodejs、electron、protocol buffers。
 * 如果对您有帮助，请[【捐赠】](https://gitee.com/tengge1/ShadowEditor)支持项目发展。谢谢！
 
@@ -39,6 +48,7 @@
 15. 修复立体贴图bug。
 16. 将代码中所有的`prototype`改写为es6 `class`。
 17. 移除可视化模块。
+18. 修复导出场景时没有复制天空球贴图的bug。
 
 ## v0.5.10已经发布
 
@@ -50,93 +60,93 @@
 ## 功能清单
 
 - [x] 通用功能
-  - [x] 跨平台
-    - [x] Windows、Linux、Mac
-    - [x] 桌面版、Web版
-  - [x] 多语言支持
-    - [x] English、中文、繁體中文、日本語、한국어、русский、Le français
-  - [x] 资源管理
-    - [x] 场景、模型、贴图、材质、音频、动画、截图、录制视频、字体
-  - [x] 权限管理
-    - [x] 组织机构、用户
-    - [x] 角色、权限
-    - [x] 注册、登录、修改密码
-  - [x] 版本控制
-    - [x] 场景历史记录、操作日志
-    - [x] 撤销、重做、自动保存
-  - [x] 播放器
-    - [x] 实时播放场景中的动画，支持全屏播放和新窗口播放
-  - [x] 设置
-    - [x] 显示、渲染器、帮助器、滤镜、天气、控制器模式、选择模式、添加模式、语言设置
+    - [x] 跨平台
+        - [x] Windows、Linux、Mac
+        - [x] 桌面版、Web版
+    - [x] 多语言支持
+        - [x] English、中文、繁體中文、日本語、한국어、русский、Le français
+    - [x] 资源管理
+        - [x] 场景、模型、贴图、材质、音频、动画、截图、录制视频、字体
+    - [x] 权限管理
+        - [x] 组织机构、用户
+        - [x] 角色、权限
+        - [x] 注册、登录、修改密码
+    - [x] 版本控制
+        - [x] 场景历史记录、操作日志
+        - [x] 撤销、重做、自动保存
+    - [x] 播放器
+        - [x] 实时播放场景中的动画，支持全屏播放和新窗口播放
+    - [x] 设置
+        - [x] 显示、渲染器、帮助器、滤镜、天气、控制器模式、选择模式、添加模式、语言设置
 - [x] 小场景编辑
-  - [x] 添加模型
-    - [x] 3ds, 3mf, amf, assimp, awd, babylon, binary, bvh, collada, ctm
-    - [x] draco, fbx, gcode, gltf, glb, js, kmz, lmesh, md2, pmd, pmx
-    - [x] nrrd, obj, pcd, pdb, ply, prwm, sea3d, stl, vrm, vrml, vtk, X
-  - [x] 内置物体
-    - [x] 组
-    - [x] 平面、正方体、圆、圆柱体、球体、二十面体、圆环面、圆环结、茶壶、车床
-    - [x] 不缩放文字、三维文字
-    - [x] 线段、CatmullRom曲线、二次贝塞尔曲线、三次贝塞尔曲线、椭圆曲线
-    - [x] 点标注
-    - [x] 箭头帮助器、轴帮助器
-    - [x] 精灵
-  - [x] 内置光源
-    - [x] 环境光、平行光、点光源、聚光灯、半球光、矩形光
-    - [x] 点光源、半球光、矩形光帮助器
-  - [x] 内置组件
-    - [x] 背景音乐、粒子发射器
-    - [x] 天空、火焰、水、烟、布
-    - [x] 柏林地形、天空球
-  - [x] 材质编辑
-    - [x] 线条材质、虚线材质、基本材质、深度材质、法向量材质
-    - [x] 兰伯特材质、冯氏材质、点云材质、标准材质、物理材质
-    - [x] 精灵材质、着色器材质、原始着色器材质
-  - [x] 后期处理
-    - [x] 残影、背景虚化、点阵化、快速近似抗锯齿（FXAA）、毛刺
-    - [x] 半色调、像素、颜色偏移、可扩展环境光遮蔽（SAO）
-    - [x] 多重采样抗锯齿（SMAA）、全屏抗锯齿（SSAA）
-    - [x] 屏幕空间环境光遮蔽（SSAO）、时间抗锯齿（TAA）
-  - [x] 文本编辑
-    - [x] js脚本编辑，带智能提示
-    - [x] 着色器编辑
-    - [x] json文件编辑
-  - [x] 模型导出
-    - [x] gltf、obj、ply、stl、Collada、DRACO
-  - [x] 场景发布
-    - [x] 将场景发布成静态资源，可以嵌入iframe中
-  - [x] 示例
-    - [x] 打砖块、相机、例子、乒乓球、着色器
-  - [x] 常用工具
-    - [x] 选择、平移、旋转、缩放
-    - [x] 透视图、正视图、侧视图、顶视图、线框模式
-    - [x] 截图、录制视频
-    - [x] 点、线、面绘制、贴花
-    - [x] 距离测量
-  - [ ] 其他功能
-    - [x] VR：cardboard, htc vive, chrome, firefox
-    - [ ] Bullet物理引擎
-    - [ ] 光线追踪渲染、体素渲染
-    - [ ] UV展开
-    - [ ] 自动寻路
-    - [ ] 批量渲染
-    - [ ] 遮挡剔除
-    - [ ] 分屏显示
+    - [x] 添加模型
+        - [x] 3ds, 3mf, amf, assimp, awd, babylon, binary, bvh, collada, ctm
+        - [x] draco, fbx, gcode, gltf, glb, js, kmz, lmesh, md2, pmd, pmx
+        - [x] nrrd, obj, pcd, pdb, ply, prwm, sea3d, stl, vrm, vrml, vtk, X
+    - [x] 内置物体
+        - [x] 组
+        - [x] 平面、正方体、圆、圆柱体、球体、二十面体、圆环面、圆环结、茶壶、车床
+        - [x] 不缩放文字、三维文字
+        - [x] 线段、CatmullRom曲线、二次贝塞尔曲线、三次贝塞尔曲线、椭圆曲线
+        - [x] 点标注
+        - [x] 箭头帮助器、轴帮助器
+        - [x] 精灵
+    - [x] 内置光源
+        - [x] 环境光、平行光、点光源、聚光灯、半球光、矩形光
+        - [x] 点光源、半球光、矩形光帮助器
+    - [x] 内置组件
+        - [x] 背景音乐、粒子发射器
+        - [x] 天空、火焰、水、烟、布
+        - [x] 柏林地形、天空球
+    - [x] 材质编辑
+        - [x] 线条材质、虚线材质、基本材质、深度材质、法向量材质
+        - [x] 兰伯特材质、冯氏材质、点云材质、标准材质、物理材质
+        - [x] 精灵材质、着色器材质、原始着色器材质
+    - [x] 后期处理
+        - [x] 残影、背景虚化、点阵化、快速近似抗锯齿（FXAA）、毛刺
+        - [x] 半色调、像素、颜色偏移、可扩展环境光遮蔽（SAO）
+        - [x] 多重采样抗锯齿（SMAA）、全屏抗锯齿（SSAA）
+        - [x] 屏幕空间环境光遮蔽（SSAO）、时间抗锯齿（TAA）
+    - [x] 文本编辑
+        - [x] js脚本编辑，带智能提示
+        - [x] 着色器编辑
+        - [x] json文件编辑
+    - [x] 模型导出
+        - [x] gltf、obj、ply、stl、Collada、DRACO
+    - [x] 场景发布
+        - [x] 将场景发布成静态资源，可以嵌入iframe中
+    - [x] 示例
+        - [x] 打砖块、相机、例子、乒乓球、着色器
+    - [x] 常用工具
+        - [x] 选择、平移、旋转、缩放
+        - [x] 透视图、正视图、侧视图、顶视图、线框模式
+        - [x] 截图、录制视频
+        - [x] 点、线、面绘制、贴花
+        - [x] 距离测量
+    - [ ] 其他功能
+        - [x] VR：cardboard, htc vive, chrome, firefox
+        - [ ] Bullet物理引擎
+        - [ ] 光线追踪渲染、体素渲染
+        - [ ] UV展开
+        - [ ] 自动寻路
+        - [ ] 批量渲染
+        - [ ] 遮挡剔除
+        - [ ] 分屏显示
 - [ ] 数据可视化
-  - [ ] 二维组件
-    - [ ] 面板、选项卡
-    - [ ] 按钮、单选框、复选框、下拉列表、滑块
-    - [ ] 数据表格
-  - [ ] 可视化组件
-    - [ ] 柱状图
-    - [ ] 饼状图
-    - [ ] 折线图
-  - [ ] 可视化配置
-    - [ ] 布局管理器
-    - [ ] 数据源配置
-  - [ ] 实时数据
-    - [ ] Websocket数据
-    - [ ] Ajax数据
+    - [ ] 二维组件
+        - [ ] 面板、选项卡
+        - [ ] 按钮、单选框、复选框、下拉列表、滑块
+        - [ ] 数据表格
+    - [ ] 可视化组件
+        - [ ] 柱状图
+        - [ ] 饼状图
+        - [ ] 折线图
+    - [ ] 可视化配置
+        - [ ] 布局管理器
+        - [ ] 数据源配置
+    - [ ] 实时数据
+        - [ ] Websocket数据
+        - [ ] Ajax数据
 
 ## 需求
 
@@ -288,7 +298,8 @@ ShadowEditor是一个为用户和开发者而生的项目。在这个项目上�
 
 4. 前端报`asm.js 已被禁用，因为脚本调试程序已连接。请断开调试程序的连接，以启用 asm.js。`的错误。
 
-**完整错误**：asm.js 已被禁用，因为脚本调试程序已连接。请断开调试程序的连接，以启用 asm.js。 ammo.js (1,1) SCRIPT1028: SCRIPT1028: Expected identifier, string or number ShadowEditor.js (3948,8) SCRIPT5009: 'Shadow' is not defined。  
+**完整错误**：asm.js 已被禁用，因为脚本调试程序已连接。请断开调试程序的连接，以启用 asm.js。 ammo.js (1,1) SCRIPT1028: SCRIPT1028: Expected identifier,
+string or number ShadowEditor.js (3948,8) SCRIPT5009: 'Shadow' is not defined。  
 **解决方法**：腾讯浏览器不支持使用`Emscripten`编译的`ammo.js`（WebAssembly），建议换成谷歌浏览器或火狐浏览器。
 
 5. 怎么从C#版本升级到golang版本？
@@ -297,8 +308,9 @@ ShadowEditor是一个为用户和开发者而生的项目。在这个项目上�
 
 6. 桌面版打不开。
 
-说明：Windows需要`Visual C++ Redistributable for Visual Studio 2015`。你可以从这安装：https://www.microsoft.com/en-us/download/details.aspx?id=48145  
-说明：如果桌面版打不开，可以查看`logs.txt`；如果端口冲突，可以修改`resources/app/config.toml`中的MongoDB和网站端口。  
+说明：Windows需要`Visual C++ Redistributable for Visual Studio 2015`
+。你可以从这安装：https://www.microsoft.com/en-us/download/details.aspx?id=48145  
+说明：如果桌面版打不开，可以查看`logs.txt`；如果端口冲突，可以修改`resources/app/config.toml`中的MongoDB和网站端口。
 
 7. 如何创建一个https证书？
 
@@ -319,7 +331,7 @@ openssl x509 -req -in certrequest.csr -signkey privatekey.pem -out certificate.p
 <details>
   <summary>展开查看详情</summary>
 
-感谢以下开源项目。  
+感谢以下开源项目。
 
 https://github.com/golang/go  
 https://github.com/BurntSushi/toml  
@@ -333,8 +345,8 @@ https://github.com/sirupsen/logrus
 https://github.com/spf13/cobra  
 https://github.com/spf13/viper  
 https://github.com/urfave/negroni  
-https://go.mongodb.org/mongo-driver  
-  
+https://go.mongodb.org/mongo-driver
+
 https://github.com/facebook/react  
 https://github.com/mrdoob/three.js  
 https://github.com/rollup/rollup  
@@ -347,8 +359,8 @@ https://github.com/rollup/rollup-plugin-node-resolve
 https://github.com/egoist/rollup-plugin-postcss  
 https://github.com/rollup/rollup-plugin-replace  
 https://github.com/mjeanroy/rollup-plugin-strip-banner  
-https://github.com/andyearnshaw/rollup-plugin-bundle-worker  
-  
+https://github.com/andyearnshaw/rollup-plugin-bundle-worker
+
 https://github.com/tweenjs/tween.js  
 https://github.com/JedWatson/classnames  
 https://github.com/d3/d3-dispatch  
@@ -368,5 +380,5 @@ https://github.com/mrdoob/stats.js
 https://github.com/mrdoob/texgen.js  
 https://github.com/yomotsu/VolumetricFire  
 https://github.com/jonbretman/amd-to-as6  
-https://github.com/chandlerprall/ThreeCSG  
+https://github.com/chandlerprall/ThreeCSG
 </details>

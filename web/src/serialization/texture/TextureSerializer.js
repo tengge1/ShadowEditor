@@ -32,6 +32,10 @@ class TextureSerializer extends BaseSerializer {
                 src = src.replace(location.href, '/');
             }
 
+            if (src) {
+                src = decodeURIComponent(src);
+            }
+
             json.image = {
                 tagName: 'img',
                 src: src,
