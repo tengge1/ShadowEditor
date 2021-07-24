@@ -1,7 +1,7 @@
 # Shadow Editor
 
 [English](README.md) / 中文 &nbsp;&nbsp; |
-&nbsp;&nbsp; <a href="https://github.com/tengge1/ShadowEditor/releases/download/v0.5.5/ShadowEditor-win32-x64.zip" title="需要Visual C++ Redistributable for Visual Studio 2015支持">
+&nbsp;&nbsp; <a href="https://github.com/tengge1/ShadowEditor/releases/download/v0.6.0/ShadowEditor-win32-x64.zip" title="需要Visual C++ Redistributable for Visual Studio 2015支持">
 Windows桌面版</a> &nbsp;&nbsp; |
 &nbsp;&nbsp; <a href="https://github.com/tengge1/ShadowEditor/releases/download/v0.5.5/ShadowEditor-linux-x64.zip">
 Ubuntu桌面版</a> &nbsp;&nbsp; | &nbsp;&nbsp; [Web演示](http://tengge1.gitee.io/shadoweditor-examples/)
