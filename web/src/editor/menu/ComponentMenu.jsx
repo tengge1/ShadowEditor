@@ -7,7 +7,7 @@
  * For more information, please visit: https://github.com/tengge1/ShadowEditor
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
-import { MenuItem, MenuItemSeparator } from '../../ui/index';
+import {MenuItem, MenuItemSeparator} from '../../ui/index';
 import AddObjectCommand from '../../command/AddObjectCommand';
 import Sky from '../../object/component/Sky';
 import Fire from '../../object/component/Fire';
@@ -43,32 +43,32 @@ class ComponentMenu extends React.Component {
     render() {
         return <MenuItem title={_t('Component')}>
             <MenuItem title={_t('Background Music')}
-                onClick={this.handleAddBackgroundMusic}
+                      onClick={this.handleAddBackgroundMusic}
             />
             <MenuItem title={_t('ParticleEmitter')}
-                onClick={this.handleParticleEmitter}
+                      onClick={this.handleParticleEmitter}
             />
-            <MenuItemSeparator />
+            <MenuItemSeparator/>
             <MenuItem title={_t('Sky')}
-                onClick={this.handleAddSky}
+                      onClick={this.handleAddSky}
             />
             <MenuItem title={_t('Fire')}
-                onClick={this.handleAddFire}
+                      onClick={this.handleAddFire}
             />
             <MenuItem title={_t('Water')}
-                onClick={this.handleAddWater}
+                      onClick={this.handleAddWater}
             />
             <MenuItem title={_t('Smoke')}
-                onClick={this.handleAddSmoke}
+                      onClick={this.handleAddSmoke}
             />
             <MenuItem title={_t('Cloth')}
-                onClick={this.handleAddCloth}
+                      onClick={this.handleAddCloth}
             />
             <MenuItem title={_t('Perlin Terrain')}
-                onClick={this.handleAddPerlinTerrain}
+                      onClick={this.handleAddPerlinTerrain}
             />
             <MenuItem title={_t('Sky Ball')}
-                onClick={this.handleAddSkyBall}
+                      onClick={this.handleAddSkyBall}
             />
             {
                 //<MenuItem title={'着色器地形'} onClick={this.handleAddShaderTerrain}></MenuItem> 
@@ -89,9 +89,9 @@ class ComponentMenu extends React.Component {
             audio.autoplay = false;
             audio.setLoop(true);
             audio.setVolume(1.0);
-    
+
             audio.userData.autoplay = true;
-    
+
             global.app.editor.execute(new AddObjectCommand(audio));
         });
     }

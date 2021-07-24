@@ -109,7 +109,7 @@ class Editor extends React.Component {
         // 场景
         this.scene = new THREE.Scene();
         this.scene.name = _t('Scene');
-        this.scene.background = new THREE.Color(0x999999);
+        this.scene.background = new THREE.Color(0xaaaaaa);
 
         this.sceneHelpers = new THREE.Scene();
 

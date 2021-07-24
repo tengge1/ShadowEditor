@@ -463,7 +463,7 @@ const PackageList = [{
 }, {
     name: 'SPE',
     assets: [
-        'assets/js/SPE.js'
+        'assets/js/libs/SPE.js'
     ]
 }, {
     name: 'VolumetricFire',

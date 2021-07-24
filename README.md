@@ -54,6 +54,7 @@ Ubuntu Desktop</a> &nbsp;&nbsp; | &nbsp;&nbsp; [Web Demo](https://tengge1.github
 19. Fix rain and snow bug.
 20. Modify the background color and lighting, so as not to add the same color as the background and make it difficult to
     see clearly.
+21. Fix particle emitter bug.
 
 ## v0.5.10 has Released
 
