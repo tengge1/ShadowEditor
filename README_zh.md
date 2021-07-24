@@ -52,6 +52,7 @@ Ubuntu桌面版</a> &nbsp;&nbsp; | &nbsp;&nbsp; [Web演示](http://tengge1.gitee
 19. 修复下雨和下雪bug。
 20. 修改背景颜色和光照，以免添加的平面和背景相同颜色，看不清。
 21. 修复粒子发射器bug。
+22. 修复布bug。
 
 ## v0.5.10已经发布
 

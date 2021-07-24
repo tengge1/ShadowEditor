@@ -55,27 +55,41 @@ var tmpForce = new THREE.Vector3();
 var lastTime;
 
 class Particle {
+
     constructor(x, y, z, mass) {
-        this.position = clothFunction(x, y); // position
-        this.previous = clothFunction(x, y); // previous
-        this.original = clothFunction(x, y);
+
+        this.position = new THREE.Vector3();
+        this.previous = new THREE.Vector3();
+        this.original = new THREE.Vector3();
         this.a = new THREE.Vector3(0, 0, 0); // acceleration
         this.mass = mass;
         this.invMass = 1 / mass;
         this.tmp = new THREE.Vector3();
         this.tmp2 = new THREE.Vector3();
+
+        // init
+
+        clothFunction(x, y, this.position); // position
+        clothFunction(x, y, this.previous); // previous
+        clothFunction(x, y, this.original);
+
     }
 
     // Force -> Acceleration
+
     addForce(force) {
+
         this.a.add(
             this.tmp2.copy(force).multiplyScalar(this.invMass)
         );
+
     }
 
     // Performs Verlet integration
+
     integrate(timesq) {
-        var newPos = this.tmp.subVectors(this.position, this.previous);
+
+        const newPos = this.tmp.subVectors(this.position, this.previous);
         newPos.multiplyScalar(DRAG).add(this.position);
         newPos.add(this.a.multiplyScalar(timesq));
 
@@ -84,7 +98,9 @@ class Particle {
         this.position = newPos;
 
         this.a.set(0, 0, 0);
+
     }
+
 }
 
 var diff = new THREE.Vector3();
@@ -103,20 +119,18 @@ function satisfyConstraints(p1, p2, distance) {
  * 布料
  */
 class Cloth extends THREE.Mesh {
-    constructor() {
+    constructor(w = 20, h = 20) {
         var pins = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
         var w = xSegs;
         var h = ySegs;
 
-        var particles = [];
-        var constraints = [];
-
-        var u, v;
+        const particles = [];
+        const constraints = [];
 
         // Create particles
-        for (v = 0; v <= h; v++) {
-            for (u = 0; u <= w; u++) {
+        for (let v = 0; v <= h; v++) {
+            for (let u = 0; u <= w; u++) {
                 particles.push(
                     new Particle(u / w, v / h, 0, MASS)
                 );
@@ -124,14 +138,13 @@ class Cloth extends THREE.Mesh {
         }
 
         // Structural
-        for (v = 0; v < h; v++) {
-            for (u = 0; u < w; u++) {
+        for (let v = 0; v < h; v++) {
+            for (let u = 0; u < w; u++) {
                 constraints.push([
                     particles[index(u, v)],
                     particles[index(u, v + 1)],
                     restDistance
                 ]);
-
                 constraints.push([
                     particles[index(u, v)],
                     particles[index(u + 1, v)],
@@ -140,15 +153,14 @@ class Cloth extends THREE.Mesh {
             }
         }
 
-        for (u = w, v = 0; v < h; v++) {
+        for (let u = w, v = 0; v < h; v++) {
             constraints.push([
                 particles[index(u, v)],
                 particles[index(u, v + 1)],
                 restDistance
             ]);
         }
-
-        for (v = h, u = 0; u < w; u++) {
+        for (let v = h, u = 0; u < w; u++) {
             constraints.push([
                 particles[index(u, v)],
                 particles[index(u + 1, v)],
@@ -197,16 +209,33 @@ class Cloth extends THREE.Mesh {
     update() {
         var time = Date.now();
 
-        var windStrength = Math.cos(time / 7000) * 20 + 40;
+        this.simulate(time);
 
-        windForce.set(Math.sin(time / 2000), Math.cos(time / 3000), Math.sin(time / 1000));
+        const p = this.particles;
+        const clothGeometry = this.clothGeometry;
+
+        for (let i = 0, il = p.length; i < il; i++) {
+            const v = p[i].position;
+            clothGeometry.attributes.position.setXYZ(i, v.x, v.y, v.z);
+        }
+
+        clothGeometry.attributes.position.needsUpdate = true;
+        clothGeometry.computeVertexNormals();
+    }
+
+    simulate(now) {
+        const windStrength = Math.cos(now / 7000) * 20 + 40;
+
+        windForce.set(Math.sin(now / 2000), Math.cos(now / 3000), Math.sin(now / 1000));
         windForce.normalize();
         windForce.multiplyScalar(windStrength);
 
-        this.simulate(time, this.clothGeometry, this.pins);
+        // Aerodynamics forces
 
-        var p = this.particles;
-        var clothGeometry = this.clothGeometry;
+        const particles = this.particles;
+        const clothGeometry = this.clothGeometry;
+
+        // if ( params.enableWind ) {
 
         let indx;
         const normal = new THREE.Vector3();
@@ -220,75 +249,59 @@ class Cloth extends THREE.Mesh {
                 indx = indices.getX(i + j);
                 normal.fromBufferAttribute(normals, indx);
                 tmpForce.copy(normal).normalize().multiplyScalar(normal.dot(windForce));
+                particles[indx].addForce(tmpForce);
 
             }
 
         }
 
-        clothGeometry.verticesNeedUpdate = true;
+        // }
 
-        clothGeometry.computeFaceNormals();
-        clothGeometry.computeVertexNormals();
-    }
+        for (let i = 0, il = particles.length; i < il; i++) {
 
-    simulate(time) {
-        if (!lastTime) {
-            lastTime = time;
-            return;
-        }
-
-        var i, il, particles, particle, constraints, constraint;
-
-        // Aerodynamics forces
-        if (wind) {
-            var face, faces = this.clothGeometry.faces,
-                normal;
-            particles = this.particles;
-
-            for (i = 0, il = faces.length; i < il; i++) {
-                face = faces[i];
-                normal = face.normal;
-
-                tmpForce.copy(normal).normalize().multiplyScalar(normal.dot(windForce));
-                particles[face.a].addForce(tmpForce);
-                particles[face.b].addForce(tmpForce);
-                particles[face.c].addForce(tmpForce);
-            }
-        }
-
-        for (particles = this.particles, i = 0, il = particles.length; i < il; i++) {
-            particle = particles[i];
+            const particle = particles[i];
             particle.addForce(gravity);
 
             particle.integrate(TIMESTEP_SQ);
+
         }
 
         // Start Constraints
-        constraints = this.constraints;
-        il = constraints.length;
 
-        for (i = 0; i < il; i++) {
-            constraint = constraints[i];
+        const constraints = this.constraints;
+        const il = constraints.length;
+
+        for (let i = 0; i < il; i++) {
+
+            const constraint = constraints[i];
             satisfyConstraints(constraint[0], constraint[1], constraint[2]);
+
         }
 
         // Floor Constraints
-        for (particles = this.particles, i = 0, il = particles.length; i < il; i++) {
-            particle = particles[i];
-            var pos = particle.position;
+
+        for (let i = 0, il = particles.length; i < il; i++) {
+
+            const particle = particles[i];
+            const pos = particle.position;
             if (pos.y < -250) {
+
                 pos.y = -250;
+
             }
+
         }
 
         // Pin Constraints
-        var pins = this.pins;
+        const pins = this.pins;
 
-        for (i = 0, il = pins.length; i < il; i++) {
-            var xy = pins[i];
-            var p = particles[xy];
+        for (let i = 0, il = pins.length; i < il; i++) {
+
+            const xy = pins[i];
+            const p = particles[xy];
             p.position.copy(p.original);
             p.previous.copy(p.original);
+
         }
     }
 }

@@ -55,6 +55,7 @@ Ubuntu Desktop</a> &nbsp;&nbsp; | &nbsp;&nbsp; [Web Demo](https://tengge1.github
 20. Modify the background color and lighting, so as not to add the same color as the background and make it difficult to
     see clearly.
 21. Fix particle emitter bug.
+22. Fix cloth bug.
 
 ## v0.5.10 has Released
 
