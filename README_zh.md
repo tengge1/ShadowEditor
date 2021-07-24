@@ -34,6 +34,9 @@ Linux服务端</a> &nbsp;&nbsp; | &nbsp;&nbsp; [Web演示](http://tengge1.gitee.
 
 ## v0.6.1即将更新
 
+1. 从`v0.6.1`开始，ShadowEditor仅提供核心功能和扩展API，其他功能将在扩展中实现，类似VSCode。
+2. 扩展化改造将在`dev`分支进行。
+
 ## v0.6.0已经发布
 
 * 发布日期：2021年7月24日
