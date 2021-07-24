@@ -86,7 +86,7 @@ Ubuntu Desktop</a> &nbsp;&nbsp; | &nbsp;&nbsp; [Web Demo](https://tengge1.github
         - [x] Display, renderer, helpers, filter, weather, control mode, select mode, add mode, language
 - [x] Small scene editing
     - [x] Add mesh
-        - [x] 3ds, 3mf, amf, assimp, awd, babylon, binary, bvh, collada, ctm
+        - [x] 3ds, 3mf, amf, assimp, awd, babylon, bvh, collada, ctm
         - [x] draco, fbx, gcode, gltf, glb, js, kmz, lmesh, md2, pmd, pmx
         - [x] nrrd, obj, pcd, pdb, ply, prwm, sea3d, stl, vrm, vrml, vtk, X
     - [x] Built-in objects
@@ -129,30 +129,27 @@ Ubuntu Desktop</a> &nbsp;&nbsp; | &nbsp;&nbsp; [Web Demo](https://tengge1.github
         - [x] Screenshot, record
         - [x] Draw point, draw line, draw polygon, spray
         - [x] Measure distance
-    - [ ] Others
+    - [x] Others
         - [x] VR：cardboard, htc vive, chrome, firefox
-        - [ ] Bullet physics engine
-        - [ ] Ray tracing rendering, voxel rendering
-        - [ ] UV unwrap
-        - [ ] Automatic pathfinding
-        - [ ] Batch rendering
-        - [ ] Occlusion culling
-        - [ ] Split screen display
-- [ ] Data visualization
-    - [ ] UI
-        - [ ] Panel, tab panel
-        - [ ] Button, radio, checkbox, dropdown, slider
-        - [ ] Data table
-    - [ ] Charts
-        - [ ] Histogram
-        - [ ] Pie chart
-        - [ ] Line chart
-    - [ ] Visualization config
-        - [ ] Layout management
-        - [ ] data source config
-    - [ ] Real-time data
-        - [ ] WebSocket
-        - [ ] Ajax
+        - [x] Bullet physics engine
+- [x] UI Controls
+    - [x] Canvas
+    - [x] Form: Button, CheckBox, Form, FormControls, IconButton, IconMenuButton, ImageButton, Input, Label, LinkButton,
+      Radio, SearchField, Select, TextArea, Toggle
+    - [x] Icon
+    - [x] Image: Image, ImageList, ImageSelector, ImageUploader
+    - [x] Layout: AbsoluteLayout, AccordionLayout, BorderLayout, HBoxLayout, TableLayout, VBoxLayout
+    - [x] Menu: ContextMenu, MenuBar, MenuBarFiller, MenuItem, MenuItemSeparator, MenuTab.
+    - [x] Panel
+    - [x] Progress: LoadMask
+    - [x] Property: ButtonProperty, ButtonsProperty, CheckBoxProperty, ColorProperty, DisplayProperty, IntegerProperty,
+      NumberProperty, PropertyGrid, PropertyGroup, SelectProperty, TextProperty, TextureProperty
+    - [x] SVG
+    - [x] Table: DataGrid, Table, TableBody, TableCell, TableHead, TableRow
+    - [x] Timeline
+    - [x] Toolbar: Toolbar, ToolbarFiller, ToolbarSeparator
+    - [x] Tree
+    - [x] Window: Alert, Confirm, Message, Photo, Prompt, Toast, Video, Window
 
 ## Requirements
 

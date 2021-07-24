@@ -83,7 +83,7 @@ Ubuntu桌面版</a> &nbsp;&nbsp; | &nbsp;&nbsp; [Web演示](http://tengge1.gitee
         - [x] 显示、渲染器、帮助器、滤镜、天气、控制器模式、选择模式、添加模式、语言设置
 - [x] 小场景编辑
     - [x] 添加模型
-        - [x] 3ds, 3mf, amf, assimp, awd, babylon, binary, bvh, collada, ctm
+        - [x] 3ds, 3mf, amf, assimp, awd, babylon, bvh, collada, ctm
         - [x] draco, fbx, gcode, gltf, glb, js, kmz, lmesh, md2, pmd, pmx
         - [x] nrrd, obj, pcd, pdb, ply, prwm, sea3d, stl, vrm, vrml, vtk, X
     - [x] 内置物体
@@ -126,30 +126,27 @@ Ubuntu桌面版</a> &nbsp;&nbsp; | &nbsp;&nbsp; [Web演示](http://tengge1.gitee
         - [x] 截图、录制视频
         - [x] 点、线、面绘制、贴花
         - [x] 距离测量
-    - [ ] 其他功能
+    - [x] 其他功能
         - [x] VR：cardboard, htc vive, chrome, firefox
-        - [ ] Bullet物理引擎
-        - [ ] 光线追踪渲染、体素渲染
-        - [ ] UV展开
-        - [ ] 自动寻路
-        - [ ] 批量渲染
-        - [ ] 遮挡剔除
-        - [ ] 分屏显示
-- [ ] 数据可视化
-    - [ ] 二维组件
-        - [ ] 面板、选项卡
-        - [ ] 按钮、单选框、复选框、下拉列表、滑块
-        - [ ] 数据表格
-    - [ ] 可视化组件
-        - [ ] 柱状图
-        - [ ] 饼状图
-        - [ ] 折线图
-    - [ ] 可视化配置
-        - [ ] 布局管理器
-        - [ ] 数据源配置
-    - [ ] 实时数据
-        - [ ] Websocket数据
-        - [ ] Ajax数据
+        - [x] Bullet物理引擎
+- [x] UI组件
+    - [x] 画布
+    - [x] 表单: Button, CheckBox, Form, FormControls, IconButton, IconMenuButton, ImageButton, Input, Label, LinkButton,
+      Radio, SearchField, Select, TextArea, Toggle
+    - [x] 图标
+    - [x] 图片: Image, ImageList, ImageSelector, ImageUploader
+    - [x] 布局: AbsoluteLayout, AccordionLayout, BorderLayout, HBoxLayout, TableLayout, VBoxLayout
+    - [x] 菜单: ContextMenu, MenuBar, MenuBarFiller, MenuItem, MenuItemSeparator, MenuTab.
+    - [x] 面板
+    - [x] 进度条: LoadMask
+    - [x] 属性框: ButtonProperty, ButtonsProperty, CheckBoxProperty, ColorProperty, DisplayProperty, IntegerProperty,
+      NumberProperty, PropertyGrid, PropertyGroup, SelectProperty, TextProperty, TextureProperty
+    - [x] SVG
+    - [x] 表格: DataGrid, Table, TableBody, TableCell, TableHead, TableRow
+    - [x] 时间轴
+    - [x] 工具栏: Toolbar, ToolbarFiller, ToolbarSeparator
+    - [x] 树
+    - [x] 窗口: Alert, Confirm, Message, Photo, Prompt, Toast, Video, Window
 
 ## 需求
 
