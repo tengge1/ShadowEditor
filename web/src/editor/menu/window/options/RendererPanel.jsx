@@ -96,7 +96,7 @@ class RendererPanel extends React.Component {
 
         renderer.gammaFactor = gammaFactor;
 
-        renderer.dispose();
+        // renderer.dispose();
 
         Object.assign(global.app.options, {
             shadowMapType,

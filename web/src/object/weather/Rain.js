@@ -13,24 +13,30 @@
 class Rain extends THREE.Object3D {
     constructor() {
         super();
-
+        this.velocity = [];
         this.createPointClouds('assets/textures/particles/raindrop-3.png');
     }
 
     createPointClouds(url) {
-        let geometry = new THREE.BufferGeometry();
-
         let range = 40;
+        let vertices = [];
+        this.velocity.length = 0;
 
         for (let i = 0; i < 1500; i++) {
-            let particle = new THREE.Vector3(
-                Math.random() * range - range / 2,
-                Math.random() * range * 1.5,
-                Math.random() * range - range / 2);
-            particle.velocityY = 0.1 + Math.random() / 5;
-            particle.velocityX = (Math.random() - 0.5) / 3;
-            geometry.vertices.push(particle);
+            vertices.push(
+                Math.random() * range - range / 2,      // posX
+                Math.random() * range * 1.5,            // posY
+                Math.random() * range - range / 2      // posZ
+            );
+            this.velocity.push(
+                0.1 + Math.random() / 5,                // velocityY
+                (Math.random() - 0.5) / 3               // velocityX
+            );
         }
+
+        const geometry = new THREE.BufferGeometry();
+        const position = new THREE.Float32BufferAttribute(vertices, 3);
+        geometry.setAttribute('position', position);
 
         let material = new THREE.PointsMaterial({
             size: 3,
@@ -50,20 +56,22 @@ class Rain extends THREE.Object3D {
 
     update() {
         this.children.forEach(n => {
-            n.geometry.vertices.forEach(v => {
-                v.y = v.y - v.velocityY;
-                v.x = v.x - v.velocityX;
-
-                if (v.y <= 0) {
-                    v.y = 60;
+            const position = n.geometry.attributes.position;
+            const array = position.array;
+            for (let i = 0; i < position.count; i++) {
+                const velocityY = this.velocity[i * 2];
+                const velocityX = this.velocity[i * 2 + 1];
+                array[i * 3 + 1] -= velocityY;
+                array[i * 3] -= velocityX;
+                if (array[i * 3 + 1] <= 0) {
+                    array[i * 3 + 1] = 60;
                 }
-
-                if (v.x <= -20 || v.x >= 20) {
-                    v.velocityX = v.velocityX * -1;
+                if (array[i * 3] <= -20 || array[i * 3] >= 20) {
+                    array[i * 3] *= -1;
                 }
-            });
+            }
 
-            n.geometry.verticesNeedUpdate = true;
+            position.needsUpdate = true;
         });
     }
 }
