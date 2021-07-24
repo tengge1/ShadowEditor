@@ -167,13 +167,6 @@ class LoadSceneEvent extends BaseEvent {
             }
         }
 
-        // 可视化
-        // if (obj.visual) {
-        //     global.app.editor.visual.fromJSON(obj.visual);
-        // } else {
-        // global.app.editor.visual.clear();
-        // }
-        // global.app.editor.visual.render(global.app.editor.svg);
         global.app.call('enableVR', this, global.app.options.enableVR);
         global.app.call('sceneLoaded', this);
         global.app.call('animationChanged', this);

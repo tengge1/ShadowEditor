@@ -201,8 +201,7 @@ class SceneMenu extends React.Component {
             renderer: editor.renderer,
             scripts: editor.scripts,
             animations: editor.animations,
-            scene: editor.scene,
-            visual: editor.visual
+            scene: editor.scene
         });
 
         var params = {

@@ -8,7 +8,7 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import './css/SaveSceneWindow.css';
-import { Window, Content, Buttons, Form, FormControl, Label, Input, Button, CheckBox } from '../../../ui/index';
+import {Button, Buttons, CheckBox, Content, Form, FormControl, Input, Label, Window} from '../../../ui/index';
 import Converter from '../../../serialization/Converter';
 import Ajax from '../../../utils/Ajax';
 import global from '../../../global';
@@ -42,36 +42,36 @@ class SaveSceneWindow extends React.Component {
     }
 
     render() {
-        const { sceneName, saveChild, saveMaterial } = this.state;
+        const {sceneName, saveChild, saveMaterial} = this.state;
 
         return <Window
             className={'SaveSceneWindow'}
             title={_t('Save Scene')}
-            style={{ width: '400px', height: '320px' }}
+            style={{width: '400px', height: '320px'}}
             mask={false}
             onClose={this.handleClose}
-               >
+        >
             <Content>
                 <Form>
                     <FormControl>
                         <Label>{_t('Name')}</Label>
                         <Input name={'sceneName'}
-                            value={sceneName}
-                            onChange={this.handleChange}
+                               value={sceneName}
+                               onChange={this.handleChange}
                         />
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Save Child')}</Label>
                         <CheckBox name={'saveChild'}
-                            checked={saveChild}
-                            onChange={this.handleChange}
+                                  checked={saveChild}
+                                  onChange={this.handleChange}
                         />
                     </FormControl>
                     <FormControl>
                         <Label>{_t('Save Material')}</Label>
                         <CheckBox name={'saveMaterial'}
-                            checked={saveMaterial}
-                            onChange={this.handleChange}
+                                  checked={saveMaterial}
+                                  onChange={this.handleChange}
                         />
                     </FormControl>
                 </Form>
@@ -95,7 +95,7 @@ class SaveSceneWindow extends React.Component {
     handleSave() {
         var editor = global.app.editor;
 
-        const { sceneName } = this.state;
+        const {sceneName} = this.state;
 
         global.app.mask(_t('Waiting...'));
 
@@ -105,8 +105,7 @@ class SaveSceneWindow extends React.Component {
             renderer: editor.renderer,
             scripts: editor.scripts,
             animations: editor.animations,
-            scene: editor.scene,
-            visual: editor.visual
+            scene: editor.scene
         });
 
         Ajax.post(`${global.app.options.server}/api/Scene/Save`, {

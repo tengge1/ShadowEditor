@@ -21,8 +21,6 @@ import PlayerPhysics from './component/PlayerPhysics';
 import PlayerLoadMask from './component/PlayerLoadMask';
 import WebVR from './component/WebVR';
 import CssUtils from '../utils/CssUtils';
-// import Globe from '../gis/Globe';
-// import Visualization from '../visual/Visualization';
 import global from '../global';
 
 /**
@@ -243,20 +241,6 @@ class Player {
 
         // scene
         this.scene = obj.scene || new THREE.Scene();
-
-        // if (obj.options.sceneType === 'GIS') {
-        //     this.gis = new Globe(this.camera, this.renderer, Object.assign({}, obj.options, {
-        //         useCameraPosition: true
-        //     }));
-        // }
-
-        // 可视化
-        // if (obj.visual) {
-        //     this.visual.fromJSON(obj.visual);
-        // } else {
-        //     this.visual.clear();
-        // }
-        // this.visual.render(this.svg);
     }
 
     animate() {
