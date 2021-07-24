@@ -18,7 +18,7 @@ class EmptySceneTemplate extends BaseSceneTemplate {
         const editor = global.app.editor;
 
         // 添加场景物体
-        const amlight = new THREE.AmbientLight(0xffffff, 0.24);
+        const amlight = new THREE.AmbientLight(0xffffff, 0.44);
         amlight.name = _t('Ambient');
         editor.addObject(amlight);
 

@@ -42,9 +42,9 @@ class BaseSceneTemplate {
         }
 
         if (editor.scene.background instanceof THREE.Texture) {
-            editor.scene.background = new THREE.Color(0xaaaaaa);
+            editor.scene.background = new THREE.Color(0x999999);
         } else if (editor.scene.background instanceof THREE.Color) {
-            editor.scene.background.setHex(0xaaaaaa);
+            editor.scene.background.setHex(0x999999);
         }
 
         editor.scene.fog = null;

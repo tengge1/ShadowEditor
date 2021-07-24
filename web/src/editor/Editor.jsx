@@ -9,7 +9,7 @@
  */
 import './css/Editor.css';
 
-import { BorderLayout, LoadMask } from '../ui/index';
+import {BorderLayout, LoadMask} from '../ui/index';
 
 import EditorMenuBar from './menu/EditorMenuBar.jsx';
 import EditorStatusBar from './status/EditorStatusBar.jsx';
@@ -51,42 +51,51 @@ class Editor extends React.Component {
     }
 
     render() {
-        const { showMask, maskText, elements, assetsPanelShow, sidebarShow, toolbarShow, timelinePanelShow, statusBarShow } = this.state;
+        const {
+            showMask,
+            maskText,
+            elements,
+            assetsPanelShow,
+            sidebarShow,
+            toolbarShow,
+            timelinePanelShow,
+            statusBarShow
+        } = this.state;
         const isLogin = !global.app.server.enableAuthority || global.app.server.isLogin;
 
         return <>
             <BorderLayout className={'Editor'}>
-                <EditorMenuBar region={'north'} />
+                <EditorMenuBar region={'north'}/>
                 {<EditorStatusBar region={'south'}
-                    show={statusBarShow}
-                 />}
+                                  show={statusBarShow}
+                />}
                 {<AssetsPanel region={'west'}
-                    split
-                    show={assetsPanelShow}
-                    onToggle={this.onToggle}
-                 />}
+                              split
+                              show={assetsPanelShow}
+                              onToggle={this.onToggle}
+                />}
                 {isLogin && <EditorSideBar region={'east'}
-                    split
-                    show={sidebarShow}
-                    onToggle={this.onToggle}
-                            />}
+                                           split
+                                           show={sidebarShow}
+                                           onToggle={this.onToggle}
+                />}
                 <BorderLayout region={'center'}>
                     {isLogin && <EditorToolbar region={'north'}
-                        show={toolbarShow}
-                                />}
-                    <Viewport region={'center'} />
+                                               show={toolbarShow}
+                    />}
+                    <Viewport region={'center'}/>
                     {isLogin && <TimelinePanel region={'south'}
-                        split
-                        show={timelinePanelShow}
-                        onToggle={this.onToggle}
-                                />}
+                                               split
+                                               show={timelinePanelShow}
+                                               onToggle={this.onToggle}
+                    />}
                 </BorderLayout>
             </BorderLayout>
             {elements.map((n, i) => {
                 return <div key={i}>{n}</div>;
             })}
             <LoadMask text={maskText}
-                show={showMask}
+                      show={showMask}
             />
         </>;
     }
@@ -100,7 +109,7 @@ class Editor extends React.Component {
         // 场景
         this.scene = new THREE.Scene();
         this.scene.name = _t('Scene');
-        this.scene.background = new THREE.Color(0xaaaaaa);
+        this.scene.background = new THREE.Color(0x999999);
 
         this.sceneHelpers = new THREE.Scene();
 
@@ -450,7 +459,7 @@ class Editor extends React.Component {
 
         elements.push(element);
 
-        this.setState({ elements }, callback);
+        this.setState({elements}, callback);
     }
 
     removeElement(element, callback) {
@@ -462,7 +471,7 @@ class Editor extends React.Component {
             elements.splice(index, 1);
         }
 
-        this.setState({ elements }, callback);
+        this.setState({elements}, callback);
     }
 
     onShowMask(enabled, text) {
