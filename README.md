@@ -1,10 +1,13 @@
 # Shadow Editor
 
 English / [中文](README_zh.md) &nbsp;&nbsp; |
-&nbsp;&nbsp; <a href="https://github.com/tengge1/ShadowEditor/releases/download/v0.6.0/ShadowEditor-win32-x64.zip" title="Requires `Visual C++ Redistributable for Visual Studio 2015`">
+&nbsp;&nbsp; <a href="https://github.com/tengge1/ShadowEditor/releases/download/v0.6.0/ShadowEditorServer-win32-x64.zip" title="Requires `Visual C++ Redistributable for Visual Studio 2015`">
 Windows Desktop</a> &nbsp;&nbsp; |
-&nbsp;&nbsp; <a href="https://github.com/tengge1/ShadowEditor/releases/download/v0.5.5/ShadowEditor-linux-x64.zip">
+&nbsp;&nbsp; <a href="https://github.com/tengge1/ShadowEditor/releases/download/v0.6.0/ShadowEditorServer-linux-x64.zip">
 Ubuntu Desktop</a> &nbsp;&nbsp; | &nbsp;&nbsp; [Web Demo](https://tengge1.github.io/ShadowEditor-examples/)
+
+**Note: The server is a compiled version with built-in mongodb, execute `start.bat` or `start.sh` to start, and
+visit `http://localhost:2020` in Google Chrome.**
 
 [![image](https://img.shields.io/github/stars/tengge1/ShadowEditor)](https://github.com/tengge1/ShadowEditor/stargazers)
 [![image](https://img.shields.io/github/forks/tengge1/ShadowEditor)](https://github.com/tengge1/ShadowEditor/network/members)
