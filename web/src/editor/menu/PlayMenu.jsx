@@ -7,7 +7,7 @@
  * For more information, please visit: https://github.com/tengge1/ShadowEditor
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
-import { MenuItem } from '../../ui/index';
+import {MenuItem} from '../../ui/index';
 import Converter from '../../serialization/Converter';
 import global from '../../global';
 
@@ -29,20 +29,20 @@ class PlayMenu extends React.Component {
     }
 
     render() {
-        const { isPlaying } = this.state;
+        const {isPlaying} = this.state;
 
         const isLogin = !global.app.server.enableAuthority || global.app.server.isLogin;
 
         return <MenuItem title={_t('Play')}>
             <MenuItem title={isPlaying ? _t('Stop') : _t('Play')}
-                onClick={this.handleTogglePlay}
+                      onClick={this.handleTogglePlay}
             />
             <MenuItem title={_t('Play Fullscreen')}
-                onClick={this.handlePlayFullscreen}
+                      onClick={this.handlePlayFullscreen}
             />
             {isLogin && <MenuItem title={_t('Play New Window')}
-                onClick={this.handlePlayNewWindow}
-                        />}
+                                  onClick={this.handlePlayNewWindow}
+            />}
         </MenuItem>;
     }
 
@@ -70,8 +70,7 @@ class PlayMenu extends React.Component {
             camera: global.app.editor.camera,
             renderer: global.app.editor.renderer,
             scripts: global.app.editor.scripts,
-            animations: global.app.editor.animations,
-            visual: global.app.editor.visual
+            animations: global.app.editor.animations
         });
 
         global.app.player.start(JSON.stringify(jsons));

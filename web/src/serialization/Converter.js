@@ -88,7 +88,6 @@ class Converter extends BaseSerializer {
      * @param {THREE.WebGLRenderer} obj.renderer 渲染器
      * @param {Array} obj.scripts 脚本列表
      * @param {Array} obj.animations 动画列表
-     * @param {Object} obj.visual 可视化数据
      * @param {THREE.Scene} obj.scene 场景
      * @param {String} obj.server 服务端地址
      * @returns {Object} json数据
@@ -99,7 +98,6 @@ class Converter extends BaseSerializer {
         let renderer = obj.renderer;
         let scripts = obj.scripts;
         let animations = obj.animations;
-        let visual = obj.visual;
         let scene = obj.scene;
 
         let list = [];
@@ -133,12 +131,6 @@ class Converter extends BaseSerializer {
         if (audioListener) {
             let audioListenerJson = new AudioListenerSerializer().toJSON(audioListener);
             list.push(audioListenerJson);
-        }
-
-        // 可视化
-        if (visual) {
-            let visualJson = new VisualSerializer().toJSON(visual);
-            list.push(visualJson);
         }
 
         // 将场景转为json
@@ -329,12 +321,6 @@ class Converter extends BaseSerializer {
         let animationJsons = jsons.filter(n => n.metadata && n.metadata.generator === 'AnimationSerializer');
         if (animationJsons) {
             obj.animations = new AnimationSerializer().fromJSON(animationJsons);
-        }
-
-        // Visual
-        let visualJson = jsons.filter(n => n.metadata && n.metadata.generator === 'VisualSerializer')[0];
-        if (visualJson) {
-            obj.visual = new VisualSerializer().fromJSON(visualJson);
         }
 
         // 音频监听器

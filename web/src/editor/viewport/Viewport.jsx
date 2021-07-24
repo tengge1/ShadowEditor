@@ -56,7 +56,6 @@ class Viewport extends React.Component {
         global.app.editorRef = this.editorRef.current;
         global.app.cesiumRef = this.cesiumRef.current;
         global.app.svgRef = this.svgRef.current;
-        global.app.visual = this.svgRef.current;
         global.app.playerRef = this.playerRef.current;
 
         // 性能控件

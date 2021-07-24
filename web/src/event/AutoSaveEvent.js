@@ -65,8 +65,7 @@ class AutoSaveEvent extends BaseEvent {
             renderer: editor.renderer,
             scripts: editor.scripts,
             animations: editor.animations,
-            scene: editor.scene,
-            visual: editor.visual
+            scene: editor.scene
         });
 
         const now = TimeUtils.getDateTime('yyyy-MM-dd HH:mm:ss');
