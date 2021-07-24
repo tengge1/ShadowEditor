@@ -15,7 +15,7 @@ Ubuntu Desktop</a> &nbsp;&nbsp; | &nbsp;&nbsp; [Web Demo](https://tengge1.github
 [![image](https://travis-ci.org/tengge1/ShadowEditor.svg?branch=master)](https://travis-ci.org/github/tengge1/ShadowEditor)
 
 * Name: Shadow Editor
-* Version: v0.6.0
+* Version: v0.6.0 (July 24, 2021)
 * Description: Cross-platform 3D scene editor based on three.js, golang and mongodb.
 * Source: [GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) |
   Document: [Gitee](https://gitee.com/tengge1/ShadowEditor/wikis/pages) |

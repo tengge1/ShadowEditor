@@ -14,7 +14,7 @@ Ubuntu桌面版</a> &nbsp;&nbsp; | &nbsp;&nbsp; [Web演示](http://tengge1.gitee
 [![image](https://travis-ci.org/tengge1/ShadowEditor.svg?branch=master)](https://travis-ci.org/github/tengge1/ShadowEditor)
 
 * 名称：Shadow Editor
-* 版本：v0.6.0
+* 版本：v0.6.0 (2021年7月24日)
 * 简介：基于Three.js、Go语言和MongoDB的跨平台的3D场景编辑器。
 * 源码：[GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) |
   文档：[Gitee](https://gitee.com/tengge1/ShadowEditor/wikis/pages) |
