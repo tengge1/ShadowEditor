@@ -55,14 +55,21 @@ func List(w http.ResponseWriter, r *http.Request) {
 	if docs != nil {
 		for _, i := range docs {
 			doc := i.(primitive.D).Map()
+
+			createTime := doc["CreateTime"].(primitive.DateTime).Time()
+			updateTime := createTime
+			if val, ok := doc["UpdateTime"]; ok {
+				updateTime = val.(primitive.DateTime).Time()
+			}
+
 			model := Model{
 				ID:          doc["ID"].(primitive.ObjectID).Hex(),
 				Name:        doc["Name"].(string),
 				TotalPinYin: doc["TotalPinYin"].(string),
 				FirstPinYin: doc["FirstPinYin"].(string),
 				URL:         doc["Url"].(string),
-				CreateTime:  doc["CreateTime"].(primitive.DateTime).Time(),
-				UpdateTime:  doc["UpdateTime"].(primitive.DateTime).Time(),
+				CreateTime:  createTime,
+				UpdateTime:  updateTime,
 			}
 			list = append(list, model)
 		}
