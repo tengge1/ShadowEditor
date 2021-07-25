@@ -8,8 +8,22 @@
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
 import './css/EditModelWindow.css';
-import { PropTypes } from '../../../third_party';
-import { Window, TabLayout, Content, Buttons, Form, FormControl, Label, Input, Select, ImageUploader, Button, CheckBox, DataGrid, Column, LinkButton } from '../../../ui/index';
+import {PropTypes} from '../../../third_party';
+import {
+    Button,
+    Buttons,
+    CheckBox,
+    Content,
+    Form,
+    FormControl,
+    ImageUploader,
+    Input,
+    Label,
+    LinkButton,
+    Select,
+    TabLayout,
+    Window
+} from '../../../ui/index';
 import Ajax from '../../../utils/Ajax';
 import CategoryWindow from './CategoryWindow.jsx';
 import global from '../../../global';
@@ -103,29 +117,29 @@ class EditModelWindow extends React.Component {
                             />
                         </FormControl>
                     </Form>
-                    <DataGrid data={histories}
-                        keyField={'ID'}
-                        title={_t('Historic Version')}
-                        selected={selectedHistory}
-                        onSelect={this.handleSelectHistory}
-                    >
-                        <Column type={'number'} />
-                        <Column field={'Version'}
-                            title={_t('Version')}
-                            width={80}
-                            align={'center'}
-                        />
-                        <Column field={'UpdateTime'}
-                            title={_t('Update Time')}
-                            align={'center'}
-                        />
-                        <Column field={'ID'}
-                            title={_t('')}
-                            width={80}
-                            align={'center'}
-                            renderer={this.loadHistoryRenderer}
-                        />
-                    </DataGrid>
+                    {/*<DataGrid data={histories}*/}
+                    {/*    keyField={'ID'}*/}
+                    {/*    title={_t('Historic Version')}*/}
+                    {/*    selected={selectedHistory}*/}
+                    {/*    onSelect={this.handleSelectHistory}*/}
+                    {/*>*/}
+                    {/*    <Column type={'number'} />*/}
+                    {/*    <Column field={'Version'}*/}
+                    {/*        title={_t('Version')}*/}
+                    {/*        width={80}*/}
+                    {/*        align={'center'}*/}
+                    {/*    />*/}
+                    {/*    <Column field={'UpdateTime'}*/}
+                    {/*        title={_t('Update Time')}*/}
+                    {/*        align={'center'}*/}
+                    {/*    />*/}
+                    {/*    <Column field={'ID'}*/}
+                    {/*        title={_t('')}*/}
+                    {/*        width={80}*/}
+                    {/*        align={'center'}*/}
+                    {/*        renderer={this.loadHistoryRenderer}*/}
+                    {/*    />*/}
+                    {/*</DataGrid>*/}
                 </TabLayout>
             </Content>
             <Buttons>

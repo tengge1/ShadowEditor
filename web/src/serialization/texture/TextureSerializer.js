@@ -49,6 +49,22 @@ class TextureSerializer extends BaseSerializer {
                 width: obj.image.width,
                 height: obj.image.height
             };
+        }
+            // else if (obj.image instanceof ImageBitmap) {
+            //     const canvas = document.createElement('canvas');
+            //     canvas.width = obj.image.width;
+            //     canvas.height = obj.image.height;
+            //     const context = canvas.getContext('2d');
+            //     context.drawImage(obj.image, 0, 0);
+            //     json.image = {
+            //         tagName: 'canvas',
+            //         src: canvas.toDataURL(),
+            //         width: obj.image.width,
+            //         height: obj.image.height
+            //     };
+        // }
+        else if (obj.image) {
+            console.warn('TextureSerializer: cannot serialize image ', obj.image);
         } else {
             json.image = null;
         }
