@@ -51,7 +51,7 @@ Linux服务端</a> &nbsp;&nbsp; | &nbsp;&nbsp; [Web演示](http://tengge1.gitee.
 4. 点击物体时，怎么弹出窗口：https://gitee.com/tengge1/ShadowEditor/issues/I3APGI
 5. 你可以在`config.toml`中启用`https`。
 6. 在脚本中新增手机浏览器事件：`onTouchStart`、`onTouchEnd`、`onTouchMove`。
-7. 升级`three.js`到最新版`r128-dev`，可能带来很多bug。
+7. 升级`three.js`到最新版r130。
 8. 在脚本中添加VR事件：`onVRConnected`、`onVRDisconnected`、`onVRSelectStart`、`onVRSelectEnd`。
 9. VR一体机手柄控制器支持，例如：htc vive。
 10. 修复删除脚本bug。
