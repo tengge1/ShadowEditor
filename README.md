@@ -2,9 +2,9 @@
 
 English / [中文](README_zh.md) &nbsp;&nbsp; |
 &nbsp;&nbsp; <a href="https://github.com/tengge1/ShadowEditor/releases/download/v0.6.0/ShadowEditorServer-win32-x64.zip" title="Requires `Visual C++ Redistributable for Visual Studio 2015`">
-Windows Desktop</a> &nbsp;&nbsp; |
+Windows Server</a> &nbsp;&nbsp; |
 &nbsp;&nbsp; <a href="https://github.com/tengge1/ShadowEditor/releases/download/v0.6.0/ShadowEditorServer-linux-x64.zip">
-Ubuntu Desktop</a> &nbsp;&nbsp; | &nbsp;&nbsp; [Web Demo](https://tengge1.github.io/ShadowEditor-examples/)
+Ubuntu Server</a> &nbsp;&nbsp; | &nbsp;&nbsp; [Web Demo](https://tengge1.github.io/ShadowEditor-examples/)
 
 Note: The server is a compiled version with built-in mongodb, execute `start.bat` or `start.sh` to start, and
 visit `http://localhost:2020` in Google Chrome. Windows version
@@ -36,9 +36,12 @@ requires `Visual C++ Redistributable for Visual Studio 2015`.
 
 ## v0.6.1 is Coming Soon
 
-1. Starting from `v0.6.1`, ShadowEditor only provides core features and extended APIs, and other features will be
-   provided in the extensions, just like VSCode.
-2. We will develop in the `dev` branch.
+**Starting from `v0.6.1`, ShadowEditor only provides core features and extended APIs, and other features will be
+provided in the extensions, just like VSCode. We will develop in the `dev` branch.**
+
+1. Fix the bug that some versions of go typeface management list report errors.
+2. Hide the model history version tab.
+3. When the sprite is selected, the border is no longer displayed.
 
 ## v0.6.0 has Released
 

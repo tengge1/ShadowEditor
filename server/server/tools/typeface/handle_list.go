@@ -8,10 +8,10 @@
 package typeface
 
 import (
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"net/http"
 
 	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo/options"
 
 	"github.com/tengge1/shadoweditor/helper"
@@ -39,23 +39,40 @@ func List(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 
-	var docs bson.A
-	db.FindAll(server.TypefaceCollectionName, &docs, &opts)
+	docs := make(bson.A, 0)
 
-	list := []Model{}
+	if err := db.FindAll(server.TypefaceCollectionName, &docs, &opts); err != nil {
+		server.Logger.Error(err)
+		helper.WriteJSON(w, server.Result{
+			Code: 300,
+			Msg:  err.Error(),
+		})
+		return
+	}
 
-	for _, i := range docs {
-		doc := i.(primitive.D).Map()
-		model := Model{
-			ID:          doc["ID"].(primitive.ObjectID).Hex(),
-			Name:        doc["Name"].(string),
-			TotalPinYin: doc["TotalPinYin"].(string),
-			FirstPinYin: doc["FirstPinYin"].(string),
-			URL:         doc["Url"].(string),
-			CreateTime:  doc["CreateTime"].(primitive.DateTime).Time(),
-			UpdateTime:  doc["UpdateTime"].(primitive.DateTime).Time(),
+	list := make([]Model, 0)
+
+	if docs != nil {
+		for _, i := range docs {
+			doc := i.(primitive.D).Map()
+
+			createTime := doc["CreateTime"].(primitive.DateTime).Time()
+			updateTime := createTime
+			if val, ok := doc["UpdateTime"]; ok {
+				updateTime = val.(primitive.DateTime).Time()
+			}
+
+			model := Model{
+				ID:          doc["ID"].(primitive.ObjectID).Hex(),
+				Name:        doc["Name"].(string),
+				TotalPinYin: doc["TotalPinYin"].(string),
+				FirstPinYin: doc["FirstPinYin"].(string),
+				URL:         doc["Url"].(string),
+				CreateTime:  createTime,
+				UpdateTime:  updateTime,
+			}
+			list = append(list, model)
 		}
-		list = append(list, model)
 	}
 
 	helper.WriteJSON(w, server.Result{

@@ -49,6 +49,12 @@ class SelectHelper extends BaseHelper {
             return;
         }
 
+        // 禁止选中精灵
+        // TODO: 暂时不绘制精灵边框。以后让精灵选中边框在正确的位置上。
+        if (obj instanceof THREE.Sprite) {
+            return;
+        }
+
         // 不允许选中文字
         if (obj.userData && (obj.userData.type === 'text' || obj.userData.type === 'pointMarker')) {
             this.unselect();
