@@ -41,6 +41,7 @@ provided in the extensions, just like VSCode. We will develop in the `dev` branc
 
 1. Fix the bug that some versions of go typeface management list report errors.
 2. Hide the model history version tab.
+3. When the sprite is selected, the border is no longer displayed.
 
 ## v0.6.0 has Released
 
