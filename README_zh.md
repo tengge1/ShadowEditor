@@ -39,6 +39,7 @@ Linux服务端</a> &nbsp;&nbsp; | &nbsp;&nbsp; [Web演示](http://tengge1.gitee.
 1. 修复某些版本go字体管理列表报错bug。
 2. 隐藏模型历史版本选项卡。
 3. 精灵选中时，不再显示边框。
+4. 修复搜索区域下拉框样式bug。
 
 ## v0.6.0已经发布
 
