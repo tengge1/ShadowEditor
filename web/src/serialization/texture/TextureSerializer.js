@@ -50,19 +50,30 @@ class TextureSerializer extends BaseSerializer {
                 height: obj.image.height
             };
         }
-            // else if (obj.image instanceof ImageBitmap) {
-            //     const canvas = document.createElement('canvas');
-            //     canvas.width = obj.image.width;
-            //     canvas.height = obj.image.height;
-            //     const context = canvas.getContext('2d');
-            //     context.drawImage(obj.image, 0, 0);
-            //     json.image = {
-            //         tagName: 'canvas',
-            //         src: canvas.toDataURL(),
-            //         width: obj.image.width,
-            //         height: obj.image.height
-            //     };
-        // }
+        else if (obj.image instanceof ImageBitmap) {
+            let width = obj.image.width;
+            let height = obj.image.height;
+            if (width > 256) {
+                width = 256;
+                height = height / width * 256;
+            }
+            if (height > 256) {
+                height = 256;
+                width = width / height * 256
+            }
+
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const context = canvas.getContext('2d');
+            context.drawImage(obj.image, 0, 0, obj.image.width, obj.image.height, 0, 0, width, height);
+            json.image = {
+                tagName: 'canvas',
+                src: canvas.toDataURL(),
+                width: obj.image.width,
+                height: obj.image.height
+            };
+        }
         else if (obj.image) {
             console.warn('TextureSerializer: cannot serialize image ', obj.image);
         } else {
