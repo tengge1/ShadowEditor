@@ -25,7 +25,7 @@ class Input extends React.Component {
     }
 
     render() {
-        const {className, style, type, value, min, max, step, show, disabled, accept} = this.props;
+        const { className, style, type, value, min, max, step, show, disabled, accept } = this.props;
 
         let val = value === undefined || value === null ? '' : value;
 
@@ -47,12 +47,12 @@ class Input extends React.Component {
     }
 
     handleFocus(event) {
-        const {onFocus} = this.props;
+        const { onFocus } = this.props;
         onFocus && onFocus(event);
     }
 
     handleChange(event) {
-        const {name, type, onChange} = this.props;
+        const { name, type, onChange } = this.props;
 
         const value = event.target.value;
 
@@ -60,10 +60,12 @@ class Input extends React.Component {
             if (value.trim() !== '') {
                 const precision = this.props.precision;
 
-                if (precision === 0) {
+                if (precision === undefined) {
+                    onChange && onChange(parseFloat(value), name, event);
+                } else if (precision === 0) {
                     onChange && onChange(parseInt(value), name, event);
                 } else {
-                    onChange && onChange(parseInt(parseFloat(value) * 10 ** precision) / 10 ** precision, name, event);
+                    onChange && onChange(parseFloat(parseFloat(value).toFixed(precision)), name, event);
                 }
             } else {
                 onChange && onChange(null, name, event);
@@ -74,7 +76,7 @@ class Input extends React.Component {
     }
 
     handleInput(event) {
-        const {name, type, onInput} = this.props;
+        const { name, type, onInput } = this.props;
 
         const value = event.target.value;
         if (type === 'number') {
@@ -116,7 +118,7 @@ Input.defaultProps = {
     min: null,
     max: null,
     step: null,
-    precision: 3,
+    precision: undefined,
     disabled: false,
     accept: null,
     show: true,
