@@ -284,7 +284,7 @@ npm run clear:          delete useless nodejs packages.
 <details>
   <summary>Expand to view details</summary>
 
-ShadowEditor is a project for both users and developers. You can contribute and try you idea on this project. No
+ShadowEditor is a project for both users and developers. You can contribute and try your idea on this project. No
 pension, but a lot of fun. To contribute, you should:
 
 1. Fork the repository.
