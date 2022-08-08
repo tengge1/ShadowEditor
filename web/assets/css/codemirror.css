@@ -56,7 +56,7 @@
   background: #7e7;
 }
 .cm-fat-cursor div.CodeMirror-cursors {
-  z-index: 2;
+  z-index: 1;
 }
 
 .cm-animate-fat-cursor {
