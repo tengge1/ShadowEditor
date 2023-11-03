@@ -6,10 +6,10 @@
   "scripts": {
     "build": "node scripts/build.js",
     "build-server": "node scripts/build_server.js",
-    "build-web": "cd web && rollup -c rollup.config.js",
+    "build-web": "cd web && rollup -c rollup.config.mjs",
     "build-desktop": "node scripts/build_desktop.js",
     "start-desktop": "cd build && electron .",
-    "dev": "cd web && rollup -c rollup.config.js --watch",
+    "dev": "cd web && rollup -c rollup.config.mjs --watch",
     "watch": "node scripts/watch.js",
     "serve": "npm-run-all --parallel dev watch",
     "copy": "node scripts/copy.js",
@@ -21,8 +21,8 @@
     "clean": "node scripts/clean.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "clear": "npm prune",
-    "build-wind": "cd web/test/WebWorldWind && rollup -c rollup.config.js",
-    "dev-wind": "cd web/test/WebWorldWind && rollup -c rollup.config.js --watch"
+    "build-wind": "cd web/test/WebWorldWind && rollup -c rollup.config.mjs",
+    "dev-wind": "cd web/test/WebWorldWind && rollup -c rollup.config.mjs --watch"
   },
   "dependencies": {
     "@tweenjs/tween.js": "^18.5.0",
@@ -31,7 +31,9 @@
     "i18next": "^17.3.1",
     "i18next-xhr-backend": "^3.2.2",
     "js-cookie": "^2.2.1",
-    "prop-types": "^15.7.2"
+    "prop-types": "^15.7.2",
+    "rollup-plugin-livereload": "^2.0.5",
+    "rollup-plugin-serve": "^2.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",

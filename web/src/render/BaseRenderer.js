@@ -3,7 +3,7 @@
  *
  * Use of this source code is governed by a MIT-style
  * license that can be found in the LICENSE file.
- * 
+ *
  * For more information, please visit: https://github.com/tengge1/ShadowEditor
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
@@ -14,23 +14,19 @@ var ID = -1;
  * @author tengge / https://github.com/tengge1
  */
 class BaseRenderer {
-    constructor() {
-        this.id = `${this.constructor.name}${ID--}`;
-    }
+  constructor() {
+    this.id = `${this.constructor.name}${ID--}`;
+  }
 
-    create(scenes, camera, renderer, selected) {
-        return new Promise(resolve => {
-            resolve();
-        });
-    }
+  create(scenes, camera, renderer, selected) {
+    return new Promise(resolve => {
+      resolve();
+    });
+  }
 
-    render() {
+  render() {}
 
-    }
-
-    dispose() {
-
-    }
+  dispose() {}
 }
 
 export default BaseRenderer;

@@ -3,7 +3,7 @@
  *
  * Use of this source code is governed by a MIT-style
  * license that can be found in the LICENSE file.
- * 
+ *
  * For more information, please visit: https://github.com/tengge1/ShadowEditor
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
@@ -14,44 +14,45 @@ var ID = -1;
  * @param {Shadow.Player} app 播放器
  */
 class PlayerComponent {
-    constructor(app) {
-        this.id = `${this.constructor.name}${ID--}`;
-        this.app = app;
-    }
+  constructor(app) {
+    this.id = `${this.constructor.name}${ID--}`;
+    this.app = app;
+  }
 
-    /**
-     * 创建
-     * @param {THREE.Scene} scene 场景
-     * @param {THREE.PersPectiveCamera} camera 透视相机
-     * @param {THREE.WebGLRenderer} renderer 渲染器
-     * @param {Object} others 其他参数
-     * @returns {Promise} 任务Promise
-     */
-    create(scene, camera, renderer, others) { // eslint-disable-line
-        return new Promise(resolve => {
-            resolve();
-        });
-    }
+  /**
+   * 创建
+   * @param {THREE.Scene} scene 场景
+   * @param {THREE.PersPectiveCamera} camera 透视相机
+   * @param {THREE.WebGLRenderer} renderer 渲染器
+   * @param {Object} others 其他参数
+   * @returns {Promise} 任务Promise
+   */
+  create(scene, camera, renderer, others) {
+    // eslint-disable-line
+    return new Promise(resolve => {
+      resolve();
+    });
+  }
 
-    /**
-     * 更新
-     * @param {THREE.Clock} clock 时钟
-     * @param {Number} deltaTime 间隔时间
-     */
-    update(clock, deltaTime) { // eslint-disable-line
+  /**
+   * 更新
+   * @param {THREE.Clock} clock 时钟
+   * @param {Number} deltaTime 间隔时间
+   */
+  update(clock, deltaTime) {
+    // eslint-disable-line
+  }
 
-    }
-
-    /**
-     * 析构
-     * @param {THREE.Scene} scene 场景
-     * @param {THREE.PersPectiveCamera} camera 透视相机
-     * @param {THREE.WebGLRenderer} renderer 渲染器
-     * @param {Object} others 其他参数
-     */
-    dispose(scene, camera, renderer, others) { // eslint-disable-line
-
-    }
+  /**
+   * 析构
+   * @param {THREE.Scene} scene 场景
+   * @param {THREE.PersPectiveCamera} camera 透视相机
+   * @param {THREE.WebGLRenderer} renderer 渲染器
+   * @param {Object} others 其他参数
+   */
+  dispose(scene, camera, renderer, others) {
+    // eslint-disable-line
+  }
 }
 
 export default PlayerComponent;

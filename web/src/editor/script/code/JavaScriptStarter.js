@@ -3,7 +3,7 @@
  *
  * Use of this source code is governed by a MIT-style
  * license that can be found in the LICENSE file.
- * 
+ *
  * For more information, please visit: https://github.com/tengge1/ShadowEditor
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
@@ -12,7 +12,7 @@
  * @returns {String} 代码
  */
 function JavaScriptStarter() {
-    return `
+  return `
 // ${_t('Execute before scene render')}
 function init() {
 

@@ -1,3 +1,3 @@
 self.onmessage = e => {
-    console.log(e);
+  console.log(e);
 };

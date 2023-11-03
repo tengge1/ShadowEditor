@@ -16,6 +16,6 @@ is javascript.
 | favicon.ico | website icon |
 | index.html | web client home page |
 | manifest.json | |
-| rollup.config.js | rollup config file |
+| rollup.config.mjs | rollup config file |
 | sw.js |  |
 | view.html | home page when play in new window or publish |

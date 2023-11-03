@@ -39,25 +39,29 @@ class DistrictSceneTemplate extends BaseSceneTemplate {
         editor.addObject(dirlight);
 
         // 添加场景动画
-        editor.animations = [{
+        editor.animations = [
+          {
             id: null,
             uuid: THREE.Math.generateUUID(),
             layer: 0,
             layerName: _t('AnimLayer1'),
-            animations: []
-        }, {
+            animations: [],
+          },
+          {
             id: null,
             uuid: THREE.Math.generateUUID(),
             layer: 1,
             layerName: _t('AnimLayer2'),
-            animations: []
-        }, {
+            animations: [],
+          },
+          {
             id: null,
             uuid: THREE.Math.generateUUID(),
             layer: 2,
             layerName: _t('AnimLayer3'),
-            animations: []
-        }];
+            animations: [],
+          },
+        ];
     }
 }
 

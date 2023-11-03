@@ -3,7 +3,7 @@
  *
  * Use of this source code is governed by a MIT-style
  * license that can be found in the LICENSE file.
- * 
+ *
  * For more information, please visit: https://github.com/tengge1/ShadowEditor
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
@@ -15,80 +15,80 @@ import Ease from '../../utils/Ease';
  * @param {*} app 播放器
  */
 class TweenAnimator extends PlayerComponent {
-    constructor(app) {
-        super(app);
+  constructor(app) {
+    super(app);
+  }
+
+  create(scene, camera, renderer, animations) {
+    this.scene = scene;
+    this.animations = animations;
+
+    return new Promise(resolve => {
+      resolve();
+    });
+  }
+
+  update(clock, deltaTime, time) {
+    this.animations.forEach(n => {
+      n.animations.forEach(m => {
+        this.tweenObject(m, time);
+      });
+    });
+  }
+
+  tweenObject(animation, time) {
+    // 条件判断
+    if (animation.type !== 'Tween' || time < animation.beginTime || time > animation.endTime || !animation.target) {
+      return;
     }
 
-    create(scene, camera, renderer, animations) {
-        this.scene = scene;
-        this.animations = animations;
-
-        return new Promise(resolve => {
-            resolve();
-        });
+    // 获取对象
+    var target = this.scene.getObjectByProperty('uuid', animation.target);
+    if (!target) {
+      console.warn(`Player: There is no object that uuid equals to ${animation.target}.`);
+      return;
     }
 
-    update(clock, deltaTime, time) {
-        this.animations.forEach(n => {
-            n.animations.forEach(m => {
-                this.tweenObject(m, time);
-            });
-        });
+    // 获取插值函数
+    var data = animation.data;
+
+    var ease = Ease[data.ease];
+    if (!ease) {
+      console.warn(`Player: There is no ease function named ${data.ease}.`);
+      return;
     }
 
-    tweenObject(animation, time) {
-        // 条件判断
-        if (animation.type !== 'Tween' || time < animation.beginTime || time > animation.endTime || !animation.target) {
-            return;
-        }
+    var result = ease((time - animation.beginTime) / (animation.endTime - animation.beginTime));
 
-        // 获取对象
-        var target = this.scene.getObjectByProperty('uuid', animation.target);
-        if (!target) {
-            console.warn(`Player: There is no object that uuid equals to ${animation.target}.`);
-            return;
-        }
+    var positionX = data.beginPositionX + (data.endPositionX - data.beginPositionX) * result;
+    var positionY = data.beginPositionY + (data.endPositionY - data.beginPositionY) * result;
+    var positionZ = data.beginPositionZ + (data.endPositionZ - data.beginPositionZ) * result;
 
-        // 获取插值函数
-        var data = animation.data;
+    var rotationX = data.beginRotationX + (data.endRotationX - data.beginRotationX) * result;
+    var rotationY = data.beginRotationY + (data.endRotationY - data.beginRotationY) * result;
+    var rotationZ = data.beginRotationZ + (data.endRotationZ - data.beginRotationZ) * result;
 
-        var ease = Ease[data.ease];
-        if (!ease) {
-            console.warn(`Player: There is no ease function named ${data.ease}.`);
-            return;
-        }
+    var scaleX = data.beginScaleX + (data.endScaleX - data.beginScaleX) * result;
+    var scaleY = data.beginScaleY + (data.endScaleY - data.beginScaleY) * result;
+    var scaleZ = data.beginScaleZ + (data.endScaleZ - data.beginScaleZ) * result;
 
-        var result = ease((time - animation.beginTime) / (animation.endTime - animation.beginTime));
+    target.position.x = positionX;
+    target.position.y = positionY;
+    target.position.z = positionZ;
 
-        var positionX = data.beginPositionX + (data.endPositionX - data.beginPositionX) * result;
-        var positionY = data.beginPositionY + (data.endPositionY - data.beginPositionY) * result;
-        var positionZ = data.beginPositionZ + (data.endPositionZ - data.beginPositionZ) * result;
+    target.rotation.x = rotationX;
+    target.rotation.y = rotationY;
+    target.rotation.z = rotationZ;
 
-        var rotationX = data.beginRotationX + (data.endRotationX - data.beginRotationX) * result;
-        var rotationY = data.beginRotationY + (data.endRotationY - data.beginRotationY) * result;
-        var rotationZ = data.beginRotationZ + (data.endRotationZ - data.beginRotationZ) * result;
+    target.scale.x = scaleX;
+    target.scale.y = scaleY;
+    target.scale.z = scaleZ;
+  }
 
-        var scaleX = data.beginScaleX + (data.endScaleX - data.beginScaleX) * result;
-        var scaleY = data.beginScaleY + (data.endScaleY - data.beginScaleY) * result;
-        var scaleZ = data.beginScaleZ + (data.endScaleZ - data.beginScaleZ) * result;
-
-        target.position.x = positionX;
-        target.position.y = positionY;
-        target.position.z = positionZ;
-
-        target.rotation.x = rotationX;
-        target.rotation.y = rotationY;
-        target.rotation.z = rotationZ;
-
-        target.scale.x = scaleX;
-        target.scale.y = scaleY;
-        target.scale.z = scaleZ;
-    }
-
-    dispose() {
-        this.scene = null;
-        this.animations = null;
-    }
+  dispose() {
+    this.scene = null;
+    this.animations = null;
+  }
 }
 
 export default TweenAnimator;

@@ -3,7 +3,7 @@
  *
  * Use of this source code is governed by a MIT-style
  * license that can be found in the LICENSE file.
- * 
+ *
  * For more information, please visit: https://github.com/tengge1/ShadowEditor
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
@@ -17,72 +17,67 @@ import ParticleAnimator from '../animator/ParticleAnimator';
  * @param {*} app 播放器
  */
 class PlayerAnimation extends PlayerComponent {
-    constructor(app) {
-        super(app);
-        this.maxTime = 0; // 最大动画时间（单位：秒）
-        this.currentTime = 0; // 当前动画时间（单位：秒）
-        this.animations = null;
+  constructor(app) {
+    super(app);
+    this.maxTime = 0; // 最大动画时间（单位：秒）
+    this.currentTime = 0; // 当前动画时间（单位：秒）
+    this.animations = null;
 
-        this.animators = [
-            new TweenAnimator(app),
-            new MMDAnimator(app),
-            new ParticleAnimator(app)
-        ];
-    }
+    this.animators = [new TweenAnimator(app), new MMDAnimator(app), new ParticleAnimator(app)];
+  }
 
-    create(scene, camera, renderer, animations) {
-        this.maxTime = 0;
-        this.currentTime = 0;
-        this.scene = scene;
-        this.camera = camera;
-        this.renderer = renderer;
-        this.animations = animations;
+  create(scene, camera, renderer, animations) {
+    this.maxTime = 0;
+    this.currentTime = 0;
+    this.scene = scene;
+    this.camera = camera;
+    this.renderer = renderer;
+    this.animations = animations;
 
-        this.maxTime = this.calculateMaxTime();
+    this.maxTime = this.calculateMaxTime();
 
-        var promises = this.animators.map(n => {
-            return n.create(scene, camera, renderer, animations);
-        });
+    var promises = this.animators.map(n => {
+      return n.create(scene, camera, renderer, animations);
+    });
 
-        return Promise.all(promises);
-    }
+    return Promise.all(promises);
+  }
 
-    calculateMaxTime() {
-        var maxTime = 0;
+  calculateMaxTime() {
+    var maxTime = 0;
 
-        this.animations.forEach(n => {
-            n.animations.forEach(m => {
-                if (m.endTime > maxTime) {
-                    maxTime = m.endTime;
-                }
-            });
-        });
-
-        return maxTime;
-    }
-
-    update(clock, deltaTime) {
-        if (this.maxTime > 0) {
-            this.currentTime = clock.elapsedTime % this.maxTime;
+    this.animations.forEach(n => {
+      n.animations.forEach(m => {
+        if (m.endTime > maxTime) {
+          maxTime = m.endTime;
         }
+      });
+    });
 
-        this.animators.forEach(n => {
-            n.update(clock, deltaTime, this.currentTime);
-        });
+    return maxTime;
+  }
+
+  update(clock, deltaTime) {
+    if (this.maxTime > 0) {
+      this.currentTime = clock.elapsedTime % this.maxTime;
     }
+    this.animators.forEach(n => {
+      n.update(clock, deltaTime, this.currentTime);
+    });
+  }
 
-    dispose() {
-        this.maxTime = 0;
-        this.currentTime = 0;
-        this.scene = null;
-        this.camera = null;
-        this.renderer = null;
-        this.animations = null;
+  dispose() {
+    this.maxTime = 0;
+    this.currentTime = 0;
+    this.scene = null;
+    this.camera = null;
+    this.renderer = null;
+    this.animations = null;
 
-        this.animators.forEach(n => {
-            n.dispose();
-        });
-    }
+    this.animators.forEach(n => {
+      n.dispose();
+    });
+  }
 }
 
 export default PlayerAnimation;

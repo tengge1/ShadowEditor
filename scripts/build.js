@@ -59,7 +59,7 @@ async function main() {
     process.chdir(webDir);
     console.log('build web client...');
     const npx = os.platform() === 'win32' ? 'npx.cmd' : 'npx';
-    await exec(npx, ['rollup', '-c', 'rollup.config.js']);
+    await exec(npx, ['rollup', '-c', 'rollup.config.mjs']);
     console.log(`copy files...`);
     fs.copySync('./assets', '../build/public/assets');
     fs.copySync('./locales', '../build/public/locales');
