@@ -3,7 +3,7 @@
  *
  * Use of this source code is governed by a MIT-style
  * license that can be found in the LICENSE file.
- * 
+ *
  * For more information, please visit: https://github.com/tengge1/ShadowEditor
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
@@ -20,160 +20,151 @@ import global from '../../../global';
  * @author tengge / https://github.com/tengge1
  */
 class ScriptWindow extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.scriptTypes = {
-            'javascript': 'JavaScript',
-            'vertexShader': _t('Vertex Shader'),
-            'fragmentShader': _t('Frag Shader'),
-            'json': _t('Shader Program Info')
-        };
+    this.scriptTypes = {
+      javascript: 'JavaScript',
+      vertexShader: _t('Vertex Shader'),
+      fragmentShader: _t('Frag Shader'),
+      json: _t('Shader Program Info'),
+    };
 
-        this.state = {
-            name: _t('New Script'),
-            type: 'javascript'
-        };
+    this.state = {
+      name: _t('New Script'),
+      type: 'javascript',
+    };
 
-        this.handleNameChange = this.handleNameChange.bind(this);
-        this.handleTypeChange = this.handleTypeChange.bind(this);
-        this.handleOK = this.handleOK.bind(this);
-        this.handleClose = this.handleClose.bind(this);
-        this.handleSaveScript = this.handleSaveScript.bind(this);
+    this.handleNameChange = this.handleNameChange.bind(this);
+    this.handleTypeChange = this.handleTypeChange.bind(this);
+    this.handleOK = this.handleOK.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+    this.handleSaveScript = this.handleSaveScript.bind(this);
+  }
+
+  render() {
+    const { name, type } = this.state;
+
+    return (
+      <Window className={'ScriptWindow'} title={_t('Create Script')} onClose={this.handleClose}>
+        <Content>
+          <Form>
+            <FormControl>
+              <Label>{_t('Name')}</Label>
+              <Input value={name} onChange={this.handleNameChange} />
+            </FormControl>
+            <FormControl>
+              <Label>{_t('Type')}</Label>
+              <Select options={this.scriptTypes} value={type} disabled onChange={this.handleTypeChange} />
+            </FormControl>
+          </Form>
+        </Content>
+        <Buttons>
+          <Button onClick={this.handleOK}>{_t('OK')}</Button>
+          <Button onClick={this.handleClose}>{_t('Cancel')}</Button>
+        </Buttons>
+      </Window>
+    );
+  }
+
+  handleNameChange(value) {
+    this.setState({
+      name: value,
+    });
+  }
+
+  handleTypeChange(value) {
+    this.setState({
+      type: value,
+    });
+  }
+
+  handleOK() {
+    const { name, type } = this.state;
+
+    const uuid = THREE.Math.generateUUID();
+
+    let source = '';
+
+    switch (type) {
+      case 'javascript':
+        source = JavaScriptStarter();
+        break;
+      case 'vertexShader':
+        source = VertexShaderStarter();
+        break;
+      case 'fragmentShader':
+        source = FragmentShaderStarter();
+        break;
+      case 'json':
+        source = JsonStarter();
+        break;
+      default:
+        source = JavaScriptStarter();
     }
 
-    render() {
-        const { name, type } = this.state;
-
-        return <Window
-            className={'ScriptWindow'}
-            title={_t('Create Script')}
-            onClose={this.handleClose}
-               >
-            <Content>
-                <Form>
-                    <FormControl>
-                        <Label>{_t('Name')}</Label>
-                        <Input value={name}
-                            onChange={this.handleNameChange}
-                        />
-                    </FormControl>
-                    <FormControl>
-                        <Label>{_t('Type')}</Label>
-                        <Select
-                            options={this.scriptTypes}
-                            value={type}
-                            disabled
-                            onChange={this.handleTypeChange}
-                        />
-                    </FormControl>
-                </Form>
-            </Content>
-            <Buttons>
-                <Button onClick={this.handleOK}>{_t('OK')}</Button>
-                <Button onClick={this.handleClose}>{_t('Cancel')}</Button>
-            </Buttons>
-        </Window>;
+    const index = global.app.editor.scripts.findIndex(n => n.uuid === uuid);
+    console.log(global.app, 'global.app.editor');
+    if (index > -1) {
+      global.app.editor.scripts[index] = {
+        id: null,
+        name,
+        type,
+        source,
+        uuid,
+      };
+    } else {
+      global.app.editor.scripts.push({
+        id: null,
+        name,
+        type,
+        source,
+        uuid,
+      });
     }
 
-    handleNameChange(value) {
-        this.setState({
-            name: value
-        });
+    global.app.call(`scriptChanged`, this);
+
+    this.handleClose();
+
+    this.setState({
+      show: false,
+      uuid: null,
+      name: '',
+      type: 'javascript',
+      source: '',
+    });
+
+    global.app.call(`editScript`, this, uuid, name, type, source, this.handleSaveScript);
+  }
+
+  handleSaveScript(uuid, name, type, source) {
+    const index = global.app.editor.scripts.findIndex(n => n.uuid === uuid);
+
+    if (index > -1) {
+      global.app.editor.scripts[index] = {
+        id: null,
+        uuid,
+        name,
+        type,
+        source,
+      };
+    } else {
+      global.app.editor.scripts.push({
+        id: null,
+        uuid,
+        name,
+        type,
+        source,
+      });
     }
 
-    handleTypeChange(value) {
-        this.setState({
-            type: value
-        });
-    }
+    global.app.call(`scriptChanged`, this);
+  }
 
-    handleOK() {
-        const { name, type } = this.state;
-
-        const uuid = THREE.Math.generateUUID();
-
-        let source = '';
-
-        switch (type) {
-            case 'javascript':
-                source = JavaScriptStarter();
-                break;
-            case 'vertexShader':
-                source = VertexShaderStarter();
-                break;
-            case 'fragmentShader':
-                source = FragmentShaderStarter();
-                break;
-            case 'json':
-                source = JsonStarter();
-                break;
-            default:
-                source = JavaScriptStarter();
-        }
-
-        const index = global.app.editor.scripts.findIndex(n => n.uuid === uuid);
-
-        if (index > -1) {
-            global.app.editor.scripts[index] = {
-                id: null,
-                name,
-                type,
-                source,
-                uuid
-            };
-        } else {
-            global.app.editor.scripts.push({
-                id: null,
-                name,
-                type,
-                source,
-                uuid
-            });
-        }
-
-        global.app.call(`scriptChanged`, this);
-
-        this.handleClose();
-
-        this.setState({
-            show: false,
-            uuid: null,
-            name: '',
-            type: 'javascript',
-            source: ''
-        });
-
-        global.app.call(`editScript`, this, uuid, name, type, source, this.handleSaveScript);
-    }
-
-    handleSaveScript(uuid, name, type, source) {
-        const index = global.app.editor.scripts.findIndex(n => n.uuid === uuid);
-
-        if (index > -1) {
-            global.app.editor.scripts[index] = {
-                id: null,
-                uuid,
-                name,
-                type,
-                source
-            };
-        } else {
-            global.app.editor.scripts.push({
-                id: null,
-                uuid,
-                name,
-                type,
-                source
-            });
-        }
-
-        global.app.call(`scriptChanged`, this);
-    }
-
-    handleClose() {
-        global.app.removeElement(this);
-    }
+  handleClose() {
+    global.app.removeElement(this);
+  }
 }
 
 export default ScriptWindow;

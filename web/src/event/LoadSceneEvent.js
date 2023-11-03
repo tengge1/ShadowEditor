@@ -3,7 +3,7 @@
  *
  * Use of this source code is governed by a MIT-style
  * license that can be found in the LICENSE file.
- * 
+ *
  * For more information, please visit: https://github.com/tengge1/ShadowEditor
  * You can also visit: https://gitee.com/tengge1/ShadowEditor
  */
@@ -17,160 +17,167 @@ import global from '../global';
  * @author tengge / https://github.com/tengge1
  */
 class LoadSceneEvent extends BaseEvent {
-    constructor() {
-        super();
+  constructor() {
+    super();
+  }
+
+  start() {
+    global.app.on(`load.${this.id}`, this.onLoad.bind(this));
+    global.app.on(`loadSceneList.${this.id}`, this.onLoadSceneList.bind(this));
+  }
+
+  stop() {
+    global.app.on(`load.${this.id}`, null);
+    global.app.on(`loadSceneList.${this.id}`, null);
+  }
+
+  onLoad(url, name, id) {
+    // id: MongoDB _id
+    if (!name || name.trim() === '') {
+      name = _t('No Name');
     }
 
-    start() {
-        global.app.on(`load.${this.id}`, this.onLoad.bind(this));
-        global.app.on(`loadSceneList.${this.id}`, this.onLoadSceneList.bind(this));
-    }
+    // 新增场景id为null，不需要创建；否则导致保存示例场景报错。
+    // if (!id) {
+    //     id = THREE.Math.generateUUID();
+    // }
 
-    stop() {
-        global.app.on(`load.${this.id}`, null);
-        global.app.on(`loadSceneList.${this.id}`, null);
-    }
+    global.app.editor.clear(false);
+    document.title = name;
 
-    onLoad(url, name, id) { // id: MongoDB _id
-        if (!name || name.trim() === '') {
-            name = _t('No Name');
+    global.app.mask(_t('Loading...'));
+
+    fetch(url).then(response => {
+      response.json().then(obj => {
+        if (obj.Code !== 200) {
+          global.app.toast(_t(obj.Msg), 'warn');
+          return;
         }
 
-        // 新增场景id为null，不需要创建；否则导致保存示例场景报错。
-        // if (!id) {
-        //     id = THREE.Math.generateUUID();
-        // }
+        this.onLoadSceneList(obj.Data, name, id);
+      });
+    });
+  }
 
-        global.app.editor.clear(false);
-        document.title = name;
+  onLoadSceneList(list, name, id) {
+    global.app.mask(_t('Loading...'));
 
-        global.app.mask(_t('Loading...'));
+    new Converter()
+      .fromJson(list, {
+        server: global.app.options.server,
+        camera: global.app.editor.camera,
+        domWidth: global.app.editor.renderer.domElement.width,
+        domHeight: global.app.editor.renderer.domElement.height,
+      })
+      .then(obj => {
+        this.onLoadScene(obj);
 
-        fetch(url).then(response => {
-            response.json().then(obj => {
-                if (obj.Code !== 200) {
-                    global.app.toast(_t(obj.Msg), 'warn');
-                    return;
-                }
+        global.app.editor.sceneID = id || 0;
+        global.app.editor.sceneName = name || _t('No Name');
+        document.title = global.app.editor.sceneName;
 
-                this.onLoadSceneList(obj.Data, name, id);
-            });
-        });
-    }
-
-    onLoadSceneList(list, name, id) {
-        global.app.mask(_t('Loading...'));
-
-        new Converter().fromJson(list, {
-            server: global.app.options.server,
-            camera: global.app.editor.camera,
-            domWidth: global.app.editor.renderer.domElement.width,
-            domHeight: global.app.editor.renderer.domElement.height
-        }).then(obj => {
-            this.onLoadScene(obj);
-
-            global.app.editor.sceneID = id || 0;
-            global.app.editor.sceneName = name || _t('No Name');
-            document.title = global.app.editor.sceneName;
-
-            if (obj.options) {
-                global.app.call('optionsChanged', this);
-
-                // if (obj.options.sceneType === 'GIS') {
-                //     if (global.app.editor.gis) {
-                //         global.app.editor.gis.stop();
-                //     }
-                //     global.app.editor.gis = new GISScene(global.app, {
-                //         useCameraPosition: true
-                //     });
-                //     global.app.editor.gis.start();
-                // }
-            }
-
-            if (obj.scripts) {
-                global.app.call('scriptChanged', this);
-            }
-
-            if (obj.scene) {
-                global.app.call('sceneGraphChanged', this);
-            }
-
-            global.app.unmask();
-        });
-    }
-
-    onLoadScene(obj) {
         if (obj.options) {
-            Object.assign(global.app.options, obj.options);
-        }
+          global.app.call('optionsChanged', this);
 
-        if (obj.camera) {
-            global.app.editor.camera.remove(global.app.editor.audioListener);
-            global.app.editor.camera.copy(obj.camera);
-
-            let audioListener = global.app.editor.camera.children.filter(n => n instanceof THREE.AudioListener)[0];
-
-            if (audioListener) {
-                global.app.editor.audioListener = audioListener;
-            }
-        }
-
-        if (obj.renderer) {
-            var viewport = global.app.viewport;
-            var oldRenderer = global.app.editor.renderer;
-
-            viewport.removeChild(oldRenderer.domElement);
-            viewport.appendChild(obj.renderer.domElement);
-            global.app.editor.renderer = obj.renderer;
-            global.app.editor.renderer.setSize(viewport.offsetWidth, viewport.offsetHeight);
-            global.app.call('resize', this);
+          // if (obj.options.sceneType === 'GIS') {
+          //     if (global.app.editor.gis) {
+          //         global.app.editor.gis.stop();
+          //     }
+          //     global.app.editor.gis = new GISScene(global.app, {
+          //         useCameraPosition: true
+          //     });
+          //     global.app.editor.gis.start();
+          // }
         }
 
         if (obj.scripts) {
-            Object.assign(global.app.editor.scripts, obj.scripts);
-        }
-
-        if (obj.animations) {
-            Object.assign(global.app.editor.animations, obj.animations);
-        } else {
-            global.app.editor.animations = [{
-                id: null,
-                uuid: THREE.Math.generateUUID(),
-                layer: 0,
-                layerName: _t('AnimLayer1'),
-                animations: []
-            }, {
-                id: null,
-                uuid: THREE.Math.generateUUID(),
-                layer: 1,
-                layerName: _t('AnimLayer2'),
-                animations: []
-            }, {
-                id: null,
-                uuid: THREE.Math.generateUUID(),
-                layer: 2,
-                layerName: _t('AnimLayer3'),
-                animations: []
-            }];
+          global.app.call('scriptChanged', this);
         }
 
         if (obj.scene) {
-            global.app.editor.setScene(obj.scene);
+          global.app.call('sceneGraphChanged', this);
         }
 
-        global.app.editor.camera.updateProjectionMatrix();
+        global.app.unmask();
+      });
+  }
 
-        if (obj.options.selected) {
-            var selected = global.app.editor.objectByUuid(obj.options.selected);
-            if (selected) {
-                global.app.editor.select(selected);
-            }
-        }
-
-        global.app.call('enableVR', this, global.app.options.enableVR);
-        global.app.call('sceneLoaded', this);
-        global.app.call('animationChanged', this);
+  onLoadScene(obj) {
+    if (obj.options) {
+      Object.assign(global.app.options, obj.options);
     }
+
+    if (obj.camera) {
+      global.app.editor.camera.remove(global.app.editor.audioListener);
+      global.app.editor.camera.copy(obj.camera);
+
+      let audioListener = global.app.editor.camera.children.filter(n => n instanceof THREE.AudioListener)[0];
+
+      if (audioListener) {
+        global.app.editor.audioListener = audioListener;
+      }
+    }
+
+    if (obj.renderer) {
+      var viewport = global.app.viewport;
+      var oldRenderer = global.app.editor.renderer;
+
+      viewport.removeChild(oldRenderer.domElement);
+      viewport.appendChild(obj.renderer.domElement);
+      global.app.editor.renderer = obj.renderer;
+      global.app.editor.renderer.setSize(viewport.offsetWidth, viewport.offsetHeight);
+      global.app.call('resize', this);
+    }
+
+    if (obj.scripts) {
+      Object.assign(global.app.editor.scripts, obj.scripts);
+    }
+
+    if (obj.animations) {
+      Object.assign(global.app.editor.animations, obj.animations);
+    } else {
+      global.app.editor.animations = [
+        {
+          id: null,
+          uuid: THREE.Math.generateUUID(),
+          layer: 0,
+          layerName: _t('AnimLayer1'),
+          animations: [],
+        },
+        {
+          id: null,
+          uuid: THREE.Math.generateUUID(),
+          layer: 1,
+          layerName: _t('AnimLayer2'),
+          animations: [],
+        },
+        {
+          id: null,
+          uuid: THREE.Math.generateUUID(),
+          layer: 2,
+          layerName: _t('AnimLayer3'),
+          animations: [],
+        },
+      ];
+    }
+
+    if (obj.scene) {
+      global.app.editor.setScene(obj.scene);
+    }
+
+    global.app.editor.camera.updateProjectionMatrix();
+
+    if (obj.options.selected) {
+      var selected = global.app.editor.objectByUuid(obj.options.selected);
+      if (selected) {
+        global.app.editor.select(selected);
+      }
+    }
+
+    global.app.call('enableVR', this, global.app.options.enableVR);
+    global.app.call('sceneLoaded', this);
+    global.app.call('animationChanged', this);
+  }
 }
 
 export default LoadSceneEvent;

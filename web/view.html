@@ -1,28 +1,27 @@
 <!DOCTYPE html>
 
 <html lang="zh-cn">
-
-<head>
-    <meta charset="utf-8">
-    <title>Shadow Editor Viewer</title>
-    <link rel="shortcut icon" href="favicon.ico">
-    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <head>
+    <meta charset="utf-8" />
+    <title>No Name</title>
+    <link rel="shortcut icon" href="favicon.ico" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
     <link href="build/ShadowEditor.css" rel="stylesheet" />
     <style>
-        .player {
-            position: absolute;
-            left: 0;
-            top: 0;
-            right: auto;
-            bottom: auto;
-            width: 100%;
-            height: 100%;
-            background-color: white;
-        }
+      .player {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: auto;
+        bottom: auto;
+        width: 100%;
+        height: 100%;
+        background-color: white;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="container" tabindex="10"></div>
     <script src="assets/js/libs/react.js"></script>
     <script src="assets/js/libs/react-dom.js"></script>
@@ -41,59 +40,60 @@
 
     <script src="build/ShadowEditor.js"></script>
     <script>
-        let app = null;
+      let app = null;
 
-        const getQueryString = name => {
-            var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
-            var r = window.location.search.substr(1).match(reg);
-            if (r != null) return unescape(r[2]);
-            return null;
-        };
+      const getQueryString = name => {
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+      };
 
-        const start = () => {
-            app = new Shadow.Player(document.querySelector('#container'), {
-                server: location.origin,
-                enableThrowBall: false,
-            });
+      const start = () => {
+        app = new Shadow.Player(document.querySelector('#container'), {
+          server: location.origin,
+          enableThrowBall: false,
+        });
 
-            let sceneID = getQueryString('sceneID');
-            let sceneFile = getQueryString('sceneFile');
+        let sceneID = getQueryString('sceneID');
+        let sceneFile = getQueryString('sceneFile');
 
-            // 发布场景自动把`<%SceneID%>`替换成真实场景ID，不再需要加`SceneID`或`SceneFile`参数
-            if (!sceneFile) {
-                sceneFile = '<%SceneID%>';
+        // 发布场景自动把`<%SceneID%>`替换成真实场景ID，不再需要加`SceneID`或`SceneFile`参数
+        if (!sceneFile) {
+          sceneFile = '<%SceneID%>';
+        }
+
+        if (sceneID) {
+          // 通过/api/Scene/Load?ID=sceneID获取场景数据
+          fetch(`${app.options.server}/api/Scene/Load?ID=${sceneID}`).then(response => {
+            if (response.ok) {
+              response.json().then(json => {
+                if (json.Code === 200) {
+                  app.start(JSON.stringify(json.Data));
+                }
+              });
             }
-
-            if (sceneID) { // 通过/api/Scene/Load?ID=sceneID获取场景数据
-                fetch(`${app.options.server}/api/Scene/Load?ID=${sceneID}`).then(response => {
-                    if (response.ok) {
-                        response.json().then(json => {
-                            if (json.Code === 200) {
-                                app.start(JSON.stringify(json.Data));
-                            }
-                        });
-                    }
-                });
-            } else if (sceneFile) { // 通过/Scene/sceneID.txt获取场景数据（导出用）
-                fetch(`${app.options.server}/Scene/${sceneFile}.txt`).then(response => {
-                    if (response.ok) {
-                        response.json().then(json => {
-                            app.start(JSON.stringify(json));
-                        });
-                    }
-                });
-            } else {
-                alert('Lack sceneID or sceneFile query params, scene load failed.');
+          });
+        } else if (sceneFile) {
+          // 通过/Scene/sceneID.txt获取场景数据（导出用）
+          fetch(`${app.options.server}/Scene/${sceneFile}.txt`).then(response => {
+            if (response.ok) {
+              response.json().then(json => {
+                app.start(JSON.stringify(json));
+              });
             }
-        };
+          });
+        } else {
+          alert('Lack sceneID or sceneFile query params, scene load failed.');
+        }
+      };
 
-        window.onload = function () {
-            Ammo().then(AmmoLib => {
-                window.Ammo = AmmoLib;
-                start();
-            });
-        };
+      window.onload = function () {
+        Ammo().then(AmmoLib => {
+          window.Ammo = AmmoLib;
+          start();
+        });
+      };
     </script>
-</body>
-
+  </body>
 </html>
