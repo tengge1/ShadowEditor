@@ -10,7 +10,7 @@ Note: The server is a compiled version with built-in mongodb, execute `start.bat
 visit `http://localhost:2020` in Google Chrome. Windows version
 requires `Visual C++ Redistributable for Visual Studio 2015`.
 
-> Good news! The version based on vite4 + vue3 + ts5 + ant-design-vue7 is coming soon. [Click here] (README_new.md) to view more details.
+> Good news! The version based on vite4 + vue3 + ts5 + ant-design-vue7 is coming soon. [Click here](README_new.md) to view more details.
 
 [![image](https://img.shields.io/github/stars/tengge1/ShadowEditor)](https://github.com/tengge1/ShadowEditor/stargazers)
 [![image](https://img.shields.io/github/forks/tengge1/ShadowEditor)](https://github.com/tengge1/ShadowEditor/network/members)
