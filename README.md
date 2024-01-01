@@ -10,6 +10,8 @@ Note: The server is a compiled version with built-in mongodb, execute `start.bat
 visit `http://localhost:2020` in Google Chrome. Windows version
 requires `Visual C++ Redistributable for Visual Studio 2015`.
 
+> Good news! The version based on vite4 + vue3 + ts5 + ant-design-vue7 is coming soon. [Click here] (README_new.md) to view more details.
+
 [![image](https://img.shields.io/github/stars/tengge1/ShadowEditor)](https://github.com/tengge1/ShadowEditor/stargazers)
 [![image](https://img.shields.io/github/forks/tengge1/ShadowEditor)](https://github.com/tengge1/ShadowEditor/network/members)
 [![image](https://img.shields.io/github/issues/tengge1/ShadowEditor)](https://github.com/tengge1/ShadowEditor/issues)
@@ -18,21 +20,21 @@ requires `Visual C++ Redistributable for Visual Studio 2015`.
 [![image](https://img.shields.io/github/license/tengge1/ShadowEditor)](https://github.com/tengge1/ShadowEditor/blob/master/LICENSE)
 [![image](https://travis-ci.org/tengge1/ShadowEditor.svg?branch=master)](https://travis-ci.org/github/tengge1/ShadowEditor)
 
-* Name: Shadow Editor
-* Version: v0.6.1 (Coming Soon)
-* Description: Cross-platform 3D scene editor based on three.js, golang and mongodb.
-* Source: [GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) |
+- Name: Shadow Editor
+- Version: v0.6.1 (Coming Soon)
+- Description: Cross-platform 3D scene editor based on three.js, golang and mongodb.
+- Source: [GitHub](https://github.com/tengge1/ShadowEditor) [Gitee](https://gitee.com/tengge1/ShadowEditor) |
   Document: [Gitee](https://gitee.com/tengge1/ShadowEditor/wikis/pages) |
   Demo: [GitHub](https://tengge1.github.io/ShadowEditor-examples/) [Gitee](http://tengge1.gitee.io/shadoweditor-examples/)
   |
   Video: [Weibo](https://weibo.com/tv/v/IjIn9AyvX?fid=1034:4446986821107725) [Bilibili](https://www.bilibili.com/video/av78428475?from=search&seid=9203731141485399611)
   | Assets: [BaiduNetdisk(rfja)](https://pan.baidu.com/s/1BYLPyHJuc2r0bS9Te3SRjA)
-* Technology Stack: html, css, javascript, rollup, react.js, webgl, three.js, golang, mongodb, nodejs, electron,
+- Technology Stack: html, css, javascript, rollup, react.js, webgl, three.js, golang, mongodb, nodejs, electron,
   protocol buffers.
-* If helpful to you, please [DOnate](https://gitee.com/tengge1/ShadowEditor) to support us. thank you!
+- If helpful to you, please [DOnate](https://gitee.com/tengge1/ShadowEditor) to support us. thank you!
 
 <img src="https://gitee.com/tengge1/ShadowEditor/raw/master/images/scene20200503_en.jpg" />  
-<img src="https://gitee.com/tengge1/ShadowEditor/raw/master/images/vr.jpg" />  
+<img src="https://gitee.com/tengge1/ShadowEditor/raw/master/images/vr.jpg" />
 
 ## v0.6.1 is Coming Soon
 
@@ -46,8 +48,8 @@ provided in the extensions, just like VSCode. We will develop in the `dev` branc
 
 ## v0.6.0 has Released
 
-* Release Date: July 24, 2021
-* Update Logs:
+- Release Date: July 24, 2021
+- Update Logs:
 
 1. Fix the bug that creates a new mongo connection when request.
 2. Check VR in the status bar to enable VR.
@@ -78,90 +80,90 @@ provided in the extensions, just like VSCode. We will develop in the `dev` branc
 ## Feature List
 
 - [x] General
-    - [x] Cross-platform
-        - [x] Windows, Linux, Mac
-        - [x] Desktop, Web
-    - [x] Multi-language support
-        - [x] English、中文、繁體中文、日本語、한국어、русский、Le français
-    - [x] Assets management
-        - [x] scene, mesh, texture, material, audio, animation, screenshot, video, typeface
-    - [x] Authority management
-        - [x] organization, user
-        - [x] role, authority
-        - [x] registration, login, password modification
-    - [x] Version management
-        - [x] Scene history and logs
-        - [x] undo, redo, auto saving
-    - [x] Player
-        - [x] play animations in the scene in real time, and can play full screen and in new window
-    - [x] Settings
-        - [x] Display, renderer, helpers, filter, weather, control mode, select mode, add mode, language
+  - [x] Cross-platform
+    - [x] Windows, Linux, Mac
+    - [x] Desktop, Web
+  - [x] Multi-language support
+    - [x] English、中文、繁體中文、日本語、한국어、русский、Le français
+  - [x] Assets management
+    - [x] scene, mesh, texture, material, audio, animation, screenshot, video, typeface
+  - [x] Authority management
+    - [x] organization, user
+    - [x] role, authority
+    - [x] registration, login, password modification
+  - [x] Version management
+    - [x] Scene history and logs
+    - [x] undo, redo, auto saving
+  - [x] Player
+    - [x] play animations in the scene in real time, and can play full screen and in new window
+  - [x] Settings
+    - [x] Display, renderer, helpers, filter, weather, control mode, select mode, add mode, language
 - [x] Small scene editing
-    - [x] Add mesh
-        - [x] 3ds, 3mf, amf, assimp, awd, babylon, bvh, collada, ctm
-        - [x] draco, fbx, gcode, gltf, glb, js, kmz, lmesh, md2, pmd, pmx
-        - [x] nrrd, obj, pcd, pdb, ply, prwm, sea3d, stl, vrm, vrml, vtk, X
-    - [x] Built-in objects
-        - [x] group
-        - [x] plane, cube, circle, cylinder, sphere, icosahedron, torus, torus knot, teapot, lathe
-        - [x] unscaled text, 3D text
-        - [x] line segments, CatmullRom curve, quadratic Bezier curve, cubic Bezier curve, ellipse curve
-        - [x] point marks
-        - [x] arrow helper, axes helper
-        - [x] sprite
-    - [x] Built-in lights
-        - [x] ambient light, directional light, point light, spotlight, hemispherical light, rect area light
-        - [x] point light, hemispherical light, rect area light helper
-    - [x] Built-in components
-        - [x] background music, particle emitter
-        - [x] sky, fire, water, smoke, cloth
-        - [x] berlin terrain, sky sphere
-    - [x] Materials editing
-        - [x] LineBasicMaterial, LineDashedMaterial, MeshBasicMaterial, MeshDepthMaterial, MeshNormalMaterial
-        - [x] MeshLambertMaterial, MeshPhongMaterial, PointsMaterial, MeshStandardMaterial, MeshPhysicalMaterial
-        - [x] SpriteMaterial, ShaderMaterial, RawShaderMaterial
-    - [x] Post-processing
-        - [x] After-image, bokeh, dot screen, FXAA, glitch
-        - [x] halftone, pixel, RGB shift, SAO
-        - [x] SMAA, SSAA
-        - [x] SSAO, TAA
-    - [x] Text editing
-        - [x] javascript editing with intelligence
-        - [x] shader editing
-        - [x] json file editing
-    - [x] Mesh export
-        - [x] gltf、obj、ply、stl、Collada、DRACO
-    - [x] Scene publishment
-        - [x] Publish scene as static resources, and can be embedded in iframe
-    - [x] Examples
-        - [x] Arkanoid, camera, particle, ping pong, shader
-    - [x] General tools
-        - [x] Select, pan, rotate, zoom
-        - [x] Perspective view, front view, side view, top view, wireframe mode
-        - [x] Screenshot, record
-        - [x] Draw point, draw line, draw polygon, spray
-        - [x] Measure distance
-    - [x] Others
-        - [x] VR：cardboard, htc vive, chrome, firefox
-        - [x] Bullet physics engine
+  - [x] Add mesh
+    - [x] 3ds, 3mf, amf, assimp, awd, babylon, bvh, collada, ctm
+    - [x] draco, fbx, gcode, gltf, glb, js, kmz, lmesh, md2, pmd, pmx
+    - [x] nrrd, obj, pcd, pdb, ply, prwm, sea3d, stl, vrm, vrml, vtk, X
+  - [x] Built-in objects
+    - [x] group
+    - [x] plane, cube, circle, cylinder, sphere, icosahedron, torus, torus knot, teapot, lathe
+    - [x] unscaled text, 3D text
+    - [x] line segments, CatmullRom curve, quadratic Bezier curve, cubic Bezier curve, ellipse curve
+    - [x] point marks
+    - [x] arrow helper, axes helper
+    - [x] sprite
+  - [x] Built-in lights
+    - [x] ambient light, directional light, point light, spotlight, hemispherical light, rect area light
+    - [x] point light, hemispherical light, rect area light helper
+  - [x] Built-in components
+    - [x] background music, particle emitter
+    - [x] sky, fire, water, smoke, cloth
+    - [x] berlin terrain, sky sphere
+  - [x] Materials editing
+    - [x] LineBasicMaterial, LineDashedMaterial, MeshBasicMaterial, MeshDepthMaterial, MeshNormalMaterial
+    - [x] MeshLambertMaterial, MeshPhongMaterial, PointsMaterial, MeshStandardMaterial, MeshPhysicalMaterial
+    - [x] SpriteMaterial, ShaderMaterial, RawShaderMaterial
+  - [x] Post-processing
+    - [x] After-image, bokeh, dot screen, FXAA, glitch
+    - [x] halftone, pixel, RGB shift, SAO
+    - [x] SMAA, SSAA
+    - [x] SSAO, TAA
+  - [x] Text editing
+    - [x] javascript editing with intelligence
+    - [x] shader editing
+    - [x] json file editing
+  - [x] Mesh export
+    - [x] gltf、obj、ply、stl、Collada、DRACO
+  - [x] Scene publishment
+    - [x] Publish scene as static resources, and can be embedded in iframe
+  - [x] Examples
+    - [x] Arkanoid, camera, particle, ping pong, shader
+  - [x] General tools
+    - [x] Select, pan, rotate, zoom
+    - [x] Perspective view, front view, side view, top view, wireframe mode
+    - [x] Screenshot, record
+    - [x] Draw point, draw line, draw polygon, spray
+    - [x] Measure distance
+  - [x] Others
+    - [x] VR：cardboard, htc vive, chrome, firefox
+    - [x] Bullet physics engine
 - [x] UI Controls
-    - [x] Canvas
-    - [x] Form: Button, CheckBox, Form, FormControls, IconButton, IconMenuButton, ImageButton, Input, Label, LinkButton,
-      Radio, SearchField, Select, TextArea, Toggle
-    - [x] Icon
-    - [x] Image: Image, ImageList, ImageSelector, ImageUploader
-    - [x] Layout: AbsoluteLayout, AccordionLayout, BorderLayout, HBoxLayout, TableLayout, VBoxLayout
-    - [x] Menu: ContextMenu, MenuBar, MenuBarFiller, MenuItem, MenuItemSeparator, MenuTab.
-    - [x] Panel
-    - [x] Progress: LoadMask
-    - [x] Property: ButtonProperty, ButtonsProperty, CheckBoxProperty, ColorProperty, DisplayProperty, IntegerProperty,
-      NumberProperty, PropertyGrid, PropertyGroup, SelectProperty, TextProperty, TextureProperty
-    - [x] SVG
-    - [x] Table: DataGrid, Table, TableBody, TableCell, TableHead, TableRow
-    - [x] Timeline
-    - [x] Toolbar: Toolbar, ToolbarFiller, ToolbarSeparator
-    - [x] Tree
-    - [x] Window: Alert, Confirm, Message, Photo, Prompt, Toast, Video, Window
+  - [x] Canvas
+  - [x] Form: Button, CheckBox, Form, FormControls, IconButton, IconMenuButton, ImageButton, Input, Label, LinkButton,
+        Radio, SearchField, Select, TextArea, Toggle
+  - [x] Icon
+  - [x] Image: Image, ImageList, ImageSelector, ImageUploader
+  - [x] Layout: AbsoluteLayout, AccordionLayout, BorderLayout, HBoxLayout, TableLayout, VBoxLayout
+  - [x] Menu: ContextMenu, MenuBar, MenuBarFiller, MenuItem, MenuItemSeparator, MenuTab.
+  - [x] Panel
+  - [x] Progress: LoadMask
+  - [x] Property: ButtonProperty, ButtonsProperty, CheckBoxProperty, ColorProperty, DisplayProperty, IntegerProperty,
+        NumberProperty, PropertyGrid, PropertyGroup, SelectProperty, TextProperty, TextureProperty
+  - [x] SVG
+  - [x] Table: DataGrid, Table, TableBody, TableCell, TableHead, TableRow
+  - [x] Timeline
+  - [x] Toolbar: Toolbar, ToolbarFiller, ToolbarSeparator
+  - [x] Tree
+  - [x] Window: Alert, Confirm, Message, Photo, Prompt, Toast, Video, Window
 
 ## Requirements
 
@@ -236,8 +238,8 @@ Usage:
   ShadowEditor [command]
 
 Available Commands:
-  debug       Debug service on Windows  
-  help        Help about any command    
+  debug       Debug service on Windows
+  help        Help about any command
   install     Install service on Windows
   serve       Start server
   start       Start service on Windows
@@ -415,4 +417,5 @@ https://github.com/mrdoob/texgen.js
 https://github.com/yomotsu/VolumetricFire  
 https://github.com/jonbretman/amd-to-as6  
 https://github.com/chandlerprall/ThreeCSG
+
 </details>
