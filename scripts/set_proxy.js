@@ -28,9 +28,9 @@ async function main() {
     // So, we can set a proxy to make it faster to install third-party dependencies.
     console.log('set nodejs proxy');
     const npm = os.platform() === 'win32' ? 'npm.cmd' : 'npm';
-    await exec(npm, ['config', 'set', 'registry', 'https://registry.npm.taobao.org/']);
-    await exec(npm, ['config', 'set', 'disturl', 'https://npm.taobao.org/mirrors/node']);
-    await exec(npm, ['config', 'set', 'ELECTRON_MIRROR', 'http://npm.taobao.org/mirrors/electron/']);
+    await exec(npm, ['config', 'set', 'registry', 'https://registry.npmmirror.com']);
+    //await exec(npm, ['config', 'set', 'disturl', 'https://npm.taobao.org/mirrors/node']);
+    //await exec(npm, ['config', 'set', 'ELECTRON_MIRROR', 'http://npm.taobao.org/mirrors/electron/']);
 
     // output current config
     console.log('\ncurrent config:');
