@@ -30,9 +30,13 @@ Linux 服务端</a> &nbsp;&nbsp; | &nbsp;&nbsp; [Web 演示](http://tengge1.gite
 - 技术栈：html、css、javascript、rollup、react.js、webgl、three.js、golang、mongodb、nodejs、electron、protocol buffers。
 - 如果对您有帮助，请[【捐赠】](https://gitee.com/tengge1/ShadowEditor)支持项目发展。谢谢！
 
+**开源版**
+
 ![image](images/scene20200301.jpg)
 
-![image](images/vr.jpg)
+[**专业版**](README_new.md)
+
+![image](images/20241009.png)
 
 ## v0.6.1 即将更新
 

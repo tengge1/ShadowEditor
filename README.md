@@ -33,8 +33,13 @@ requires `Visual C++ Redistributable for Visual Studio 2015`.
   protocol buffers.
 - If helpful to you, please [DOnate](https://gitee.com/tengge1/ShadowEditor) to support us. thank you!
 
-<img src="https://gitee.com/tengge1/ShadowEditor/raw/master/images/scene20200503_en.jpg" />  
-<img src="https://gitee.com/tengge1/ShadowEditor/raw/master/images/vr.jpg" />
+**Open Source Version**
+
+<img src="https://gitee.com/tengge1/ShadowEditor/raw/master/images/scene20200503_en.jpg" />
+
+[**Pro Version**](README_new.md)
+
+<img src="https://gitee.com/tengge1/ShadowEditor/raw/master/images/20241009.png" />
 
 ## v0.6.1 is Coming Soon
 
