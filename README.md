@@ -4,7 +4,7 @@ English / [中文](README_zh.md) &nbsp;&nbsp; |
 &nbsp;&nbsp; <a href="https://github.com/tengge1/ShadowEditor/releases/download/v0.6.0/ShadowEditorServer-win32-x64.zip" title="Requires `Visual C++ Redistributable for Visual Studio 2015`">
 Windows Server</a> &nbsp;&nbsp; |
 &nbsp;&nbsp; <a href="https://github.com/tengge1/ShadowEditor/releases/download/v0.6.0/ShadowEditorServer-linux-x64.zip">
-Ubuntu Server</a> &nbsp;&nbsp; | &nbsp;&nbsp; [Web Demo](https://tengge1.github.io/ShadowEditor-examples/)
+Ubuntu Server</a> &nbsp;&nbsp; | &nbsp;&nbsp; [Web Demo](https://tengge1.github.io/ShadowEditor-examples/) | &nbsp;&nbsp; [official Website](https://www.hylab.cn/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/ShadowEditor/)
 
 Note: The server is a compiled version with built-in mongodb, execute `start.bat` or `start.sh` to start, and
 visit `http://localhost:2020` in Google Chrome. Windows version

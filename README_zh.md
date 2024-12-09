@@ -4,7 +4,7 @@
 &nbsp;&nbsp; <a href="https://gitee.com/tengge1/ShadowEditor/attach_files/781833/download/ShadowEditorServer-win32-x64.zip" title="需要Visual C++ Redistributable for Visual Studio 2015支持">
 Windows 服务端</a> &nbsp;&nbsp; |
 &nbsp;&nbsp; <a href="https://gitee.com/tengge1/ShadowEditor/attach_files/781831/download/ShadowEditorServer-linux-x64.zip">
-Linux 服务端</a> &nbsp;&nbsp; | &nbsp;&nbsp; [Web 演示](http://tengge1.gitee.io/shadoweditor-examples/)
+Linux 服务端</a> &nbsp;&nbsp; | &nbsp;&nbsp; [Web 演示](http://tengge1.gitee.io/shadoweditor-examples/) &nbsp;&nbsp; | &nbsp;&nbsp; [官方网站](https://www.hylab.cn/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/ShadowEditor/)
 
 说明：服务端为编译版本，内置 mongodb，执行`start.bat`或`start.sh`启动，在谷歌浏览器中访问`http://localhost:2020`
 。Windows 版需要`Visual C++ Redistributable for Visual Studio 2015`支持。
