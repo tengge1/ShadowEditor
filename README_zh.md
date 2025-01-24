@@ -1,6 +1,6 @@
 # Shadow Editor
 
-[English](README.md) / 中文 &nbsp;&nbsp; |
+[English](README.md) / 中文 / [日本語](README_ja.md) &nbsp;&nbsp; |
 &nbsp;&nbsp; <a href="https://gitee.com/tengge1/ShadowEditor/attach_files/781833/download/ShadowEditorServer-win32-x64.zip" title="需要Visual C++ Redistributable for Visual Studio 2015支持">
 Windows 服务端</a> &nbsp;&nbsp; |
 &nbsp;&nbsp; <a href="https://gitee.com/tengge1/ShadowEditor/attach_files/781831/download/ShadowEditorServer-linux-x64.zip">
